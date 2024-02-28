@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Add Ingredient";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_IngredientFormPartial" model="@Model"/>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}
