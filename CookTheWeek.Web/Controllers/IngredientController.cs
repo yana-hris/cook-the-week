@@ -1,9 +1,13 @@
 ﻿namespace CookTheWeek.Web.Controllers
-{
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Ingredient;
+{    
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using CookTheWeek.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Ingredient;
+    using static Common.NotificationMessagesConstants;
+
+    [Authorize]
     public class IngredientController : Controller
     {
         private readonly ICategoryService categoryService;
@@ -47,12 +51,12 @@
                 try
                 {
                     await this.ingredientService.AddIngredientAsync(model);
-                    TempData["SuccessMessage"] = $"Ingredient \"{model.Name}\" added successfully!";
+                    TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)
                 {
-                    TempData["ErrorMessage"] = $"Ingredient with \"{model.Name}\" was not added to the database!";
+                    TempData[ErrorMessage] = $"Ingredient with \"{model.Name}\" was not added to the database!";
                 }
             }
             
