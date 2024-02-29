@@ -5,7 +5,7 @@
         public static class Recipe
         {
             public const int TitleMinLength = 3;
-            public const int TitleMaxLength = 50;
+            public const int TitleMaxLength = 100;
 
             public const int DescriptionMaxLength = 1000;
 
