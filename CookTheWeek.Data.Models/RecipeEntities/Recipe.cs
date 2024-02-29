@@ -40,13 +40,12 @@
         [Required]
         [ForeignKey(nameof(RecipeCategory))]
         public int RecipeCategoryId { get; set; }
+        public RecipeCategory RecipeCategory { get; set; } = null!;
 
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        public RecipeCategory RecipeCategory { get; set; } = null!;
-
-        public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
+        public ICollection<RecipeIngredient>? RecipesIngredients { get; set; }
 
 
     }

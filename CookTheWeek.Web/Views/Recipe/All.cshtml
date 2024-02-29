@@ -12,13 +12,11 @@
 } 
 else
 {
-    <div class="row mb-5">
-        <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
-            @foreach(var recipe in Model)
-            {
-                <partial name="_RecipeAllPartial" model="@recipe" />
-            }
-        </div>
+    <div class="row mb-5">        
+        @foreach(var recipe in Model)
+        {
+            <partial name="_RecipeAllPartial" model="@recipe" />
+        }
     </div>
 }
 

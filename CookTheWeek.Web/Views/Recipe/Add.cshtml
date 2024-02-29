@@ -1,0 +1,60 @@
+﻿@model RecipeFormViewModel
+@{
+    ViewData["Title"] = "Add Recipe";
+}
+<h2 class="text-center">@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Title...">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" placeholder="Description...">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instructions"></label>
+                <textarea asp-for="Instructions" rows="4" class="form-control" placeholder="How to cook..."></textarea>
+                <span asp-validation-for="Instructions" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CookingTimeMinutes"></label>
+                <input asp-for="CookingTimeMinutes" class="form-control">
+                <span asp-validation-for="CookingTimeMinutes" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servings"></label>
+                <select asp-for="Servings" class="form-control">
+                    @foreach (var option in ViewBag.ServingOptions)
+                            {
+                        <option value="@option.Key">@option.Value</option>
+                    }
+                </select>
+                <span asp-validation-for="Servings" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeCategoryId"></label>
+                <select asp-for="RecipeCategoryId" class="form-control">
+                    @foreach (var category in Model.Categories)
+                    {
+                            <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="RecipeCategoryId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Add Ingredients" />
+            </div>
+        </form>
+    </div>
+</div>

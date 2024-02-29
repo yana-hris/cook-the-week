@@ -13,6 +13,23 @@
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// This generates a predefined dictionary for the servings of each recipe instead of using a new DB entity.
+        /// The first int value is the key, the second is the serving size
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<int, int> GenerateServingOptions()
+        {
+            return new Dictionary<int, int>()
+            {
+                { 1, 2 },
+                { 2, 4 },
+                { 3, 6 },
+                { 4, 8 },
+                { 5, 10 },
+                { 6, 12 }
+            };
+        }
 
         public async Task<ICollection<RecipeAllViewModel>> GetAllRecipesAsync()
         {

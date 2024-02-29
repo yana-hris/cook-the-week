@@ -6,6 +6,7 @@
 
     public interface IRecipeService
     {
+        IDictionary<int, int> GenerateServingOptions();
         Task<ICollection<RecipeAllViewModel>> GetAllRecipesAsync();
     }
 }

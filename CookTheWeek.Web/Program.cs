@@ -6,6 +6,7 @@ namespace CookTheWeek.Web
     using Data.Models;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Services.Interfaces;
+    using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     public class Program
     {
@@ -32,7 +33,11 @@ namespace CookTheWeek.Web
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
 
             WebApplication app = builder.Build();
             

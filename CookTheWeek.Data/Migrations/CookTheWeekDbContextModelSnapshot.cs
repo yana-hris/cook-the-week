@@ -1398,7 +1398,7 @@ namespace CookTheWeek.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 23, 10, 6, 34, 74, DateTimeKind.Utc).AddTicks(2596));
+                        .HasDefaultValue(new DateTime(2024, 2, 29, 18, 51, 39, 125, DateTimeKind.Utc).AddTicks(5587));
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
@@ -1421,8 +1421,8 @@ namespace CookTheWeek.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<TimeSpan>("TotalTime")
                         .HasColumnType("time");
