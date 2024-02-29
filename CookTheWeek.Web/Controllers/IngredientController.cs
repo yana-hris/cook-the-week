@@ -40,10 +40,16 @@
         {            
             model.IngredientCategories = await this.categoryService.GetAllIngredientCategoriesAsync();
             bool ingredientExists = await this.ingredientService.existsByNameAsync(model.Name);
+            bool categoryExists = await this.categoryService.ingredientCategoryExistsByIdAsync(model.IngredientCategoryId);
 
             if(ingredientExists)
             {
                 ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
+            }
+
+            if(!categoryExists)
+            {
+                ModelState.AddModelError(nameof(model.IngredientCategoryId), $"Invalid Ingredient Category: {model.IngredientCategoryId}");
             }
 
             if(ModelState.IsValid)

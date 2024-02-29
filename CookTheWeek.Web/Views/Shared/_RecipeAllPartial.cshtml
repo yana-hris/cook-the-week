@@ -1,0 +1,15 @@
+﻿@model RecipeAllViewModel
+
+<div class="col-md-4">
+    <div class="card mb-3" style="width: 18rem;">
+        <img src="@Model.ImageUrl" class="card-img-top" alt="Recipe Image">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+            <a asp-asp-area="" asp-asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">View Recipe</a>
+        </div>
+    </div>
+</div>
+
+
+

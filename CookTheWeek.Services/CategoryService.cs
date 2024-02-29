@@ -43,5 +43,15 @@
 
             return allRecipeCategories;
         }
+
+        public async Task<bool> ingredientCategoryExistsByIdAsync(int ingredientCategoryId)
+        {
+            bool exists = await this.dbContext
+                .IngredientCategories
+                .AsNoTracking()
+                .AnyAsync(c => c.Id == ingredientCategoryId);
+
+            return exists;
+        }
     }
 }

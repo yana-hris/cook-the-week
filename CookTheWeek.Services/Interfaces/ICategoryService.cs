@@ -7,5 +7,6 @@
         Task<ICollection<IngredientCategorySelectViewModel>> GetAllIngredientCategoriesAsync();
 
         Task<ICollection<RecipeCategorySelectViewModel>> GetAllRecipeCategoriesAsync();
+        Task<bool> ingredientCategoryExistsByIdAsync(int ingredientCategoryId);
     }
 }
