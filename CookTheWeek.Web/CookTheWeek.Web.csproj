@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CookTheWeek.Data\CookTheWeek.Data.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj" />
     <ProjectReference Include="..\CookTheWeek.Services\CookTheWeek.Services.csproj" />
     <ProjectReference Include="..\CookTheWeek.Web.Infrastructure\CookTheWeek.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CookTheWeek.Web.ViewModels\CookTheWeek.Web.ViewModels.csproj" />

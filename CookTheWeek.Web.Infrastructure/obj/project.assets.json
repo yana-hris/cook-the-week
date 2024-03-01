@@ -2091,6 +2091,7 @@
         "dependencies": {
           "CookTheWeek.Data": "1.0.0",
           "CookTheWeek.Data.Models": "1.0.0",
+          "CookTheWeek.Services.Data.Models": "1.0.0",
           "CookTheWeek.Web.ViewModels": "1.0.0"
         },
         "compile": {
@@ -2098,6 +2099,19 @@
         },
         "runtime": {
           "bin/placeholder/CookTheWeek.Services.dll": {}
+        }
+      },
+      "CookTheWeek.Services.Data.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "CookTheWeek.Web.ViewModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CookTheWeek.Services.Data.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CookTheWeek.Services.Data.Models.dll": {}
         }
       },
       "CookTheWeek.Web.ViewModels/1.0.0": {
@@ -6242,6 +6256,11 @@
       "type": "project",
       "path": "../CookTheWeek.Services/CookTheWeek.Services.csproj",
       "msbuildProject": "../CookTheWeek.Services/CookTheWeek.Services.csproj"
+    },
+    "CookTheWeek.Services.Data.Models/1.0.0": {
+      "type": "project",
+      "path": "../CookTheWeek.Services.Data.Models/CookTheWeek.Services.Data.Models.csproj",
+      "msbuildProject": "../CookTheWeek.Services.Data.Models/CookTheWeek.Services.Data.Models.csproj"
     },
     "CookTheWeek.Web.ViewModels/1.0.0": {
       "type": "project",

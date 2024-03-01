@@ -1262,10 +1262,19 @@
         "dependencies": {
           "CookTheWeek.Data": "1.0.0",
           "CookTheWeek.Data.Models": "1.0.0",
+          "CookTheWeek.Services.Data.Models": "1.0.0",
           "CookTheWeek.Web.ViewModels": "1.0.0"
         },
         "runtime": {
           "CookTheWeek.Services.dll": {}
+        }
+      },
+      "CookTheWeek.Services.Data.Models/1.0.0": {
+        "dependencies": {
+          "CookTheWeek.Web.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "CookTheWeek.Services.Data.Models.dll": {}
         }
       },
       "CookTheWeek.Web.ViewModels/1.0.0": {
@@ -2112,6 +2121,11 @@
       "sha512": ""
     },
     "CookTheWeek.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CookTheWeek.Services.Data.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

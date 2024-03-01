@@ -29,7 +29,7 @@
         public async Task<IActionResult> Add()
         {
             IngredientFormViewModel model = new IngredientFormViewModel();
-            model.IngredientCategories = await this.categoryService.GetAllIngredientCategoriesAsync();
+            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
 
 
             return View(model);
@@ -38,9 +38,9 @@
         [HttpPost]
         public async Task<IActionResult> Add(IngredientFormViewModel model)
         {            
-            model.IngredientCategories = await this.categoryService.GetAllIngredientCategoriesAsync();
+            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
             bool ingredientExists = await this.ingredientService.existsByNameAsync(model.Name);
-            bool categoryExists = await this.categoryService.ingredientCategoryExistsByIdAsync(model.IngredientCategoryId);
+            bool categoryExists = await this.categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
 
             if(ingredientExists)
             {

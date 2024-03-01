@@ -4,9 +4,13 @@
 
     public interface ICategoryService
     {
-        Task<ICollection<IngredientCategorySelectViewModel>> GetAllIngredientCategoriesAsync();
+        Task<ICollection<IngredientCategorySelectViewModel>> AllIngredientCategoriesAsync();
 
-        Task<ICollection<RecipeCategorySelectViewModel>> GetAllRecipeCategoriesAsync();
-        Task<bool> ingredientCategoryExistsByIdAsync(int ingredientCategoryId);
+        Task<ICollection<RecipeCategorySelectViewModel>> AllRecipeCategoriesAsync();
+        Task<bool> IngredientCategoryExistsByIdAsync(int ingredientCategoryId);
+
+        Task<ICollection<string>> AllRecipeCategoryNamesAsync();
+
+
     }
 }

@@ -1,10 +1,12 @@
 ﻿namespace CookTheWeek.Services
 {
-    using CookTheWeek.Data;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Category;
-    using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Data;
+    using Interfaces;
+    using Web.ViewModels.Category;
 
     public class CategoryService : ICategoryService
     {
@@ -14,7 +16,7 @@
         {
             this.dbContext = dbContext;
         }
-        public async Task<ICollection<IngredientCategorySelectViewModel>> GetAllIngredientCategoriesAsync()
+        public async Task<ICollection<IngredientCategorySelectViewModel>> AllIngredientCategoriesAsync()
         {
             ICollection<IngredientCategorySelectViewModel> allIngredientCategories = await this.dbContext
                 .IngredientCategories
@@ -29,7 +31,7 @@
             return allIngredientCategories;
         }
 
-        public async Task<ICollection<RecipeCategorySelectViewModel>> GetAllRecipeCategoriesAsync()
+        public async Task<ICollection<RecipeCategorySelectViewModel>> AllRecipeCategoriesAsync()
         {
             ICollection<RecipeCategorySelectViewModel> allRecipeCategories = await this.dbContext
                 .RecipeCategories
@@ -42,9 +44,8 @@
                 .ToListAsync();
 
             return allRecipeCategories;
-        }
-
-        public async Task<bool> ingredientCategoryExistsByIdAsync(int ingredientCategoryId)
+        }        
+        public async Task<bool> IngredientCategoryExistsByIdAsync(int ingredientCategoryId)
         {
             bool exists = await this.dbContext
                 .IngredientCategories
@@ -53,5 +54,16 @@
 
             return exists;
         }
+        public async Task<ICollection<string>> AllRecipeCategoryNamesAsync()
+        {
+            ICollection<string> allRecipeCategoryNames = await this.dbContext
+                .RecipeCategories
+                .AsNoTracking()
+                .Select(rc => rc.Name)
+                .ToListAsync();
+
+            return allRecipeCategoryNames;
+        }
+
     }
 }

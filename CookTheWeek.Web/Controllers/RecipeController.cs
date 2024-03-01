@@ -1,10 +1,13 @@
-﻿using CookTheWeek.Services.Interfaces;
-using CookTheWeek.Web.ViewModels.Recipe;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CookTheWeek.Web.Controllers
+﻿namespace CookTheWeek.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using ViewModels.Recipe;
+    using Services.Interfaces;
+    using Services.Data.Models.Recipe;
+    using CookTheWeek.Web.ViewModels.Recipe.Enums;
+
     [Authorize]
     public class RecipeController : Controller
     {
@@ -18,12 +21,20 @@ namespace CookTheWeek.Web.Controllers
             this.categoryService = categoryService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllRecipesQueryModel queryModel)
         {
-            ICollection<RecipeAllViewModel> model = await this.recipeService.GetAllRecipesAsync();
-
-            return View(model);
+            //ICollection<RecipeAllViewModel> model = await this.recipeService.AllUnsortedUnfilteredAsync();
+            AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
+            queryModel.Recipes = serviceModel.Recipes;
+            queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
+            queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
+            queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
+                .Cast<RecipeSorting>()
+                .ToDictionary(rs => (int)rs, rs => rs.ToString());
+            
+            return View(queryModel);
         }
 
         [HttpGet]
@@ -32,7 +43,7 @@ namespace CookTheWeek.Web.Controllers
             ViewBag.ServingOptions = this.recipeService.GenerateServingOptions();
 
             RecipeFormViewModel model = new RecipeFormViewModel();
-            model.Categories = await this.categoryService.GetAllRecipeCategoriesAsync();
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
 
             return View(model);
         }
@@ -41,7 +52,7 @@ namespace CookTheWeek.Web.Controllers
         public async Task<IActionResult> Add(RecipeFormViewModel model)
         {          
             
-            model.Categories = await this.categoryService.GetAllRecipeCategoriesAsync();
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
 
             return View(model);
         }
