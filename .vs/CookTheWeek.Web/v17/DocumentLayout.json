@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7CF95D3E-B086-4D20-ABC9-04B31D70AFA4}|CookTheWeek.Services\\CookTheWeek.Services.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.services\\recipeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CF95D3E-B086-4D20-ABC9-04B31D70AFA4}|CookTheWeek.Services\\CookTheWeek.Services.csproj|solutionrelative:cooktheweek.services\\recipeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BBF293C-BD38-45AC-82B5-11BD69C19D04}|CookTheWeek.Data\\CookTheWeek.Data.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.data\\configuration\\recipeentityconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BBF293C-BD38-45AC-82B5-11BD69C19D04}|CookTheWeek.Data\\CookTheWeek.Data.csproj|solutionrelative:cooktheweek.data\\configuration\\recipeentityconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\recipe\\all.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\recipe\\all.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{906E8D17-7871-42E7-A15D-EF7D0BF48E59}|CookTheWeek.Web.ViewModels\\CookTheWeek.Web.ViewModels.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web.viewmodels\\recipe\\allrecipesquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{906E8D17-7871-42E7-A15D-EF7D0BF48E59}|CookTheWeek.Web.ViewModels\\CookTheWeek.Web.ViewModels.csproj|solutionrelative:cooktheweek.web.viewmodels\\recipe\\allrecipesquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\controllers\\recipecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,6 +17,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\shared\\_recipeallpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\shared\\_recipeallpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15AF441B-AE47-44DD-90F1-3881165C7BCE}|CookTheWeek.Data.Models\\CookTheWeek.Data.Models.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.data.models\\recipeentities\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15AF441B-AE47-44DD-90F1-3881165C7BCE}|CookTheWeek.Data.Models\\CookTheWeek.Data.Models.csproj|solutionrelative:cooktheweek.data.models\\recipeentities\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{906E8D17-7871-42E7-A15D-EF7D0BF48E59}|CookTheWeek.Web.ViewModels\\CookTheWeek.Web.ViewModels.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web.viewmodels\\recipe\\allrecipesquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{906E8D17-7871-42E7-A15D-EF7D0BF48E59}|CookTheWeek.Web.ViewModels\\CookTheWeek.Web.ViewModels.csproj|solutionrelative:cooktheweek.web.viewmodels\\recipe\\allrecipesquerymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7CF95D3E-B086-4D20-ABC9-04B31D70AFA4}|CookTheWeek.Services\\CookTheWeek.Services.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 206,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
@@ -80,33 +80,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "Recipe.cs",
+              "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\RecipeEntities\\Recipe.cs",
+              "RelativeDocumentMoniker": "CookTheWeek.Data.Models\\RecipeEntities\\Recipe.cs",
+              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\RecipeEntities\\Recipe.cs",
+              "RelativeToolTip": "CookTheWeek.Data.Models\\RecipeEntities\\Recipe.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAowDAAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T18:27:06.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "20240301182501_FixCreatedOnDate.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs",
               "RelativeToolTip": "CookTheWeek.Data\\Migrations\\20240301182501_FixCreatedOnDate.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAtAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-01T18:25:01.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RecipeEntityConfiguration.cs",
-              "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Configuration\\RecipeEntityConfiguration.cs",
-              "RelativeDocumentMoniker": "CookTheWeek.Data\\Configuration\\RecipeEntityConfiguration.cs",
-              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\Configuration\\RecipeEntityConfiguration.cs",
-              "RelativeToolTip": "CookTheWeek.Data\\Configuration\\RecipeEntityConfiguration.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-01T17:43:19.903Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
@@ -119,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "AllRecipesQueryModel.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.ViewModels\\Recipe\\AllRecipesQueryModel.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.ViewModels\\Recipe\\AllRecipesQueryModel.cs",
@@ -184,20 +184,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "RecipeService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\RecipeService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\RecipeService.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\RecipeService.cs",
               "RelativeToolTip": "CookTheWeek.Services\\RecipeService.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAYwDUAAAA5AAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAYwD0AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-29T10:14:57.877Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "_RecipeAllPartial.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_RecipeAllPartial.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Shared\\_RecipeAllPartial.cshtml",
@@ -210,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "RecipeController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\RecipeController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\RecipeController.cs",
@@ -223,7 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "All.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\All.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Recipe\\All.cshtml",

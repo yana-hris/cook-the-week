@@ -26,42 +26,42 @@ namespace CookTheWeek.Data.Configuration
             {
                  new RecipeIngredient()
                  {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 11,
                     Qty = 500,
                     MeasureId = 5
                  },
                 new RecipeIngredient()
                 {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 113,
                     Qty = 2,
                     MeasureId = 1
                 },
                 new RecipeIngredient()
                 {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 118,
                     Qty = 1,
                     MeasureId = 6
                 },
                 new RecipeIngredient()
                 {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 122,
                     Qty = 250,
                     MeasureId = 5
                 },
                 new RecipeIngredient()
                 {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 154,
                     Qty = 3,
                     MeasureId = 8
                 },
                 new RecipeIngredient()
                 {
-                    RecipeId = Guid.Parse("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
+                    RecipeId = Guid.Parse("377A3703-E719-42DB-B013-19E5BD23892A"),
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8

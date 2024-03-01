@@ -4,6 +4,7 @@ using CookTheWeek.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    partial class CookTheWeekDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240301183817_AddIsDeletedColumnToRecipeTable")]
+    partial class AddIsDeletedColumnToRecipeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1544,42 +1547,42 @@ namespace CookTheWeek.Data.Migrations
                     b.HasData(
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 11,
                             MeasureId = 5,
                             Qty = 500m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 113,
                             MeasureId = 1,
                             Qty = 2m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 118,
                             MeasureId = 6,
                             Qty = 1m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 122,
                             MeasureId = 5,
                             Qty = 250m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 154,
                             MeasureId = 8,
                             Qty = 3m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("1bec581c-d30c-4adf-ae77-7e7401b37b04"),
                             IngredientId = 54,
                             MeasureId = 8,
                             Qty = 1m

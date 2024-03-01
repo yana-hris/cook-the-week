@@ -45,6 +45,9 @@
         [Required]
         public DateTime CreatedOn { get; set; }
 
+        [Required]
+        public bool IsDeleted { get; set; }
+
         public ICollection<RecipeIngredient>? RecipesIngredients { get; set; }
 
 

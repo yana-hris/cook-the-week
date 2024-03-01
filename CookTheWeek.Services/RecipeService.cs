@@ -56,6 +56,7 @@
             };
 
             ICollection<RecipeAllViewModel> allRecipes = await recipesQuery
+                .Where(r => !r.IsDeleted)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
                 .Take(queryModel.RecipesPerPage)
                 .Select(r => new RecipeAllViewModel()
