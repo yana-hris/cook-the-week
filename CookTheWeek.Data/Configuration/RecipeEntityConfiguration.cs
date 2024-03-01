@@ -11,7 +11,7 @@
         {
             builder
                .Property(r => r.CreatedOn)
-               .HasDefaultValue(DateTime.UtcNow);
+               .HasDefaultValueSql("GETDATE()");
 
 
             builder

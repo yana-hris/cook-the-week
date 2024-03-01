@@ -45,9 +45,9 @@
             recipesQuery = queryModel.RecipeSorting switch
             {
                 RecipeSorting.Newest => recipesQuery
-                    .OrderBy(r => r.CreatedOn),
-                RecipeSorting.Oldest => recipesQuery
                     .OrderByDescending(r => r.CreatedOn),
+                RecipeSorting.Oldest => recipesQuery
+                    .OrderBy(r => r.CreatedOn),
                 RecipeSorting.CookingTimeAscending => recipesQuery
                     .OrderBy(r => r.TotalTime),
                 RecipeSorting.CookingTimeDescending => recipesQuery
