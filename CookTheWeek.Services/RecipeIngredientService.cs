@@ -9,6 +9,7 @@
     using CookTheWeek.Data;
     using CookTheWeek.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using CookTheWeek.Data.Models;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
@@ -19,12 +20,12 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<ICollection<RecipeIngredientMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
+        public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
         {
-            ICollection<RecipeIngredientMeasureViewModel> allMeasures = await this.dbContext
+            ICollection<RecipeIngredientSelectMeasureViewModel> allMeasures = await this.dbContext
                 .Measures
                 .AsNoTracking()
-                .Select(m => new RecipeIngredientMeasureViewModel()
+                .Select(m => new RecipeIngredientSelectMeasureViewModel()
                 {
                     Id = m.Id,
                     Name = m.Name,
@@ -34,12 +35,12 @@
             return allMeasures;
         }
 
-        public async Task<ICollection<RecipeIngredientSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync()
+        public async Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync()
         {
-            ICollection<RecipeIngredientSpecificationViewModel> allSpecs = await this.dbContext
+            ICollection<RecipeIngredientSelectSpecificationViewModel> allSpecs = await this.dbContext
                 .Specifications
                 .AsNoTracking()
-                .Select(sp => new RecipeIngredientSpecificationViewModel()
+                .Select(sp => new RecipeIngredientSelectSpecificationViewModel()
                 {
                     Id = sp.Id,
                     Description = sp.Description
@@ -48,22 +49,22 @@
             return allSpecs;
         }
 
-        //public async Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId)
-        //{
-        //    RecipeIngredient recipeIngredient = new RecipeIngredient()
-        //    {
-        //        RecipeId = Guid.Parse(recipeId),
-        //        Qty = model.Qty,
-        //        MeasureId = model.MeasureId,
-        //        SpecificationId = model.SpecificationId
-        //    };
+        public async Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId)
+        {
+            RecipeIngredient recipeIngredient = new RecipeIngredient()
+            {
+                RecipeId = Guid.Parse(recipeId),
+                Qty = model.Qty,
+                MeasureId = model.MeasureId,
+                SpecificationId = model.SpecificationId
+            };
 
-        //    await this.dbContext.RecipesIngredients
-        //        .AddAsync(recipeIngredient);
-        //    await this.dbContext.SaveChangesAsync();
+            await this.dbContext.RecipesIngredients
+                .AddAsync(recipeIngredient);
+            await this.dbContext.SaveChangesAsync();
 
-        //    return recipeIngredient.IngredientId;
-        //}
+            return recipeIngredient.IngredientId;
+        }
 
         public async Task<bool> IngredientIsAlreadyAddedAsync(string ingredientName, string recipeId)
         {
@@ -84,6 +85,20 @@
             return await this.dbContext.Specifications
                 .AsNoTracking()
                 .AnyAsync(sp => sp.Id == specificationId);
+        }
+
+        public async Task RemoveAsync(int ingredientId, string recipeId)
+        {
+            RecipeIngredient? recipeIngredient = await this.dbContext.RecipesIngredients
+                .FirstOrDefaultAsync(ri => ri.IngredientId == ingredientId && ri.RecipeId.ToString() == recipeId);
+
+            if(recipeIngredient == null)
+            {
+                throw new InvalidOperationException("No such ingredient exists for this recipe!");
+            }
+
+            this.dbContext.RecipesIngredients.Remove(recipeIngredient);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

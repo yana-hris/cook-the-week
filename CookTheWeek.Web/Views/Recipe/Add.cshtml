@@ -67,21 +67,16 @@
             <!-- Fifth row - Add ingredients here -->
             <p class="pt-3 mb-1">Add Ingredients:</p>
             <div class="row" id="ingredientGenerator">
-                <div class="form-group d-flex col-5">
-                    <label asp-for="Ingredient"></label>
-                    <input asp-for="Ingredient" class="form-control me-2" style="min-width: 12rem">
-                    <span asp-validation-for="Ingredient" class="small text-danger"></span>
-                    <div class="d-flex gap-1 buttons">
-                        <div class="addButton">
-                            <button class="btn btn-primary text-light">Search</button>  
-                        </div>
-                         <div class="removeBtn">
-                             <button class="btn btn-secondary text-light">Remove</button>               
-                         </div>
-                    </div>                    
-                </div>
+                @* //Render added ingredients if any! - HOW?
+                //Then render add new ingredient form! *@
+                <partial name="_AddRecipeIngredientPartial" model="@Model.Ingredient" />
             </div>  
             <input class="btn btn-dark btn-lg text-light mt-3" type="submit" value="Add Recipe" />
         </form>
     </div>
 </div>
+
+@section Scripts
+            {
+    <partial name="_ValidationScriptsPartial" />
+}

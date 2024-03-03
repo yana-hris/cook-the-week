@@ -1,0 +1,14 @@
+﻿@model RecipeIngredientFormViewModel
+
+<div class="form-group d-flex col-5">
+    <input asp-for="Name" class="form-control me-2" style="min-width: 12rem">
+    <span asp-validation-for="Name" class="small text-danger"></span>
+    <div class="d-flex gap-1 buttons">
+        <div class="addButton">
+            <button class="btn btn-primary text-light" asp-area="" asp-controller="RecipeIngredientController" asp-action="Add">Search</button>
+        </div>
+        <div class="removeBtn">
+            <button class="btn btn-secondary text-light">Remove</button>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,10 @@
         [Required]
         public int MeasureId { get; set; }
 
-        public string? Specification { get; set; }
+        public int? SpecificationId { get; set; }
+
+        public ICollection<RecipeIngredientSelectMeasureViewModel>? Measures { get; set; }
+
+        public ICollection<RecipeIngredientSelectSpecificationViewModel>? Specifications { get; set; }
     }
 }

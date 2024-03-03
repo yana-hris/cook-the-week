@@ -7,9 +7,9 @@
         Task<bool> IngredientMeasureExistsAsync(int measureId);
         Task<bool> IngredientSpecificationExistsAsunc(int specificationId);
         Task<bool> IngredientIsAlreadyAddedAsync(string ingredientName, string recipeId);
-        //Task<int> AddAsync(RecipeIngredientFormViewModel model, int recipeId);
-
-        Task<ICollection<RecipeIngredientMeasureViewModel>> GetRecipeIngredientMeasuresAsync();
-        Task<ICollection<RecipeIngredientSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync();
+        Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId);
+        Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync();
+        Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync();
+        Task RemoveAsync(int ingredientId, string recipeId);
     }
 }
