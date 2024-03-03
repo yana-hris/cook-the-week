@@ -40,8 +40,14 @@
         [Required]
         public Measure Measure { get; set; } = null!;
 
-        [Comment("Пояснение към съставката (замразен, от консерва, нарязан на парченца и т.н.")]
-        //[Comment("Special condition for this ingredient in this recipe, e.g. frozen, canned, sliced, etc.")]
+        /// <summary>
+        /// "Special condition for this ingredient in this recipe, e.g. frozen, canned, sliced, etc.")
+        /// </summary>
+        [Comment("Ключ за характеристика на съставката")]
+        [ForeignKey(nameof(Specification))]
+        public int? SpecificationId { get; set; }
+
+        [Comment("Характеристика на съставката (замразен, от консерва, нарязан на парченца и т.н.")]       
         public Specification? Specification { get; set; }
     }
 }

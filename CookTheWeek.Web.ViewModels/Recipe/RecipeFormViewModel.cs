@@ -3,12 +3,15 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.Ingredient;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
     public class RecipeFormViewModel
     {
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
+        [Display(Name = "Recipe Title")]
         public string Title { get; set; } = null!;
 
         [MaxLength(DescriptionMaxLength)]
@@ -16,6 +19,7 @@
 
         [Required]
         [StringLength(InstructionsMaxLength, MinimumLength = InstructionsMinLength)]
+        [Display(Name = "How to Cook")]
         public string Instructions { get; set; } = null!;
 
         [Required]
@@ -23,6 +27,7 @@
         public int Servings { get; set; }
 
         [Required]
+        [Display(Name = "Cooking Time (in minutes)")]
         [Range(CookingTimeMinValue, CookingTimeMaxValue)]
         public int CookingTimeMinutes { get; set; }
 
@@ -33,8 +38,14 @@
         public string ImageUrl { get; set; } = null!;
 
         [Required]
+        [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
 
+        [Required]
+        public IngredientFormViewModel Ingredient { get; set; }
+
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; }
+
+        public ICollection<RecipeIngredientFormViewModel> RecipeIngredients { get; set; }
     }
 }

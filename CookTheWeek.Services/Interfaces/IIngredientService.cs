@@ -5,7 +5,7 @@
 
     public interface IIngredientService
     {
-        Task AddIngredientAsync(IngredientFormViewModel model);
         Task<bool> existsByNameAsync(string name);
+        Task<int> AddIngredientAsync(IngredientFormViewModel model);
     }
 }

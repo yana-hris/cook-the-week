@@ -17,19 +17,7 @@
         {
             this.dbContext = dbContext;
         }
-
-        public async Task AddIngredientAsync(IngredientFormViewModel model)
-        {
-            Ingredient ingredient = new Ingredient()
-            {
-                Name = model.Name,
-                IngredientCategoryId = model.IngredientCategoryId
-            };
-
-            await this.dbContext.Ingredients.AddAsync(ingredient);
-            await this.dbContext.SaveChangesAsync();
-        }
-
+       
         public async Task<bool> existsByNameAsync(string name)
         {
             bool exists = await this.dbContext
@@ -39,5 +27,19 @@
 
             return exists;
         }
+        public async Task<int> AddIngredientAsync(IngredientFormViewModel model)
+        {
+            Ingredient ingredient = new Ingredient()
+            {
+                Name = model.Name,
+                IngredientCategoryId = model.IngredientCategoryId
+            };
+
+            await this.dbContext.Ingredients.AddAsync(ingredient);
+            await this.dbContext.SaveChangesAsync();
+
+            return ingredient.Id;
+        }
+
     }
 }

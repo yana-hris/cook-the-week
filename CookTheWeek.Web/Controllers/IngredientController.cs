@@ -37,8 +37,7 @@
 
         [HttpPost]
         public async Task<IActionResult> Add(IngredientFormViewModel model)
-        {            
-            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
+        {    
             bool ingredientExists = await this.ingredientService.existsByNameAsync(model.Name);
             bool categoryExists = await this.categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
 
@@ -62,10 +61,11 @@
                 }
                 catch (Exception)
                 {
-                    TempData[ErrorMessage] = $"Ingredient with \"{model.Name}\" was not added to the database!";
+                    TempData[ErrorMessage] = $"Something with the database went wrong and ingredient was not added to the database!";
                 }
             }
-            
+
+            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
             return View(model);
         }
     }

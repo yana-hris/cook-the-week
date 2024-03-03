@@ -1526,7 +1526,8 @@ namespace CookTheWeek.Data.Migrations
                         .HasComment("Количество на съставка в рецепта");
 
                     b.Property<int?>("SpecificationId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Ключ за характеристика на съставката");
 
                     b.HasKey("RecipeId", "IngredientId");
 
