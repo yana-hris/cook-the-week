@@ -4,7 +4,7 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 
 ## Features
 
-- **Recipe Collection**: Access a diverse range of recipes for different type of meals (breakfast, supper or dinner).
+- **Recipe Collection**: Access a diverse range of recipes for different type of meals (breakfast, salad, soup, main course or dessert).
 - **Meal Planner**: Plan your meals for the entire week with ease. Simply add recipes into your meal calendar.
 - **Ingredient Shopping List**: Automatically generate a shopping list based on your chosen recipes and servings for the week.
 - **Customization**: Filter recipes based on ingredients, rating and cooking time.
