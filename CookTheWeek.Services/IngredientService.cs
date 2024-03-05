@@ -8,6 +8,7 @@
     using CookTheWeek.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Ingredient;
     using CookTheWeek.Data.Models.IgredientEntities;
+    using System.Collections.Generic;
 
     public class IngredientService : IIngredientService
     {
@@ -41,5 +42,16 @@
             return ingredient.Id;
         }
 
+        public async Task<string[]> GetIngredientSuggestions(string searchString)
+        {
+            string wildCard = $"%{searchString.ToLower()}%";
+
+            return await this.dbContext
+                .Ingredients
+                .AsNoTracking()
+                .Where(i => EF.Functions.Like(wildCard, i.Name.ToLower()))
+                .Select(i => i.Name)
+                .ToArrayAsync();
+        }
     }
 }
