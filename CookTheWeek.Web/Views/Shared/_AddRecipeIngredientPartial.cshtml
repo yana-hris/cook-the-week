@@ -1,25 +1,73 @@
 ﻿@model RecipeIngredientFormViewModel
+@using static CookTheWeek.Common.NotificationMessagesConstants
 
-<div class="form-group col-5">   
-    <div class="row">
-        <div class="col d-flex">
-            <input type="text" id="addIngredient" asp-for="Name" class="form-control me-2" style="min-width: 12rem" autocomplete="off" />
-            <ul id="ingredientsSuggestionList"></ul>
-            <div class="d-flex gap-1 buttons">
-                <div class="addButton">
-                    <button class="btn btn-primary text-light" asp-area="" asp-controller="RecipeIngredientController" asp-action="Add">+</button>
-                </div>
-                <div class="removeBtn">
-                    <button class="btn btn-secondary text-light">-</button>
-                </div>
-            </div>
+<div class="form-group d-flex col-5">
+    <input id="addIngredient" asp-for="Name" class="form-control me-2" style="min-width: 12rem" >
+    <span asp-validation-for="Name" class="small text-danger"></span>
+    <ul id="ingredientsSuggestionList"></ul>
+    <div class="d-flex gap-1 buttons">
+        <div class="addButton">
+            <button class="btn btn-primary text-light" id="addRecipeIngredient">+</button>
         </div>
-    </div>
-    <div class="row">
-        <span asp-validation-for="Name" class="small text-danger"></span>
+        <div class="removeBtn">
+            <button class="btn btn-danger text-light" id="removeRecipeIngredient">-</button>
+        </div>
     </div>
 </div>
 
 @section Scripts{
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>        
+        $(document).ready(function () {
+            $('#addIngredient').keyup(function () {
+                let input = $(this).val();
+                if (input.length > 1) {
+                    $.ajax({
+                        url: '@Url.Action("GetSuggestions", "RecipeIngredientController")',
+                        type: 'GET',
+                        data: { input: input },
+                        dataType: 'json',
+                        success: function (data) {
+                            const parsedArray = JSON.parse(data);
+                            displaySuggestions(parsedArray);
+                        },
+                        error: function () {
+                            alert('Error occurred while retrieving suggestions!');
+                        }
+                    });
+                } else {
+                    $('#ingredientsSuggestionList').empty();
+                }
+            });
+
+            $('#removeRecipeIngredient').hide();
+
+            function displaySuggestions(suggestions) {
+                $('#ingredientsSuggestionList').empty();
+                $.each(suggestions, function (index, suggestion) {
+                    let li = createNewItem(suggestion);
+                    $('#ingredientsSuggestionList').append(li);
+                });
+            }
+
+            function createNewItem(itemText) {
+                const li = document.createElement("li");
+                li.textContent = itemText;
+                return li;
+            }
+        });
+    </script>
+    <script>
+        $('#addRecipeIngredient').click(function () {
+            
+            let ingredient = $('#addIngredient').val();
+            if (ingredient.length > 2) {
+                $.post('@Url.Action("AddRecipeIngredientToViewModel", "RecipeIngredientController")', ingredient);
+                $('#removeRecipeIngredient').show();
+                $('#addRecipeIngredient').hide();
+            } else {
+                @TempData[ErrorMessage] = "Invalid Ingredient Name!";
+            }
+        });
+    </script>
 }

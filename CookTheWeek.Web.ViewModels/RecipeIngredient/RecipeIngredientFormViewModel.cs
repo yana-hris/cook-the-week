@@ -9,7 +9,7 @@
 
         [Required]
         [Display(Name = "Ingredient")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required]
         [Display(Name = "Quantity")]
@@ -21,6 +21,7 @@
 
         [Display(Name = "Options")]
         public int? SpecificationId { get; set; }
+
 
         public ICollection<RecipeIngredientSelectMeasureViewModel>? Measures { get; set; }
 

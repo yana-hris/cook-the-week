@@ -15,7 +15,7 @@
             public const int InstructionsMinLength = 10;
             public const int InstructionsMaxLength = 2000;
 
-            public const int ServingsMinValue = 2;
+            public const int ServingsMinValue = 1;
             public const int ServingsMaxValue = 12;
 
             public const int CookingTimeMinValue = 10;
