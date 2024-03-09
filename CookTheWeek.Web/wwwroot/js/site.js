@@ -3,7 +3,7 @@
     $('#addIngredient').on('keyup', function () {
         let input = $(this).val();
         if (input.length > 1) {
-            $.get('https://localhost:7279/api/recipeingredient', { input: input }, function (data) {
+            $.get('https://localhost:7279/api/recipeingredient/suggestions', { input: input }, function (data) {
                 $('#ingredientsSuggestionList').empty();
 
                 const parsedData = JSON.parse(data);

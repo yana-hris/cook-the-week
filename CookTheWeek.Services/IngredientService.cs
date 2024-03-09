@@ -10,6 +10,7 @@
     using Web.ViewModels.Ingredient;
     using Data.Models.RecipeIngredient;
     using CookTheWeek.Data.Models.IgredientEntities;
+    using CookTheWeek.Services.Data.Models.Ingredient;
 
     public class IngredientService : IIngredientService
     {
@@ -20,7 +21,7 @@
             this.dbContext = dbContext;
         }
        
-        public async Task<bool> existsByNameAsync(string name)
+        public async Task<bool> ExistsByNameAsync(string name)
         {
             bool exists = await this.dbContext
                 .Ingredients
@@ -43,7 +44,7 @@
             return ingredient.Id;
         }
 
-        public async Task<IEnumerable<RecipeIngredientServiceModel>> GetIngredientSuggestionsAsync(string input)
+        public async Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GetIngredientSuggestionsAsync(string input)
         {
             string wildCard = $"%{input.ToLower()}%";
 
@@ -51,24 +52,49 @@
                 .Ingredients
                 .AsNoTracking()
                 .Where(i => EF.Functions.Like(i.Name.ToLower(), wildCard))
-                .Select(i => new RecipeIngredientServiceModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                })
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<RecipeIngredientServiceModel>> GetAllIngredientsAsync()
-        {
-            return await this.dbContext
-                .Ingredients
-                .AsNoTracking()
-                .Select(i => new RecipeIngredientServiceModel()
+                .Select(i => new RecipeIngredientSuggestionServiceModel()
                 {
                     Id = i.Id,
                     Name = i.Name,
                 }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<IngredientServiceModel>> GetAllIngredientsAsync()
+        {
+            return await this.dbContext
+                .Ingredients
+                .AsNoTracking()
+                .Select(i => new IngredientServiceModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    CategoryId = i.IngredientCategoryId
+                })
+                .OrderBy(i => i.Name)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<IngredientServiceModel>> GetAllByCategoryId(int categoryId)
+        {
+            return await this.dbContext
+                .Ingredients
+                .AsNoTracking()
+                .Where(i => i.IngredientCategoryId == categoryId)
+                .Select(i => new IngredientServiceModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    CategoryId = i.IngredientCategoryId
+                }).OrderBy(i => i.Name)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            return await this.dbContext
+                .Ingredients
+                .AsNoTracking()
+                .AnyAsync(i => i.Id == id);
         }
     }
 }

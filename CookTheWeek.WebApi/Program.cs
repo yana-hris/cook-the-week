@@ -33,6 +33,12 @@ namespace CookTheWeek.WebApi
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
+                setup.AddPolicy("TestingWithVSCode", policyBuilder =>
+                {
+                    policyBuilder.WithOrigins("http://127.0.0.1:5500")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
             });
 
             var app = builder.Build();
@@ -54,6 +60,7 @@ namespace CookTheWeek.WebApi
             if (app.Environment.IsDevelopment())
             {
                 app.UseCors("CookTheWeekDevelopmentPolicy");
+                app.UseCors("TestingWithVSCode");
             }            
 
             app.Run();

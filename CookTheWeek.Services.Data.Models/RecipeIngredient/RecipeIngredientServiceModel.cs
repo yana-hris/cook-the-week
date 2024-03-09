@@ -1,9 +1,15 @@
 ﻿namespace CookTheWeek.Services.Data.Models.RecipeIngredient
-{    
+{
     public class RecipeIngredientServiceModel
     {
-        public int Id { get; set; }
+        public int IngredientId { get; set; }
 
-        public string Name { get; set; }
+        public string IngredientName { get; set; }
+
+        public decimal Qty { get; set; }
+
+        public int MeasureId { get; set; }
+
+        public int? SpecificationId { get; set; }
     }
 }

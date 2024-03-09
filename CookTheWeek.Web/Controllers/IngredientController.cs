@@ -38,7 +38,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(IngredientFormViewModel model)
         {    
-            bool ingredientExists = await this.ingredientService.existsByNameAsync(model.Name);
+            bool ingredientExists = await this.ingredientService.ExistsByNameAsync(model.Name);
             bool categoryExists = await this.categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
 
             if(ingredientExists)

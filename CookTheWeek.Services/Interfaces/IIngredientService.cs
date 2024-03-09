@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Interfaces
 {
+    using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Ingredient;
     using System.Collections.Generic;
@@ -7,9 +8,12 @@
 
     public interface IIngredientService
     {
-        Task<bool> existsByNameAsync(string name);
+        Task<bool> ExistsByNameAsync(string name);
+
+        Task<bool> ExistsByIdAsync(int id);
         Task<int> AddIngredientAsync(IngredientFormViewModel model);
-        Task<IEnumerable<RecipeIngredientServiceModel>> GetIngredientSuggestionsAsync(string input);
-        Task<IEnumerable<RecipeIngredientServiceModel>> GetAllIngredientsAsync();
+        Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GetIngredientSuggestionsAsync(string input);
+        Task<IEnumerable<IngredientServiceModel>> GetAllIngredientsAsync();
+        Task<IEnumerable<IngredientServiceModel>> GetAllByCategoryId(int categoryId);
     }
 }
