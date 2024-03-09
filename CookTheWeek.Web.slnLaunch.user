@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "CookTheWeek.Web\\CookTheWeek.Web.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Name": "CookTheWeek.WebApi\\CookTheWeek.WebApi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

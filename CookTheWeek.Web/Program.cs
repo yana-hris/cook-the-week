@@ -4,16 +4,15 @@ namespace CookTheWeek.Web
     
     using Data;
     using Data.Models;
-    using CookTheWeek.Web.Infrastructure.Extensions;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.Infrastructure.ModelBinders;
+    using Infrastructure.Extensions;
+    using Infrastructure.ModelBinders;
+    using Services.Interfaces;
 
     public class Program
     {
         public static void Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
             
             string? connectionString = builder.Configuration["CookTheWeek:ConnectionString"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>

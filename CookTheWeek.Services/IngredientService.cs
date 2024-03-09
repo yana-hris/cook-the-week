@@ -1,14 +1,15 @@
 ﻿namespace CookTheWeek.Services
 {
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Ingredient;
+    using Interfaces;
+    using Web.ViewModels.Ingredient;
+    using Data.Models.RecipeIngredient;
     using CookTheWeek.Data.Models.IgredientEntities;
-    using System.Collections.Generic;
 
     public class IngredientService : IIngredientService
     {
@@ -42,16 +43,32 @@
             return ingredient.Id;
         }
 
-        public async Task<string[]> GetIngredientSuggestions(string searchString)
+        public async Task<IEnumerable<RecipeIngredientServiceModel>> GetIngredientSuggestionsAsync(string input)
         {
-            string wildCard = $"%{searchString.ToLower()}%";
+            string wildCard = $"%{input.ToLower()}%";
 
+            return  await this.dbContext
+                .Ingredients
+                .AsNoTracking()
+                .Where(i => EF.Functions.Like(i.Name.ToLower(), wildCard))
+                .Select(i => new RecipeIngredientServiceModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<RecipeIngredientServiceModel>> GetAllIngredientsAsync()
+        {
             return await this.dbContext
                 .Ingredients
                 .AsNoTracking()
-                .Where(i => EF.Functions.Like(wildCard, i.Name.ToLower()))
-                .Select(i => i.Name)
-                .ToArrayAsync();
+                .Select(i => new RecipeIngredientServiceModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                }).ToListAsync();
         }
     }
 }

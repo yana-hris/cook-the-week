@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Data", "CookThe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Data.Models", "CookTheWeek.Data.Models\CookTheWeek.Data.Models.csproj", "{15AF441B-AE47-44DD-90F1-3881165C7BCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Services", "CookTheWeek.Services\CookTheWeek.Services.csproj", "{7CF95D3E-B086-4D20-ABC9-04B31D70AFA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Services.Data", "CookTheWeek.Services\CookTheWeek.Services.Data.csproj", "{7CF95D3E-B086-4D20-ABC9-04B31D70AFA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Web.ViewModels", "CookTheWeek.Web.ViewModels\CookTheWeek.Web.ViewModels.csproj", "{906E8D17-7871-42E7-A15D-EF7D0BF48E59}"
 EndProject
@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Web.Infrastructure", "CookTheWeek.Web.Infrastructure\CookTheWeek.Web.Infrastructure.csproj", "{8737D6C0-8A43-4637-91DC-2E05AE97A69B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookTheWeek.Services.Data.Models", "CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj", "{37832F57-782E-4D3A-9793-6484CD543FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Services.Data.Models", "CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj", "{37832F57-782E-4D3A-9793-6484CD543FF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookTheWeek.WebApi", "CookTheWeek.WebApi\CookTheWeek.WebApi.csproj", "{E3C13B0B-1006-49D7-8192-9BFAFC79B71A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{37832F57-782E-4D3A-9793-6484CD543FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37832F57-782E-4D3A-9793-6484CD543FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37832F57-782E-4D3A-9793-6484CD543FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB} = {8B8CD3E0-A9E8-4C77-A051-0C031124EABA}
 		{8737D6C0-8A43-4637-91DC-2E05AE97A69B} = {8B8CD3E0-A9E8-4C77-A051-0C031124EABA}
 		{37832F57-782E-4D3A-9793-6484CD543FF3} = {E7A62CDF-0D87-493B-9D4E-99512B0BD726}
+		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A} = {8B8CD3E0-A9E8-4C77-A051-0C031124EABA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9D5BB21-40F0-47A3-93CB-7657EBC7DDFF}

@@ -1,0 +1,58 @@
+[
+  {
+    "ContainingType": "CookTheWeek.WebApi.Controllers.RecipeIngredientApiController",
+    "Method": "GetAllIngredients",
+    "RelativePath": "api/recipeingredient/api/recipeingredient/getallingredients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CookTheWeek.Services.Data.Models.RecipeIngredient.RecipeIngredientServiceModel, CookTheWeek.Services.Data.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "CookTheWeek.WebApi.Controllers.RecipeIngredientApiController",
+    "Method": "Suggesions",
+    "RelativePath": "api/recipeingredient/api/recipeingredient/suggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "input",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CookTheWeek.Services.Data.Models.RecipeIngredient.RecipeIngredientServiceModel, CookTheWeek.Services.Data.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  }
+]

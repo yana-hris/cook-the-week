@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Interfaces
 {
+    using CookTheWeek.Services.Data.Models.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Ingredient;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -8,6 +9,7 @@
     {
         Task<bool> existsByNameAsync(string name);
         Task<int> AddIngredientAsync(IngredientFormViewModel model);
-        Task<string[]> GetIngredientSuggestions(string searchString);
+        Task<IEnumerable<RecipeIngredientServiceModel>> GetIngredientSuggestionsAsync(string input);
+        Task<IEnumerable<RecipeIngredientServiceModel>> GetAllIngredientsAsync();
     }
 }

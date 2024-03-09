@@ -1,10 +1,10 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
+
+    using Services.Interfaces;
+    using ViewModels.RecipeIngredient;
 
     [Authorize]
     public class RecipeIngredientController : Controller
@@ -29,18 +29,12 @@
             return View(model);
         }
 
+        // TODO:
         [HttpPost]
         public async Task<IActionResult> Add(RecipeIngredientFormViewModel model)
         {
             
             return View();
-        }
-
-        public async Task<IActionResult> GetSuggestions(string input)
-        {
-            string[] wordSuggestions = await this.ingredientService.GetIngredientSuggestions(input.ToLower());
-
-            return Json(wordSuggestions);
         }
         
     }

@@ -2085,7 +2085,7 @@
           "bin/placeholder/CookTheWeek.Data.Models.dll": {}
         }
       },
-      "CookTheWeek.Services/1.0.0": {
+      "CookTheWeek.Services.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -2095,10 +2095,10 @@
           "CookTheWeek.Web.ViewModels": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/CookTheWeek.Services.dll": {}
+          "bin/placeholder/CookTheWeek.Services.Data.dll": {}
         },
         "runtime": {
-          "bin/placeholder/CookTheWeek.Services.dll": {}
+          "bin/placeholder/CookTheWeek.Services.Data.dll": {}
         }
       },
       "CookTheWeek.Services.Data.Models/1.0.0": {
@@ -6252,10 +6252,10 @@
       "path": "../CookTheWeek.Data.Models/CookTheWeek.Data.Models.csproj",
       "msbuildProject": "../CookTheWeek.Data.Models/CookTheWeek.Data.Models.csproj"
     },
-    "CookTheWeek.Services/1.0.0": {
+    "CookTheWeek.Services.Data/1.0.0": {
       "type": "project",
-      "path": "../CookTheWeek.Services/CookTheWeek.Services.csproj",
-      "msbuildProject": "../CookTheWeek.Services/CookTheWeek.Services.csproj"
+      "path": "../CookTheWeek.Services/CookTheWeek.Services.Data.csproj",
+      "msbuildProject": "../CookTheWeek.Services/CookTheWeek.Services.Data.csproj"
     },
     "CookTheWeek.Services.Data.Models/1.0.0": {
       "type": "project",
@@ -6270,7 +6270,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "CookTheWeek.Services >= 1.0.0",
+      "CookTheWeek.Services.Data >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 8.0.0"
     ]
@@ -6308,8 +6308,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\CookTheWeek.Services.csproj": {
-              "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\CookTheWeek.Services.csproj"
+            "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\CookTheWeek.Services.Data.csproj": {
+              "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\CookTheWeek.Services.Data.csproj"
             }
           }
         }

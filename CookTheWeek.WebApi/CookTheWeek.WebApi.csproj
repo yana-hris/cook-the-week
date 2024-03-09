@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e7d67faa-4b23-4970-9745-19331046caad</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CookTheWeek.Common\CookTheWeek.Common.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Services\CookTheWeek.Services.Data.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Web.Infrastructure\CookTheWeek.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

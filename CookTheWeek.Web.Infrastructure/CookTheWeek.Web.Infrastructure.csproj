@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CookTheWeek.Services\CookTheWeek.Services.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Services\CookTheWeek.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>
