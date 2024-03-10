@@ -1,5 +1,4 @@
-﻿$(initialize());
-function initialize() {
+﻿function initialize() {
     $(document).ready(function () {
         resetForm($('.ingredient-container'));
     });

@@ -15,13 +15,7 @@
                 </div>
                 <div class="form-group col-2">
                     <label asp-for="Servings" class="form-label">Servings</label>
-                    <select asp-for="Servings" class="form-control">
-                        <option value="2">2</option>
-                        <option value="4">4</option>
-                        <option value="6">6</option>
-                        <option value="8">8</option>
-                        <option value="10">10</option>
-                        <option value="12">12</option>
+                    <select asp-for="Servings" class="form-control">                        
                          @foreach (var option in @Model.ServingsOptions)
                         {
                              <option value="@option.Key">@option.Value</option>
@@ -90,4 +84,6 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>initialize();</script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 }
