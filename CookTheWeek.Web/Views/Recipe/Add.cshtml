@@ -7,50 +7,56 @@
     <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
             <!-- First row -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="form-group col-10">
-                    <label asp-for="Title"></label>
+                    <label asp-for="Title" class="form-label">Recipe</label>
                     <input asp-for="Title" class="form-control" placeholder="Title...">
                     <span asp-validation-for="Title" class="small text-danger"></span>
                 </div>
                 <div class="form-group col-2">
-                    <label asp-for="Servings"></label>
+                    <label asp-for="Servings" class="form-label">Servings</label>
                     <select asp-for="Servings" class="form-control">
-                        @foreach (var option in ViewBag.ServingOptions)
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                         @foreach (var option in @Model.ServingsOptions)
                         {
-                            <option value="@option.Key">@option.Value</option>
-                        }
+                             <option value="@option.Key">@option.Value</option>
+                        } 
                     </select>
                     <span asp-validation-for="Servings" class="small text-danger"></span>
                 </div>
             </div>
             <!-- Second row -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="form-group col-10">
-                    <label asp-for="Description"></label>
+                    <label asp-for="Description" class="form-label">Short Description</label>
                     <input asp-for="Description" class="form-control" placeholder="Description...">
                     <span asp-validation-for="Description" class="small text-danger"></span>
                 </div>
                 <div class="form-group col-2">
-                    <label asp-for="CookingTimeMinutes"></label>
+                    <label asp-for="CookingTimeMinutes" class="form-label">Minutes</label>
                     <input asp-for="CookingTimeMinutes" class="form-control">
                     <span asp-validation-for="CookingTimeMinutes" class="small text-danger"></span>
                 </div>
             </div>
             <!-- Third row -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="form-group col-8">
-                    <label asp-for="ImageUrl"></label>
+                    <label asp-for="ImageUrl" class="form-label">Image Link</label>
                     <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
                     <span asp-validation-for="ImageUrl" class="small text-danger"></span>
                 </div>
 
                 <div class="form-group col-4">
-                    <label asp-for="RecipeCategoryId"></label>
+                    <label asp-for="RecipeCategoryId" class="form-label">Meal</label>
                     <select asp-for="RecipeCategoryId" class="form-control">
-                        @foreach (var category in Model.Categories)
+                        @foreach (var category in @Model.Categories!)
                         {
-                                <option value="@category.Id">@category.Name</option>
+                            <option value="@category.Id">@category.Name</option>
                         }
                     </select>
                     <span asp-validation-for="RecipeCategoryId" class="small text-danger"></span>
@@ -58,19 +64,24 @@
             </div>
 
             <!-- Fourth row -->
-            <div class="form-group">
-                <label asp-for="Instructions"></label>
-                <textarea asp-for="Instructions" rows="4" class="form-control" placeholder="How to cook..."></textarea>
-                <span asp-validation-for="Instructions" class="small text-danger"></span>
+            <div class="row mb-3">
+                <div class="form-froup">
+                    <label asp-for="Instructions" class="form-label">Instructions</label>
+                    <textarea asp-for="Instructions" rows="5" class="form-control" placeholder="How to cook..."></textarea>
+                    <span asp-validation-for="Instructions" class="small text-danger"></span>
+                </div>
             </div>
-            
+
             <!-- Fifth row - Add ingredients here -->
-            <p class="pt-3 mb-1">Add Ingredients:</p>
+            <h5 class="pt-3 mb-3">Add Ingredients:</h5>
+            <div id="ingredients">
                           
                 @* //Render added ingredients if any! - HOW?
                 //Then render add new ingredient form! *@
                 <partial name="_AddRecipeIngredientPartial" model="@Model.Ingredient" />
             
+            </div>
+            <!-- END OF INGREDIENTS HERE!!!  -->
             <input class="btn btn-dark btn-lg text-light mt-3" type="submit" value="Add Recipe" />
         </form>
     </div>

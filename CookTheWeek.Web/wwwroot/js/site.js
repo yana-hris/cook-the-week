@@ -1,92 +1,182 @@
-﻿function initialize() {
-    debugger;
-    $('#addIngredient').on('keyup', function () {
-        let input = $(this).val();
-        if (input.length > 1) {
-            $.get('https://localhost:7279/api/recipeingredient/suggestions', { input: input }, function (data) {
-                $('#ingredientsSuggestionList').empty();
+﻿$(initialize());
+function initialize() {
+    $(document).ready(function () {
+        resetForm($('.ingredient-container'));
+    });
+    $('div.addButton').on('click', function (event) {
+        addIngredient(event);
+    });
+    $('div.removeBtn').on('click', function (event) {
+        removeIngredient(event);
+    });
 
-                const parsedData = JSON.parse(data);
+    $('.addIngredient').on('keyup', function () {
+        let inputValue = $(this).val();
+        $(this).next().empty();
+        let contextForm = this;
+        let ingredientContainer = this.parentNode.querySelector("div");
 
-                $.each(parsedData, function (index, dataItem) {
-                    const li = createNewItem(dataItem);
-                    $('#ingredientsSuggestionList').append(li);
-                })
-            }, "json");
+        if (inputValue.length > 1) {
+            $.ajax({
+                url: 'https://localhost:7279/api/recipeingredient/suggestions',
+                type: "get",
+                data: {
+                    input: inputValue
+                },
+                dataType: 'json',
+                success: function (response) {
+                    renderSuggestionResults(response, inputValue, ingredientContainer, contextForm);
+                }
+            });
         } else {
-            $('#ingredientsSuggestionList').empty();
-        }
-    });
-    $('#removeRecipeIngredient').hide();
-
-
-    $('#addRecipeIngredient').on('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        let ingredient = $('#addIngredient').val();
-        if (ingredient.length > 2) {
-            createNewIngredientLine(ingredient);
-            $('#addIngredient').val('');
+            $(this).next().empty();
         }
     });
 
-    function createNewItem(itemObject) {
-        const li = document.createElement("li");
-        li.textContent = itemObject.name;
-        li.value = itemObject.id;
-        return li;
-    }
+    // render the result list in input drop-down list
+    function renderSuggestionResults(results, search, container, inputForm) {
+        // delete unordered list from previous search result
+        $(container).empty();
 
+        // get properties from input field
+        let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
+        let form_width = inputForm.offsetWidth;
 
-    function toggleIngredientBtns(event) {
-        event.preventDefault();
-        event.stopPropagation();
+        //set result list to same width less borders
+        container.style.width = form_width.toString() + 'px';
 
-        let parentNode = $(this).parent();
+        if (results.length > 0) {
+            // create ul and set classes
+            let ul = document.createElement('UL');
+            ul.classList.add('list-group', 'mt-2');
 
-        if (parentNode.classList.contains("addButton")) {
-            const addBtn = this.event.target;
-            const removeBtn = parentNode.parent().querySelector('div.removeBtn button');
+            // create list of results and append to ul            
+            results.map(function (item) {
+                let a = document.createElement('A');
+                a.classList.add('autocomplete-result', 'list-group-item', 'p-1'); // autocomplete used for init click event, other classes are from bootstrap
+                a.setAttribute("reference", item.id); // used for click-Event to fill the form
+                a.style.fontSize = form_font;
+                a.href = "#";
 
-            $(addBtn).hide();
-            $(removeBtn).show();
+                // see function below - marked search string in results
+                a.innerHTML = colorResults(item.name, search);
 
-        } else if (parentNode.classList.contains("removeBtn")) {
-            const addBtn = parentNode.parent().querySelector('div.addBtn button');
-            const removeBtn = this.event.target;
+                // add Eventlistener for search renderResults
+                a.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
 
-            $(addBtn).show();
-            $(removeBtn).hide();
+                    // get text from list item and set it into reffered form field
+                    let ingredientName = a.innerText;
+                    let ingredientId = a.getAttribute('reference');
+                    // TODO: save the ID in serviceViewModel?!!
+                    inputForm.value = ingredientName;
+
+                    // after choosen a result make div with results invisible -> after changing input content again,
+                    // all of childs of current div will be deleted [line 48,49]
+                    container.classList.add('invisible');
+
+                });
+                ul.append(a);
+            });
+
+            // append ul to container and make container visible
+            container.append(ul);
+            container.classList.remove('invisible');
+            //choose_result(); // add Eventlistener to every result in ul
         }
+        else {
+            container.classList.add('invisible');
 
+        }
     }
 
-    function createNewIngredientLine(ingredient) {
-        const ingredientLine = document.createElement("div"); // <div class="form-group d-flex col-5">
-        ingredientLine.classList.add("form-group", "d-flex", "col-5");
+    // create span's with colored marked search strings
+    function colorResults(string, search) {
+        let splitted = string.toLowerCase().split(search.toLowerCase());
 
-        const btnContainer = document.createElement("div"); //<div class="removeBtn">
-        btnContainer.classList.add("removeBtn");
-        const removeBtn = document.createElement("button");
-        removeBtn.classList.add("btn", "btn-danger", "text-light"); //<button class="btn btn-danger text-light"> -</button>
-        removeBtn.value = "-";
+        let sp = []; // array of all spans, created in folling loop
+        let start = 0; //start for slicing
 
-        btnContainer.append(removeBtn);
-
-        const inputFiled = document.createElement("input");
-        inputFiled.classList.Add("form-control me-2");
-        inputFiled.disabled = true;
-        inputFiled.textContent = ingredient;
-        inputFiled.style = "min-width: 12rem";
-
-        ingredientLine.append(inputFiled);
-        ingredientLine.append(btnContainer);
-
-        $(ingredientLine).insertBefore('.input-form');
+        splitted.map(function (element, index) {
+            // empty string at the beginning
+            if (element == false) {
+                sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
+                start = start + search.length;
+            }
+            else if (index + 1 == splitted.length) {
+                sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
+            }
+            else {
+                sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
+                start = start + element.length;
+                sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
+                start = start + search.length;
+            }
+        });
+        return sp.join('')
     }
-
-
-    $('div button').on('click', toggleIngredientBtns(e));
 }
 
+function resetForm(ingredientContainer) {
+    $(ingredientContainer).find('input').each(function () {
+        $(this).val("");
+    });
+    $(ingredientContainer).find('select').each(function () {
+        $(this).val("");
+    });
+    $(ingredientContainer).find('.addButton').show();
+    $(ingredientContainer).find('.removeBtn').hide();
+}
+function addIngredient(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const addBtnDiv = this.event.currentTarget;
+    const removeBtnDiv = addBtnDiv.parentNode.querySelector("div.removeBtn");
+
+    // Toggle add/remove btns
+    $(addBtnDiv).hide();
+    $(removeBtnDiv).show();
+
+    // Clone the form before disabled 
+    let newItem = $('.ingredient-container').last().clone(true);
+
+    // Disable all input fields in current form
+    const formContainer = addBtnDiv.parentNode.parentNode;
+    Array.from(formContainer.querySelectorAll("input"))
+        .forEach(input => {
+            input.disabled = true;
+        });
+    Array.from(formContainer.querySelectorAll("select"))
+        .forEach(select => {
+            select.disabled = true;
+        });
+
+    // Reset all fields of the cloned form
+    resetForm(newItem);
+    // Attach to DOM the cloned and reset form
+    $(newItem).appendTo('#ingredients');
+}
+
+function removeIngredient(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const removeBtnDiv = this.event.currentTarget;
+    const currentIngredientContainer = removeBtnDiv.parentNode.parentNode;
+    const allIngredientsContainer = currentIngredientContainer.parentNode;
+
+    if ($(allIngredientsContainer).children().length > 1) {
+        //just remove the current line and do nothing else
+        $(currentIngredientContainer).remove();
+    } else {
+        // reset the form and btns
+        $(currentIngredientContainer).find('input').each(function () {
+            $(this).val("");
+        });
+        $(currentIngredientContainer).find('.addButton').show();
+        $(removeBtnDiv).hide();
+    }
+}
 

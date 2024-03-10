@@ -1,21 +1,57 @@
 ﻿@model RecipeIngredientFormViewModel
 @using static CookTheWeek.Common.NotificationMessagesConstants
 
-<div class="row" id="ingredient-container">
-    <div class="form-group d-flex col-5 input-form">
-        <input id="addIngredient" asp-for="Name" class="form-control me-2" style="min-width: 12rem" >
+
+<div class="row g-3 form-group ingredient-container">
+    <div class="col-md-4">
+        <label asp-for="Name" class="form-label">Ingredient</label>
+        <input asp-for="Name" class="form-control me-2 addIngredient" style="min-width: 8rem" autocomplete="off" />
+        <div class="position-absolute invisible ingredientsSuggestionList">
+            <!-- Dropdown suggestions should goes here -->
+        </div>
         <span asp-validation-for="Name" class="small text-danger"></span>
-        <ul id="ingredientsSuggestionList"></ul>
-        <div class="d-flex gap-1 buttons">
-            <div class="addButton">
-                <button class="btn btn-primary text-light" id="addRecipeIngredient">+</button>
-            </div>
-            <div class="removeBtn">
-                <button class="btn btn-danger text-light" id="removeRecipeIngredient">-</button>
-            </div>
+    </div>
+    <!-- Qty Input -->
+    <div class="col-2">
+        <label asp-for="Qty" class="form-label">Qty</label>
+        <input asp-for="Qty" class="form-control qty" placeholder="Qty">
+        <span asp-validation-for="Qty" class="small text-danger"></span>
+    </div>
+    <!-- Measure Selection -->
+    <div class="col-2">
+        <label asp-for="MeasureId" class="form-label">Measure</label>
+        <select asp-for="MeasureId" class="form-control">
+            <option selected>Choose...</option>
+            @foreach (var measure in @Model.Measures)
+            {
+                <option value="@measure.Id">@measure.Name</option>
+            } 
+        </select>
+    </div>
+    <!-- Specification -->
+    <div class="col-2">
+        <label asp-for="SpecificationId" class="form-label"><small>*Optional</small></label>
+        <select asp-for="SpecificationId" class="form-control">
+            <option selected>Condition...</option>
+            @foreach (var spec in @Model.Specifications)
+            {
+                <option value="@spec.Id">@spec.Description</option>
+            }
+        </select>
+    </div>
+    <!-- Buttons for ADD/REMOVE ingredient -->
+    <div class="col-2 buttons d-flex align-items-center gap-3">
+        <div class="addButton">
+            <ion-icon class="icons add" name="add-circle"></ion-icon>
+            <a href="#" class="btn"></a>
+        </div>
+        <div class="removeBtn">
+            <ion-icon class="icons remove" name="remove-circle"></ion-icon>
+            <a href="#" class="btn"></a>
         </div>
     </div>
 </div>
+            
 
 @section Scripts{
     <script>initialize();</script>

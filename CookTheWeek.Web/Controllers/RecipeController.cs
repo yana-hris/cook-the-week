@@ -7,6 +7,7 @@
     using Services.Interfaces;
     using Services.Data.Models.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     [Authorize]
     public class RecipeController : Controller
@@ -14,11 +15,15 @@
 
         private readonly IRecipeService recipeService;
         private readonly ICategoryService categoryService;
+        private readonly IRecipeIngredientService recipeIngredientService;
 
-        public RecipeController(IRecipeService recipeService, ICategoryService categoryService)
+        public RecipeController(IRecipeService recipeService, 
+            ICategoryService categoryService, 
+            IRecipeIngredientService recipeIngredientService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
+            this.recipeIngredientService = recipeIngredientService;
         }
 
         [HttpGet]
@@ -39,11 +44,15 @@
 
         [HttpGet]
         public async Task<IActionResult> Add()
-        {
-            ViewBag.ServingOptions = this.recipeService.GenerateServingOptions();
-
+        {            
             RecipeFormViewModel model = new RecipeFormViewModel();
+            model.Ingredient = new RecipeIngredientFormViewModel()
+            {
+                Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
+                Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
+            };
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = this.recipeService.GenerateServingOptions();
 
             return View(model);
         }

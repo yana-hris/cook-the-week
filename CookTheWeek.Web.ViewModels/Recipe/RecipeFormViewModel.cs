@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookTheWeek.Web.ViewModels.Category;
-    using CookTheWeek.Web.ViewModels.Ingredient;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
@@ -40,9 +39,11 @@
         [Required]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
-        public RecipeIngredientFormViewModel? Ingredient { get; set; }
+        public RecipeIngredientFormViewModel Ingredient { get; set; }
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; }
+        public IDictionary<int, int>? ServingsOptions { get; set; }
+        public ICollection<RecipeIngredientFormViewModel>? RecipeIngredients { get; set; }
 
-        public ICollection<RecipeIngredientFormViewModel> RecipeIngredients { get; set; }
+
     }
 }
