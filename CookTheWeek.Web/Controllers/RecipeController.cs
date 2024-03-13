@@ -62,6 +62,7 @@
         {          
             
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = this.recipeService.GenerateServingOptions();
 
             return View(model);
         }

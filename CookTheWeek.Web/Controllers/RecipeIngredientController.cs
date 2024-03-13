@@ -28,14 +28,6 @@
 
             return View(model);
         }
-
-        // TODO:
-        [HttpPost]
-        public async Task<IActionResult> Add(RecipeIngredientFormViewModel model)
-        {
-            
-            return View();
-        }
         
     }
 }

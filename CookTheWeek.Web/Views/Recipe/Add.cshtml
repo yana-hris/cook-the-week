@@ -67,16 +67,18 @@
             </div>
 
             <!-- Fifth row - Add ingredients here -->
-            <h5 class="pt-3 mb-3">Add Ingredients:</h5>
-            <div id="ingredients">
-                          
-                @* //Render added ingredients if any! - HOW?
+            <h5 class="pt-3 mb-2">Add Ingredients:</h5>
+            <div id="ingredients" class="row">
+                
+
+                    @* //Render added ingredients if any! - HOW?
                 //Then render add new ingredient form! *@
                 <partial name="_AddRecipeIngredientPartial" model="@Model.Ingredient" />
             
+                
             </div>
             <!-- END OF INGREDIENTS HERE!!!  -->
-            <input class="btn btn-dark btn-lg text-light mt-3" type="submit" value="Add Recipe" />
+            <button class="btn btn-dark btn-lg text-light mt-3" type="submit">Add Recipe</button>
         </form>
     </div>
 </div>

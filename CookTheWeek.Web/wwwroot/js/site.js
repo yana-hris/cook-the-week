@@ -1,15 +1,12 @@
 ﻿function initialize() {
-    $(document).ready(function () {
-        resetForm($('.ingredient-container'));
-    });
-    $('div.addButton').on('click', function (event) {
+    resetForm();
+    // attach event to add ingredient btn
+    $('#addButton').on('click', (event) => {
         addIngredient(event);
     });
-    $('div.removeBtn').on('click', function (event) {
-        removeIngredient(event);
-    });
 
-    $('.addIngredient').on('keyup', function () {
+    // attach event on key-up ingredient input (word-suggestions functionality)
+    $('#addIngredient').on('keyup', function () {
         let inputValue = $(this).val();
         $(this).next().empty();
         let contextForm = this;
@@ -31,7 +28,6 @@
             $(this).next().empty();
         }
     });
-
     // render the result list in input drop-down list
     function renderSuggestionResults(results, search, container, inputForm) {
         // delete unordered list from previous search result
@@ -51,27 +47,28 @@
 
             // create list of results and append to ul            
             results.map(function (item) {
+
                 let a = document.createElement('A');
                 a.classList.add('autocomplete-result', 'list-group-item', 'p-1'); // autocomplete used for init click event, other classes are from bootstrap
-                a.setAttribute("reference", item.id); // used for click-Event to fill the form
                 a.style.fontSize = form_font;
                 a.href = "#";
+                a.setAttribute("id", item.id); // used for click-Event to fill the form
 
                 // see function below - marked search string in results
                 a.innerHTML = colorResults(item.name, search);
 
-                // add Eventlistener for search renderResults
+                // add Eventlistener for chosen renderResults
                 a.addEventListener("click", function (event) {
                     event.preventDefault();
                     event.stopPropagation();
-
                     // get text from list item and set it into reffered form field
                     let ingredientName = a.innerText;
-                    let ingredientId = a.getAttribute('reference');
-                    // TODO: save the ID in serviceViewModel?!!
-                    inputForm.value = ingredientName;
+                    let ingredientId = $(a).attr('id');
 
-                    // after choosen a result make div with results invisible -> after changing input content again,
+                    inputForm.value = ingredientName;
+                    $('#addButton a.btn').attr("id", ingredientId.toString());
+
+                    // after a result is chose, make the div with results invisible -> or after changing input content again,
                     // all of childs of current div will be deleted [line 48,49]
                     container.classList.add('invisible');
 
@@ -82,14 +79,13 @@
             // append ul to container and make container visible
             container.append(ul);
             container.classList.remove('invisible');
-            //choose_result(); // add Eventlistener to every result in ul
+
         }
         else {
             container.classList.add('invisible');
 
         }
     }
-
     // create span's with colored marked search strings
     function colorResults(string, search) {
         let splitted = string.toLowerCase().split(search.toLowerCase());
@@ -115,67 +111,91 @@
         });
         return sp.join('')
     }
+
 }
 
-function resetForm(ingredientContainer) {
-    $(ingredientContainer).find('input').each(function () {
-        $(this).val("");
-    });
-    $(ingredientContainer).find('select').each(function () {
-        $(this).val("");
-    });
-    $(ingredientContainer).find('.addButton').show();
-    $(ingredientContainer).find('.removeBtn').hide();
-}
-function addIngredient(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const addBtnDiv = this.event.currentTarget;
-    const removeBtnDiv = addBtnDiv.parentNode.querySelector("div.removeBtn");
-
-    // Toggle add/remove btns
-    $(addBtnDiv).hide();
-    $(removeBtnDiv).show();
-
-    // Clone the form before disabled 
-    let newItem = $('.ingredient-container').last().clone(true);
-
-    // Disable all input fields in current form
-    const formContainer = addBtnDiv.parentNode.parentNode;
-    Array.from(formContainer.querySelectorAll("input"))
-        .forEach(input => {
-            input.disabled = true;
+function resetForm() {
+    $("form").each(function () {
+        $(this).find(":input").each(function () {
+            $(this).val("");
         });
-    Array.from(formContainer.querySelectorAll("select"))
-        .forEach(select => {
-            select.disabled = true;
-        });
-
-    // Reset all fields of the cloned form
-    resetForm(newItem);
-    // Attach to DOM the cloned and reset form
-    $(newItem).appendTo('#ingredients');
+        $(this).find("select").each(function () {
+            $(this).val("");
+        })
+    });
 }
 
 function removeIngredient(event) {
     event.preventDefault();
     event.stopPropagation();
-
-    const removeBtnDiv = this.event.currentTarget;
-    const currentIngredientContainer = removeBtnDiv.parentNode.parentNode;
-    const allIngredientsContainer = currentIngredientContainer.parentNode;
-
-    if ($(allIngredientsContainer).children().length > 1) {
-        //just remove the current line and do nothing else
-        $(currentIngredientContainer).remove();
-    } else {
-        // reset the form and btns
-        $(currentIngredientContainer).find('input').each(function () {
-            $(this).val("");
-        });
-        $(currentIngredientContainer).find('.addButton').show();
-        $(removeBtnDiv).hide();
-    }
+    const button = this.event.currentTarget;
+    const row = button.parentNode.parentNode;
+    $(row).remove();
 }
 
+function addIngredient(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const name = $('#addIngredient').val();
+    const ingredientId = $('#addButton a.btn').attr('id').toString();
+    const qty = $('#qty').val();
+    const measureName = $('#measure :selected').text();
+    const measureId = $('#measure').val();
+    const specName = $("#spec :selected").text();
+    const specId = $("#spec").val();
+
+    resetForm();
+    // TODO: might use this for DTO in RecipeController (upon click of Add Recipe)
+    // const ingredientViewModelInfo = {
+    //     IngredientId: ingredientId,
+    //     Name: name,
+    //     Qty: qty,
+    //     MeasureId: measureId,
+    //     SpecificationId: specId
+    // };
+
+    const ingredientInfo = {
+        id: ingredientId,
+        name: name,
+        qty: qty,
+        measureName: measureName,
+        specName: specName
+    };
+
+    createTableRow(ingredientInfo);
+}
+
+function createTableRow(ingredientInfo) {
+
+    const tr = document.createElement("tr");
+    const id = ingredientInfo.id;
+    tr.setAttribute("id", id.toString());
+    const nameTd = document.createElement('td');
+    $(nameTd).text(ingredientInfo.name);
+
+    const qtyTd = document.createElement('td');
+    $(qtyTd).text(ingredientInfo.qty);
+
+    const measureTd = document.createElement('td');
+    $(measureTd).text(ingredientInfo.measureName);
+
+    const specTd = document.createElement("td");
+    $(specTd).text(ingredientInfo.specName);
+
+    const btnTd = document.createElement("td");
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("removeBtn");
+    btnContainer.setAttribute("id", id.toString());
+    btnContainer.innerHTML = '<ion-icon class="icons remove" name="remove-circle"></ion-icon><a href="#" class="btn"></a>';
+    btnTd.appendChild(btnContainer);
+    $(btnContainer).on('click', (event) => removeIngredient(event));
+
+    tr.appendChild(nameTd);
+    tr.appendChild(qtyTd);
+    tr.appendChild(measureTd);
+    tr.appendChild(specTd);
+    tr.appendChild(btnTd);
+
+    $(tr).appendTo($('#ingredientsList'));
+}

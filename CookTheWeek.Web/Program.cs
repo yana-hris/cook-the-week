@@ -7,6 +7,7 @@ namespace CookTheWeek.Web
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
     using Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Program
     {
@@ -36,6 +37,7 @@ namespace CookTheWeek.Web
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
             WebApplication app = builder.Build();

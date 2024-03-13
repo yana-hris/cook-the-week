@@ -2,10 +2,10 @@
 @using static CookTheWeek.Common.NotificationMessagesConstants
 
 
-<div class="row g-3 form-group ingredient-container">
+<div id="ingredientContainer" class="row g-3 form-group">
     <div class="col-md-4">
         <label asp-for="Name" class="form-label">Ingredient</label>
-        <input asp-for="Name" class="form-control me-2 addIngredient" style="min-width: 8rem" autocomplete="off" />
+        <input asp-for="Name" class="form-control me-2" id="addIngredient" style="min-width: 8rem" autocomplete="off" />
         <div class="position-absolute invisible ingredientsSuggestionList">
             <!-- Dropdown suggestions should goes here -->
         </div>
@@ -14,14 +14,13 @@
     <!-- Qty Input -->
     <div class="col-2">
         <label asp-for="Qty" class="form-label">Qty</label>
-        <input asp-for="Qty" class="form-control qty" placeholder="Qty">
+        <input id="qty" asp-for="Qty" class="form-control" placeholder="Qty">
         <span asp-validation-for="Qty" class="small text-danger"></span>
     </div>
     <!-- Measure Selection -->
     <div class="col-2">
         <label asp-for="MeasureId" class="form-label">Measure</label>
-        <select asp-for="MeasureId" class="form-control">
-            <option selected>Choose...</option>
+        <select id="measure" asp-for="MeasureId" class="form-control">
             @foreach (var measure in @Model.Measures)
             {
                 <option value="@measure.Id">@measure.Name</option>
@@ -29,9 +28,9 @@
         </select>
     </div>
     <!-- Specification -->
-    <div class="col-2">
+    <<div class="col-2">
         <label asp-for="SpecificationId" class="form-label"><small>*Optional</small></label>
-        <select asp-for="SpecificationId" class="form-control">
+        <select id="spec" asp-for="SpecificationId" class="form-control">
             <option selected>Condition...</option>
             @foreach (var spec in @Model.Specifications)
             {
@@ -40,18 +39,27 @@
         </select>
     </div>
     <!-- Buttons for ADD/REMOVE ingredient -->
-    <div class="col-2 buttons d-flex align-items-center gap-3">
-        <div class="addButton">
-            <ion-icon class="icons add" name="add-circle"></ion-icon>
-            <a href="#" class="btn"></a>
-        </div>
-        <div class="removeBtn">
-            <ion-icon class="icons remove" name="remove-circle"></ion-icon>
-            <a href="#" class="btn"></a>
-        </div>
+    <div id="addButton" class="btnContainer col-2">
+        <ion-icon class="icons add" name="add-circle"></ion-icon>
+        <a href="#" class="btn"></a>
     </div>
 </div>
-            
+<div class="row py-3">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Ingredient</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Measure</th>
+                <th scope="col">Note</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody id="ingredientsList">
+        </tbody>
+    </table>
+</div>
+
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
