@@ -42,7 +42,7 @@
         public RecipeIngredientFormViewModel? Ingredient { get; set; }
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; }
         public IDictionary<int, int>? ServingsOptions { get; set; }
-        public ICollection<RecipeIngredientFormViewModel>? RecipeIngredients { get; set; }
+        public ICollection<RecipeIngredientFormViewModel>? Ingredients { get; set; }
 
 
     }

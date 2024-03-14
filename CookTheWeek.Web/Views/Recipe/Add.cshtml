@@ -2,19 +2,34 @@
 @{
     ViewData["Title"] = "Add Recipe";
 }
-<h2 class="text-center pt-5 fw-semibold">Add Recipe</h2>
-<div class="row mx-4">
-    <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post">
-            <!-- First row -->
-            <div class="row mb-3">
-                <div class="form-group col-10">
-                    <label asp-for="Title" class="form-label">Recipe</label>
-                    <input asp-for="Title" class="form-control" placeholder="Title...">
+<div class="container" style="max-width:700px;">
+    <h2 class="text-center pt-5 fw-semibold">Add Recipe</h2>
+    <!-- TABS CONTROLLER -->
+    <ul class="nav nav-tabs" id="recipe" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="steps-tab" data-bs-toggle="tab" data-bs-target="#steps" type="button" role="tab" aria-controls="steps" aria-selected="false" disabled>Steps</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</button>
+        </li>
+    </ul>
+    <!-- END OF TABS CONTROLLER -->
+    <!-- TAB CONTENTS -->
+    <div class="tab-content" id="recipeContent">
+        <div class="tab-pane fade show active py-5" id="info" role="tabpanel" aria-labelledby="info-tab">
+            <form method="post" asp-controller="Recipe" asp-action="Add">
+                <!-- First row -->
+                <div class="row mb-3">
+                    <div class="form-group col-10">
+                    <label asp-for="Title" class="form-label">Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Name it..">
                     <span asp-validation-for="Title" class="small text-danger"></span>
                 </div>
                 <div class="form-group col-2">
-                    <label asp-for="Servings" class="form-label">Servings</label>
+                    <label asp-for="Servings" class="form-label">Servs</label>
                     <select asp-for="Servings" class="form-control">                        
                          @foreach (var option in @Model.ServingsOptions)
                         {
@@ -27,8 +42,8 @@
             <!-- Second row -->
             <div class="row mb-3">
                 <div class="form-group col-10">
-                    <label asp-for="Description" class="form-label">Short Description</label>
-                    <input asp-for="Description" class="form-control" placeholder="Description...">
+                    <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
                     <span asp-validation-for="Description" class="small text-danger"></span>
                 </div>
                 <div class="form-group col-2">
@@ -61,25 +76,27 @@
             <div class="row mb-3">
                 <div class="form-froup">
                     <label asp-for="Instructions" class="form-label">Instructions</label>
-                    <textarea asp-for="Instructions" rows="5" class="form-control" placeholder="How to cook..."></textarea>
+                    <textarea asp-for="Instructions" rows="4" class="form-control" placeholder="How to cook..."></textarea>
                     <span asp-validation-for="Instructions" class="small text-danger"></span>
                 </div>
             </div>
-
-            <!-- Fifth row - Add ingredients here -->
-            <h5 class="pt-3 mb-2">Add Ingredients:</h5>
+                <button id="addRecipe" class="btn btn-dark btn-lg text-light mt-3" type="submit">Save</button>
+            </form>
+        </div>
+        <!-- END OF FIRST TAB: INFO -->
+        <!-- START SECOND TAB: STEPS -->
+        <div class="tab-pane fade py-5" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+            <!-- TODO: make steps instead of Instructions textarea -->
+        </div>
+        <!-- END OF SECOND TAB: STEPS -->
+        <!-- START THIRD TAB: INGREDIENTS -->
+        <div class="tab-pane fade py-5" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+            <!-- Add ingredients here -->
+            <h5 class="mb-2">Add Ingredients</h5>
             <div id="ingredients" class="row">
-                
-
-                    @* //Render added ingredients if any! - HOW?
-                //Then render add new ingredient form! *@
                 <partial name="_AddRecipeIngredientPartial" model="@Model.Ingredient" />
-            
-                
             </div>
             <!-- END OF INGREDIENTS HERE!!!  -->
-            <button class="btn btn-dark btn-lg text-light mt-3" type="submit">Add Recipe</button>
-        </form>
     </div>
 </div>
 

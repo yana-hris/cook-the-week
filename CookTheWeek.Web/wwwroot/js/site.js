@@ -1,4 +1,14 @@
-﻿function initialize() {
+﻿
+function initialize() {
+    var triggerTabList = [].slice.call(document.querySelectorAll('#recipe button'));
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    });
     resetForm();
     // attach event to add ingredient btn
     $('#addButton').on('click', (event) => {
@@ -199,3 +209,4 @@ function createTableRow(ingredientInfo) {
 
     $(tr).appendTo($('#ingredientsList'));
 }
+

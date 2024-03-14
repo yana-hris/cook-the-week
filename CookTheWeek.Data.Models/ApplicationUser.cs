@@ -1,8 +1,7 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using CookTheWeek.Data.Models.RecipeEntities;
     using Microsoft.AspNetCore.Identity;
-    
+
     /// <summary>
     /// Customized Identity User
     /// </summary>

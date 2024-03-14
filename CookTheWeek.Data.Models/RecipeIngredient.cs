@@ -2,9 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using CookTheWeek.Data.Models.IgredientEntities;
-    using CookTheWeek.Data.Models.RecipeEntities;
     using Microsoft.EntityFrameworkCore;
 
     [Comment("Съставки към рецепти")]

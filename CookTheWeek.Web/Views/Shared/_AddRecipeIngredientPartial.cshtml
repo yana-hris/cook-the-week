@@ -6,20 +6,22 @@
     <div class="col-md-4">
         <label asp-for="Name" class="form-label">Ingredient</label>
         <input asp-for="Name" class="form-control me-2" id="addIngredient" style="min-width: 8rem" autocomplete="off" />
-        <div class="position-absolute invisible ingredientsSuggestionList">
+        <div id="suggestionsList" class="position-absolute invisible">
             <!-- Dropdown suggestions should goes here -->
         </div>
+        <span asp-validation-for="Name" class="small text-danger"></span>
     </div>
     <!-- Qty Input -->
     <div class="col-2">
         <label asp-for="Qty" class="form-label">Qty</label>
         <input id="qty" asp-for="Qty" class="form-control" placeholder="Qty">
+        <span asp-validation-for="Qty" class="small text-danger"></span>
     </div>
     <!-- Measure Selection -->
     <div class="col-2">
         <label asp-for="MeasureId" class="form-label">Measure</label>
         <select id="measure" asp-for="MeasureId" class="form-control">
-            @foreach (var measure in @Model.Measures)
+            @foreach (var measure in @Model.Measures!)
             {
                 <option value="@measure.Id">@measure.Name</option>
             } 
@@ -30,18 +32,19 @@
         <label asp-for="SpecificationId" class="form-label"><small>*Optional</small></label>
         <select id="spec" asp-for="SpecificationId" class="form-control">
             <option selected>Condition...</option>
-            @foreach (var spec in @Model.Specifications)
+            @foreach (var spec in @Model.Specifications!)
             {
                 <option value="@spec.Id">@spec.Description</option>
             }
         </select>
     </div>
-    <!-- Buttons for ADD/REMOVE ingredient -->
+    <!-- ADD ingredient BTN -->
     <div id="addButton" class="btnContainer col-2">
         <ion-icon class="icons add" name="add-circle"></ion-icon>
         <a href="#" class="btn"></a>
     </div>
 </div>
+@* RENDER ADDED INGREDIENTS IN TABLE *@
 <div class="row py-3">
     <table class="table table-sm table-hover">
         <thead>

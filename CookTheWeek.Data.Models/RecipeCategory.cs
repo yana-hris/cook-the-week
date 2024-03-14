@@ -1,5 +1,5 @@
-﻿namespace CookTheWeek.Data.Models.RecipeEntities
-{    
+﻿namespace CookTheWeek.Data.Models
+{
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.RecipeCategory;
@@ -7,7 +7,7 @@
     {
         public RecipeCategory()
         {
-            this.Recipes = new HashSet<Recipe>();
+            Recipes = new HashSet<Recipe>();
         }
 
         [Key]

@@ -1,9 +1,8 @@
 ﻿namespace CookTheWeek.Data.Configuration
 {
+    using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-    using Models.RecipeEntities;
     public class RecipeCategoryEntityConfiguration : IEntityTypeConfiguration<RecipeCategory>
     {
         public void Configure(EntityTypeBuilder<RecipeCategory> builder)

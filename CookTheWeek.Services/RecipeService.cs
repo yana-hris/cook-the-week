@@ -5,12 +5,12 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
-    using CookTheWeek.Data.Models.RecipeEntities;
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
     using Interfaces;
     using Data.Models.Recipe;
+    using CookTheWeek.Data.Models;
 
     public class RecipeService : IRecipeService
     {

@@ -1,9 +1,8 @@
 ﻿namespace CookTheWeek.Data.Configuration
 {
+    using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-    using Models.IgredientEntities;
     public class IngredientEntityConfiguration : IEntityTypeConfiguration<Ingredient>
     {
         public void Configure(EntityTypeBuilder<Ingredient> builder)

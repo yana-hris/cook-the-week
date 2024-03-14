@@ -1,13 +1,10 @@
 ﻿namespace CookTheWeek.Data
 {
     using System.Reflection;
+    using CookTheWeek.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
-    using Models;
-    using Models.IgredientEntities;
-    using Models.RecipeEntities;
 
     public class CookTheWeekDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {

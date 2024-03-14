@@ -1,5 +1,5 @@
-﻿namespace CookTheWeek.Data.Models.IgredientEntities
-{    
+﻿namespace CookTheWeek.Data.Models
+{
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +8,7 @@
     {
         public Ingredient()
         {
-            this.RecipesIngredients = new HashSet<RecipeIngredient>();
+            RecipesIngredients = new HashSet<RecipeIngredient>();
         }
         [Key]
         public int Id { get; set; }

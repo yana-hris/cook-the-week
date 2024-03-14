@@ -8,9 +8,9 @@
     using CookTheWeek.Data;
     using Interfaces;
     using Web.ViewModels.Ingredient;
-    using Data.Models.RecipeIngredient;
-    using CookTheWeek.Data.Models.IgredientEntities;
     using CookTheWeek.Services.Data.Models.Ingredient;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Models.RecipeIngredient;
 
     public class IngredientService : IIngredientService
     {

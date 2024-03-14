@@ -3,8 +3,6 @@
     using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
-    using Models.RecipeEntities;
     public class RecipeEntityConfiguration : IEntityTypeConfiguration<Recipe>
     {
         public void Configure(EntityTypeBuilder<Recipe> builder)

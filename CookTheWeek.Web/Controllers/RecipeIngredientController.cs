@@ -19,15 +19,17 @@
             this.ingredientService = ingredientService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            RecipeIngredientFormViewModel model = new RecipeIngredientFormViewModel();
-            model.Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+        //[HttpGet]
+        //public async Task<IActionResult> Add()
+        //{
+        //    RecipeIngredientFormViewModel model = new RecipeIngredientFormViewModel()
+        //    {
+        //        Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
+        //        Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
+        //    };            
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
         
     }
 }

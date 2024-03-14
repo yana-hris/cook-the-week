@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Data.Models.RecipeEntities
+﻿namespace CookTheWeek.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -9,8 +9,8 @@
     {
         public Recipe()
         {
-            this.Id = Guid.NewGuid();
-            this.RecipesIngredients = new HashSet<RecipeIngredient>();
+            Id = Guid.NewGuid();
+            RecipesIngredients = new HashSet<RecipeIngredient>();
         }
 
         [Key]
@@ -48,7 +48,7 @@
         [Required]
         public bool IsDeleted { get; set; }
 
-        public ICollection<RecipeIngredient>? RecipesIngredients { get; set; }
+        public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
 
 
     }
