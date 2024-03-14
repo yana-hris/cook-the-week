@@ -301,8 +301,8 @@
                 new Ingredient()
                 {
                     Id = 48,
-                    Name = "Almond Flour",
-                    IngredientCategoryId = 4
+                    Name = "Pine Nuts",
+                    IngredientCategoryId = 13
                 },
                 new Ingredient()
                 {
@@ -1140,11 +1140,198 @@
                     Name = "Mustard",
                     IngredientCategoryId = 12
                 },
-                 new Ingredient()
+                new Ingredient()
                 {
                     Id = 189,
                     Name = "Savory", //Чубрица
                     IngredientCategoryId = 5
+                },
+                new Ingredient()
+                {
+                    Id = 221,
+                    Name = "Rice",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 222,
+                    Name = "Brown Rice",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 192,
+                    Name = "Black Rice",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 193,
+                    Name = "Barley",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 194,
+                    Name = "Bulgur",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 195,
+                    Name = "Quinoa",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 196,
+                    Name = "Amaranth",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 197,
+                    Name = "Oats",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 198,
+                    Name = "Oatmeal",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 199,
+                    Name = "Chia Seeds",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 200,
+                    Name = "Wheat",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 201,
+                    Name = "Corn",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 202,
+                    Name = "Spelt",
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 203,
+                    Name = "Buckwheat", // Елда
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 204,
+                    Name = "Millet", // Просо
+                    IngredientCategoryId = 7
+                },
+                new Ingredient()
+                {
+                    Id = 205,
+                    Name = "Farro", // зърната от 3 вида пшеница 
+                    IngredientCategoryId = 7
+                },
+                // Nuts here:
+                new Ingredient()
+                {
+                    Id = 206,
+                    Name = "Almonds", 
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 207,
+                    Name = "Brazil Nuts",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 208,
+                    Name = "Cashew Nuts",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 209,
+                    Name = "Hazel Nuts",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 210,
+                    Name = "Macadamias",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 211,
+                    Name = "Pecans",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 212,
+                    Name = "Pistachios",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 213,
+                    Name = "Walnuts",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 214,
+                    Name = "Peanuts",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 215,
+                    Name = "Pumpkin Seeds",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 216,
+                    Name = "Flax Seeds",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 217,
+                    Name = "Sesame Seeds",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                Id = 218,
+                Name = "Poppy Seeds",
+                IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 219,
+                    Name = "Sunflower Seeds",
+                    IngredientCategoryId = 13
+                },
+                new Ingredient()
+                {
+                    Id = 220,
+                    Name = "Psyllium Seeds",
+                    IngredientCategoryId = 13
                 },
             };
         }

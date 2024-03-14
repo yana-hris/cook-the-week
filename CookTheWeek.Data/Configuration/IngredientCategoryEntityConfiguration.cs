@@ -54,7 +54,7 @@
                 new IngredientCategory()
                 {
                     Id = 7,
-                    Name = "Pasta"
+                    Name = "Pasta and Grains"
                 },
                 new IngredientCategory()
                 {
@@ -81,6 +81,12 @@
                     Id = 12,
                     Name = "Others"
                 },
+                 new IngredientCategory()
+                {
+                    Id = 13,
+                    Name = "Nuts and seeds"
+                },
+
             };
         }
     }
