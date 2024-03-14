@@ -26,7 +26,7 @@
         public int Servings { get; set; }
 
         [Required]
-        [Display(Name = "Time(min)")]
+        [Display(Name = "Minutes")]
         [Range(CookingTimeMinValue, CookingTimeMaxValue)]
         public int CookingTimeMinutes { get; set; }
 
@@ -39,7 +39,7 @@
         [Required]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
-        public RecipeIngredientFormViewModel Ingredient { get; set; }
+        public RecipeIngredientFormViewModel? Ingredient { get; set; }
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; }
         public IDictionary<int, int>? ServingsOptions { get; set; }
         public ICollection<RecipeIngredientFormViewModel>? RecipeIngredients { get; set; }

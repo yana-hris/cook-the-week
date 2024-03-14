@@ -44,15 +44,17 @@
 
         [HttpGet]
         public async Task<IActionResult> Add()
-        {            
-            RecipeFormViewModel model = new RecipeFormViewModel();
-            model.Ingredient = new RecipeIngredientFormViewModel()
+        {
+            RecipeFormViewModel model = new RecipeFormViewModel()
             {
-                Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
-                Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
-            };
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = this.recipeService.GenerateServingOptions();
+                Ingredient = new RecipeIngredientFormViewModel()
+                {
+                    Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
+                    Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
+                },
+                Categories = await this.categoryService.AllRecipeCategoriesAsync(),
+                ServingsOptions = this.recipeService.GenerateServingOptions()
+            };            
 
             return View(model);
         }

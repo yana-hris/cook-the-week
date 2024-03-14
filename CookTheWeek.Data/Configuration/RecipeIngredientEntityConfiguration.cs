@@ -9,12 +9,23 @@ namespace CookTheWeek.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<RecipeIngredient> builder)
         {
-            builder
-                .Property(ri => ri.Qty)
-                .HasPrecision(18, 2);
 
             builder
                 .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
+
+            builder
+                .HasOne(ri => ri.Recipe)
+                .WithMany(r => r.RecipesIngredients)
+                .HasForeignKey(ri => ri.RecipeId);
+
+            builder
+                .HasOne(ri => ri.Ingredient)
+                .WithMany(i => i.RecipesIngredients)
+                .HasForeignKey(ri => ri.IngredientId);
+            
+            builder
+                .Property(ri => ri.Qty)
+                .HasPrecision(18, 2);
 
             builder
                 .HasData(GenerateRecipeIngredients());
