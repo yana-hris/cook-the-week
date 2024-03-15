@@ -39,10 +39,9 @@
         [Required]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
-        public RecipeIngredientFormViewModel? Ingredient { get; set; }
-        public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; }
+        public IEnumerable<RecipeCategorySelectViewModel>? Categories { get; set; }
         public IDictionary<int, int>? ServingsOptions { get; set; }
-        public ICollection<RecipeIngredientFormViewModel>? Ingredients { get; set; }
+        public IEnumerable<RecipeIngredientFormViewModel>? RecipeIngredients { get; set; }
 
 
     }

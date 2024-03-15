@@ -61,7 +61,7 @@
                 }
                 catch (Exception)
                 {
-                    TempData[ErrorMessage] = $"Something with the database went wrong and ingredient was not added to the database!";
+                    TempData[ErrorMessage] = $"Ingredient unsucessfully added! Please try again later or contact administrator!";
                 }
             }
 

@@ -1,8 +1,13 @@
-﻿@model RecipeIngredientFormViewModel
+﻿@* @model RecipeFormViewModel
 @using static CookTheWeek.Common.NotificationMessagesConstants
 
 
-<div id="ingredientContainer" class="row g-3 form-group">
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    
+} *@
+@* <div id="ingredientContainer" class="row g-3 form-group">
     <div class="col-md-4">
         <label asp-for="Name" class="form-label">Ingredient</label>
         <input asp-for="Name" class="form-control me-2" id="addIngredient" style="min-width: 8rem" autocomplete="off" />
@@ -45,6 +50,7 @@
     </div>
 </div>
 @* RENDER ADDED INGREDIENTS IN TABLE *@
+@* 
 <div class="row py-3">
     <table class="table table-sm table-hover">
         <thead>
@@ -59,9 +65,5 @@
         <tbody id="ingredientsList">
         </tbody>
     </table>
-</div>
+</div> *@
 
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}

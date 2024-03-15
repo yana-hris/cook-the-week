@@ -9,7 +9,8 @@
       },
       {
         "Name": "CookTheWeek.WebApi\\CookTheWeek.WebApi.csproj",
-        "Action": "StartWithoutDebugging"
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": ""
       }
     ]
   }

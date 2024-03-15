@@ -122,5 +122,39 @@
 
             return allRecipes;
         }
+
+        public async Task AddRecipeAsync(RecipeFormViewModel model)
+        {
+            Recipe recipe = new Recipe()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Instructions = model.Instructions,
+                Servings = model.Servings,
+                TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes),
+                ImageUrl = model.ImageUrl,
+                RecipeCategoryId = model.RecipeCategoryId                
+            };
+
+            foreach (var item in model.RecipeIngredients!)
+            {
+                int ingredientId = await this.dbContext.Ingredients
+                    .Where(i => i.Name.ToLower() == item.Name.ToLower())
+                    .Select(i => i.Id)
+                    .FirstOrDefaultAsync();
+                if(ingredientId != 0)
+                {
+                    recipe.RecipesIngredients.Add(new RecipeIngredient()
+                    {
+                        IngredientId = item.IngredientId, 
+                        Qty = item.Qty,
+                        MeasureId = item.MeasureId,
+                        SpecificationId = item.SpecificationId
+                    });
+                }
+            }
+            await this.dbContext.Recipes.AddAsync(recipe);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

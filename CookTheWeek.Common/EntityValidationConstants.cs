@@ -19,7 +19,9 @@
             public const int ServingsMaxValue = 12;
 
             public const int CookingTimeMinValue = 10;
-            public const int CookingTimeMaxValue = 4320;            
+            public const int CookingTimeMaxValue = 4320;
+            
+            
         }
 
        
