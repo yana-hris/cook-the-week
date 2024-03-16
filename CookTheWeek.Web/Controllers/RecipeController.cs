@@ -8,7 +8,6 @@
     using Services.Data.Models.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using CookTheWeek.Data.Models;
 
     using static Common.NotificationMessagesConstants;
     using static System.Runtime.InteropServices.JavaScript.JSType;
