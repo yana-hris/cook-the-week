@@ -7,10 +7,11 @@
     using Web.ViewModels.Recipe;
 
     public interface IRecipeService
-    {        
+    {
         Task<ICollection<RecipeAllViewModel>> AllUnsortedUnfilteredAsync();
-
         Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
         Task AddRecipeAsync(RecipeFormViewModel model);
+        Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id);
+        Task<bool> ExistsByIdAsync(string id);
     }
 }

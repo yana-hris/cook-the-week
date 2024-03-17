@@ -1,0 +1,36 @@
+﻿@model RecipeDetailsViewModel
+@{
+    ViewData["Title"] = "Recipe Details";
+}
+
+<div class="container">
+    <h1>@Model.Title</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Title">
+        </div>
+        <div class="col-md-6">
+            @if(Model.Description != null)
+            {
+                <p><strong>Description:</strong> @Model.Description</p>
+            }            
+            <p><strong>Servings:</strong> @Model.Servings</p>
+            <p><strong>Total Time:</strong> @Model.TotalTime</p>
+            <p><strong>Category:</strong> @Model.CategoryName</p>
+            <p><strong>Created On:</strong> @Model.CreatedOn</p>
+            <p><strong>Ingredients:</strong></p>
+            <ul>
+                @foreach (var recipeIngredient in Model.MainIngredients)
+                {
+                    <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Instructions:</h3>
+            <p>@Html.Raw(Model.Instructions)</p>
+        </div>
+    </div>
+</div>

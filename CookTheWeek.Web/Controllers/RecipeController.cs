@@ -123,5 +123,32 @@
             }            
             return false;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            bool exists = await this.recipeService.ExistsByIdAsync(id);
+
+            if(!exists)
+            {
+                return NotFound();
+                // TODO: Implement different logic for such requests
+            }
+
+            try
+            {
+                RecipeDetailsViewModel? model = await this.recipeService.DetailsByIdAsync(id);
+                if(model != null)
+                {
+                    return View(model);
+                }                
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = "Recipe not found!";
+            }
+
+            return NotFound();
+        }
     }
 }

@@ -269,6 +269,7 @@
         $(document).ready(function () {
             var ingredientIndex = @nextIndex;
 
+            // TODO: Fix client-side validation for dynamically added input fields (input and select)
             $('#add-ingredient').click(function () {
                 var newIngredientHtml = `<div class="ingredient-row row g-3 form-group">
                         <div class="col-md-4">
@@ -326,9 +327,13 @@
             function reindexIngredients() {
                 $('.ingredient-row').each(function (index) {
                     $(this).find('input, select, span').each(function () {
+                        debugger;
                         var name = $(this).attr('name, asp-for');
-                        var newName = name.replace(/\[\d+\]/, `[${index}]`);
-                        $(this).attr('name', newName);
+                        var identificator = $(this).attr('id, for');
+                        var newName = name.replace(/\[\d+\]/, `[${index}]`); //for="RecipeIngredients_${ingredientIndex}__Name" && id="RecipeIngredients_${ingredientIndex}__Name"
+                        var newIdentificator = identificator.replace(/_\d+__/, `_${index}__`);
+                        $(this).attr('name, asp-for', newName);  
+                        $(this).attr('id, for', newIdentificator);
                     });
                 });
             }

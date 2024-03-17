@@ -12,6 +12,9 @@
     using Data.Models.Recipe;
     using CookTheWeek.Data.Models;
 
+    using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
+
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
@@ -137,6 +140,69 @@
             }
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
+        }
+        public async Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id)
+        {
+            RecipeDetailsViewModel? model = await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id)
+                .Select(r => new RecipeDetailsViewModel()
+                {
+                    Id = r.Id.ToString(),
+                    Title = r.Title,
+                    Description = r.Description,
+                    Instructions = r.Instructions,
+                    Servings = r.Servings,
+                    TotalTime = r.TotalTime.ToString(@"hh\:mm"),
+                    ImageUrl = r.ImageUrl,
+                    CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
+                    CategoryName = r.RecipeCategory.Name,
+                    MainIngredients = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList() ,
+                    SecondaryIngredients = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+                    AdditionalIngredients = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+
+                })
+                .FirstOrDefaultAsync();
+
+            return model;
+        }
+
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id)
+                .AnyAsync();
         }
     }
 }

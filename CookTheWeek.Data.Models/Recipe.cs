@@ -10,7 +10,7 @@
         public Recipe()
         {
             Id = Guid.NewGuid();
-            RecipesIngredients = new HashSet<RecipeIngredient>();
+            RecipesIngredients = new List<RecipeIngredient>();
         }
 
         [Key]
