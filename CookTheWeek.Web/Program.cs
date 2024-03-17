@@ -39,6 +39,7 @@ namespace CookTheWeek.Web
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
+               
 
             WebApplication app = builder.Build();
             

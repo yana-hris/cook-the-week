@@ -1,6 +1,8 @@
 ﻿@model RecipeFormViewModel
 @{
     ViewData["Title"] = "Add Recipe";
+    int nextIndex = Model.RecipeIngredients.Count;
+
 }
 <div class="container" style="max-width:700px;">
     <h2 class="text-center pt-5 fw-semibold">Add Recipe</h2>
@@ -30,10 +32,11 @@
                     </div>
                     <div class="form-group col-2">
                         <label asp-for="Servings" class="form-label">Servs</label>
-                        <select asp-for="Servings" class="form-control">                        
-                             @foreach (var option in @Model.ServingsOptions)
+                        <select class="form-control" asp-for="Servings">
+                            <option value="">Choose</option>
+                            @foreach (var option in @Model.ServingsOptions)
                             {
-                                 <option value="@option.Key">@option.Value</option>
+                                 <option value="@option">@option</option>
                             } 
                         </select>
                         <span asp-validation-for="Servings" class="small text-danger"></span>
@@ -43,7 +46,7 @@
                 <div class="row mb-3">
                     <div class="form-group col-10">
                         <label asp-for="Description" class="form-label">Description</label>
-                            <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
+                        <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
                         <span asp-validation-for="Description" class="small text-danger"></span>
                     </div>
                     <div class="form-group col-2">
@@ -63,6 +66,7 @@
                     <div class="form-group col-4">
                         <label asp-for="RecipeCategoryId" class="form-label">Meal</label>
                         <select asp-for="RecipeCategoryId" class="form-control">
+                            <option value="">Choose</option>
                             @foreach (var category in @Model.Categories!)
                             {
                                 <option value="@category.Id">@category.Name</option>
@@ -91,34 +95,53 @@
             <div class="tab-pane fade py-5" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                 <!-- Add ingredients here -->
                 <h5 class="mb-2">Add Ingredients</h5>
-                <div id="ingredients" class="row">
-                    <label>Ingredients</label>
+                <div id="ingredientsContainer" class="row">
                     <div id="ingredientList">
-                        <div class="ingredient-row">
-                            <input class="ingredientName" type="text" name="RecipeIngredients[0].Name" />
-                            <div class="suggestionsList">
+                        @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
+                        {
+                            <div class="ingredient-row row g-3 form-group">
+                                <div class="col-md-4">
+                                    <label asp-for="RecipeIngredients[i].Name" class="form-label">Ingredient</label>
+                                    <input class="ingredientName form-control me-2" type="text" asp-for="RecipeIngredients[i].Name" style="min-width: 8rem" autocomplete="off" />
+                                    <div class="suggestionsList position-absolute invisible">
 
-                            </div>
-                            <input type="number" name="RecipeIngredients[0].Qty" />
-                            <select name="RecipeIngredients[0].MeasureId">
-                                <option value="">Select Measure</option>
-                            @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
-                            {
-                                <option value="@measure.Id">@measure.Name</option>
-                            }
-                            </select>
-                            @if (Model.RecipeIngredients.First().Specifications != null)
-                            {
-                                <select name="RecipeIngredients[0].SpecificationId">
-                                    <option value="">Select Specification</option>
-                                @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
+                                    </div>
+                                    <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="RecipeIngredients[i].Qty" class="form-label">Qty</label>
+                                    <input class="form-control" type="number" asp-for="RecipeIngredients[i].Qty" />
+                                    <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="RecipeIngredients[i].MeasureId" class="form-label">Measure</label>
+                                    <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
+                                        <option value="">Unit</option>
+                                    @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
+                                    {
+                                        <option value="@measure.Id">@measure.Name</option>
+                                    }
+                                    </select>
+                                    <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
+                                </div>
+                                <div class="col-2">
+                                    <label asp-for="RecipeIngredients[i].SpecificationId" class="form-label"><small>*Optional</small></label>
+                                @if (Model.RecipeIngredients.First().Specifications != null)
                                 {
-                                    <option value="@specification.Id">@specification.Description</option>
+                                    <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
+                                        <option value="">Type</option>
+                                    @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
+                                    {
+                                        <option value="@specification.Id">@specification.Description</option>
+                                    }
+                                    </select>
                                 }
-                                </select>
-                            }
-                            <button type="button" class="remove-ingredient">Remove</button>
-                        </div>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="remove-ingredient">Remove</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <button type="button" id="add-ingredient">Add Ingredient</button>
                 </div>
@@ -160,7 +183,7 @@
         function renderSuggestionResults(results, search, container, inputForm) {
             // delete unordered list from previous search result
             $(container).empty();
-
+            
             // get properties from input field
             let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
             let form_width = inputForm.offsetWidth;
@@ -198,6 +221,7 @@
 
                         // after a result is chose, make the div with results invisible -> or after changing input content again,
                         // all of childs of current div will be deleted [line 48,49]
+                        $(container).empty(); // NOT SURE!
                         container.classList.add('invisible');
 
                     });
@@ -243,31 +267,55 @@
     </script>
     <script>
         $(document).ready(function () {
-            var ingredientIndex = 1;
+            var ingredientIndex = @nextIndex;
 
             $('#add-ingredient').click(function () {
-                var newIngredientHtml = `<div class="ingredient-row"><input class="ingredientName" type="text" name="RecipeIngredients[${ingredientIndex}].Name" />` +
-                `<div class="suggestionsList"></div>` + 
-                `<input type="number" name="RecipeIngredients[${ingredientIndex}].Qty" />` + 
-                `<select name="RecipeIngredients[${ingredientIndex}].MeasureId">` + 
-                `<option value="">Select Measure</option>`;
-
+                var newIngredientHtml = `<div class="ingredient-row row g-3 form-group">
+                        <div class="col-md-4">
+                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__Name">Ingredient</label>
+                            <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control me-2" type="text" name="RecipeIngredients[${ingredientIndex}].Name" style="min-width: 8rem" autocomplete="off" required />
+                            <div class="suggestionsList position-absolute invisible"></div>
+                            <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="col-2">
+                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__Qty">Qty</label>
+                            <input id="RecipeIngredients_${ingredientIndex}__Qty" class="form-control" type="number" name="RecipeIngredients[${ingredientIndex}].Qty" required min="0.001" max="10000" />
+                            <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="col-2">
+                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__MeasureId">Measure</label>
+                            <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required>
+                                <option value="">Unit</option>`;
                 @foreach (var measure in @Model.RecipeIngredients.First().Measures)
                 {
-                    <text> newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
+                    <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
                 }
-                newIngredientHtml += `</select><select name="RecipeIngredients[${ingredientIndex}].SpecificationId"><option value="">Select Specification</option>`;
-
+                newIngredientHtml += 
+                            `</select>
+                             <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
+                             </span>
+                        </div>
+                        <div class="col-2">
+                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__SpecificationId"><small>*Optional</small></label>
+                            <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
+                                <option value="">Type</option>`;
                 @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
                 {
                     <text> newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
                 }
-                newIngredientHtml += `</select>`;
-               
-                newIngredientHtml += `<button type="button" class="remove-ingredient">Remove</button></div>`;
+                newIngredientHtml += 
+                            `</select>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="remove-ingredient">Remove</button>
+                        </div>
+                    </div>`;
+
                 $('#ingredientList').append(newIngredientHtml);
                 ingredientIndex++;
+                
                 $('.ingredientName').on('keyup', suggestWords);
+                reparseForm();
             });
 
             $(document).on('click', '.remove-ingredient', function () {
@@ -277,13 +325,19 @@
 
             function reindexIngredients() {
                 $('.ingredient-row').each(function (index) {
-                    $(this).find('input, select').each(function () {
-                        var name = $(this).attr('name');
+                    $(this).find('input, select, span').each(function () {
+                        var name = $(this).attr('name, asp-for');
                         var newName = name.replace(/\[\d+\]/, `[${index}]`);
                         $(this).attr('name', newName);
                     });
                 });
             }
-        });
+            function reparseForm() {
+                $('form').each(function () {
+                    $.validator.unobtrusive.parse($(this));
+                });
+            }
+        });       
+
     </script>    
 }

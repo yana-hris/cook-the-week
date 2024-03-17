@@ -19,9 +19,17 @@
             public const int ServingsMaxValue = 12;
 
             public const int CookingTimeMinValue = 10;
-            public const int CookingTimeMaxValue = 4320;
-            
-            
+            public const int CookingTimeMaxValue = 720;
+
+            public static int[] ServingsOptions =
+            [
+                2,
+                4,
+                6,
+                8,
+                10,
+                12
+            ];
         }
 
        
@@ -29,6 +37,12 @@
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
+        }
+
+        public static class RecipeIngredient
+        {
+            public const double QtyMinValue = 0.001;
+            public const double QtyMaxValue = 10000.00;
         }
 
         public static class Measure

@@ -7,8 +7,7 @@
     using Web.ViewModels.Recipe;
 
     public interface IRecipeService
-    {
-        IDictionary<int, int> GenerateServingOptions();
+    {        
         Task<ICollection<RecipeAllViewModel>> AllUnsortedUnfilteredAsync();
 
         Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
