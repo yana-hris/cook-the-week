@@ -5,15 +5,17 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
+    using CookTheWeek.Data.Models;
+    using Data.Models.Recipe;
+    using Interfaces;
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
-    using Interfaces;
-    using Data.Models.Recipe;
-    using CookTheWeek.Data.Models;
 
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+    using CookTheWeek.Data.Migrations;
 
     public class RecipeService : IRecipeService
     {
@@ -122,10 +124,10 @@
                 RecipeCategoryId = model.RecipeCategoryId                
             };
 
-            foreach (var item in model.RecipeIngredients!)
+            foreach (var ingredient in model.RecipeIngredients!)
             {
                 int ingredientId = await this.dbContext.Ingredients
-                    .Where(i => i.Name.ToLower() == item.Name.ToLower())
+                    .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
                     .Select(i => i.Id)
                     .FirstOrDefaultAsync();
                 if(ingredientId != 0)
@@ -133,9 +135,9 @@
                     recipe.RecipesIngredients.Add(new RecipeIngredient()
                     {
                         IngredientId = ingredientId, 
-                        Qty = item.Qty,
-                        MeasureId = item.MeasureId,
-                        SpecificationId = item.SpecificationId
+                        Qty = ingredient.Qty,
+                        MeasureId = ingredient.MeasureId,
+                        SpecificationId = ingredient.SpecificationId
                     });
                 }
             }
@@ -145,14 +147,40 @@
 
         public async Task EditRecipeAsync(string id, RecipeFormViewModel model)
         {
-            Recipe recipe = await this.dbContext.Recipes
+            Recipe recipe = await this.dbContext
+                .Recipes
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .FirstOrDefaultAsync();
 
             recipe.Title = model.Title;
             recipe.Description = model.Description;
             recipe.Servings = model.Servings;
+            recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
+            recipe.ImageUrl = model.ImageUrl;
+            recipe.RecipeCategoryId = model.RecipeCategoryId;
 
+            ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
+            this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
+
+            foreach (var ingredient in model.RecipeIngredients!)
+            {
+                int ingredientId = await this.dbContext.Ingredients
+                    .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
+                    .Select(i => i.Id)
+                    .FirstOrDefaultAsync();
+                if (ingredientId != 0)
+                {
+                    recipe.RecipesIngredients.Add(new RecipeIngredient()
+                    {
+                        IngredientId = ingredientId,
+                        Qty = ingredient.Qty,
+                        MeasureId = ingredient.MeasureId,
+                        SpecificationId = ingredient.SpecificationId
+                    });
+                }
+            }
+
+            await this.dbContext.SaveChangesAsync();
 
         }
         public async Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id)
