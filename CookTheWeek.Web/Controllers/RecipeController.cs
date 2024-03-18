@@ -99,7 +99,7 @@
 
             try
             {
-                await this.recipeService.AddRecipeAsync(model);
+                await this.recipeService.AddAsync(model);
                 TempData[SuccessMessage] = "Your recipe was successfully added!";
                 return RedirectToAction("All");
             }

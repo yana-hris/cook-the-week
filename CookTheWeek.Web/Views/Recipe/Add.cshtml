@@ -328,12 +328,20 @@
                 $('.ingredient-row').each(function (index) {
                     $(this).find('input, select, span').each(function () {
                         debugger;
-                        var name = $(this).attr('name, asp-for');
-                        var identificator = $(this).attr('id, for');
+                        var name = $(this).attr('name');
+                        var id = $(this).attr('id');
+                       
                         var newName = name.replace(/\[\d+\]/, `[${index}]`); //for="RecipeIngredients_${ingredientIndex}__Name" && id="RecipeIngredients_${ingredientIndex}__Name"
-                        var newIdentificator = identificator.replace(/_\d+__/, `_${index}__`);
+                        
+                        var newId = id.replace(/_\d+__/, `_${index}__`);
                         $(this).attr('name, asp-for', newName);  
-                        $(this).attr('id, for', newIdentificator);
+                        $(this).attr('id, for', newId);
+                    });
+                    $(this).find('label, input').each(function () {
+                        var aspFor = $(this).attr('asp-for, for');
+                        //for="RecipeIngredients_${ingredientIndex}__Name" && id="RecipeIngredients_${ingredientIndex}__Name"
+                        var newAspFor = aspFor.replace(/_\d+__/, `_${index}__`);
+                        $(this).attr('name, asp-for', newName);
                     });
                 });
             }

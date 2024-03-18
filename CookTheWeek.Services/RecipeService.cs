@@ -91,6 +91,7 @@
             ICollection<RecipeAllViewModel> allRecipes = await this.dbContext
                 .Recipes
                 .AsNoTracking()
+                .Where(r => r.IsDeleted == false)
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -108,7 +109,7 @@
             return allRecipes;
         }
 
-        public async Task AddRecipeAsync(RecipeFormViewModel model)
+        public async Task AddAsync(RecipeFormViewModel model)
         {
             Recipe recipe = new Recipe()
             {
@@ -141,11 +142,24 @@
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task EditRecipeAsync(string id, RecipeFormViewModel model)
+        {
+            Recipe recipe = await this.dbContext.Recipes
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .FirstOrDefaultAsync();
+
+            recipe.Title = model.Title;
+            recipe.Description = model.Description;
+            recipe.Servings = model.Servings;
+
+
+        }
         public async Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id)
         {
             RecipeDetailsViewModel? model = await this.dbContext
                 .Recipes
-                .Where(r => r.Id.ToString() == id)
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .Select(r => new RecipeDetailsViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -201,7 +215,7 @@
         {
             return await this.dbContext
                 .Recipes
-                .Where(r => r.Id.ToString() == id)
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .AnyAsync();
         }
     }
