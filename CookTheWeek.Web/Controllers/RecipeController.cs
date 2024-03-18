@@ -11,7 +11,6 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using CookTheWeek.Data.Models;
 
     [Authorize]
     public class RecipeController : Controller
@@ -72,6 +71,12 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeFormViewModel model)
         {
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+
+            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
             foreach (var ingredient in model.RecipeIngredients)
             {
                 if (!await IsIngredientValid(ingredient.Name))
@@ -82,13 +87,6 @@
 
             if (!ModelState.IsValid)
             {
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-                
-                model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-                       
-
                 ICollection<string> modelErrors =  ModelState.Values.SelectMany(v => v.Errors)
                                    .Select(e => e.ErrorMessage)
                                    .ToList();
@@ -105,23 +103,69 @@
             }
             catch (Exception ex)
             {
-                TempData[ErrorMessage] = $"Something went wrong and the ingredient was not added! {ex.Message}";
-
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-                model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
+                TempData[ErrorMessage] = $"Something went wrong and the ingredient was not added! {ex.Message}";                
                 return View(model);
             }
-        }        
-        private async Task<bool> IsIngredientValid(string ingredientName)
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            if(!string.IsNullOrEmpty(ingredientName))
+            bool exists = await this.recipeService.ExistsByIdAsync(id);
+
+            if (!exists)
             {
-                return await this.ingredientService.ExistsByNameAsync(ingredientName);
-            }            
-            return false;
+                // TODO: check application logic
+                return BadRequest();
+            }
+
+            RecipeEditViewModel model = await this.recipeService.GetByIdAsync(id);
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RecipeEditViewModel model)
+        {
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+
+            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+            foreach (var ingredient in model.RecipeIngredients)
+            {
+                if (!await IsIngredientValid(ingredient.Name))
+                {
+                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+                var formattedErrors = string.Join(Environment.NewLine, modelErrors);
+                TempData[ErrorMessage] = formattedErrors;
+                return View(model);
+            }
+
+            try
+            {
+                await this.recipeService.EditAsync(model);
+                TempData[SuccessMessage] = "Your recipe was successfully edited!";
+                return RedirectToAction("Details", new { id = model.Id });
+            }
+            catch (Exception ex)
+            {
+                TempData[ErrorMessage] = $"Something went wrong and the ingredient was not edited! {ex.Message}";
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -131,8 +175,8 @@
 
             if(!exists)
             {
+                // TODO: check application logic
                 return NotFound();
-                // TODO: Implement different logic for such requests
             }
 
             try
@@ -150,5 +194,15 @@
 
             return NotFound();
         }
+
+        private async Task<bool> IsIngredientValid(string ingredientName)
+        {
+            if (!string.IsNullOrEmpty(ingredientName))
+            {
+                return await this.ingredientService.ExistsByNameAsync(ingredientName);
+            }
+            return false;
+        }
+
     }
 }

@@ -145,11 +145,11 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task EditRecipeAsync(string id, RecipeFormViewModel model)
+        public async Task EditAsync(RecipeEditViewModel model)
         {
             Recipe recipe = await this.dbContext
                 .Recipes
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == model.Id)
                 .FirstOrDefaultAsync();
 
             recipe.Title = model.Title;
@@ -187,6 +187,7 @@
         {
             RecipeDetailsViewModel? model = await this.dbContext
                 .Recipes
+                .AsNoTracking()
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .Select(r => new RecipeDetailsViewModel()
                 {
@@ -238,13 +239,41 @@
 
             return model;
         }
-
         public async Task<bool> ExistsByIdAsync(string id)
         {
             return await this.dbContext
                 .Recipes
+                .AsNoTracking()
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .AnyAsync();
+        }
+
+        public async Task<RecipeEditViewModel>? GetByIdAsync(string id)
+        {
+            RecipeEditViewModel? recipe = await this.dbContext
+                .Recipes
+                .AsNoTracking()
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Select(r => new RecipeEditViewModel()
+                {
+                    Id = r.Id.ToString(),
+                    Title = r.Title,
+                    Description = r.Description,
+                    Instructions = r.Instructions,
+                    Servings = r.Servings,
+                    CookingTimeMinutes = (int)r.TotalTime.TotalMinutes,
+                    ImageUrl = r.ImageUrl,
+                    RecipeCategoryId = r.RecipeCategoryId,
+                    RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormViewModel()
+                    {
+                        Name = ri.Ingredient.Name,
+                        Qty = ri.Qty,
+                        MeasureId = ri.MeasureId,
+                        SpecificationId = ri.SpecificationId
+                    }).ToList()
+                }).FirstOrDefaultAsync();
+
+            return recipe;
         }
     }
 }

@@ -325,24 +325,51 @@
             });
 
             function reindexIngredients() {
-                $('.ingredient-row').each(function (index) {
-                    $(this).find('input, select, span').each(function () {
-                        debugger;
-                        var name = $(this).attr('name');
-                        var id = $(this).attr('id');
-                       
-                        var newName = name.replace(/\[\d+\]/, `[${index}]`); //for="RecipeIngredients_${ingredientIndex}__Name" && id="RecipeIngredients_${ingredientIndex}__Name"
-                        
-                        var newId = id.replace(/_\d+__/, `_${index}__`);
-                        $(this).attr('name, asp-for', newName);  
-                        $(this).attr('id, for', newId);
-                    });
-                    $(this).find('label, input').each(function () {
-                        var aspFor = $(this).attr('asp-for, for');
-                        //for="RecipeIngredients_${ingredientIndex}__Name" && id="RecipeIngredients_${ingredientIndex}__Name"
-                        var newAspFor = aspFor.replace(/_\d+__/, `_${index}__`);
-                        $(this).attr('name, asp-for', newName);
-                    });
+                $('.ingredient-row').each(function () {
+                    $(this).find('.ingredientName').attr('name', `RecipeIngredients[${ingredientIndex}].Name`);
+                    $(this).find('.ingredientName').attr('id', `RecipeIngredients_${ingredientIndex}__Name`);
+                    $(this).find('.ingredientName').siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__Name`);
+
+                    $(this).find('input[type="number"]').attr('name', `RecipeIngredients[${ingredientIndex}].Qty`);
+                    $(this).find('input[type="number"]').attr('id', `RecipeIngredients_${ingredientIndex}__Qty`);
+                    $(this).find('input[type="number"]').siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__Qty`);
+
+                    $(this).find('select').eq(0).attr('name', `RecipeIngredients[${ingredientIndex}].MeasureId`);
+                    $(this).find('select').eq(0).attr('id', `RecipeIngredients_${ingredientIndex}__MeasureId`);
+                    $(this).find('select').eq(0).siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__MeasureId`);
+
+                    $(this).find('select').eq(1).attr('name', `RecipeIngredients[${ingredientIndex}].SpecificationId`);
+                    $(this).find('select').eq(1).attr('id', `RecipeIngredients_${ingredientIndex}__SpecificationId`);
+                    $(this).find('select').eq(1).siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__SpecificationId`);
+
+                    $(this).find('.remove-ingredient').attr('data-index', ingredientIndex);
+
+                    $('.ingredient-row').each(function () {
+                            $(this).find('input, select').each(function () {
+                                // Update 'name' attribute
+                            var newName = $(this).attr('name').replace(/\[(\d+)\]/, '[' + ingredientIndex + ']');
+                                $(this).attr('name', newName);
+
+                                // Update 'id' attribute
+                            var newId = $(this).attr('id').replace(/_(\d+)__/, '_' + ingredientIndex + '__');
+                                $(this).attr('id', newId);
+
+                                // Update 'for' attribute for associated labels
+                                $(this).siblings('label').each(function () {
+                                var forAttr = $(this).attr('for').replace(/_(\d+)__/, '_' + ingredientIndex + '__');
+                                    $(this).attr('for', forAttr);
+                                });
+
+                                // Update 'data-valmsg-for' attribute for validation messages
+                                $(this).siblings('[data-valmsg-for]').each(function () {
+                                var dataValMsgFor = $(this).attr('data-valmsg-for').replace(/\[(\d+)\]/, '[' + ingredientIndex + ']');
+                                    $(this).attr('data-valmsg-for', dataValMsgFor);
+                                });
+                            });
+
+                            // Update 'data-index' attribute for remove buttons
+                        $(this).find('.remove-ingredient').attr('data-index', ingredientIndex);
+                        });
                 });
             }
             function reparseForm() {

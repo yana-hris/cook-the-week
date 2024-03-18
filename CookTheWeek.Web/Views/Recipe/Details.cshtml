@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Title">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             @if(Model.Description != null)
             {
                 <p><strong>Description:</strong> @Model.Description</p>
@@ -18,7 +18,34 @@
             <p><strong>Total Time:</strong> @Model.TotalTime</p>
             <p><strong>Category:</strong> @Model.CategoryName</p>
             <p><strong>Created On:</strong> @Model.CreatedOn</p>
-            <p><strong>Ingredients:</strong></p>
+            <p><strong>Ingredients:</strong></p>   
+        </div>
+        <div class="col-md-3">
+            <div class="row">                
+                <div class="col-md-6">
+                    <p>Vegetables and legumes:</p>
+                    <ul>
+                        @foreach (var recipeIngredient in Model.SecondaryIngredients)
+                        {
+                            <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <p>Oils, spices and herbs:</p>
+                    <ul>
+                        @foreach (var recipeIngredient in Model.AdditionalIngredients)
+                        {
+                            <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>Main Ingredients:</p>
             <ul>
                 @foreach (var recipeIngredient in Model.MainIngredients)
                 {
@@ -33,4 +60,5 @@
             <p>@Html.Raw(Model.Instructions)</p>
         </div>
     </div>
+    <a href="/Recipe/Edit/@Model.Id" class="btn btn-outline-danger mt-3">Edit</a>
 </div>

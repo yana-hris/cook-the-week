@@ -13,5 +13,7 @@
         Task AddAsync(RecipeFormViewModel model);
         Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
+        Task<RecipeEditViewModel>? GetByIdAsync(string id);
+        Task EditAsync(RecipeEditViewModel model);
     }
 }
