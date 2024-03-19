@@ -14,7 +14,7 @@
             builder
                 .Property(r => r.IsDeleted)
                 .HasDefaultValue(false);
-
+            
             builder
                 .HasData(GenerateRecipes());
         }

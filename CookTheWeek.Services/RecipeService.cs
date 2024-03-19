@@ -14,8 +14,7 @@
 
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using static CookTheWeek.Common.EntityValidationConstants.Recipe;
-    using CookTheWeek.Data.Migrations;
+    using static Common.EntityValidationConstants.Recipe;
 
     public class RecipeService : IRecipeService
     {
@@ -274,6 +273,39 @@
                 }).FirstOrDefaultAsync();
 
             return recipe;
+        }
+
+        public async Task<RecipeDeleteViewModel>? GetByIdForDelete(string id)
+        {
+            RecipeDeleteViewModel? model = await this.dbContext
+                .Recipes
+                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Select(r => new RecipeDeleteViewModel()
+                {
+                    Id = r.Id.ToString(),
+                    Title = r.Title,
+                    ImageUrl = r.ImageUrl,
+                    Servings = r.Servings,
+                    TotalTime = (int)r.TotalTime.TotalMinutes,
+                    CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
+                    CategoryName = r.RecipeCategory.Name
+                }).FirstOrDefaultAsync();
+
+            return model;
+        }
+
+        public async Task DeleteById(string id)
+        {
+            Recipe? recipeToDelete = await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id && r.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if(recipeToDelete != null)
+            {
+                recipeToDelete.IsDeleted = true;
+                await this.dbContext.SaveChangesAsync();
+            }
         }
     }
 }

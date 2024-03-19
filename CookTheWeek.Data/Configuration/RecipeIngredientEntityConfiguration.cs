@@ -13,15 +13,19 @@ namespace CookTheWeek.Data.Configuration
             builder
                 .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
 
+           // Recipe is set to soft delete, so recipeIngredients will not be actually deleted
             builder
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipesIngredients)
-                .HasForeignKey(ri => ri.RecipeId);
+                .HasForeignKey(ri => ri.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // If an ingredient is deleted, all recipe ingredients will be deleted too!
             builder
                 .HasOne(ri => ri.Ingredient)
                 .WithMany(i => i.RecipesIngredients)
-                .HasForeignKey(ri => ri.IngredientId);
+                .HasForeignKey(ri => ri.IngredientId)
+                .OnDelete(DeleteBehavior.Cascade);
             
             builder
                 .Property(ri => ri.Qty)

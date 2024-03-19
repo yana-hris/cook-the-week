@@ -204,5 +204,33 @@
             return false;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool exists = await this.recipeService.ExistsByIdAsync(id);
+
+            //string currentUserId = GetUserId();
+            //bool isOwner = await this.recipeService.IsOwnerById(currentUserId, id);
+
+            if (exists) //TODO: add (&& isOwner)
+            {
+                RecipeDeleteViewModel? model = await this.recipeService.GetByIdForDelete(id);
+                if (model != null)
+                {
+                    return View(model);
+                }
+            }
+            TempData[ErrorMessage] = "Recipe unsuccessfully deleted!";
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            await this.recipeService.DeleteById(id);
+            TempData[SuccessMessage] = "Recipe deleted!";
+            return RedirectToAction("All");
+        }
+
     }
 }

@@ -60,5 +60,8 @@
             <p>@Html.Raw(Model.Instructions)</p>
         </div>
     </div>
-    <a href="/Recipe/Edit/@Model.Id" class="btn btn-outline-danger mt-3">Edit</a>
+    <div class="recipe-actions">
+        <a href="/Recipe/Edit/@Model.Id" class="btn btn-outline-danger mt-3">Edit</a>
+        <a href="/Recipe/Delete/@Model.Id" class="btn btn-danger mt-3" >Delete</a>
+    </div>
 </div>
