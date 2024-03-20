@@ -20,7 +20,7 @@
     </ul>
     <!-- END OF TABS CONTROLLER -->
     <!-- TAB CONTENTS PLACED IN THE FORM ITSELF-->
-     <form method="post" asp-controller="Recipe" asp-action="Edit">
+     <form method="post" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id">
         <div class="tab-content" id="recipeContent">
             <div class="tab-pane fade show active py-5" id="info" role="tabpanel" aria-labelledby="info-tab">
                     <!-- First row -->
@@ -148,7 +148,7 @@
                 <!-- END OF INGREDIENTS HERE!!!  -->
             </div>
         </div>    
-        <button id="editRecipe" class="btn btn-dark btn-lg text-light mt-3" type="submit">Save Changes</button>
+        <button class="btn btn-dark btn-lg text-light mt-3" type="submit">Save Changes</button>
     </form>
 </div>
 
@@ -266,9 +266,8 @@
 
         </script>
         <script>
-            $(document).ready(function () {
+            $(document).ready(function () {                
                 var ingredientIndex = @nextIndex;
-
                 // TODO: Fix client-side validation for dynamically added input fields (input and select)
                 $('#add-ingredient').click(function () {
                     var newIngredientHtml = `<div class="ingredient-row row g-3 form-group">
@@ -316,67 +315,52 @@
                     ingredientIndex++;
 
                     $('.ingredientName').on('keyup', suggestWords);
-                    reparseForm();
+                    $('form').validate().form();
                 });
 
-                $(document).on('click', '.remove-ingredient', function () {
+                $(document).on('click', '.remove-ingredient', function (event) {
+                    var ingredientCount = $('.ingredient-row').length;
+                    if (ingredientCount === 1) {
+                        event.preventDefault();
+                        toastr.error('At least one ingredient is required.');
+                        return false;
+                    }
                     $(this).closest('.ingredient-row').remove();
+                    ingredientIndex--;
                     reindexIngredients();
                 });
 
             function reindexIngredients() {
-                $('.ingredient-row').each(function () {
-                    $(this).find('.ingredientName').attr('name', `RecipeIngredients[${ingredientIndex}].Name`);
-                    $(this).find('.ingredientName').attr('id', `RecipeIngredients_${ingredientIndex}__Name`);
-                    $(this).find('.ingredientName').siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__Name`);
+                $('.ingredient-row').each(function (index) {
+                    var row = $(this);
 
-                    $(this).find('input[type="number"]').attr('name', `RecipeIngredients[${ingredientIndex}].Qty`);
-                    $(this).find('input[type="number"]').attr('id', `RecipeIngredients_${ingredientIndex}__Qty`);
-                    $(this).find('input[type="number"]').siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__Qty`);
-
-                    $(this).find('select').eq(0).attr('name', `RecipeIngredients[${ingredientIndex}].MeasureId`);
-                    $(this).find('select').eq(0).attr('id', `RecipeIngredients_${ingredientIndex}__MeasureId`);
-                    $(this).find('select').eq(0).siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__MeasureId`);
-
-                    $(this).find('select').eq(1).attr('name', `RecipeIngredients[${ingredientIndex}].SpecificationId`);
-                    $(this).find('select').eq(1).attr('id', `RecipeIngredients_${ingredientIndex}__SpecificationId`);
-                    $(this).find('select').eq(1).siblings('label').attr('for', `RecipeIngredients_${ingredientIndex}__SpecificationId`);
-
-                    $(this).find('.remove-ingredient').attr('data-index', ingredientIndex);
-
-                    $('.ingredient-row').each(function () {
-                        $(this).find('input, select').each(function () {
-                            // Update 'name' attribute
-                            var newName = $(this).attr('name').replace(/\[(\d+)\]/, '[' + ingredientIndex + ']');
-                            $(this).attr('name', newName);
-
-                            // Update 'id' attribute
-                            var newId = $(this).attr('id').replace(/_(\d+)__/, '_' + ingredientIndex + '__');
-                            $(this).attr('id', newId);
-
-                            // Update 'for' attribute for associated labels
-                            $(this).siblings('label').each(function () {
-                                var forAttr = $(this).attr('for').replace(/_(\d+)__/, '_' + ingredientIndex + '__');
-                                $(this).attr('for', forAttr);
-                            });
-
-                            // Update 'data-valmsg-for' attribute for validation messages
-                            $(this).siblings('[data-valmsg-for]').each(function () {
-                                var dataValMsgFor = $(this).attr('data-valmsg-for').replace(/\[(\d+)\]/, '[' + ingredientIndex + ']');
-                                $(this).attr('data-valmsg-for', dataValMsgFor);
-                            });
-                        });
-
-                        // Update 'data-index' attribute for remove buttons
-                        $(this).find('.remove-ingredient').attr('data-index', ingredientIndex);
+                    // Update IDs and Names for visible input fields
+                    row.find('[id]').each(function () {
+                        var newId = this.id.replace(/\d+/, index);
+                        $(this).attr('id', newId);
                     });
+                    row.find('[name]').each(function () {
+                        this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
+                    });
+                    row.find('.small[data-valmsg-for]').each(function () {
+                        var propertyName = $(this).attr('data-valmsg-for').split('.')[1];
+                        $(this).attr('data-valmsg-for', 'RecipeIngredients[' + index + '].' + propertyName);
+                    });
+
+                    // Update 'for' attribute of labels associated with input fields
+                    row.find('label.form-label').each(function () {
+                        var labelFor = $(this).attr('for');
+                        if (labelFor) {
+                            var newLabelFor = labelFor.replace(/\d+/, index);
+                            $(this).attr('for', newLabelFor);
+                        }
+                    });
+
+                    // Update value attribute of hidden input field for Qty property
+                    row.find('input[type="hidden"][name="__Invariant"]').attr('value', 'RecipeIngredients[' + index + '].Qty');
                 });
-                function reparseForm() {
-                    $('form').each(function () {
-                        $.validator.unobtrusive.parse($(this));
-                    });
-                }
-            });       
-
+                $('form').validate().form();
+            }            
+        });       
         </script>    
 }

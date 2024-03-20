@@ -193,16 +193,7 @@
             }
 
             return NotFound();
-        }
-
-        private async Task<bool> IsIngredientValid(string ingredientName)
-        {
-            if (!string.IsNullOrEmpty(ingredientName))
-            {
-                return await this.ingredientService.ExistsByNameAsync(ingredientName);
-            }
-            return false;
-        }
+        }        
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
@@ -230,6 +221,15 @@
             await this.recipeService.DeleteById(id);
             TempData[SuccessMessage] = "Recipe deleted!";
             return RedirectToAction("All");
+        }
+
+        private async Task<bool> IsIngredientValid(string ingredientName)
+        {
+            if (!string.IsNullOrEmpty(ingredientName))
+            {
+                return await this.ingredientService.ExistsByNameAsync(ingredientName);
+            }
+            return false;
         }
 
     }
