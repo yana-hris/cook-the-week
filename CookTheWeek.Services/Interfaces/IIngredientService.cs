@@ -15,5 +15,8 @@
         Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GetIngredientSuggestionsAsync(string input);
         Task<IEnumerable<IngredientServiceModel>> GetAllIngredientsAsync();
         Task<IEnumerable<IngredientServiceModel>> GetAllByCategoryId(int categoryId);
+        Task<IngredientEditViewModel>? GetByIdAsync(int id);
+        Task EditAsync(IngredientEditViewModel model);
+        Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
     }
 }

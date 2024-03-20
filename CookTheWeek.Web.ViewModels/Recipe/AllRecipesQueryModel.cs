@@ -11,7 +11,7 @@
         public AllRecipesQueryModel()
         {
             this.CurrentPage = DefaultPage;
-            this.RecipesPerPage = EntitiesPerPage;
+            this.RecipesPerPage = DefaultRecipesPerPage;
             
             this.Categories = new HashSet<string>();
             this.Recipes = new HashSet<RecipeAllViewModel>();

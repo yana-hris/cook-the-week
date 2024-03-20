@@ -65,5 +65,15 @@
             return allRecipeCategoryNames;
         }
 
+        public async Task<ICollection<string>> AllIngredientCategoryNamesAsync()
+        {
+            ICollection<string> allIngredientCategoryNames = await this.dbContext
+                .IngredientCategories
+                .AsNoTracking()
+                .Select(ic => ic.Name)
+                .ToListAsync();
+
+            return allIngredientCategoryNames;
+        }
     }
 }

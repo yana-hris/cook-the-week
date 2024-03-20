@@ -10,7 +10,6 @@
         Task<bool> IngredientCategoryExistsByIdAsync(int ingredientCategoryId);
 
         Task<ICollection<string>> AllRecipeCategoryNamesAsync();
-
-
+        Task<ICollection<string>> AllIngredientCategoryNamesAsync();
     }
 }

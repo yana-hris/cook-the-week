@@ -11,6 +11,7 @@
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Ingredient.Enums;
 
     public class IngredientService : IIngredientService
     {
@@ -95,6 +96,87 @@
                 .Ingredients
                 .AsNoTracking()
                 .AnyAsync(i => i.Id == id);
+        }
+
+        public async Task<IngredientEditViewModel>? GetByIdAsync(int id)
+        {
+            IngredientEditViewModel? model = await this.dbContext.Ingredients
+                .Where(i => i.Id == id)
+                .AsNoTracking()
+                .Select(i => new IngredientEditViewModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    CategoryId = i.IngredientCategoryId
+                })
+                .FirstOrDefaultAsync();
+
+            return model;
+        }
+
+        public async Task EditAsync(IngredientEditViewModel model)
+        {
+            Ingredient? ingredient = await this.dbContext
+                .Ingredients
+                .Where(i => i.Id == model.Id)
+                .FirstOrDefaultAsync();
+
+            if(ingredient != null)
+            {
+                ingredient.Name = model.Name;
+                ingredient.IngredientCategoryId = model.CategoryId;
+            }
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel)
+        {
+            IQueryable<Ingredient> ingredientsQuery = this.dbContext
+                .Ingredients
+                .AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                ingredientsQuery = ingredientsQuery
+                    .Where(i => i.IngredientCategory.Name == queryModel.Category);
+            }
+
+            if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                ingredientsQuery = ingredientsQuery
+                    .Where(i => EF.Functions.Like(i.Name, wildCard));
+            }
+
+            ingredientsQuery = queryModel.IngredientSorting switch
+            {
+                IngredientSorting.NameDescending => ingredientsQuery
+                    .OrderByDescending(i => i.Name),
+                IngredientSorting.NameAscending => ingredientsQuery
+                    .OrderBy(i => i.Name),
+                _ => ingredientsQuery.OrderBy(i => i.Name)
+            };
+
+            ICollection<IngredientAllViewModel> allIngredients = await ingredientsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.IngredientsPerPage)
+                .Take(queryModel.IngredientsPerPage)
+                .Select(i => new IngredientAllViewModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Category = i.IngredientCategory.Name,
+                })
+                .ToListAsync();
+
+            int totalIngredients = ingredientsQuery.Count();
+
+            return new AllIngredientsFilteredAndPagedServiceModel()
+            {
+                TotalIngredientsCount = totalIngredients,
+                Ingredients = allIngredients
+            };
         }
     }
 }

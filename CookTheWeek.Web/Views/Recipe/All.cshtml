@@ -6,109 +6,116 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
-
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3 d-flex justify-content-between">
-            <div class="form-group">
-                <label asp-for="Category"></label>
-                <select asp-for="Category" class="form-control">
-                    <option value="">All</option>
-                    @foreach(var category in Model.Categories)
-                    {
-                        <option value="@category">@category</option>
-                    }
-                </select>
-            </div>
-
-                <div class="form-group">
-                    <label asp-for="RecipesPerPage"></label>
-                    <select asp-for="RecipesPerPage" class="form-control">
-                        <option value="3">3</option>
-                        <option value="6">6</option>
-                        <option value="9">9</option>
-                    </select>
+<div class="container">
+    <div class="row justify-content-center">
+        <form method="get">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Category" class="form-label">Category</label>
+                        <select asp-for="Category" class="form-control">
+                            <option value="">All</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label asp-for="SearchString" class="form-label">Search</label>
+                        <input asp-for="SearchString" class="form-control" placeholder="..." />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label asp-for="RecipeSorting" class="form-label">Sort By</label>
+                        <select asp-for="RecipeSorting" class="form-control">
+                            @foreach (var option in Model.RecipeSortings)
+                            {
+                                <option value="@option.Key">@option.Value</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row align-items-end">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0">
+                                <label asp-for="RecipesPerPage" class="form-label">Per Page</label>
+                                <select asp-for="RecipesPerPage" class="form-control">
+                                    <option value="3">3</option>
+                                    <option value="6">6</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0">
+                                <button type="submit" value="Search" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </form>
+        @{
+            int previousPage = Model.CurrentPage - 1;
+            if (previousPage < 1)
+            {
+                previousPage = 1;
+            }
 
-            <div class="form-group col-md-3">
-                <label asp-for="SearchString"></label>
-                <input asp-for="SearchString" class="form-control" placeholder="..." />
+            int maxPage = (int)Math.Ceiling((double)Model.TotalRecipes / Model.RecipesPerPage);
+        }
+        <div class="row mb-5">
+            <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+                <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                   asp-controller="Recipe"
+                   asp-action="All"
+                   asp-route-currentPage="@previousPage"
+                   asp-route-category="@Model.Category"
+                   asp-route-searchTerm="@Model.SearchString"
+                   asp-route-sorting="@((int)Model.RecipeSorting)"><<</a>
             </div>
 
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="RecipeSorting"></label>
-                <select asp-for="RecipeSorting" class="form-control">
-                    @foreach(var option in Model.RecipeSortings)
-                    {
-                        <option value="@option.Key">@option.Value</option>
-                    }
-                </select>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group mt-4 p-2">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>    
-</form>
-
-@{
-    int previousPage = Model.CurrentPage - 1;
-    if(previousPage < 1)
-    {
-        previousPage = 1;
-    }
-
-    int maxPage = (int)Math.Ceiling((double)Model.TotalRecipes / Model.RecipesPerPage);
-}
-
-<div class="row mb-5">
-    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="Recipe"
-           asp-action="All"
-           asp-route-currentPage="@previousPage"
-           asp-route-category="@Model.Category"
-           asp-route-searchTerm="@Model.SearchString"
-           asp-route-sorting="@((int)Model.RecipeSorting)"><<</a>
-    </div>
-
-    @{
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+            @{
+                bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
                 !Model.Recipes.Any();
-    }
+            }
 
-    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary
+            <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary
             @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-            asp-controller="Recipe"
-            asp-action="All"
-            asp-route-currentPage="@(Model.CurrentPage + 1)"
-            asp-route-category="@Model.Category"
-            asp-route-searchTerm="@Model.SearchString"
-            asp-route-sorting="@((int)Model.RecipeSorting)">>></a>
-    </div>
+                   asp-controller="Recipe"
+                   asp-action="All"
+                   asp-route-currentPage="@(Model.CurrentPage + 1)"
+                   asp-route-category="@Model.Category"
+                   asp-route-searchTerm="@Model.SearchString"
+                   asp-route-sorting="@((int)Model.RecipeSorting)">>></a>
+            </div>
+        </div>
 
+        @if (!Model.Recipes.Any())
+        {
+            <h2 class="text-center">No recipes found by the given criteria!</h2>
+        }
+        else
+        {
+            <div class="row mb-5">
+                @foreach (var recipe in Model.Recipes)
+                {
+                    <partial name="_RecipeAllPartial" model="@recipe" />
+                }
+            </div>
+        }
+
+    </div>
 </div>
 
 
-@if(!Model.Recipes.Any())
-{
-    <h2 class="text-center">No recipes found by the given criteria!</h2>
-} 
-else
-{
-    <div class="row mb-5">        
-        @foreach(var recipe in Model.Recipes)
-        {
-            <partial name="_RecipeAllPartial" model="@recipe" />
-        }
-    </div>
-}
+
 
 
 

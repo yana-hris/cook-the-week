@@ -14,7 +14,6 @@
 
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using static Common.EntityValidationConstants.Recipe;
 
     public class RecipeService : IRecipeService
     {
