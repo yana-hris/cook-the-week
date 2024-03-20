@@ -27,6 +27,8 @@
         {
             IQueryable<Recipe> recipesQuery = this.dbContext
                 .Recipes
+                .Where(r => !r.IsDeleted)
+                .AsNoTracking()
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))

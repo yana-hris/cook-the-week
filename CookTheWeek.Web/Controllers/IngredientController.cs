@@ -21,6 +21,8 @@
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
         }
+
+        [HttpGet]
         public async Task<IActionResult> All([FromQuery]AllIngredientsQueryModel queryModel)
         {
             AllIngredientsFilteredAndPagedServiceModel serviceModel = await this.ingredientService
