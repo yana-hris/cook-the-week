@@ -6,11 +6,11 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container-xl" style="max-width: 1200px;">
+    <div class="row">
         <form method="get" class="pb-4">
-            <div class="row">
-                <div class="col-sm-2">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-sm-auto">
                     <div class="form-group">
                         <label asp-for="Category" class="form-label">Category</label>
                         <select asp-for="Category" class="form-control">
@@ -22,13 +22,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label asp-for="SearchString" class="form-label">Search</label>
                         <input asp-for="SearchString" class="form-control" placeholder="..." />
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label asp-for="RecipeSorting" class="form-label">Sort By</label>
                         <select asp-for="RecipeSorting" class="form-control">
@@ -39,7 +39,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-auto">
                     <div class="row align-items-end">
                         <div class="col-sm-6">
                             <div class="form-group mb-0">
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group mb-0">
+                            <div class="form-group mb-0 d-flex justify-content-end">
                                 <button type="submit" value="Search" class="btn btn-primary">Search</button>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
             }
             else
             {
-                <div class="row mb-5">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 @*mb-5 d-flex justify-content-start *@">
                     @foreach (var recipe in Model.Recipes)
                     {
                         <partial name="_RecipeAllPartial" model="@recipe" />
