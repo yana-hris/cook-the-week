@@ -186,7 +186,7 @@
             await this.dbContext.SaveChangesAsync();
 
         }
-        public async Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id)
+        public async Task<RecipeDetailsViewModel?> DetailsByIdAsync(string id)
         {
             RecipeDetailsViewModel? model = await this.dbContext
                 .Recipes
@@ -251,7 +251,7 @@
                 .AnyAsync();
         }
 
-        public async Task<RecipeEditViewModel>? GetByIdAsync(string id)
+        public async Task<RecipeEditViewModel?> GetByIdAsync(string id)
         {
             RecipeEditViewModel? recipe = await this.dbContext
                 .Recipes
@@ -279,7 +279,7 @@
             return recipe;
         }
 
-        public async Task<RecipeDeleteViewModel>? GetByIdForDelete(string id)
+        public async Task<RecipeDeleteViewModel?> GetByIdForDelete(string id)
         {
             RecipeDeleteViewModel? model = await this.dbContext
                 .Recipes

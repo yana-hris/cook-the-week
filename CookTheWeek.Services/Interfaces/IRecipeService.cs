@@ -11,11 +11,11 @@
         Task<ICollection<RecipeAllViewModel>> AllUnsortedUnfilteredAsync();
         Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
         Task AddAsync(RecipeFormViewModel model);
-        Task<RecipeDetailsViewModel>? DetailsByIdAsync(string id);
+        Task<RecipeDetailsViewModel?> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
-        Task<RecipeEditViewModel>? GetByIdAsync(string id);
+        Task<RecipeEditViewModel?> GetByIdAsync(string id);
         Task EditAsync(RecipeEditViewModel model);
-        Task<RecipeDeleteViewModel>? GetByIdForDelete(string id);
+        Task<RecipeDeleteViewModel?> GetByIdForDelete(string id);
         Task DeleteById(string id);
     }
 }

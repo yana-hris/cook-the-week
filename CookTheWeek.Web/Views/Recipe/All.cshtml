@@ -10,7 +10,7 @@
     <div class="row">
         <form method="get" class="pb-4">
             <div class="row justify-content-between align-items-center">
-                <div class="col-sm-auto">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label asp-for="Category" class="form-label">Category</label>
                         <select asp-for="Category" class="form-control">
@@ -22,7 +22,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div class="form-group">
                         <label asp-for="SearchString" class="form-label">Search</label>
                         <input asp-for="SearchString" class="form-control" placeholder="..." />
@@ -67,7 +67,7 @@
             }
             else
             {
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 @*mb-5 d-flex justify-content-start *@">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 @*mb-5 d-flex justify-content-start *@">
                     @foreach (var recipe in Model.Recipes)
                     {
                         <partial name="_RecipeAllPartial" model="@recipe" />

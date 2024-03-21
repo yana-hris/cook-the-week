@@ -98,7 +98,7 @@
                 .AnyAsync(i => i.Id == id);
         }
 
-        public async Task<IngredientEditViewModel>? GetByIdAsync(int id)
+        public async Task<IngredientEditViewModel?> GetByIdAsync(int id)
         {
             IngredientEditViewModel? model = await this.dbContext.Ingredients
                 .Where(i => i.Id == id)
