@@ -2,13 +2,15 @@ namespace CookTheWeek.Web
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
 
     using Data;
     using Data.Models;
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
     using Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
+
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -71,6 +73,11 @@ namespace CookTheWeek.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            if(app.Environment.IsDevelopment())
+            {
+                app.SeedAdministrator(DevelopmentAdminUserName);
+            }
 
             app.MapControllerRoute(
                 name: "default",

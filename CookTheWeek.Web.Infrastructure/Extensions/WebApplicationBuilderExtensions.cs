@@ -2,7 +2,13 @@
 {
     using System.Reflection;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using CookTheWeek.Data.Models;
+    using static Common.GeneralApplicationConstants;
+
     /// <summary>
     /// This method registers all services with their interfaces and implementations of a given Assembly
     /// The assembly is taken from the type of random service implementation.
@@ -36,5 +42,48 @@
                 services.AddScoped(interfaceType, implementationType);
             }            
         }
-    }
+
+        /// <summary>
+        /// This method seeds the first role of administrator upon database creation if environment is development and 
+        /// if it does not exist
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="userName"></param>
+        /// <returns>IApplicationBuilder and allows chaining</returns>
+        public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string userName)
+        {
+            //In order to get the DI services in a static class, we first need to get access to the Service provider, so we first create the scope
+            using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
+
+            // In static classes this is the only way to get the service container (as it cannot be injected in the contructor)
+            IServiceProvider serviceProvider = scopedServices.ServiceProvider;
+
+            UserManager<ApplicationUser> userManager =
+                serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            RoleManager<IdentityRole<Guid>> roleManager =
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            // In static classes we cannot have async await pattern, so we need to use Tasks
+            Task.Run(async () =>
+            {
+                if (await roleManager.RoleExistsAsync(AdminRoleName))
+                {
+                    return;
+                }
+
+                IdentityRole<Guid> role = new IdentityRole<Guid>(AdminRoleName);
+
+                await roleManager.CreateAsync(role);
+
+                ApplicationUser adminUser = await userManager.FindByNameAsync(userName);
+                await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+            })
+                .GetAwaiter()
+                .GetResult();
+
+            return app;
+        }
+    }  
+    
 }
