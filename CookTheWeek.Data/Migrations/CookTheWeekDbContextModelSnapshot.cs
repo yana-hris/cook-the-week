@@ -17,7 +17,7 @@ namespace CookTheWeek.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -88,7 +88,7 @@ namespace CookTheWeek.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.IgredientEntities.Ingredient", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1427,7 +1427,7 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.IgredientEntities.IngredientCategory", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.IngredientCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1577,7 +1577,7 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeEntities.Recipe", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1647,7 +1647,7 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeEntities.RecipeCategory", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1978,9 +1978,9 @@ namespace CookTheWeek.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.IgredientEntities.Ingredient", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Ingredient", b =>
                 {
-                    b.HasOne("CookTheWeek.Data.Models.IgredientEntities.IngredientCategory", "IngredientCategory")
+                    b.HasOne("CookTheWeek.Data.Models.IngredientCategory", "IngredientCategory")
                         .WithMany("Ingredients")
                         .HasForeignKey("IngredientCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1989,13 +1989,13 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("IngredientCategory");
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeEntities.Recipe", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>
                 {
                     b.HasOne("CookTheWeek.Data.Models.ApplicationUser", null)
                         .WithMany("Recipes")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("CookTheWeek.Data.Models.RecipeEntities.RecipeCategory", "RecipeCategory")
+                    b.HasOne("CookTheWeek.Data.Models.RecipeCategory", "RecipeCategory")
                         .WithMany("Recipes")
                         .HasForeignKey("RecipeCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2006,7 +2006,7 @@ namespace CookTheWeek.Data.Migrations
 
             modelBuilder.Entity("CookTheWeek.Data.Models.RecipeIngredient", b =>
                 {
-                    b.HasOne("CookTheWeek.Data.Models.IgredientEntities.Ingredient", "Ingredient")
+                    b.HasOne("CookTheWeek.Data.Models.Ingredient", "Ingredient")
                         .WithMany("RecipesIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2018,7 +2018,7 @@ namespace CookTheWeek.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CookTheWeek.Data.Models.RecipeEntities.Recipe", "Recipe")
+                    b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
                         .WithMany("RecipesIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2093,22 +2093,22 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("Recipes");
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.IgredientEntities.Ingredient", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Ingredient", b =>
                 {
                     b.Navigation("RecipesIngredients");
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.IgredientEntities.IngredientCategory", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.IngredientCategory", b =>
                 {
                     b.Navigation("Ingredients");
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeEntities.Recipe", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>
                 {
                     b.Navigation("RecipesIngredients");
                 });
 
-            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeEntities.RecipeCategory", b =>
+            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeCategory", b =>
                 {
                     b.Navigation("Recipes");
                 });

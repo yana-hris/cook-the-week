@@ -5,7 +5,6 @@
     public class LoginFormModel
     {
         [Required]
-        [EmailAddress]
         public string Username { get; set; } = null!;
 
         [Required]

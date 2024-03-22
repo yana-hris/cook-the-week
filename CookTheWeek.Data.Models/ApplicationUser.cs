@@ -15,9 +15,6 @@
             this.Id = Guid.NewGuid();   
             this.Recipes = new HashSet<Recipe>();
         }
-
-        [Required]
-        public string Username { get; set; } = null!;
         public ICollection<Recipe> Recipes { get; set; }
     }
 }
