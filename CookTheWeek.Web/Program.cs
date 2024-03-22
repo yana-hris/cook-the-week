@@ -1,7 +1,8 @@
 namespace CookTheWeek.Web
 {
     using Microsoft.EntityFrameworkCore;
-    
+    using Microsoft.AspNetCore.Identity;
+
     using Data;
     using Data.Models;
     using Infrastructure.Extensions;
@@ -29,9 +30,16 @@ namespace CookTheWeek.Web
                 options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Password:RequireDigit");
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
+
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+                // TODO: add more?
+            });
 
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
