@@ -10,12 +10,13 @@
     {
         Task<ICollection<RecipeAllViewModel>> AllUnsortedUnfilteredAsync();
         Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
-        Task AddAsync(RecipeFormViewModel model);
-        Task<RecipeDetailsViewModel?> DetailsByIdAsync(string id);
+        Task AddAsync(RecipeFormViewModel model, string ownerId);
+        Task<RecipeDetailsViewModel> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
-        Task<RecipeEditViewModel?> GetByIdAsync(string id);
+        Task<RecipeEditViewModel> GetForEditByIdAsync(string id);
         Task EditAsync(RecipeEditViewModel model);
-        Task<RecipeDeleteViewModel?> GetByIdForDelete(string id);
+        Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
         Task DeleteById(string id);
+        Task<bool> IsOwner(string id, string ownerId);
     }
 }

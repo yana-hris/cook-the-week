@@ -80,7 +80,7 @@
                 .AnyAsync(m => m.Id == measureId);
         }
 
-        public async Task<bool> IngredientSpecificationExistsAsunc(int specificationId)
+        public async Task<bool> IngredientSpecificationExistsAsync(int specificationId)
         {
             return await this.dbContext.Specifications
                 .AsNoTracking()

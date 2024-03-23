@@ -5,7 +5,7 @@
     public interface IRecipeIngredientService
     {
         Task<bool> IngredientMeasureExistsAsync(int measureId);
-        Task<bool> IngredientSpecificationExistsAsunc(int specificationId);
+        Task<bool> IngredientSpecificationExistsAsync(int specificationId);
         Task<bool> IngredientIsAlreadyAddedAsync(string ingredientName, string recipeId);
         Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId);
         Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync();

@@ -27,6 +27,8 @@
 
         public DbSet<Specification> Specifications { get; set; } = null!;
 
+        public DbSet<FavouriteRecipe> FavoriteRecipes { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(CookTheWeekDbContext)) ??

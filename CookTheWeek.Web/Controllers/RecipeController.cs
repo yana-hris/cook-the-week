@@ -3,11 +3,12 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Infrastructure.Extensions;
     using ViewModels.Recipe;
+    using ViewModels.Recipe.Enums;
+    using ViewModels.RecipeIngredient;
     using Services.Interfaces;
     using Services.Data.Models.Recipe;
-    using CookTheWeek.Web.ViewModels.Recipe.Enums;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
@@ -77,17 +78,36 @@
             model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
             model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
+            bool categoryExists =
+                await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+
+            if (!categoryExists)
+            {
+                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+            }
+
             foreach (var ingredient in model.RecipeIngredients)
             {
                 if (!await IsIngredientValid(ingredient.Name))
                 {
                     ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
                 }
-            }
-
+                if(!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                {
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid ingredient measure for ingrediet {ingredient.Name}");
+                }
+                if(ingredient.SpecificationId != null)
+                {
+                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                    {
+                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid ingredient specification for ingrediet {ingredient.Name}");
+                    }
+                }                
+            }            
+            
             if (!ModelState.IsValid)
             {
-                ICollection<string> modelErrors =  ModelState.Values.SelectMany(v => v.Errors)
+                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
                                    .Select(e => e.ErrorMessage)
                                    .ToList();
                 var formattedErrors = string.Join(Environment.NewLine, modelErrors);
@@ -97,7 +117,8 @@
 
             try
             {
-                await this.recipeService.AddAsync(model);
+                string ownerId = User.GetId();
+                await this.recipeService.AddAsync(model, ownerId);
                 TempData[SuccessMessage] = "Your recipe was successfully added!";
                 return RedirectToAction("All");
             }
@@ -115,27 +136,68 @@
 
             if (!exists)
             {
-                // TODO: check application logic
-                return BadRequest();
+                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                return RedirectToAction("All", "Recipe");
             }
 
-            RecipeEditViewModel model = await this.recipeService.GetByIdAsync(id);
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+            string ownerId = User.GetId();
+            bool isOwner = await this.recipeService.IsOwner(id, ownerId);
 
-            return View(model);
+            if(!isOwner) 
+            {
+                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                return RedirectToAction("Details", "Recipe", new { id });
+            }
+
+            try
+            {
+                RecipeEditViewModel model = await this.recipeService.GetForEditByIdAsync(id);
+                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+                model.ServingsOptions = ServingsOptions;
+                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return BadRequest(); // TODO: check app logic!
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(RecipeEditViewModel model)
         {
+            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
+
+            if (!exists)
+            {
+                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                return RedirectToAction("All", "Recipe");
+            }
+
+            string ownerId = User.GetId();
+            bool isOwner = await this.recipeService.IsOwner(model.Id, ownerId);
+
+            if (!isOwner)
+            {
+                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                return RedirectToAction("Details", "Recipe", new { id = model.Id });
+            }
+
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
             model.ServingsOptions = ServingsOptions;
 
             model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
             model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+            bool categoryExists =
+               await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+
+            if (!categoryExists)
+            {
+                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+            }
 
             foreach (var ingredient in model.RecipeIngredients)
             {
@@ -143,15 +205,21 @@
                 {
                     ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
                 }
+                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                {
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingrediet {ingredient.Name}");
+                }
+                if (ingredient.SpecificationId != null)
+                {
+                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                    {
+                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingrediet {ingredient.Name}");
+                    }
+                }
             }
 
             if (!ModelState.IsValid)
-            {
-                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-                var formattedErrors = string.Join(Environment.NewLine, modelErrors);
-                TempData[ErrorMessage] = formattedErrors;
+            {                
                 return View(model);
             }
 
@@ -159,40 +227,39 @@
             {
                 await this.recipeService.EditAsync(model);
                 TempData[SuccessMessage] = "Your recipe was successfully edited!";
-                return RedirectToAction("Details", new { id = model.Id });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData[ErrorMessage] = $"Something went wrong and the ingredient was not edited! {ex.Message}";
+                ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                 return View(model);
             }
+
+            return RedirectToAction("Details", new { id = model.Id });
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             if(!exists)
             {
-                // TODO: check application logic
-                return NotFound();
+                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+
+                return RedirectToAction("All", "Recipe");
             }
 
             try
             {
-                RecipeDetailsViewModel? model = await this.recipeService.DetailsByIdAsync(id);
-                if(model != null)
-                {
-                    return View(model);
-                }                
+                RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id);
+                
+                return View(model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData[ErrorMessage] = "Recipe not found!";
-            }
-
-            return NotFound();
+                return BadRequest();
+            }            
         }        
 
         [HttpGet]
@@ -200,26 +267,64 @@
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
-            //string currentUserId = GetUserId();
-            //bool isOwner = await this.recipeService.IsOwnerById(currentUserId, id);
+            string currentUserId = User.GetId();
+            bool isOwner = await this.recipeService.IsOwner(id, currentUserId);
 
-            if (exists) //TODO: add (&& isOwner)
+            if(!exists)
             {
-                RecipeDeleteViewModel? model = await this.recipeService.GetByIdForDelete(id);
-                if (model != null)
-                {
-                    return View(model);
-                }
+                TempData[ErrorMessage] = "Recipe with the privded id does not exist!";
+                return RedirectToAction("All", "Recipe");
             }
-            TempData[ErrorMessage] = "Recipe unsuccessfully deleted!";
-            return NotFound();
+
+            if(!isOwner)
+            {
+                TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
+                return RedirectToAction("Details", "Recipe", new { id });
+            }
+
+            try
+            {
+                RecipeDeleteViewModel model = await this.recipeService.GetForDeleteByIdAsync(id);
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }           
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            await this.recipeService.DeleteById(id);
-            TempData[SuccessMessage] = "Recipe deleted!";
+            bool exists = await this.recipeService.ExistsByIdAsync(id);
+
+            string currentUserId = User.GetId();
+            bool isOwner = await this.recipeService.IsOwner(id, currentUserId);
+
+            if (!exists)
+            {
+                TempData[ErrorMessage] = "Recipe with the privded id does not exist!";
+                return RedirectToAction("All", "Recipe");
+            }
+
+            if (!isOwner)
+            {
+                TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
+                return RedirectToAction("Details", "Recipe", new { id });
+            }
+
+            try
+            {
+                await this.recipeService.DeleteById(id);
+                TempData[SuccessMessage] = "Recipe successfully deleted!";
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
             return RedirectToAction("All");
         }
 

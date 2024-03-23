@@ -111,11 +111,12 @@
             return allRecipes;
         }
 
-        public async Task AddAsync(RecipeFormViewModel model)
+        public async Task AddAsync(RecipeFormViewModel model, string ownerId)
         {
             Recipe recipe = new Recipe()
             {
                 Title = model.Title,
+                OwnerId = ownerId,
                 Description = model.Description,
                 Instructions = model.Instructions,
                 Servings = model.Servings,
@@ -186,9 +187,9 @@
             await this.dbContext.SaveChangesAsync();
 
         }
-        public async Task<RecipeDetailsViewModel?> DetailsByIdAsync(string id)
+        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
-            RecipeDetailsViewModel? model = await this.dbContext
+            RecipeDetailsViewModel model = await this.dbContext
                 .Recipes
                 .AsNoTracking()
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
@@ -238,7 +239,7 @@
                         }).ToList(),
 
                 })
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
             return model;
         }
@@ -251,9 +252,9 @@
                 .AnyAsync();
         }
 
-        public async Task<RecipeEditViewModel?> GetByIdAsync(string id)
+        public async Task<RecipeEditViewModel> GetForEditByIdAsync(string id)
         {
-            RecipeEditViewModel? recipe = await this.dbContext
+            RecipeEditViewModel recipe = await this.dbContext
                 .Recipes
                 .AsNoTracking()
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
@@ -274,14 +275,14 @@
                         MeasureId = ri.MeasureId,
                         SpecificationId = ri.SpecificationId
                     }).ToList()
-                }).FirstOrDefaultAsync();
+                }).FirstAsync();
 
             return recipe;
         }
 
-        public async Task<RecipeDeleteViewModel?> GetByIdForDelete(string id)
+        public async Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id)
         {
-            RecipeDeleteViewModel? model = await this.dbContext
+            RecipeDeleteViewModel model = await this.dbContext
                 .Recipes
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .Select(r => new RecipeDeleteViewModel()
@@ -293,23 +294,30 @@
                     TotalTime = (int)r.TotalTime.TotalMinutes,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
                     CategoryName = r.RecipeCategory.Name
-                }).FirstOrDefaultAsync();
+                }).FirstAsync();
 
             return model;
         }
 
         public async Task DeleteById(string id)
         {
-            Recipe? recipeToDelete = await this.dbContext
+            Recipe recipeToDelete = await this.dbContext
                 .Recipes
                 .Where(r => r.Id.ToString() == id && r.IsDeleted == false)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
+            
+            recipeToDelete.IsDeleted = true;
+            await this.dbContext.SaveChangesAsync();
+        }
 
-            if(recipeToDelete != null)
-            {
-                recipeToDelete.IsDeleted = true;
-                await this.dbContext.SaveChangesAsync();
-            }
+        public async Task<bool> IsOwner(string id, string ownerId)
+        {
+            bool isOwner = await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id && r.OwnerId == ownerId)
+                .AnyAsync();
+
+            return isOwner;
         }
     }
 }

@@ -10,11 +10,15 @@
         public Recipe()
         {
             Id = Guid.NewGuid();
-            RecipesIngredients = new List<RecipeIngredient>();
+            this.RecipesIngredients = new List<RecipeIngredient>();
+            this.FavouriteRecipes = new HashSet<FavouriteRecipe>();
         }
 
         [Key]
         public Guid Id { get; set; }
+
+        [Required]
+        public string OwnerId { get; set; } = null!;
 
         [Required]
         [MaxLength(TitleMaxLength)]
@@ -49,6 +53,8 @@
         public bool IsDeleted { get; set; }
 
         public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
+
+        public ICollection<FavouriteRecipe> FavouriteRecipes { get; set; }
 
 
     }
