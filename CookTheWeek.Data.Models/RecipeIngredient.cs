@@ -4,47 +4,47 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Microsoft.EntityFrameworkCore;
 
-    [Comment("Съставки към рецепти")]
+    [Comment("The Ingredients in Recipe")]
     public class RecipeIngredient
     {
-        [Comment("Ключ рецепта")]
+        [Comment("Key Identifier for Recipe")]
         [ForeignKey(nameof(Recipe))]
         [Required]
         public Guid RecipeId { get; set; } 
 
-        [Comment("Рецепта")]
+        [Comment("Recipe")]
         [Required]
         public Recipe Recipe { get; set; } = null!;
 
-        [Comment("Ключ съставка")]
+        [Comment("Key Identifier for Ingredient")]
         [Required]
         [ForeignKey(nameof(Ingredient) )]
         public int IngredientId { get; set; }
 
-        [Comment("Съставка")]
+        [Comment("Ingredient")]
         [Required]
         public Ingredient Ingredient { get; set; } = null!;
 
-        [Comment("Количество на съставка в рецепта")]
+        [Comment("Quantity of the Ingredient in this Recipe")]
         [Required]
         public decimal Qty { get; set; }
 
-        [Comment("Мерна единица за съставка в рецепта")]
+        [Comment("Measure Key Identifier")]
         [Required]
         public int MeasureId { get; set; }
 
-        [Comment("Мерна единица")]
+        [Comment("Measure")]
         [Required]
         public Measure Measure { get; set; } = null!;
 
         /// <summary>
         /// "Special condition for this ingredient in this recipe, e.g. frozen, canned, sliced, etc.")
         /// </summary>
-        [Comment("Ключ за характеристика на съставката")]
+        [Comment("Specification Key Identifier")]
         [ForeignKey(nameof(Specification))]
         public int? SpecificationId { get; set; }
 
-        [Comment("Характеристика на съставката (замразен, от консерва, нарязан на парченца и т.н.")]       
+        [Comment("Specification")]       
         public Specification? Specification { get; set; }
     }
 }

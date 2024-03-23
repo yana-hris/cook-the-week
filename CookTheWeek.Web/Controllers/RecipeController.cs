@@ -70,6 +70,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(RecipeFormViewModel model)
         {
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
@@ -166,6 +167,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(RecipeEditViewModel model)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
@@ -296,6 +298,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
