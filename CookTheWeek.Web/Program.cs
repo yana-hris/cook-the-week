@@ -1,8 +1,8 @@
 namespace CookTheWeek.Web
 {
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     using Data;
     using Data.Models;
@@ -40,7 +40,6 @@ namespace CookTheWeek.Web
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/User/Login";
-                // TODO: add more?
             });
 
             builder.Services.AddControllersWithViews()

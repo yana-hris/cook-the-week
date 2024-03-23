@@ -13,8 +13,10 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();   
-            this.Recipes = new HashSet<Recipe>();
+            this.UserAddedRecipes = new HashSet<Recipe>();
+            this.FavoriteRecipes = new HashSet<Recipe>();
         }
-        public ICollection<Recipe> Recipes { get; set; }
+        public ICollection<Recipe> UserAddedRecipes { get; set; }
+        public ICollection<Recipe> FavoriteRecipes { get; set; }
     }
 }

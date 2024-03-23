@@ -47,8 +47,8 @@
         /// This method seeds the first role of administrator upon database creation if environment is development and 
         /// if it does not exist
         /// </summary>
-        /// <param name="app"></param>
-        /// <param name="userName"></param>
+        /// <param name="app">The currecnt application</param>
+        /// <param name="userName">The user we want to make admin`s username</param>
         /// <returns>IApplicationBuilder and allows chaining</returns>
         public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string userName)
         {
@@ -64,7 +64,7 @@
             RoleManager<IdentityRole<Guid>> roleManager =
                 serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
-            // In static classes we cannot have async await pattern, so we need to use Tasks
+            // In static classes we cannot have async await pattern, so we need to use Tasks to have asynchronous code in synchronous static methods
             Task.Run(async () =>
             {
                 if (await roleManager.RoleExistsAsync(AdminRoleName))
