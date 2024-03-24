@@ -14,14 +14,11 @@
     public class RecipeIngredientApiController : ControllerBase
     {
         private readonly IIngredientService ingredientService;
-        private readonly IRecipeIngredientService recipeIngredientService;
 
         
-        public RecipeIngredientApiController(IIngredientService ingredientService,
-            IRecipeIngredientService recipeIngredientService)
+        public RecipeIngredientApiController(IIngredientService ingredientService)
         {
             this.ingredientService = ingredientService;
-            this.recipeIngredientService = recipeIngredientService;
         }
         /// <summary>
         /// Get suggestion list for ingredients to be included in a recipe, based on an input string.
@@ -49,9 +46,5 @@
             }
         }
         
-        // TODO: add more actions for retriving recipe-ingredient information for edit
-        // TODO: GetForEdit (RecipeIngredient)
-        // TODO: Edit (RecipeIngredient)
-        // TODO: Delete (RecipeIngredient)
     }
 }

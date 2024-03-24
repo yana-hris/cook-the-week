@@ -317,5 +317,37 @@
 
             return isOwner;
         }
+
+        public async Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId)
+        {
+            bool isFavourite = await this.dbContext.FavoriteRecipes
+                .AnyAsync(fr => fr.UserId.ToString() == userId && 
+                                fr.RecipeId.ToString() == id);
+
+            return isFavourite;
+        }
+
+        public async Task AddToFavouritesByUserId(string id, string userId)
+        {
+            FavouriteRecipe favouriteRecipe = new FavouriteRecipe()
+            {
+                UserId = Guid.Parse(userId),
+                RecipeId = Guid.Parse(id)
+            };
+
+            await this.dbContext.FavoriteRecipes
+                .AddAsync(favouriteRecipe);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveFromFavouritesByUserId(string id, string userId)
+        {
+            FavouriteRecipe favouriteRecipe = await this.dbContext
+                .FavoriteRecipes
+                .FirstAsync(fr => fr.UserId.ToString() == userId && fr.RecipeId.ToString() == id);
+
+            this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

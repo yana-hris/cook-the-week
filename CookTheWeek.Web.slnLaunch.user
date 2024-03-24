@@ -4,12 +4,12 @@
     "Projects": [
       {
         "Name": "CookTheWeek.Web\\CookTheWeek.Web.csproj",
-        "Action": "StartWithoutDebugging",
+        "Action": "Start",
         "DebugTarget": "https"
       },
       {
         "Name": "CookTheWeek.WebApi\\CookTheWeek.WebApi.csproj",
-        "Action": "StartWithoutDebugging",
+        "Action": "Start",
         "DebugTarget": "https"
       }
     ]

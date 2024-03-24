@@ -18,5 +18,9 @@
         Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
         Task DeleteById(string id);
         Task<bool> IsOwner(string id, string ownerId);
+        Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId);
+
+        Task AddToFavouritesByUserId(string id, string userId);
+        Task RemoveFromFavouritesByUserId(string id, string userId);
     }
 }
