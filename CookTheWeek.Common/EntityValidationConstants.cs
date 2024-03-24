@@ -83,5 +83,11 @@
             public const int MinServingSize = 2;
             public const int MaxServingSize = 12;
         }
+
+        public static class MealPlan
+        {
+            public const int NameMinLength = 2;
+            public const int NameMaxLength = 50;
+        }
     }
 }

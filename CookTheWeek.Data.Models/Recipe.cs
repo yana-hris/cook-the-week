@@ -14,6 +14,7 @@
             Id = Guid.NewGuid();
             this.RecipesIngredients = new List<RecipeIngredient>();
             this.FavouriteRecipes = new HashSet<FavouriteRecipe>();
+            this.Meals = new HashSet<Meal>();   
         }
 
         [Comment("Key Indetifier")]
@@ -71,6 +72,7 @@
         [Comment("A collection of users who have added this recipe in their Favourite Recipes Collection")]
         public ICollection<FavouriteRecipe> FavouriteRecipes { get; set; }
 
-
+        [Comment("A collection of meals that will be cooked with this Recipe")]
+        public ICollection<Meal> Meals { get; set; } 
     }
 }

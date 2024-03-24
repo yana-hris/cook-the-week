@@ -12,6 +12,18 @@
             builder
                 .Property(m => m.IsCooked)
                 .HasDefaultValue(false);
+
+            builder
+                .HasOne(m => m.Recipe)
+                .WithMany(r => r.Meals)
+                .HasForeignKey(m => m.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasOne(m => m.MealPlan)
+                .WithMany(mp => mp.Meals)
+                .HasForeignKey(m => m.MealPlanId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

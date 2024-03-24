@@ -18,7 +18,7 @@
         [ForeignKey(nameof(Recipe))]
         public Guid RecipeId { get; set; } 
 
-        public Recipe Recipe { get; set; } = null!;
+        public Recipe Recipe { get; set; } = null!;        
 
         [Comment("Meal Serving Size")]
         [Required]
@@ -31,5 +31,11 @@
         [Comment("Recipe is cooked or not")]
         [Required]
         public bool IsCooked { get; set; }
+
+        [Comment("Meal Plan Key Identifier")]
+        [Required]
+        [ForeignKey(nameof(MealPlan))]
+        public Guid MealPlanId { get; set; }
+        public MealPlan MealPlan { get; set; } = null!;
     }
 }

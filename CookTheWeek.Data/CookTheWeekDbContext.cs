@@ -31,6 +31,8 @@
 
         public DbSet<Meal> Meals { get; set; } = null!;
 
+        public DbSet<MealPlan> MealPlans { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(CookTheWeekDbContext)) ??
