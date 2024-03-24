@@ -77,5 +77,11 @@
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;    
         }
+
+        public static class Meal
+        {
+            public const int MinServingSize = 2;
+            public const int MaxServingSize = 12;
+        }
     }
 }

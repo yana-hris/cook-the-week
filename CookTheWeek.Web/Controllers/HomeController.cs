@@ -1,20 +1,23 @@
 namespace CookTheWeek.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Diagnostics;
 
-    using CookTheWeek.Web.ViewModels.Home;
+    using Infrastructure.Extensions;
+
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         
-        public HomeController()
-        {
-            
-        }
-
         public IActionResult Index()
         {
-            return View();
+            string userId = User.GetId();
+            if(string.IsNullOrEmpty(userId))
+            {
+                return View();
+            }
+
+            return RedirectToAction("All", "Recipe");
         }
 
         

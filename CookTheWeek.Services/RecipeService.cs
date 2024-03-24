@@ -148,42 +148,40 @@
 
         public async Task EditAsync(RecipeEditViewModel model)
         {
-            Recipe? recipe = await this.dbContext
+            Recipe recipe = await this.dbContext
                 .Recipes
                 .Include(r => r.RecipesIngredients)
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == model.Id)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
-            if(recipe != null)
+            recipe.Title = model.Title;
+            recipe.Description = model.Description;
+            recipe.Servings = model.Servings;
+            recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
+            recipe.ImageUrl = model.ImageUrl;
+            recipe.RecipeCategoryId = model.RecipeCategoryId;
+
+            ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
+            this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
+
+            foreach (var ingredient in model.RecipeIngredients!)
             {
-                recipe.Title = model.Title;
-                recipe.Description = model.Description;
-                recipe.Servings = model.Servings;
-                recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
-                recipe.ImageUrl = model.ImageUrl;
-                recipe.RecipeCategoryId = model.RecipeCategoryId;
-
-                ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
-                this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
-
-                foreach (var ingredient in model.RecipeIngredients!)
+                int ingredientId = await this.dbContext.Ingredients
+                    .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
+                    .Select(i => i.Id)
+                    .FirstOrDefaultAsync();
+                if (ingredientId != 0)
                 {
-                    int ingredientId = await this.dbContext.Ingredients
-                        .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
-                        .Select(i => i.Id)
-                        .FirstOrDefaultAsync();
-                    if (ingredientId != 0)
+                    recipe.RecipesIngredients.Add(new RecipeIngredient()
                     {
-                        recipe.RecipesIngredients.Add(new RecipeIngredient()
-                        {
-                            IngredientId = ingredientId,
-                            Qty = ingredient.Qty,
-                            MeasureId = ingredient.MeasureId,
-                            SpecificationId = ingredient.SpecificationId
-                        });
-                    }
+                        IngredientId = ingredientId,
+                        Qty = ingredient.Qty,
+                        MeasureId = ingredient.MeasureId,
+                        SpecificationId = ingredient.SpecificationId
+                    });
                 }
             }
+            
             await this.dbContext.SaveChangesAsync();
 
         }

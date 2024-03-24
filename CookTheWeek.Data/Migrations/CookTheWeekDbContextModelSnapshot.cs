@@ -85,45 +85,59 @@ namespace CookTheWeek.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", null, t =>
+                        {
+                            t.HasComment("The Application User");
+                        });
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.FavouriteRecipe", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("User Key Identifier");
 
                     b.Property<Guid>("RecipeId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Recipe Key Identifier");
 
                     b.HasKey("UserId", "RecipeId");
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("FavoriteRecipes");
+                    b.ToTable("FavoriteRecipes", t =>
+                        {
+                            t.HasComment("Users` Favourite Recipes");
+                        });
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Key Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("IngredientCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Ingredient Category Key Identifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Ingredient Name");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IngredientCategoryId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", t =>
+                        {
+                            t.HasComment("Ingredient");
+                        });
 
                     b.HasData(
                         new
@@ -1446,18 +1460,23 @@ namespace CookTheWeek.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Key identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Ingredient Category Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IngredientCategories");
+                    b.ToTable("IngredientCategories", t =>
+                        {
+                            t.HasComment("Ingredients Category");
+                        });
 
                     b.HasData(
                         new
@@ -1527,22 +1546,64 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Meal Key Identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CookDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Meal Cook Date");
+
+                    b.Property<bool>("IsCooked")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Recipe is cooked or not");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Recipe Key Identifier");
+
+                    b.Property<int>("ServingSize")
+                        .HasColumnType("int")
+                        .HasComment("Meal Serving Size");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Meals", t =>
+                        {
+                            t.HasComment("A Meal is a Recipe with user-defined Serving Size and Cook Date");
+                        });
+                });
+
             modelBuilder.Entity("CookTheWeek.Data.Models.Measure", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Key Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Measure Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Measures");
+                    b.ToTable("Measures", t =>
+                        {
+                            t.HasComment("The Measure of the Recipe Ingredient");
+                        });
 
                     b.HasData(
                         new
@@ -1596,54 +1657,68 @@ namespace CookTheWeek.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Key Indetifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("GETDATE()")
+                        .HasComment("Recipe Date and Time Creation");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(1000)")
+                        .HasComment("Recipe Description");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasColumnType("nvarchar(2048)")
+                        .HasComment("Recipe Image Link");
 
                     b.Property<string>("Instructions")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Recipe Instructions");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete for Recipe");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Creator of the recipe");
 
                     b.Property<int>("RecipeCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Recipe Category Key Identifier");
 
                     b.Property<int>("Servings")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Recipe Serving Size");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Recipe Title");
 
                     b.Property<TimeSpan>("TotalTime")
-                        .HasColumnType("time");
+                        .HasColumnType("time")
+                        .HasComment("Recipe Cooking Time");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RecipeCategoryId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", t =>
+                        {
+                            t.HasComment("Recipe");
+                        });
 
                     b.HasData(
                         new
@@ -1666,18 +1741,23 @@ namespace CookTheWeek.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Key Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Recipe Category Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("RecipeCategories");
+                    b.ToTable("RecipeCategories", t =>
+                        {
+                            t.HasComment("Recipes Category");
+                        });
 
                     b.HasData(
                         new
@@ -1716,24 +1796,24 @@ namespace CookTheWeek.Data.Migrations
                 {
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uniqueidentifier")
-                        .HasComment("Ключ рецепта");
+                        .HasComment("Key Identifier for Recipe");
 
                     b.Property<int>("IngredientId")
                         .HasColumnType("int")
-                        .HasComment("Ключ съставка");
+                        .HasComment("Key Identifier for Ingredient");
 
                     b.Property<int>("MeasureId")
                         .HasColumnType("int")
-                        .HasComment("Мерна единица за съставка в рецепта");
+                        .HasComment("Measure Key Identifier");
 
                     b.Property<decimal>("Qty")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
-                        .HasComment("Количество на съставка в рецепта");
+                        .HasComment("Quantity of the Ingredient in this Recipe");
 
                     b.Property<int?>("SpecificationId")
                         .HasColumnType("int")
-                        .HasComment("Ключ за характеристика на съставката");
+                        .HasComment("Specification Key Identifier");
 
                     b.HasKey("RecipeId", "IngredientId");
 
@@ -1745,7 +1825,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("RecipesIngredients", t =>
                         {
-                            t.HasComment("Съставки към рецепти");
+                            t.HasComment("The Ingredients in Recipe");
                         });
 
                     b.HasData(
@@ -1797,18 +1877,23 @@ namespace CookTheWeek.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Specification Key Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Specification Description");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specifications");
+                    b.ToTable("Specifications", t =>
+                        {
+                            t.HasComment("The Specification of the Recipe Ingredient");
+                        });
 
                     b.HasData(
                         new
@@ -2021,6 +2106,17 @@ namespace CookTheWeek.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("IngredientCategory");
+                });
+
+            modelBuilder.Entity("CookTheWeek.Data.Models.Meal", b =>
+                {
+                    b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>

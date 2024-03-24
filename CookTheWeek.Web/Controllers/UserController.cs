@@ -1,14 +1,16 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Web.ViewModels.User;
-    using Microsoft.AspNetCore.Authentication;
+    using Data.Models;
+    using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
 
+    [Authorize]
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
