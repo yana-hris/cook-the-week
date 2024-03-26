@@ -75,42 +75,5 @@
             return Created();
             
         }
-
-        //[HttpPost]
-        //[Route("remove")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //public async Task<IActionResult> RemoveFromFavourites([FromBody]FavouriteRecipeServiceModel model)
-        //{
-        //    string userId = model.UserId;
-        //    string recipeId = model.RecipeId;
-            
-        //    bool recipeExists = await this.recipeService
-        //        .ExistsByIdAsync(recipeId);
-
-        //    bool userExists = await this.userService.ExistsByIdAsync(userId);
-
-        //    bool isAlreadyAdded = await this.recipeService
-        //        .IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
-
-        //    if (!recipeExists)
-        //    {
-        //        return NotFound();
-        //    }
-        //    if(!userExists)
-        //    {
-        //        return Unauthorized();
-        //    }
-        //    if(!isAlreadyAdded)
-        //    {
-        //        return Forbid();
-        //    }
-            
-
-        //    return Ok();
-        //}
     }
 }
