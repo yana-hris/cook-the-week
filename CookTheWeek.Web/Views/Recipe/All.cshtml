@@ -1,6 +1,5 @@
 ﻿@using CookTheWeek.Services.Interfaces
 @using CookTheWeek.Web.Infrastructure.Extensions
-@using CookTheWeek.Services.Data.Models.FavouriteRecipe
 @inject IRecipeService RecipeService
 @model AllRecipesQueryModel
 @{
@@ -165,7 +164,6 @@
     <script>
         function toggleFavourites(event, recipeId, userId) {
             event.preventDefault();
-            debugger;
             var $button = $(event.currentTarget);
             let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
            
@@ -181,7 +179,6 @@
                 data: JSON.stringify(data),
                 success: function (response) {
                     // Handle success response
-                    debugger;
                     $button.find('i').toggleClass('far fas');
                     toastr.success("Your preference is saved!");
                 },

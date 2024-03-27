@@ -22,14 +22,22 @@ namespace CookTheWeek.Web.Controllers
 
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error(int statusCode)
+        public IActionResult Error(int? statusCode = null)
         {
-            if(statusCode == 400 || statusCode == 404)
+            if(statusCode != null) 
             {
-                return this.View("Error404");
-            }
+                if(statusCode.Value == 404)
+                {
+                    return View("Error404");
+                }
+                else
+                {
+                    return View("Error500");
+                }
+                
+            } 
             
-            return View();
+            return View("Error");
         }
     }
 }

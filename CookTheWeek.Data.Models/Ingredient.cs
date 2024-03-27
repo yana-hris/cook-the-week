@@ -1,14 +1,17 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    
+    using Microsoft.EntityFrameworkCore;
 
+    using Extensions;
     using static Common.EntityValidationConstants.Ingredient;
 
     [Comment("Ingredient")]
     public class Ingredient
     {
+        private string name;
         public Ingredient()
         {
             RecipesIngredients = new HashSet<RecipeIngredient>();
@@ -20,7 +23,12 @@
         [Comment("Ingredient Name")]
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name { get; set; } = null!;
+        public string Name
+        {
+            get { return name; }
+
+            set { name = value.ToAllWordsFirstCapitalLetter(); }
+        } 
 
         [Comment("Ingredient Category Key Identifier")]
         [Required]

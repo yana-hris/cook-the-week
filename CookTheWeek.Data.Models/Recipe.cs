@@ -1,14 +1,17 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using Extensions;
     using static Common.EntityValidationConstants.Recipe;
 
     [Comment("Recipe")]
     public class Recipe
     {
+        private string title;
         public Recipe()
         {
             Id = Guid.NewGuid();
@@ -28,7 +31,12 @@
         [Comment("Recipe Title")]
         [Required]
         [MaxLength(TitleMaxLength)]
-        public string Title { get; set; } = null!;
+        public string Title
+        { 
+            get { return title; }
+            
+            set { title = value.ToAllWordsFirstCapitalLetter(); }
+        }
 
         [Comment("Recipe Description")]
         [MaxLength(DescriptionMaxLength)]

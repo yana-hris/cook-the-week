@@ -48,7 +48,7 @@
             {
                 return Unauthorized();
             }
-            // If the recipe is already in the user`s favourites, we have to remove it (delete entity)
+            // If the recipe is already in the user`s favourites, we have to remove it (delete entity FavouriteRecipe)
             if (isAlreadyAdded)
             {
                 try
@@ -61,8 +61,8 @@
                 }
 
                 return Ok();
-            } 
-            // if not, we have to add it (create entity)
+            }
+            // if not, we have to add it (create FavouriteRecipe entity)
             try
             {
                 await this.recipeService.AddToFavouritesByUserId(recipeId, userId);
