@@ -6,7 +6,6 @@ namespace CookTheWeek.Web
 
     using Data;
     using Data.Models;
-    using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
     using Services.Interfaces;
 

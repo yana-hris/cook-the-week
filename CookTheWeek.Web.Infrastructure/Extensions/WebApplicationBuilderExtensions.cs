@@ -1,13 +1,12 @@
-﻿namespace CookTheWeek.Web.Infrastructure.Extensions
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.Extensions.DependencyInjection;
 
     using CookTheWeek.Data.Models;
-    using static Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     /// <summary>
     /// This method registers all services with their interfaces and implementations of a given Assembly
