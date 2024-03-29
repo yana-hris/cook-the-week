@@ -46,5 +46,5 @@ npm start
 
 If you have any questions, suggestions, or feedback, please don't hesitate to reach out:
 
-- Email: yana.hristova84@gmail.com
+- Email: yana.hristova.work@gmail.com
 
