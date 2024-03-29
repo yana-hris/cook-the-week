@@ -5,12 +5,18 @@ namespace CookTheWeek.Web.Controllers
 
     using Infrastructure.Extensions;
 
+    using static Common.GeneralApplicationConstants;
+
     [AllowAnonymous]
     public class HomeController : Controller
-    {
-        
+    {        
         public IActionResult Index()
         {
+            if(this.User.IsAdmin())
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             string userId = User.GetId();
             if(string.IsNullOrEmpty(userId))
             {

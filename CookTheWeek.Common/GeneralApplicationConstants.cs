@@ -11,6 +11,7 @@
         public static int[] SecondaryIngredientsCategories = [3, 8, 9, 12, 13];
         public static int[] AdditionalIngredientsCategories = [5, 6, 10];
 
+        public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Administrator";
         public const string DevelopmentAdminUserName = "Admin";
     }
