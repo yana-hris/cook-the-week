@@ -1,0 +1,16 @@
+﻿
+<header>
+    <nav id="navigation" class="navbar navbar-expand-md bg-dark fixed-top" data-bs-theme="dark">
+        <div id="nav-container" class="container">
+            <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">CookTheWeek</a>
+            <div id="navcol-5" class="collapse navbar-collapse">
+                <ul id="nav-list" class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="All">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area ="" asp-controller="Home" asp-action="HowItWorks">How it Works</a></li> @* TODO *@
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-item text-bg-primary bg-dark border rounded border-1 border-primary shadow-sm" id="login-btn"><a class="nav-link active" id="nav-login-btn" asp-area="" asp-controller="User" asp-action="Login">Log In</a></li>
+                </ul>
+            </div><button data-bs-target="#navcol-5" data-bs-toggle="collapse" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        </div>
+    </nav>
+</header>
