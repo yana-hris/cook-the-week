@@ -95,8 +95,7 @@
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
