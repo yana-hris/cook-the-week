@@ -1,0 +1,17 @@
+﻿// Override Bootstrap variables for dark theme
+$theme-colors: ( 
+    primary: #007bff, 
+    secondary: #6c757d, 
+    success: #28a745, 
+    info: #17a2b8, 
+    warning: #ffc107, 
+    danger: #dc3545, 
+    light: #f8f9fa, 
+    dark: #343a40, // Override Bootstrap's dark color
+);
+
+$body-bg: #343a40; // Set background color for the body to match dark theme
+$text-color: #ffffff; // Set text color to white for better readability
+
+// Compile Bootstrap with customized variables
+@import '../lib/bootstrap/scss/bootstrap.scss';
