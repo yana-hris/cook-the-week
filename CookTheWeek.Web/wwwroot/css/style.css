@@ -15,19 +15,29 @@
   padding-right: 0px;
   margin-right: 0px;
 }
+#navigation #nav-container #navcol-5 #nav-list {
+  color: rgba(255, 255, 255, 0.65);
+}
 #navigation #nav-container #navcol-5 .nav-item {
-  padding: 0;
+  padding-top: 0;
 }
 #navigation #nav-container #navcol-5 .nav-item .nav-link {
   padding-top: 9px;
   padding-left: 20px;
   padding-right: 20px;
 }
-#navigation #nav-container #navcol-5 li.user-btn {
-  padding: 6px 16px 10px 16px;
+#navigation #nav-container #navcol-5 .nav-item .drop-down-item {
+  color: rgba(255, 255, 255, 0.65) !important;
+  text-decoration: none !important;
+}
+#navigation #nav-container #navcol-5 .nav-item .drop-down-item:focus, #navigation #nav-container #navcol-5 .nav-item .drop-down-item:hover {
+  color: var(--bs-primary-text-emphasis) !important;
+}
+#navigation #nav-container #navcol-5 li.user-btn, #navigation #nav-container #navcol-5 .nav-item.dropdown {
+  padding: 8px 16px 10px 16px;
   margin: 0;
 }
-#navigation #nav-container #navcol-5 li.user-btn .inner-btn {
+#navigation #nav-container #navcol-5 li.user-btn .inner-btn, #navigation #nav-container #navcol-5 .nav-item.dropdown .inner-btn {
   padding: 0;
   margin: 0;
 }

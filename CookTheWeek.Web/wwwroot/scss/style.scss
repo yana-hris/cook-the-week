@@ -10,25 +10,39 @@
         .navbar-brand:hover {
             color: var(--bs-navbar-hover-color);
             transition: 0.5s;
-        }
+        } 
 
         #navcol-5 {
             margin-left: 0;
             padding-right: 0px;
             margin-right: 0px;
 
+            #nav-list {
+                color: rgba(255,255,255,0.65);
+            }
+            
             .nav-item {
-                padding: 0;
+                padding-top: 0;
 
                 .nav-link {
                     padding-top: 9px;
                     padding-left: 20px;
                     padding-right: 20px;
                 }
+
+                .drop-down-item {
+                    color: rgba(255,255,255,0.65)!important;
+                    text-decoration: none !important;
+                  }
+                  
+                  .drop-down-item:focus, .drop-down-item:hover {
+                    color: var(--bs-primary-text-emphasis) !important;
+                  }
+                  
             }
 
-            li.user-btn {
-                padding: 6px 16px 10px 16px;
+            li.user-btn, .nav-item.dropdown {
+                padding: 8px 16px 10px 16px;
                 margin: 0;
 
                 .inner-btn {
@@ -39,17 +53,17 @@
 
             .nav-item.user-btn:hover {
                 background-color: var(--bs-primary) !important;
-                color: var(--bs-white) !important;
-                border-color: var(--bs-dark) !important;
+                color: var(--bs-white)!important;
+                border-color: var(--bs-dark)!important;
                 transition: 0.5s;
             }
         }
-    }
+    }        
 }
 // Guest Navigation, has login-btn and media queries
-.navbar-expand-md {
+.navbar-expand-md {        
     @media only screen and (max-width: 767px) {
-        #nav-container {
+            #nav-container {
             padding: 8px 12px 8px 12px !important;
             align-items: center !important;
             justify-content: space-between !important;
@@ -69,7 +83,7 @@
                 #nav-list {
                     gap: 16px;
                 }
-            }
+            }            
         }
     }
 
@@ -78,7 +92,7 @@
             gap: 24px !important;
         }
     }
-
+    
     @media (min-width:992px) {
         #nav-list {
             gap: 75px !important;
@@ -130,3 +144,48 @@
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+ 
+
+
+
+  
+
+  
+
+  
+
+  
