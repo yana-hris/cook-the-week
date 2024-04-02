@@ -10,14 +10,20 @@ $theme-colors: (
     dark: #343a40, // Override Bootstrap's dark color
 );
 $primary-text-emphasis: #94cf96; //light green
+$primary-border-subtle: #4caf50; // light green
 $body-bg: #343a40; // Set background color for the body to match dark theme - medium grey
 $text-color: #ffffff; // Set text color to white for better readability - white
 
-$link-hover-color: #437845; // medium green
+$link-color-rgb: rgb(255,255,255);
+$link-hover-color-rgb: rgb(67 120, 69); // medium green
 
 $navbar-dark-color: #ffffff; // white
 $navbar-dark-hover-color: #70bf73; // light green
 
+$dropdown-color: #ffffff;
+$dropdown-link-color: #ffffff;
+$dropdown-link-hover-color: #70bf73;
+    
 $dropdown-dark-color:#ffffff;
 $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: #70bf73;

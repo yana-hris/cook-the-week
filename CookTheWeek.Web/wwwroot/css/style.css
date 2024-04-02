@@ -20,9 +20,6 @@
 }
 #navigation #nav-container #navcol-5 .nav-item {
   padding-top: 0;
-  /*.drop-down-item:focus, .drop-down-item:hover {
-    color: var(--bs-primary-text-emphasis) !important;
-  }*/
 }
 #navigation #nav-container #navcol-5 .nav-item .nav-link {
   padding-top: 9px;
@@ -31,6 +28,10 @@
 }
 #navigation #nav-container #navcol-5 .nav-item .drop-down-item {
   text-decoration: none !important;
+  color: #ffffff !important;
+}
+#navigation #nav-container #navcol-5 .nav-item .drop-down-item:hover {
+  color: #70bf73 !important;
 }
 #navigation #nav-container #navcol-5 li.user-btn, #navigation #nav-container #navcol-5 .nav-item.dropdown {
   padding: 8px 16px 10px 16px;

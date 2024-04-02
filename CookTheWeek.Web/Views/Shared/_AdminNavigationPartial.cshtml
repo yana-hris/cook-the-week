@@ -3,11 +3,11 @@
         <div id="nav-container" class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">CookTheWeek</a>
             <div id="navcol-5" class="collapse navbar-collapse">
-                <ul id="nav-list" class="navbar-nav ms-auto" style="color: rgba(255,255,255,0.65);">
+                <ul id="nav-list" class="navbar-nav ms-auto" > @* style="color: rgba(255,255,255,0.65);"> *@
                     <li class="nav-item drop-down">
                         <div class="nav-item dropdown">
-                            <a id="navbarDarkDropdownMenuLink" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Recipes </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <a id="recipeDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Recipes </a>
+                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="recipeDropDown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="All">All Recipes</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="Mine">My Recipes</a>
@@ -16,8 +16,8 @@
                     </li>
                     <li class="nav-item drop-down">
                         <div class="nav-item dropdown">
-                            <a class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Ingredients </a>
-                            <div class="dropdown-menu" data-bs-popper="none">
+                            <a id="ingredientDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Ingredients </a>
+                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="ingredientDropDown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Ingredient" asp-action="Add">Add Ingredient</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Ingredient" asp-action="All">All Ingredients</a>
                             </div>
@@ -25,8 +25,8 @@
                     </li>
                     <li class="nav-item drop-down">
                         <div class="nav-item dropdown" >
-                            <a class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Category </a>
-                            <div class="dropdown-menu" data-bs-popper="none">
+                            <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Category </a>
+                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Add">Add Category</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="All">All Categories</a>
                             </div>

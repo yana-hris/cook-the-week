@@ -10,7 +10,7 @@
         .navbar-brand:hover {
             color: var(--bs-navbar-hover-color);
             transition: 0.5s;
-        } 
+        }
 
         #navcol-5 {
             margin-left: 0;
@@ -20,7 +20,7 @@
             #nav-list {
                 color: rgba(255,255,255,0.65);
             }
-            
+
             .nav-item {
                 padding-top: 0;
 
@@ -33,12 +33,12 @@
                 .drop-down-item {
                     //color: rgba(255,255,255,0.65)!important;
                     text-decoration: none !important;
-                  }
-                  
-                  /*.drop-down-item:focus, .drop-down-item:hover {
-                    color: var(--bs-primary-text-emphasis) !important;
-                  }*/
-                  
+                    color: #ffffff !important;
+                }
+
+                .drop-down-item:hover {
+                    color: #70bf73 !important;
+                }
             }
 
             li.user-btn, .nav-item.dropdown {
@@ -53,12 +53,12 @@
 
             .nav-item.user-btn:hover {
                 background-color: var(--bs-primary) !important;
-                color: var(--bs-white)!important;
-                border-color: var(--bs-dark)!important;
+                color: var(--bs-white) !important;
+                border-color: var(--bs-dark) !important;
                 transition: 0.5s;
             }
         }
-    }        
+    }
 }
 // Guest Navigation, has login-btn and media queries
 .navbar-expand-md {        
