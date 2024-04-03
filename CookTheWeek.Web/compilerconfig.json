@@ -4,7 +4,11 @@
     "inputFile": "wwwroot/scss/style.scss"
   },
   {
-    "outputFile": "wwwroot/css/bootstrap.css",
-    "inputFile": "wwwroot/scss/bootstrap.scss"
-  }
+    "outputFile": "wwwroot/css/_navigation.css",
+    "inputFile": "wwwroot/scss/_navigation.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/_typography.css",
+    "inputFile": "wwwroot/scss/_typography.scss"
+  },
 ]

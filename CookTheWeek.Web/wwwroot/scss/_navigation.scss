@@ -1,0 +1,146 @@
+﻿#navigation {
+    padding: 0 0;
+    margin: 0 0;
+
+    #nav-container {
+        padding: 8px 40px 10px 40px;
+        max-width: 100% !important;
+
+        .navbar-brand:hover {
+            color: var(--bs-navbar-hover-color);
+            transition: 0.5s;
+        }
+
+        #navcol-5 {
+            margin-left: 0;
+            padding-right: 0px;
+            margin-right: 0px;
+
+            #nav-list {
+                color: rgba(255,255,255,0.65);
+            }
+
+            .nav-item {
+                padding-top: 0;
+
+                .nav-link {
+                    padding-top: 9px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+
+                .drop-down-item {
+                    //color: rgba(255,255,255,0.65)!important;
+                    text-decoration: none !important;
+                    color: #ffffff !important;
+                }
+
+                .drop-down-item:hover {
+                    color: #70bf73 !important;
+                }
+            }
+
+            li.user-btn, .nav-item.dropdown {
+                padding: 8px 16px 10px 16px;
+                margin: 0;
+
+                .inner-btn {
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+
+            .nav-item.user-btn:hover {
+                background-color: var(--bs-primary) !important;
+                color: var(--bs-white) !important;
+                border-color: var(--bs-dark) !important;
+                transition: 0.5s;
+            }
+        }
+    }
+}
+// Guest Navigation, has login-btn and media queries
+.navbar-expand-md {
+    @media only screen and (max-width: 767px) {
+        #nav-container {
+            padding: 8px 12px 8px 12px !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            display: flex !important;
+
+            #navcol-5 {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                text-align: center;
+                padding: 10px;
+                z-index: 1500;
+                background-color: var(--bs-dark-bg-subtle);
+                opacity: 0.95;
+
+                #nav-list {
+                    gap: 16px;
+                }
+            }
+        }
+    }
+
+    @media (min-width:768px) {
+        #nav-list {
+            gap: 24px !important;
+        }
+    }
+
+    @media (min-width:992px) {
+        #nav-list {
+            gap: 75px !important;
+        }
+    }
+}
+
+// User Navigation, has logout btn
+.navbar-expand-lg {
+
+    @media (min-width: 830px) {
+        #nav-list {
+            gap: 24px;
+        }
+    }
+
+    @media only screen and (max-width: 991px) {
+        #nav-container {
+            padding: 8px 12px 8px 12px !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            display: flex !important;
+
+            #navcol-5 {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                text-align: center;
+                padding: 10px;
+                z-index: 1500;
+                background-color: var(--bs-dark-bg-subtle);
+                opacity: 0.95;
+
+                #nav-list {
+                    gap: 16px;
+
+                    #logout-btn {
+                        margin-top: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1200px) {
+        #nav-list {
+            gap: 60px !important;
+        }
+    }
+}
+
