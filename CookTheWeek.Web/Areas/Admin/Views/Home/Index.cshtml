@@ -1,49 +1,86 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<!-- Sidebar -->
-<div class="sidebar">
-    <h2 class="text-center">Admin Panel</h2>
-    <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-    </ul>
+<div id="admin-container">
+    <h1>Hello, Admin!</h1>
+    <p class="admin-msg">Here you can view, edit, delete all added recipes, as well as add new ones. You can add, edit and delete Ingredients. You can also add, edit and delete Recipe categories and Ingredient Categories. You can view all registered Users. Finally, you can view all Meal Plans.</p>
+    <div class="row gy-3 gx-4">
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Recipes</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">256</p>
+                    <div class="card-links">
+                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="Add">Add</a>
+                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="All">View All</a>
+                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="Mine">View Mine</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Recipe Categories</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">6</p>
+                    <div class="card-links">
+                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AddRecipeCategory">Add</a>
+                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AllRecipeCategories">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Ingredients</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">1892</p>
+                    <div class="card-links">
+                        <a href="#" asp-area="Admin" asp-controller="Ingredient" asp-action="Add">Add</a>
+                        <a href="#" asp-area="Admin" asp-controller="Ingredient" asp-action="All">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Ingredient Categories</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">13</p>
+                    <div class="card-links">
+                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AddIngredientCategory">Add</a>
+                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AllIngredientCategories">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Users</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">15</p>
+                    <div class="card-links">
+                        <a href="#" asp-area="Admin" asp-controller="User" asp-action="All">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">MealPlans</h4>
+                    <h6 class="text-muted card-subtitle mb-2">Total</h6>
+                    <p class="card-text big-number">149</p>
+                    <div class="card-links">
+                        <a href="#">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- Main content -->
-<div class="main-content">
-    <h2>Welcome to the Admin Panel</h2>
-    <p>This is the main content area where you can manage your website.</p>
-</div>
-
-@* <div class="mt-4 p-5 text-center">
-    <h2 class="display-4">Hello, Admin!</h2>
-    <p class="lead mb-1 mt-3">
-        This is your administrator area - you can <b>read</b>, <b>create</b>,
-        <b>delete</b> and <b>edit</b> recipes, ingredients and categories.
-        <br />You can <b>edit</b> and <b>delete</b> the other user`s recipes, too!
-    </p>
-    <p class="lead mt-1">
-        You can also see <b>all users</b> and <b>all recipes</b> in the
-        system.
-    </p>
-    <hr class="my-4">
-    <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary btn-lg">All Recipes</a>
-    <a asp-area="" asp-controller="Recipe" asp-action="Add" class="btn btn-primary btn-lg">Add Recipe</a>
-    <span> | </span>
-    <a asp-area="Admin" asp-controller="Recipe" asp-action="Mine"
-       class="btn btn-primary btn-lg">My Recipes</a>
-    <span> | </span>
-    <a asp-area="Admin" asp-controller="Ingredient" asp-action="All"
-       class="btn btn-primary btn-lg">All Ingredients</a>
-    <a asp-area="Admin" asp-controller="Ingredient" asp-action="Add"
-       class="btn btn-primary btn-lg">Add Ingredient</a>
-    <a asp-area="Admin" asp-controller="Ingredient" asp-action="All"
-       class="btn btn-primary btn-lg">All Categories</a>
-    <a asp-area="Admin" asp-controller="Category" asp-action="Add"
-       class="btn btn-primary btn-lg">Add Category</a>
-    <a asp-area="Admin" asp-controller="User" asp-action="All"
-       class="btn btn-primary btn-lg">All Users</a>
-</div> *@

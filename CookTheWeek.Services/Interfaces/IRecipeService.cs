@@ -17,6 +17,7 @@
         Task EditAsync(RecipeEditViewModel model);
         Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
         Task DeleteById(string id);
+        Task<ICollection<RecipeAllViewModel>> Mine(string userId);
         Task<bool> IsOwner(string id, string ownerId);
         Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId);
 
