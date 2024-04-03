@@ -6,6 +6,7 @@
 @import 'navigation';
 
 
+
 $primary: #4caf50;
 $secondary: #6c757d;
 $success: #2e6930;
@@ -25,7 +26,7 @@ $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: #70bf73;
 
 
-
+@import 'admin-panel';
 @import '../lib/bootstrap/scss/bootstrap';
 
 

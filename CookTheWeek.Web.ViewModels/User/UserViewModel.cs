@@ -6,8 +6,10 @@
 
         public string Username { get; set; } = null!;
 
-        public int TotalRecipes { get; set; }
+        public string Email { get; set; }
 
-        public int TotalMealPlans { get; set; }
+        public int? TotalRecipes { get; set; }
+
+        public int? TotalMealPlans { get; set; }
     }
 }

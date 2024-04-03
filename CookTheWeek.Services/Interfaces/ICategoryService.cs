@@ -12,5 +12,7 @@
         Task<ICollection<string>> AllRecipeCategoryNamesAsync();
         Task<ICollection<string>> AllIngredientCategoryNamesAsync();
         Task<bool> RecipeCategoryExistsByIdAsync(int recipeCategoryId);
+        Task<int> AllRecipeCategoriesCountAsync();
+        Task<int> AllIngredientCategoriesCountAsync();
     }
 }

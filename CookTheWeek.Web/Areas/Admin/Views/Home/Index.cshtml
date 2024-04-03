@@ -1,20 +1,21 @@
-﻿@{
+﻿@model AdminServiceModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <div id="admin-container">
     <h1>Hello, Admin!</h1>
-    <p class="admin-msg">Here you can view, edit, delete all added recipes, as well as add new ones. You can add, edit and delete Ingredients. You can also add, edit and delete Recipe categories and Ingredient Categories. You can view all registered Users. Finally, you can view all Meal Plans.</p>
+    <p class="admin-msg">Here, you can manage recipes, ingredients, categories, users, and meal plans. Edit, add, or delete recipes and ingredients, categorize them, view registered users, and oversee meal plans. Enjoy streamlined control over your system.</p>
     <div class="row gy-3 gx-4">
         <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body text-center">
                     <h4 class="card-title">Recipes</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">256</p>
+                    <p class="card-text big-number">@Model.RecipesTotalCount</p>
                     <div class="card-links">
-                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="Add">Add</a>
-                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="All">View All</a>
-                        <a href="#" asp-area="" asp-controller="Recipe" asp-action="Mine">View Mine</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="Add">Add</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="All">View All</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="Mine">View Mine</a>
                     </div>
                 </div>
             </div>
@@ -24,10 +25,10 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Recipe Categories</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">6</p>
+                    <p class="card-text big-number">@Model.RecipeCategoriesTotalCount</p>
                     <div class="card-links">
-                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AddRecipeCategory">Add</a>
-                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AllRecipeCategories">View All</a>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="AddRecipeCategory">Add</a>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="AllRecipeCategories">View All</a>
                     </div>
                 </div>
             </div>
@@ -37,10 +38,10 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Ingredients</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">1892</p>
+                    <p class="card-text big-number">@Model.IngredientsTotalCount</p>
                     <div class="card-links">
-                        <a href="#" asp-area="Admin" asp-controller="Ingredient" asp-action="Add">Add</a>
-                        <a href="#" asp-area="Admin" asp-controller="Ingredient" asp-action="All">View All</a>
+                        <a asp-area="Admin" asp-controller="Ingredient" asp-action="Add">Add</a>
+                        <a asp-area="Admin" asp-controller="Ingredient" asp-action="All">View All</a>
                     </div>
                 </div>
             </div>
@@ -50,10 +51,10 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Ingredient Categories</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">13</p>
+                    <p class="card-text big-number">@Model.IngredientCategoriesTotalCount</p>
                     <div class="card-links">
-                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AddIngredientCategory">Add</a>
-                        <a href="#" asp-area="Admin" asp-controller="Category" asp-action="AllIngredientCategories">View All</a>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="AddIngredientCategory">Add</a>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="AllIngredientCategories">View All</a>
                     </div>
                 </div>
             </div>
@@ -63,9 +64,9 @@
                 <div class="card-body text-center">
                     <h4 class="card-title">Users</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">15</p>
+                    <p class="card-text big-number">@Model.UsersTotalCount</p>
                     <div class="card-links">
-                        <a href="#" asp-area="Admin" asp-controller="User" asp-action="All">View All</a>
+                        <a asp-area="Admin" asp-controller="User" asp-action="All">View All</a>
                     </div>
                 </div>
             </div>
@@ -73,11 +74,12 @@
         <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body text-center">
-                    <h4 class="card-title">MealPlans</h4>
+                    <h4 class="card-title">Active Meal Plans</h4>
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
-                    <p class="card-text big-number">149</p>
+                    <p class="card-text big-number">@Model.MealPlansTotalCount</p>
                     <div class="card-links">
-                        <a href="#">View All</a>
+                        <a asp-area="" asp-controller="MealPlan" asp-action="AllActive">All Active</a>
+                        <a asp-area="" asp-controller="MealPlan" asp-action="AllFinished">All Finished</a>
                     </div>
                 </div>
             </div>

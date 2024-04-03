@@ -1,14 +1,27 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
+    using CookTheWeek.Services.Data.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
     public class MealPlanController : Controller
     {
-        public IActionResult Index()
+        private readonly IMealplanService mealplanService;
+
+        public MealPlanController(IMealplanService mealplanService)
         {
-            return View();
+            this.mealplanService = mealplanService;
         }
+
+        //public Task<IActionResult> AllActive()
+        //{
+            
+        //}
+
+        //public Task<IActionResult> AllFinished()
+        //{
+
+        //}
     }
 }

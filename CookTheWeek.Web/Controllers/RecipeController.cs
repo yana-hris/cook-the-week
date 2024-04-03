@@ -37,7 +37,6 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllRecipesQueryModel queryModel)
         {
-            //ICollection<RecipeAllViewModel> model = await this.recipeService.AllUnsortedUnfilteredAsync();
             AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
             queryModel.Recipes = serviceModel.Recipes;
             queryModel.TotalRecipes = serviceModel.TotalRecipesCount;

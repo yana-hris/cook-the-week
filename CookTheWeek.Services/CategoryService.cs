@@ -82,5 +82,19 @@
                 .RecipeCategories
                 .AnyAsync(rc => rc.Id == recipeCategoryId);
         }
+
+        public async Task<int> AllRecipeCategoriesCountAsync()
+        {
+            return await this.dbContext
+                .RecipeCategories
+                .CountAsync();
+        }
+
+        public async Task<int> AllIngredientCategoriesCountAsync()
+        {
+            return await this.dbContext
+                .IngredientCategories
+                .CountAsync();
+        }
     }
 }

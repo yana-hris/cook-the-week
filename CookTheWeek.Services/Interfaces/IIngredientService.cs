@@ -18,5 +18,6 @@
         Task<IngredientEditViewModel?> GetByIdAsync(int id);
         Task EditAsync(IngredientEditViewModel model);
         Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
+        Task<int> AllCountAsync();
     }
 }

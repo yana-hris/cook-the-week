@@ -88,28 +88,6 @@
             };
     }
         
-        public async Task<ICollection<RecipeAllViewModel>> AllUnsortedUnfilteredAsync()
-        {
-            ICollection<RecipeAllViewModel> allRecipes = await this.dbContext
-                .Recipes
-                .AsNoTracking()
-                .Where(r => r.IsDeleted == false)
-                .Select(r => new RecipeAllViewModel()
-                {
-                    Id = r.Id.ToString(),
-                    ImageUrl = r.ImageUrl,
-                    Title = r.Title,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = r.RecipeCategoryId,
-                        Name = r.RecipeCategory.Name
-                    },
-                    Servings = r.Servings,
-                    CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
-                }).ToListAsync();
-
-            return allRecipes;
-        }
 
         public async Task AddAsync(RecipeFormViewModel model, string ownerId)
         {
@@ -308,7 +286,7 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<ICollection<RecipeAllViewModel>> Mine(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> MineAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
@@ -372,6 +350,22 @@
 
             this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> MineCountAsync(string userId)
+        {
+            return await this.dbContext
+                .Recipes
+                .Where(r => r.IsDeleted == false && r.OwnerId == userId)
+                .CountAsync();
+        }
+
+        public async Task<int> AllCountAsync()
+        {
+            return await this.dbContext
+               .Recipes
+               .Where(r => r.IsDeleted == false)
+               .CountAsync();
         }
     }
 }

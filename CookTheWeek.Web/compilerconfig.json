@@ -11,4 +11,8 @@
     "outputFile": "wwwroot/css/_typography.css",
     "inputFile": "wwwroot/scss/_typography.scss"
   },
+  {
+    "outputFile": "wwwroot/scss/admin-panel.css",
+    "inputFile": "wwwroot/scss/admin-panel.scss"
+  }
 ]

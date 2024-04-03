@@ -3,6 +3,7 @@
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.User;
     using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
@@ -10,48 +11,42 @@
     public class UserService : IUserService
     {
         private readonly CookTheWeekDbContext dbContext;
-        public UserService(CookTheWeekDbContext dbContext)
+        private readonly IRecipeService recipeService;
+        public UserService(CookTheWeekDbContext dbContext, IRecipeService recipeService)
         {
              this.dbContext = dbContext;
+            this.recipeService = recipeService;
         }
 
-        public async Task<IEnumerable<UserViewModel>> AllAsync()
+        public async Task<ICollection<UserViewModel>> AllAsync()
         {
-            var allUsers = await this.dbContext.Users
-                .Select(async u => new
-                {
-                    User = u,
-                    RecipeCountTask = MineCount(u.Id.ToString())
+            ICollection<UserViewModel> allUsers = await this.dbContext
+                .Users
+                .Select(u => new UserViewModel()
+                { 
+                    Id = u.Id.ToString(),
+                    Username = u.UserName!,
+                    Email = u.Email!,
+                    TotalMealPlans = u.MealPlans.Count()
                 })
                 .ToListAsync();
 
-            var userViewModels = new List<UserViewModel>();
-
             foreach (var user in allUsers)
             {
-                var userViewModel = new UserViewModel
-                {
-                    Id = user.User.Id.ToString(),
-                    Username = user.User.UserName!,
-                    TotalMealPlans = user.User.MealPlans.Count(),
-                    TotalRecipes = await user.RecipeCountTask
-                };
-
-                userViewModels.Add(userViewModel);
+                user.TotalRecipes = await this.recipeService.MineCountAsync(user.Id);
             }
 
-            return userViewModels;
+            return allUsers;
+
         }
 
-        public async Task<int> MineCount(string id)
+        public async Task<int> AllUsersCountAsync()
         {
-            ICollection<Recipe> recipes = await this.dbContext
-                .Recipes
-                .Where(r => r.OwnerId == id && r.IsDeleted == false)
-                .ToListAsync();
-
-            return recipes.Count();
+            return await this.dbContext
+                .Users
+                .CountAsync();
         }
+
         public async Task<bool> ExistsByIdAsync(string id)
         {
             bool exists = await this.dbContext.Users

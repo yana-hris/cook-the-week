@@ -2,7 +2,7 @@
     padding: 0 0;
     margin: 0 0;
 
-    #nav-container {
+    #nav-container, #admin-nav-container {
         padding: 8px 40px 10px 40px;
         max-width: 100% !important;
 
@@ -27,10 +27,10 @@
                     padding-top: 9px;
                     padding-left: 20px;
                     padding-right: 20px;
+                    white-space: nowrap;
                 }
 
                 .drop-down-item {
-                    //color: rgba(255,255,255,0.65)!important;
                     text-decoration: none !important;
                     color: #ffffff !important;
                 }
@@ -47,6 +47,7 @@
                 .inner-btn {
                     padding: 0;
                     margin: 0;
+                    white-space: nowrap;
                 }
             }
 
@@ -94,7 +95,7 @@
 
     @media (min-width:992px) {
         #nav-list {
-            gap: 75px !important;
+            gap: 70px !important;
         }
     }
 }
@@ -103,13 +104,26 @@
 .navbar-expand-lg {
 
     @media (min-width: 830px) {
-        #nav-list {
-            gap: 24px;
+        #nav-container {
+            #nav-list {
+                gap: 24px;
+            }
+        }
+
+        #admin-nav-container {
+            #nav-list {
+                font-size:15px;
+                gap: 2px;
+
+                #logout-btn {
+                    padding-bottom: 1px;
+                }
+            }
         }
     }
 
     @media only screen and (max-width: 991px) {
-        #nav-container {
+        #nav-container, #admin-nav-container {
             padding: 8px 12px 8px 12px !important;
             align-items: center !important;
             justify-content: space-between !important;
@@ -126,20 +140,48 @@
                 background-color: var(--bs-dark-bg-subtle);
                 opacity: 0.95;
 
-                #nav-list {
-                    gap: 16px;
-
-                    #logout-btn {
-                        margin-top: 12px;
-                    }
+                #logout-btn {
+                    margin-top: 12px;
                 }
+            }
+        }
+
+        #nav-container {
+            #nav-list {
+                gap: 16px;
+            }
+        }
+
+        #admin-nav-container {
+            #nav-list {
+                gap: 4px;
+                font-size: 15px;
+                
             }
         }
     }
 
+    /*@media only screen and (max-width: 1118px) {
+        
+        #admin-nav-container {
+            #nav-list {
+                font-size: 14px;
+                gap: 2px;
+            }
+        }
+    }*/
+
     @media (min-width: 1200px) {
-        #nav-list {
-            gap: 60px !important;
+        #admin-nav-container {
+            #nav-list {
+                gap: 25px !important;
+            }
+        }
+
+        #nav-container {
+            #nav-list {
+                gap: 60px !important;
+            }
         }
     }
 }

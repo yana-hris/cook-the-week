@@ -5,6 +5,7 @@
     public interface IUserService
     {
         Task<ICollection<UserViewModel>> AllAsync();
+        Task<int> AllUsersCountAsync();
         Task<bool> ExistsByIdAsync(string id);
     }
 }

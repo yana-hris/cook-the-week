@@ -1,9 +1,9 @@
 ﻿<header>
     <nav id="navigation" class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
-        <div id="nav-container" class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">CookTheWeek</a>
+        <div id="admin-nav-container" class="container">
+            <a class="navbar-brand d-flex align-items-center" asp-area="Admin" asp-controller="Home" asp-action="Index">CookTheWeek</a>
             <div id="navcol-5" class="collapse navbar-collapse">
-                <ul id="nav-list" class="navbar-nav ms-auto" > @* style="color: rgba(255,255,255,0.65);"> *@
+                <ul id="nav-list" class="navbar-nav ms-auto" > 
                     <li class="nav-item drop-down">
                         <div class="nav-item dropdown">
                             <a id="recipeDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Recipes </a>
@@ -25,10 +25,13 @@
                     </li>
                     <li class="nav-item drop-down">
                         <div class="nav-item dropdown" >
-                            <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Category </a>
+                            <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Manage Categories </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Add">Add Category</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="All">All Categories</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AddRecipeCategory">Add Recipe Category</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AllRecipeCategories">All Recipe Categories</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AddIngredientCategory">Add Ingredient Category</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AllIngredientCategories">All Ingredient Categories</a>
                             </div>
                         </div>
                     </li>

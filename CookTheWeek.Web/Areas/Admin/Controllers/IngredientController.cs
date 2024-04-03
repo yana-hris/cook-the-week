@@ -1,5 +1,5 @@
-﻿namespace CookTheWeek.Web.Controllers
-{    
+﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
+{
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
 
-        public IngredientController(ICategoryService categoryService, 
+        public IngredientController(ICategoryService categoryService,
             IIngredientService ingredientService)
         {
             this.categoryService = categoryService;
@@ -23,18 +23,18 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllIngredientsQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery] AllIngredientsQueryModel queryModel)
         {
-            AllIngredientsFilteredAndPagedServiceModel serviceModel = await this.ingredientService
+            AllIngredientsFilteredAndPagedServiceModel serviceModel = await ingredientService
                 .AllAsync(queryModel);
 
             queryModel.Ingredients = serviceModel.Ingredients;
             queryModel.TotalIngredients = serviceModel.TotalIngredientsCount;
-            queryModel.Categories = await this.categoryService.AllIngredientCategoryNamesAsync();
+            queryModel.Categories = await categoryService.AllIngredientCategoryNamesAsync();
             queryModel.IngredientSortings = Enum.GetValues(typeof(IngredientSorting))
                 .Cast<IngredientSorting>()
                 .ToDictionary(rs => (int)rs, rs => rs.ToString());
-            
+
             return View(queryModel);
         }
 
@@ -42,7 +42,7 @@
         public async Task<IActionResult> Add()
         {
             IngredientFormViewModel model = new IngredientFormViewModel();
-            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
+            model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
 
 
             return View(model);
@@ -50,25 +50,25 @@
 
         [HttpPost]
         public async Task<IActionResult> Add(IngredientFormViewModel model)
-        {    
-            bool ingredientExists = await this.ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryExists = await this.categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
+        {
+            bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
+            bool categoryExists = await categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
 
-            if(ingredientExists)
+            if (ingredientExists)
             {
                 ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
             }
 
-            if(!categoryExists)
+            if (!categoryExists)
             {
                 ModelState.AddModelError(nameof(model.IngredientCategoryId), $"Invalid Ingredient Category: {model.IngredientCategoryId}");
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await this.ingredientService.AddIngredientAsync(model);
+                    await ingredientService.AddIngredientAsync(model);
                     TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
                     return RedirectToAction("Index", "Home");
                 }
@@ -78,24 +78,24 @@
                 }
             }
 
-            model.IngredientCategories = await this.categoryService.AllIngredientCategoriesAsync();
+            model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
             return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            bool exists = await this.ingredientService.ExistsByIdAsync(id);
+            bool exists = await ingredientService.ExistsByIdAsync(id);
 
-            if(!exists)
+            if (!exists)
             {
                 //TODO: Check app logic
                 TempData[ErrorMessage] = "Invalid ingredient id!";
                 return BadRequest();
             }
 
-            IngredientEditViewModel? model = await this.ingredientService.GetByIdAsync(id)!;
-            model.Categories = await this.categoryService.AllIngredientCategoriesAsync();
+            IngredientEditViewModel? model = await ingredientService.GetByIdAsync(id)!;
+            model.Categories = await categoryService.AllIngredientCategoriesAsync();
 
             return View(model);
 
@@ -104,8 +104,8 @@
         [HttpPost]
         public async Task<IActionResult> Edit(IngredientEditViewModel model)
         {
-            bool nameAlreadyExists = await this.ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryIsValid = await this.categoryService.IngredientCategoryExistsByIdAsync(model.CategoryId);
+            bool nameAlreadyExists = await ingredientService.ExistsByNameAsync(model.Name);
+            bool categoryIsValid = await categoryService.IngredientCategoryExistsByIdAsync(model.CategoryId);
 
             if (nameAlreadyExists)
             {
@@ -121,7 +121,7 @@
             {
                 try
                 {
-                    await this.ingredientService.EditAsync(model);
+                    await ingredientService.EditAsync(model);
                     TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
                     return RedirectToAction("All");
                 }
@@ -131,7 +131,7 @@
                 }
             }
 
-            model.Categories = await this.categoryService.AllIngredientCategoriesAsync();
+            model.Categories = await categoryService.AllIngredientCategoriesAsync();
             return View(model);
         }
     }

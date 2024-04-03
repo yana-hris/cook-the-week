@@ -178,5 +178,12 @@
                 Ingredients = allIngredients
             };
         }
+
+        public async Task<int> AllCountAsync()
+        {
+            return await this.dbContext
+                .Ingredients
+                .CountAsync();
+        }
     }
 }
