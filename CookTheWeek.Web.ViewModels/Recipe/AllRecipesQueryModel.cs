@@ -18,10 +18,10 @@
         }
         public string? Category { get; set; }
 
-        [Display(Name = "Search by word")]
+        [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
 
-        [Display(Name = "Sort Recipes by")]
+        [Display(Name = "Sort by")]
         public RecipeSorting RecipeSorting { get; set; }
 
         public int CurrentPage { get; set; }

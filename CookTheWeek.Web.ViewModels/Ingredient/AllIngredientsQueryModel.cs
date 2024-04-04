@@ -1,7 +1,8 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Ingredient
 {
-    using CookTheWeek.Web.ViewModels.Ingredient.Enums;
-    using System.Security.Cryptography.X509Certificates;
+    using System.ComponentModel.DataAnnotations;
+
+    using Enums;
     using static Common.GeneralApplicationConstants;
 
     public class AllIngredientsQueryModel
@@ -17,8 +18,10 @@
 
         public string? Category { get; set; }
 
+        [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
 
+        [Display(Name = "Sort by")]
         public  IngredientSorting IngredientSorting { get; set; }
         public int CurrentPage { get; set; }
 

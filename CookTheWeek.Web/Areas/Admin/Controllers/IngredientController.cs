@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using CookTheWeek.Services.Interfaces;
@@ -8,9 +7,8 @@
     using static Common.NotificationMessagesConstants;
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Web.ViewModels.Ingredient.Enums;
-
-    [Authorize]
-    public class IngredientController : Controller
+    
+    public class IngredientController : BaseAdminController
     {
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
@@ -49,6 +47,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(IngredientFormViewModel model)
         {
             bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
@@ -68,7 +67,7 @@
             {
                 try
                 {
-                    await ingredientService.AddIngredientAsync(model);
+                    await ingredientService.AddAsync(model);
                     TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
                     return RedirectToAction("Index", "Home");
                 }
@@ -85,16 +84,8 @@
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            bool exists = await ingredientService.ExistsByIdAsync(id);
-
-            if (!exists)
-            {
-                //TODO: Check app logic
-                TempData[ErrorMessage] = "Invalid ingredient id!";
-                return BadRequest();
-            }
-
-            IngredientEditViewModel? model = await ingredientService.GetByIdAsync(id)!;
+            // We assume the admin will not perform parameter tampering, so no checks are needed
+            IngredientEditViewModel model = await ingredientService.GetForEditByIdAsync(id);
             model.Categories = await categoryService.AllIngredientCategoriesAsync();
 
             return View(model);
@@ -102,19 +93,14 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IngredientEditViewModel model)
         {
             bool nameAlreadyExists = await ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryIsValid = await categoryService.IngredientCategoryExistsByIdAsync(model.CategoryId);
 
             if (nameAlreadyExists)
             {
                 ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
-            }
-
-            if (!categoryIsValid)
-            {
-                ModelState.AddModelError(nameof(model.Categories), $"Invalid Ingredient Category: {model.CategoryId}");
             }
 
             if (ModelState.IsValid)
@@ -122,17 +108,32 @@
                 try
                 {
                     await ingredientService.EditAsync(model);
-                    TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
+                    TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" edited successfully!";
                     return RedirectToAction("All");
                 }
                 catch (Exception)
                 {
-                    TempData[ErrorMessage] = $"Ingredient unsucessfully edited! Please try again later or contact administrator!";
+                    return BadRequest();
                 }
             }
 
             model.Categories = await categoryService.AllIngredientCategoriesAsync();
             return View(model);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await this.ingredientService.DeleteById(id);
+                TempData[SuccessMessage] = "Ingredient successfully deleted!";
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("All");
         }
     }
 }

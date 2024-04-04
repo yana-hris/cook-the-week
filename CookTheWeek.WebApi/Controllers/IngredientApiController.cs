@@ -13,6 +13,7 @@
     [Produces("application/json")]
     public class IngredientApiController : ControllerBase
     {
+        // TODO: check if will be usedat all
         private readonly IIngredientService ingredientService;
 
         public IngredientApiController(IIngredientService ingredientService)
@@ -20,56 +21,18 @@
             this.ingredientService = ingredientService;
         }
 
-        [HttpGet]
-        [Route("all")]
-        [ProducesResponseType<IEnumerable<IngredientServiceModel>>(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAllIngredients()
-        {
-            try
-            {
-                IEnumerable<IngredientServiceModel> serviceModel =
-                    await ingredientService.GetAllIngredientsAsync();
-
-                return Ok(serviceModel);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         //[HttpGet]
-        //[Route("allbycategoryid")]
+        //[Route("all")]
         //[ProducesResponseType<IEnumerable<IngredientServiceModel>>(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> GetAllByCategory(int categoryId)
+        //public async Task<IActionResult> GetAllIngredients()
         //{
         //    try
         //    {
         //        IEnumerable<IngredientServiceModel> serviceModel =
-        //            await ingredientService.GetAllByCategoryId(categoryId);
+        //            await ingredientService.AllFilteredAndSortedAsync();
 
         //        return Ok(serviceModel);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
-
-        //[HttpGet]
-        //[Route("existsByName")]
-        //[ProducesResponseType<bool>(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> GetAllByCategory(string name)
-        //{
-        //    try
-        //    {
-        //        bool result =
-        //            await ingredientService.ExistsByNameAsync(name);
-
-        //        return Ok(result);
         //    }
         //    catch (Exception)
         //    {

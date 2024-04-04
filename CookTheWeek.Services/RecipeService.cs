@@ -86,8 +86,7 @@
                 TotalRecipesCount = totalRecipes,
                 Recipes = allRecipes
             };
-    }
-        
+        }
 
         public async Task AddAsync(RecipeFormViewModel model, string ownerId)
         {
@@ -123,7 +122,6 @@
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
         }
-
         public async Task EditAsync(RecipeEditViewModel model)
         {
             Recipe recipe = await this.dbContext
@@ -227,7 +225,6 @@
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .AnyAsync();
         }
-
         public async Task<RecipeEditViewModel> GetForEditByIdAsync(string id)
         {
             RecipeEditViewModel recipe = await this.dbContext
@@ -255,7 +252,6 @@
 
             return recipe;
         }
-
         public async Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id)
         {
             RecipeDeleteViewModel model = await this.dbContext
@@ -274,7 +270,6 @@
 
             return model;
         }
-
         public async Task DeleteById(string id)
         {
             Recipe recipeToDelete = await this.dbContext
@@ -285,7 +280,6 @@
             recipeToDelete.IsDeleted = true;
             await this.dbContext.SaveChangesAsync();
         }
-
         public async Task<ICollection<RecipeAllViewModel>> MineAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
@@ -309,7 +303,6 @@
 
             return myRecipes;
         }
-
         public async Task<bool> IsOwner(string id, string ownerId)
         {
             bool isOwner = await this.dbContext
@@ -319,7 +312,6 @@
 
             return isOwner;
         }
-
         public async Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId)
         {
             bool isFavourite = await this.dbContext.FavoriteRecipes
@@ -328,7 +320,6 @@
 
             return isFavourite;
         }
-
         public async Task AddToFavouritesByUserId(string id, string userId)
         {
             FavouriteRecipe favouriteRecipe = new FavouriteRecipe()
@@ -341,7 +332,6 @@
                 .AddAsync(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
         }
-
         public async Task RemoveFromFavouritesByUserId(string id, string userId)
         {
             FavouriteRecipe favouriteRecipe = await this.dbContext
@@ -351,7 +341,6 @@
             this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
         }
-
         public async Task<int> MineCountAsync(string userId)
         {
             return await this.dbContext
@@ -359,7 +348,6 @@
                 .Where(r => r.IsDeleted == false && r.OwnerId == userId)
                 .CountAsync();
         }
-
         public async Task<int> AllCountAsync()
         {
             return await this.dbContext

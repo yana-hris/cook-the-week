@@ -37,6 +37,7 @@ namespace CookTheWeek.Web
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddResponseCaching();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
@@ -73,6 +74,9 @@ namespace CookTheWeek.Web
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseResponseCaching();
+
             app.UseAuthorization();
 
             app.EnableOnlineUsersCheck();
