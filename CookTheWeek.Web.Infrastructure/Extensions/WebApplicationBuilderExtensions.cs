@@ -7,6 +7,7 @@
 
     using CookTheWeek.Data.Models;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     /// <summary>
     /// This method registers all services with their interfaces and implementations of a given Assembly
@@ -82,6 +83,11 @@
                 .GetResult();
 
             return app;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }  
     

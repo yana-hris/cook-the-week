@@ -3,8 +3,9 @@
     public static class GeneralApplicationConstants
     {
         public const int ReleaseYear = 2024;
+
         public const int DefaultPage = 1;
-        public const int DefaultRecipesPerPage = 6;
+        public const int DefaultRecipesPerPage = 8;
         public const int DefaultIngredientsPerPage = 25;
 
         public static int[] MainIngredientsCategories = [1, 2, 4, 7, 11];
@@ -14,5 +15,12 @@
         public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Administrator";
         public const string DevelopmentAdminUserName = "Admin";
+
+        public const string UsersCacheKey = "UserCache";
+        public const int UsersCacheDurationMinutes = 5;
+        public const string RecipesCacheKey = "RecipesCache";
+
+        public const string OnlineUsersCookieName = "IsOnline";
+        public const int LastActivityBeforeOfflineMinutes = 10;
     }
 }

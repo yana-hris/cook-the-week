@@ -4,23 +4,28 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Data.Models;
     using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
 
     [AllowAnonymous]
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMemoryCache memoryCache;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
-                              UserManager<ApplicationUser> userManager)
+                              UserManager<ApplicationUser> userManager,
+                              IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -55,6 +60,7 @@
             }
 
             await signInManager.SignInAsync(user, isPersistent: false);
+            this.memoryCache.Remove(UsersCacheKey);
 
             return RedirectToAction("Index", "Home");
         }

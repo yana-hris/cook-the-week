@@ -36,6 +36,8 @@ namespace CookTheWeek.Web
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
+            builder.Services.AddMemoryCache();
+
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/User/Login";
@@ -72,6 +74,8 @@ namespace CookTheWeek.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.EnableOnlineUsersCheck();
 
             if(app.Environment.IsDevelopment())
             {

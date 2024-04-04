@@ -4,11 +4,9 @@ html {
   position: relative;
   min-height: 100%;
 }
-html body {
-  padding-bottom: 60px;
-}
 html body #main-container {
-  padding-top: 60px;
+  padding: 90px 0;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -143,11 +141,6 @@ html body #main-container {
   }
 }
 
-#main-container {
-  padding: 40px 0;
-  margin: 0 auto;
-}
-
 #admin-container {
   max-width: 1200px;
   padding: 30px;
@@ -156,7 +149,7 @@ html body #main-container {
 #admin-container h1, #admin-container .h1 {
   text-align: center;
   font-size: 53px;
-  margin: 40px 0 20px; /* Combine margin shorthand */
+  margin-bottom: 20px;
 }
 #admin-container p.admin-msg {
   text-align: center;

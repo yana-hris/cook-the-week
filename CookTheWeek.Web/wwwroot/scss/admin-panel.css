@@ -6,7 +6,7 @@
 #admin-container h1 {
   text-align: center;
   font-size: 53px;
-  margin: 40px 0 20px; /* Combine margin shorthand */
+  margin-bottom: 20px;
 }
 #admin-container p.admin-msg {
   text-align: center;
