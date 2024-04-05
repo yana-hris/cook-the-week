@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\recipe\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\recipe\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34D7C93A-14BB-4762-8C29-228FC5AD7E63}|CookTheWeek.Services.Tests\\CookTheWeek.Services.Tests.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.services.tests\\dbmockseeddatacs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34D7C93A-14BB-4762-8C29-228FC5AD7E63}|CookTheWeek.Services.Tests\\CookTheWeek.Services.Tests.csproj|solutionrelative:cooktheweek.services.tests\\dbmockseeddatacs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34D7C93A-14BB-4762-8C29-228FC5AD7E63}|CookTheWeek.Services.Tests\\CookTheWeek.Services.Tests.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.services.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34D7C93A-14BB-4762-8C29-228FC5AD7E63}|CookTheWeek.Services.Tests\\CookTheWeek.Services.Tests.csproj|solutionrelative:cooktheweek.services.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\views\\recipe\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\views\\recipe\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -187,25 +199,51 @@
           ]
         },
         {
-          "DockedWidth": 365,
+          "DockedWidth": 240,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\Details.cshtml",
+              "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Recipe\\Details.cshtml",
+              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\Details.cshtml",
+              "RelativeToolTip": "CookTheWeek.Web\\Views\\Recipe\\Details.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEcAAABZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-05T20:04:31.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DbMockSeedDatacs.cs",
+              "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Tests\\DbMockSeedDatacs.cs",
+              "RelativeDocumentMoniker": "CookTheWeek.Services.Tests\\DbMockSeedDatacs.cs",
+              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Tests\\DbMockSeedDatacs.cs",
+              "RelativeToolTip": "CookTheWeek.Services.Tests\\DbMockSeedDatacs.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-05T19:13:16.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Add.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\Add.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Recipe\\Add.cshtml",
-              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\Add.cshtml*",
-              "RelativeToolTip": "CookTheWeek.Web\\Views\\Recipe\\Add.cshtml*",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAAFgAAAAqAAAA",
+              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Recipe\\Add.cshtml",
+              "RelativeToolTip": "CookTheWeek.Web\\Views\\Recipe\\Add.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-04-05T13:46:27.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "RecipeController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\RecipeController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\RecipeController.cs",
@@ -218,7 +256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "CategoryService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\CategoryService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\CategoryService.cs",
@@ -231,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Program.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Program.cs",
@@ -244,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "AddRecipeCategory.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\AddRecipeCategory.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\AddRecipeCategory.cshtml",
@@ -257,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "EditRecipeCategory.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\EditRecipeCategory.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\EditRecipeCategory.cshtml",
@@ -270,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "IngredientController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\IngredientController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\IngredientController.cs",
@@ -283,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "AllRecipesQueryModel.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.ViewModels\\Recipe\\AllRecipesQueryModel.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.ViewModels\\Recipe\\AllRecipesQueryModel.cs",
@@ -296,7 +334,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "IngredientService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\IngredientService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\IngredientService.cs",
@@ -309,33 +347,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "_AdminNavigationPartial.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_AdminNavigationPartial.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Shared\\_AdminNavigationPartial.cshtml",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_AdminNavigationPartial.cshtml",
               "RelativeToolTip": "CookTheWeek.Web\\Views\\Shared\\_AdminNavigationPartial.cshtml",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAACYAAACHAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAIBJwCYAAACHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-04-03T15:40:39.538Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "CookTheWeek.Web\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAACgAAABLAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAIBJwCgAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-03-27T18:14:13.138Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "IIngredientService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\Interfaces\\IIngredientService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\Interfaces\\IIngredientService.cs",
@@ -348,31 +386,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Views\\Home\\Index.cshtml",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAACoAAABgAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAIBJwCoAAABgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-29T13:09:05.308Z"
+              "WhenOpened": "2024-03-29T13:09:05.308Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "IngredientApiController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.WebApi\\Controllers\\IngredientApiController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.WebApi\\Controllers\\IngredientApiController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.WebApi\\Controllers\\IngredientApiController.cs",
               "RelativeToolTip": "CookTheWeek.WebApi\\Controllers\\IngredientApiController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABUAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBJwBUAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T14:16:00.794Z"
+              "WhenOpened": "2024-04-04T14:16:00.794Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\UserController.cs",
@@ -380,11 +420,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\Controllers\\UserController.cs",
               "ViewState": "AQIAACQAAAAAAAAAAAAYwEAAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T13:22:00.064Z"
+              "WhenOpened": "2024-04-04T13:22:00.064Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "GeneralApplicationConstants.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Common\\GeneralApplicationConstants.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Common\\GeneralApplicationConstants.cs",
@@ -392,23 +433,25 @@
               "RelativeToolTip": "CookTheWeek.Common\\GeneralApplicationConstants.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T12:59:20.922Z"
+              "WhenOpened": "2024-04-04T12:59:20.922Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\UserController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\UserController.cs",
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAACIAAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAIBJwCIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T13:00:53.7Z"
+              "WhenOpened": "2024-04-04T13:00:53.7Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "WebApplicationBuilderExtensions.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.Infrastructure\\Extensions\\WebApplicationBuilderExtensions.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.Infrastructure\\Extensions\\WebApplicationBuilderExtensions.cs",
@@ -416,11 +459,12 @@
               "RelativeToolTip": "CookTheWeek.Web.Infrastructure\\Extensions\\WebApplicationBuilderExtensions.cs",
               "ViewState": "AQIAADsAAAAAAAAAAAAYwFQAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T12:39:30.661Z"
+              "WhenOpened": "2024-03-28T12:39:30.661Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "MealController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\MealController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\MealController.cs",
@@ -428,11 +472,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\Controllers\\MealController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T15:35:07.113Z"
+              "WhenOpened": "2024-04-03T15:35:07.113Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "HomeController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\HomeController.cs",
@@ -440,11 +485,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\HomeController.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAQwCUAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T13:07:40.839Z"
+              "WhenOpened": "2024-03-29T13:07:40.839Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "IMealplanService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\Interfaces\\IMealplanService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\Interfaces\\IMealplanService.cs",
@@ -452,11 +498,12 @@
               "RelativeToolTip": "CookTheWeek.Services\\Interfaces\\IMealplanService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T15:00:29.202Z"
+              "WhenOpened": "2024-04-03T15:00:29.202Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "MealplanService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\MealplanService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\MealplanService.cs",
@@ -464,11 +511,12 @@
               "RelativeToolTip": "CookTheWeek.Services\\MealplanService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T15:01:19.334Z"
+              "WhenOpened": "2024-04-03T15:01:19.334Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "AdminServiceModel.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\ViewModels\\AdminServiceModel.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\ViewModels\\AdminServiceModel.cs",
@@ -476,11 +524,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\ViewModels\\AdminServiceModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:30:53.068Z"
+              "WhenOpened": "2024-04-03T14:30:53.068Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\UserService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\UserService.cs",
@@ -488,11 +537,12 @@
               "RelativeToolTip": "CookTheWeek.Services\\UserService.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAAwBQAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T09:06:52.883Z"
+              "WhenOpened": "2024-04-03T09:06:52.883Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\Interfaces\\IUserService.cs",
@@ -500,30 +550,44 @@
               "RelativeToolTip": "CookTheWeek.Services\\Interfaces\\IUserService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T09:25:39.075Z"
+              "WhenOpened": "2024-04-03T09:25:39.075Z",
+              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 15,
+          "DockedWidth": 140,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Tests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "CookTheWeek.Services.Tests\\UnitTest1.cs",
+              "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Tests\\UnitTest1.cs",
+              "RelativeToolTip": "CookTheWeek.Services.Tests\\UnitTest1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-05T18:39:21.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\CategoryController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Controllers\\CategoryController.cs",
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\Controllers\\CategoryController.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwCUAAAASAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-03T08:56:53.814Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "RecipeCategoryEditFormModel.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.ViewModels\\Category\\RecipeCategoryEditFormModel.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.ViewModels\\Category\\RecipeCategoryEditFormModel.cs",
@@ -536,7 +600,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "AllRecipeCategories.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\AllRecipeCategories.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Views\\Category\\AllRecipeCategories.cshtml",
@@ -549,7 +613,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "EntityValidationConstants.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Common\\EntityValidationConstants.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Common\\EntityValidationConstants.cs",
@@ -562,7 +626,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "ICategoryService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\Interfaces\\ICategoryService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\Interfaces\\ICategoryService.cs",
@@ -575,20 +639,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "All.cshtml",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Ingredient\\All.cshtml",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Areas\\Admin\\Views\\Ingredient\\All.cshtml",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Areas\\Admin\\Views\\Ingredient\\All.cshtml",
               "RelativeToolTip": "CookTheWeek.Web\\Areas\\Admin\\Views\\Ingredient\\All.cshtml",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAAAE8AAABDAAAA",
+              "ViewState": "AQIAAD4AAAAAAAAAAABRwE8AAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-04-04T13:58:14.757Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "RecipeCategoryAddFormModel.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.ViewModels\\Category\\RecipeCategoryAddFormModel.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.ViewModels\\Category\\RecipeCategoryAddFormModel.cs",
@@ -601,7 +665,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "RecipeService.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services\\RecipeService.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Services\\RecipeService.cs",
@@ -614,7 +678,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "RecipeSorting.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.ViewModels\\Recipe\\Enums\\RecipeSorting.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.ViewModels\\Recipe\\Enums\\RecipeSorting.cs",
@@ -627,19 +691,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "MealPlanController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\MealPlanController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\MealPlanController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\MealPlanController.cs",
               "RelativeToolTip": "CookTheWeek.Web\\Controllers\\MealPlanController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAAALAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAIBJwBMAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T15:21:57.328Z"
+              "WhenOpened": "2024-04-03T15:21:57.328Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "_typography.scss",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\wwwroot\\scss\\_typography.scss",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\wwwroot\\scss\\_typography.scss",
@@ -647,11 +712,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\wwwroot\\scss\\_typography.scss",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
-              "WhenOpened": "2024-04-03T05:16:23.25Z"
+              "WhenOpened": "2024-04-03T05:16:23.25Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "style.scss",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\wwwroot\\scss\\style.scss",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\wwwroot\\scss\\style.scss",
@@ -659,11 +725,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\wwwroot\\scss\\style.scss",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
-              "WhenOpened": "2024-03-31T07:21:57.758Z"
+              "WhenOpened": "2024-03-31T07:21:57.758Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "compilerconfig.json",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\compilerconfig.json",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\compilerconfig.json",
@@ -671,11 +738,12 @@
               "RelativeToolTip": "CookTheWeek.Web\\compilerconfig.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-02T19:36:45.148Z"
+              "WhenOpened": "2024-04-02T19:36:45.148Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 42,
               "Title": "ClaimsPrincipalExtensions.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtensions.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtensions.cs",
@@ -683,19 +751,21 @@
               "RelativeToolTip": "CookTheWeek.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtensions.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T07:12:31.473Z"
+              "WhenOpened": "2024-03-31T07:12:31.473Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 41,
               "Title": "Ingredient.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\Ingredient.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Data.Models\\Ingredient.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\Ingredient.cs",
               "RelativeToolTip": "CookTheWeek.Data.Models\\Ingredient.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAIBZwBUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAACBjwBUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T12:21:08.777Z"
+              "WhenOpened": "2024-03-26T12:21:08.777Z",
+              "EditorCaption": ""
             }
           ]
         }
