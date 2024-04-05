@@ -9,11 +9,11 @@
     public interface IRecipeService
     {
         Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
-        Task AddAsync(RecipeFormViewModel model, string ownerId);
+        Task AddAsync(RecipeAddFormModel model, string ownerId);
         Task<RecipeDetailsViewModel> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
-        Task<RecipeEditViewModel> GetForEditByIdAsync(string id);
-        Task EditAsync(RecipeEditViewModel model);
+        Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
+        Task EditAsync(RecipeEditFormModel model);
         Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
         Task DeleteById(string id);
         Task<ICollection<RecipeAllViewModel>> MineAsync(string userId);

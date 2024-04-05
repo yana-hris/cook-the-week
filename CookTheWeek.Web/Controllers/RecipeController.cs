@@ -51,7 +51,7 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            RecipeFormViewModel model = new RecipeFormViewModel()
+            RecipeAddFormModel model = new RecipeAddFormModel()
             {
                 RecipeIngredients = new List<RecipeIngredientFormViewModel>()
                 {
@@ -70,7 +70,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(RecipeFormViewModel model)
+        public async Task<IActionResult> Add(RecipeAddFormModel model)
         {
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
             model.ServingsOptions = ServingsOptions;
@@ -122,10 +122,9 @@
                 TempData[SuccessMessage] = "Your recipe was successfully added!";
                 return RedirectToAction("All");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData[ErrorMessage] = $"Something went wrong and the ingredient was not added! {ex.Message}";                
-                return View(model);
+                return BadRequest();
             }
         }
 
@@ -151,7 +150,7 @@
 
             try
             {
-                RecipeEditViewModel model = await this.recipeService.GetForEditByIdAsync(id);
+                RecipeEditFormModel model = await this.recipeService.GetForEditByIdAsync(id);
                 model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
                 model.ServingsOptions = ServingsOptions;
                 model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
@@ -167,7 +166,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(RecipeEditViewModel model)
+        public async Task<IActionResult> Edit(RecipeEditFormModel model)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
 
@@ -273,8 +272,7 @@
 
             if(!exists)
             {
-                TempData[ErrorMessage] = "Recipe with the privded id does not exist!";
-                return RedirectToAction("All", "Recipe");
+                return NotFound();
             }
 
             if(!isOwner)
@@ -307,8 +305,7 @@
 
             if (!exists)
             {
-                TempData[ErrorMessage] = "Recipe with the privded id does not exist!";
-                return RedirectToAction("All", "Recipe");
+                return NotFound();
             }
 
             if (!isOwner)

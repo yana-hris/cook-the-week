@@ -88,7 +88,7 @@
             };
         }
 
-        public async Task AddAsync(RecipeFormViewModel model, string ownerId)
+        public async Task AddAsync(RecipeAddFormModel model, string ownerId)
         {
             Recipe recipe = new Recipe()
             {
@@ -122,7 +122,7 @@
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task EditAsync(RecipeEditViewModel model)
+        public async Task EditAsync(RecipeEditFormModel model)
         {
             Recipe recipe = await this.dbContext
                 .Recipes
@@ -225,13 +225,13 @@
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
                 .AnyAsync();
         }
-        public async Task<RecipeEditViewModel> GetForEditByIdAsync(string id)
+        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
         {
-            RecipeEditViewModel recipe = await this.dbContext
+            RecipeEditFormModel recipe = await this.dbContext
                 .Recipes
                 .AsNoTracking()
                 .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
-                .Select(r => new RecipeEditViewModel()
+                .Select(r => new RecipeEditFormModel()
                 {
                     Id = r.Id.ToString(),
                     Title = r.Title,

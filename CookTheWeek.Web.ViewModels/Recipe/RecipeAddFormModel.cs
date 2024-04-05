@@ -6,9 +6,9 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
-    public class RecipeFormViewModel
+    public class RecipeAddFormModel
     {
-        public RecipeFormViewModel()
+        public RecipeAddFormModel()
         {
             this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
         }

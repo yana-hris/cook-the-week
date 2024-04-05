@@ -6,9 +6,9 @@
 
     using static Common.EntityValidationConstants.Recipe;
 
-    public class RecipeEditViewModel
+    public class RecipeEditFormModel
     {
-        public RecipeEditViewModel()
+        public RecipeEditFormModel()
         {
             this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
         }

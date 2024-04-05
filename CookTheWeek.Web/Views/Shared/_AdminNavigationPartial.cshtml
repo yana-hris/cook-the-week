@@ -18,8 +18,8 @@
                         <div class="nav-item dropdown">
                             <a id="ingredientDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Ingredients </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="ingredientDropDown">
-                                <a class="dropdown-item" asp-area="" asp-controller="Ingredient" asp-action="Add">Add Ingredient</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Ingredient" asp-action="All">All Ingredients</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Ingredient" asp-action="Add">Add Ingredient</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Ingredient" asp-action="All">All Ingredients</a>
                             </div>
                         </div>
                     </li>
@@ -27,15 +27,15 @@
                         <div class="nav-item dropdown" >
                             <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Categories </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AddRecipeCategory">Add Recipe Category</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AllRecipeCategories">All Recipe Categories</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="AddRecipeCategory">Add Recipe Category</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="AllRecipeCategories">All Recipe Categories</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AddIngredientCategory">Add Ingredient Category</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="AllIngredientCategories">All Ingredient Categories</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="AddIngredientCategory">Add Ingredient Category</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="AllIngredientCategories">All Ingredient Categories</a>
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="All">Users</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="All">Users</a></li>
                     <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="MealPlan" asp-action="All">Meal Plans</a></li>
                     <li id="logout-btn" class="user-btn nav-item text-bg-primary bg-dark border-1 border-primary shadow-sm border rounded"><a id="nav-logout-btn" class="inner-btn nav-link active" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a></li>
                 </ul>
