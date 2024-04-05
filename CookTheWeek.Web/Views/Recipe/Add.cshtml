@@ -87,51 +87,57 @@
                         </div>
                     </div>
                    @*  TAB INSTRUCTIONS *@
-                    <div class="tab-pane fade show active" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row mb-3">
-                            <div class="form-froup">
-                                <label asp-for="Instructions" class="form-label">Instructions</label>
-                                <textarea asp-for="Instructions" rows="4" class="form-control" placeholder="How to cook..."></textarea>
-                                <span asp-validation-for="Instructions" class="small text-danger"></span>
+                    <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
+                        <div class="row g-3">
+                            <div class="col col-12 p-3">
+                                <div class="input-group">
+                                    <span class="input-group-text">Instructions</span>
+                                    <textarea asp-for="Instructions" class="form-control" rows="12" placeholder="Your steps how to cook.."></textarea>
+                                    <span asp-validation-for="Instructions" class="small text-danger"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     @* TAB INGREDIENTS *@
-                    <div class="tab-pane fade show active" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <div id="ingredients" class="tab-content">
-                            <h5 class="mb-2">Add Ingredients</h5>
                             <div id="ingredientsContainer" class="row">
                                 <div id="ingredientList">
                                     @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
                                     {
-                                        <div class="ingredient-row row g-3 form-group">
-                                            <div class="col-md-4">
-                                                <label asp-for="RecipeIngredients[i].Name" class="form-label">Ingredient</label>
-                                                <input class="ingredientName form-control me-2" type="text" asp-for="RecipeIngredients[i].Name" style="min-width: 8rem" autocomplete="off" />
-                                                <div class="suggestionsList position-absolute invisible">
+                                        <div class="row g-3 ingredient-row">
+                                            <div class="col col-8 col-md-5 p-3">
+                                                <div class="input-group">
+                                                    <span asp-for="RecipeIngredients[i].Name" class="input-group-text">Ingredient</span>
+                                                    <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
+                                                    <div class="suggestionsList position-absolute invisible">
+                                                    </div>
+                                                    <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                                 </div>
-                                                <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                             </div>
-                                            <div class="col-2">
-                                                <label asp-for="RecipeIngredients[i].Qty" class="form-label">Qty</label>
-                                                <input class="form-control" type="number" asp-for="RecipeIngredients[i].Qty" />
-                                                <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
+                                            <div class="col col-4 col-md-2 p-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Qty</span>
+                                                    <input asp-for="RecipeIngredients[i].Qty" class="form-control" type="number">
+                                                    <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
+                                                </div>
                                             </div>
-                                            <div class="col-2">
-                                                <label asp-for="RecipeIngredients[i].MeasureId" class="form-label">Measure</label>
-                                                <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
-                                                    <option value="">Unit</option>
-                                                    @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
-                                                    {
-                                                        <option value="@measure.Id">@measure.Name</option>
-                                                    }
-                                                </select>
-                                                <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
+                                            <div class="col col-5 col-md-2 p-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Unit</span>
+                                                       <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
+                                                            <option value="">Unit</option>
+                                                            @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
+                                                            {
+                                                                <option value="@measure.Id">@measure.Name</option>
+                                                            }
+                                                        </select>
+                                                        <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
+                                                </div>
                                             </div>
-                                            <div class="col-2">
-                                                <label asp-for="RecipeIngredients[i].SpecificationId" class="form-label"><small>*Optional</small></label>
-                                                @if (Model.RecipeIngredients.First().Specifications != null)
-                                                {
+                                            <div class="col col-6 col-md-2 p-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Spec</span>
                                                     <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
                                                         <option value="">Type</option>
                                                         @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
@@ -139,15 +145,26 @@
                                                             <option value="@specification.Id">@specification.Description</option>
                                                         }
                                                     </select>
-                                                }
+                                                </div>
                                             </div>
-                                            <div class="col-2">
-                                                <button type="button" class="remove-ingredient">Remove</button>
+                                            <div class="col col-1 p-3">
+                                                <div><button class="btn remove-btn btn-danger remove-ingredient" type="button">
+                                                    <i class="far fa-minus-square" style="font-size: 25px;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     }
-                             </div>
-                             <button type="button" id="add-ingredient">Add Ingredient</button>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col col-12 p-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="far fa-plus-square"></i>
+                                            </span>
+                                            <button id="add-ingredient" class="btn btn-success" type="button">Add Ingredient</button></div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -284,50 +301,65 @@
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
             $('#add-ingredient').click(function () {
-                var newIngredientHtml = `<div class="ingredient-row row g-3 form-group">
-                        <div class="col-md-4">
-                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__Name">Ingredient</label>
-                            <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control me-2" type="text" name="RecipeIngredients[${ingredientIndex}].Name" style="min-width: 8rem" autocomplete="off" required />
-                            <div class="suggestionsList position-absolute invisible"></div>
-                            <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="col-2">
-                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__Qty">Qty</label>
-                            <input id="RecipeIngredients_${ingredientIndex}__Qty" class="form-control" type="number" name="RecipeIngredients[${ingredientIndex}].Qty" required min="0.001" max="10000" />
-                            <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="col-2">
-                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__MeasureId">Measure</label>
-                            <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required>
-                                <option value="">Unit</option>`;
-                @foreach (var measure in @Model.RecipeIngredients.First().Measures)
-                {
-                    <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
-                }
-                newIngredientHtml += 
-                            `</select>
-                             <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
-                             </span>
-                        </div>
-                        <div class="col-2">
-                            <label class="form-label" for="RecipeIngredients_${ingredientIndex}__SpecificationId"><small>*Optional</small></label>
-                            <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
-                                <option value="">Type</option>`;
-                @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
-                {
-                    <text> newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
-                }
-                newIngredientHtml += 
-                            `</select>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="remove-ingredient">Remove</button>
-                        </div>
-                    </div>`;
+                var newIngredientHtml = ` <div class="row g-3 ingredient-row">
+             <div class="col col-8 col-md-5 p-3">
+                 <div class="input-group">
+                     <span class="input-group-text">Ingredient</span>
+
+                                 <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
+                                 <div class="suggestionsList position-absolute invisible"></div>
+                                 <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true"></span>
+                             </div></div>
+
+
+         <div class="col col-4 col-md-2 p-3">
+            <div class="input-group">
+                                 <span class="input-group-text">Qty</span>
+                                 <input id="RecipeIngredients_${ingredientIndex}__Qty" class="form-control" type="number" name="RecipeIngredients[${ingredientIndex}].Qty" required min="0.001" max="10000" />
+                                 <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty" data-valmsg-replace="true"></span>
+                             </div></div>
+
+
+        <div class="col col-5 col-md-2 p-3">
+            <div class="input-group">
+                <span class="input-group-text">Unit</span>
+
+                                 <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required>
+                                     <option value="">Unit</option>`;
+        @foreach (var measure in @Model.RecipeIngredients.First().Measures)
+        {
+            <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
+        }
+                    newIngredientHtml +=
+                `</select>
+                                  <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
+                                  </span>
+                             </div></div>
+
+
+                        <div class="col col-6 col-md-2 p-3">
+            <div class="input-group">
+                <span class="input-group-text">Spec</span>
+                                 <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
+                                     <option value="">Type</option>`;
+        @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
+        {
+            <text>newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
+        }
+                    newIngredientHtml +=
+                `</select>
+                             </div></div>
+                                 <div class="col col-1 p-3">
+                <div><button class="btn remove-btn btn-danger remove-ingredient" type="button">
+                    <i class="far fa-minus-square" style="font-size: 25px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
 
                 $('#ingredientList').append(newIngredientHtml);
                 ingredientIndex++;
-                
+
                 $('.ingredientName').on('keyup', suggestWords);
                 $('form').validate().form();
             });
@@ -361,21 +393,14 @@
                         $(this).attr('data-valmsg-for', 'RecipeIngredients[' + index + '].' + propertyName);
                     });
 
-                    // Update 'for' attribute of labels associated with input fields
-                    row.find('label.form-label').each(function () {
-                        var labelFor = $(this).attr('for');
-                        if (labelFor) {
-                            var newLabelFor = labelFor.replace(/\d+/, index);
-                            $(this).attr('for', newLabelFor);
-                        }
-                    });
+
 
                     // Update value attribute of hidden input field for Qty property
                     row.find('input[type="hidden"][name="__Invariant"]').attr('value', 'RecipeIngredients[' + index + '].Qty');
                 });
                 $('form').validate().form();
-            }            
-        });       
+            }
+        });
 
-    </script>    
+    </script>
 }
