@@ -164,7 +164,13 @@
             this.dbContext.Ingredients.Remove(ingredient);
             await this.dbContext.SaveChangesAsync();
         }
-
+        public Task<int> GetIdByName(string name)
+        {
+            return this.dbContext.Ingredients
+                .Where(i => i.Name == name)
+                .Select(i => i.Id)
+                .FirstAsync();
+        }
 
         // TODO: check if will be used
         //public async Task<IEnumerable<IngredientServiceModel>> AllFilteredAndSortedAsync()

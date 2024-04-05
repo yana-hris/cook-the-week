@@ -18,7 +18,8 @@
         Task<bool> ExistsByNameAsync(string name);
         Task<int> AllCountAsync();
         Task DeleteById(int id);
+        Task<int> GetIdByName(string name);
 
-    }
         //Task<IEnumerable<IngredientServiceModel>> AllFilteredAndSortedAsync(); // TODO: check if will be used
+    }
 }

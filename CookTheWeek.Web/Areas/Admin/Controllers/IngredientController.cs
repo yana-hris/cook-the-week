@@ -48,7 +48,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(IngredientFormViewModel model)
+        public async Task<IActionResult> Add([FromForm]IngredientFormViewModel model)
         {
             bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
             bool categoryExists = await categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
@@ -100,7 +100,12 @@
 
             if (nameAlreadyExists)
             {
-                ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
+                int existingIngredientId = await ingredientService.GetIdByName(model.Name);
+
+                if(existingIngredientId != model.Id)
+                {
+                    ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
+                }
             }
 
             if (ModelState.IsValid)
