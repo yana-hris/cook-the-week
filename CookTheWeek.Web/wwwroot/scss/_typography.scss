@@ -1,7 +1,11 @@
 ﻿html {
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     position: relative;
     min-height: 100%;
+    $link-decoration: none;
+    $link-color: var(--bs-success);
+    $link-hover-color: var(--bs-primary);
 
     body {
         
@@ -15,5 +19,15 @@
 @media (min-width: 768px) {
     html {
         font-size: 16px;
+    }
+}
+
+[data-bs-theme="light"] {
+
+    nav .fixed-bottom {
+        a.btn.btn-primary{
+            background-color: var(--bs-success);
+            color: #ffffff;
+        }
     }
 }

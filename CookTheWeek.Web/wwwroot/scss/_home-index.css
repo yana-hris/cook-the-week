@@ -34,9 +34,6 @@
 }
 [data-bs-theme=dark] #image-container #hero-text-background .text-container {
   padding: 60px 0;
-  /*.btn.btn-success {
-      color: #ffffff;
-  }*/
 }
 [data-bs-theme=dark] #image-container #hero-text-background .text-container p {
   font-size: 18px;

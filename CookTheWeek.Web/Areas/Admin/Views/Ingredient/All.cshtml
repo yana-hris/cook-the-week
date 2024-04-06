@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group mb-0 d-flex justify-content-end">
-                        <button type="submit" value="Search" class="btn btn-primary">Search</button>
+                        <button type="submit" value="Search" class="btn btn-success">Search</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
 <nav aria-label="Page navigation" class="fixed-bottom">
     <ul class="pagination justify-content-center mt-3 gap-2">
         <li class="page-item">
-            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+            <a class="btn btn-success @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                asp-area="Admin"
                asp-controller="Ingredient"
                asp-action="All"
@@ -123,7 +123,7 @@
             !Model.Ingredients.Any();
         }
         <li class="page-item">
-            <a class="btn btn-primary
+            <a class="btn btn-success
             @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                asp-area="Admin"
                asp-controller="Ingredient"
