@@ -44,12 +44,6 @@
 
             return allRecipeCategoryNames;
         }
-        public Task<bool> RecipeCategoryExistsByNameAsync(string name)
-        {
-            return this.dbContext.RecipeCategories
-                .Where(rc => rc.Name.ToLower() == name.ToLower())
-                .AnyAsync();
-        }
         public async Task AddRecipeCategoryAsync(RecipeCategoryAddFormModel model)
         {
             RecipeCategory recipeCategory = new RecipeCategory()
@@ -72,7 +66,17 @@
 
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<RecipeCategoryEditFormModel> GetRecipeCategoryForEditById(int id)
+        public async Task DeleteRecipeCategoryById(int id)
+        {
+            RecipeCategory recipeCategory = await this.dbContext
+                .RecipeCategories
+                .Where(rc => rc.Id == id)
+                .FirstAsync();
+
+            this.dbContext.RecipeCategories.Remove(recipeCategory);
+            await this.dbContext.SaveChangesAsync();
+        }
+        public async Task<RecipeCategoryEditFormModel> GetRecipeCategoryForEditByIdAsync(int id)
         {
             RecipeCategoryEditFormModel model = await this.dbContext
                 .RecipeCategories
@@ -94,21 +98,17 @@
                 .Select(rc => rc.Id)
                 .FirstAsync();
         }
-        public async Task DeleteRecipeCategoryById(int id)
-        {
-            RecipeCategory recipeCategory = await this.dbContext
-                .RecipeCategories
-                .Where(rc => rc.Id == id)
-                .FirstAsync();
-
-            this.dbContext.RecipeCategories.Remove(recipeCategory);
-            await this.dbContext.SaveChangesAsync();
-        }
         public async Task<bool> RecipeCategoryExistsByIdAsync(int recipeCategoryId)
         {
             return await this.dbContext
                 .RecipeCategories
                 .AnyAsync(rc => rc.Id == recipeCategoryId);
+        }
+        public Task<bool> RecipeCategoryExistsByNameAsync(string name)
+        {
+            return this.dbContext.RecipeCategories
+                .Where(rc => rc.Name.ToLower() == name.ToLower())
+                .AnyAsync();
         }
         public async Task<int> AllRecipeCategoriesCountAsync()
         {
@@ -117,18 +117,9 @@
                 .CountAsync();
         }
 
+
         // Ingredient Categories Service
 
-        public async Task<ICollection<string>> AllIngredientCategoryNamesAsync()
-        {
-            ICollection<string> allIngredientCategoryNames = await this.dbContext
-                .IngredientCategories
-                .AsNoTracking()
-                .Select(ic => ic.Name)
-                .ToListAsync();
-
-            return allIngredientCategoryNames;
-        }
         public async Task<ICollection<IngredientCategorySelectViewModel>> AllIngredientCategoriesAsync()
         {
             ICollection<IngredientCategorySelectViewModel> allIngredientCategories = await this.dbContext
@@ -143,6 +134,70 @@
 
             return allIngredientCategories;
         }
+        public async Task<ICollection<string>> AllIngredientCategoryNamesAsync()
+        {
+            ICollection<string> allIngredientCategoryNames = await this.dbContext
+                .IngredientCategories
+                .AsNoTracking()
+                .Select(ic => ic.Name)
+                .ToListAsync();
+
+            return allIngredientCategoryNames;
+        }
+        public async Task AddIngredientCategoryAsync(IngredientCategoryAddFormModel model)
+        {
+            IngredientCategory ingredientCategory = new IngredientCategory()
+            {
+                Name = model.Name
+            };
+
+            await this.dbContext.IngredientCategories
+                .AddAsync(ingredientCategory);
+            await this.dbContext.SaveChangesAsync();
+        }
+        public async Task EditIngredientCategoryAsync(IngredientCategoryEditFormModel model)
+        {
+            IngredientCategory ingredientCategory = await this.dbContext
+                .IngredientCategories
+                .Where(ic => ic.Id == model.Id)
+                .FirstAsync();
+
+            ingredientCategory.Name = model.Name;
+
+            await this.dbContext.SaveChangesAsync();
+
+        }
+        public async Task DeleteIngredientCategoryById(int id)
+        {
+            IngredientCategory ingredientCategory = await this.dbContext
+                .IngredientCategories
+                .Where(ic => ic.Id == id)
+                .FirstAsync();
+
+            this.dbContext.IngredientCategories.Remove(ingredientCategory);
+            await this.dbContext.SaveChangesAsync();
+        }
+        public async Task<IngredientCategoryEditFormModel> GetIngredientCategoryForEditByIdAsync(int id)
+        {
+            IngredientCategoryEditFormModel model = await this.dbContext
+                .IngredientCategories
+                .Where(ic => ic.Id == id)
+                .Select(ic => new IngredientCategoryEditFormModel()
+                {
+                    Id = ic.Id,
+                    Name = ic.Name
+                })
+                .FirstAsync();
+
+            return model;
+        }
+        public Task<int> GetIngredientCategoryIdByNameAsync(string name)
+        {
+            return this.dbContext.IngredientCategories
+                .Where(ic => ic.Name.ToLower() == name.ToLower())
+                .Select(ic => ic.Id)
+                .FirstAsync();
+        }
         public async Task<bool> IngredientCategoryExistsByIdAsync(int ingredientCategoryId)
         {
             bool exists = await this.dbContext
@@ -152,6 +207,12 @@
 
             return exists;
         }
+        public async Task<bool> IngredientCategoryExistsByNameAsync(string name)
+        {
+            return await this.dbContext.IngredientCategories
+                .Where(ic => ic.Name.ToLower() == name.ToLower())
+                .AnyAsync();
+        }
         public async Task<int> AllIngredientCategoriesCountAsync()
         {
             return await this.dbContext
@@ -159,6 +220,5 @@
                 .CountAsync();
         }
 
-        
     }
 }

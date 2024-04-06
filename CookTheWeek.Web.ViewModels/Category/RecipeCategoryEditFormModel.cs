@@ -11,7 +11,7 @@
 
         [Required(ErrorMessage = "Required")]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = @"Recipe Category Name should be between {2} and {1} characters long")]
-        [Display(Name = "Recipe Title")]
+        [Display(Name = "Recipe Category Name")]
         public string Name { get; set; } = null!;
     }
 }
