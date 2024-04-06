@@ -1,0 +1,52 @@
+﻿[data-bs-theme="light"] {
+    #image-container {
+        margin: 0 auto;
+        background-image: url('/img/pexels-dana-tentis-691114.jpg');
+        height: 550px;
+        background-size: cover;
+        max-width: 1300px;
+
+        #hero-text-background {
+            background: linear-gradient(to bottom, rgba(255,255,255, 0.65), rgba(255,255,255, 0.65));
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 1000px;
+
+            .text-container {
+                padding: 60px 0;
+
+                p {
+                    font-size: 18px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+[data-bs-theme="dark"] {
+    
+    #image-container {
+        margin: 0 auto;
+        background-image: url('/img/pexels-dana-tentis-691114.jpg');
+        height: 550px;
+        background-size: cover;
+        max-width: 1300px;
+
+        #hero-text-background {
+            background: linear-gradient(to bottom, rgba(0,0,0, 0.65), rgba(0,0,0, 0.65));
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 1000px;
+
+            .text-container {
+                padding: 60px 0;
+
+                p {
+                    font-size: 18px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}

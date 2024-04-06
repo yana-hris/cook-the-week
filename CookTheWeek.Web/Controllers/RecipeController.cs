@@ -275,7 +275,7 @@
                 return NotFound();
             }
 
-            if(!isOwner)
+            if(!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
                 return RedirectToAction("Details", "Recipe", new { id });
@@ -308,7 +308,7 @@
                 return NotFound();
             }
 
-            if (!isOwner)
+            if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
                 return RedirectToAction("Details", "Recipe", new { id });

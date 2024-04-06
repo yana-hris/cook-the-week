@@ -5,7 +5,6 @@
 @import 'typography';
 @import 'navigation';
 
-
 $primary: #4caf50;
 $secondary: #6c757d;
 $success: #2e6930;
@@ -15,16 +14,37 @@ $danger: #DA0505;
 $light: #f8f9fa;
 $dark: #343a40;
 
-$theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark, );
 
+$theme-colors: ( 
+    "primary":$primary, 
+    "secondary": $secondary, 
+    "success": $success, 
+    "info": $info, "warning": $warning, 
+    "danger": $danger, 
+    "light": $light, 
+    "dark": $dark, 
+    );
+
+// Light theme colors:
+
+$navbar-light-color: #ffffff;
+$navbar-hover-color: #70bf73;
+$nav-link-color: #ffffff;
+$nav-link-hover-color: $primary;
+$dropdown-link-active-bg: $primary;
+// Dark theme colors:
 $navbar-dark-color: #ffffff;
 $navbar-dark-hover-color: #70bf73; // light green
+
 
 $dropdown-dark-color: #ffffff;
 $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: #70bf73;
 
+
+@import 'theme-switcher';
 @import 'admin-panel';
+@import 'home-index';
 @import '../lib/bootstrap/scss/bootstrap';
 
 

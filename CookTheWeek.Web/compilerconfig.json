@@ -12,7 +12,15 @@
     "inputFile": "wwwroot/scss/_typography.scss"
   },
   {
-    "outputFile": "wwwroot/scss/admin-panel.css",
+    "outputFile": "wwwroot/css/admin-panel.css",
     "inputFile": "wwwroot/scss/admin-panel.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/_theme-switcher.css",
+    "inputFile": "wwwroot/scss/_theme-switcher.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/_home-index.css",
+    "inputFile": "wwwroot/scss/_home-index.scss"
   }
 ]
