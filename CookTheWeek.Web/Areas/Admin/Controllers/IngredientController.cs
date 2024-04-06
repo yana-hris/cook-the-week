@@ -69,11 +69,11 @@
                 {
                     await ingredientService.AddAsync(model);
                     TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("All");
                 }
                 catch (Exception)
                 {
-                    TempData[ErrorMessage] = $"Ingredient unsucessfully added! Please try again later or contact administrator!";
+                    return BadRequest();
                 }
             }
 
@@ -84,7 +84,13 @@
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            // We assume the admin will not perform parameter tampering, so no checks are needed
+            bool exists = await this.ingredientService.ExistsByIdAsync(id);
+
+            if(!exists)
+            {
+                return NotFound();
+            }
+
             IngredientEditViewModel model = await ingredientService.GetForEditByIdAsync(id);
             model.Categories = await categoryService.AllIngredientCategoriesAsync();
 
@@ -96,6 +102,13 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IngredientEditViewModel model)
         {
+            bool ingredientExists = await this.ingredientService.ExistsByIdAsync(model.Id);
+
+            if(!ingredientExists)
+            {
+                return NotFound();
+            }
+
             bool nameAlreadyExists = await ingredientService.ExistsByNameAsync(model.Name);
 
             if (nameAlreadyExists)
@@ -126,8 +139,16 @@
             return View(model);
         }
 
+       
         public async Task<IActionResult> Delete(int id)
         {
+            bool exists = await this.ingredientService.ExistsByIdAsync(id);
+
+            if(!exists)
+            {
+                return NotFound();
+            }
+            
             try
             {
                 await this.ingredientService.DeleteById(id);

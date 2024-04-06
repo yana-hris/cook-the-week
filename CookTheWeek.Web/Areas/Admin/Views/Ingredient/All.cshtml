@@ -83,10 +83,10 @@
                             <td><label>@ingredient.Id</label></td>
                             <td><label>@ingredient.Name</label></td>
                             <td><label>@ingredient.Category</label></td>
-                            <td><label><a asp-asp-area="Admin" asp-asp-controller="Ingredient" asp-action="Edit" asp-route-id="@ingredient.Id">Edit</a></label></td>
+                            <td><label><a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Edit" asp-route-id="@ingredient.Id">Edit</a></label></td>
                             <td>
                                 <label>
-                                    <button type="button" data-target="#deleteModal-@ingredient.Id" class="btn" data-toggle="modal">❌</button>                                   
+                                    <a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Delete" asp-route-id="@ingredient.Id">❌</a>                                   
                                 </label>
                             </td>
                         </tr>
@@ -135,28 +135,3 @@
         </li>
     </ul>
 </nav>
-@section Scripts {
-    <script>
-        
-
-// <div class="modal fade" id="deleteModal-ingredient.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-//     <div class="modal-dialog" role="document">
-//         <div class="modal-content">
-//             <div class="modal-header">
-//                 <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-//                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-//                     <span aria-hidden="true">&times;</span>
-//                 </button>
-//             </div>
-//             <div class="modal-body">
-//                 Are you sure you want to delete Ingredient ingredient.Name?
-//             </div>
-//             <div class="modal-footer">
-//                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-//                 <button type="button" class="btn btn-danger" asp-area="Admin" asp-controller="Ingredient" asp-action="Delete" asp-route-id="ingredient.Id">Delete</button>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-    </script>
-}

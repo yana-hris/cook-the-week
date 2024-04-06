@@ -179,7 +179,7 @@
             string ownerId = User.GetId();
             bool isOwner = await this.recipeService.IsOwner(model.Id, ownerId);
 
-            if (!isOwner)
+            if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
                 return RedirectToAction("Details", "Recipe", new { id = model.Id });
