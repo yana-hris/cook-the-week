@@ -260,7 +260,19 @@
             {
                 return BadRequest();
             }            
-        }        
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            string userId = this.User.GetId();
+
+            RecipeMineViewModel model = new RecipeMineViewModel();
+            model.FavouriteRecipes = await this.recipeService.AllFavouritesByUserAsync(userId);
+            model.OwnedRecipes = await this.recipeService.AllAdedByUserAsync(userId);
+
+            return View(model);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)

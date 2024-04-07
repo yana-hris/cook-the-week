@@ -280,7 +280,7 @@
             recipeToDelete.IsDeleted = true;
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<ICollection<RecipeAllViewModel>> MineAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> AllAdedByUserAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
@@ -354,6 +354,31 @@
                .Recipes
                .Where(r => r.IsDeleted == false)
                .CountAsync();
+        }
+
+        public async Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId)
+        {
+            ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
+                .FavoriteRecipes
+                .Include(fr => fr.Recipe)
+                .ThenInclude(r => r.RecipeCategory)
+                .Where(fr => fr.UserId.ToString() == userId && fr.Recipe.IsDeleted == false)
+                .Select(fr => new RecipeAllViewModel()
+                {
+                    Id = fr.Recipe.Id.ToString(),
+                    ImageUrl = fr.Recipe.ImageUrl,
+                    Title = fr.Recipe.Title,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = fr.Recipe.RecipeCategoryId,
+                        Name = fr.Recipe.RecipeCategory.Name
+                    },
+                    Servings = fr.Recipe.Servings,
+                    CookingTime = String.Format(@"{0}h {1}min", fr.Recipe.TotalTime.Hours.ToString(), fr.Recipe.TotalTime.Minutes.ToString()),
+
+                }).ToListAsync();
+
+            return myRecipes;
         }
     }
 }

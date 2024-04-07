@@ -2,11 +2,12 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Ingredient;
+    using Services.Interfaces;
+    using Services.Data.Models.Ingredient;
+    using Web.ViewModels.Ingredient;
+    using Web.ViewModels.Ingredient.Enums;
+
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Models.Ingredient;
-    using CookTheWeek.Web.ViewModels.Ingredient.Enums;
     
     public class IngredientController : BaseAdminController
     {
