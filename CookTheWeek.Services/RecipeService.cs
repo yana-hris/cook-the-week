@@ -69,6 +69,7 @@
                     Id = r.Id.ToString(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
+                    Description = r.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
                         Id = r.RecipeCategoryId,
@@ -291,6 +292,7 @@
                     Id = r.Id.ToString(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
+                    Description = r.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
                         Id = r.RecipeCategoryId,
@@ -368,6 +370,7 @@
                     Id = fr.Recipe.Id.ToString(),
                     ImageUrl = fr.Recipe.ImageUrl,
                     Title = fr.Recipe.Title,
+                    Description = fr.Recipe.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
                         Id = fr.Recipe.RecipeCategoryId,
