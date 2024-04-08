@@ -83,7 +83,7 @@ namespace CookTheWeek.Web
 
             if(app.Environment.IsDevelopment())
             {
-                app.SeedAdministrator(DevelopmentAdminUserName);
+                app.SeedAdministrator(AdminUserUsername);
             }
 
             app.MapControllerRoute(

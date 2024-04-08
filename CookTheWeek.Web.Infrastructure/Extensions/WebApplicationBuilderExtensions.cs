@@ -6,8 +6,9 @@
     using Microsoft.AspNetCore.Identity;
 
     using CookTheWeek.Data.Models;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
     using CookTheWeek.Web.Infrastructure.Middlewares;
+
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     /// <summary>
     /// This method registers all services with their interfaces and implementations of a given Assembly
