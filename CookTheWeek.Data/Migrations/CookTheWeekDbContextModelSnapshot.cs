@@ -198,13 +198,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 10,
                             IngredientCategoryId = 2,
-                            Name = "Wild Game Meat"
+                            Name = "Wild game meat"
                         },
                         new
                         {
                             Id = 11,
                             IngredientCategoryId = 2,
-                            Name = "Minced Meat"
+                            Name = "Minced meat"
                         },
                         new
                         {
@@ -282,7 +282,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 22,
                             IngredientCategoryId = 1,
-                            Name = "Goat Cheese"
+                            Name = "Goat cheese"
                         },
                         new
                         {
@@ -312,7 +312,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 27,
                             IngredientCategoryId = 1,
-                            Name = "Cottage Cheese"
+                            Name = "Cottage cheese"
                         },
                         new
                         {
@@ -348,13 +348,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 35,
                             IngredientCategoryId = 3,
-                            Name = "Green Peas"
+                            Name = "Green peas"
                         },
                         new
                         {
                             Id = 36,
                             IngredientCategoryId = 3,
-                            Name = "White Beans"
+                            Name = "White beans"
                         },
                         new
                         {
@@ -366,19 +366,19 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 38,
                             IngredientCategoryId = 3,
-                            Name = "Mung Beans"
+                            Name = "Mung beans"
                         },
                         new
                         {
                             Id = 39,
                             IngredientCategoryId = 3,
-                            Name = "Red Lentils"
+                            Name = "Red lentils"
                         },
                         new
                         {
                             Id = 40,
                             IngredientCategoryId = 3,
-                            Name = "Black Beans"
+                            Name = "Black beans"
                         },
                         new
                         {
@@ -390,61 +390,61 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 42,
                             IngredientCategoryId = 3,
-                            Name = "Green Lentils"
+                            Name = "Green lentils"
                         },
                         new
                         {
                             Id = 43,
                             IngredientCategoryId = 4,
-                            Name = "White Flour"
+                            Name = "White flour"
                         },
                         new
                         {
                             Id = 44,
                             IngredientCategoryId = 4,
-                            Name = "Whole Wheat Flour"
+                            Name = "Whole wheat flour"
                         },
                         new
                         {
                             Id = 45,
                             IngredientCategoryId = 4,
-                            Name = "Rye Flour"
+                            Name = "Rye flour"
                         },
                         new
                         {
                             Id = 46,
                             IngredientCategoryId = 4,
-                            Name = "Spelt Flour"
+                            Name = "Spelt flour"
                         },
                         new
                         {
                             Id = 47,
                             IngredientCategoryId = 4,
-                            Name = "Almond Flour"
+                            Name = "Almond flour"
                         },
                         new
                         {
                             Id = 48,
                             IngredientCategoryId = 13,
-                            Name = "Pine Nuts"
+                            Name = "Pine nuts"
                         },
                         new
                         {
                             Id = 49,
                             IngredientCategoryId = 4,
-                            Name = "Spelled Flour"
+                            Name = "Spelled flour"
                         },
                         new
                         {
                             Id = 50,
                             IngredientCategoryId = 4,
-                            Name = "Corn Flour"
+                            Name = "Corn flour"
                         },
                         new
                         {
                             Id = 51,
                             IngredientCategoryId = 4,
-                            Name = "Rice Flour"
+                            Name = "Rice flour"
                         },
                         new
                         {
@@ -456,13 +456,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 53,
                             IngredientCategoryId = 5,
-                            Name = "Black Pepper"
+                            Name = "Black pepper"
                         },
                         new
                         {
                             Id = 54,
                             IngredientCategoryId = 5,
-                            Name = "Paprika (Red Pepper)"
+                            Name = "Paprika(pepper)"
                         },
                         new
                         {
@@ -504,7 +504,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 61,
                             IngredientCategoryId = 5,
-                            Name = "Curry Powder"
+                            Name = "Curry powder"
                         },
                         new
                         {
@@ -582,13 +582,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 74,
                             IngredientCategoryId = 5,
-                            Name = "Wild Garlic"
+                            Name = "Wild garlic"
                         },
                         new
                         {
                             Id = 75,
                             IngredientCategoryId = 5,
-                            Name = "Fennel (dill)"
+                            Name = "Fennel("
                         },
                         new
                         {
@@ -600,7 +600,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 77,
                             IngredientCategoryId = 5,
-                            Name = "Clary Sage"
+                            Name = "Clary sage"
                         },
                         new
                         {
@@ -630,31 +630,31 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 82,
                             IngredientCategoryId = 6,
-                            Name = "Maple Syrup"
+                            Name = "Maple syrup"
                         },
                         new
                         {
                             Id = 83,
                             IngredientCategoryId = 6,
-                            Name = "Coconut Sugar"
+                            Name = "Coconut sugar"
                         },
                         new
                         {
                             Id = 84,
                             IngredientCategoryId = 6,
-                            Name = "Coconut Sugar"
+                            Name = "Coconut sugar"
                         },
                         new
                         {
                             Id = 85,
                             IngredientCategoryId = 6,
-                            Name = "Powdered Sugar"
+                            Name = "Powdered sugar"
                         },
                         new
                         {
                             Id = 86,
                             IngredientCategoryId = 6,
-                            Name = "Brown Sugar"
+                            Name = "Brown sugar"
                         },
                         new
                         {
@@ -666,13 +666,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 88,
                             IngredientCategoryId = 6,
-                            Name = "Agave Syrup"
+                            Name = "Agave syrup"
                         },
                         new
                         {
                             Id = 89,
                             IngredientCategoryId = 6,
-                            Name = "Cane Sugar"
+                            Name = "Cane sugar"
                         },
                         new
                         {
@@ -738,7 +738,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 100,
                             IngredientCategoryId = 8,
-                            Name = "Brussels Sprout"
+                            Name = "Brussels sprout"
                         },
                         new
                         {
@@ -834,7 +834,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 116,
                             IngredientCategoryId = 8,
-                            Name = "Ginger Root"
+                            Name = "Ginger root"
                         },
                         new
                         {
@@ -852,13 +852,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 119,
                             IngredientCategoryId = 8,
-                            Name = "Sweet Potato(s)"
+                            Name = "Sweet potato(s)"
                         },
                         new
                         {
                             Id = 120,
                             IngredientCategoryId = 8,
-                            Name = "Sweet Corn"
+                            Name = "Sweet corn"
                         },
                         new
                         {
@@ -876,7 +876,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 123,
                             IngredientCategoryId = 8,
-                            Name = "Cherry Tomato(s)"
+                            Name = "Cherry tomato(s)"
                         },
                         new
                         {
@@ -900,19 +900,19 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 127,
                             IngredientCategoryId = 8,
-                            Name = "Red Bell Pepper"
+                            Name = "Red bell pepper"
                         },
                         new
                         {
                             Id = 128,
                             IngredientCategoryId = 8,
-                            Name = "Green Bell Pepper"
+                            Name = "Green bell pepper"
                         },
                         new
                         {
                             Id = 129,
                             IngredientCategoryId = 8,
-                            Name = "Red Onion(s)"
+                            Name = "Red onion(s)"
                         },
                         new
                         {
@@ -1044,7 +1044,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 151,
                             IngredientCategoryId = 9,
-                            Name = "Sour Cherries"
+                            Name = "Sour cherries"
                         },
                         new
                         {
@@ -1062,13 +1062,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 154,
                             IngredientCategoryId = 10,
-                            Name = "Sunflower Oil"
+                            Name = "Sunflower oil"
                         },
                         new
                         {
                             Id = 155,
                             IngredientCategoryId = 10,
-                            Name = "Olive Oil"
+                            Name = "Olive oil"
                         },
                         new
                         {
@@ -1086,13 +1086,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 158,
                             IngredientCategoryId = 10,
-                            Name = "Coconut Oil"
+                            Name = "Coconut oil"
                         },
                         new
                         {
                             Id = 159,
                             IngredientCategoryId = 10,
-                            Name = "Avocado Oil"
+                            Name = "Avocado oil"
                         },
                         new
                         {
@@ -1116,31 +1116,31 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 163,
                             IngredientCategoryId = 10,
-                            Name = "Sour Cream"
+                            Name = "Sour cream"
                         },
                         new
                         {
                             Id = 164,
                             IngredientCategoryId = 10,
-                            Name = "Whipped Cream"
+                            Name = "Whipped cream"
                         },
                         new
                         {
                             Id = 165,
                             IngredientCategoryId = 10,
-                            Name = "Coconut Cream"
+                            Name = "Coconut cream"
                         },
                         new
                         {
                             Id = 167,
                             IngredientCategoryId = 10,
-                            Name = "Diary Free Cream"
+                            Name = "Diary free cream"
                         },
                         new
                         {
                             Id = 168,
                             IngredientCategoryId = 10,
-                            Name = "Sesame Oil"
+                            Name = "Sesame oil"
                         },
                         new
                         {
@@ -1188,7 +1188,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 176,
                             IngredientCategoryId = 11,
-                            Name = "Skip Jack"
+                            Name = "Skip jack"
                         },
                         new
                         {
@@ -1206,7 +1206,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 179,
                             IngredientCategoryId = 11,
-                            Name = "Silver Catfish (Pangasius)"
+                            Name = "Silver catfish("
                         },
                         new
                         {
@@ -1230,7 +1230,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 183,
                             IngredientCategoryId = 11,
-                            Name = "Salmon Trout"
+                            Name = "Salmon trout"
                         },
                         new
                         {
@@ -1248,13 +1248,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 186,
                             IngredientCategoryId = 12,
-                            Name = "Lemon Juice"
+                            Name = "Lemon juice"
                         },
                         new
                         {
                             Id = 187,
                             IngredientCategoryId = 12,
-                            Name = "Tomatoe Paste"
+                            Name = "Tomatoe paste"
                         },
                         new
                         {
@@ -1278,13 +1278,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 222,
                             IngredientCategoryId = 7,
-                            Name = "Brown Rice"
+                            Name = "Brown rice"
                         },
                         new
                         {
                             Id = 192,
                             IngredientCategoryId = 7,
-                            Name = "Black Rice"
+                            Name = "Black rice"
                         },
                         new
                         {
@@ -1326,7 +1326,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 199,
                             IngredientCategoryId = 13,
-                            Name = "Chia Seeds"
+                            Name = "Chia seeds"
                         },
                         new
                         {
@@ -1374,19 +1374,19 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 207,
                             IngredientCategoryId = 13,
-                            Name = "Brazil Nuts"
+                            Name = "Brazil nuts"
                         },
                         new
                         {
                             Id = 208,
                             IngredientCategoryId = 13,
-                            Name = "Cashew Nuts"
+                            Name = "Cashew nuts"
                         },
                         new
                         {
                             Id = 209,
                             IngredientCategoryId = 13,
-                            Name = "Hazel Nuts"
+                            Name = "Hazel nuts"
                         },
                         new
                         {
@@ -1422,37 +1422,37 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 215,
                             IngredientCategoryId = 13,
-                            Name = "Pumpkin Seeds"
+                            Name = "Pumpkin seeds"
                         },
                         new
                         {
                             Id = 216,
                             IngredientCategoryId = 13,
-                            Name = "Flax Seeds"
+                            Name = "Flax seeds"
                         },
                         new
                         {
                             Id = 217,
                             IngredientCategoryId = 13,
-                            Name = "Sesame Seeds"
+                            Name = "Sesame seeds"
                         },
                         new
                         {
                             Id = 218,
                             IngredientCategoryId = 13,
-                            Name = "Poppy Seeds"
+                            Name = "Poppy seeds"
                         },
                         new
                         {
                             Id = 219,
                             IngredientCategoryId = 13,
-                            Name = "Sunflower Seeds"
+                            Name = "Sunflower seeds"
                         },
                         new
                         {
                             Id = 220,
                             IngredientCategoryId = 13,
-                            Name = "Psyllium Seeds"
+                            Name = "Psyllium seeds"
                         });
                 });
 
@@ -1693,7 +1693,17 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "cup"
+                            Name = "cup(s)"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "bunch(es)"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "pkg(s)"
                         });
                 });
 
@@ -2198,7 +2208,7 @@ namespace CookTheWeek.Data.Migrations
                     b.HasOne("CookTheWeek.Data.Models.Ingredient", "Ingredient")
                         .WithMany("RecipesIngredients")
                         .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CookTheWeek.Data.Models.Measure", "Measure")

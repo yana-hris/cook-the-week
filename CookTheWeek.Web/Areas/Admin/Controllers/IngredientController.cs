@@ -1,6 +1,8 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Data.SqlClient;
 
     using Services.Interfaces;
     using Services.Data.Models.Ingredient;
@@ -9,6 +11,7 @@
 
     using static Common.NotificationMessagesConstants;
     
+
     public class IngredientController : BaseAdminController
     {
         private readonly ICategoryService categoryService;
@@ -155,9 +158,20 @@
                 await this.ingredientService.DeleteById(id);
                 TempData[SuccessMessage] = "Ingredient successfully deleted!";
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
-                return BadRequest();
+                if (ex.InnerException is SqlException sqlException && (sqlException.Number == 547 || sqlException.Number == 547)) // SQL Server error code for foreign key constraint violation
+                {
+                    // Handle foreign key constraint violation
+                    // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
+                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated records.";
+                }
+                else
+                {
+                    // Handle other exceptions
+                    TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    return BadRequest();
+                }
             }
 
             return RedirectToAction("All");

@@ -18,14 +18,14 @@ namespace CookTheWeek.Data.Configuration
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipesIngredients)
                 .HasForeignKey(ri => ri.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);  
 
-            // If an ingredient is deleted, all recipe ingredients will be deleted too!
+            // If an ingredient is deleted and there are existing recipeIngredients, the delete will be prevented
             builder
                 .HasOne(ri => ri.Ingredient)
                 .WithMany(i => i.RecipesIngredients)
                 .HasForeignKey(ri => ri.IngredientId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
             
             builder
                 .Property(ri => ri.Qty)

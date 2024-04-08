@@ -267,6 +267,11 @@
         {
             string userId = this.User.GetId();
 
+            if(User.IsAdmin())
+            {
+                Redirect("/Admin/Recipe/Mine");
+            }
+
             RecipeMineViewModel model = new RecipeMineViewModel();
             model.FavouriteRecipes = await this.recipeService.AllFavouritesByUserAsync(userId);
             model.OwnedRecipes = await this.recipeService.AllAdedByUserAsync(userId);

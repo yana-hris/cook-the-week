@@ -1,0 +1,101 @@
+﻿#recipe-container {
+    max-width: 1300px;
+    padding: 0 10px;
+
+    .collection-heading {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    #favourite-recipes, #owned-recipes {
+        overflow-x: auto;
+        height: 300px;
+
+        .row.d-flex {
+            height: 100%;
+
+            .recipe-container {
+                width: 250px;
+                flex-grow: 0;
+
+                .card {
+                    height: 100%;
+                    position: relative;
+
+                    img.fit-cover {
+                        height: 8rem;
+                        object-fit: cover;
+                    }
+
+                    a .like-icon {
+                        position: absolute;
+                        top: 3px;
+                        left: 5px;
+                        font-size: 30px;
+                    }
+
+                    .liked {
+                        color: red;
+                    }
+
+                    .not-liked {
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .add-icon {
+                        position: absolute;
+                        top: 88px;
+                        right: 3px;
+                        font-size: 37px;
+                        color: var(--bs-success);
+                    }
+
+                    .material-icons.card-icon {
+                        font-size: 13px;
+                    }
+
+                    .icon-text {
+                        font-size: 13px;
+                    }
+
+                    span.badge {
+                        font-size: 13px;
+                        font-size: small;
+                        padding: 1px 6px 3px 6px;
+                    }
+
+                    .recipe-title {
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-top: 4px;
+                        margin-bottom: 3px;
+                    }
+
+
+                    hr {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .recipe-description {
+                        width: 216px;
+                        font-weight: 300;
+                        font-size: 14px;
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+
+                        .text-overflow-clamp {
+                            width: 100%;
+                            /* this code clamps based on specified lines */
+                            overflow: hidden;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 3;
+                            display: -webkit-box;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

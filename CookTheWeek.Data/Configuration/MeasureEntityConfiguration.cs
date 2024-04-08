@@ -60,8 +60,18 @@
                         new Measure()
                 {
                     Id = 9,
-                    Name = "cup"
+                    Name = "cup(s)"
                 },
+                new Measure()
+                {
+                    Id = 10,
+                    Name = "bunch(es)"
+                },
+                new Measure()
+                {
+                    Id = 11,
+                    Name = "pkg(s)"
+                }
             };
         }
     }
