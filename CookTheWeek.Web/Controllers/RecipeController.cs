@@ -298,6 +298,12 @@
                 return RedirectToAction("Details", "Recipe", new { id });
             }
 
+            // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
+            if(await this.recipeService.IsIncludedInMealPlans(id))
+            {
+                TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
+            }
+
             try
             {
                 RecipeDeleteViewModel model = await this.recipeService.GetForDeleteByIdAsync(id);

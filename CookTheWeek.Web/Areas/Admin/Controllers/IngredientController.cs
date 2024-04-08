@@ -164,12 +164,12 @@
                 {
                     // Handle foreign key constraint violation
                     // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
-                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated records.";
+                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated RecipeIngredients with this Ingredient.";
                 }
                 else
                 {
                     // Handle other exceptions
-                    TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    TempData[ErrorMessage] = "An error occurred while deleting the Ingredient.";
                     return BadRequest();
                 }
             }

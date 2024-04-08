@@ -4079,7 +4079,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: #ffffff;
+  --bs-nav-link-color: #2e6930;
   --bs-nav-link-hover-color: #4caf50;
   --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
@@ -4213,7 +4213,7 @@ textarea.form-control-lg {
 .navbar {
   --bs-navbar-padding-x: 0;
   --bs-navbar-padding-y: 0.5rem;
-  --bs-navbar-color: #ffffff;
+  --bs-navbar-color: #2e6930;
   --bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
   --bs-navbar-disabled-color: rgba(var(--bs-emphasis-color-rgb), 0.3);
   --bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);

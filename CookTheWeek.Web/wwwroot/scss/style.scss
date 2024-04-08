@@ -27,9 +27,9 @@ $theme-colors: (
 
 // Light theme colors:
 
-$navbar-light-color: #ffffff;
+$navbar-light-color: $success;
 $navbar-hover-color: #70bf73;
-$nav-link-color: #ffffff;
+$nav-link-color: $success;
 $nav-link-hover-color: $primary;
 $dropdown-link-active-color: #ffffff;
 $dropdown-link-active-bg: $success;

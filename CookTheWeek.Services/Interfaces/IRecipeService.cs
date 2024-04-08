@@ -24,5 +24,6 @@
         Task RemoveFromFavouritesByUserId(string id, string userId);
         Task<int> AllCountAsync();
         Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId);
+        Task<bool> IsIncludedInMealPlans(string id);
     }
 }

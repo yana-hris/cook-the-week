@@ -1,11 +1,14 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Data.SqlClient;
 
     using CookTheWeek.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
+    
 
     public class CategoryController : BaseAdminController
     {
@@ -134,9 +137,20 @@
                 await this.categoryService.DeleteRecipeCategoryById(id);
                 TempData[SuccessMessage] = $"Recipe Category successfully deleted!";
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
-                return BadRequest();
+                if (ex.InnerException is SqlException sqlException && (sqlException.Number == 547 || sqlException.Number == 547)) // SQL Server error code for foreign key constraint violation
+                {
+                    // Handle foreign key constraint violation
+                    // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
+                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated Recipes with this Category.";
+                }
+                else
+                {
+                    // Handle other exceptions
+                    TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    return BadRequest();
+                }
             }
 
             return RedirectToAction("AllRecipeCategories");
@@ -260,9 +274,20 @@
                 await this.categoryService.DeleteIngredientCategoryById(id);
                 TempData[SuccessMessage] = $"Ingredient Category successfully deleted!";
             }
-            catch (Exception)
+            catch (DbUpdateException ex)
             {
-                return BadRequest();
+                if (ex.InnerException is SqlException sqlException && (sqlException.Number == 547 || sqlException.Number == 547)) // SQL Server error code for foreign key constraint violation
+                {
+                    // Handle foreign key constraint violation
+                    // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
+                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated Ingredients with this Category.";
+                }
+                else
+                {
+                    // Handle other exceptions
+                    TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    return BadRequest();
+                }
             }
 
             return RedirectToAction("AllIngredientCategories");

@@ -7,10 +7,11 @@
     {
         public void Configure(EntityTypeBuilder<RecipeCategory> builder)
         {
-           
+            // Restrict delete of Categories if Recipes in them exist
             builder
                 .HasMany(rc => rc.Recipes)
                 .WithOne(r => r.RecipeCategory)
+                .HasForeignKey(r => r.RecipeCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             builder

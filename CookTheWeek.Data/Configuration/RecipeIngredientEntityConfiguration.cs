@@ -13,7 +13,7 @@ namespace CookTheWeek.Data.Configuration
             builder
                 .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
 
-           // Recipe is set to soft delete, so recipeIngredients will not be actually deleted
+           // Recipe is set to soft delete, but recipe ingredients need to be deleted from the database
             builder
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipesIngredients)

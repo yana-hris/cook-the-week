@@ -7,6 +7,7 @@
     {
         public void Configure(EntityTypeBuilder<Specification> builder)
         {
+           
             builder
                 .HasData(GenerateSpecifications());
         }

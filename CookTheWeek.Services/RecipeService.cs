@@ -27,7 +27,6 @@
         {
             IQueryable<Recipe> recipesQuery = this.dbContext
                 .Recipes
-                .Where(r => !r.IsDeleted)
                 .AsNoTracking()
                 .AsQueryable();
 
@@ -61,7 +60,6 @@
             };
 
             ICollection<RecipeAllViewModel> allRecipes = await recipesQuery
-                .Where(r => !r.IsDeleted)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
                 .Take(queryModel.RecipesPerPage)
                 .Select(r => new RecipeAllViewModel()
@@ -128,7 +126,7 @@
             Recipe recipe = await this.dbContext
                 .Recipes
                 .Include(r => r.RecipesIngredients)
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == model.Id)
+                .Where(r => r.Id.ToString() == model.Id)
                 .FirstAsync();
 
             recipe.Title = model.Title;
@@ -167,7 +165,7 @@
             RecipeDetailsViewModel model = await this.dbContext
                 .Recipes
                 .AsNoTracking()
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Where(r => r.Id.ToString() == id)
                 .Select(r => new RecipeDetailsViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -223,7 +221,7 @@
             return await this.dbContext
                 .Recipes
                 .AsNoTracking()
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Where(r => r.Id.ToString() == id)
                 .AnyAsync();
         }
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
@@ -231,7 +229,7 @@
             RecipeEditFormModel recipe = await this.dbContext
                 .Recipes
                 .AsNoTracking()
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Where(r => r.Id.ToString() == id)
                 .Select(r => new RecipeEditFormModel()
                 {
                     Id = r.Id.ToString(),
@@ -257,7 +255,7 @@
         {
             RecipeDeleteViewModel model = await this.dbContext
                 .Recipes
-                .Where(r => r.IsDeleted == false && r.Id.ToString() == id)
+                .Where(r => r.Id.ToString() == id)
                 .Select(r => new RecipeDeleteViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -273,12 +271,33 @@
         }
         public async Task DeleteById(string id)
         {
+            // Implementing soft delete requires to delete manually all related records, as we do not need them in the database
             Recipe recipeToDelete = await this.dbContext
                 .Recipes
-                .Where(r => r.Id.ToString() == id && r.IsDeleted == false)
+                .Include(r => r.RecipesIngredients)
+                .Where(r => r.Id.ToString() == id)
                 .FirstAsync();
             
             recipeToDelete.IsDeleted = true;
+
+            // Delete RecipeIngredients of deleted recipes
+            if(recipeToDelete != null && recipeToDelete.RecipesIngredients.Any())
+            {
+                this.dbContext.RecipesIngredients.RemoveRange(recipeToDelete.RecipesIngredients);
+            }
+
+            // Delete User Likes for Deleted Recipes
+            if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
+            {
+                this.dbContext.FavoriteRecipes.RemoveRange(recipeToDelete.FavouriteRecipes);
+            }
+
+            // Delete All Meals that contain the Recipe
+            if(recipeToDelete != null && recipeToDelete.Meals.Any()) 
+            {
+                this.dbContext.Meals.RemoveRange(recipeToDelete.Meals);
+            }
+
             await this.dbContext.SaveChangesAsync();
         }
         public async Task<ICollection<RecipeAllViewModel>> AllAdedByUserAsync(string userId)
@@ -286,7 +305,7 @@
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
                 .Include("RecipeCategory")
-                .Where(r => r.OwnerId == userId && r.IsDeleted != false)
+                .Where(r => r.OwnerId == userId)
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -347,24 +366,22 @@
         {
             return await this.dbContext
                 .Recipes
-                .Where(r => r.IsDeleted == false && r.OwnerId == userId)
+                .Where(r => r.OwnerId == userId)
                 .CountAsync();
         }
         public async Task<int> AllCountAsync()
         {
             return await this.dbContext
                .Recipes
-               .Where(r => r.IsDeleted == false)
                .CountAsync();
         }
-
         public async Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .FavoriteRecipes
                 .Include(fr => fr.Recipe)
                 .ThenInclude(r => r.RecipeCategory)
-                .Where(fr => fr.UserId.ToString() == userId && fr.Recipe.IsDeleted == false)
+                .Where(fr => fr.UserId.ToString() == userId)
                 .Select(fr => new RecipeAllViewModel()
                 {
                     Id = fr.Recipe.Id.ToString(),
@@ -382,6 +399,13 @@
                 }).ToListAsync();
 
             return myRecipes;
+        }
+        public async Task<bool> IsIncludedInMealPlans(string id)
+        {
+            return await this.dbContext
+                .Meals
+                .Where(m => m.Id.ToString() == id && m.IsCooked == false)
+                .AnyAsync();
         }
     }
 }
