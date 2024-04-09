@@ -1,45 +1,28 @@
 namespace CookTheWeek.Services.Tests
 {
-    using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Data;
-    using CookTheWeek.Services.Interfaces;
     using Data.Interfaces;
+    using Interfaces;
     using Services.Data;
-
-    using static DbSeeder;
-    using CookTheWeek.Web.ViewModels.User;
-    using Microsoft.IdentityModel.Tokens;
+    using Unit_Tests;
+    using Web.ViewModels.User;
 
     [TestFixture]
-    public class UserTests
+    public class UserTests : UnitTestBase
     {
-        private DbContextOptions<CookTheWeekDbContext> dbOptions;
-        private CookTheWeekDbContext dbContext;
-
         private IUserService userService;
         private IRecipeService recipeService;
 
         [OneTimeSetUp]
-        public void OneTimeSetup()
+        public void SetUp()
         {
-            this.dbOptions = new DbContextOptionsBuilder<CookTheWeekDbContext>()
-                .UseInMemoryDatabase("CookTheWeekInMemory" + Guid.NewGuid().ToString())
-                .Options;
-            this.dbContext = new CookTheWeekDbContext(this.dbOptions, false);
-
-            this.dbContext.Database.EnsureDeleted();
-            this.dbContext.Database.EnsureCreated();
-            SeedDatabase(this.dbContext);
-
-            this.recipeService = new RecipeService(this.dbContext);
-            this.userService = new UserService(dbContext, recipeService);
+            this.recipeService = new RecipeService(data);
+            this.userService = new UserService(data, this.recipeService);
         }
 
         [Test]
         public async Task UserExistsByIdAsyncShouldReturnTrueWhenUserExists()
         {
-            string existingUserId = AppUser.Id.ToString();
+            string existingUserId = TestUser.Id.ToString();
 
             bool result = await this.userService.ExistsByIdAsync(existingUserId);
 

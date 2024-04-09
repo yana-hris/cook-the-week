@@ -1,18 +1,32 @@
-﻿namespace CookTheWeek.Services.Tests
+﻿namespace CookTheWeek.Services.Tests.Unit_Tests
 {
     using Microsoft.AspNetCore.Identity;
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Tests.Mocks;
 
     using static Common.GeneralApplicationConstants;
 
-    public static class DbSeeder
+    public class UnitTestBase
     {
-        public static ApplicationUser AdminUser;
-        public static ApplicationUser AppUser;
+        protected CookTheWeekDbContext data;
 
-        public static void SeedDatabase(CookTheWeekDbContext dbContext)
+        public ApplicationUser AdminUser { get; private set; }
+        public ApplicationUser TestUser { get; private set; }   
+        public Recipe AddedRecipe { get; private set; }
+
+        [OneTimeSetUp]
+        public void SetUpBase()
+        {
+            data = DatabaseMock.Instance;
+            SeedDatabase();
+        }
+
+        [OneTimeTearDown]
+        public void TearDownBase() => data.Dispose();
+
+        private void SeedDatabase() 
         {
             PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
 
@@ -30,7 +44,7 @@
 
             AdminUser.PasswordHash = hasher.HashPassword(AdminUser, AdminUserPassword);
 
-            AppUser = new ApplicationUser()
+            TestUser = new ApplicationUser()
             {
                 Id = Guid.Parse("65fc0e0d-6572-4ec6-a853-c633d9f28c9e"),
                 UserName = "testUser",
@@ -42,13 +56,13 @@
                 EmailConfirmed = true,
             };
 
-            AppUser.PasswordHash = hasher.HashPassword(AppUser, "123123");
+            TestUser.PasswordHash = hasher.HashPassword(TestUser, "123123");
 
-            dbContext.Users.Add(AdminUser);
-            dbContext.Users.Add(AppUser);
+            data.Users.Add(AdminUser);
+            data.Users.Add(TestUser);
 
-            dbContext.SaveChanges();
+            data.SaveChanges();
+
         }
-
     }
 }

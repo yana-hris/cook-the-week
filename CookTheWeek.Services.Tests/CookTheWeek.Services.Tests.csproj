@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -26,10 +26,6 @@
     <ProjectReference Include="..\CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj" />
     <ProjectReference Include="..\CookTheWeek.Services\CookTheWeek.Services.Data.csproj" />
     <ProjectReference Include="..\CookTheWeek.Web.ViewModels\CookTheWeek.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mocks\" />
   </ItemGroup>
 
 </Project>
