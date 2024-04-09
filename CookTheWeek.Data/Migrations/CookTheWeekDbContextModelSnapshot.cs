@@ -89,6 +89,40 @@ namespace CookTheWeek.Data.Migrations
                         {
                             t.HasComment("The Application User");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "de59dff2-8b1c-468f-9224-1805c1bcd339",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMINUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKIN1ax9aHDD3bhkNHaU2j/yG+LwKzYEaaOZWGwgUWV/kcMwZPHidMklFGbSfAWk+w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9791ebb4-6f06-4151-ae15-d4d06898b0fa",
+                            TwoFactorEnabled = false,
+                            UserName = "adminUser"
+                        },
+                        new
+                        {
+                            Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1a2ca4be-09d1-4827-b0db-49fd6e153c9b",
+                            Email = "appUser@yahoo.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "APPUSER@YAHOO.COM",
+                            NormalizedUserName = "APPUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFO+ThX1QTgukg4Vi4z5OBXSFhSo7m/s3GwffbThHagR29hMr4/hCgLxB6m4LfVTGA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "393dfa2a-46ac-43df-8201-16957b98949c",
+                            TwoFactorEnabled = false,
+                            UserName = "appUser"
+                        });
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.FavouriteRecipe", b =>
@@ -204,7 +238,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 11,
                             IngredientCategoryId = 2,
-                            Name = "Minced meat"
+                            Name = "Ground meat"
                         },
                         new
                         {
@@ -234,7 +268,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 14,
                             IngredientCategoryId = 1,
-                            Name = "Yogurt"
+                            Name = "Yoghurt"
                         },
                         new
                         {
@@ -870,13 +904,13 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 122,
                             IngredientCategoryId = 8,
-                            Name = "Tomato(s)"
+                            Name = "Tomatoe(s)"
                         },
                         new
                         {
                             Id = 123,
                             IngredientCategoryId = 8,
-                            Name = "Cherry tomato(s)"
+                            Name = "Cherry tomatoe(s)"
                         },
                         new
                         {
@@ -1132,63 +1166,69 @@ namespace CookTheWeek.Data.Migrations
                         },
                         new
                         {
-                            Id = 167,
+                            Id = 166,
                             IngredientCategoryId = 10,
                             Name = "Diary free cream"
                         },
                         new
                         {
-                            Id = 168,
+                            Id = 167,
                             IngredientCategoryId = 10,
                             Name = "Sesame oil"
                         },
                         new
                         {
-                            Id = 169,
+                            Id = 168,
                             IngredientCategoryId = 11,
                             Name = "Trout"
                         },
                         new
                         {
-                            Id = 170,
+                            Id = 169,
                             IngredientCategoryId = 11,
                             Name = "Salmon"
                         },
                         new
                         {
-                            Id = 171,
+                            Id = 170,
                             IngredientCategoryId = 11,
                             Name = "Tuna"
                         },
                         new
                         {
-                            Id = 172,
+                            Id = 171,
                             IngredientCategoryId = 11,
                             Name = "Sardines"
                         },
                         new
                         {
-                            Id = 173,
+                            Id = 172,
                             IngredientCategoryId = 11,
                             Name = "Mackerel"
                         },
                         new
                         {
-                            Id = 174,
+                            Id = 173,
                             IngredientCategoryId = 11,
                             Name = "Cod"
                         },
                         new
                         {
-                            Id = 175,
+                            Id = 174,
                             IngredientCategoryId = 11,
                             Name = "Mussels"
                         },
                         new
                         {
-                            Id = 176,
+                            Id = 175,
                             IngredientCategoryId = 11,
                             Name = "Skip jack"
+                        },
+                        new
+                        {
+                            Id = 176,
+                            IngredientCategoryId = 11,
+                            Name = "Shark"
                         },
                         new
                         {
@@ -1200,259 +1240,439 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 178,
                             IngredientCategoryId = 11,
-                            Name = "Shark"
+                            Name = "Silver catfish("
                         },
                         new
                         {
                             Id = 179,
                             IngredientCategoryId = 11,
-                            Name = "Silver catfish("
+                            Name = "Octopus"
                         },
                         new
                         {
                             Id = 180,
                             IngredientCategoryId = 11,
-                            Name = "Octopus"
+                            Name = "Squids"
                         },
                         new
                         {
                             Id = 181,
                             IngredientCategoryId = 11,
-                            Name = "Squids"
+                            Name = "Hake fish"
                         },
                         new
                         {
                             Id = 182,
                             IngredientCategoryId = 11,
-                            Name = "Hake fish"
+                            Name = "Salmon trout"
                         },
                         new
                         {
                             Id = 183,
                             IngredientCategoryId = 11,
-                            Name = "Salmon trout"
+                            Name = "Sprat"
                         },
                         new
                         {
                             Id = 184,
                             IngredientCategoryId = 11,
-                            Name = "Sprat"
-                        },
-                        new
-                        {
-                            Id = 185,
-                            IngredientCategoryId = 11,
                             Name = "Sardines"
                         },
                         new
                         {
-                            Id = 186,
+                            Id = 185,
                             IngredientCategoryId = 12,
                             Name = "Lemon juice"
                         },
                         new
                         {
-                            Id = 187,
+                            Id = 186,
                             IngredientCategoryId = 12,
                             Name = "Tomatoe paste"
                         },
                         new
                         {
-                            Id = 188,
+                            Id = 187,
                             IngredientCategoryId = 12,
                             Name = "Mustard"
                         },
                         new
                         {
-                            Id = 189,
+                            Id = 188,
                             IngredientCategoryId = 5,
                             Name = "Savory"
                         },
                         new
                         {
-                            Id = 221,
+                            Id = 189,
                             IngredientCategoryId = 7,
                             Name = "Rice"
                         },
                         new
                         {
-                            Id = 222,
+                            Id = 190,
                             IngredientCategoryId = 7,
                             Name = "Brown rice"
                         },
                         new
                         {
-                            Id = 192,
+                            Id = 191,
                             IngredientCategoryId = 7,
                             Name = "Black rice"
                         },
                         new
                         {
-                            Id = 193,
+                            Id = 192,
                             IngredientCategoryId = 7,
                             Name = "Barley"
                         },
                         new
                         {
-                            Id = 194,
+                            Id = 193,
                             IngredientCategoryId = 7,
                             Name = "Bulgur"
                         },
                         new
                         {
-                            Id = 195,
+                            Id = 194,
                             IngredientCategoryId = 7,
                             Name = "Quinoa"
                         },
                         new
                         {
-                            Id = 196,
+                            Id = 195,
                             IngredientCategoryId = 7,
                             Name = "Amaranth"
                         },
                         new
                         {
-                            Id = 197,
+                            Id = 196,
                             IngredientCategoryId = 7,
                             Name = "Oats"
                         },
                         new
                         {
-                            Id = 198,
+                            Id = 197,
                             IngredientCategoryId = 7,
                             Name = "Oatmeal"
                         },
                         new
                         {
-                            Id = 199,
+                            Id = 198,
                             IngredientCategoryId = 13,
                             Name = "Chia seeds"
                         },
                         new
                         {
-                            Id = 200,
+                            Id = 199,
                             IngredientCategoryId = 7,
                             Name = "Wheat"
                         },
                         new
                         {
-                            Id = 201,
+                            Id = 200,
                             IngredientCategoryId = 7,
                             Name = "Corn"
                         },
                         new
                         {
-                            Id = 202,
+                            Id = 201,
                             IngredientCategoryId = 7,
                             Name = "Spelt"
                         },
                         new
                         {
-                            Id = 203,
+                            Id = 202,
                             IngredientCategoryId = 7,
                             Name = "Buckwheat"
                         },
                         new
                         {
-                            Id = 204,
+                            Id = 203,
                             IngredientCategoryId = 7,
                             Name = "Millet"
                         },
                         new
                         {
-                            Id = 205,
+                            Id = 204,
                             IngredientCategoryId = 7,
                             Name = "Farro"
                         },
                         new
                         {
-                            Id = 206,
+                            Id = 205,
                             IngredientCategoryId = 13,
                             Name = "Almonds"
                         },
                         new
                         {
-                            Id = 207,
+                            Id = 206,
                             IngredientCategoryId = 13,
                             Name = "Brazil nuts"
                         },
                         new
                         {
-                            Id = 208,
+                            Id = 207,
                             IngredientCategoryId = 13,
                             Name = "Cashew nuts"
                         },
                         new
                         {
-                            Id = 209,
+                            Id = 208,
                             IngredientCategoryId = 13,
                             Name = "Hazel nuts"
                         },
                         new
                         {
-                            Id = 210,
+                            Id = 209,
                             IngredientCategoryId = 13,
                             Name = "Macadamias"
                         },
                         new
                         {
-                            Id = 211,
+                            Id = 210,
                             IngredientCategoryId = 13,
                             Name = "Pecans"
                         },
                         new
                         {
-                            Id = 212,
+                            Id = 211,
                             IngredientCategoryId = 13,
                             Name = "Pistachios"
                         },
                         new
                         {
-                            Id = 213,
+                            Id = 212,
                             IngredientCategoryId = 13,
                             Name = "Walnuts"
                         },
                         new
                         {
-                            Id = 214,
+                            Id = 213,
                             IngredientCategoryId = 13,
                             Name = "Peanuts"
                         },
                         new
                         {
-                            Id = 215,
+                            Id = 214,
                             IngredientCategoryId = 13,
                             Name = "Pumpkin seeds"
                         },
                         new
                         {
-                            Id = 216,
+                            Id = 215,
                             IngredientCategoryId = 13,
                             Name = "Flax seeds"
                         },
                         new
                         {
-                            Id = 217,
+                            Id = 216,
                             IngredientCategoryId = 13,
                             Name = "Sesame seeds"
                         },
                         new
                         {
-                            Id = 218,
+                            Id = 217,
                             IngredientCategoryId = 13,
                             Name = "Poppy seeds"
                         },
                         new
                         {
-                            Id = 219,
+                            Id = 218,
                             IngredientCategoryId = 13,
                             Name = "Sunflower seeds"
                         },
                         new
                         {
-                            Id = 220,
+                            Id = 219,
                             IngredientCategoryId = 13,
                             Name = "Psyllium seeds"
+                        },
+                        new
+                        {
+                            Id = 222,
+                            IngredientCategoryId = 12,
+                            Name = "Vegetable broth"
+                        },
+                        new
+                        {
+                            Id = 223,
+                            IngredientCategoryId = 12,
+                            Name = "Beef broth"
+                        },
+                        new
+                        {
+                            Id = 224,
+                            IngredientCategoryId = 12,
+                            Name = "Fish broth"
+                        },
+                        new
+                        {
+                            Id = 225,
+                            IngredientCategoryId = 12,
+                            Name = "Fish broth"
+                        },
+                        new
+                        {
+                            Id = 226,
+                            IngredientCategoryId = 7,
+                            Name = "Noodles"
+                        },
+                        new
+                        {
+                            Id = 227,
+                            IngredientCategoryId = 9,
+                            Name = "Date(s)"
+                        },
+                        new
+                        {
+                            Id = 228,
+                            IngredientCategoryId = 7,
+                            Name = "Granola"
+                        },
+                        new
+                        {
+                            Id = 229,
+                            IngredientCategoryId = 9,
+                            Name = "Fruits of choice"
+                        },
+                        new
+                        {
+                            Id = 230,
+                            IngredientCategoryId = 13,
+                            Name = "Nuts of choice"
+                        },
+                        new
+                        {
+                            Id = 231,
+                            IngredientCategoryId = 13,
+                            Name = "Seeds of choice"
+                        },
+                        new
+                        {
+                            Id = 232,
+                            IngredientCategoryId = 12,
+                            Name = "Diary-free milk"
+                        },
+                        new
+                        {
+                            Id = 233,
+                            IngredientCategoryId = 12,
+                            Name = "Almond milk"
+                        },
+                        new
+                        {
+                            Id = 234,
+                            IngredientCategoryId = 12,
+                            Name = "Oat milk"
+                        },
+                        new
+                        {
+                            Id = 235,
+                            IngredientCategoryId = 12,
+                            Name = "Soy milk"
+                        },
+                        new
+                        {
+                            Id = 236,
+                            IngredientCategoryId = 12,
+                            Name = "Hemp milk"
+                        },
+                        new
+                        {
+                            Id = 237,
+                            IngredientCategoryId = 12,
+                            Name = "Cashew milk"
+                        },
+                        new
+                        {
+                            Id = 238,
+                            IngredientCategoryId = 12,
+                            Name = "Hazelnut milk"
+                        },
+                        new
+                        {
+                            Id = 239,
+                            IngredientCategoryId = 12,
+                            Name = "Tofu"
+                        },
+                        new
+                        {
+                            Id = 240,
+                            IngredientCategoryId = 4,
+                            Name = "Bread"
+                        },
+                        new
+                        {
+                            Id = 241,
+                            IngredientCategoryId = 4,
+                            Name = "Bread"
+                        },
+                        new
+                        {
+                            Id = 242,
+                            IngredientCategoryId = 4,
+                            Name = "Sourdough bread"
+                        },
+                        new
+                        {
+                            Id = 243,
+                            IngredientCategoryId = 4,
+                            Name = "Full grain bread"
+                        },
+                        new
+                        {
+                            Id = 244,
+                            IngredientCategoryId = 4,
+                            Name = "White bread"
+                        },
+                        new
+                        {
+                            Id = 245,
+                            IngredientCategoryId = 4,
+                            Name = "Rye bread"
+                        },
+                        new
+                        {
+                            Id = 246,
+                            IngredientCategoryId = 4,
+                            Name = "Flatbread"
+                        },
+                        new
+                        {
+                            Id = 247,
+                            IngredientCategoryId = 4,
+                            Name = "Brioche"
+                        },
+                        new
+                        {
+                            Id = 248,
+                            IngredientCategoryId = 4,
+                            Name = "Baguette"
+                        },
+                        new
+                        {
+                            Id = 249,
+                            IngredientCategoryId = 4,
+                            Name = "Ciabatta"
+                        },
+                        new
+                        {
+                            Id = 250,
+                            IngredientCategoryId = 4,
+                            Name = "Bread of choice"
+                        },
+                        new
+                        {
+                            Id = 251,
+                            IngredientCategoryId = 13,
+                            Name = "Hemp seeds"
+                        },
+                        new
+                        {
+                            Id = 252,
+                            IngredientCategoryId = 5,
+                            Name = "Himalayan salt"
                         });
                 });
 
@@ -1497,7 +1717,7 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Flour and Baking Products"
+                            Name = "Flour, Bread and Baking Products"
                         },
                         new
                         {
@@ -1704,6 +1924,16 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 11,
                             Name = "pkg(s)"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "slice(s)"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "pinch(es)"
                         });
                 });
 
@@ -1777,17 +2007,101 @@ namespace CookTheWeek.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            Id = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Мусака! Царицата на българската кухня! Едно от най-обичаните и най-често приготвяните ястия. Мусаката е абсолютният любимец както на всеки българин, така и на чужденците. Ако се притеснявате какво да сготвите на гостите от чужбина, можете да заложите на мусаката. Чуждестранните гости едва ли ще харесат таратора и едва ли ще съберат сили да пробват печените чушки с доматен сос, но мусаката задължително ще спечели доверието им, ще си оближат пръстите и ще искат порция допълнително. Рецептите за мусака нямат много вариации, вариантите са основно в приготвянето на заливката. Предложената тук рецепта за мусака е класическа, лесна и подходяща и за по-неопитните готвачи.",
+                            Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                             ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
-                            Instructions = "Загрявате мазнината в дълбок тиган или тенджера. В загрятата мазнина задушете измитият, изчистен и нарязан на дребно лук, докато омекне. Добавяте нарязаните на дребно половината домати и каймата, черният пипер и чубрицата, както и една чаена лъжица сол. Може да ползвате кайма, каквато имате под ръка, но най-вкусната мусаката става с кайма смес – 50% свинско и 50 % телешко месо.\r\nСлед като водата от доматите изври добавяте червения пипер. Измивате, почиствате, обелвате и нарязвате на дребни кубчета картофите и ги прибавяте към месото. Намазнявате тавичка на дъното на която поставяте другата половина от доматите и върху тях изсипвате сместа за мусака. Добавяте една непълна чаена чаша гореща вода и поставяте в предварително загрята на 200 градуса фурна. Печете до докато водата изври, а картофите станат златисти.\r\nИдва моментът за приготвяне на заливката за мусаката. Тя става лесно и много бързо. Разбърквате киселото мляко и яйцата, след което при постоянно бъркане добавяте и брашното, до получаване на гладка смес. Накрая добавяте и настъргания на дребно кашкавал. Заливате мусаката и печете докато порозовее.",
+                            Instructions = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
                             IsDeleted = false,
-                            OwnerId = "92E86642-3F6F-4949-BACB-DE0EF010E36D",
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             RecipeCategoryId = 4,
                             Servings = 8,
-                            Title = "Мусака",
+                            Title = "Moussaka",
                             TotalTime = new TimeSpan(0, 2, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
+                            ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
+                            Instructions = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker. Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes. Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip. Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. Bring the pressure cooker to a boil again and cook for another 20 minutes.\r\n",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 4,
+                            Servings = 4,
+                            Title = "Beef stew",
+                            TotalTime = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
+                            ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
+                            Instructions = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour. Remove the chicken and portion it into small pieces. Take the remaining chicken broth back and again bring to a boil. Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. After boiling for another 5 minutes, add some finely cut celery. ",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 2,
+                            Servings = 6,
+                            Title = "Homemade chicken soup",
+                            TotalTime = new TimeSpan(0, 1, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
+                            ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
+                            Instructions = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. 2. Add the minced meat while constantly mixing 3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove 4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) 5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 2,
+                            Servings = 8,
+                            Title = "Stuffed red peppers with ground meat and rice",
+                            TotalTime = new TimeSpan(0, 2, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
+                            ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
+                            Instructions = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.\r\nOnce the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.\r\nBlend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.\r\nPour the smoothie into glasses and serve immediately for a delightful and nutritious treat. Enjoy your refreshing fruity smoothie!",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 1,
+                            Servings = 1,
+                            Title = "Fruity strawberry smoothy",
+                            TotalTime = new TimeSpan(0, 0, 10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
+                            ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
+                            Instructions = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth. Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. Mix well and pour half of the blended milk with banana on top of each bowl. Store in a fridge during the night. The morning after top with granolla and fruits of your choice.",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 1,
+                            Servings = 2,
+                            Title = "Overnight oats(the night beofre)",
+                            TotalTime = new TimeSpan(0, 0, 10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
+                            ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
+                            Instructions = "For a delicious twist, grill your slice of bread to your preference. Then, simply smash the avocado with a fork and spread it generously over the bread. Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. Now, savor the flavors and enjoy your delightful avocado toast!",
+                            IsDeleted = false,
+                            OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
+                            RecipeCategoryId = 1,
+                            Servings = 1,
+                            Title = "Avocado toast",
+                            TotalTime = new TimeSpan(0, 0, 10, 0, 0)
                         });
                 });
 
@@ -1885,45 +2199,413 @@ namespace CookTheWeek.Data.Migrations
                     b.HasData(
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 11,
                             MeasureId = 5,
                             Qty = 500m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 113,
                             MeasureId = 1,
                             Qty = 2m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 118,
                             MeasureId = 6,
                             Qty = 1m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 122,
                             MeasureId = 5,
                             Qty = 250m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 154,
                             MeasureId = 8,
                             Qty = 3m
                         },
                         new
                         {
-                            RecipeId = new Guid("377a3703-e719-42db-b013-19e5bd23892a"),
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             IngredientId = 54,
                             MeasureId = 8,
                             Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            IngredientId = 14,
+                            MeasureId = 9,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            IngredientId = 12,
+                            MeasureId = 1,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            IngredientId = 52,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            IngredientId = 53,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 1,
+                            MeasureId = 5,
+                            Qty = 400m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 118,
+                            MeasureId = 1,
+                            Qty = 6m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 71,
+                            MeasureId = 1,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 113,
+                            MeasureId = 1,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 114,
+                            MeasureId = 1,
+                            Qty = 3m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 154,
+                            MeasureId = 8,
+                            Qty = 3m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 64,
+                            MeasureId = 10,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 52,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            IngredientId = 53,
+                            MeasureId = 1,
+                            Qty = 10m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 4,
+                            MeasureId = 5,
+                            Qty = 600m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 114,
+                            MeasureId = 1,
+                            Qty = 3m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 113,
+                            MeasureId = 1,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 188,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 53,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 57,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 64,
+                            MeasureId = 10,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 52,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 56,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 156,
+                            MeasureId = 5,
+                            Qty = 150m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 163,
+                            MeasureId = 5,
+                            Qty = 250m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            IngredientId = 154,
+                            MeasureId = 8,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 2,
+                            MeasureId = 5,
+                            Qty = 500m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 127,
+                            MeasureId = 1,
+                            Qty = 10m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 114,
+                            MeasureId = 1,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 122,
+                            MeasureId = 1,
+                            Qty = 1m,
+                            SpecificationId = 5
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 154,
+                            MeasureId = 8,
+                            Qty = 4m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 189,
+                            MeasureId = 3,
+                            Qty = 160m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 113,
+                            MeasureId = 1,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 52,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 53,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 54,
+                            MeasureId = 8,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            IngredientId = 188,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            IngredientId = 14,
+                            MeasureId = 9,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            IngredientId = 135,
+                            MeasureId = 9,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            IngredientId = 198,
+                            MeasureId = 9,
+                            Qty = 0.5m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            IngredientId = 116,
+                            MeasureId = 12,
+                            Qty = 1m,
+                            SpecificationId = 9
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 196,
+                            MeasureId = 9,
+                            Qty = 0.5m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 198,
+                            MeasureId = 8,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 218,
+                            MeasureId = 7,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 13,
+                            MeasureId = 9,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 228,
+                            MeasureId = 8,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            IngredientId = 229,
+                            MeasureId = 8,
+                            Qty = 2m,
+                            SpecificationId = 8
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 134,
+                            MeasureId = 1,
+                            Qty = 0.5m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 243,
+                            MeasureId = 12,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 251,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 252,
+                            MeasureId = 13,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 141,
+                            MeasureId = 1,
+                            Qty = 1m,
+                            SpecificationId = 10
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            IngredientId = 123,
+                            MeasureId = 1,
+                            Qty = 6m
                         });
                 });
 
@@ -1994,6 +2676,11 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 9,
                             Description = "fresh"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "squeezed"
                         });
                 });
 

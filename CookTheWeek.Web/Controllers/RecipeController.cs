@@ -274,7 +274,7 @@
 
             RecipeMineViewModel model = new RecipeMineViewModel();
             model.FavouriteRecipes = await this.recipeService.AllFavouritesByUserAsync(userId);
-            model.OwnedRecipes = await this.recipeService.AllAdedByUserAsync(userId);
+            model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
 
             return View(model);
         }

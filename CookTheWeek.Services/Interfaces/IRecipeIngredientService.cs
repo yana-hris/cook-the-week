@@ -6,7 +6,7 @@
     {
         Task<bool> IngredientMeasureExistsAsync(int measureId);
         Task<bool> IngredientSpecificationExistsAsync(int specificationId);
-        Task<bool> IngredientIsAlreadyAddedAsync(string ingredientName, string recipeId);
+        Task<bool> IsAlreadyAddedAsync(string ingredientName, string recipeId);
         Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId);
         Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync();
         Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync();

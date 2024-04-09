@@ -66,7 +66,7 @@
             return recipeIngredient.IngredientId;
         }
 
-        public async Task<bool> IngredientIsAlreadyAddedAsync(string ingredientName, string recipeId)
+        public async Task<bool> IsAlreadyAddedAsync(string ingredientName, string recipeId)
         {
             return await this.dbContext.RecipesIngredients
                 .AsNoTracking()

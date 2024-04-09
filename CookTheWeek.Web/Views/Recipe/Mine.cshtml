@@ -12,9 +12,14 @@
         ownedRecipeHeading = "Site Recipes";
     }
 }
-
-<div class="container d-flex flex-column gap-2" id="recipe-container">
-        @if(!isAdmin)
+@if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any())
+{
+    <h2 class="text-center">You have no recipes yet!</h2>
+}
+else
+{
+    <div class="container d-flex flex-column gap-2" id="recipe-container">
+        @if (!isAdmin)
         {
             <h2 class="collection-heading">Your Favourite Recipes</h2>
             <div id="favourite-recipes">
@@ -25,7 +30,7 @@
                             string recipeId = recipe.Id;
                             bool isInFavourites = await this.RecipeService.IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
 
-                        <div class="col d-block recipe-container">
+                            <div class="col d-block recipe-container">
                                 <div class="card">
                                     <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
                                     <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
@@ -36,7 +41,7 @@
                                         }
                                         else
                                         {
-                                            <i class="fa fa-heart not-liked like-icon" ></i>                                            
+                                            <i class="fa fa-heart not-liked like-icon"></i>
                                             // <i class="far fa-heart"></i>
                                         }
                                     </a>
@@ -50,10 +55,10 @@
                                         <h3 class="recipe-title">@recipe.Title</h3>
                                         <hr>
                                         <div class="recipe-description">
-                                        <p class="card-text text-overflow-clamp">@recipe.Description</p>
+                                            <p class="card-text text-overflow-clamp">@recipe.Description</p>
                                         </div>
                                     </div>
-                                <span class="material-icons add-icon">add_circle</span>
+                                    <span class="material-icons add-icon">add_circle</span>
                                 </div>
                             </div>
                         }
@@ -61,38 +66,40 @@
                 </div>
             </div>
         }
-    
-    <h2 class="collection-heading">@ownedRecipeHeading</h2>
-    <div id="owned-recipes">
-        <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
-            @foreach(var recipe in Model.OwnedRecipes)
-            {
-                <div class="col recipe-container d-block">
-                    <div class="card">
-                        <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">                        
-                        <div class="card-body p-2">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center justify-content-between gap-4">
-                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
-                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
-                                </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
+
+        <h2 class="collection-heading">@ownedRecipeHeading</h2>
+        <div id="owned-recipes">
+            <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
+                @foreach (var recipe in Model.OwnedRecipes)
+                {
+                    <div class="col recipe-container d-block">
+                        <div class="card">
+                            <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
+                            <div class="card-body p-2">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center justify-content-between gap-4">
+                                        <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
+                                        <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
+                                    </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
+                                </div>
+                                <h3 class="recipe-title">@recipe.Title</h3>
+                                <hr>
+                                <div class="recipe-description">
+                                    <p class="card-text text-overflow-clamp">@recipe.Description</p>
+                                </div>
                             </div>
-                            <h3 class="recipe-title">@recipe.Title</h3>
-                            <hr>
-                            <div class="recipe-description">
-                                <p class="card-text text-overflow-clamp">@recipe.Description</p>
-                            </div>
+                            @if (!isAdmin)
+                            {
+                                <span class="material-icons add-icon">add_circle</span>
+                            }
                         </div>
-                        @if(!isAdmin)
-                        {
-                            <span class="material-icons add-icon">add_circle</span>
-                        }                        
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
-</div>
+}
+
 @section Scripts {
     <script>
         // Like btn functionality

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CookTheWeek.Data.Models\CookTheWeek.Data.Models.csproj" />
     <ProjectReference Include="..\CookTheWeek.Data\CookTheWeek.Data.csproj" />
     <ProjectReference Include="..\CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj" />

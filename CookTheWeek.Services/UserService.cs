@@ -1,12 +1,13 @@
 ﻿namespace CookTheWeek.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
+
     using CookTheWeek.Data;
-    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.User;
-    using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
+    
 
     public class UserService : IUserService
     {
@@ -14,7 +15,7 @@
         private readonly IRecipeService recipeService;
         public UserService(CookTheWeekDbContext dbContext, IRecipeService recipeService)
         {
-             this.dbContext = dbContext;
+            this.dbContext = dbContext;
             this.recipeService = recipeService;
         }
 

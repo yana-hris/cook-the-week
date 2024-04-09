@@ -1,16 +1,29 @@
 ﻿namespace CookTheWeek.Data
 {
-    using System.Reflection;
-    using CookTheWeek.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using System.Reflection;
+
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.SeedData;
 
     public class CookTheWeekDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public CookTheWeekDbContext(DbContextOptions<CookTheWeekDbContext> options)
+        private bool seedDb;
+        public CookTheWeekDbContext(DbContextOptions<CookTheWeekDbContext> options, bool seed = true)
             : base(options)
         {
+            if (Database.IsRelational())
+            {
+                Database.Migrate();
+            }
+            else
+            {
+                Database.EnsureCreated();
+            }
+
+            this.seedDb = seed;
         }
 
         public DbSet<IngredientCategory> IngredientCategories { get; set; } = null!;
@@ -39,6 +52,35 @@
                 Assembly.GetExecutingAssembly();
             
             builder.ApplyConfigurationsFromAssembly(configAssembly);
+
+            if(seedDb)
+            {
+                var data = new SeedData.SeedData();
+
+                builder.Entity<ApplicationUser>()
+                    .HasData(data.SeedUsers());
+
+                builder.Entity<RecipeCategory>()
+                    .HasData(data.SeedRecipeCategories());
+
+                builder.Entity<IngredientCategory>()
+                    .HasData(data.SeedIngredientCategories());
+
+                builder.Entity<Measure>()
+                    .HasData(data.SeedMeasures());
+
+                builder.Entity<Specification>()
+                    .HasData(data.SeedSpecifications());
+
+                builder.Entity<Ingredient>()
+                    .HasData(data.SeedIngredients());
+
+                builder.Entity<Recipe>()
+                    .HasData(data.SeedRecipes());
+
+                builder.Entity<RecipeIngredient>()
+                    .HasData(data.SeedRecipeIngredients());
+            }
             
             base.OnModelCreating(builder);
         }

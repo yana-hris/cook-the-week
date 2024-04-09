@@ -117,7 +117,7 @@
 
             if (nameAlreadyExists)
             {
-                int existingIngredientId = await ingredientService.GetIdByName(model.Name);
+                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
 
                 if(existingIngredientId != model.Id)
                 {

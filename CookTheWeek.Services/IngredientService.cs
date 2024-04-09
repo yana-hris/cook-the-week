@@ -164,29 +164,15 @@
             this.dbContext.Ingredients.Remove(ingredient);
             await this.dbContext.SaveChangesAsync();
         }
-        public Task<int> GetIdByName(string name)
+        public async Task<int> GetIdByNameAsync(string name)
         {
-            return this.dbContext.Ingredients
+            return await this.dbContext.Ingredients
                 .Where(i => i.Name == name)
                 .Select(i => i.Id)
                 .FirstAsync();
         }
 
-        // TODO: check if will be used
-        //public async Task<IEnumerable<IngredientServiceModel>> AllFilteredAndSortedAsync()
-        //{
-        //    return await this.dbContext
-        //        .Ingredients
-        //        .AsNoTracking()
-        //        .Select(i => new IngredientServiceModel()
-        //        {
-        //            Id = i.Id,
-        //            Name = i.Name,
-        //            CategoryId = i.IngredientCategoryId
-        //        })
-        //        .OrderBy(i => i.Name)
-        //        .ToListAsync();
-        //}
+        
 
 
     }

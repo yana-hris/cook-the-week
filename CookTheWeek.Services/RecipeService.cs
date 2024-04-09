@@ -300,7 +300,7 @@
 
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<ICollection<RecipeAllViewModel>> AllAdedByUserAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
