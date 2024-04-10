@@ -3,6 +3,7 @@
     using CookTheWeek.Data.Models;
     using Data.Interfaces;
     using Data.Models.Recipe;
+    using Microsoft.EntityFrameworkCore;
     using Services.Data;
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
@@ -15,7 +16,7 @@
     {
         private IRecipeService recipeService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.recipeService = new RecipeService(data);
@@ -384,9 +385,117 @@
             Assert.That(resultModel.CategoryName, Is.EqualTo(recipe.RecipeCategory.Name));
         }
 
-        public async Task DeleteByIdShouldWorkCorrect()
+        [Test]
+        public async Task DeleteByIdShouldWorkCorrectly()
         {
+            // Arrange: get the current recipes count
+            int totalRecipesBeforeDelete = data.Recipes.Where(r => r.IsDeleted == false).Count();
+
+            // Act
+            await this.recipeService.DeleteByIdAsync(TestRecipe.Id.ToString());
+
+            // Assert the recipe is SOFT-deleted
+            Assert.That(data.Recipes.Where(r => r.IsDeleted == false).Count(), Is.EqualTo(totalRecipesBeforeDelete - 1));
+            var recipeInDb = await data.Recipes.FirstOrDefaultAsync(r => r.IsDeleted == false && r.Id == TestRecipe.Id);
+            Assert.IsNull(recipeInDb);
+
+            // Assert all recipe-ingredients are correctly erased
+            foreach (var ri in TestRecipeRecipeIngredients)
+            {
+                int ingredientId = ri.IngredientId;
+                var recipeIngredientInDb = await data
+                    .RecipesIngredients
+                    .FirstOrDefaultAsync(ri => ri.IngredientId == ingredientId && ri.RecipeId == TestRecipe.Id);
+
+                Assert.IsNull(recipeIngredientInDb);
+            }
+
+            // Assert the user-likes are erased for this Recipe
+            var likes = await data.FavoriteRecipes.AnyAsync(fr => fr.RecipeId == TestRecipe.Id);
+            Assert.IsFalse(likes);
+
+            // Assert user meals are deleted as well
+            var meals = await data.Meals.AnyAsync(m => m.RecipeId == TestRecipe.Id);
+            Assert.IsFalse(meals);
+        }
+
+        [Test]
+        public async Task AllAddedByUserAsyncShouldReturnCorrectData()
+        {
+            // Arrange
+            string userId = TestRecipe.OwnerId;
+            int expectedUserRecipesCount = data.Recipes.Where(r => r.OwnerId == userId).Count();
+
+            ICollection<RecipeAllViewModel> expectedResult = data.Recipes.Where(r => r.OwnerId == userId)
+                .Select(r => new RecipeAllViewModel()
+                {
+                    Id = r.Id.ToString(),
+                    ImageUrl = r.ImageUrl,
+                    Title = r.Title,
+                    Description = r.Description,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = r.RecipeCategoryId,
+                        Name = r.RecipeCategory.Name
+                    },
+                    Servings = r.Servings,
+                    CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                }).ToList();
+            {
+                
+            };
+
+            // Act
+            var actualResult = await this.recipeService.AllAddedByUserAsync(userId);
+
+            // Assert
+            Assert.That(expectedUserRecipesCount, Is.EqualTo(actualResult.Count));
+            Assert.That(actualResult, Is.InstanceOf<ICollection<RecipeAllViewModel>>());
+
+            IEnumerator<RecipeAllViewModel> expectedEnumerator = expectedResult.GetEnumerator();
+            IEnumerator<RecipeAllViewModel> actualEnumerator = actualResult.GetEnumerator();
+
+            while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
+            {
+                Assert.That(expectedEnumerator.Current.Id, Is.EqualTo(actualEnumerator.Current.Id));
+                Assert.That(expectedEnumerator.Current.ImageUrl, Is.EqualTo(actualEnumerator.Current.ImageUrl));
+                Assert.That(expectedEnumerator.Current.Title, Is.EqualTo(actualEnumerator.Current.Title));
+                Assert.That(expectedEnumerator.Current.Description, Is.EqualTo(actualEnumerator.Current.Description));
+                Assert.That(expectedEnumerator.Current.Category.Id, Is.EqualTo(actualEnumerator.Current.Category.Id));
+                Assert.That(expectedEnumerator.Current.Category.Name, Is.EqualTo(actualEnumerator.Current.Category.Name));
+                Assert.That(expectedEnumerator.Current.Servings, Is.EqualTo(actualEnumerator.Current.Servings));
+                Assert.That(expectedEnumerator.Current.CookingTime, Is.EqualTo(actualEnumerator.Current.CookingTime));
+            }
 
         }
+
+        [Test]
+        public async Task MineCountAsyncShouldReturnCorrectCount()
+        {
+            // Arrange the result for Admin User (Admin => Mine)
+            string ownerId = AdminUserId;
+            int expectedCount = data.Recipes.Where(r => r.OwnerId == ownerId).Count();
+
+            // Act
+            int actualCount = await this.recipeService.MineCountAsync(ownerId);
+
+            // Assert
+            Assert.That(expectedCount, Is.EqualTo(actualCount));
+        }
+
+        [Test]
+        public async Task AllCountAsyncShouldReturnCorrectCount()
+        {
+            // Arrange 
+            int expectedCount = data.Recipes.Count();
+
+            // Act
+            int actualCount = await this.recipeService.AllCountAsync();
+
+            // Assert
+            Assert.That(expectedCount, Is.EqualTo(actualCount));
+        }
+
+        
     }
 }

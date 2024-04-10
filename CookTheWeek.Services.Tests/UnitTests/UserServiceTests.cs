@@ -1,5 +1,6 @@
 namespace CookTheWeek.Services.Tests.UnitTests
 {
+    using CookTheWeek.Web.ViewModels.Recipe;
     using Data.Interfaces;
     using Services.Data;
     using Web.ViewModels.User;
@@ -10,7 +11,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
         private IUserService userService;
         private IRecipeService recipeService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.recipeService = new RecipeService(data);
@@ -103,6 +104,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             });
 
         }
+
 
     }
 }

@@ -1,12 +1,12 @@
 ﻿@using CookTheWeek.Services.Data.Interfaces
 @using CookTheWeek.Web.Infrastructure.Extensions
 @model RecipeDetailsViewModel
-@inject IRecipeService RecipeService
+@inject IUserService UserService
 @{
     ViewData["Title"] = "Recipe Details";
 
     string userId = User.GetId();
-    bool isOwner = await this.RecipeService.IsOwner(Model.Id, userId);
+    bool isOwner = await this.UserService.IsOwner(Model.Id, userId);
 }
 
 <div class="container">

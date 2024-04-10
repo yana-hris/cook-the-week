@@ -14,6 +14,7 @@
         public ApplicationUser AdminUser { get; private set; }
         public ApplicationUser TestUser { get; private set; }   
         public Recipe TestRecipe { get; private set; }
+        public ICollection<RecipeIngredient> TestRecipeRecipeIngredients { get; private set; }
         public Recipe NewRecipe { get; private set; }
         public Ingredient NewIngredient { get; private set; }
         public RecipeIngredient NewRecipeIngredient { get; private set; }
@@ -22,8 +23,9 @@
         public ICollection<Ingredient> TestIngredients { get; private set; }
         public ICollection<RecipeCategory> TestRecipeCategories { get; private set;}
         public ICollection<IngredientCategory> TestIngredientCategories { get; private set; }
+        public ICollection<FavouriteRecipe> UserLikes { get; private set; }
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUpBase()
         {
             data = DatabaseMock.Instance;
@@ -85,6 +87,19 @@
             };
 
             data.Recipes.Add(TestRecipe);
+
+            // User likes
+            UserLikes = new List<FavouriteRecipe>()
+            {
+                new FavouriteRecipe()
+                {
+                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
+                    UserId = Guid.Parse(AdminUserId)
+                }
+
+            };
+
+            data.FavoriteRecipes.AddRange(UserLikes);
 
             // Will not be added to th in-memory DB at first
             NewRecipe = new Recipe()
@@ -151,8 +166,35 @@
                     SpecificationId = 3
                 }
             };
+            // Save the Recipe Ingredients for easier reference - these will not be added to the DB
+            TestRecipeRecipeIngredients = new List<RecipeIngredient>()
+            {
+                new RecipeIngredient()
+                {
+                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
+                    IngredientId = 1,
+                    Qty = 0.5m,
+                    MeasureId = 1,
+                    SpecificationId = 1,
+                },
+                new RecipeIngredient()
+                {
+                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
+                    IngredientId = 2,
+                    Qty = 1,
+                    MeasureId = 2,
+                    SpecificationId = 2
+                },
+                new RecipeIngredient()
+                {
+                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
+                    IngredientId = 3,
+                    Qty = 1,
+                    MeasureId = 3,
+                    SpecificationId = 3
+                }
+            };
 
-        
             NewIngredient = new Ingredient
             {
                 Id = 1,

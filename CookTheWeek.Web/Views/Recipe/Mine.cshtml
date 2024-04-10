@@ -1,7 +1,7 @@
 ﻿@model RecipeMineViewModel
 @using CookTheWeek.Services.Data.Interfaces
 @using CookTheWeek.Web.Infrastructure.Extensions
-@inject IRecipeService RecipeService
+@inject IFavouriteRecipeService FavouriteRecipeService
 @{
     string ownedRecipeHeading = "Added By You";
     bool isAdmin = User.IsAdmin();
@@ -28,7 +28,7 @@ else
                         foreach (var recipe in Model.FavouriteRecipes)
                         {
                             string recipeId = recipe.Id;
-                            bool isInFavourites = await this.RecipeService.IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
+                            bool isInFavourites = await this.FavouriteRecipeService.IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
 
                             <div class="col d-block recipe-container">
                                 <div class="card">

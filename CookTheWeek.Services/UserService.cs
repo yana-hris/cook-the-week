@@ -54,5 +54,15 @@
 
             return exists;
         }
+
+        public async Task<bool> IsOwner(string id, string ownerId)
+        {
+            bool isOwner = await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id && r.OwnerId == ownerId)
+                .AnyAsync();
+
+            return isOwner;
+        }
     }
 }

@@ -15,15 +15,10 @@
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
         Task EditAsync(RecipeEditFormModel model);
         Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
-        Task DeleteById(string id);
+        Task DeleteByIdAsync(string id);
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserAsync(string userId);
-        Task<int> MineCountAsync(string userId);    
-        Task<bool> IsOwner(string id, string ownerId);
-        Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId);
-        Task AddToFavouritesByUserId(string id, string userId);
-        Task RemoveFromFavouritesByUserId(string id, string userId);
+        Task<int> MineCountAsync(string userId);         
         Task<int> AllCountAsync();
-        Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId);
         Task<bool> IsIncludedInMealPlans(string id);
     }
 }

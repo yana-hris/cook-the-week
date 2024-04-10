@@ -7,5 +7,6 @@
         Task<ICollection<UserViewModel>> AllAsync();
         Task<int> AllUsersCountAsync();
         Task<bool> ExistsByIdAsync(string id);
+        Task<bool> IsOwner(string id, string ownerId);
     }
 }

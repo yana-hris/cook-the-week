@@ -11,11 +11,14 @@
     {
         private readonly IRecipeService recipeService;
         private readonly IUserService userService;
+        private readonly IFavouriteRecipeService favouriteRecipeService;
         public FavouriteRecipeApiController(IRecipeService recipeService,
-            IUserService userService)
+            IUserService userService,
+            IFavouriteRecipeService favouriteRecipeService)
         {
             this.recipeService = recipeService;
             this.userService = userService;
+            this.favouriteRecipeService = favouriteRecipeService;
         }
 
         [HttpPost]
@@ -36,7 +39,7 @@
 
             bool userExists = await this.userService.ExistsByIdAsync(userId);
 
-            bool isAlreadyAdded = await this.recipeService
+            bool isAlreadyAdded = await this.favouriteRecipeService
                 .IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
 
             if (!recipeExists)
@@ -52,7 +55,7 @@
             {
                 try
                 {
-                    await this.recipeService.RemoveFromFavouritesByUserId(recipeId, userId);
+                    await this.favouriteRecipeService.RemoveFromFavouritesByUserId(recipeId, userId);
                 }
                 catch (Exception)
                 {
@@ -64,7 +67,7 @@
             // if not, we have to add it (create FavouriteRecipe entity)
             try
             {
-                await this.recipeService.AddToFavouritesByUserId(recipeId, userId);
+                await this.favouriteRecipeService.AddToFavouritesByUserId(recipeId, userId);
             }
             catch (Exception)
             {

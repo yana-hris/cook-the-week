@@ -21,16 +21,22 @@
         private readonly IIngredientService ingredientService;
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IUserService userService;
+        private readonly IFavouriteRecipeService favouriteRecipeService;
 
         public RecipeController(IRecipeService recipeService, 
             ICategoryService categoryService, 
             IRecipeIngredientService recipeIngredientService,
-            IIngredientService ingredientService)
+            IIngredientService ingredientService,
+            IUserService userService,
+            IFavouriteRecipeService favouriteRecipeService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
             this.ingredientService = ingredientService;
+            this.userService = userService;
+            this.favouriteRecipeService = favouriteRecipeService;
         }
 
         [HttpGet]
@@ -140,7 +146,7 @@
             }
 
             string ownerId = User.GetId();
-            bool isOwner = await this.recipeService.IsOwner(id, ownerId);
+            bool isOwner = await this.userService.IsOwner(id, ownerId);
 
             if(!isOwner) 
             {
@@ -160,7 +166,7 @@
             }
             catch (Exception)
             {
-                return BadRequest(); // TODO: check app logic!
+                return BadRequest(); 
             }
         }
 
@@ -177,7 +183,7 @@
             }
 
             string ownerId = User.GetId();
-            bool isOwner = await this.recipeService.IsOwner(model.Id, ownerId);
+            bool isOwner = await this.userService.IsOwner(model.Id, ownerId);
 
             if (!isOwner && !User.IsAdmin())
             {
@@ -273,7 +279,7 @@
             }
 
             RecipeMineViewModel model = new RecipeMineViewModel();
-            model.FavouriteRecipes = await this.recipeService.AllFavouritesByUserAsync(userId);
+            model.FavouriteRecipes = await this.favouriteRecipeService.AllFavouritesByUserAsync(userId);
             model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
 
             return View(model);
@@ -285,7 +291,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string currentUserId = User.GetId();
-            bool isOwner = await this.recipeService.IsOwner(id, currentUserId);
+            bool isOwner = await this.userService.IsOwner(id, currentUserId);
 
             if(!exists)
             {
@@ -324,7 +330,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string currentUserId = User.GetId();
-            bool isOwner = await this.recipeService.IsOwner(id, currentUserId);
+            bool isOwner = await this.userService.IsOwner(id, currentUserId);
 
             if (!exists)
             {
@@ -339,7 +345,7 @@
 
             try
             {
-                await this.recipeService.DeleteById(id);
+                await this.recipeService.DeleteByIdAsync(id);
                 TempData[SuccessMessage] = "Recipe successfully deleted!";
             }
             catch (Exception)
