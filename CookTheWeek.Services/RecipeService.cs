@@ -11,9 +11,9 @@
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
+    using Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     public class RecipeService : IRecipeService
     {
@@ -87,7 +87,7 @@
             };
         }
 
-        public async Task AddAsync(RecipeAddFormModel model, string ownerId)
+        public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId)
         {
             Recipe recipe = new Recipe()
             {
@@ -120,6 +120,8 @@
             }
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
+
+            return recipe.Id.ToString();
         }
         public async Task EditAsync(RecipeEditFormModel model)
         {
@@ -131,6 +133,7 @@
 
             recipe.Title = model.Title;
             recipe.Description = model.Description;
+            recipe.Instructions = model.Instructions;
             recipe.Servings = model.Servings;
             recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
             recipe.ImageUrl = model.ImageUrl;
@@ -324,14 +327,25 @@
 
             return myRecipes;
         }
-        public async Task<bool> IsOwner(string id, string ownerId)
+        public async Task<bool> IsIncludedInMealPlans(string id)
         {
-            bool isOwner = await this.dbContext
-                .Recipes
-                .Where(r => r.Id.ToString() == id && r.OwnerId == ownerId)
+            return await this.dbContext
+                .Meals
+                .Where(m => m.Id.ToString() == id && m.IsCooked == false)
                 .AnyAsync();
-
-            return isOwner;
+        }
+        public async Task<int> AllCountAsync()
+        {
+            return await this.dbContext
+               .Recipes
+               .CountAsync();
+        }
+        public async Task<int> MineCountAsync(string userId)
+        {
+            return await this.dbContext
+                .Recipes
+                .Where(r => r.OwnerId == userId)
+                .CountAsync();
         }
         public async Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId)
         {
@@ -341,6 +355,18 @@
 
             return isFavourite;
         }
+
+
+        // TODO: Move to UserControler
+        public async Task<bool> IsOwner(string id, string ownerId)
+        {
+            bool isOwner = await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == id && r.OwnerId == ownerId)
+                .AnyAsync();
+
+            return isOwner;
+        }       
         public async Task AddToFavouritesByUserId(string id, string userId)
         {
             FavouriteRecipe favouriteRecipe = new FavouriteRecipe()
@@ -361,19 +387,6 @@
 
             this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
-        }
-        public async Task<int> MineCountAsync(string userId)
-        {
-            return await this.dbContext
-                .Recipes
-                .Where(r => r.OwnerId == userId)
-                .CountAsync();
-        }
-        public async Task<int> AllCountAsync()
-        {
-            return await this.dbContext
-               .Recipes
-               .CountAsync();
         }
         public async Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId)
         {
@@ -399,13 +412,6 @@
                 }).ToListAsync();
 
             return myRecipes;
-        }
-        public async Task<bool> IsIncludedInMealPlans(string id)
-        {
-            return await this.dbContext
-                .Meals
-                .Where(m => m.Id.ToString() == id && m.IsCooked == false)
-                .AnyAsync();
         }
     }
 }

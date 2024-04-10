@@ -1,7 +1,8 @@
 ﻿namespace CookTheWeek.Services.Data
 {
-    using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
     using CookTheWeek.Services.Data.Interfaces;

@@ -60,17 +60,17 @@ namespace CookTheWeek.Services.Tests
             {
                 new UserViewModel()
                 {
-                    Id = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                    Username = "adminUser",
-                    Email = "admin@gmail.com",
-                    TotalRecipes = 0,
+                    Id = AdminUser.Id.ToString(),
+                    Username = AdminUser.UserName,
+                    Email = AdminUser.Email,
+                    TotalRecipes = 1,
                     TotalMealPlans = 0
                 },
                 new UserViewModel()
                 {
-                    Id = "65fc0e0d-6572-4ec6-a853-c633d9f28c9e",
-                    Username = "testUser",
-                    Email = "user@user.bg",
+                    Id = TestUser.Id.ToString(),
+                    Username = TestUser.UserName,
+                    Email = TestUser.Email,
                     TotalRecipes = 0,
                     TotalMealPlans = 0
                 },
@@ -82,8 +82,8 @@ namespace CookTheWeek.Services.Tests
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(expectedResult, Is.Not.Null);
-                Assert.That(expectedResult, Is.InstanceOf<ICollection<UserViewModel>>());
+                Assert.That(actualResult, Is.Not.Null);
+                Assert.That(actualResult, Is.InstanceOf<ICollection<UserViewModel>>());
 
                 if(actualResult != null)
                 {

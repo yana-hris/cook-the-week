@@ -5,7 +5,6 @@
     
     using Microsoft.EntityFrameworkCore;
 
-    using Extensions;
     using static Common.EntityValidationConstants.Ingredient;
 
     [Comment("Ingredient")]
@@ -23,12 +22,7 @@
         [Comment("Ingredient Name")]
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name
-        {
-            get { return name; }
-
-            set { name = value.ToAllWordsFirstCapitalLetter(); }
-        } 
+        public string Name { get; set; } = null!;
 
         [Comment("Ingredient Category Key Identifier")]
         [Required]

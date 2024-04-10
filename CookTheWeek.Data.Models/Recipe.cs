@@ -5,7 +5,6 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using Extensions;
     using static Common.EntityValidationConstants.Recipe;
 
     [Comment("Recipe")]
@@ -31,12 +30,7 @@
         [Comment("Recipe Title")]
         [Required]
         [MaxLength(TitleMaxLength)]
-        public string Title
-        { 
-            get { return title; }
-            
-            set { title = value.ToAllWordsFirstCapitalLetter(); }
-        }
+        public string Title { get; set; } = null!;
 
         [Comment("Recipe Description")]
         [MaxLength(DescriptionMaxLength)]

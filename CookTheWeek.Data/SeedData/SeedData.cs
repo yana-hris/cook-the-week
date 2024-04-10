@@ -1904,7 +1904,6 @@
                 },
             };
         }
-
         internal ICollection<RecipeIngredient> SeedRecipeIngredients()
         {
             return new HashSet<RecipeIngredient>()
