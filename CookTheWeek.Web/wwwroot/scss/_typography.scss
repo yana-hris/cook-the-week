@@ -8,10 +8,20 @@
     $link-hover-color: var(--bs-primary);
 
     body {
-        
+
         #main-container {
             padding: 90px 0;
             margin: 0 auto;
+
+            .suggestionsList {
+                position: absolute;
+                z-index: 1000;
+                top: 29px;
+                left: 100px;
+                border-top: none;
+                max-height: 200px;
+                overflow-y: auto;
+            }
         }
     }
 }
@@ -25,9 +35,12 @@
 [data-bs-theme="light"] {
 
     nav .fixed-bottom {
-        a.btn.btn-primary{
+        a.btn.btn-primary {
             background-color: var(--bs-success);
             color: #ffffff;
         }
+
+        //$card-cap-color: var(--bs-primary);
     }
 }
+

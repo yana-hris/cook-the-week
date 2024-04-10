@@ -106,23 +106,23 @@
                                     @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
                                     {
                                         <div class="row g-3 ingredient-row">
-                                            <div class="col col-8 col-md-5 p-3">
+                                            <div class="col col-8 col-lg-5 p-3">
                                                 <div class="input-group">
                                                     <span asp-for="RecipeIngredients[i].Name" class="input-group-text">Ingredient</span>
                                                     <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
-                                                    <div class="suggestionsList position-absolute invisible">
+                                                    <div class="suggestionsList invisible">
                                                     </div>
                                                     <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-4 col-md-2 p-3">
+                                            <div class="col col-4 col-lg-2 p-3">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Qty</span>
                                                     <input asp-for="RecipeIngredients[i].Qty" class="form-control">
                                                     <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-5 col-md-2 p-3">
+                                            <div class="col col-6 col-lg-2 p-3">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Unit</span>
                                                        <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
@@ -135,7 +135,7 @@
                                                         <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-6 col-md-2 p-3">
+                                            <div class="col col-5 col-lg-2 p-3">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Spec</span>
                                                     <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
@@ -157,7 +157,7 @@
                                     }
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-12 d-flex p-3">
+                                    <div class="col offset-9 text-nowrap col-12 p-3">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <i class="far fa-plus-square"></i>
@@ -307,7 +307,7 @@
                      <span class="input-group-text">Ingredient</span>
 
                                  <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
-                                 <div class="suggestionsList position-absolute invisible"></div>
+                                 <div class="suggestionsList invisible"></div>
                                  <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true"></span>
                              </div></div>
 
@@ -361,7 +361,7 @@
                 ingredientIndex++;
 
                 $('.ingredientName').on('keyup', suggestWords);
-                $('form').validate().form();
+                //$('form').validate().form();
             });
 
             $(document).on('click', '.remove-ingredient', function (event) {

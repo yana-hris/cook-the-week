@@ -9,6 +9,15 @@ html body #main-container {
   padding: 90px 0;
   margin: 0 auto;
 }
+html body #main-container .suggestionsList {
+  position: absolute;
+  z-index: 1000;
+  top: 29px;
+  left: 100px;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 @media (min-width: 768px) {
   html {
