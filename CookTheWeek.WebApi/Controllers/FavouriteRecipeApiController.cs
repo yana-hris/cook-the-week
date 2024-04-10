@@ -2,7 +2,6 @@
 {
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
-    using CookTheWeek.Services.Interfaces;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 

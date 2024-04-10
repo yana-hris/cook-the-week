@@ -1,15 +1,14 @@
-﻿namespace CookTheWeek.Services
-{
-    
+﻿namespace CookTheWeek.Services.Data
+{    
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Data.Models;
+    using Interfaces;
+    using Web.ViewModels.RecipeIngredient;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {

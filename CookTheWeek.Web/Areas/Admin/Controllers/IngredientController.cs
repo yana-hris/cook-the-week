@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Data.SqlClient;
 
-    using Services.Interfaces;
+    using Services.Data.Interfaces;
     using Services.Data.Models.Ingredient;
     using Web.ViewModels.Ingredient;
     using Web.ViewModels.Ingredient.Enums;

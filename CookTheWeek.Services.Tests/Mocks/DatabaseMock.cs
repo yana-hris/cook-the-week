@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Services.Tests.Mocks
+﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
     using Microsoft.EntityFrameworkCore;
 

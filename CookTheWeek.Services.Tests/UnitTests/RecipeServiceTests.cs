@@ -1,12 +1,14 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Models.Recipe;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Services.Tests.Unit_Tests;
-    using CookTheWeek.Web.ViewModels.Category;
-    using CookTheWeek.Web.ViewModels.Recipe;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using Data.Interfaces;
+    using Data.Models.Recipe;
+    using Services.Data;
+    using Web.ViewModels.Category;
+    using Web.ViewModels.Recipe;
+    using Web.ViewModels.RecipeIngredient;
+
+    using static Common.GeneralApplicationConstants;
 
     [TestFixture]
     public class RecipeServiceTests : UnitTestBase
@@ -310,6 +312,80 @@
                 }
             } 
             
+
+        }
+
+        [Test]
+        public async Task DetailsByIdAsyncShouldReturnCorrectModelAndData()
+        {
+            // Arrange
+            var recipe = TestRecipe;
+
+            RecipeDetailsViewModel expectedModel = new RecipeDetailsViewModel()
+            {
+                Id = recipe.Id.ToString(),
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Instructions = recipe.Instructions,
+                Servings = recipe.Servings,
+                TotalTime = recipe.TotalTime.ToString(@"hh\:mm"),
+                ImageUrl = recipe.ImageUrl,
+                CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
+                CategoryName = recipe.RecipeCategory.Name,
+                MainIngredients = recipe.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+                SecondaryIngredients = recipe.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+                AdditionalIngredients = recipe.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+            };
+
+            // Act
+            var resultModel = await this.recipeService.DetailsByIdAsync(recipe.Id.ToString());
+
+            // Assert
+            Assert.That(resultModel, Is.InstanceOf<RecipeDetailsViewModel>());  
+
+            Assert.That(resultModel.Id, Is.EqualTo(recipe.Id.ToString()));
+            Assert.That(resultModel.Title, Is.EqualTo(recipe.Title));
+            Assert.That(resultModel.Description, Is.EqualTo(recipe.Description));
+            Assert.That(resultModel.Instructions, Is.EqualTo(recipe.Instructions));
+            Assert.That(resultModel.Servings, Is.EqualTo(recipe.Servings));
+            Assert.That(resultModel.TotalTime, Is.EqualTo(recipe.TotalTime.ToString(@"hh\:mm")));
+            Assert.That(resultModel.ImageUrl, Is.EqualTo(recipe.ImageUrl));
+            Assert.That(resultModel.CreatedOn, Is.EqualTo(recipe.CreatedOn.ToString("dd-MM-yyyy")));
+            Assert.That(resultModel.CategoryName, Is.EqualTo(recipe.RecipeCategory.Name));
+        }
+
+        public async Task DeleteByIdShouldWorkCorrect()
+        {
 
         }
     }

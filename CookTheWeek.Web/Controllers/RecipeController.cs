@@ -7,7 +7,7 @@
     using ViewModels.Recipe;
     using ViewModels.Recipe.Enums;
     using ViewModels.RecipeIngredient;
-    using Services.Interfaces;
+    using Services.Data.Interfaces;
     using Services.Data.Models.Recipe;
 
     using static Common.NotificationMessagesConstants;

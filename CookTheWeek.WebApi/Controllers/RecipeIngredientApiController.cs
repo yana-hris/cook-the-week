@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Data.Interfaces;
     using Services.Data.Models.RecipeIngredient;
-    using Services.Interfaces;
 
     /// <summary>
     /// Servicing the Recipe Ingredients section in Add Recipe View

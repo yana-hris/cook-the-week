@@ -7,7 +7,7 @@ namespace CookTheWeek.Web
     using Data;
     using Data.Models;
     using Infrastructure.ModelBinders;
-    using Services.Interfaces;
+    using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
 

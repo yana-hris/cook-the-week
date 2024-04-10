@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Services.Interfaces
+﻿namespace CookTheWeek.Services.Data.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

@@ -5,10 +5,8 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.User;
-    
+    using Interfaces;
+    using Web.ViewModels.User;
 
     public class UserService : IUserService
     {
@@ -25,7 +23,7 @@
             ICollection<UserViewModel> allUsers = await this.dbContext
                 .Users
                 .Select(u => new UserViewModel()
-                { 
+                {
                     Id = u.Id.ToString(),
                     Username = u.UserName!,
                     Email = u.Email!,

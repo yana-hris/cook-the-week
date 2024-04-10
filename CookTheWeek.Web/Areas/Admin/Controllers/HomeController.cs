@@ -1,9 +1,9 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Web.Areas.Admin.ViewModels;
     using Microsoft.AspNetCore.Mvc;
+
+    using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Web.Areas.Admin.ViewModels;
 
     public class HomeController : BaseAdminController
     {

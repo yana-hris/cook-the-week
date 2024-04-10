@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Services
+﻿namespace CookTheWeek.Services.Data
 {
     using System.Threading.Tasks;
     using System.Collections.Generic;
@@ -8,10 +8,10 @@
     using Interfaces;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Models.Ingredient;
-    using CookTheWeek.Services.Data.Models.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.Ingredient;
-    using CookTheWeek.Web.ViewModels.Ingredient.Enums;
+    using Models.Ingredient;
+    using Models.RecipeIngredient;
+    using Web.ViewModels.Ingredient;
+    using Web.ViewModels.Ingredient.Enums;
 
     public class IngredientService : IIngredientService
     {

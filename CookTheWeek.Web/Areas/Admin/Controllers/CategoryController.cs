@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Data.SqlClient;
 
-    using CookTheWeek.Services.Interfaces;
+    using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;

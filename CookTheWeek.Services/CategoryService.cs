@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Services
+﻿namespace CookTheWeek.Services.Data
 {
     using System.Threading.Tasks;
 

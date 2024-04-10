@@ -1,10 +1,9 @@
-﻿namespace CookTheWeek.Services.Tests.Unit_Tests
+﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
     using Microsoft.AspNetCore.Identity;
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Tests.Mocks;
 
     using static Common.GeneralApplicationConstants;
 

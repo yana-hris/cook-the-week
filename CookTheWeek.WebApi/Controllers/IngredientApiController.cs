@@ -2,9 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Interfaces;
-    using CookTheWeek.Services.Data.Models.Ingredient;
-
+    using Services.Data.Interfaces;
+    
     /// <summary>
     /// Servicing the Ingredients Section in Admin Area
     /// </summary>

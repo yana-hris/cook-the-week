@@ -1,9 +1,7 @@
-namespace CookTheWeek.Services.Tests
+namespace CookTheWeek.Services.Tests.UnitTests
 {
     using Data.Interfaces;
-    using Interfaces;
     using Services.Data;
-    using Unit_Tests;
     using Web.ViewModels.User;
 
     [TestFixture]

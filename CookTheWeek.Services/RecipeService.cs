@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Services
+﻿namespace CookTheWeek.Services.Data
 {
     using System.Collections.Generic;
 
@@ -227,6 +227,37 @@
                 .Where(r => r.Id.ToString() == id)
                 .AnyAsync();
         }
+        public async Task DeleteById(string id)
+        {
+            // Implementing soft delete requires to delete manually all related records, as we do not need them in the database
+            Recipe recipeToDelete = await this.dbContext
+                .Recipes
+                .Include(r => r.RecipesIngredients)
+                .Where(r => r.Id.ToString() == id)
+                .FirstAsync();
+            
+            recipeToDelete.IsDeleted = true;
+
+            // Delete RecipeIngredients of deleted recipes
+            if(recipeToDelete != null && recipeToDelete.RecipesIngredients.Any())
+            {
+                this.dbContext.RecipesIngredients.RemoveRange(recipeToDelete.RecipesIngredients);
+            }
+
+            // Delete User Likes for Deleted Recipes
+            if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
+            {
+                this.dbContext.FavoriteRecipes.RemoveRange(recipeToDelete.FavouriteRecipes);
+            }
+
+            // Delete All Meals that contain the Recipe
+            if(recipeToDelete != null && recipeToDelete.Meals.Any()) 
+            {
+                this.dbContext.Meals.RemoveRange(recipeToDelete.Meals);
+            }
+
+            await this.dbContext.SaveChangesAsync();
+        }
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
         {
             RecipeEditFormModel recipe = await this.dbContext
@@ -271,37 +302,6 @@
                 }).FirstAsync();
 
             return model;
-        }
-        public async Task DeleteById(string id)
-        {
-            // Implementing soft delete requires to delete manually all related records, as we do not need them in the database
-            Recipe recipeToDelete = await this.dbContext
-                .Recipes
-                .Include(r => r.RecipesIngredients)
-                .Where(r => r.Id.ToString() == id)
-                .FirstAsync();
-            
-            recipeToDelete.IsDeleted = true;
-
-            // Delete RecipeIngredients of deleted recipes
-            if(recipeToDelete != null && recipeToDelete.RecipesIngredients.Any())
-            {
-                this.dbContext.RecipesIngredients.RemoveRange(recipeToDelete.RecipesIngredients);
-            }
-
-            // Delete User Likes for Deleted Recipes
-            if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
-            {
-                this.dbContext.FavoriteRecipes.RemoveRange(recipeToDelete.FavouriteRecipes);
-            }
-
-            // Delete All Meals that contain the Recipe
-            if(recipeToDelete != null && recipeToDelete.Meals.Any()) 
-            {
-                this.dbContext.Meals.RemoveRange(recipeToDelete.Meals);
-            }
-
-            await this.dbContext.SaveChangesAsync();
         }
         public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserAsync(string userId)
         {
