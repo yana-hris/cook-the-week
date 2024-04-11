@@ -6,11 +6,11 @@
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
-        public const int DefaultIngredientsPerPage = 25;
+        public const int DefaultIngredientsPerPage = 20;
 
-        public static int[] MainIngredientsCategories = [1, 2, 4, 7, 11];
-        public static int[] SecondaryIngredientsCategories = [3, 8, 9, 12, 13];
-        public static int[] AdditionalIngredientsCategories = [5, 6, 10];
+        public static int[] MainIngredientsCategories = [1, 2, 3, 11];
+        public static int[] SecondaryIngredientsCategories = [8, 9, 4, 7, 13];
+        public static int[] AdditionalIngredientsCategories = [5, 6, 10, 12];
 
         public const string AppUserId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403";
         public const string AppUserUsername = "appUser";

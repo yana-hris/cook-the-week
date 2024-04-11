@@ -19,7 +19,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
         }
 
         [Test]
-        public async Task UserExistsByIdAsyncShouldReturnTrueWhenUserExists()
+        public async Task ExistsByIdAsync_ShouldReturn_True_If_UserExists()
         {
             string existingUserId = TestUser.Id.ToString();
 
@@ -29,7 +29,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
         }
 
         [Test]
-        public async Task UserExistsByIdAsyncShouldReturnFalseWhenUserDoesNotExists()
+        public async Task ExistsByIdAsync_ShouldReturn_False_If_UserDoesNotExists()
         {
             string nonExistingUserId = Guid.NewGuid().ToString();
 
@@ -39,20 +39,20 @@ namespace CookTheWeek.Services.Tests.UnitTests
         }
 
         [Test]
-        public async Task AllUsersCountAsyncShouldReturnTwoIfUsersCountIsCorrect()
+        public async Task AllCountAsync_ShouldReturn_Correct_UsersCount()
         {
             // Assert
             const int usersCount = 2;
 
             // Act
-            int result = await this.userService.AllUsersCountAsync();
+            int result = await this.userService.AllCountAsync();
 
             // Arrange
             Assert.AreEqual(usersCount, result);
         }
 
         [Test]
-        public async Task AllAsyncShouldReturnCorrectInfoAboutTheTwoSeededUsers()
+        public async Task AllAsync_ShouldReturn_Correct_UsersInfo()
         {
             // Arrange
             ICollection<UserViewModel> expectedResult = new HashSet<UserViewModel>()
@@ -105,6 +105,32 @@ namespace CookTheWeek.Services.Tests.UnitTests
 
         }
 
+        [Test]
+        public async Task IsOwnerByRecipeIdAsync_ShouldReturn_True_If_IsOwner()
+        {
+            // Arrange
+            string userId = TestRecipe.OwnerId;
+            string recipeId = TestRecipe.Id.ToString();
 
+            // Act
+            bool result = await userService.IsOwnerByRecipeId(recipeId, userId);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task IsOwnerByRecipeIdAsync_ShouldReturn_False_If_IsNotOwner()
+        {
+            // Arrange
+            string userId = Guid.NewGuid().ToString();  
+            string recipeId = TestRecipe.Id.ToString();
+
+            // Act
+            bool result = await userService.IsOwnerByRecipeId(recipeId, userId);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
     }
 }

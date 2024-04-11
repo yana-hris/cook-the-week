@@ -28,7 +28,7 @@ else
                         foreach (var recipe in Model.FavouriteRecipes)
                         {
                             string recipeId = recipe.Id;
-                            bool isInFavourites = await this.FavouriteRecipeService.IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
+                            bool isInFavourites = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 
                             <div class="col d-block recipe-container">
                                 <div class="card">

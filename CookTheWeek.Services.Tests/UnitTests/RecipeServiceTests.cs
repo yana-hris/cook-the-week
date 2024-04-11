@@ -1,9 +1,10 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
+    using Microsoft.EntityFrameworkCore;
+
     using CookTheWeek.Data.Models;
     using Data.Interfaces;
     using Data.Models.Recipe;
-    using Microsoft.EntityFrameworkCore;
     using Services.Data;
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
@@ -23,7 +24,7 @@
         }
 
         [Test]
-        public async Task ExistsByIdAsyncShouldReturnTrueIfExists()
+        public async Task ExistsByIdAsync_ShouldReturn_True_If_Exists()
         {
             string expectedId = TestRecipe.Id.ToString();
 
@@ -33,7 +34,7 @@
         }
 
         [Test]
-        public async Task ExistsByIdAsyncShouldReturnFalseIfDoesntExists()
+        public async Task ExistsByIdAsync_ShouldReturn_False_If_DoesntExists()
         {
             string expectedId = Guid.NewGuid().ToString();
 
@@ -43,7 +44,7 @@
         }
 
         [Test]
-        public async Task GetForEditByIdAsyncShouldReturnCorrectData()
+        public async Task GetForEditByIdAsync_ShouldReturn_CorrectData()
         {
             // Arrange
             RecipeEditFormModel expctedResult = new RecipeEditFormModel()
@@ -82,7 +83,7 @@
         }
 
         [Test]
-        public async Task GetForDeleteByIdAsyncShouldReturnCorrectData()
+        public async Task GetForDeleteByIdAsync_ShouldReturn_CorrectData()
         {
             // Arrange
             RecipeDeleteViewModel expctedResult = new RecipeDeleteViewModel()
@@ -119,7 +120,7 @@
         }
 
         [Test]
-        public async Task AllAsyncShouldReturnCorrectModel()
+        public async Task AllAsync_ShouldReturn_CorrectModel()
         {
             // Arrange
             AllRecipesQueryModel testModel = new AllRecipesQueryModel()
@@ -186,7 +187,7 @@
         }
 
         [Test]
-        public async Task AddAsyncShouldAddRecipe()
+        public async Task AddAsync_ShouldAdd_RecipeCorrectly()
         {
             // Arrange
             int recipesInDbBefore = data.Recipes.Count();
@@ -219,6 +220,7 @@
             // Assert
             int recipesInDbAfter = data.Recipes.Count();
             var newrecipeInDb = data.Recipes.Find(Guid.Parse(newRecipeId));
+
             Assert.That(recipesInDbAfter, Is.EqualTo(recipesInDbBefore + 1));
             Assert.That(newrecipeInDb.Id.ToString(), Is.EqualTo(newRecipeId));
             Assert.That(newrecipeInDb.Title, Is.EqualTo(NewRecipe.Title));
@@ -238,7 +240,6 @@
 
             while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
             {
-                //Assert.That(expectedEnumerator.Current.RecipeId, Is.EqualTo(actualEnumerator.Current.RecipeId));
                 Assert.That(expectedEnumerator.Current.IngredientId, Is.EqualTo(actualEnumerator.Current.IngredientId));
                 Assert.That(expectedEnumerator.Current.Qty, Is.EqualTo(actualEnumerator.Current.Qty));
                 Assert.That(expectedEnumerator.Current.MeasureId, Is.EqualTo(actualEnumerator.Current.MeasureId));
@@ -248,7 +249,7 @@
         }
 
         [Test]
-        public async Task EditAsyncShouldEditRecipeCorrectly()
+        public async Task EditAsync_ShouldEdit_RecipeCorrectly()
         {
             // Arrange 
             var recipeToEdit = TestRecipe;
@@ -317,7 +318,7 @@
         }
 
         [Test]
-        public async Task DetailsByIdAsyncShouldReturnCorrectModelAndData()
+        public async Task DetailsByIdAsync_ShouldReturn_CorrectModelAndData()
         {
             // Arrange
             var recipe = TestRecipe;
@@ -386,7 +387,7 @@
         }
 
         [Test]
-        public async Task DeleteByIdShouldWorkCorrectly()
+        public async Task DeleteById_ShouldWork_Correctly()
         {
             // Arrange: get the current recipes count
             int totalRecipesBeforeDelete = data.Recipes.Where(r => r.IsDeleted == false).Count();
@@ -420,7 +421,7 @@
         }
 
         [Test]
-        public async Task AllAddedByUserAsyncShouldReturnCorrectData()
+        public async Task AllAddedByUserAsync_ShouldReturn_CorrectData()
         {
             // Arrange
             string userId = TestRecipe.OwnerId;
@@ -470,7 +471,7 @@
         }
 
         [Test]
-        public async Task MineCountAsyncShouldReturnCorrectCount()
+        public async Task MineCountAsync_ShouldReturn_CorrectCount()
         {
             // Arrange the result for Admin User (Admin => Mine)
             string ownerId = AdminUserId;
@@ -484,7 +485,7 @@
         }
 
         [Test]
-        public async Task AllCountAsyncShouldReturnCorrectCount()
+        public async Task AllCountAsync_ShouldReturn_CorrectCount()
         {
             // Arrange 
             int expectedCount = data.Recipes.Count();

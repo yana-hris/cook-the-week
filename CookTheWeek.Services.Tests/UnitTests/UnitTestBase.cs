@@ -229,6 +229,11 @@
                    Id = 3,
                    Name = "Test Recipe Category 3"
                 },
+                new RecipeCategory()
+                {
+                   Id = 4,
+                   Name = "Recipe Category Without Recipes"
+                },
             };
 
             data.RecipeCategories.AddRange(TestRecipeCategories);
@@ -251,6 +256,11 @@
                     Id = 3,
                     Name = "Test Ingredient Category 3"
                 },
+                new IngredientCategory()
+                {
+                    Id = 4,
+                    Name = "Ingredient Category Without Ingredients"
+                }
                
             };
             data.IngredientCategories.AddRange(TestIngredientCategories);

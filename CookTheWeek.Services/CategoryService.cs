@@ -5,9 +5,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
+    using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.Category;
-    using CookTheWeek.Data.Models;
 
     public class CategoryService : ICategoryService
     {
@@ -18,8 +18,7 @@
             this.dbContext = dbContext;
         }
 
-        // Recipe Categories Service
-
+        // Recipe Categories Services
         public async Task<ICollection<RecipeCategorySelectViewModel>> AllRecipeCategoriesAsync()
         {
             ICollection<RecipeCategorySelectViewModel> allRecipeCategories = await this.dbContext
@@ -118,8 +117,7 @@
         }
 
 
-        // Ingredient Categories Service
-
+        // Ingredient Categories Services
         public async Task<ICollection<IngredientCategorySelectViewModel>> AllIngredientCategoriesAsync()
         {
             ICollection<IngredientCategorySelectViewModel> allIngredientCategories = await this.dbContext

@@ -145,8 +145,8 @@
                 return RedirectToAction("All", "Recipe");
             }
 
-            string ownerId = User.GetId();
-            bool isOwner = await this.userService.IsOwner(id, ownerId);
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByRecipeId(id, userId);
 
             if(!isOwner) 
             {
@@ -182,8 +182,8 @@
                 return RedirectToAction("All", "Recipe");
             }
 
-            string ownerId = User.GetId();
-            bool isOwner = await this.userService.IsOwner(model.Id, ownerId);
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByRecipeId(model.Id, userId);
 
             if (!isOwner && !User.IsAdmin())
             {
@@ -279,7 +279,7 @@
             }
 
             RecipeMineViewModel model = new RecipeMineViewModel();
-            model.FavouriteRecipes = await this.favouriteRecipeService.AllFavouritesByUserAsync(userId);
+            model.FavouriteRecipes = await this.favouriteRecipeService.AllByUserIdAsync(userId);
             model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
 
             return View(model);
@@ -290,8 +290,8 @@
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
-            string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsOwner(id, currentUserId);
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByRecipeId(id, userId);
 
             if(!exists)
             {
@@ -330,7 +330,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsOwner(id, currentUserId);
+            bool isOwner = await this.userService.IsOwnerByRecipeId(id, currentUserId);
 
             if (!exists)
             {

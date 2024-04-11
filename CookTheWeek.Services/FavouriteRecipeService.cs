@@ -16,8 +16,7 @@
         {
             this.dbContext = dbContext;
         }
-
-        public async Task<bool> IsFavouriteRecipeForUserByIdAsync(string id, string userId)
+        public async Task<bool> ExistsByUserIdAsync(string id, string userId)
         {
             bool isFavourite = await this.dbContext.FavoriteRecipes
                 .AnyAsync(fr => fr.UserId.ToString() == userId &&
@@ -25,8 +24,7 @@
 
             return isFavourite;
         }
-
-        public async Task AddToFavouritesByUserId(string id, string userId)
+        public async Task AddByUserIdAsync(string id, string userId)
         {
             FavouriteRecipe favouriteRecipe = new FavouriteRecipe()
             {
@@ -38,7 +36,7 @@
                 .AddAsync(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task RemoveFromFavouritesByUserId(string id, string userId)
+        public async Task RemoveByUserIdAsync(string id, string userId)
         {
             FavouriteRecipe favouriteRecipe = await this.dbContext
                 .FavoriteRecipes
@@ -47,7 +45,7 @@
             this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<ICollection<RecipeAllViewModel>> AllFavouritesByUserAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> AllByUserIdAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .FavoriteRecipes

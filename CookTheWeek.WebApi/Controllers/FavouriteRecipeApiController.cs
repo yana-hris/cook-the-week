@@ -40,7 +40,7 @@
             bool userExists = await this.userService.ExistsByIdAsync(userId);
 
             bool isAlreadyAdded = await this.favouriteRecipeService
-                .IsFavouriteRecipeForUserByIdAsync(recipeId, userId);
+                .ExistsByUserIdAsync(recipeId, userId);
 
             if (!recipeExists)
             {
@@ -55,7 +55,7 @@
             {
                 try
                 {
-                    await this.favouriteRecipeService.RemoveFromFavouritesByUserId(recipeId, userId);
+                    await this.favouriteRecipeService.RemoveByUserIdAsync(recipeId, userId);
                 }
                 catch (Exception)
                 {
@@ -67,7 +67,7 @@
             // if not, we have to add it (create FavouriteRecipe entity)
             try
             {
-                await this.favouriteRecipeService.AddToFavouritesByUserId(recipeId, userId);
+                await this.favouriteRecipeService.AddByUserIdAsync(recipeId, userId);
             }
             catch (Exception)
             {

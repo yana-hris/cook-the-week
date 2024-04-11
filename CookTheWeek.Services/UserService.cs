@@ -40,7 +40,7 @@
 
         }
 
-        public async Task<int> AllUsersCountAsync()
+        public async Task<int> AllCountAsync()
         {
             return await this.dbContext
                 .Users
@@ -49,20 +49,16 @@
 
         public async Task<bool> ExistsByIdAsync(string id)
         {
-            bool exists = await this.dbContext.Users
+            return await this.dbContext.Users
                 .AnyAsync(u => u.Id.ToString() == id);
-
-            return exists;
         }
 
-        public async Task<bool> IsOwner(string id, string ownerId)
+        public async Task<bool> IsOwnerByRecipeId(string recipeId, string userId)
         {
-            bool isOwner = await this.dbContext
+            return await this.dbContext
                 .Recipes
-                .Where(r => r.Id.ToString() == id && r.OwnerId == ownerId)
+                .Where(r => r.Id.ToString() == recipeId && r.OwnerId == userId)
                 .AnyAsync();
-
-            return isOwner;
         }
     }
 }

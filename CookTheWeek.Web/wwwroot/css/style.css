@@ -18,6 +18,9 @@ html body #main-container .suggestionsList {
   max-height: 200px;
   overflow-y: auto;
 }
+html body #main-container a {
+  text-decoration: none;
+}
 
 @media (min-width: 768px) {
   html {
