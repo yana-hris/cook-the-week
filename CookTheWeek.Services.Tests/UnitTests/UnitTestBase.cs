@@ -137,6 +137,12 @@
                     Name = "Ingredient 3",
                     CategoryId = 3
                 },
+                new Ingredient()
+                {
+                    Id = 4,
+                    Name = "Ingredient to Delete",
+                    CategoryId = 1
+                },
             };
 
             data.Ingredients.AddRange(TestIngredients);

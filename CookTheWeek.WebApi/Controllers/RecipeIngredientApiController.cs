@@ -36,7 +36,7 @@
             try
             {
                 IEnumerable<RecipeIngredientSuggestionServiceModel> serviceModel =
-                    await ingredientService.suggestionsAsync(input);
+                    await ingredientService.GenerateIngredientSuggestionsAsync(input);
 
                 return Ok(serviceModel);
             }

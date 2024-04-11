@@ -104,7 +104,7 @@
 
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> suggestionsAsync(string input)
+        public async Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input)
         {
             string wildCard = $"%{input.ToLower()}%";
 

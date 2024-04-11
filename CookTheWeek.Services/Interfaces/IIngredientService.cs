@@ -12,7 +12,7 @@
         Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
         Task<int> AddAsync(IngredientAddFormModel model);
         Task EditAsync(IngredientEditFormModel model);
-        Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> suggestionsAsync(string input);
+        Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input);
         Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
         Task<bool> ExistsByIdAsync(int id);
         Task<bool> ExistsByNameAsync(string name);

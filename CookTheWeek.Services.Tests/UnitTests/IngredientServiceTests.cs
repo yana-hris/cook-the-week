@@ -3,7 +3,9 @@
     using CookTheWeek.Services.Data;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Models.Ingredient;
+    using CookTheWeek.Services.Data.Models.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Ingredient;
+    using System.Globalization;
 
     [TestFixture]
     public class IngredientServiceTests : UnitTestBase
@@ -121,6 +123,143 @@
             Assert.That(editedIngredient.Name, Is.EqualTo(editedName));
             Assert.That(editedIngredient.CategoryId, Is.EqualTo(editedCategoryId));
             
+        }
+
+        [Test]
+        public async Task GenerateIngredientSuggestionNamesAsync_ShouldReturn_CorrectModel_And_Data()
+        {
+            // Arrange
+            string testSearchString = "Ingredient".ToLower();
+
+            ICollection<RecipeIngredientSuggestionServiceModel> expectedResult = data
+                .Ingredients
+                .Where(i => i.Name.ToLower().Contains(testSearchString))
+                .Select(i => new RecipeIngredientSuggestionServiceModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                }).ToList();
+
+            // Act
+            var actualResult = await this.ingredientService
+                .GenerateIngredientSuggestionsAsync(testSearchString);
+
+            // Assert
+            Assert.IsNotNull(actualResult);
+            Assert.That(actualResult, Is.InstanceOf<ICollection<RecipeIngredientSuggestionServiceModel>>());
+            Assert.That(actualResult.Count, Is.EqualTo((int)expectedResult.Count));
+
+            IEnumerator<RecipeIngredientSuggestionServiceModel> expectedEnumerator = expectedResult.GetEnumerator();
+            IEnumerator<RecipeIngredientSuggestionServiceModel> actualEnumerator = actualResult.GetEnumerator();
+
+            while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
+            {
+                Assert.That(expectedEnumerator.Current.Id, Is.EqualTo(actualEnumerator.Current.Id));
+                Assert.That(expectedEnumerator.Current.Name, Is.EqualTo(actualEnumerator.Current.Name));
+            }
+        }
+
+        [Test]
+        public async Task GetForEditByIdAsync_ShouldReturn_CorrectModel_And_Data()
+        {
+            // Arrange
+            var testIngredient = data.Ingredients.First();
+            int testId = testIngredient.Id;
+
+            IngredientEditFormModel expectedResult = new IngredientEditFormModel()
+            {
+                Id = testId,
+                Name = testIngredient.Name,
+                CategoryId = testIngredient.CategoryId
+            };
+
+            // Act
+            var actualResult = await this.ingredientService.GetForEditByIdAsync(testId);
+
+            // Assert
+            Assert.IsNotNull(actualResult);
+            Assert.That(actualResult, Is.InstanceOf<IngredientEditFormModel>());
+            Assert.That(actualResult.Name, Is.EqualTo(expectedResult.Name));
+            Assert.That(actualResult.CategoryId, Is.EqualTo(expectedResult.CategoryId));
+        }
+
+        [Test]
+        public async Task ExistsByIdAsync_ShouldReturn_True_If_Exists()
+        {
+            // Arrange
+            int testId = data.Ingredients.Select(i => i.Id).First();
+
+            // Act
+            bool result = await this.ingredientService.ExistsByIdAsync(testId);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<bool>());
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task ExistsByNameAsync_ShouldReturn_True_If_Exists()
+        {
+            // Arrange
+            string testName = data.Ingredients.Select(i => i.Name).First();
+
+            // Act
+            bool result = await this.ingredientService.ExistsByNameAsync(testName);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<bool>());
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task AllCountAsync_ShouldReturn_CorrectCount()
+        {
+            // Arrange
+            int expectedCount = data.Ingredients.Count();
+
+            // Act
+            var actualCount = await this.ingredientService.AllCountAsync();
+
+            // Assert
+            Assert.IsNotNull(actualCount);
+            Assert.That(actualCount, Is.InstanceOf<int>());
+            Assert.That(actualCount, Is.EqualTo(expectedCount));
+        }
+
+        [Test]
+        public async Task DeleteById_ShouldWork_Correctly()
+        {
+            // Arrange
+            var ingredientToDelete = data.Ingredients.Last();
+            int id = ingredientToDelete.Id;
+            int ingredientsCountBefore = data.Ingredients.Count();
+
+            // Act
+            await this.ingredientService.DeleteById(id);
+
+            // Assert
+            int ingredientsCountAfter = data.Ingredients.Count();
+            bool exists = data.Ingredients.Any(i => i.Id == id);
+
+            Assert.That(ingredientsCountAfter, Is.EqualTo(ingredientsCountBefore - 1));
+            Assert.IsFalse(exists);
+        }
+
+        [Test]
+        public async Task GetIdByNameAsync_ShouldWork_Correctly()
+        {
+            // Arrange
+            var testIngredient = data.Ingredients.First();
+            int expectedId = testIngredient.Id;
+            string testName = testIngredient.Name;
+
+            // Act
+            var result = await this.ingredientService.GetIdByNameAsync(testName);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.That(result, Is.InstanceOf<int>());
+            Assert.That(result, Is.EqualTo(expectedId));
         }
     }
 }
