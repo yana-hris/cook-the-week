@@ -10,10 +10,10 @@
     public interface IIngredientService
     {
         Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
-        Task<int> AddAsync(IngredientFormViewModel model);
-        Task EditAsync(IngredientEditViewModel model);
+        Task<int> AddAsync(IngredientAddFormModel model);
+        Task EditAsync(IngredientEditFormModel model);
         Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> suggestionsAsync(string input);
-        Task<IngredientEditViewModel> GetForEditByIdAsync(int id);
+        Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
         Task<bool> ExistsByIdAsync(int id);
         Task<bool> ExistsByNameAsync(string name);
         Task<int> AllCountAsync();

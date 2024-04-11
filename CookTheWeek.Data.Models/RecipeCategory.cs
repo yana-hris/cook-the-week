@@ -1,7 +1,8 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
 
     using static Common.EntityValidationConstants.RecipeCategory;
 
@@ -22,7 +23,7 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        [Comment("A collection in recipes in this category")]
+        [Comment("A collection in Recipes in Category")]
         public ICollection<Recipe> Recipes { get; set; }
     }
 }

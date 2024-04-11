@@ -23,7 +23,7 @@
         [Key]
         public Guid Id { get; set; }
 
-        [Comment("Creator of the recipe")]
+        [Comment("Recipe Creator")]
         [Required]
         public string OwnerId { get; set; } = null!;
 
@@ -56,25 +56,25 @@
 
         [Comment("Recipe Category Key Identifier")]
         [Required]
-        [ForeignKey(nameof(RecipeCategory))]
-        public int RecipeCategoryId { get; set; }
-        public RecipeCategory RecipeCategory { get; set; } = null!;
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
+        public RecipeCategory Category { get; set; } = null!;
 
-        [Comment("Recipe Date and Time Creation")]
+        [Comment("Date and Time of a Recipe Creation")]
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        [Comment("Soft Delete for Recipe")]
+        [Comment("Soft Delete for a Recipe")]
         [Required]
         public bool IsDeleted { get; set; }
 
-        [Comment("A collection of Ingredients for this Recipe")]
+        [Comment("A collection Recipe-Ingredients with a Recipe")]
         public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
 
-        [Comment("A collection of users who have added this recipe in their Favourite Recipes Collection")]
+        [Comment("A collection of Users who have added a Recipe to their Favourite-Recipes")]
         public ICollection<FavouriteRecipe> FavouriteRecipes { get; set; }
 
-        [Comment("A collection of meals that will be cooked with this Recipe")]
+        [Comment("A collection of Meals with a Recipe")]
         public ICollection<Meal> Meals { get; set; } 
     }
 }

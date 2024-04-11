@@ -4,7 +4,7 @@
 
     public interface IUserService
     {
-        Task<ICollection<UserViewModel>> AllAsync();
+        Task<ICollection<UserAllViewModel>> AllAsync();
         Task<int> AllCountAsync();
         Task<bool> ExistsByIdAsync(string id);
         Task<bool> IsOwnerByRecipeId(string recipeId, string userId);

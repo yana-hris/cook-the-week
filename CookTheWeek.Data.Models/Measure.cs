@@ -1,11 +1,12 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
 
     using static Common.EntityValidationConstants.Measure;
 
-    [Comment("The Measure of the Recipe Ingredient")]
+    [Comment("Measure of Recipe-Ingredient")]
     public class Measure
     {
         [Comment("Key Identifier")]

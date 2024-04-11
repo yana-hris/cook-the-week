@@ -10,8 +10,8 @@
             // Restrict delete of Categories if Recipes in them exist
             builder
                 .HasMany(rc => rc.Recipes)
-                .WithOne(r => r.RecipeCategory)
-                .HasForeignKey(r => r.RecipeCategoryId)
+                .WithOne(r => r.Category)
+                .HasForeignKey(r => r.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             //builder

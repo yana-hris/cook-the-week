@@ -56,7 +56,7 @@
                 Servings = TestRecipe.Servings,
                 CookingTimeMinutes = (int)TestRecipe.TotalTime.TotalMinutes,
                 ImageUrl = TestRecipe.ImageUrl,
-                RecipeCategoryId = TestRecipe.RecipeCategoryId,
+                RecipeCategoryId = TestRecipe.CategoryId,
             };
 
             // Act
@@ -94,7 +94,7 @@
                 Servings = TestRecipe.Servings,
                 TotalTime = (int)TestRecipe.TotalTime.TotalMinutes,
                 CreatedOn = TestRecipe.CreatedOn.ToString("dd-MM-yyyy"),
-                CategoryName = TestRecipe.RecipeCategory.Name
+                CategoryName = TestRecipe.Category.Name
             };
 
             // Act
@@ -126,7 +126,7 @@
             AllRecipesQueryModel testModel = new AllRecipesQueryModel()
             {
                 SearchString = TestRecipe.Title,
-                Category = TestRecipe.RecipeCategory.Name,
+                Category = TestRecipe.Category.Name,
                 RecipeSorting = Web.ViewModels.Recipe.Enums.RecipeSorting.Newest,
             };
 
@@ -143,8 +143,8 @@
                         Description = TestRecipe.Description,
                         Category = new RecipeCategorySelectViewModel()
                         {
-                            Id = TestRecipe.RecipeCategoryId,
-                            Name = TestRecipe.RecipeCategory.Name
+                            Id = TestRecipe.CategoryId,
+                            Name = TestRecipe.Category.Name
                         },
                         Servings = TestRecipe.Servings,
                         CookingTime = String.Format(@"{0}h {1}min", TestRecipe.TotalTime.Hours.ToString(), TestRecipe.TotalTime.Minutes.ToString()),
@@ -200,7 +200,7 @@
                 Servings = NewRecipe.Servings,
                 CookingTimeMinutes = NewRecipe.TotalTime.Minutes,
                 ImageUrl = NewRecipe.ImageUrl,
-                RecipeCategoryId = NewRecipe.RecipeCategoryId,
+                RecipeCategoryId = NewRecipe.CategoryId,
                 RecipeIngredients = new List<RecipeIngredientFormViewModel>()
                 {
                     new RecipeIngredientFormViewModel()
@@ -229,7 +229,7 @@
             Assert.That(newrecipeInDb.Servings, Is.EqualTo(NewRecipe.Servings));
             Assert.That(newrecipeInDb.TotalTime, Is.EqualTo(NewRecipe.TotalTime));
             Assert.That(newrecipeInDb.ImageUrl, Is.EqualTo(NewRecipe.ImageUrl));
-            Assert.That(newrecipeInDb.RecipeCategoryId, Is.EqualTo(NewRecipe.RecipeCategoryId));
+            Assert.That(newrecipeInDb.CategoryId, Is.EqualTo(NewRecipe.CategoryId));
 
             
             Assert.That(newrecipeInDb.RecipesIngredients.Count, Is.EqualTo(NewRecipe.RecipesIngredients.Count));
@@ -295,7 +295,7 @@
             Assert.That(recipeToEdit.Servings, Is.EqualTo(editedServings));
             Assert.That(recipeToEdit.TotalTime, Is.EqualTo(TimeSpan.FromMinutes(editedCookingTime)));
             Assert.That(recipeToEdit.ImageUrl, Is.EqualTo(editedUrl));
-            Assert.That(recipeToEdit.RecipeCategoryId, Is.EqualTo(editedRecipeCategory));
+            Assert.That(recipeToEdit.CategoryId, Is.EqualTo(editedRecipeCategory));
 
             if (recipeToEdit.RecipesIngredients.Any())
             {
@@ -333,11 +333,11 @@
                 TotalTime = recipe.TotalTime.ToString(@"hh\:mm"),
                 ImageUrl = recipe.ImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
-                CategoryName = recipe.RecipeCategory.Name,
+                CategoryName = recipe.Category.Name,
                 MainIngredients = recipe.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -346,9 +346,9 @@
                             Specification = ri.Specification.Description,
                         }).ToList(),
                 SecondaryIngredients = recipe.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -357,9 +357,9 @@
                             Specification = ri.Specification.Description,
                         }).ToList(),
                 AdditionalIngredients = recipe.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -383,7 +383,7 @@
             Assert.That(resultModel.TotalTime, Is.EqualTo(recipe.TotalTime.ToString(@"hh\:mm")));
             Assert.That(resultModel.ImageUrl, Is.EqualTo(recipe.ImageUrl));
             Assert.That(resultModel.CreatedOn, Is.EqualTo(recipe.CreatedOn.ToString("dd-MM-yyyy")));
-            Assert.That(resultModel.CategoryName, Is.EqualTo(recipe.RecipeCategory.Name));
+            Assert.That(resultModel.CategoryName, Is.EqualTo(recipe.Category.Name));
         }
 
         [Test]
@@ -436,8 +436,8 @@
                     Description = r.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
-                        Id = r.RecipeCategoryId,
-                        Name = r.RecipeCategory.Name
+                        Id = r.CategoryId,
+                        Name = r.Category.Name
                     },
                     Servings = r.Servings,
                     CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),

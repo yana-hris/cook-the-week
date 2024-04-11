@@ -43,7 +43,7 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            IngredientFormViewModel model = new IngredientFormViewModel();
+            IngredientAddFormModel model = new IngredientAddFormModel();
             model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
 
 
@@ -52,10 +52,10 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([FromForm]IngredientFormViewModel model)
+        public async Task<IActionResult> Add([FromForm]IngredientAddFormModel model)
         {
             bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryExists = await categoryService.IngredientCategoryExistsByIdAsync(model.IngredientCategoryId);
+            bool categoryExists = await categoryService.IngredientCategoryExistsByIdAsync(model.CategoryId);
 
             if (ingredientExists)
             {
@@ -64,7 +64,7 @@
 
             if (!categoryExists)
             {
-                ModelState.AddModelError(nameof(model.IngredientCategoryId), $"Invalid Ingredient Category: {model.IngredientCategoryId}");
+                ModelState.AddModelError(nameof(model.CategoryId), $"Invalid Ingredient Category: {model.CategoryId}");
             }
 
             if (ModelState.IsValid)
@@ -95,7 +95,7 @@
                 return NotFound();
             }
 
-            IngredientEditViewModel model = await ingredientService.GetForEditByIdAsync(id);
+            IngredientEditFormModel model = await ingredientService.GetForEditByIdAsync(id);
             model.Categories = await categoryService.AllIngredientCategoriesAsync();
 
             return View(model);
@@ -104,7 +104,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IngredientEditViewModel model)
+        public async Task<IActionResult> Edit(IngredientEditFormModel model)
         {
             bool ingredientExists = await this.ingredientService.ExistsByIdAsync(model.Id);
 

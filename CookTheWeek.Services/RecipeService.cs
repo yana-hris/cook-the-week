@@ -33,7 +33,7 @@
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
             {
                 recipesQuery = recipesQuery
-                    .Where(r => r.RecipeCategory.Name == queryModel.Category);
+                    .Where(r => r.Category.Name == queryModel.Category);
             }
 
             if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -70,8 +70,8 @@
                     Description = r.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
-                        Id = r.RecipeCategoryId,
-                        Name = r.RecipeCategory.Name
+                        Id = r.CategoryId,
+                        Name = r.Category.Name
                     },
                     Servings = r.Servings,
                     CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
@@ -98,7 +98,7 @@
                 Servings = model.Servings,
                 TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes),
                 ImageUrl = model.ImageUrl,
-                RecipeCategoryId = model.RecipeCategoryId                
+                CategoryId = model.RecipeCategoryId                
             };
 
             foreach (var ingredient in model.RecipeIngredients!)
@@ -137,7 +137,7 @@
             recipe.Servings = model.Servings;
             recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
             recipe.ImageUrl = model.ImageUrl;
-            recipe.RecipeCategoryId = model.RecipeCategoryId;
+            recipe.CategoryId = model.RecipeCategoryId;
 
             ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
             this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
@@ -179,11 +179,11 @@
                     TotalTime = r.TotalTime.ToString(@"hh\:mm"),
                     ImageUrl = r.ImageUrl,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
-                    CategoryName = r.RecipeCategory.Name,
+                    CategoryName = r.Category.Name,
                     MainIngredients = r.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -192,9 +192,9 @@
                             Specification = ri.Specification.Description,
                         }).ToList() ,
                     SecondaryIngredients = r.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -203,9 +203,9 @@
                             Specification = ri.Specification.Description,
                         }).ToList(),
                     AdditionalIngredients = r.RecipesIngredients
-                        .OrderBy(ri => ri.Ingredient.IngredientCategoryId)
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.IngredientCategoryId))
+                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -273,7 +273,7 @@
                     Servings = r.Servings,
                     CookingTimeMinutes = (int)r.TotalTime.TotalMinutes,
                     ImageUrl = r.ImageUrl,
-                    RecipeCategoryId = r.RecipeCategoryId,
+                    RecipeCategoryId = r.CategoryId,
                     RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormViewModel()
                     {
                         Name = ri.Ingredient.Name,
@@ -298,7 +298,7 @@
                     Servings = r.Servings,
                     TotalTime = (int)r.TotalTime.TotalMinutes,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
-                    CategoryName = r.RecipeCategory.Name
+                    CategoryName = r.Category.Name
                 }).FirstAsync();
 
             return model;
@@ -307,7 +307,7 @@
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
-                .Include("RecipeCategory")
+                .Include(r => r.Category)
                 .Where(r => r.OwnerId == userId)
                 .Select(r => new RecipeAllViewModel()
                 {
@@ -317,8 +317,8 @@
                     Description = r.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
-                        Id = r.RecipeCategoryId,
-                        Name = r.RecipeCategory.Name
+                        Id = r.CategoryId,
+                        Name = r.Category.Name
                     },
                     Servings = r.Servings,
                     CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),

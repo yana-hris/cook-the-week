@@ -1,11 +1,12 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
 
     using static CookTheWeek.Common.EntityValidationConstants.IngredientCategory;
 
-    [Comment("Ingredients Category")]
+    [Comment("Ingredient Category")]
     public class IngredientCategory
     {
         public IngredientCategory()
@@ -22,7 +23,7 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        [Comment("Ingridients in this category")]
+        [Comment("A collection of Ingridients in a Category")]
         public ICollection<Ingredient> Ingredients { get; set; }
     }
 }

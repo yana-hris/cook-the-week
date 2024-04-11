@@ -1,10 +1,8 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
-    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
-    using Microsoft.EntityFrameworkCore;
 
     [TestFixture]
     public class CategoryServiceTests : UnitTestBase

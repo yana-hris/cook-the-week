@@ -50,7 +50,7 @@
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .FavoriteRecipes
                 .Include(fr => fr.Recipe)
-                .ThenInclude(r => r.RecipeCategory)
+                .ThenInclude(r => r.Category)
                 .Where(fr => fr.UserId.ToString() == userId)
                 .Select(fr => new RecipeAllViewModel()
                 {
@@ -60,8 +60,8 @@
                     Description = fr.Recipe.Description,
                     Category = new RecipeCategorySelectViewModel()
                     {
-                        Id = fr.Recipe.RecipeCategoryId,
-                        Name = fr.Recipe.RecipeCategory.Name
+                        Id = fr.Recipe.CategoryId,
+                        Name = fr.Recipe.Category.Name
                     },
                     Servings = fr.Recipe.Servings,
                     CookingTime = String.Format(@"{0}h {1}min", fr.Recipe.TotalTime.Hours.ToString(), fr.Recipe.TotalTime.Minutes.ToString()),

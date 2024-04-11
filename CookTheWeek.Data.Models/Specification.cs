@@ -1,13 +1,15 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
+
     using static Common.EntityValidationConstants.Specification;
 
-    [Comment("The Specification of the Recipe Ingredient")]
+    [Comment("Specification of Recipe-Ingredient")]
     public class Specification
     {
-        [Comment("Specification Key Identifier")]
+        [Comment("Key Identifier")]
         [Key]
         public int Id { get; set; }
 

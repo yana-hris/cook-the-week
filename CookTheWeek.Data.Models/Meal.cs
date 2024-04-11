@@ -1,12 +1,13 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using Microsoft.EntityFrameworkCore;
+
     using static Common.EntityValidationConstants.Meal;
 
-    [Comment("A Meal is a Recipe with user-defined Serving Size and Cook Date")]
+    [Comment("Meal")]
     public class Meal
     {
         [Comment("Meal Key Identifier")]
@@ -28,7 +29,7 @@
         [Comment("Meal Cook Date")]
         public DateTime? CookDate { get; set; }
 
-        [Comment("Recipe is cooked or not")]
+        [Comment("Meal completion Identifier")]
         [Required]
         public bool IsCooked { get; set; }
 

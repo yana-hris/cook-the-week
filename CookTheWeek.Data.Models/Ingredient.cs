@@ -26,11 +26,11 @@
 
         [Comment("Ingredient Category Key Identifier")]
         [Required]
-        [ForeignKey(nameof(IngredientCategory))]
-        public int IngredientCategoryId { get; set; }
-        public IngredientCategory IngredientCategory { get; set; } = null!;
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
+        public IngredientCategory Category { get; set; } = null!;
 
-        [Comment("A collection of recipes, containing the ingredient")]
+        [Comment("A collection Recipe-Ingredients with an Ingredient")]
         public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
     }
 }

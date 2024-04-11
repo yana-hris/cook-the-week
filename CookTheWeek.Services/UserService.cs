@@ -18,11 +18,11 @@
             this.recipeService = recipeService;
         }
 
-        public async Task<ICollection<UserViewModel>> AllAsync()
+        public async Task<ICollection<UserAllViewModel>> AllAsync()
         {
-            ICollection<UserViewModel> allUsers = await this.dbContext
+            ICollection<UserAllViewModel> allUsers = await this.dbContext
                 .Users
-                .Select(u => new UserViewModel()
+                .Select(u => new UserAllViewModel()
                 {
                     Id = u.Id.ToString(),
                     Username = u.UserName!,

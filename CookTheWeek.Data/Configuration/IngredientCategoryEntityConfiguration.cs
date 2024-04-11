@@ -11,8 +11,8 @@
             // If ingredients in the deleted category exist, delete will be prevented
             builder
                 .HasMany(ic => ic.Ingredients)
-                .WithOne(i => i.IngredientCategory)
-                .HasForeignKey(i => i.IngredientCategoryId)
+                .WithOne(i => i.Category)
+                .HasForeignKey(i => i.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

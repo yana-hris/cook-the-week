@@ -1,6 +1,6 @@
 ﻿namespace CookTheWeek.Web.ViewModels.User
 {
-    public class UserViewModel
+    public class UserAllViewModel
     {
         public string Id { get; set; } = null!;
 

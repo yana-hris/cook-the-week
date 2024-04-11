@@ -2,9 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using Microsoft.EntityFrameworkCore;
 
-    [Comment("The Ingredients in Recipe")]
+    [Comment("Recipe Ingredient")]
     public class RecipeIngredient
     {
         [Comment("Key Identifier for Recipe")]
@@ -25,7 +26,7 @@
         [Required]
         public Ingredient Ingredient { get; set; } = null!;
 
-        [Comment("Quantity of the Ingredient in this Recipe")]
+        [Comment("Quantity of Ingredient in Recipe")]
         [Required]
         public decimal Qty { get; set; }
 

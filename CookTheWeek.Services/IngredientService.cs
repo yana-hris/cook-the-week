@@ -26,14 +26,14 @@
         {
             IQueryable<Ingredient> ingredientsQuery = this.dbContext
                 .Ingredients
-                .Include(i => i.IngredientCategory)
+                .Include(i => i.Category)
                 .AsNoTracking()
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
             {
                 ingredientsQuery = ingredientsQuery
-                    .Where(i => i.IngredientCategory.Name == queryModel.Category);
+                    .Where(i => i.Category.Name == queryModel.Category);
             }
 
             if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -64,7 +64,7 @@
                 {
                     Id = i.Id,
                     Name = i.Name,
-                    Category = i.IngredientCategory.Name,
+                    Category = i.Category.Name,
                 })
                 .ToListAsync();
 
@@ -76,12 +76,12 @@
                 Ingredients = allIngredients
             };
         }
-        public async Task<int> AddAsync(IngredientFormViewModel model)
+        public async Task<int> AddAsync(IngredientAddFormModel model)
         {
             Ingredient ingredient = new Ingredient()
             {
                 Name = model.Name,
-                IngredientCategoryId = model.IngredientCategoryId
+                CategoryId = model.CategoryId
             };
 
             await this.dbContext.Ingredients.AddAsync(ingredient);
@@ -89,7 +89,7 @@
 
             return ingredient.Id;
         }
-        public async Task EditAsync(IngredientEditViewModel model)
+        public async Task EditAsync(IngredientEditFormModel model)
         {
             Ingredient? ingredient = await this.dbContext
                 .Ingredients
@@ -99,7 +99,7 @@
             if(ingredient != null)
             {
                 ingredient.Name = model.Name;
-                ingredient.IngredientCategoryId = model.CategoryId;
+                ingredient.CategoryId = model.CategoryId;
             }
 
             await this.dbContext.SaveChangesAsync();
@@ -118,16 +118,16 @@
                     Name = i.Name,
                 }).ToListAsync();
         }
-        public async Task<IngredientEditViewModel> GetForEditByIdAsync(int id)
+        public async Task<IngredientEditFormModel> GetForEditByIdAsync(int id)
         {
-            IngredientEditViewModel? model = await this.dbContext.Ingredients
+            IngredientEditFormModel? model = await this.dbContext.Ingredients
                 .Where(i => i.Id == id)
                 .AsNoTracking()
-                .Select(i => new IngredientEditViewModel()
+                .Select(i => new IngredientEditFormModel()
                 {
                     Id = i.Id,
                     Name = i.Name,
-                    CategoryId = i.IngredientCategoryId
+                    CategoryId = i.CategoryId
                 })
                 .FirstOrDefaultAsync();
 

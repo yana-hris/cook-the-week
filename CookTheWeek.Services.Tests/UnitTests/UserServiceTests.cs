@@ -55,9 +55,9 @@ namespace CookTheWeek.Services.Tests.UnitTests
         public async Task AllAsync_ShouldReturn_Correct_UsersInfo()
         {
             // Arrange
-            ICollection<UserViewModel> expectedResult = new HashSet<UserViewModel>()
+            ICollection<UserAllViewModel> expectedResult = new HashSet<UserAllViewModel>()
             {
-                new UserViewModel()
+                new UserAllViewModel()
                 {
                     Id = AdminUser.Id.ToString(),
                     Username = AdminUser.UserName,
@@ -65,7 +65,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
                     TotalRecipes = 1,
                     TotalMealPlans = 0
                 },
-                new UserViewModel()
+                new UserAllViewModel()
                 {
                     Id = TestUser.Id.ToString(),
                     Username = TestUser.UserName,
@@ -82,14 +82,14 @@ namespace CookTheWeek.Services.Tests.UnitTests
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult, Is.Not.Null);
-                Assert.That(actualResult, Is.InstanceOf<ICollection<UserViewModel>>());
+                Assert.That(actualResult, Is.InstanceOf<ICollection<UserAllViewModel>>());
 
                 if(actualResult != null)
                 {
                     Assert.That(expectedResult.Count, Is.EqualTo(actualResult.Count));
 
-                    IEnumerator<UserViewModel> expectedEnumerator = expectedResult.GetEnumerator();
-                    IEnumerator<UserViewModel> actualEnumerator = actualResult.GetEnumerator();
+                    IEnumerator<UserAllViewModel> expectedEnumerator = expectedResult.GetEnumerator();
+                    IEnumerator<UserAllViewModel> actualEnumerator = actualResult.GetEnumerator();
 
                     while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
                     {

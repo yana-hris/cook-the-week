@@ -16,6 +16,7 @@
         public Recipe TestRecipe { get; private set; }
         public ICollection<RecipeIngredient> TestRecipeRecipeIngredients { get; private set; }
         public Recipe NewRecipe { get; private set; }
+        public Ingredient TestIngredient { get; private set; }
         public Ingredient NewIngredient { get; private set; }
         public RecipeIngredient NewRecipeIngredient { get; private set; }
         public ICollection<Specification> TestSpecifications { get; private set; }
@@ -32,7 +33,7 @@
             SeedDatabase();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDownBase() 
             => data.Dispose();
 
@@ -83,7 +84,7 @@
                 Servings = 4,
                 TotalTime = TimeSpan.FromMinutes(10.0),
                 ImageUrl = "https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516_640.jpg",
-                RecipeCategoryId = 1
+                CategoryId = 1
             };
 
             data.Recipes.Add(TestRecipe);
@@ -110,29 +111,31 @@
                 Servings = 2,
                 TotalTime = TimeSpan.FromMinutes(20.0),
                 ImageUrl = "https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png",
-                RecipeCategoryId = 2
+                CategoryId = 2
             };
 
             // Ingredients
+            TestIngredient = new Ingredient()
+            {
+                Id = 1,
+                Name = "Ingredient 1",
+                CategoryId = 1
+            };
+
             TestIngredients = new List<Ingredient>()
             {
-                new Ingredient()
-                {
-                    Id = 1,
-                    Name = "Ingredient 1",
-                    IngredientCategoryId = 1
-                },
+                TestIngredient,
                 new Ingredient()
                 {
                     Id = 2,
                     Name = "Ingredient 2",
-                    IngredientCategoryId = 2
+                    CategoryId = 2
                 },
                 new Ingredient()
                 {
                     Id = 3,
                     Name = "Ingredient 3",
-                    IngredientCategoryId = 3
+                    CategoryId = 3
                 },
             };
 
@@ -199,7 +202,7 @@
             {
                 Id = 1,
                 Name = "Ingredient 1",
-                IngredientCategoryId = 1
+                CategoryId = 1
             };
             // Will not be added to the DB initially
             NewRecipeIngredient = new RecipeIngredient()

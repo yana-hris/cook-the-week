@@ -23,7 +23,7 @@
         {
             //IEnumerable<UserViewModel> users =
             //    await this.userService.AllAsync();
-            IEnumerable<UserViewModel>? users = this.memoryCache.Get<IEnumerable<UserViewModel>>(UsersCacheKey);
+            IEnumerable<UserAllViewModel>? users = this.memoryCache.Get<IEnumerable<UserAllViewModel>>(UsersCacheKey);
 
             if(users == null)
             {

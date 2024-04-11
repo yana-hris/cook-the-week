@@ -7,7 +7,7 @@
 
     using static Common.EntityValidationConstants.MealPlan;
 
-    [Comment("Meal Plan belongs to a user and consists of user-defined Meals")]
+    [Comment("Meal Plan")]
     public class MealPlan
     {
         public MealPlan()
@@ -20,6 +20,7 @@
         [Key]
         public Guid Id { get; set; }
 
+        [Comment("Meal Plan Name")]
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
@@ -34,11 +35,11 @@
         [Required]
         public DateTime StartDate { get; set; }
 
-        [Comment("Is the Meal Plan already finished or not")]
+        [Comment("Meal Plan Completion Identifier")]
         [Required]
         public bool IsFinished { get; set; }
 
-        [Comment("A collection of the Meals, included in the Meal Plan")]
+        [Comment("A collection of Meals, included in the Meal Plan")]
         [Required]
         public ICollection<Meal> Meals { get; set; }
     }
