@@ -50,8 +50,7 @@ namespace CookTheWeek.Web
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
-                });
-               
+                });           
 
             WebApplication app = builder.Build();
             
@@ -64,7 +63,6 @@ namespace CookTheWeek.Web
             {
                 app.UseExceptionHandler("/Home/Error/500");
                 app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
-
                 app.UseHsts();
             }
 

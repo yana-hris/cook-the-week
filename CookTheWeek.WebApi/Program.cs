@@ -32,9 +32,9 @@ namespace CookTheWeek.WebApi
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
-                setup.AddPolicy("TestingWithVSCode", policyBuilder =>
+                setup.AddPolicy("CookTheWeekProductionPolicy", policyBuilder =>
                 {
-                    policyBuilder.WithOrigins("http://127.0.0.1:5500")
+                    policyBuilder.WithOrigins("http://cooktheweek.com")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
@@ -59,7 +59,10 @@ namespace CookTheWeek.WebApi
             if (app.Environment.IsDevelopment())
             {
                 app.UseCors("CookTheWeekDevelopmentPolicy");
-                app.UseCors("TestingWithVSCode");
+            }
+            else if(app.Environment.IsProduction())
+            {
+                app.UseCors("CookTheWeekProductionPolicy");
             }            
 
             app.Run();

@@ -1,76 +1,201 @@
 ﻿@using CookTheWeek.Services.Data.Interfaces
 @using CookTheWeek.Web.Infrastructure.Extensions
 @model RecipeDetailsViewModel
+@inject IFavouriteRecipeService FavouriteRecipeService
 @inject IUserService UserService
 @{
     ViewData["Title"] = "Recipe Details";
 
     string userId = User.GetId();
-    bool isOwner = await this.UserService.IsOwnerByRecipeId(Model.Id, userId);
+    bool isAdmin = User.IsAdmin();
+    string recipeId = Model.Id;
+    bool isOwner = await this.UserService.IsOwnerByRecipeId(recipeId, userId);
+    bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 }
 
-<div class="container">
-    <h1>@Model.Title</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <img src="@Model.ImageUrl" style="max-height: 300px; max-width: 100%;" alt="@Model.Title">
-        </div>
-        <div class="col-md-6">
-            @if(Model.Description != null)
-            {
-                <p><strong>Description:</strong> @Model.Description</p>
-            }  
-        </div>       
-    </div>
-    <div class="row">
-            <div class="col-md-6">
-            <p><strong>Servings:</strong> @Model.Servings</p>
-            <p><strong>Total Time:</strong> @Model.TotalTime</p>
-            <p><strong>Category:</strong> @Model.CategoryName</p>
-            <p><strong>Created On:</strong> @Model.CreatedOn</p>
-            <p><strong>Ingredients:</strong></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p>Main Ingredients:</p>
-            <ul>
-                @foreach (var recipeIngredient in Model.MainIngredients)
-                {
-                    <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
-                }
+<div id="recipe-details-container">    
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item"><a class="nav-link active" href="#recipe-details"><span>Recipe Info</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Instructions</a></li>
             </ul>
+            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary back-button">Back</a>
         </div>
-        <div class="col">
-            <p>Main Ingredients:</p>
-            <ul>
-                @foreach (var recipeIngredient in Model.SecondaryIngredients)
+        <div class="card-body p-4 d-md-grid" id="recipe-details">
+            <div class="row">
+                <div class="col">
+                    <h1>@Model.Title</h1>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col col col-sm-8 img-container">
+                    <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
+                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                        @if (isLiked)
+                        {
+                            <i class="fa fa-heart liked-icon"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart not-liked-icon"></i>
+                        }
+                    </a>
+                </div>
+                <div class="col col-12 col-sm-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-utensils"></i><span> @Model.Servings Serving(s)</span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-clock"></i><span> </span>
+                            <span>
+                                @(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")
+                                @(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + "min" : "")
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa fa-tag" aria-hidden="true"></i>
+                            <span> @Model.CategoryName</span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa fa-archive" aria-hidden="true"></i>
+                            <span> Created on: @Model.CreatedOn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row g-3 pt-2">
+                <div class="col col-12 col-sm-8">
+                    <p class="recipe-description">@Model.Description</p>
+                </div>
+                @if (@Model.OilsHerbsSpicesSweeteners.Any())
                 {
-                    <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
-                }
-            </ul>
-        </div>
-        <div class="col">
-            <p>Main Ingredients:</p>
-            <ul>
-                @foreach (var recipeIngredient in Model.AdditionalIngredients)
+                    <div class="col col col-sm-4">
+                        <p class="ingredient-heading">Oils, Sauces, Herbs &amp; Spices</p>
+                        <ul class="list-unstyled">
+                        @foreach (var item in Model.OilsHerbsSpicesSweeteners)
+                        {
+                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                        }                       
+                        </ul>
+                    </div>
+                }                
+            </div>
+            <div class="row g-3">
+                @if(Model.DiaryMeatSeafood.Any())
                 {
-                    <li>@recipeIngredient.Name - @recipeIngredient.Qty @recipeIngredient.Measure</li>
+                    <div class="col col-12 col-sm-6 col-lg-4">
+                        <p class="ingredient-heading">Meat, Diary Products &amp; Seafood</p>
+                        <ul class="list-unstyled">
+                        @foreach (var item in Model.DiaryMeatSeafood)
+                        {
+                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                        }
+                        </ul>
+                    </div>
+                }  
+                @if (Model.Produce.Any())
+                {
+                    <div class="col col-12 col-sm-6 col-lg-4">
+                        <p class="ingredient-heading">Produce (Fruit &amp; Vegetables)</p>
+                        <ul class="list-unstyled">
+                            @foreach (var item in Model.Produce)
+                            {
+                                <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                            }
+                        </ul>
+                    </div>
                 }
-            </ul>
+                @if(Model.PastaGrainsBakery.Any())
+                {
+                    <div class="col col-12 col-sm-6 col-lg-4">
+                        <p class="ingredient-heading">Pasta, Grains &amp; Bakery</p>
+                        <ul class="list-unstyled">
+                        @foreach (var item in Model.PastaGrainsBakery)
+                        {
+                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                        }
+                        </ul>
+                    </div>
+                }
+                @if (Model.Legumes.Any())
+                {
+                    <div class="col col-12 col-sm-6 col-lg-4">
+                        <p class="ingredient-heading">Beans, Lentils and Legumes</p>
+                        <ul class="list-unstyled">
+                        @foreach (var item in Model.Legumes)
+                        {
+                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                        }
+                        </ul>
+                    </div>
+                }
+               @if (Model.NutsSeedsAndOthers.Any())
+               {
+                    <div class="col col-12 col-sm-6 col-lg-4">
+                        <p class="ingredient-heading">Nuts, Seeds &amp; Others</p>
+                        <ul class="list-unstyled">
+                        @foreach (var item in Model.NutsSeedsAndOthers)
+                        {
+                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                        }                            
+                        </ul>
+                    </div>
+               }              
+                
+            </div>
         </div>
+        @if (isAdmin || isOwner)
+        {
+         <div class="card-header">
+            <div class="col text-center pt-3 pb-2">
+                <div class="buttons d-flex gap-2 align-items-center justify-content-center">
+                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-danger text-center card-btn" type="button">
+                        Edit
+                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" class="btn btn-danger text-center card-btn" type="button">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+        }       
     </div>
-    <div class="row">
-        <div class="col">
-            <h3>Instructions:</h3>
-            <p>@Html.Raw(Model.Instructions)</p>
-        </div>
-    </div>
-    @if (isOwner || User.IsAdmin())
-    {
-        <div class="recipe-actions">
-            <a href="/Recipe/Edit/@Model.Id" class="btn btn-outline-danger mt-3">Edit</a>
-            <a href="/Recipe/Delete/@Model.Id" class="btn btn-danger mt-3" >Delete</a>
-        </div>
-    }
 </div>
+@section Scripts {
+    <script>
+        // Like btn functionality
+        function toggleFavourites(event, recipeId, userId) {
+            event.preventDefault();
+            var $button = $(event.currentTarget);
+            let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
+
+            var data = {
+                RecipeId: recipeId,
+                UserId: userId
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    // Handle success response
+                    $button.find('i').toggleClass('liked-icon not-liked-icon');
+                    toastr.success("Your preference is saved!");
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    if (xhr.status === 400) {
+                        // Handle 400 Bad Request error
+                        toastr.error('Bad Request: Please check your input and try again.');
+                    } else {
+                        // Display generic error message
+                        toastr.error('Your preference not saved:', error);
+                    }
+                }
+            });
+        }
+    </script>
+}

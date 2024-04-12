@@ -22,19 +22,19 @@
         public async Task AllAsync_ShouldReturn_Correct_Model_AndData()
         {
             // Arrange
-            AllIngredientsQueryModel testModel = new AllIngredientsQueryModel()
+            AllIngredientsQueryModel testModel = new()
             {
                 SearchString = TestIngredient.Name,
                 Category = TestIngredient.Category.Name,
                 IngredientSorting = Web.ViewModels.Ingredient.Enums.IngredientSorting.NameAscending,
             };
 
-            AllIngredientsFilteredAndPagedServiceModel expectedResult = new AllIngredientsFilteredAndPagedServiceModel()
+            AllIngredientsFilteredAndPagedServiceModel expectedResult = new()
             {
                 TotalIngredientsCount = 1,
                 Ingredients = new List<IngredientAllViewModel>()
                 {
-                    new IngredientAllViewModel()
+                    new()
                     {
                         Id = TestIngredient.Id,
                         Name = TestIngredient.Name
@@ -73,7 +73,7 @@
         public async Task AddAsync_ShouldAdd_Ingredient_Correctly()
         {
             // Arrange
-            IngredientAddFormModel newIngredientModel = new IngredientAddFormModel()
+            IngredientAddFormModel newIngredientModel = new()
             {
                 Name = "New Ingredient",
                 CategoryId = 1,
@@ -107,7 +107,7 @@
             string editedName = ingredientToEdit.Name + " Edited";
             int editedCategoryId = ingredientToEdit.CategoryId + 1;
 
-            IngredientEditFormModel editIngredientModel = new IngredientEditFormModel()
+            IngredientEditFormModel editIngredientModel = new()
             {
                 Id = ingredientToEdit.Id,
                 Name = editedName,
@@ -166,7 +166,7 @@
             var testIngredient = data.Ingredients.First();
             int testId = testIngredient.Id;
 
-            IngredientEditFormModel expectedResult = new IngredientEditFormModel()
+            IngredientEditFormModel expectedResult = new()
             {
                 Id = testId,
                 Name = testIngredient.Name,

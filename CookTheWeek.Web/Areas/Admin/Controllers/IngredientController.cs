@@ -51,7 +51,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add([FromForm]IngredientAddFormModel model)
         {
             bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
@@ -103,7 +102,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IngredientEditFormModel model)
         {
             bool ingredientExists = await this.ingredientService.ExistsByIdAsync(model.Id);

@@ -2,6 +2,7 @@
 {
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
+    using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@
             this.recipeService = recipeService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
+            
         }
 
         [HttpPost]
@@ -32,8 +34,9 @@
         public async Task<IActionResult> ToggleFavourites([FromBody]FavouriteRecipeServiceModel model)
         {
             string userId = model.UserId;
-            string recipeId = model.RecipeId;
+            string recipeId = model.RecipeId;           
 
+           
             bool recipeExists = await this.recipeService
                 .ExistsByIdAsync(recipeId);
 

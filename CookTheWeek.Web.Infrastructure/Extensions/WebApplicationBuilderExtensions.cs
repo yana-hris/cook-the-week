@@ -73,7 +73,7 @@
                     return;
                 }
 
-                IdentityRole<Guid> role = new IdentityRole<Guid>(AdminRoleName);
+                IdentityRole<Guid> role = new(AdminRoleName);
 
                 await roleManager.CreateAsync(role);
 

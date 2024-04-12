@@ -28,39 +28,37 @@ else
                         foreach (var recipe in Model.FavouriteRecipes)
                         {
                             string recipeId = recipe.Id;
-                            bool isInFavourites = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+                            bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 
-                            <div class="col d-block recipe-container">
-                                <div class="card">
-                                    <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
-                                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                                        @if (isInFavourites)
+                                <div class="col d-block recipe-container">
+                                    <div class="card">
+                                        <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
+                                        <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                                            @if (isLiked)
                                         {
-                                            <i class="fa fa-heart liked like-icon"></i>
-                                            // <i class="fas fa-heart"></i>
+                                                <i class="fa fa-heart liked-icon"></i>
                                         }
                                         else
                                         {
-                                            <i class="fa fa-heart not-liked like-icon"></i>
-                                            // <i class="far fa-heart"></i>
+                                                <i class="fa fa-heart not-liked-icon"></i>
                                         }
-                                    </a>
-                                    <div class="card-body p-2">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="d-flex align-items-center justify-content-between gap-4">
-                                                <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
-                                                <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
-                                            </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
+                                        </a>
+                                        <div class="card-body p-2">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center justify-content-between gap-4">
+                                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
+                                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
+                                                </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
+                                            </div>
+                                            <p class="recipe-title">@recipe.Title</p>
+                                            <hr>
+                                            <div class="recipe-description">
+                                                <p class="card-text text-overflow-clamp">@recipe.Description</p>
+                                            </div>
                                         </div>
-                                        <h3 class="recipe-title">@recipe.Title</h3>
-                                        <hr>
-                                        <div class="recipe-description">
-                                            <p class="card-text text-overflow-clamp">@recipe.Description</p>
-                                        </div>
+                                        <span class="material-icons add-icon">add_circle</span>
                                     </div>
-                                    <span class="material-icons add-icon">add_circle</span>
                                 </div>
-                            </div>
                         }
                     }
                 </div>
@@ -100,42 +98,43 @@ else
     </div>
 }
 
-@section Scripts {
-    <script>
-        // Like btn functionality
-        function toggleFavourites(event, recipeId, userId) {
-            event.preventDefault();
-            var $button = $(event.currentTarget);
-            let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
+@section Scripts {  
+<script>
+    // Like btn functionality
+    function toggleFavourites(event, recipeId, userId) {
+        event.preventDefault();
+        debugger;
+        var $button = $(event.currentTarget);
+        let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
 
-            var data = {
-                RecipeId: recipeId,
-                UserId: userId
-            }
-
-            $.ajax({
-                url: url,
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    // Handle success response
-                    $button.find('i').toggleClass('liked not-liked');
-                    toastr.success("Your preference is saved!");
-                },
-                error: function (xhr, status, error) {
-                    // Handle error
-                    if (xhr.status === 400) {
-                        // Handle 400 Bad Request error
-                        toastr.error('Bad Request: Please check your input and try again.');
-                    } else {
-                        // Display generic error message
-                        toastr.error('Your preference not saved:', error);
-                    }
-                }
-            });
+        var data = {
+            RecipeId: recipeId,
+            UserId: userId
         }
-    </script>
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                // Handle success response
+                $button.find('i').toggleClass('liked-icon not-liked-icon');
+                toastr.success("Your preference is saved!");
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                if (xhr.status === 400) {
+                    // Handle 400 Bad Request error
+                    toastr.error('Bad Request: Please check your input and try again.');
+                } else {
+                    // Display generic error message
+                    toastr.error('Your preference not saved:', error);
+                }
+            }
+        });
+    }
+</script>
 }
 
 

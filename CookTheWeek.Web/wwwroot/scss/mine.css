@@ -25,16 +25,16 @@
   height: 8rem;
   object-fit: cover;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card a .like-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card a .like-icon {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked-icon {
   position: absolute;
   top: 3px;
   left: 5px;
-  font-size: 30px;
+  font-size: 25px;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon {
   color: red;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked-icon {
   color: rgba(255, 255, 255, 0.65);
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .add-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .add-icon {

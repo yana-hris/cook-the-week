@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Ganss.Xss;
 
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
@@ -9,6 +10,7 @@
     using ViewModels.RecipeIngredient;
     using Services.Data.Interfaces;
     using Services.Data.Models.Recipe;
+
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
@@ -23,6 +25,7 @@
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
+        private readonly HtmlSanitizer sanitizer;
 
         public RecipeController(IRecipeService recipeService, 
             ICategoryService categoryService, 
@@ -37,6 +40,7 @@
             this.ingredientService = ingredientService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
+            sanitizer = new HtmlSanitizer();
         }
 
         [HttpGet]
@@ -75,7 +79,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(RecipeAddFormModel model)
         {
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
@@ -120,6 +123,13 @@
                 TempData[ErrorMessage] = formattedErrors;
                 return View(model);
             }
+            // Sanitize all string input
+            model.Title = SanitizeInput(model.Title);
+            if(model.Description != null)
+            {
+                model.Description = SanitizeInput(model.Description);
+            }
+            model.Instructions = SanitizeInput(model.Instructions);
 
             try
             {
@@ -171,7 +181,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(RecipeEditFormModel model)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
@@ -229,6 +238,14 @@
                 return View(model);
             }
 
+            // Sanitize all string input
+            model.Title = SanitizeInput(model.Title);
+            if (model.Description != null)
+            {
+                model.Description = SanitizeInput(model.Description);
+            }
+
+            model.Instructions = SanitizeInput(model.Instructions);
             try
             {
                 await this.recipeService.EditAsync(model);
@@ -324,7 +341,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
@@ -363,6 +379,11 @@
                 return await this.ingredientService.ExistsByNameAsync(ingredientName);
             }
             return false;
+        }
+
+        private string SanitizeInput(string input)
+        {
+            return sanitizer.Sanitize(input);
         }
 
     }

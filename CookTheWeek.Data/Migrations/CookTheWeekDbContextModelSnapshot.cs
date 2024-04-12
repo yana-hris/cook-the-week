@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de59dff2-8b1c-468f-9224-1805c1bcd339",
+                            ConcurrencyStamp = "83ee9d6e-9cea-4040-828a-678f9bb3636e",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKIN1ax9aHDD3bhkNHaU2j/yG+LwKzYEaaOZWGwgUWV/kcMwZPHidMklFGbSfAWk+w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKu74TdwoaMUW8mACAuqZYLnkRy88dtdnyQC3xW/bEw7sVXQMn4ycxXfNiUPTkpt1Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9791ebb4-6f06-4151-ae15-d4d06898b0fa",
+                            SecurityStamp = "09259197-4a5e-492b-9c0c-8c374a274a4c",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a2ca4be-09d1-4827-b0db-49fd6e153c9b",
+                            ConcurrencyStamp = "f9ab2450-dc9e-4627-a653-e60b0ac3dc33",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFO+ThX1QTgukg4Vi4z5OBXSFhSo7m/s3GwffbThHagR29hMr4/hCgLxB6m4LfVTGA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFMCrFBZ5jF0DyTz098FR3M9FO8zxt0+kElaQO1OWUWmDp5f4bmOnvBQyHSceMEM3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "393dfa2a-46ac-43df-8201-16957b98949c",
+                            SecurityStamp = "3700fcc3-19b7-4f19-81b6-cacb4bfba8ad",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -154,7 +154,7 @@ namespace CookTheWeek.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IngredientCategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int")
                         .HasComment("Ingredient Category Key Identifier");
 
@@ -166,7 +166,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IngredientCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Ingredients", t =>
                         {
@@ -177,1502 +177,1502 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 1,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Beef"
                         },
                         new
                         {
                             Id = 2,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Pork"
                         },
                         new
                         {
                             Id = 3,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Lamb"
                         },
                         new
                         {
                             Id = 4,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Chicken"
                         },
                         new
                         {
                             Id = 5,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Goat"
                         },
                         new
                         {
                             Id = 6,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Turkey"
                         },
                         new
                         {
                             Id = 7,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Rabbit"
                         },
                         new
                         {
                             Id = 8,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Venison"
                         },
                         new
                         {
                             Id = 9,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Duck"
                         },
                         new
                         {
                             Id = 10,
-                            IngredientCategoryId = 2,
-                            Name = "Wild game meat"
+                            CategoryId = 2,
+                            Name = "Wild Game Meat"
                         },
                         new
                         {
                             Id = 11,
-                            IngredientCategoryId = 2,
-                            Name = "Ground meat"
+                            CategoryId = 2,
+                            Name = "Ground Meat"
                         },
                         new
                         {
                             Id = 31,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Sausage(s)"
                         },
                         new
                         {
                             Id = 32,
-                            IngredientCategoryId = 2,
+                            CategoryId = 2,
                             Name = "Meatboll(s)"
                         },
                         new
                         {
                             Id = 12,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Egg(s)"
                         },
                         new
                         {
                             Id = 13,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Milk"
                         },
                         new
                         {
                             Id = 14,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Yoghurt"
                         },
                         new
                         {
                             Id = 15,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Cheese"
                         },
                         new
                         {
                             Id = 16,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Yellow cheese"
                         },
                         new
                         {
                             Id = 17,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Cheddar"
                         },
                         new
                         {
                             Id = 18,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Brie"
                         },
                         new
                         {
                             Id = 19,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Feta"
                         },
                         new
                         {
                             Id = 20,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Camembert"
                         },
                         new
                         {
                             Id = 21,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Gouda"
                         },
                         new
                         {
                             Id = 22,
-                            IngredientCategoryId = 1,
-                            Name = "Goat cheese"
+                            CategoryId = 1,
+                            Name = "Goat Cheese"
                         },
                         new
                         {
                             Id = 23,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Emmental"
                         },
                         new
                         {
                             Id = 24,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Parmesan"
                         },
                         new
                         {
                             Id = 25,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Ricotta"
                         },
                         new
                         {
                             Id = 26,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Gorgonzola"
                         },
                         new
                         {
                             Id = 27,
-                            IngredientCategoryId = 1,
-                            Name = "Cottage cheese"
+                            CategoryId = 1,
+                            Name = "Cottage Cheese"
                         },
                         new
                         {
                             Id = 28,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Edam"
                         },
                         new
                         {
                             Id = 29,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Mozzarella"
                         },
                         new
                         {
                             Id = 30,
-                            IngredientCategoryId = 1,
+                            CategoryId = 1,
                             Name = "Mozzarella"
                         },
                         new
                         {
                             Id = 33,
-                            IngredientCategoryId = 3,
+                            CategoryId = 3,
                             Name = "Lentils"
                         },
                         new
                         {
                             Id = 34,
-                            IngredientCategoryId = 3,
+                            CategoryId = 3,
                             Name = "Chickpeas"
                         },
                         new
                         {
                             Id = 35,
-                            IngredientCategoryId = 3,
-                            Name = "Green peas"
+                            CategoryId = 3,
+                            Name = "Green Peas"
                         },
                         new
                         {
                             Id = 36,
-                            IngredientCategoryId = 3,
-                            Name = "White beans"
+                            CategoryId = 3,
+                            Name = "White Beans"
                         },
                         new
                         {
                             Id = 37,
-                            IngredientCategoryId = 3,
+                            CategoryId = 3,
                             Name = "Soybeans"
                         },
                         new
                         {
                             Id = 38,
-                            IngredientCategoryId = 3,
-                            Name = "Mung beans"
+                            CategoryId = 3,
+                            Name = "Mung Beans"
                         },
                         new
                         {
                             Id = 39,
-                            IngredientCategoryId = 3,
-                            Name = "Red lentils"
+                            CategoryId = 3,
+                            Name = "Red Lentils"
                         },
                         new
                         {
                             Id = 40,
-                            IngredientCategoryId = 3,
-                            Name = "Black beans"
+                            CategoryId = 3,
+                            Name = "Black Beans"
                         },
                         new
                         {
                             Id = 41,
-                            IngredientCategoryId = 3,
+                            CategoryId = 3,
                             Name = "Edamame"
                         },
                         new
                         {
                             Id = 42,
-                            IngredientCategoryId = 3,
-                            Name = "Green lentils"
+                            CategoryId = 3,
+                            Name = "Green Lentils"
                         },
                         new
                         {
                             Id = 43,
-                            IngredientCategoryId = 4,
-                            Name = "White flour"
+                            CategoryId = 4,
+                            Name = "White Flour"
                         },
                         new
                         {
                             Id = 44,
-                            IngredientCategoryId = 4,
-                            Name = "Whole wheat flour"
+                            CategoryId = 4,
+                            Name = "Whole Wheat Flour"
                         },
                         new
                         {
                             Id = 45,
-                            IngredientCategoryId = 4,
-                            Name = "Rye flour"
+                            CategoryId = 4,
+                            Name = "Rye Flour"
                         },
                         new
                         {
                             Id = 46,
-                            IngredientCategoryId = 4,
-                            Name = "Spelt flour"
+                            CategoryId = 4,
+                            Name = "Spelt Flour"
                         },
                         new
                         {
                             Id = 47,
-                            IngredientCategoryId = 4,
-                            Name = "Almond flour"
+                            CategoryId = 4,
+                            Name = "Almond Flour"
                         },
                         new
                         {
                             Id = 48,
-                            IngredientCategoryId = 13,
-                            Name = "Pine nuts"
+                            CategoryId = 13,
+                            Name = "Pine Nuts"
                         },
                         new
                         {
                             Id = 49,
-                            IngredientCategoryId = 4,
-                            Name = "Spelled flour"
+                            CategoryId = 4,
+                            Name = "Spelled Flour"
                         },
                         new
                         {
                             Id = 50,
-                            IngredientCategoryId = 4,
-                            Name = "Corn flour"
+                            CategoryId = 4,
+                            Name = "Corn Flour"
                         },
                         new
                         {
                             Id = 51,
-                            IngredientCategoryId = 4,
-                            Name = "Rice flour"
+                            CategoryId = 4,
+                            Name = "Rice Flour"
                         },
                         new
                         {
                             Id = 52,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Salt"
                         },
                         new
                         {
                             Id = 53,
-                            IngredientCategoryId = 5,
-                            Name = "Black pepper"
+                            CategoryId = 5,
+                            Name = "Black Pepper"
                         },
                         new
                         {
                             Id = 54,
-                            IngredientCategoryId = 5,
-                            Name = "Paprika(pepper)"
+                            CategoryId = 5,
+                            Name = "Paprika (Red Pepper)"
                         },
                         new
                         {
                             Id = 55,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Turmeric"
                         },
                         new
                         {
                             Id = 56,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Thyme"
                         },
                         new
                         {
                             Id = 57,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Oregano"
                         },
                         new
                         {
                             Id = 58,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Rosemary"
                         },
                         new
                         {
                             Id = 59,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Mint"
                         },
                         new
                         {
                             Id = 60,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Cardamon"
                         },
                         new
                         {
                             Id = 61,
-                            IngredientCategoryId = 5,
-                            Name = "Curry powder"
+                            CategoryId = 5,
+                            Name = "Curry Powder"
                         },
                         new
                         {
                             Id = 62,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Chilli powder"
                         },
                         new
                         {
                             Id = 63,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Ginger"
                         },
                         new
                         {
                             Id = 64,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Parsley"
                         },
                         new
                         {
                             Id = 65,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Bay leaf"
                         },
                         new
                         {
                             Id = 66,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Allspice"
                         },
                         new
                         {
                             Id = 67,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Basil"
                         },
                         new
                         {
                             Id = 68,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Clove"
                         },
                         new
                         {
                             Id = 69,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Cinnamon"
                         },
                         new
                         {
                             Id = 70,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Vanilla"
                         },
                         new
                         {
                             Id = 71,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Celery"
                         },
                         new
                         {
                             Id = 72,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Peppermint"
                         },
                         new
                         {
                             Id = 73,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Marjoram"
                         },
                         new
                         {
                             Id = 74,
-                            IngredientCategoryId = 5,
-                            Name = "Wild garlic"
+                            CategoryId = 5,
+                            Name = "Wild Garlic"
                         },
                         new
                         {
                             Id = 75,
-                            IngredientCategoryId = 5,
-                            Name = "Fennel("
+                            CategoryId = 5,
+                            Name = "Fennel (dill)"
                         },
                         new
                         {
                             Id = 76,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Coriander"
                         },
                         new
                         {
                             Id = 77,
-                            IngredientCategoryId = 5,
-                            Name = "Clary sage"
+                            CategoryId = 5,
+                            Name = "Clary Sage"
                         },
                         new
                         {
                             Id = 78,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Cilantro"
                         },
                         new
                         {
                             Id = 79,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Chives"
                         },
                         new
                         {
                             Id = 80,
-                            IngredientCategoryId = 6,
+                            CategoryId = 6,
                             Name = "Sugar"
                         },
                         new
                         {
                             Id = 81,
-                            IngredientCategoryId = 6,
+                            CategoryId = 6,
                             Name = "Honey"
                         },
                         new
                         {
                             Id = 82,
-                            IngredientCategoryId = 6,
-                            Name = "Maple syrup"
+                            CategoryId = 6,
+                            Name = "Maple Syrup"
                         },
                         new
                         {
                             Id = 83,
-                            IngredientCategoryId = 6,
-                            Name = "Coconut sugar"
+                            CategoryId = 6,
+                            Name = "Coconut Sugar"
                         },
                         new
                         {
                             Id = 84,
-                            IngredientCategoryId = 6,
-                            Name = "Coconut sugar"
+                            CategoryId = 6,
+                            Name = "Coconut Sugar"
                         },
                         new
                         {
                             Id = 85,
-                            IngredientCategoryId = 6,
-                            Name = "Powdered sugar"
+                            CategoryId = 6,
+                            Name = "Powdered Sugar"
                         },
                         new
                         {
                             Id = 86,
-                            IngredientCategoryId = 6,
-                            Name = "Brown sugar"
+                            CategoryId = 6,
+                            Name = "Brown Sugar"
                         },
                         new
                         {
                             Id = 87,
-                            IngredientCategoryId = 6,
+                            CategoryId = 6,
                             Name = "Molasses"
                         },
                         new
                         {
                             Id = 88,
-                            IngredientCategoryId = 6,
-                            Name = "Agave syrup"
+                            CategoryId = 6,
+                            Name = "Agave Syrup"
                         },
                         new
                         {
                             Id = 89,
-                            IngredientCategoryId = 6,
-                            Name = "Cane sugar"
+                            CategoryId = 6,
+                            Name = "Cane Sugar"
                         },
                         new
                         {
                             Id = 90,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Lasagna"
                         },
                         new
                         {
                             Id = 91,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Spaghetti"
                         },
                         new
                         {
                             Id = 92,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Tagliatelle"
                         },
                         new
                         {
                             Id = 93,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Fusilli"
                         },
                         new
                         {
                             Id = 94,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Gnocchi"
                         },
                         new
                         {
                             Id = 95,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Macaroni"
                         },
                         new
                         {
                             Id = 96,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Penne"
                         },
                         new
                         {
                             Id = 97,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Rigatoni"
                         },
                         new
                         {
                             Id = 98,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Beet(s)"
                         },
                         new
                         {
                             Id = 99,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Broccoli"
                         },
                         new
                         {
                             Id = 100,
-                            IngredientCategoryId = 8,
-                            Name = "Brussels sprout"
+                            CategoryId = 8,
+                            Name = "Brussels Sprout"
                         },
                         new
                         {
                             Id = 101,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Cabbage"
                         },
                         new
                         {
                             Id = 102,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Celery"
                         },
                         new
                         {
                             Id = 103,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Kale"
                         },
                         new
                         {
                             Id = 104,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Lettuce"
                         },
                         new
                         {
                             Id = 105,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Spinach"
                         },
                         new
                         {
                             Id = 106,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Asparagus"
                         },
                         new
                         {
                             Id = 107,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Cauliflower"
                         },
                         new
                         {
                             Id = 108,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Eggplant"
                         },
                         new
                         {
                             Id = 109,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Mushrooms"
                         },
                         new
                         {
                             Id = 110,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Nettles"
                         },
                         new
                         {
                             Id = 111,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Leek"
                         },
                         new
                         {
                             Id = 112,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Garlic"
                         },
                         new
                         {
                             Id = 113,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Onion"
                         },
                         new
                         {
                             Id = 114,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Carrot"
                         },
                         new
                         {
                             Id = 115,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Celeriac"
                         },
                         new
                         {
                             Id = 116,
-                            IngredientCategoryId = 8,
-                            Name = "Ginger root"
+                            CategoryId = 8,
+                            Name = "Ginger Root"
                         },
                         new
                         {
                             Id = 117,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Radish(es)"
                         },
                         new
                         {
                             Id = 118,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Potato(s)"
                         },
                         new
                         {
                             Id = 119,
-                            IngredientCategoryId = 8,
-                            Name = "Sweet potato(s)"
+                            CategoryId = 8,
+                            Name = "Sweet Potato(s)"
                         },
                         new
                         {
                             Id = 120,
-                            IngredientCategoryId = 8,
-                            Name = "Sweet corn"
+                            CategoryId = 8,
+                            Name = "Sweet Corn"
                         },
                         new
                         {
                             Id = 121,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Zucchini"
                         },
                         new
                         {
                             Id = 122,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Tomatoe(s)"
                         },
                         new
                         {
                             Id = 123,
-                            IngredientCategoryId = 8,
-                            Name = "Cherry tomatoe(s)"
+                            CategoryId = 8,
+                            Name = "Cherry Tomatoe(s)"
                         },
                         new
                         {
                             Id = 124,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Green onion(s)"
                         },
                         new
                         {
                             Id = 125,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Cucumber(s)"
                         },
                         new
                         {
                             Id = 126,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Baby spinach"
                         },
                         new
                         {
                             Id = 127,
-                            IngredientCategoryId = 8,
-                            Name = "Red bell pepper"
+                            CategoryId = 8,
+                            Name = "Red Bell Pepper"
                         },
                         new
                         {
                             Id = 128,
-                            IngredientCategoryId = 8,
-                            Name = "Green bell pepper"
+                            CategoryId = 8,
+                            Name = "Green Bell Pepper"
                         },
                         new
                         {
                             Id = 129,
-                            IngredientCategoryId = 8,
-                            Name = "Red onion(s)"
+                            CategoryId = 8,
+                            Name = "Red Onion(s)"
                         },
                         new
                         {
                             Id = 130,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Arugula"
                         },
                         new
                         {
                             Id = 131,
-                            IngredientCategoryId = 8,
+                            CategoryId = 8,
                             Name = "Parsnip"
                         },
                         new
                         {
                             Id = 132,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Apple(s)"
                         },
                         new
                         {
                             Id = 133,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Banana(s)"
                         },
                         new
                         {
                             Id = 134,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Avocado"
                         },
                         new
                         {
                             Id = 135,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Strawberries"
                         },
                         new
                         {
                             Id = 136,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Pear(s)"
                         },
                         new
                         {
                             Id = 137,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Cherries"
                         },
                         new
                         {
                             Id = 138,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Pineapple"
                         },
                         new
                         {
                             Id = 139,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Kiwi"
                         },
                         new
                         {
                             Id = 140,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Orange(s)"
                         },
                         new
                         {
                             Id = 141,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Lemon(s)"
                         },
                         new
                         {
                             Id = 142,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Grapes"
                         },
                         new
                         {
                             Id = 143,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Peaches"
                         },
                         new
                         {
                             Id = 144,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Mango"
                         },
                         new
                         {
                             Id = 145,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Raspberries"
                         },
                         new
                         {
                             Id = 146,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Blueberries"
                         },
                         new
                         {
                             Id = 147,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Plum(s)"
                         },
                         new
                         {
                             Id = 148,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Grapefruit"
                         },
                         new
                         {
                             Id = 149,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Lime"
                         },
                         new
                         {
                             Id = 150,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Prune(s)"
                         },
                         new
                         {
                             Id = 151,
-                            IngredientCategoryId = 9,
-                            Name = "Sour cherries"
+                            CategoryId = 9,
+                            Name = "Sour Cherries"
                         },
                         new
                         {
                             Id = 152,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Melon"
                         },
                         new
                         {
                             Id = 153,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Watermelon"
                         },
                         new
                         {
                             Id = 154,
-                            IngredientCategoryId = 10,
-                            Name = "Sunflower oil"
+                            CategoryId = 10,
+                            Name = "Sunflower Oil"
                         },
                         new
                         {
                             Id = 155,
-                            IngredientCategoryId = 10,
-                            Name = "Olive oil"
+                            CategoryId = 10,
+                            Name = "Olive Oil"
                         },
                         new
                         {
                             Id = 156,
-                            IngredientCategoryId = 10,
+                            CategoryId = 10,
                             Name = "Butter"
                         },
                         new
                         {
                             Id = 157,
-                            IngredientCategoryId = 10,
+                            CategoryId = 10,
                             Name = "Cream"
                         },
                         new
                         {
                             Id = 158,
-                            IngredientCategoryId = 10,
-                            Name = "Coconut oil"
+                            CategoryId = 10,
+                            Name = "Coconut Oil"
                         },
                         new
                         {
                             Id = 159,
-                            IngredientCategoryId = 10,
-                            Name = "Avocado oil"
+                            CategoryId = 10,
+                            Name = "Avocado Oil"
                         },
                         new
                         {
                             Id = 160,
-                            IngredientCategoryId = 10,
+                            CategoryId = 10,
                             Name = "Ghee"
                         },
                         new
                         {
                             Id = 161,
-                            IngredientCategoryId = 10,
+                            CategoryId = 10,
                             Name = "Lard"
                         },
                         new
                         {
                             Id = 162,
-                            IngredientCategoryId = 10,
+                            CategoryId = 10,
                             Name = "Mascarpone"
                         },
                         new
                         {
                             Id = 163,
-                            IngredientCategoryId = 10,
-                            Name = "Sour cream"
+                            CategoryId = 10,
+                            Name = "Sour Cream"
                         },
                         new
                         {
                             Id = 164,
-                            IngredientCategoryId = 10,
-                            Name = "Whipped cream"
+                            CategoryId = 10,
+                            Name = "Whipped Cream"
                         },
                         new
                         {
                             Id = 165,
-                            IngredientCategoryId = 10,
-                            Name = "Coconut cream"
+                            CategoryId = 10,
+                            Name = "Coconut Cream"
                         },
                         new
                         {
                             Id = 166,
-                            IngredientCategoryId = 10,
-                            Name = "Diary free cream"
+                            CategoryId = 10,
+                            Name = "Diary Free Cream"
                         },
                         new
                         {
                             Id = 167,
-                            IngredientCategoryId = 10,
-                            Name = "Sesame oil"
+                            CategoryId = 10,
+                            Name = "Sesame Oil"
                         },
                         new
                         {
                             Id = 168,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Trout"
                         },
                         new
                         {
                             Id = 169,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Salmon"
                         },
                         new
                         {
                             Id = 170,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Tuna"
                         },
                         new
                         {
                             Id = 171,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Sardines"
                         },
                         new
                         {
                             Id = 172,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Mackerel"
                         },
                         new
                         {
                             Id = 173,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Cod"
                         },
                         new
                         {
                             Id = 174,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Mussels"
                         },
                         new
                         {
                             Id = 175,
-                            IngredientCategoryId = 11,
-                            Name = "Skip jack"
+                            CategoryId = 11,
+                            Name = "Skip Jack"
                         },
                         new
                         {
                             Id = 176,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Shark"
                         },
                         new
                         {
                             Id = 177,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Shark"
                         },
                         new
                         {
                             Id = 178,
-                            IngredientCategoryId = 11,
-                            Name = "Silver catfish("
+                            CategoryId = 11,
+                            Name = "Silver Catfish (Pangasius)"
                         },
                         new
                         {
                             Id = 179,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Octopus"
                         },
                         new
                         {
                             Id = 180,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Squids"
                         },
                         new
                         {
                             Id = 181,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Hake fish"
                         },
                         new
                         {
                             Id = 182,
-                            IngredientCategoryId = 11,
-                            Name = "Salmon trout"
+                            CategoryId = 11,
+                            Name = "Salmon Trout"
                         },
                         new
                         {
                             Id = 183,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Sprat"
                         },
                         new
                         {
                             Id = 184,
-                            IngredientCategoryId = 11,
+                            CategoryId = 11,
                             Name = "Sardines"
                         },
                         new
                         {
                             Id = 185,
-                            IngredientCategoryId = 12,
-                            Name = "Lemon juice"
+                            CategoryId = 12,
+                            Name = "Lemon Juice"
                         },
                         new
                         {
                             Id = 186,
-                            IngredientCategoryId = 12,
-                            Name = "Tomatoe paste"
+                            CategoryId = 12,
+                            Name = "Tomatoe Paste"
                         },
                         new
                         {
                             Id = 187,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Mustard"
                         },
                         new
                         {
                             Id = 188,
-                            IngredientCategoryId = 5,
+                            CategoryId = 5,
                             Name = "Savory"
                         },
                         new
                         {
                             Id = 189,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Rice"
                         },
                         new
                         {
                             Id = 190,
-                            IngredientCategoryId = 7,
-                            Name = "Brown rice"
+                            CategoryId = 7,
+                            Name = "Brown Rice"
                         },
                         new
                         {
                             Id = 191,
-                            IngredientCategoryId = 7,
-                            Name = "Black rice"
+                            CategoryId = 7,
+                            Name = "Black Rice"
                         },
                         new
                         {
                             Id = 192,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Barley"
                         },
                         new
                         {
                             Id = 193,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Bulgur"
                         },
                         new
                         {
                             Id = 194,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Quinoa"
                         },
                         new
                         {
                             Id = 195,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Amaranth"
                         },
                         new
                         {
                             Id = 196,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Oats"
                         },
                         new
                         {
                             Id = 197,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Oatmeal"
                         },
                         new
                         {
                             Id = 198,
-                            IngredientCategoryId = 13,
-                            Name = "Chia seeds"
+                            CategoryId = 13,
+                            Name = "Chia Seeds"
                         },
                         new
                         {
                             Id = 199,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Wheat"
                         },
                         new
                         {
                             Id = 200,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Corn"
                         },
                         new
                         {
                             Id = 201,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Spelt"
                         },
                         new
                         {
                             Id = 202,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Buckwheat"
                         },
                         new
                         {
                             Id = 203,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Millet"
                         },
                         new
                         {
                             Id = 204,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Farro"
                         },
                         new
                         {
                             Id = 205,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Almonds"
                         },
                         new
                         {
                             Id = 206,
-                            IngredientCategoryId = 13,
-                            Name = "Brazil nuts"
+                            CategoryId = 13,
+                            Name = "Brazil Nuts"
                         },
                         new
                         {
                             Id = 207,
-                            IngredientCategoryId = 13,
-                            Name = "Cashew nuts"
+                            CategoryId = 13,
+                            Name = "Cashew Nuts"
                         },
                         new
                         {
                             Id = 208,
-                            IngredientCategoryId = 13,
-                            Name = "Hazel nuts"
+                            CategoryId = 13,
+                            Name = "Hazel Nuts"
                         },
                         new
                         {
                             Id = 209,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Macadamias"
                         },
                         new
                         {
                             Id = 210,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Pecans"
                         },
                         new
                         {
                             Id = 211,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Pistachios"
                         },
                         new
                         {
                             Id = 212,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Walnuts"
                         },
                         new
                         {
                             Id = 213,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Peanuts"
                         },
                         new
                         {
                             Id = 214,
-                            IngredientCategoryId = 13,
-                            Name = "Pumpkin seeds"
+                            CategoryId = 13,
+                            Name = "Pumpkin Seeds"
                         },
                         new
                         {
                             Id = 215,
-                            IngredientCategoryId = 13,
-                            Name = "Flax seeds"
+                            CategoryId = 13,
+                            Name = "Flax Seeds"
                         },
                         new
                         {
                             Id = 216,
-                            IngredientCategoryId = 13,
-                            Name = "Sesame seeds"
+                            CategoryId = 13,
+                            Name = "Sesame Seeds"
                         },
                         new
                         {
                             Id = 217,
-                            IngredientCategoryId = 13,
-                            Name = "Poppy seeds"
+                            CategoryId = 13,
+                            Name = "Poppy Seeds"
                         },
                         new
                         {
                             Id = 218,
-                            IngredientCategoryId = 13,
-                            Name = "Sunflower seeds"
+                            CategoryId = 13,
+                            Name = "Sunflower Seeds"
                         },
                         new
                         {
                             Id = 219,
-                            IngredientCategoryId = 13,
-                            Name = "Psyllium seeds"
+                            CategoryId = 13,
+                            Name = "Psyllium Seeds"
                         },
                         new
                         {
                             Id = 222,
-                            IngredientCategoryId = 12,
-                            Name = "Vegetable broth"
+                            CategoryId = 12,
+                            Name = "Vegetable Broth"
                         },
                         new
                         {
                             Id = 223,
-                            IngredientCategoryId = 12,
-                            Name = "Beef broth"
+                            CategoryId = 12,
+                            Name = "Beef Broth"
                         },
                         new
                         {
                             Id = 224,
-                            IngredientCategoryId = 12,
-                            Name = "Fish broth"
+                            CategoryId = 12,
+                            Name = "Fish Broth"
                         },
                         new
                         {
                             Id = 225,
-                            IngredientCategoryId = 12,
-                            Name = "Fish broth"
+                            CategoryId = 12,
+                            Name = "Fish Broth"
                         },
                         new
                         {
                             Id = 226,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Noodles"
                         },
                         new
                         {
                             Id = 227,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Date(s)"
                         },
                         new
                         {
                             Id = 228,
-                            IngredientCategoryId = 7,
+                            CategoryId = 7,
                             Name = "Granola"
                         },
                         new
                         {
                             Id = 229,
-                            IngredientCategoryId = 9,
+                            CategoryId = 9,
                             Name = "Fruits of choice"
                         },
                         new
                         {
                             Id = 230,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Nuts of choice"
                         },
                         new
                         {
                             Id = 231,
-                            IngredientCategoryId = 13,
+                            CategoryId = 13,
                             Name = "Seeds of choice"
                         },
                         new
                         {
                             Id = 232,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Diary-free milk"
                         },
                         new
                         {
                             Id = 233,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Almond milk"
                         },
                         new
                         {
                             Id = 234,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Oat milk"
                         },
                         new
                         {
                             Id = 235,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Soy milk"
                         },
                         new
                         {
                             Id = 236,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Hemp milk"
                         },
                         new
                         {
                             Id = 237,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Cashew milk"
                         },
                         new
                         {
                             Id = 238,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Hazelnut milk"
                         },
                         new
                         {
                             Id = 239,
-                            IngredientCategoryId = 12,
+                            CategoryId = 12,
                             Name = "Tofu"
                         },
                         new
                         {
                             Id = 240,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Bread"
                         },
                         new
                         {
                             Id = 241,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Bread"
                         },
                         new
                         {
                             Id = 242,
-                            IngredientCategoryId = 4,
-                            Name = "Sourdough bread"
+                            CategoryId = 4,
+                            Name = "Sourdough Bread"
                         },
                         new
                         {
                             Id = 243,
-                            IngredientCategoryId = 4,
-                            Name = "Full grain bread"
+                            CategoryId = 4,
+                            Name = "Full Grain Bread"
                         },
                         new
                         {
                             Id = 244,
-                            IngredientCategoryId = 4,
-                            Name = "White bread"
+                            CategoryId = 4,
+                            Name = "White Bread"
                         },
                         new
                         {
                             Id = 245,
-                            IngredientCategoryId = 4,
-                            Name = "Rye bread"
+                            CategoryId = 4,
+                            Name = "Rye Bread"
                         },
                         new
                         {
                             Id = 246,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Flatbread"
                         },
                         new
                         {
                             Id = 247,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Brioche"
                         },
                         new
                         {
                             Id = 248,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Baguette"
                         },
                         new
                         {
                             Id = 249,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Ciabatta"
                         },
                         new
                         {
                             Id = 250,
-                            IngredientCategoryId = 4,
+                            CategoryId = 4,
                             Name = "Bread of choice"
                         },
                         new
                         {
                             Id = 251,
-                            IngredientCategoryId = 13,
-                            Name = "Hemp seeds"
+                            CategoryId = 13,
+                            Name = "Hemp Seeds"
                         },
                         new
                         {
                             Id = 252,
-                            IngredientCategoryId = 5,
-                            Name = "Himalayan salt"
+                            CategoryId = 5,
+                            Name = "Himalayan Salt"
                         });
                 });
 
@@ -1695,7 +1695,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("IngredientCategories", t =>
                         {
-                            t.HasComment("Ingredients Category");
+                            t.HasComment("Ingredient Category");
                         });
 
                     b.HasData(
@@ -1783,7 +1783,7 @@ namespace CookTheWeek.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
-                        .HasComment("Recipe is cooked or not");
+                        .HasComment("Meal completion Identifier");
 
                     b.Property<Guid>("MealPlanId")
                         .HasColumnType("uniqueidentifier")
@@ -1805,7 +1805,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("Meals", t =>
                         {
-                            t.HasComment("A Meal is a Recipe with user-defined Serving Size and Cook Date");
+                            t.HasComment("Meal");
                         });
                 });
 
@@ -1820,12 +1820,13 @@ namespace CookTheWeek.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
-                        .HasComment("Is the Meal Plan already finished or not");
+                        .HasComment("Meal Plan Completion Identifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Meal Plan Name");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier")
@@ -1843,7 +1844,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("MealPlans", t =>
                         {
-                            t.HasComment("Meal Plan belongs to a user and consists of user-defined Meals");
+                            t.HasComment("Meal Plan");
                         });
                 });
 
@@ -1866,7 +1867,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("Measures", t =>
                         {
-                            t.HasComment("The Measure of the Recipe Ingredient");
+                            t.HasComment("Measure of Recipe-Ingredient");
                         });
 
                     b.HasData(
@@ -1944,11 +1945,15 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Key Indetifier");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasComment("Recipe Category Key Identifier");
+
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()")
-                        .HasComment("Recipe Date and Time Creation");
+                        .HasComment("Date and Time of a Recipe Creation");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
@@ -1970,16 +1975,12 @@ namespace CookTheWeek.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
-                        .HasComment("Soft Delete for Recipe");
+                        .HasComment("Soft Delete for a Recipe");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasComment("Creator of the recipe");
-
-                    b.Property<int>("RecipeCategoryId")
-                        .HasColumnType("int")
-                        .HasComment("Recipe Category Key Identifier");
+                        .HasComment("Recipe Creator");
 
                     b.Property<int>("Servings")
                         .HasColumnType("int")
@@ -1997,7 +1998,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipeCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Recipes", t =>
                         {
@@ -2008,13 +2009,13 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            CategoryId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                             ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
                             Instructions = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 4,
                             Servings = 8,
                             Title = "Moussaka",
                             TotalTime = new TimeSpan(0, 2, 0, 0, 0)
@@ -2022,41 +2023,41 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            CategoryId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
                             ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
                             Instructions = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker. Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes. Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip. Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. Bring the pressure cooker to a boil again and cook for another 20 minutes.\r\n",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 4,
                             Servings = 4,
-                            Title = "Beef stew",
+                            Title = "Beef Stew",
                             TotalTime = new TimeSpan(0, 1, 30, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            CategoryId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
                             ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
                             Instructions = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour. Remove the chicken and portion it into small pieces. Take the remaining chicken broth back and again bring to a boil. Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. After boiling for another 5 minutes, add some finely cut celery. ",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 2,
                             Servings = 6,
-                            Title = "Homemade chicken soup",
+                            Title = "Homemade Chicken Soup",
                             TotalTime = new TimeSpan(0, 1, 0, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            CategoryId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
                             Instructions = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. 2. Add the minced meat while constantly mixing 3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove 4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) 5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 2,
                             Servings = 8,
                             Title = "Stuffed red peppers with ground meat and rice",
                             TotalTime = new TimeSpan(0, 2, 0, 0, 0)
@@ -2064,43 +2065,43 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            CategoryId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
                             ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
                             Instructions = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.\r\nOnce the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.\r\nBlend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.\r\nPour the smoothie into glasses and serve immediately for a delightful and nutritious treat. Enjoy your refreshing fruity smoothie!",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 1,
                             Servings = 1,
-                            Title = "Fruity strawberry smoothy",
+                            Title = "Fruity Strawberry Smoothy",
                             TotalTime = new TimeSpan(0, 0, 10, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            CategoryId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                             ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
                             Instructions = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth. Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. Mix well and pour half of the blended milk with banana on top of each bowl. Store in a fridge during the night. The morning after top with granolla and fruits of your choice.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 1,
                             Servings = 2,
-                            Title = "Overnight oats(the night beofre)",
+                            Title = "Overnight Oats (prepare the night beofre)",
                             TotalTime = new TimeSpan(0, 0, 10, 0, 0)
                         },
                         new
                         {
                             Id = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            CategoryId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
                             ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
                             Instructions = "For a delicious twist, grill your slice of bread to your preference. Then, simply smash the avocado with a fork and spread it generously over the bread. Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. Now, savor the flavors and enjoy your delightful avocado toast!",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
-                            RecipeCategoryId = 1,
                             Servings = 1,
-                            Title = "Avocado toast",
+                            Title = "Avocado Toast",
                             TotalTime = new TimeSpan(0, 0, 10, 0, 0)
                         });
                 });
@@ -2177,7 +2178,7 @@ namespace CookTheWeek.Data.Migrations
                     b.Property<decimal>("Qty")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
-                        .HasComment("Quantity of the Ingredient in this Recipe");
+                        .HasComment("Quantity of Ingredient in Recipe");
 
                     b.Property<int?>("SpecificationId")
                         .HasColumnType("int")
@@ -2193,7 +2194,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("RecipesIngredients", t =>
                         {
-                            t.HasComment("The Ingredients in Recipe");
+                            t.HasComment("Recipe Ingredient");
                         });
 
                     b.HasData(
@@ -2614,7 +2615,7 @@ namespace CookTheWeek.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("Specification Key Identifier");
+                        .HasComment("Key Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -2628,7 +2629,7 @@ namespace CookTheWeek.Data.Migrations
 
                     b.ToTable("Specifications", t =>
                         {
-                            t.HasComment("The Specification of the Recipe Ingredient");
+                            t.HasComment("Specification of Recipe-Ingredient");
                         });
 
                     b.HasData(
@@ -2840,13 +2841,13 @@ namespace CookTheWeek.Data.Migrations
 
             modelBuilder.Entity("CookTheWeek.Data.Models.Ingredient", b =>
                 {
-                    b.HasOne("CookTheWeek.Data.Models.IngredientCategory", "IngredientCategory")
+                    b.HasOne("CookTheWeek.Data.Models.IngredientCategory", "Category")
                         .WithMany("Ingredients")
-                        .HasForeignKey("IngredientCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("IngredientCategory");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.Meal", b =>
@@ -2881,13 +2882,13 @@ namespace CookTheWeek.Data.Migrations
 
             modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>
                 {
-                    b.HasOne("CookTheWeek.Data.Models.RecipeCategory", "RecipeCategory")
+                    b.HasOne("CookTheWeek.Data.Models.RecipeCategory", "Category")
                         .WithMany("Recipes")
-                        .HasForeignKey("RecipeCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("RecipeCategory");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.RecipeIngredient", b =>

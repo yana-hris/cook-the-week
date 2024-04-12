@@ -57,7 +57,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             // Arrange
             ICollection<UserAllViewModel> expectedResult = new HashSet<UserAllViewModel>()
             {
-                new UserAllViewModel()
+                new()
                 {
                     Id = AdminUser.Id.ToString(),
                     Username = AdminUser.UserName,
@@ -65,7 +65,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
                     TotalRecipes = 1,
                     TotalMealPlans = 0
                 },
-                new UserAllViewModel()
+                new()
                 {
                     Id = TestUser.Id.ToString(),
                     Username = TestUser.UserName,

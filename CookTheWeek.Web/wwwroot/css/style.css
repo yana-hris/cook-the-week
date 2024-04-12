@@ -162,16 +162,15 @@ html body #main-container a {
 .theme-switcher {
   padding-top: 33px;
   position: absolute;
-  top: 30px;
+  top: 18px;
   right: 5px;
+  z-index: 100;
 }
 
 @media (min-width: 992px) {
   .theme-switcher {
-    padding-top: 33px;
-    position: absolute;
-    top: 30px;
     right: 30px;
+    top: 30px;
   }
 }
 #admin-container {
@@ -304,16 +303,16 @@ html body #main-container a {
   height: 8rem;
   object-fit: cover;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card a .like-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card a .like-icon {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked-icon {
   position: absolute;
   top: 3px;
   left: 5px;
-  font-size: 30px;
+  font-size: 25px;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon {
   color: red;
 }
-#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked {
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked-icon {
   color: rgba(255, 255, 255, 0.65);
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .add-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .add-icon {
@@ -361,6 +360,99 @@ html body #main-container a {
   text-overflow: ellipsis;
 }
 
+#recipe-details-container {
+  margin: 0 auto;
+  position: relative;
+}
+
+li.nav-item span {
+  color: var(--bs-success-text-emphasis);
+}
+
+li.nav-item span:hover {
+  color: var(--bs-primary);
+}
+
+.back-button {
+  position: absolute;
+  top: 5px; /* Adjust as needed */
+  right: 8px; /* Adjust as needed */
+  z-index: 15; /* Ensure it's on top of other content */
+  border: 1px solid var(--bs-success-text-emphasis);
+  color: #fff !important;
+}
+
+.ingredient-heading {
+  font-size: 16px;
+  text-decoration: underline;
+  font-weight: 300;
+}
+
+.recipe-description {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.recipe-title {
+  margin-bottom: 10px;
+  margin-top: 15px;
+  font-size: 38px !important;
+}
+
+.card-btn {
+  font-size: 16px;
+}
+
+.btn-icon {
+  font-size: 25px;
+  top: -1px;
+}
+
+.img-container {
+  max-width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
+
+.liked-icon, .not-liked-icon {
+  position: absolute;
+  top: 12px;
+  right: 22px;
+  font-size: 25px;
+}
+
+.liked-icon {
+  color: red;
+}
+
+.not-liked-icon {
+  color: grey;
+}
+
+@media (min-width: 576px) {
+  #recipe-details-container {
+    max-width: 980px !important;
+    margin: 0 auto;
+    padding: 40px !important;
+  }
+}
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

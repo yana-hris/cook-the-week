@@ -47,7 +47,7 @@
         public async Task GetForEditByIdAsync_ShouldReturn_CorrectData()
         {
             // Arrange
-            RecipeEditFormModel expctedResult = new RecipeEditFormModel()
+            RecipeEditFormModel expctedResult = new()
             {
                 Id = TestRecipe.Id.ToString(),
                 Title = TestRecipe.Title,
@@ -86,7 +86,7 @@
         public async Task GetForDeleteByIdAsync_ShouldReturn_CorrectData()
         {
             // Arrange
-            RecipeDeleteViewModel expctedResult = new RecipeDeleteViewModel()
+            RecipeDeleteViewModel expctedResult = new()
             {
                 Id = TestRecipe.Id.ToString(),
                 Title = TestRecipe.Title,
@@ -123,19 +123,19 @@
         public async Task AllAsync_ShouldReturn_CorrectModel()
         {
             // Arrange
-            AllRecipesQueryModel testModel = new AllRecipesQueryModel()
+            AllRecipesQueryModel testModel = new()
             {
                 SearchString = TestRecipe.Title,
                 Category = TestRecipe.Category.Name,
                 RecipeSorting = Web.ViewModels.Recipe.Enums.RecipeSorting.Newest,
             };
 
-            AllRecipesFilteredAndPagedServiceModel expectedResult = new AllRecipesFilteredAndPagedServiceModel()
+            AllRecipesFilteredAndPagedServiceModel expectedResult = new()
             {
                 TotalRecipesCount = data.Recipes.Where(r => r.Title == TestRecipe.Title).Count(),
                 Recipes = new List<RecipeAllViewModel>()
                 {
-                    new RecipeAllViewModel()
+                    new()
                     {
                         Id = TestRecipe.Id.ToString(),
                         ImageUrl = TestRecipe.ImageUrl,
@@ -192,7 +192,7 @@
             // Arrange
             int recipesInDbBefore = data.Recipes.Count();
 
-            RecipeAddFormModel newRecipeTestModel = new RecipeAddFormModel()
+            RecipeAddFormModel newRecipeTestModel = new()
             {
                 Title = NewRecipe.Title,
                 Description = NewRecipe.Description,
@@ -203,7 +203,7 @@
                 RecipeCategoryId = NewRecipe.CategoryId,
                 RecipeIngredients = new List<RecipeIngredientFormViewModel>()
                 {
-                    new RecipeIngredientFormViewModel()
+                    new()
                     {
                         Name = NewIngredient.Name,
                         Qty = NewRecipeIngredient.Qty,
@@ -263,7 +263,7 @@
             int editedRecipeCategory = 2;
 
             // Here wi change the data including the recipe-ingredients
-            RecipeEditFormModel recipeModelToEdit = new RecipeEditFormModel()
+            RecipeEditFormModel recipeModelToEdit = new()
             {
                 Id = TestRecipe.Id.ToString(),
                 Title = editedTitle,
@@ -275,7 +275,7 @@
                 RecipeCategoryId = editedRecipeCategory,
                 RecipeIngredients = new List<RecipeIngredientFormViewModel>()
                 { 
-                    new RecipeIngredientFormViewModel()
+                    new()
                     {
                         Name = NewIngredient.Name,
                         Qty = NewRecipeIngredient.Qty,
@@ -323,7 +323,7 @@
             // Arrange
             var recipe = TestRecipe;
 
-            RecipeDetailsViewModel expectedModel = new RecipeDetailsViewModel()
+            RecipeDetailsViewModel expectedModel = new()
             {
                 Id = recipe.Id.ToString(),
                 Title = recipe.Title,
@@ -334,10 +334,10 @@
                 ImageUrl = recipe.ImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
                 CategoryName = recipe.Category.Name,
-                MainIngredients = recipe.RecipesIngredients
+                DiaryMeatSeafood = recipe.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => DiaryMeatSeafoodIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -345,10 +345,10 @@
                             Measure = ri.Measure.Name,
                             Specification = ri.Specification.Description,
                         }).ToList(),
-                SecondaryIngredients = recipe.RecipesIngredients
+                Produce = recipe.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => ProduceIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -356,10 +356,10 @@
                             Measure = ri.Measure.Name,
                             Specification = ri.Specification.Description,
                         }).ToList(),
-                AdditionalIngredients = recipe.RecipesIngredients
+                Legumes = recipe.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => NutsSeedsAndOthersIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,

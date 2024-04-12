@@ -1,1 +1,1 @@
-﻿.theme-switcher{padding-top:33px;position:absolute;top:30px;right:5px;}@media(min-width:992px){.theme-switcher{padding-top:33px;position:absolute;top:30px;right:30px;}}
+﻿.theme-switcher{padding-top:33px;position:absolute;top:18px;right:5px;z-index:100;}@media(min-width:992px){.theme-switcher{right:30px;top:30px;}}

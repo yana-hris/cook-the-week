@@ -75,7 +75,7 @@
         {
             // Arrange
             int categoriesCountBeforeAdd = data.RecipeCategories.Count();
-            RecipeCategoryAddFormModel newCategory = new RecipeCategoryAddFormModel()
+            RecipeCategoryAddFormModel newCategory = new()
             {
                 Name = "New Recipe Category"
             };
@@ -100,7 +100,7 @@
             string newName = "Edited Recipe Category";
 
 
-            RecipeCategoryEditFormModel editedModel = new RecipeCategoryEditFormModel()
+            RecipeCategoryEditFormModel editedModel = new()
             {
                 Id = categoryToEdit.Id,
                 Name = newName
@@ -146,7 +146,7 @@
         {
             // Assert
             var categoryToEdit = data.RecipeCategories.First();
-            RecipeCategoryEditFormModel expectedModel = new RecipeCategoryEditFormModel()
+            RecipeCategoryEditFormModel expectedModel = new()
             {
                 Id = categoryToEdit.Id,
                 Name = categoryToEdit.Name,
@@ -198,7 +198,7 @@
         public async Task RecipeCategoryExistsByIdAsync_ShouldReturn_False_If_DoesNotExist()
         {
             // Arrange
-            Random generator = new Random();
+            Random generator = new();
             int randomCategoryId = generator.Next(data.RecipeCategories.Count(), int.MaxValue);
 
             // Act
@@ -312,7 +312,7 @@
         {
             // Arrange
             int categoriesCountBeforeAdd = data.IngredientCategories.Count();
-            IngredientCategoryAddFormModel newCategory = new IngredientCategoryAddFormModel()
+            IngredientCategoryAddFormModel newCategory = new()
             {
                 Name = "New Recipe Category"
             };
@@ -337,7 +337,7 @@
             string newName = "Edited Ingredient Category";
 
 
-            IngredientCategoryEditFormModel editedModel = new IngredientCategoryEditFormModel()
+            IngredientCategoryEditFormModel editedModel = new()
             {
                 Id = categoryToEdit.Id,
                 Name = newName
@@ -383,7 +383,7 @@
         {
             // Assert
             var categoryToEdit = data.IngredientCategories.First();
-            IngredientCategoryEditFormModel expectedModel = new IngredientCategoryEditFormModel()
+            IngredientCategoryEditFormModel expectedModel = new()
             {
                 Id = categoryToEdit.Id,
                 Name = categoryToEdit.Name,
@@ -435,7 +435,7 @@
         public async Task IngredientCategoryExistsByIdAsync_ShouldReturn_False_If_DoesNotExist()
         {
             // Arrange
-            Random generator = new Random();
+            Random generator = new();
             int randomCategoryId = generator.Next(data.IngredientCategories.Count(), int.MaxValue);
 
             // Act

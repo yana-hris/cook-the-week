@@ -38,7 +38,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddRecipeCategory(RecipeCategoryAddFormModel model)
         {
             bool categoryExists = await categoryService.RecipeCategoryExistsByNameAsync(model.Name);
@@ -87,7 +86,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRecipeCategory(RecipeCategoryEditFormModel model)
         {
             bool existsById = await this.categoryService.RecipeCategoryExistsByIdAsync(model.Id);
@@ -174,7 +172,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddIngredientCategory(IngredientCategoryAddFormModel model)
         {
             bool categoryExists = await this.categoryService.IngredientCategoryExistsByNameAsync(model.Name);
@@ -223,7 +220,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditIngredientCategory(IngredientCategoryEditFormModel model)
         {
             bool existsById = await this.categoryService.IngredientCategoryExistsByIdAsync(model.Id);

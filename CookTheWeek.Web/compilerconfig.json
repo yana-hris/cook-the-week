@@ -26,5 +26,9 @@
   {
     "outputFile": "wwwroot/scss/mine.css",
     "inputFile": "wwwroot/scss/mine.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/details.css",
+    "inputFile": "wwwroot/scss/details.scss"
   }
 ]

@@ -176,14 +176,14 @@
                     Description = r.Description,
                     Instructions = r.Instructions,
                     Servings = r.Servings,
-                    TotalTime = r.TotalTime.ToString(@"hh\:mm"),
+                    TotalTime = r.TotalTime, //String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
                     ImageUrl = r.ImageUrl,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
                     CategoryName = r.Category.Name,
-                    MainIngredients = r.RecipesIngredients
+                    DiaryMeatSeafood = r.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => MainIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => DiaryMeatSeafoodIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -191,10 +191,10 @@
                             Measure = ri.Measure.Name,
                             Specification = ri.Specification.Description,
                         }).ToList() ,
-                    SecondaryIngredients = r.RecipesIngredients
+                    Produce = r.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => SecondaryIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => ProduceIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -202,10 +202,10 @@
                             Measure = ri.Measure.Name,
                             Specification = ri.Specification.Description,
                         }).ToList(),
-                    AdditionalIngredients = r.RecipesIngredients
+                    Legumes = r.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
                         .ThenBy(ri => ri.Ingredient.Name)
-                        .Where(ri => AdditionalIngredientsCategories.Contains(ri.Ingredient.CategoryId))
+                        .Where(ri => LegumesIngredientCategories.Contains(ri.Ingredient.CategoryId))
                         .Select(ri => new RecipeIngredientDetailsViewModel()
                         {
                             Name = ri.Ingredient.Name,
@@ -213,7 +213,39 @@
                             Measure = ri.Measure.Name,
                             Specification = ri.Specification.Description,
                         }).ToList(),
-
+                    PastaGrainsBakery = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => PastaGrainsBakeryIngredientCategories.Contains(ri.Ingredient.CategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+                    OilsHerbsSpicesSweeteners = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => OilsHerbsSpicesSweetenersIngredientCategories.Contains(ri.Ingredient.CategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
+                    NutsSeedsAndOthers = r.RecipesIngredients
+                        .OrderBy(ri => ri.Ingredient.CategoryId)
+                        .ThenBy(ri => ri.Ingredient.Name)
+                        .Where(ri => NutsSeedsAndOthersIngredientCategories.Contains(ri.Ingredient.CategoryId))
+                        .Select(ri => new RecipeIngredientDetailsViewModel()
+                        {
+                            Name = ri.Ingredient.Name,
+                            Qty = ri.Qty,
+                            Measure = ri.Measure.Name,
+                            Specification = ri.Specification.Description,
+                        }).ToList(),
                 })
                 .FirstAsync();
 

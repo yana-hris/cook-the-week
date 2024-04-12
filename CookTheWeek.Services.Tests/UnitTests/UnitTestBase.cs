@@ -40,7 +40,7 @@
         private void SeedDatabase() 
         {
             // Users
-            PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+            PasswordHasher<ApplicationUser> hasher = new();
 
             AdminUser = new ApplicationUser()
             {
@@ -92,7 +92,7 @@
             // User likes
             UserLikes = new List<FavouriteRecipe>()
             {
-                new FavouriteRecipe()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     UserId = Guid.Parse(AdminUserId)
@@ -125,19 +125,19 @@
             TestIngredients = new List<Ingredient>()
             {
                 TestIngredient,
-                new Ingredient()
+                new()
                 {
                     Id = 2,
                     Name = "Ingredient 2",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 3,
                     Name = "Ingredient 3",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 4,
                     Name = "Ingredient to Delete",
@@ -150,7 +150,7 @@
             // Recipe Ingredients
             TestRecipe.RecipesIngredients = new List<RecipeIngredient>()
             {
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 1,
@@ -158,7 +158,7 @@
                     MeasureId = 1,
                     SpecificationId = 1,
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 2,
@@ -166,7 +166,7 @@
                     MeasureId = 2,
                     SpecificationId = 2
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 3,
@@ -178,7 +178,7 @@
             // Save the Recipe Ingredients for easier reference - these will not be added to the DB
             TestRecipeRecipeIngredients = new List<RecipeIngredient>()
             {
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 1,
@@ -186,7 +186,7 @@
                     MeasureId = 1,
                     SpecificationId = 1,
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 2,
@@ -194,7 +194,7 @@
                     MeasureId = 2,
                     SpecificationId = 2
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
                     IngredientId = 3,
@@ -223,22 +223,22 @@
             // Recipe Categories
             TestRecipeCategories = new List<RecipeCategory>()
             {
-                new RecipeCategory()
+                new()
                 {
                    Id = 1,
                    Name = "Test Recipe Category 1"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 2,
                    Name = "Test Recipe Category 2"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 3,
                    Name = "Test Recipe Category 3"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 4,
                    Name = "Recipe Category Without Recipes"
@@ -250,22 +250,22 @@
             // Ingredient Categories
             TestIngredientCategories = new List<IngredientCategory>()
             {
-                new IngredientCategory()
+                new()
                 {
                     Id = 1,
                     Name = "Test Ingredient Category 1"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 2,
                     Name = "Test Ingredient Category 2"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 3,
                     Name = "Test Ingredient Category 3"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 4,
                     Name = "Ingredient Category Without Ingredients"
@@ -277,17 +277,17 @@
             // Measures
             TestMeasures = new List<Measure>()
             {
-                new Measure()
+                new()
                 {
                    Id = 1,
                    Name = "Test Measure 1"
                 },
-                new Measure()
+                new()
                 {
                    Id = 2,
                    Name = "Test Measure 2"
                 },
-                new Measure()
+                new()
                 {
                    Id = 3,
                    Name = "Test Measure 3"
@@ -299,18 +299,15 @@
             // Specifications
             TestSpecifications = new List<Specification>()
             {
-                new Specification
-                {
+                new() {
                     Id = 1,
                     Description = "Test Specification 1"
                 },
-                new Specification
-                {
+                new() {
                     Id = 2,
                     Description = "Test Specification 2"
                 },
-                new Specification
-                {
+                new() {
                     Id = 3,
                     Description = "Test Specification 3"
                 }

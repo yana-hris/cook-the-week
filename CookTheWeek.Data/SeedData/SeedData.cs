@@ -23,9 +23,9 @@
         {
             ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
 
-            PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+            PasswordHasher<ApplicationUser> hasher = new();
 
-            ApplicationUser AppUser = new ApplicationUser()
+            ApplicationUser AppUser = new()
             {
                 Id = Guid.Parse(AppUserId),
                 UserName = AppUserUsername,
@@ -39,7 +39,7 @@
 
             AppUser.PasswordHash = hasher.HashPassword(AppUser, AppUserPassword);
 
-            ApplicationUser AdminUser = new ApplicationUser()
+            ApplicationUser AdminUser = new()
             {
                 Id = Guid.Parse(AdminUserId),
                 UserName = AdminUserUsername,
@@ -62,32 +62,32 @@
         {
             return new HashSet<RecipeCategory>()
             {
-                new RecipeCategory()
+                new()
                 {
                    Id = 1,
                    Name = "Breakfast"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 2,
                    Name = "Soup"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 3,
                    Name = "Salad"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 4,
                    Name = "Main Dish"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 5,
                    Name = "Appetizer"
                 },
-                new RecipeCategory()
+                new()
                 {
                    Id = 6,
                    Name = "Dessert"
@@ -98,67 +98,67 @@
         {
             return new HashSet<IngredientCategory>()
             {
-                new IngredientCategory()
+                new()
                 {
                     Id = 1,
                     Name = "Eggs, Milk and Diary products"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 2,
                     Name = "Meat, Ground Meat and Sausage"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 3,
                     Name = "Beans, Lentils and Legumes"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 4,
                     Name = "Flour, Bread and Baking Products"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 5,
                     Name = "Herbs and Spices"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 6,
                     Name = "Sweeteners"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 7,
                     Name = "Pasta and Grains"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 8,
                     Name = "Vegetables"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 9,
                     Name = "Fruits"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 10,
-                    Name = "Fats and Oils"
+                    Name = "Fats and Oils, Sauces and Broths"
                 },
-                new IngredientCategory()
+                new()
                 {
                     Id = 11,
                     Name = "Fish and Seafood"
                 },
-                 new IngredientCategory()
+                 new()
                 {
                     Id = 12,
                     Name = "Others"
                 },
-                 new IngredientCategory()
+                 new()
                 {
                     Id = 13,
                     Name = "Nuts and seeds"
@@ -170,70 +170,70 @@
         {
             return new HashSet<Measure>()
             {
-                new Measure()
+                new()
                 {
                    Id = 1,
-                   Name = "piece(s)"
+                   Name = "pc/s"
                 },
-                new Measure()
+                new()
                 { 
                    Id = 2,
-                   Name = "clove(s)"
+                   Name = "clove/s"
                 },
-                new Measure()
+                new()
                 { 
                    Id = 3,
                    Name = "ml"
                 },
-                new Measure()
+                new()
                 { 
                    Id = 4,
                    Name = "l"
                 },
-                new Measure()
+                new()
                 { 
                    Id = 5,
                    Name = "g"
                 },
-                new Measure()
+                new()
                 {
                    Id = 6,
                    Name = "kg"
                 },
-                new Measure()
+                new()
                 {
                    Id = 7,
-                   Name = "tsp"
+                   Name = "tsp/s"
                 },
-                new Measure()
+                new()
                 {
                    Id = 8,
-                   Name = "tbsp"
+                   Name = "tbsp/s"
                 },
-                new Measure()
+                new()
                 {
                    Id = 9,
-                   Name = "cup(s)"
+                   Name = "cup/s"
                 },
-                new Measure()
+                new()
                 {
                    Id = 10,
-                   Name = "bunch(es)"
+                   Name = "bunch/es"
                 },
-                new Measure()
+                new()
                 {
                    Id = 11,
-                   Name = "pkg(s)"
+                   Name = "pkg/s"
                 },
-                new Measure()
+                new()
                 {
                    Id = 12,
-                   Name = "slice(s)"
+                   Name = "slice/s"
                 },
-                new Measure()
+                new()
                 {
                    Id = 13,
-                   Name = "pinch(es)"
+                   Name = "pinch/es"
                 },
             };
         }
@@ -241,53 +241,43 @@
         {
             return new HashSet<Specification>()
             {
-                new Specification
-                {
+                new() {
                     Id = 1,
                     Description = "frozen"
                 },
-                new Specification
-                {
+                new() {
                     Id = 2,
                     Description = "canned"
                 },
-                new Specification
-                {
+                new() {
                     Id = 3,
                     Description = "sliced"
                 },
-                new Specification
-                {
+                new() {
                     Id = 4,
                     Description = "pre-cooked"
                 },
-                new Specification
-                {
+                new() {
                     Id = 5,
                     Description = "grated"
                 },
-                new Specification
-                {
+                new() {
                     Id = 6,
                     Description = "fermented"
                 },
-                new Specification
-                {
+                new() {
                     Id = 7,
                     Description = "blended"
                 },
-                new Specification
-                {
+                new() {
                     Id = 8,
                     Description = "finely-chopped"
                 },
-                new Specification
-                {
+                new() {
                     Id = 9,
                     Description = "fresh"
                 },
-                new Specification
-                {
+                new() {
                     Id = 10,
                     Description = "squeezed"
                 }
@@ -297,1318 +287,1318 @@
         {
             return new HashSet<Ingredient>()
             {
-                new Ingredient()
+                new()
                 {
                     Id = 1,
                     Name = "Beef",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 2,
                     Name = "Pork",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 3,
                     Name = "Lamb",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 4,
                     Name = "Chicken",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 5,
                     Name = "Goat",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 6,
                     Name = "Turkey",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 7,
                     Name = "Rabbit",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 8,
                     Name = "Venison",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 9,
                     Name = "Duck",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 10,
                     Name = "Wild Game Meat",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 11,
                     Name = "Ground Meat",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 31,
                     Name = "Sausage(s)",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 32,
                     Name = "Meatboll(s)",
                     CategoryId = 2
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 12,
                     Name = "Egg(s)",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 13,
                     Name = "Milk",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 14,
                     Name = "Yoghurt",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 15,
                     Name = "Cheese",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 16,
                     Name = "Yellow cheese",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 17,
                     Name = "Cheddar",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 18,
                     Name = "Brie",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 19,
                     Name = "Feta",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 20,
                     Name = "Camembert",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 21,
                     Name = "Gouda",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 22,
                     Name = "Goat Cheese",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 23,
                     Name = "Emmental",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 24,
                     Name = "Parmesan",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 25,
                     Name = "Ricotta",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 26,
                     Name = "Gorgonzola",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 27,
                     Name = "Cottage Cheese",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 28,
                     Name = "Edam",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 29,
                     Name = "Mozzarella",
                     CategoryId = 1
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 30,
                     Name = "Mozzarella",
                     CategoryId = 1
                 }, //31 and 32 are for meat
-                new Ingredient()
+                new()
                 {
                     Id = 33,
                     Name = "Lentils",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 34,
                     Name = "Chickpeas",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 35,
                     Name = "Green Peas",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 36,
                     Name = "White Beans",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 37,
                     Name = "Soybeans",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 38,
                     Name = "Mung Beans",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 39,
                     Name = "Red Lentils",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 40,
                     Name = "Black Beans",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 41,
                     Name = "Edamame",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 42,
                     Name = "Green Lentils",
                     CategoryId = 3
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 43,
                     Name = "White Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 44,
                     Name = "Whole Wheat Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 45,
                     Name = "Rye Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 46,
                     Name = "Spelt Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 47,
                     Name = "Almond Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 48,
                     Name = "Pine Nuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 49,
                     Name = "Spelled Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 50,
                     Name = "Corn Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 51,
                     Name = "Rice Flour",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 52,
                     Name = "Salt",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 53,
                     Name = "Black Pepper",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 54,
-                    Name = "Paprika (Red Pepper)", //червен пипер
+                    Name = "Paprika",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 55,
                     Name = "Turmeric",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 56,
                     Name = "Thyme",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 57,
                     Name = "Oregano",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 58,
                     Name = "Rosemary",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 59,
-                    Name = "Mint", //джоджен
+                    Name = "Mint", 
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 60,
                     Name = "Cardamon",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 61,
                     Name = "Curry Powder",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 62,
                     Name = "Chilli powder",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 63,
                     Name = "Ginger",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 64,
-                    Name = "Parsley", //магданоз
+                    Name = "Parsley", 
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 65,
-                    Name = "Bay leaf", //дафинов лист
+                    Name = "Bay leaf",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 66,
-                    Name = "Allspice", //бахар
+                    Name = "Allspice", 
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 67,
-                    Name = "Basil", //босилек
+                    Name = "Basil", 
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 68,
-                    Name = "Clove", //карамфил
+                    Name = "Clove", 
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 69,
                     Name = "Cinnamon",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 70,
                     Name = "Vanilla",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 71,
                     Name = "Celery",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 72,
                     Name = "Peppermint",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 73,
                     Name = "Marjoram",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 74,
                     Name = "Wild Garlic",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 75,
                     Name = "Fennel (dill)",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 76,
                     Name = "Coriander",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 77,
                     Name = "Clary Sage",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 78,
                     Name = "Cilantro",
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 79,
                     Name = "Chives", //див лук
                     CategoryId = 5
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 80,
                     Name = "Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 81,
                     Name = "Honey",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 82,
                     Name = "Maple Syrup",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 83,
                     Name = "Coconut Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 84,
                     Name = "Coconut Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 85,
                     Name = "Powdered Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 86,
                     Name = "Brown Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 87,
                     Name = "Molasses", //меласа
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 88,
                     Name = "Agave Syrup",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 89,
                     Name = "Cane Sugar",
                     CategoryId = 6
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 90,
                     Name = "Lasagna",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 91,
                     Name = "Spaghetti",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 92,
                     Name = "Tagliatelle",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 93,
                     Name = "Fusilli",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 94,
                     Name = "Gnocchi",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 95,
                     Name = "Macaroni",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 96,
                     Name = "Penne",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 97,
                     Name = "Rigatoni",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 98,
                     Name = "Beet(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 99,
                     Name = "Broccoli",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 100,
                     Name = "Brussels Sprout",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new ()
                 {
                     Id = 101,
                     Name = "Cabbage",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 102,
                     Name = "Celery",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 103,
                     Name = "Kale",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 104,
                     Name = "Lettuce",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 105,
                     Name = "Spinach",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 106,
                     Name = "Asparagus",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 107,
                     Name = "Cauliflower",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 108,
                     Name = "Eggplant",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 109,
                     Name = "Mushrooms",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 110,
                     Name = "Nettles",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 111,
                     Name = "Leek", //праз лук
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 112,
                     Name = "Garlic",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 113,
                     Name = "Onion",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 114,
                     Name = "Carrot",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 115,
                     Name = "Celeriac", //целина корен
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 116,
                     Name = "Ginger Root",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 117,
                     Name = "Radish(es)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 118,
                     Name = "Potato(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 119,
                     Name = "Sweet Potato(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 120,
                     Name = "Sweet Corn",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 121,
                     Name = "Zucchini",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 122,
                     Name = "Tomatoe(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 123,
                     Name = "Cherry Tomatoe(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 124,
                     Name = "Green onion(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 125,
                     Name = "Cucumber(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 126,
                     Name = "Baby spinach",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 127,
                     Name = "Red Bell Pepper",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 128,
                     Name = "Green Bell Pepper",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 129,
                     Name = "Red Onion(s)",
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 130,
                     Name = "Arugula", //Рукола
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 131,
                     Name = "Parsnip", //Пащърнак
                     CategoryId = 8
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 132,
                     Name = "Apple(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 133,
                     Name = "Banana(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 134,
                     Name = "Avocado",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 135,
                     Name = "Strawberries",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 136,
                     Name = "Pear(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 137,
                     Name = "Cherries",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 138,
                     Name = "Pineapple",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 139,
                     Name = "Kiwi",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 140,
                     Name = "Orange(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 141,
                     Name = "Lemon(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 142,
                     Name = "Grapes",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 143,
                     Name = "Peaches",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 144,
                     Name = "Mango",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 145,
                     Name = "Raspberries",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 146,
                     Name = "Blueberries",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 147,
                     Name = "Plum(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 148,
                     Name = "Grapefruit",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 149,
                     Name = "Lime",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 150,
                     Name = "Prune(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 151,
                     Name = "Sour Cherries",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 152,
                     Name = "Melon",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 153,
                     Name = "Watermelon",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 154,
                     Name = "Sunflower Oil",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 155,
                     Name = "Olive Oil",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 156,
                     Name = "Butter",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 157,
                     Name = "Cream",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 158,
                     Name = "Coconut Oil",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 159,
                     Name = "Avocado Oil",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 160,
                     Name = "Ghee",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 161,
                     Name = "Lard", //свинска мас
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 162,
                     Name = "Mascarpone",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 163,
                     Name = "Sour Cream",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 164,
                     Name = "Whipped Cream",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 165,
                     Name = "Coconut Cream",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 166,
                     Name = "Diary Free Cream",
                     CategoryId = 10
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 167,
                     Name = "Sesame Oil",
                     CategoryId = 10
                 },
                 // Риба и морски храни
-                new Ingredient()
+                new()
                 {
                     Id = 168,
                     Name = "Trout",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 169,
                     Name = "Salmon",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 170,
                     Name = "Tuna",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 171,
                     Name = "Sardines",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 172,
                     Name = "Mackerel", //скумрия
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 173,
                     Name = "Cod", //треска
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 174,
                     Name = "Mussels", //миди
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 175,
                     Name = "Skip Jack", //лефер
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 176,
                     Name = "Shark",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 177,
                     Name = "Shark",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 178,
                     Name = "Silver Catfish (Pangasius)",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 179,
                     Name = "Octopus",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 180,
                     Name = "Squids",
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 181,
                     Name = "Hake fish", //хек
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 182,
                     Name = "Salmon Trout", //сьомгова пастърва
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 183,
                     Name = "Sprat", //цаца
                     CategoryId = 11
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 184,
                     Name = "Sardines",
                     CategoryId = 11
                 },
                 // Others
-                new Ingredient()
+                new()
                 {
                     Id = 185,
                     Name = "Lemon Juice",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 186,
                     Name = "Tomatoe Paste",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 187,
                     Name = "Mustard",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 188,
                     Name = "Savory", //Чубрица
                     CategoryId = 5
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 189,
                     Name = "Rice",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 190,
                     Name = "Brown Rice",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 191,
                     Name = "Black Rice",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 192,
                     Name = "Barley",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 193,
                     Name = "Bulgur",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 194,
                     Name = "Quinoa",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 195,
                     Name = "Amaranth",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 196,
                     Name = "Oats",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 197,
                     Name = "Oatmeal",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 198,
                     Name = "Chia Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 199,
                     Name = "Wheat",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 200,
                     Name = "Corn",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 201,
                     Name = "Spelt",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 202,
                     Name = "Buckwheat", // Елда
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 203,
                     Name = "Millet", // Просо
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 204,
                     Name = "Farro", // зърната от 3 вида пшеница 
                     CategoryId = 7
                 },
                 // Nuts here:
-                new Ingredient()
+                new()
                 {
                     Id = 205,
                     Name = "Almonds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 206,
                     Name = "Brazil Nuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 207,
                     Name = "Cashew Nuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 208,
                     Name = "Hazel Nuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 209,
                     Name = "Macadamias",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 210,
                     Name = "Pecans",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 211,
                     Name = "Pistachios",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 212,
                     Name = "Walnuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 213,
                     Name = "Peanuts",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 214,
                     Name = "Pumpkin Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 215,
                     Name = "Flax Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 216,
                     Name = "Sesame Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 217,
                     Name = "Poppy Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 218,
                     Name = "Sunflower Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 219,
                     Name = "Psyllium Seeds",
@@ -1626,187 +1616,187 @@
                 //    Name = "Brown Rice",
                 //    IngredientCategoryId = 7
                 //},
-                new Ingredient()
+                new()
                 {
                     Id = 222,
                     Name = "Vegetable Broth",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 223,
                     Name = "Beef Broth",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 224,
                     Name = "Fish Broth",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 225,
                     Name = "Fish Broth",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 226,
                     Name = "Noodles",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 227,
                     Name = "Date(s)",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 228,
                     Name = "Granola",
                     CategoryId = 7
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 229,
                     Name = "Fruits of choice",
                     CategoryId = 9
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 230,
                     Name = "Nuts of choice",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 231,
                     Name = "Seeds of choice",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 232,
                     Name = "Diary-free milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 233,
                     Name = "Almond milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 234,
                     Name = "Oat milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 235,
                     Name = "Soy milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 236,
                     Name = "Hemp milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 237,
                     Name = "Cashew milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 238,
                     Name = "Hazelnut milk",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 239,
                     Name = "Tofu",
                     CategoryId = 12
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 240,
                     Name = "Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 241,
                     Name = "Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 242,
                     Name = "Sourdough Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 243,
                     Name = "Full Grain Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 244,
                     Name = "White Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 245,
                     Name = "Rye Bread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 246,
                     Name = "Flatbread",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 247,
                     Name = "Brioche",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 248,
                     Name = "Baguette",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 249,
                     Name = "Ciabatta",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 250,
                     Name = "Bread of choice",
                     CategoryId = 4
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 251,
                     Name = "Hemp Seeds",
                     CategoryId = 13
                 },
-                new Ingredient()
+                new()
                 {
                     Id = 252,
                     Name = "Himalayan Salt",
@@ -1818,7 +1808,7 @@
         {
             return new HashSet<Recipe>()
             {
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     OwnerId = AdminUserId,
@@ -1830,7 +1820,7 @@
                     ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
                     CategoryId = 4,
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     OwnerId = AdminUserId,
@@ -1842,7 +1832,7 @@
                     ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
                     CategoryId = 4
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     OwnerId = AdminUserId,
@@ -1854,7 +1844,7 @@
                     ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
                     CategoryId = 2
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     OwnerId = AdminUserId,
@@ -1866,7 +1856,7 @@
                     ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
                     CategoryId = 2
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     OwnerId = AdminUserId,
@@ -1878,7 +1868,7 @@
                     ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
                     CategoryId = 1
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     OwnerId = AdminUserId,
@@ -1890,7 +1880,7 @@
                     ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
                     CategoryId = 1
                 },
-                new Recipe()
+                new()
                 {
                     Id = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     OwnerId = AdminUserId,
@@ -1909,245 +1899,245 @@
             return new HashSet<RecipeIngredient>()
             {
                 //First Recipe Ingredients =>
-                    new RecipeIngredient()
+                    new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 11,
                     Qty = 500,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 113,
                     Qty = 2,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 118,
                     Qty = 1,
                     MeasureId = 6
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 122,
                     Qty = 250,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 154,
                     Qty = 3,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 14,
                     Qty = 1,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 12,
                     Qty = 2,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7
                 }, //second recipe =>                        
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 1,
                     Qty = 400,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 118,
                     Qty = 6,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 71,
                     Qty = 1,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 114,
                     Qty = 3,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 154,
                     Qty = 3,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 64,
                     Qty = 1,
                     MeasureId = 10
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 53,
                     Qty = 10,
                     MeasureId = 1
                 }, // Third Recipe =>
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 4,
                     Qty = 600,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 114,
                     Qty = 3,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 57,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 64,
                     Qty = 1,
                     MeasureId = 10
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 56,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 156,
                     Qty = 150,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 163,
                     Qty = 250,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 154,
                     Qty = 1,
                     MeasureId = 8
                 },// Fourth Recipe => 
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 2,
                     Qty = 500,
                     MeasureId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 127,
                     Qty = 10,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 114,
                     Qty = 1,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 122,
@@ -2155,77 +2145,77 @@
                     MeasureId = 1,
                     SpecificationId = 5
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 154,
                     Qty = 4,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 189,
                     Qty = 160,
                     MeasureId = 3
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7
                 }, // Fifth Recipe =>
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 14,
                     Qty = 1,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 135,
                     Qty = 1,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 198,
                     Qty = 0.5m,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 116,
@@ -2233,42 +2223,42 @@
                     MeasureId = 12,
                     SpecificationId = 9
                 }, // Sixth Recipe =>
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 196,
                     Qty = 0.5m,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 198,
                     Qty = 1,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 218,
                     Qty = 2,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 13,
                     Qty = 1,
                     MeasureId = 9
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 228,
                     Qty = 2,
                     MeasureId = 8
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 229,
@@ -2276,35 +2266,35 @@
                     MeasureId = 8,
                     SpecificationId = 8
                 }, // Seventh Recipe
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 134,
                     Qty = 0.5m,
                     MeasureId = 1
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 243,
                     Qty = 1,
                     MeasureId = 12
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 251,
                     Qty = 1,
                     MeasureId = 7
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 252,
                     Qty = 1,
                     MeasureId = 13
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 141,
@@ -2312,7 +2302,7 @@
                     MeasureId = 1,
                     SpecificationId = 10
                 },
-                new RecipeIngredient()
+                new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 123,

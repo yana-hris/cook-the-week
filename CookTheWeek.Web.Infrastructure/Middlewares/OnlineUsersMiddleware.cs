@@ -15,7 +15,7 @@
         private readonly int lastActivityMinutes;
 
         private static readonly ConcurrentDictionary<string,bool> AllKeys = 
-            new ConcurrentDictionary<string,bool>();
+            new();
 
         public OnlineUsersMiddleware(RequestDelegate next, 
             string cookieName = OnlineUsersCookieName,
