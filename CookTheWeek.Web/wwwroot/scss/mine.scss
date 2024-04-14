@@ -29,8 +29,8 @@
 
                     .liked-icon, .not-liked-icon {
                         position: absolute;
-                        top: 3px;
-                        left: 5px;
+                        top: 6px;
+                        left: 8px;
                         font-size: 25px;
                     }
 
@@ -65,12 +65,23 @@
                     }
 
                     .recipe-title {
-                        font-size: 18px;
-                        font-weight: 500;
-                        margin-top: 4px;
-                        margin-bottom: 3px;
-                    }
+                        font-family: "Lora", serif;
+                        font-size: 16px;
+                        font-weight: 400;
+                        margin-top: 5px;
+                        margin-bottom: 2px;
+                        // for overflow, limit length to 2 lines using web-kit
+                        width: 216px;
 
+                        .text-overflow-clamp {
+                            width: 100%;
+                            overflow: hidden;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
+                            display: -webkit-box;
+                            text-overflow: ellipsis;
+                        }
+                    }
 
                     hr {
                         padding: 0;

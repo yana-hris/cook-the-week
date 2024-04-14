@@ -5,9 +5,13 @@ html {
   position: relative;
   min-height: 100%;
 }
-html body #main-container {
-  padding: 90px 0;
+html body {
   margin: 0 auto;
+  position: relative;
+}
+html body #main-container {
+  margin: 0 auto;
+  padding: 91px 12px;
 }
 html body #main-container .suggestionsList {
   position: absolute;
@@ -21,17 +25,40 @@ html body #main-container .suggestionsList {
 html body #main-container a {
   text-decoration: none;
 }
+html body footer {
+  font-size: 14px;
+  font-weight: 300;
+}
+html body .remove-btn {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bs-danger);
+  color: var(--bs-white);
+  border-radius: 50%;
+}
+html body nav.fixed-bottom {
+  padding-bottom: 30px;
+}
 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+  html body #main-container {
+    padding: 98px 20px;
+  }
 }
-[data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
-  background-color: var(--bs-success);
-  color: #ffffff;
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
+  html body #main-container {
+    padding: 98px 40px;
+  }
 }
-
 #navigation {
   padding: 0 0;
   margin: 0 0;
@@ -159,18 +186,20 @@ html body #main-container a {
   }
 }
 
-.theme-switcher {
-  padding-top: 33px;
+#theme-container {
   position: absolute;
-  top: 18px;
+  top: 54px;
   right: 5px;
   z-index: 100;
 }
+#theme-container .theme-switcher {
+  position: relative;
+}
 
-@media (min-width: 992px) {
-  .theme-switcher {
+@media (min-width: 768px) {
+  #theme-container {
     right: 30px;
-    top: 30px;
+    top: 57px;
   }
 }
 #admin-container {
@@ -234,12 +263,16 @@ html body #main-container a {
     height: 2rem;
   }
 }
+[data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
+  background-color: var(--bs-success);
+  color: #ffffff;
+  bottom: 10px;
+}
 [data-bs-theme=light] #image-container {
   margin: 0 auto;
   background-image: url("/img/pexels-dana-tentis-691114.jpg");
   height: 550px;
   background-size: cover;
-  max-width: 1300px;
 }
 [data-bs-theme=light] #image-container #hero-text-background {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65));
@@ -260,7 +293,6 @@ html body #main-container a {
   background-image: url("/img/pexels-dana-tentis-691114.jpg");
   height: 550px;
   background-size: cover;
-  max-width: 1300px;
 }
 [data-bs-theme=dark] #image-container #hero-text-background {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
@@ -274,6 +306,21 @@ html body #main-container a {
 [data-bs-theme=dark] #image-container #hero-text-background .text-container p {
   font-size: 18px;
   font-weight: 400;
+}
+
+.liked-icon, .not-liked-icon {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  font-size: 25px;
+}
+
+.liked-icon {
+  color: red;
+}
+
+.not-liked-icon {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 #recipe-container {
@@ -305,8 +352,8 @@ html body #main-container a {
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .not-liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .not-liked-icon {
   position: absolute;
-  top: 3px;
-  left: 5px;
+  top: 6px;
+  left: 8px;
   font-size: 25px;
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .liked-icon, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .liked-icon {
@@ -334,10 +381,20 @@ html body #main-container a {
   padding: 1px 6px 3px 6px;
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card .recipe-title, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .recipe-title {
-  font-size: 18px;
-  font-weight: 500;
-  margin-top: 4px;
-  margin-bottom: 3px;
+  font-family: "Lora", serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  width: 216px;
+}
+#recipe-container #favourite-recipes .row.d-flex .recipe-container .card .recipe-title .text-overflow-clamp, #recipe-container #owned-recipes .row.d-flex .recipe-container .card .recipe-title .text-overflow-clamp {
+  width: 100%;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  text-overflow: ellipsis;
 }
 #recipe-container #favourite-recipes .row.d-flex .recipe-container .card hr, #recipe-container #owned-recipes .row.d-flex .recipe-container .card hr {
   padding: 0;
@@ -360,20 +417,50 @@ html body #main-container a {
   text-overflow: ellipsis;
 }
 
+.list-group-item list-group-item-action {
+  background-color: var(--bs-body-color);
+}
+
+#features-img {
+  min-height: 300px;
+}
+
+#features-container {
+  max-width: 1200px;
+}
+
+svg.fi-icon {
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.fit-cover {
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 767px) {
+  #features-img {
+    height: 450px !important;
+  }
+}
+@media only screen and (max-width: 576px) {
+  #features-img {
+    height: 300px !important;
+  }
+}
 #recipe-details-container {
   margin: 0 auto;
   position: relative;
 }
-
-li.nav-item span {
+#recipe-details-container .card .card-header li.nav-item span {
   color: var(--bs-success-text-emphasis);
 }
-
-li.nav-item span:hover {
+#recipe-details-container .card .card-header li.nav-item span:hover {
   color: var(--bs-primary);
 }
-
-.back-button {
+#recipe-details-container .card .card-header .back-button {
   position: absolute;
   top: 5px; /* Adjust as needed */
   right: 8px; /* Adjust as needed */
@@ -381,34 +468,7 @@ li.nav-item span:hover {
   border: 1px solid var(--bs-success-text-emphasis);
   color: #fff !important;
 }
-
-.ingredient-heading {
-  font-size: 16px;
-  text-decoration: underline;
-  font-weight: 300;
-}
-
-.recipe-description {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.recipe-title {
-  margin-bottom: 10px;
-  margin-top: 15px;
-  font-size: 38px !important;
-}
-
-.card-btn {
-  font-size: 16px;
-}
-
-.btn-icon {
-  font-size: 25px;
-  top: -1px;
-}
-
-.img-container {
+#recipe-details-container .card .card-body .img-container {
   max-width: 600px;
   height: 300px;
   border-radius: 10px;
@@ -418,32 +478,39 @@ li.nav-item span:hover {
   position: relative;
   overflow: hidden;
 }
-
-.image {
+#recipe-details-container .card .card-body .img-container .image {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
-
-.image:hover {
-  transform: scale(1.1);
+#recipe-details-container .card .card-body .img-container .image:hover {
+  transform: scale(1.03);
 }
-
-.liked-icon, .not-liked-icon {
+#recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   position: absolute;
-  top: 12px;
-  right: 22px;
+  top: 9px;
+  left: 18px;
   font-size: 25px;
 }
-
-.liked-icon {
+#recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon {
   color: red;
 }
-
-.not-liked-icon {
+#recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   color: grey;
+}
+#recipe-details-container .card .card-body .recipe-description {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#recipe-details-container .card .card-body .ingredient-heading {
+  font-size: 16px;
+  text-decoration: underline;
+  font-weight: 300;
+}
+#recipe-details-container .card .card-footer .card-btn {
+  font-size: 16px;
 }
 
 @media (min-width: 576px) {
@@ -452,7 +519,24 @@ li.nav-item span:hover {
     margin: 0 auto;
     padding: 40px !important;
   }
+  #recipe-details-container #recipe-details {
+    position: relative;
+  }
+  #recipe-details-container #recipe-details #aside-container {
+    position: absolute;
+    top: 247px;
+    right: 1px;
+  }
 }
+/*.recipe-title {
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 38px !important;
+}*/
+/*.btn-icon {
+    font-size: 25px;
+    top: -1px;
+}*/
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

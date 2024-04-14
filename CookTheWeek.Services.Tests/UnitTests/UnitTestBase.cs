@@ -149,15 +149,7 @@
 
             // Recipe Ingredients
             TestRecipe.RecipesIngredients = new List<RecipeIngredient>()
-            {
-                new()
-                {
-                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
-                    IngredientId = 1,
-                    Qty = 0.5m,
-                    MeasureId = 1,
-                    SpecificationId = 1,
-                },
+            {               
                 new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
@@ -177,15 +169,7 @@
             };
             // Save the Recipe Ingredients for easier reference - these will not be added to the DB
             TestRecipeRecipeIngredients = new List<RecipeIngredient>()
-            {
-                new()
-                {
-                    RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
-                    IngredientId = 1,
-                    Qty = 0.5m,
-                    MeasureId = 1,
-                    SpecificationId = 1,
-                },
+            {                
                 new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
@@ -206,20 +190,20 @@
 
             NewIngredient = new Ingredient
             {
-                Id = 1,
-                Name = "Ingredient 1",
+                Id = 4,
+                Name = "Ingredient 4",
                 CategoryId = 1
             };
             // Will not be added to the DB initially
             NewRecipeIngredient = new RecipeIngredient()
             {
-                IngredientId = NewIngredient.Id,
+                IngredientId = 1,
                 Qty = 10,
                 MeasureId = 2,
                 SpecificationId = 3,
             };
 
-            NewRecipe.RecipesIngredients.Add(NewRecipeIngredient);
+            //NewRecipe.RecipesIngredients.Add(NewRecipeIngredient);
             // Recipe Categories
             TestRecipeCategories = new List<RecipeCategory>()
             {

@@ -330,7 +330,7 @@
                 Description = recipe.Description,
                 Instructions = recipe.Instructions,
                 Servings = recipe.Servings,
-                TotalTime = recipe.TotalTime.ToString(@"hh\:mm"),
+                TotalTime = recipe.TotalTime,
                 ImageUrl = recipe.ImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
                 CategoryName = recipe.Category.Name,
@@ -375,15 +375,15 @@
             // Assert
             Assert.That(resultModel, Is.InstanceOf<RecipeDetailsViewModel>());  
 
-            Assert.That(resultModel.Id, Is.EqualTo(recipe.Id.ToString()));
-            Assert.That(resultModel.Title, Is.EqualTo(recipe.Title));
-            Assert.That(resultModel.Description, Is.EqualTo(recipe.Description));
-            Assert.That(resultModel.Instructions, Is.EqualTo(recipe.Instructions));
-            Assert.That(resultModel.Servings, Is.EqualTo(recipe.Servings));
-            Assert.That(resultModel.TotalTime, Is.EqualTo(recipe.TotalTime.ToString(@"hh\:mm")));
-            Assert.That(resultModel.ImageUrl, Is.EqualTo(recipe.ImageUrl));
-            Assert.That(resultModel.CreatedOn, Is.EqualTo(recipe.CreatedOn.ToString("dd-MM-yyyy")));
-            Assert.That(resultModel.CategoryName, Is.EqualTo(recipe.Category.Name));
+            Assert.That(resultModel.Id, Is.EqualTo(expectedModel.Id.ToString()));
+            Assert.That(resultModel.Title, Is.EqualTo(expectedModel.Title));
+            Assert.That(resultModel.Description, Is.EqualTo(expectedModel.Description));
+            Assert.That(resultModel.Instructions, Is.EqualTo(expectedModel.Instructions));
+            Assert.That(resultModel.Servings, Is.EqualTo(expectedModel.Servings));
+            Assert.That(resultModel.TotalTime, Is.EqualTo(expectedModel.TotalTime));
+            Assert.That(resultModel.ImageUrl, Is.EqualTo(expectedModel.ImageUrl));
+            Assert.That(resultModel.CreatedOn, Is.EqualTo(expectedModel.CreatedOn));
+            Assert.That(resultModel.CategoryName, Is.EqualTo(expectedModel.CategoryName));
         }
 
         [Test]

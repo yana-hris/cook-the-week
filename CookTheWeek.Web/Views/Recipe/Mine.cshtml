@@ -80,7 +80,7 @@ else
                                         <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
                                     </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
                                 </div>
-                                <h3 class="recipe-title">@recipe.Title</h3>
+                                <p class="recipe-title text-overflow-clamp">@recipe.Title</p>
                                 <hr>
                                 <div class="recipe-description">
                                     <p class="card-text text-overflow-clamp">@recipe.Description</p>
@@ -103,7 +103,6 @@ else
     // Like btn functionality
     function toggleFavourites(event, recipeId, userId) {
         event.preventDefault();
-        debugger;
         var $button = $(event.currentTarget);
         let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
 

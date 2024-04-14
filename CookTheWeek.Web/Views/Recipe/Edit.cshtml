@@ -23,18 +23,18 @@
 
         <div class="card-body">
             <form id="edit-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="Edit">
-                <div id="info-content" class="tab-content">
+                <div id="info-content" class="tab-content g-3">
                     @* TAB RECIPE DETAILS *@
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                        <div class="row g-3">
-                            <div class="col col-12 col-md-8 col-xl-9 p-3">
+                        <div class="row">
+                            <div class="col col-12 col-md-8 col-xl-9 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Title</span>
                                     <input asp-for="Title" class="form-control" placeholder="Name it.." type="text">
                                     <span asp-validation-for="Title" class="small text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col col-12 col-md-4 col-xl-3 p-3">
+                            <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span><select class="form-control" asp-for="Servings">
                                         <option value="">Choose</option>
@@ -47,15 +47,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-3">
-                            <div class="col col-12 col-md-7 col-xl-8 p-3">
+                        <div class="row">
+                            <div class="col col-12 col-md-7 col-xl-8 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
                                     <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
                                     <span asp-validation-for="Description" class="small text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col col-12 col-md-5 col-xl-4 p-3">
+                            <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
                                     <input asp-for="CookingTimeMinutes" class="form-control" type="number">
@@ -63,15 +63,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-3">
-                            <div class="col col-12 col-md-6 col-xl-7 p-3">
+                        <div class="row">
+                            <div class="col col-12 col-md-6 col-xl-7 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
                                     <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here..." type="url">
                                     <span asp-validation-for="ImageUrl" class="small text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col col-12 col-md-6 col-xl-5 p-3">
+                            <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
                                     <select asp-for="RecipeCategoryId" class="form-control">
@@ -89,8 +89,8 @@
                     </div>
                     @*  TAB INSTRUCTIONS *@
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row g-3">
-                            <div class="col col-12 p-3">
+                        <div class="row">
+                            <div class="col col-12 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Instructions</span>
                                     <textarea asp-for="Instructions" class="form-control" rows="12" placeholder="Your steps how to cook.."></textarea>
@@ -102,12 +102,12 @@
                     @* TAB INGREDIENTS *@
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <div id="ingredients" class="tab-content">
-                            <div id="ingredientsContainer" class="row">
+                            <div id="ingredientsContainer" class="row g-3">
                                 <div id="ingredientList">
                                     @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
                                     {
-                                        <div class="row g-3 ingredient-row">
-                                            <div class="col col-8 col-lg-5 p-3">
+                                        <div class="row ingredient-row">
+                                            <div class="col col-8 col-lg-5 p-2">
                                                 <div class="input-group">
                                                     <span asp-for="RecipeIngredients[i].Name" class="input-group-text">Ingredient</span>
                                                     <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
@@ -116,14 +116,14 @@
                                                     <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-4 col-lg-2 p-3">
+                                            <div class="col col-4 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Qty</span>
                                                     <input asp-for="RecipeIngredients[i].Qty" class="form-control">
                                                     <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-5 col-lg-2 p-3">
+                                            <div class="col col-6 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Unit</span>
                                                     <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
@@ -136,7 +136,7 @@
                                                     <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-6 col-lg-2 p-3">
+                                            <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Spec</span>
                                                     <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
@@ -148,23 +148,21 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col col-1 p-3">
-                                                <div>
-                                                    <button class="btn remove-btn btn-danger remove-ingredient" type="button">
-                                                        <i class="far fa-minus-square" style="font-size: 25px;"></i>
-                                                    </button>
-                                                </div>
+                                            <div class="col col-1 p-2 d-flex justify-content-center align-items-center">
+                                                <a class="btn remove-btn btn-danger remove-ingredient" type="button">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     }
                                 </div>
-                                <div class="row g-3">
-                                    <div class="col offset-9 text-nowrap col-12 p-3">
+                                <div class="row">
+                                    <div class="col offset-9 text-nowrap col-12 p-2">
                                         <div class="input-group">
                                             <span class="input-group-text">
-                                                <i class="far fa-plus-square"></i>
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                             </span>
-                                            <button id="add-ingredient" class="btn btn-success" type="button">Add Ingredient</button>
+                                            <a id="add-ingredient" class="btn btn-success" type="button">Add Ingredient</a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +176,7 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" class="btn btn-primary btn-lg text-white" type="submit">Edit Recipe</button>
+                    <button form="edit-recipe-form" class="btn btn-success btn-lg text-white" type="submit">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -304,8 +302,8 @@
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
             $('#add-ingredient').click(function () {
-                var newIngredientHtml = ` <div class="row g-3 ingredient-row">
-                     <div class="col col-8 col-md-5 p-3">
+                var newIngredientHtml = ` <hr/><div class="row ingredient-row">
+                     <div class="col col-8 col-lg-5 p-2">
                          <div class="input-group">
                              <span class="input-group-text">Ingredient</span>
 
@@ -315,7 +313,7 @@
                                      </div></div>
 
 
-                 <div class="col col-4 col-md-2 p-3">
+                 <div class="col col-4 col-lg-2 p-2">
                     <div class="input-group">
                                          <span class="input-group-text">Qty</span>
                                          <input id="RecipeIngredients_${ingredientIndex}__Qty" class="form-control" type="number" name="RecipeIngredients[${ingredientIndex}].Qty" required min="0.001" max="10000" />
@@ -323,7 +321,7 @@
                                      </div></div>
 
 
-                <div class="col col-5 col-md-2 p-3">
+                <div class="col col-5 col-lg-2 p-2">
                     <div class="input-group">
                         <span class="input-group-text">Unit</span>
 
@@ -340,7 +338,7 @@
                                      </div></div>
 
 
-                                <div class="col col-6 col-md-2 p-3">
+                                <div class="col col-6 col-lg-2 p-2">
                     <div class="input-group">
                         <span class="input-group-text">Spec</span>
                                          <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
@@ -352,12 +350,11 @@
                     newIngredientHtml +=
                 `</select>
                                      </div></div>
-                                         <div class="col col-1 p-3">
-                        <div><button class="btn remove-btn btn-danger remove-ingredient" type="button">
-                            <i class="far fa-minus-square" style="font-size: 25px;"></i>
-                            </button>
-                        </div>
-                    </div>
+                                                <div class="col col-1 p-2 d-flex justify-content-center align-items-center">
+                                                    <a class="btn remove-btn btn-danger remove-ingredient" type="button">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
                 </div>`;
 
                 $('#ingredientList').append(newIngredientHtml);

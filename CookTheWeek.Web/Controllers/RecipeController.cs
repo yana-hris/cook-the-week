@@ -372,6 +372,7 @@
             return RedirectToAction("All");
         }
 
+        // private method for ingredient input validation
         private async Task<bool> IsIngredientValid(string ingredientName)
         {
             if (!string.IsNullOrEmpty(ingredientName))
@@ -381,6 +382,7 @@
             return false;
         }
 
+        // private method for string sanitization of the user input
         private string SanitizeInput(string input)
         {
             return sanitizer.Sanitize(input);

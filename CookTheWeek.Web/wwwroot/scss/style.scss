@@ -4,6 +4,7 @@
 @import '../lib/bootstrap/scss/mixins';
 @import 'typography';
 @import 'navigation';
+@import 'theme-switcher';
 
 $primary: #4caf50;
 $secondary: #6c757d;
@@ -43,10 +44,13 @@ $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: #70bf73;
 
 
-@import 'theme-switcher';
+
+
 @import 'admin-panel';
 @import 'home-index';
+@import 'all-recipes';
 @import 'mine';
+@import 'about';
 @import 'details';
 @import '../lib/bootstrap/scss/bootstrap';
 

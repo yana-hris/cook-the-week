@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83ee9d6e-9cea-4040-828a-678f9bb3636e",
+                            ConcurrencyStamp = "dbc00b96-9b47-41e3-b092-1dda5ec54dd9",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKu74TdwoaMUW8mACAuqZYLnkRy88dtdnyQC3xW/bEw7sVXQMn4ycxXfNiUPTkpt1Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOf4kbbJMVSRd7n9pv+HOKQKhEUdgUXpAE72vrYyS4ZcCZEzkWKZ0jjMJhCbKzYMng==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09259197-4a5e-492b-9c0c-8c374a274a4c",
+                            SecurityStamp = "177b48d0-e76c-440a-9eb4-a1020cbb8446",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f9ab2450-dc9e-4627-a653-e60b0ac3dc33",
+                            ConcurrencyStamp = "b1262b19-4fe8-4b4d-a93f-2a5cd2d439df",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFMCrFBZ5jF0DyTz098FR3M9FO8zxt0+kElaQO1OWUWmDp5f4bmOnvBQyHSceMEM3Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGDzDtwo41nWrviIQLwicKNbw3ZzMb0WoNURxMgf2EuSgcii4zLmjP3g8TRvh+u6hQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3700fcc3-19b7-4f19-81b6-cacb4bfba8ad",
+                            SecurityStamp = "e8aae201-cc0a-46d3-a7b3-e7f8fedc929d",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -496,7 +496,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 54,
                             CategoryId = 5,
-                            Name = "Paprika (Red Pepper)"
+                            Name = "Paprika"
                         },
                         new
                         {
@@ -1747,7 +1747,7 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 10,
-                            Name = "Fats and Oils"
+                            Name = "Fats and Oils, Sauces and Broths"
                         },
                         new
                         {
@@ -1874,12 +1874,12 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "piece(s)"
+                            Name = "pc/s"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "clove(s)"
+                            Name = "clove/s"
                         },
                         new
                         {
@@ -1904,37 +1904,37 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 7,
-                            Name = "tsp"
+                            Name = "tsp/s"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "tbsp"
+                            Name = "tbsp/s"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "cup(s)"
+                            Name = "cup/s"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "bunch(es)"
+                            Name = "bunch/es"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "pkg(s)"
+                            Name = "pkg/s"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "slice(s)"
+                            Name = "slice/s"
                         },
                         new
                         {
                             Id = 13,
-                            Name = "pinch(es)"
+                            Name = "pinch/es"
                         });
                 });
 

@@ -1,9 +1,13 @@
-﻿[data-bs-theme=light] #image-container {
+﻿[data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
+  background-color: var(--bs-success);
+  color: #ffffff;
+  bottom: 10px;
+}
+[data-bs-theme=light] #image-container {
   margin: 0 auto;
   background-image: url("/img/pexels-dana-tentis-691114.jpg");
   height: 550px;
   background-size: cover;
-  max-width: 1300px;
 }
 [data-bs-theme=light] #image-container #hero-text-background {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65));
@@ -24,7 +28,6 @@
   background-image: url("/img/pexels-dana-tentis-691114.jpg");
   height: 550px;
   background-size: cover;
-  max-width: 1300px;
 }
 [data-bs-theme=dark] #image-container #hero-text-background {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));

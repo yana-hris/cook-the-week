@@ -71,7 +71,7 @@
                 </div>
                 @if (@Model.OilsHerbsSpicesSweeteners.Any())
                 {
-                    <div class="col col col-sm-4">
+                    <div id="aside-container" class="col col col-sm-4">
                         <p class="ingredient-heading">Oils, Sauces, Herbs &amp; Spices</p>
                         <ul class="list-unstyled">
                         @foreach (var item in Model.OilsHerbsSpicesSweeteners)
@@ -148,7 +148,7 @@
         </div>
         @if (isAdmin || isOwner)
         {
-         <div class="card-header">
+         <div class="card-footer">
             <div class="col text-center pt-3 pb-2">
                 <div class="buttons d-flex gap-2 align-items-center justify-content-center">
                     <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-danger text-center card-btn" type="button">
