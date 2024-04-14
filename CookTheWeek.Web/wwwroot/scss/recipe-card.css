@@ -1,0 +1,81 @@
+﻿.recipe-container {
+  width: 250px;
+  flex-grow: 0;
+}
+.recipe-container .card {
+  height: 100%;
+  position: relative;
+}
+.recipe-container .card img.fit-cover {
+  height: 8rem;
+  object-fit: cover;
+}
+.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fa-certificate {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 25px;
+}
+.recipe-container .card .liked-icon {
+  color: red;
+}
+.recipe-container .card .not-liked-icon {
+  color: grey;
+}
+.recipe-container .card .fa-certificate {
+  color: var(--bs-warning);
+}
+.recipe-container .card .add-icon {
+  position: absolute;
+  top: 88px;
+  right: 3px;
+  font-size: 37px;
+  color: var(--bs-success);
+}
+.recipe-container .card .material-icons.card-icon {
+  font-size: 13px;
+}
+.recipe-container .card .icon-text {
+  font-size: 13px;
+}
+.recipe-container .card span.badge {
+  font-size: 13px;
+  font-size: small;
+  padding: 1px 6px 4px 6px;
+}
+.recipe-container .card .recipe-title {
+  font-family: "Lora", serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  width: 216px;
+}
+.recipe-container .card .recipe-title .text-overflow-clamp {
+  width: 100%;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+}
+.recipe-container .card hr {
+  padding: 0;
+  margin: 0;
+}
+.recipe-container .card .recipe-description {
+  width: 216px;
+  font-weight: 300;
+  font-size: 14px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+}
+.recipe-container .card .recipe-description .text-overflow-clamp {
+  width: 100%;
+  /* this code clamps based on specified lines */
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+}

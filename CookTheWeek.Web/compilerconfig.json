@@ -34,5 +34,9 @@
   {
     "outputFile": "wwwroot/scss/all-recipes.css",
     "inputFile": "wwwroot/scss/all-recipes.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/recipe-card.css",
+    "inputFile": "wwwroot/scss/recipe-card.scss"
   }
 ]

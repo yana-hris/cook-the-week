@@ -1,0 +1,77 @@
+﻿@using CookTheWeek.Services.Data.Interfaces
+@model RecipeAllViewModel
+@inject IUserService UserService
+@inject IFavouriteRecipeService FavouriteRecipeService
+@{
+    string recipeId = Model.Id.ToString();
+    string userId = this.User.GetId();
+    bool isOwner = await this.UserService.IsOwnerByRecipeId(recipeId, userId);
+}
+
+<div class="col recipe-container">
+    <div class="card">
+        <div class="position-relative">
+                <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" style="height: 200px;" src="@Model.ImageUrl">
+                @if (!string.IsNullOrEmpty(userId) && !isOwner)
+                {
+                    bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+
+                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                        @if (isLiked)
+                        {
+                            <i class="fa fa-heart liked-icon"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart not-liked-icon"></i>
+                        }
+                </a>
+                } else if(isOwner)
+                {
+                            <i class="fa fa-certificate" aria-hidden="true"></i>
+                }
+
+        </div>
+        <div class="card-body p-2">
+            <p class="card-title"><span class="badge @GetBadgeColor(Model.Category.Name) d-block">@Model.Category.Name</span></p>
+                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div>
+                <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>
+                </div>
+                <p class="recipe-title">@Model.Title</p>
+                <hr/>
+                @if (Model.Description != null)
+                {
+                <div class="recipe-description">
+                    <p class="card-text text-overflow-clamp">@Model.Description</p>
+                </div>
+                }
+                <div class="card-btns d-flex justify-content-between align-content-center">
+                    <a class="btn btn-success" type="button">Add to Meal Plan</a>
+                    <a class="btn btn-outline-success" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" type="button">View</a>
+                </div>
+            </div>
+    </div>
+</div>
+@functions {
+    public string GetBadgeColor(string mealCategoryName)
+    {
+        switch (mealCategoryName)
+        {
+            case "Breakfast":
+                return "bg-primary";
+            case "Soup":
+                return "bg-warning";
+            case "Salad":
+                return "bg-success";
+            case "Main Dish":
+                return "bg-info";
+            case "Appetizer":
+                return "bg-danger";
+            case "Dessert":
+                return "bg-secondary";
+            default:
+                return "bg-primary";
+        }
+    }
+}

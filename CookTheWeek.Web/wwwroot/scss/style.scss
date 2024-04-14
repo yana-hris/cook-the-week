@@ -5,6 +5,7 @@
 @import 'typography';
 @import 'navigation';
 @import 'theme-switcher';
+@import 'recipe-card';
 
 $primary: #4caf50;
 $secondary: #6c757d;
@@ -15,16 +16,14 @@ $danger: #DA0505;
 $light: #f8f9fa;
 $dark: #343a40;
 
-
-$theme-colors: ( 
-    "primary":$primary, 
-    "secondary": $secondary, 
-    "success": $success, 
-    "info": $info, "warning": $warning, 
-    "danger": $danger, 
-    "light": $light, 
-    "dark": $dark, 
-    );
+/*$badge-bg-primary: #FCDC2A;
+$badge-secondary-bg: #FF9800;
+$badge-success-bg: #87A922;
+$badge-danger-bg: #E8751A;
+$badge-warning-bg: #9A031E;
+$badge-info-bg: #D24545;
+*/
+$theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark, );
 
 // Light theme colors:
 

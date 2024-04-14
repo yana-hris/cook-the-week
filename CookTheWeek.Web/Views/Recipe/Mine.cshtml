@@ -18,7 +18,32 @@
 }
 else
 {
-    <div class="container d-flex flex-column gap-2" id="recipe-container">
+    <div class="container-xl" style="max-width: 1200px;">
+        <div class="row">
+            <div class="container pt-2">
+            @if (!isAdmin)
+            {
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    <h2 class="collection-heading">Your Favourite Recipes</h2>
+                    @foreach (var recipe in Model.FavouriteRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>                        
+            }
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    <h2 class="collection-heading">@ownedRecipeHeading</h2>
+                    @foreach (var recipe in Model.OwnedRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        @* <div class="container d-flex flex-column gap-2" id="recipe-container">
         @if (!isAdmin)
         {
             <h2 class="collection-heading">Your Favourite Recipes</h2>
@@ -27,38 +52,7 @@ else
                     @{
                         foreach (var recipe in Model.FavouriteRecipes)
                         {
-                            string recipeId = recipe.Id;
-                            bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
-
-                                <div class="col d-block recipe-container">
-                                    <div class="card">
-                                        <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
-                                        <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                                            @if (isLiked)
-                                        {
-                                                <i class="fa fa-heart liked-icon"></i>
-                                        }
-                                        else
-                                        {
-                                                <i class="fa fa-heart not-liked-icon"></i>
-                                        }
-                                        </a>
-                                        <div class="card-body p-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center justify-content-between gap-4">
-                                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
-                                                    <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
-                                                </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
-                                            </div>
-                                            <p class="recipe-title">@recipe.Title</p>
-                                            <hr>
-                                            <div class="recipe-description">
-                                                <p class="card-text text-overflow-clamp">@recipe.Description</p>
-                                            </div>
-                                        </div>
-                                        <span class="material-icons add-icon">add_circle</span>
-                                    </div>
-                                </div>
+                            <partial name="_RecipeCardPartial" model="recipe"/>
                         }
                     }
                 </div>
@@ -70,32 +64,11 @@ else
             <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
                 @foreach (var recipe in Model.OwnedRecipes)
                 {
-                    <div class="col recipe-container d-block">
-                        <div class="card">
-                            <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" src="@recipe.ImageUrl">
-                            <div class="card-body p-2">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center justify-content-between gap-4">
-                                        <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">@recipe.Servings</span></div>
-                                        <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">@recipe.CookingTime</span></div>
-                                    </div><span class="badge bg-primary d-block">@recipe.Category.Name</span>
-                                </div>
-                                <p class="recipe-title text-overflow-clamp">@recipe.Title</p>
-                                <hr>
-                                <div class="recipe-description">
-                                    <p class="card-text text-overflow-clamp">@recipe.Description</p>
-                                </div>
-                            </div>
-                            @if (!isAdmin)
-                            {
-                                <span class="material-icons add-icon">add_circle</span>
-                            }
-                        </div>
-                    </div>
+                   <partial name="_RecipeCardPartial" model="recipe"/>
                 }
             </div>
         </div>
-    </div>
+    </div> *@
 }
 
 @section Scripts {  

@@ -98,5 +98,12 @@
             Assert.That(recipeIngredientsCountAfterAdd, Is.EqualTo(recipeIngredientsCountBeforeAdd + 1));
             Assert.IsTrue(exists);
         }
+
+        [Test]
+        public async Task IsAlreadyAddedAsync_ShouldReturn_True_If_IsAdded()
+        {
+            // Arrange
+
+        }
     }
 }
