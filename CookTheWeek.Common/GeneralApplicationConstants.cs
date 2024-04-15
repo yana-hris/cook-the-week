@@ -8,8 +8,8 @@
         public const int DefaultRecipesPerPage = 8;
         public const int DefaultIngredientsPerPage = 20;
 
-        public const int RecipeCardTitleMaxCharacters = 50;
-        public const int RecipeCardDescriptionMaxCgaracters = 113;
+        public const int RecipeCardTitleMaxLength = 50;
+        public const int RecipeCardDescriptionMaxLength = 113;
 
         public static int[] DiaryMeatSeafoodIngredientCategories = [1, 2, 11];
         public static int[] ProduceIngredientCategories = [8, 9];

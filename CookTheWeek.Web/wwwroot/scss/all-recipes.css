@@ -1,6 +1,10 @@
 ﻿.container-xl {
   max-width: 1200px;
 }
+.container-xl #build-btn-container {
+  position: relative;
+  top: -20px;
+}
 
 .recipe-container {
   display: flex;

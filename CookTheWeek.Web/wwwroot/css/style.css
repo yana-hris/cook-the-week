@@ -255,7 +255,7 @@ html body nav.fixed-bottom {
 .recipe-container .card .recipe-title {
   font-family: "Lora", serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 5px;
   margin-bottom: 2px;
 }
@@ -264,8 +264,8 @@ html body nav.fixed-bottom {
   margin: 0;
 }
 .recipe-container .card .recipe-description {
-  font-weight: 300;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 15px;
   padding-bottom: 0;
   margin-bottom: 10px;
 }
@@ -385,6 +385,10 @@ $badge-info-bg: #D24545;
 
 .container-xl {
   max-width: 1200px;
+}
+.container-xl #build-btn-container {
+  position: relative;
+  top: -20px;
 }
 
 .recipe-container {
@@ -516,33 +520,23 @@ svg.fi-icon {
   position: absolute;
   bottom: 3px;
   right: 14px;
-  /*.add-to-mealplan-button {
-
-      .fa-plus {
-          position: absolute;
-          bottom: 10px;
-          right: 20px;
-          color: var(--bs-success);
-          font-size: 60px;
-      }
-  }*/
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 50px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
+  width: 50px;
+  height: 50px;
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button::before {
   content: ""; /* Create a pseudo-element for the circular background */
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* Take up the full width of the button */
-  height: 100%; /* Take up the full height of the button */
-  background-color: var(--bs-success); /* Green background color */
-  border-radius: 50%; /* Makes the circular background */
-  z-index: 0; /* Ensure the background is behind the icon */
+  width: 100%;
+  height: 100%;
+  background-color: var(--bs-success);
+  border-radius: 50%;
+  z-index: 0;
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button .fa-plus {
   position: absolute;
@@ -580,15 +574,6 @@ svg.fi-icon {
     right: 1px;
   }
 }
-/*.recipe-title {
-    margin-bottom: 10px;
-    margin-top: 15px;
-    font-size: 38px !important;
-}*/
-/*.btn-icon {
-    font-size: 25px;
-    top: -1px;
-}*/
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

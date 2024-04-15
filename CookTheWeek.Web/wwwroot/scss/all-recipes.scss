@@ -1,5 +1,10 @@
 ﻿.container-xl {
-    max-width: 1200px;  
+    max-width: 1200px;
+
+    #build-btn-container {
+        position: relative;
+        top:-20px;
+    }
 }
 
 
@@ -16,21 +21,3 @@
     }
 }
 
-
-
-
-
-/*.liked-icon, .not-liked-icon {
-    position: absolute;
-    top: 3px;
-    left: 5px;
-    font-size: 25px;
-}
-
-.liked-icon {
-    color: red;
-}
-
-.not-liked-icon {
-    color: rgba(255, 255, 255, 0.65);
-}*/

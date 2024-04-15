@@ -40,7 +40,19 @@
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div>
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>
                 </div>
-                <p class="recipe-title">@Model.Title</p>
+                @{
+                    int titleLength = Model.Title.Length;
+                    string shortTitle = "";
+                    if(titleLength > RecipeCardTitleMaxLength)
+                    {
+                        shortTitle = Model.Title.Substring(0, RecipeCardTitleMaxLength) + "..";
+                    <p class="recipe-title">@shortTitle</p>
+                    }
+                    else
+                    {
+                        <p class="recipe-title">@Model.Title</p>
+                    }
+                 }
                 <hr/>
                 @if (Model.Description != null)
                 {
@@ -48,9 +60,9 @@
                     @{
                         int initialLength = Model.Description.Length;
                         string shortDescription = "";
-                        if(initialLength > RecipeCardDescriptionMaxCgaracters)
+                        if(initialLength > RecipeCardDescriptionMaxLength)
                         {
-                            shortDescription = Model.Description.Substring(0, RecipeCardDescriptionMaxCgaracters) + "..";
+                            shortDescription = Model.Description.Substring(0, RecipeCardDescriptionMaxLength) + "..";
                             <p class="card-text text-overflow-clamp">@shortDescription</p>
                         }
                         else
@@ -64,7 +76,7 @@
                  @if (!string.IsNullOrEmpty(userId)) // && is not already added
                 {
                 <div class="card-btns d-flex justify-content-between align-content-center">
-                    <a class="btn btn-success" type="button">Add to Meal Plan</a>
+                    <a class="btn btn-success add-to-mealplan-button" type="button" onclick="addRecipeToMealPlan(event, '@recipeId')">Add to Meal Plan</a>
                     <a class="btn btn-outline-success" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" type="button">View</a>
                 </div>
                 }

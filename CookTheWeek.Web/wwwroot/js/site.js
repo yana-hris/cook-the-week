@@ -1,7 +1,5 @@
 ﻿(function () {
-
     // JavaScript snippet handling Dark/Light mode switching
-
     const getStoredTheme = () => localStorage.getItem('theme');
     const setStoredTheme = theme => localStorage.setItem('theme', theme);
     const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
@@ -77,8 +75,69 @@
             })
     });
 })();
+window.onload = function () {
+    // Invoke your function here
+    showOrHideBuildMealPlanBtn();
+};
+// Create or Add To MealPlan
+function addRecipeToMealPlan(event, recipeId) {
+    event.preventDefault();
+    debugger;
+    if (!isAddedToMealPlan(recipeId)) {
+        var mealPlan = JSON.parse(localStorage.getItem('MealPlan')) || [];
+        mealPlan.push({ id: recipeId });
+        localStorage.setItem('MealPlan', JSON.stringify(mealPlan));
+        showOrHideBuildMealPlanBtn();
+    }
+    else {
+        toastr.warning("This recipe is already added to your Meal Plan!");
+    }
+}
 
+// Check if a recipe is added to the MealPlan
+function isAddedToMealPlan(recipeId) {
+    var allRecipes = getRecipesFromLocalStorage();
+    // Check if the specified recipeId exists in the list of added recipes
+    var isAdded = allRecipes.some(recipe => recipe.id === recipeId);
 
+    return isAdded;
+}
 
+// Function to get all recipes from local storage
+function getRecipesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('MealPlan')) || [];
+}
+
+// Function to remove a recipe from local storage
+function removeRecipeFromLocalStorage(recipeId) {
+    var mealPlan = JSON.parse(localStorage.getItem('MealPlan')) || [];
+    var updatedMealPlan = mealPlan.filter(recipe => recipe.id !== recipeId);
+    localStorage.setItem('MealPlan', JSON.stringify(updatedMealPlan));
+    showOrHideBuildMealPlanBtn();
+}
+
+// Show btn
+function showOrHideBuildMealPlanBtn() {
+    var buildBtn = document.getElementById("build-btn-container");
+    var recipes = getRecipesFromLocalStorage();
+    debugger;
+    if (recipes.length > 0) {
+        buildBtn.removeAttribute("hidden");
+    } else {
+        buildBtn.setAttribute('hidden', '');
+    }
+
+    showOrHideWelcomeMassage();
+}
+
+function showOrHideWelcomeMassage() {
+    var para = document.getElementById("welcome-message");
+    var recipes = getRecipesFromLocalStorage();
+    if (recipes.length > 0) {
+        para.setAttribute("hidden", '');
+    } else {
+        buildBtn.removeAttribute('hidden');
+    }
+}
 
 
