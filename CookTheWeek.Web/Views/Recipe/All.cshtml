@@ -8,8 +8,6 @@
     string userId = User.GetId();   
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
 <div class="container-xl" style="max-width: 1200px;">
     <div class="row">
         <form method="get" class="pb-4">
@@ -66,6 +64,9 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="row">
+        <p class="text-center">Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.</p>
         <div class="container pt-2">
             @if (!Model.Recipes.Any())
             {
@@ -80,7 +81,8 @@
                     }
                 </div>
             }
-        </div>      
+        </div>
+    </div>
         @{
             int previousPage = Model.CurrentPage - 1;
             if (previousPage < 1)
@@ -117,9 +119,7 @@
                        asp-route-sorting="@((int)Model.RecipeSorting)">>></a>
                 </li>
             </ul>
-        </nav>
-               
-    </div>
+        </nav>  
 </div>
 @section Scripts {
     <script>

@@ -3,7 +3,8 @@
     flex-grow: 0;
 
     .card {
-        height: 100%;
+        width: 280px;
+        height: auto;
         position: relative;
 
         img.fit-cover {
@@ -77,7 +78,7 @@
         }
 
         .recipe-description {
-            width: 216px;
+            width: 266px;
             font-weight: 300;
             font-size: 14px;
             padding-bottom: 0;

@@ -3,7 +3,8 @@
   flex-grow: 0;
 }
 .recipe-container .card {
-  height: 100%;
+  height: auto;
+  width: 280px;
   position: relative;
 }
 .recipe-container .card img.fit-cover {
@@ -64,7 +65,7 @@
   margin: 0;
 }
 .recipe-container .card .recipe-description {
-  width: 216px;
+  width: 266px;
   font-weight: 300;
   font-size: 14px;
   padding-bottom: 0;
