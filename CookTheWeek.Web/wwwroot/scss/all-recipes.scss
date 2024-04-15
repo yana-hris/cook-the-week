@@ -1,4 +1,24 @@
-﻿.liked-icon, .not-liked-icon {
+﻿.container-xl {
+    max-width: 1200px;
+
+    @media (max-width: 575px) {
+        padding: initial 69px;
+    }
+
+    
+}
+
+.recipe-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
+
+
+
+
+/*.liked-icon, .not-liked-icon {
     position: absolute;
     top: 3px;
     left: 5px;
@@ -11,4 +31,4 @@
 
 .not-liked-icon {
     color: rgba(255, 255, 255, 0.65);
-}
+}*/

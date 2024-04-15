@@ -17,135 +17,147 @@
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item"><a class="nav-link active" href="#recipe-details"><span>Recipe Info</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Instructions</a></li>
+                <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Recipe Info</span></a></li>
+                <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
             </ul>
             <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary back-button">Back</a>
         </div>
+
         <div class="card-body p-4 d-md-grid" id="recipe-details">
-            <div class="row">
-                <div class="col">
-                    <h1>@Model.Title</h1>
+            <div id="info-content" class="tab-content g-3">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                    <div class="row">
+                        <div class="col">
+                            <h1>@Model.Title</h1>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col col col-sm-8 img-container">
+                            <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
+                            <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                                @if (isLiked)
+                                {
+                                    <i class="fa fa-heart liked-icon"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-heart not-liked-icon"></i>
+                                }
+                            </a>
+                        </div>
+                        <div class="col col-12 col-sm-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-utensils"></i><span> @Model.Servings Serving(s)</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-clock"></i><span> </span>
+                                    <span>
+                                        @(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")
+                                        @(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + "min" : "")
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                    <span> @Model.CategoryName</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa fa-archive" aria-hidden="true"></i>
+                                    <span> Created on: @Model.CreatedOn</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row g-3 pt-2">
+                        <div class="col col-12 col-sm-8">
+                            <p class="recipe-description">@Model.Description</p>
+                        </div>
+                        @if (@Model.OilsHerbsSpicesSweeteners.Any())
+                        {
+                            <div id="aside-container" class="col col col-sm-4">
+                                <p class="ingredient-heading">Oils, Sauces, Herbs &amp; Spices</p>
+                                <ul class="list-unstyled">
+                                @foreach (var item in Model.OilsHerbsSpicesSweeteners)
+                                {
+                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                }                       
+                                </ul>
+                            </div>
+                        }                
+                    </div>
+                    <div class="row g-3">
+                        @if(Model.DiaryMeatSeafood.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Meat, Diary Products &amp; Seafood</p>
+                                <ul class="list-unstyled">
+                                @foreach (var item in Model.DiaryMeatSeafood)
+                                {
+                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                }
+                                </ul>
+                            </div>
+                        }  
+                        @if (Model.Produce.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Produce (Fruit &amp; Vegetables)</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.Produce)
+                                    {
+                                        <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if(Model.PastaGrainsBakery.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Pasta, Grains &amp; Bakery</p>
+                                <ul class="list-unstyled">
+                                @foreach (var item in Model.PastaGrainsBakery)
+                                {
+                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                }
+                                </ul>
+                            </div>
+                        }
+                        @if (Model.Legumes.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Beans, Lentils and Legumes</p>
+                                <ul class="list-unstyled">
+                                @foreach (var item in Model.Legumes)
+                                {
+                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                }
+                                </ul>
+                            </div>
+                        }
+                       @if (Model.NutsSeedsAndOthers.Any())
+                       {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Nuts, Seeds &amp; Others</p>
+                                <ul class="list-unstyled">
+                                @foreach (var item in Model.NutsSeedsAndOthers)
+                                {
+                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                }                            
+                                </ul>
+                            </div>
+                       }              
+                    </div>
                 </div>
-            </div>
-            <div class="row g-3">
-                <div class="col col col-sm-8 img-container">
-                    <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                        @if (isLiked)
-                        {
-                            <i class="fa fa-heart liked-icon"></i>
-                        }
-                        else
-                        {
-                            <i class="fa fa-heart not-liked-icon"></i>
-                        }
-                    </a>
+                <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
+                    <div class="row">
+                        <div class="col">
+                            <p>@Model.Instructions</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col col-12 col-sm-4">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <i class="fa-solid fa-utensils"></i><span> @Model.Servings Serving(s)</span>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fa-solid fa-clock"></i><span> </span>
-                            <span>
-                                @(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")
-                                @(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + "min" : "")
-                            </span>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fa fa-tag" aria-hidden="true"></i>
-                            <span> @Model.CategoryName</span>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fa fa-archive" aria-hidden="true"></i>
-                            <span> Created on: @Model.CreatedOn</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row g-3 pt-2">
-                <div class="col col-12 col-sm-8">
-                    <p class="recipe-description">@Model.Description</p>
-                </div>
-                @if (@Model.OilsHerbsSpicesSweeteners.Any())
-                {
-                    <div id="aside-container" class="col col col-sm-4">
-                        <p class="ingredient-heading">Oils, Sauces, Herbs &amp; Spices</p>
-                        <ul class="list-unstyled">
-                        @foreach (var item in Model.OilsHerbsSpicesSweeteners)
-                        {
-                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                        }                       
-                        </ul>
-                    </div>
-                }                
-            </div>
-            <div class="row g-3">
-                @if(Model.DiaryMeatSeafood.Any())
-                {
-                    <div class="col col-12 col-sm-6 col-lg-4">
-                        <p class="ingredient-heading">Meat, Diary Products &amp; Seafood</p>
-                        <ul class="list-unstyled">
-                        @foreach (var item in Model.DiaryMeatSeafood)
-                        {
-                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                        }
-                        </ul>
-                    </div>
-                }  
-                @if (Model.Produce.Any())
-                {
-                    <div class="col col-12 col-sm-6 col-lg-4">
-                        <p class="ingredient-heading">Produce (Fruit &amp; Vegetables)</p>
-                        <ul class="list-unstyled">
-                            @foreach (var item in Model.Produce)
-                            {
-                                <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                            }
-                        </ul>
-                    </div>
-                }
-                @if(Model.PastaGrainsBakery.Any())
-                {
-                    <div class="col col-12 col-sm-6 col-lg-4">
-                        <p class="ingredient-heading">Pasta, Grains &amp; Bakery</p>
-                        <ul class="list-unstyled">
-                        @foreach (var item in Model.PastaGrainsBakery)
-                        {
-                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                        }
-                        </ul>
-                    </div>
-                }
-                @if (Model.Legumes.Any())
-                {
-                    <div class="col col-12 col-sm-6 col-lg-4">
-                        <p class="ingredient-heading">Beans, Lentils and Legumes</p>
-                        <ul class="list-unstyled">
-                        @foreach (var item in Model.Legumes)
-                        {
-                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                        }
-                        </ul>
-                    </div>
-                }
-               @if (Model.NutsSeedsAndOthers.Any())
-               {
-                    <div class="col col-12 col-sm-6 col-lg-4">
-                        <p class="ingredient-heading">Nuts, Seeds &amp; Others</p>
-                        <ul class="list-unstyled">
-                        @foreach (var item in Model.NutsSeedsAndOthers)
-                        {
-                            <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
-                        }                            
-                        </ul>
-                    </div>
-               }              
-                
             </div>
         </div>
+
         @if (isAdmin || isOwner)
         {
          <div class="card-footer">

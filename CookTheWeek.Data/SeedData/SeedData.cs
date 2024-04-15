@@ -1854,7 +1854,7 @@
                     Servings = 8,
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
-                    CategoryId = 2
+                    CategoryId = 4
                 },
                 new()
                 {
@@ -1892,14 +1892,26 @@
                     ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
                     CategoryId = 1
                 },
+                new()
+                {
+                    Id = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    OwnerId = AppUserId,
+                    Title = "Beans stew",
+                    Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
+                    Instructions = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours. Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.\r\n\r\nPrepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.\r\n\r\nPressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.\r\n\r\nCheck the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt.\r\n\r\nFinal Cooking: Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. For enhanced flavor, allow the stew to sit with the lid on for at least a few hours.\r\n\r\nServe: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                    Servings = 8,
+                    TotalTime = TimeSpan.FromMinutes(120.0),
+                    ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
+                    CategoryId = 4,
+                },
             };
         }
         internal ICollection<RecipeIngredient> SeedRecipeIngredients()
         {
             return new HashSet<RecipeIngredient>()
             {
-                //First Recipe Ingredients =>
-                    new()
+                // Recipe By Admin (No. 1)
+                new()
                 {
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 11,
@@ -1968,7 +1980,7 @@
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7
-                }, //second recipe =>                        
+                }, // Recipe By Admin (No. 2)                    
                 new()
                 {
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
@@ -2031,7 +2043,7 @@
                     IngredientId = 53,
                     Qty = 10,
                     MeasureId = 1
-                }, // Third Recipe =>
+                }, // Recipe By Admin (No. 3)
                 new()
                 {
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
@@ -2115,7 +2127,7 @@
                     IngredientId = 154,
                     Qty = 1,
                     MeasureId = 8
-                },// Fourth Recipe => 
+                },// Recipe By Admin (No. 4)
                 new()
                 {
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
@@ -2193,7 +2205,7 @@
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7
-                }, // Fifth Recipe =>
+                }, // Recipe By Admin (No. 5)
                 new()
                 {
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
@@ -2222,7 +2234,7 @@
                     Qty = 1,
                     MeasureId = 12,
                     SpecificationId = 9
-                }, // Sixth Recipe =>
+                }, // Recipe By Admin (No. 6)
                 new()
                 {
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
@@ -2265,7 +2277,7 @@
                     Qty = 2,
                     MeasureId = 8,
                     SpecificationId = 8
-                }, // Seventh Recipe
+                }, // Recipe By Admin (No 7)
                 new()
                 {
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
@@ -2308,7 +2320,91 @@
                     IngredientId = 123,
                     Qty = 6,
                     MeasureId = 1
-                } // END
+                }, // Recipe by AppUser (No 8)
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 36,
+                    Qty = 500.00m,
+                    MeasureId = 5
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 52,
+                    Qty = 2,
+                    MeasureId = 7
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 54,
+                    Qty = 1,
+                    MeasureId = 8
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 59,
+                    Qty = 1,
+                    MeasureId = 7
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 64,
+                    Qty = 1,
+                    MeasureId = 10
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 67,
+                    Qty = 1,
+                    MeasureId = 7
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 112,
+                    Qty = 1,
+                    MeasureId = 2
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 113,
+                    Qty = 2,
+                    MeasureId = 1
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 114,
+                    Qty = 2,
+                    MeasureId = 1
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 122,
+                    Qty = 2,
+                    MeasureId = 1
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 127,
+                    Qty = 2,
+                    MeasureId = 1
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    IngredientId = 188,
+                    Qty = 1,
+                    MeasureId = 7
+                },
             };
         }
 

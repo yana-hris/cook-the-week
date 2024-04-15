@@ -7,6 +7,10 @@
         height: auto;
         position: relative;
 
+        @media (max-width: 575px) {
+            width: 376px;
+        }
+
         img.fit-cover {
             height: 8rem;
             object-fit: cover;
@@ -61,6 +65,11 @@
             margin-bottom: 2px;
             // for overflow, limit length to 2 lines using web-kit
             width: 216px;
+
+            @media (max-width: 575px) {
+                width: 360px;
+            }
+
 
             .text-overflow-clamp {
                 width: 100%;

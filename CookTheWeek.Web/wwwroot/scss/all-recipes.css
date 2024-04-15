@@ -1,14 +1,29 @@
-﻿.liked-icon, .not-liked-icon {
-  position: absolute;
-  top: 3px;
-  left: 5px;
-  font-size: 25px;
+﻿.container-xl {
+  max-width: 1200px;
+}
+@media (max-width: 575px) {
+  .container-xl {
+    padding: initial 69px;
+  }
+}
+
+.recipe-container {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+/*.liked-icon, .not-liked-icon {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    font-size: 25px;
 }
 
 .liked-icon {
-  color: red;
+    color: red;
 }
 
 .not-liked-icon {
-  color: rgba(255, 255, 255, 0.65);
-}
+    color: rgba(255, 255, 255, 0.65);
+}*/
