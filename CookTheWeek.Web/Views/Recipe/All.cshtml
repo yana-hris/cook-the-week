@@ -9,9 +9,9 @@
 }
 
 <div class="container-xl" style="max-width: 1200px;">
-    <div class="row"><p class="text-center">Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.</p></div>
+    <div class="row"><p class="text-center" style="font-weight:300;">Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.</p></div>
     <div class="row">
-        <form id="all-recipes-form" method="get" class="pb-2">
+        <form id="all-recipes-form" method="get" class="pb-3">
             <div class="row justify-content-center justify-content-sm-between align-items-center gy-2">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2 order-md-first">
                     <div class="input-group">
@@ -66,7 +66,7 @@
             }
             else
             {
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3"> @* changed *@
                     @foreach (var recipe in Model.Recipes)
                     {
                         <partial name="_RecipeCardPartial" model="recipe"/>

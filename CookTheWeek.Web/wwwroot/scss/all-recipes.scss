@@ -1,17 +1,19 @@
 ﻿.container-xl {
-    max-width: 1200px;
-
-    @media (max-width: 575px) {
-        padding: initial 69px;
-    }
-
-    
+    max-width: 1200px;  
 }
+
 
 .recipe-container {
     display: flex;
     align-items: start;
     justify-content: center;
+}
+
+
+@media (max-width: 573px) {
+    .container-xl {
+        padding: 0 40px !important;
+    }
 }
 
 

@@ -1,7 +1,8 @@
-﻿@using CookTheWeek.Services.Data.Interfaces
-@model RecipeAllViewModel
+﻿@model RecipeAllViewModel
 @inject IUserService UserService
 @inject IFavouriteRecipeService FavouriteRecipeService
+@using CookTheWeek.Services.Data.Interfaces
+@using static CookTheWeek.Common.GeneralApplicationConstants
 @{
     string recipeId = Model.Id.ToString();
     string userId = this.User.GetId();
@@ -44,7 +45,20 @@
                 @if (Model.Description != null)
                 {
                 <div class="recipe-description">
-                    <p class="card-text text-overflow-clamp">@Model.Description</p>
+                    @{
+                        int initialLength = Model.Description.Length;
+                        string shortDescription = "";
+                        if(initialLength > RecipeCardDescriptionMaxCgaracters)
+                        {
+                            shortDescription = Model.Description.Substring(0, RecipeCardDescriptionMaxCgaracters) + "..";
+                            <p class="card-text text-overflow-clamp">@shortDescription</p>
+                        }
+                        else
+                        {
+                            <p class="card-text text-overflow-clamp">@Model.Description</p>
+                        }
+                    }
+                    
                 </div>
                 }
                  @if (!string.IsNullOrEmpty(userId)) // && is not already added
@@ -65,15 +79,15 @@
             case "Breakfast":
                 return "bg-primary";
             case "Soup":
-                return "bg-warning";
+                return "bg-warning text-dark";
             case "Salad":
                 return "bg-success";
             case "Main Dish":
-                return "bg-info";
+                return "bg-warning text-dark";
             case "Appetizer":
                 return "bg-danger";
             case "Dessert":
-                return "bg-secondary";
+                return "bg-secondary text-dark";
             default:
                 return "bg-primary";
         }

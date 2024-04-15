@@ -65,6 +65,51 @@
                         color: grey;
                     }
                 }
+
+                .add-to-mealplan-container {
+                    display: inline-block; /* Ensure the container wraps around its contents */
+                    position: absolute;
+                    bottom: 3px;
+                    right: 14px;
+
+                    .add-to-mealplan-button {
+                        position: relative;
+                        display: inline-block;
+                        width: 50px; /* Adjust as needed */
+                        height: 50px; /* Adjust as needed */
+                    }
+
+                    .add-to-mealplan-button::before {
+                        content: ""; /* Create a pseudo-element for the circular background */
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%; /* Take up the full width of the button */
+                        height: 100%; /* Take up the full height of the button */
+                        background-color: var(--bs-success); /* Green background color */
+                        border-radius: 50%; /* Makes the circular background */
+                        z-index: 0; /* Ensure the background is behind the icon */
+                    }
+
+                    .add-to-mealplan-button .fa-plus {
+                        position: absolute;
+                        top: 50%; /* Position the icon vertically */
+                        left: 50%; /* Position the icon horizontally */
+                        transform: translate(-50%, -50%); /* Center the icon */
+                        color: white; /* Icon color */
+                        font-size: 36px; /* Adjust icon size as needed */
+                    }
+                    /*.add-to-mealplan-button {
+
+                        .fa-plus {
+                            position: absolute;
+                            bottom: 10px;
+                            right: 20px;
+                            color: var(--bs-success);
+                            font-size: 60px;
+                        }
+                    }*/
+                }
             }
 
             .recipe-description {

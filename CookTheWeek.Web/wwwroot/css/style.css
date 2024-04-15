@@ -203,7 +203,6 @@ html body nav.fixed-bottom {
   }
 }
 .recipe-container {
-  width: 250px;
   flex-grow: 0;
 }
 .recipe-container .card {
@@ -213,7 +212,7 @@ html body nav.fixed-bottom {
 }
 @media (max-width: 575px) {
   .recipe-container .card {
-    width: 376px;
+    width: 376px !important;
   }
 }
 .recipe-container .card img.fit-cover {
@@ -259,40 +258,16 @@ html body nav.fixed-bottom {
   font-weight: 400;
   margin-top: 5px;
   margin-bottom: 2px;
-  width: 216px;
-}
-@media (max-width: 575px) {
-  .recipe-container .card .recipe-title {
-    width: 360px;
-  }
-}
-.recipe-container .card .recipe-title .text-overflow-clamp {
-  width: 100%;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
-  text-overflow: ellipsis;
 }
 .recipe-container .card hr {
   padding: 0;
   margin: 0;
 }
 .recipe-container .card .recipe-description {
-  width: 266px;
   font-weight: 300;
   font-size: 14px;
   padding-bottom: 0;
   margin-bottom: 10px;
-}
-.recipe-container .card .recipe-description .text-overflow-clamp {
-  width: 100%;
-  /* this code clamps based on specified lines */
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  display: -webkit-box;
-  text-overflow: ellipsis;
 }
 
 /*$badge-bg-primary: #FCDC2A;
@@ -411,11 +386,6 @@ $badge-info-bg: #D24545;
 .container-xl {
   max-width: 1200px;
 }
-@media (max-width: 575px) {
-  .container-xl {
-    padding: initial 69px;
-  }
-}
 
 .recipe-container {
   display: flex;
@@ -423,6 +393,11 @@ $badge-info-bg: #D24545;
   justify-content: center;
 }
 
+@media (max-width: 573px) {
+  .container-xl {
+    padding: 0 40px !important;
+  }
+}
 /*.liked-icon, .not-liked-icon {
     position: absolute;
     top: 3px;
@@ -535,6 +510,47 @@ svg.fi-icon {
 }
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   color: grey;
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container {
+  display: inline-block; /* Ensure the container wraps around its contents */
+  position: absolute;
+  bottom: 3px;
+  right: 14px;
+  /*.add-to-mealplan-button {
+
+      .fa-plus {
+          position: absolute;
+          bottom: 10px;
+          right: 20px;
+          color: var(--bs-success);
+          font-size: 60px;
+      }
+  }*/
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button::before {
+  content: ""; /* Create a pseudo-element for the circular background */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Take up the full width of the button */
+  height: 100%; /* Take up the full height of the button */
+  background-color: var(--bs-success); /* Green background color */
+  border-radius: 50%; /* Makes the circular background */
+  z-index: 0; /* Ensure the background is behind the icon */
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button .fa-plus {
+  position: absolute;
+  top: 50%; /* Position the icon vertically */
+  left: 50%; /* Position the icon horizontally */
+  transform: translate(-50%, -50%); /* Center the icon */
+  color: white; /* Icon color */
+  font-size: 36px; /* Adjust icon size as needed */
 }
 #recipe-details-container .card .card-body .recipe-description {
   margin-top: 10px;

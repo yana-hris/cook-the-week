@@ -1,5 +1,4 @@
 ﻿.recipe-container {
-    width: 250px;
     flex-grow: 0;
 
     .card {
@@ -8,7 +7,7 @@
         position: relative;
 
         @media (max-width: 575px) {
-            width: 376px;
+            width: 376px !important;
         }
 
         img.fit-cover {
@@ -63,22 +62,6 @@
             font-weight: 400;
             margin-top: 5px;
             margin-bottom: 2px;
-            // for overflow, limit length to 2 lines using web-kit
-            width: 216px;
-
-            @media (max-width: 575px) {
-                width: 360px;
-            }
-
-
-            .text-overflow-clamp {
-                width: 100%;
-                overflow: hidden;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 1;
-                display: -webkit-box;
-                text-overflow: ellipsis;
-            }
         }
 
         hr {
@@ -87,21 +70,11 @@
         }
 
         .recipe-description {
-            width: 266px;
             font-weight: 300;
             font-size: 14px;
             padding-bottom: 0;
             margin-bottom: 10px;
-
-            .text-overflow-clamp {
-                width: 100%;
-                /* this code clamps based on specified lines */
-                overflow: hidden;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 3;
-                display: -webkit-box;
-                text-overflow: ellipsis;
-            }
+           
         }
     }
 }

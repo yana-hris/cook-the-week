@@ -1,0 +1,33 @@
+﻿.list-group-item list-group-item-action {
+  background-color: var(--bs-body-color);
+}
+
+#features-img {
+  min-height: 300px;
+}
+
+#features-container {
+  max-width: 1200px;
+}
+
+svg.fi-icon {
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.fit-cover {
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 767px) {
+  #features-img {
+    height: 450px !important;
+  }
+}
+@media only screen and (max-width: 576px) {
+  #features-img {
+    height: 300px !important;
+  }
+}
