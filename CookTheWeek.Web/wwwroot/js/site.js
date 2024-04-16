@@ -83,15 +83,57 @@ window.onload = function () {
 
     if (buildBtnShouldBeRendered) {
         if (userId) {
-            showOrHideBuildMealPlanBtn(userId);
+            showOrHideBuildMealPlanBtn(userId);            
         }
         else {
             showOrHideBuildMealPlanBtn(null);
         }
-    }   
+    updateRecipeBtns(); 
+    }
     return;
 };
 
+function updateRecipeBtns() {
+    debugger
+    var userId = currentUserId;
+    let userMealPlans = getUserLocalStorage(userId) || [];
+    const recipeButtons = document.querySelectorAll('.add-to-mealplan-button');
+
+    if (userHasMealPlans) {
+        userMealPlans = JSON.parse(userMealPlans);
+    }
+
+    if (userMealPlans.length > 0) {
+        recipeButtons.forEach(btn => {
+            const recipeId = btn.getAttribute('data-recipeId');
+            const icon = btn.querySelector('i');
+
+            if (userMealPlans.includes(recipeId)) {
+                btn.classList.remove("plus");
+                btn.classList.add("minus");
+
+                btn.removeEventListener('click', addRecipeToMealPlan, true);
+                btn.addEventListener('click', removeRecipeFromMealPlan, true);
+
+                icon.classList.remove("fa-plus");
+                icon.classList.add("fa-minus");
+            } else {
+                btn.classList.remove("minus");
+                btn.classList.add("plus");
+
+                btn.removeEventListener('click', removeRecipeFromMealPlan, true);
+                btn.addEventListener('click', addRecipeToMealPlan, true);
+
+                icon.classList.remove("fa-minus");
+                icon.classList.add("fa-plus");
+            }
+        })
+    } else {
+        recipeButtons.forEach(btn => {
+            btn.addEventListener('click', addRecipeToMealPlan, true);
+        })
+    }
+}
 function isSpecificView(view) {
     // Check if the current View is any of these   
     const specificViews = ["All Recipes", "Recipe Details", "My Recipes"];
@@ -104,6 +146,17 @@ function userHasMealPlans(userId) {
         return true;
     }
     return false;
+}
+
+// Show or Hide Build Meal Plan Btn
+function showOrHideBuildMealPlanBtn(userId) {
+    var buildBtn = document.getElementById("build-btn-container");
+
+    if (userId !== null && userHasMealPlans(userId)) {
+        buildBtn.removeAttribute("hidden");
+    } else {
+        buildBtn.setAttribute('hidden', '');
+    }
 }
 // Check if user has Local Storage Meal Plan:
 function getUserLocalStorage(userId) {
@@ -125,9 +178,12 @@ function isRecipeAddedToMealPlan(userId, recipeId) {
 }
 
 // Create or Add To MealPlan
-function addRecipeToMealPlan(event, userId, recipeId) {
+const addRecipeToMealPlan = function(event) {
     // Check if local storage has meal plans for this user
+    debugger;
     event.preventDefault();
+    var recipeId = event.currentTarget.dataset.recipeid;
+    var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId);
 
     // If the user doesn't have any meal plans yet, create an empty array
@@ -143,20 +199,24 @@ function addRecipeToMealPlan(event, userId, recipeId) {
 
     if (existingRecipeIndex === -1) {
         // If the recipe doesn't exist, add it to the meal plan
-        userMealPlans.push(recipeId);
-        toggleAddRemoveBtn(event,userId, recipeId);
-        toastr.success(`Recipe "${recipeId}" added to meal plan`);
+        userMealPlans.push(recipeId);        
+        toastr.success(`Recipe successfully added to meal plan`);
+        
     } else {
         toastr.error(`Recipe is already added to your plan`);
+        return;
     }
-
     // Save the updated meal plans back to local storage
     localStorage.setItem(userId, JSON.stringify(userMealPlans));
+    toggleAddRemoveBtn(event.currentTarget);
 }
 
 // Remove recipe from Meal Plan
-function removeRecipeFromMealPlan(event, userId, recipeId) {
+const removeRecipeFromMealPlan = function(event) {
     // Get the user's meal plans from local storage
+    debugger;
+    var recipeId = event.currentTarget.dataset.recipeid;
+    var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId);
 
     // If the user doesn't have any meal plans yet, return
@@ -173,56 +233,41 @@ function removeRecipeFromMealPlan(event, userId, recipeId) {
 
     if (recipeIndex !== -1) {
         // Remove the recipe from the user's meal plans
-        userMealPlans.splice(recipeIndex, 1);
-        toggleAddRemoveBtn(event, userId, recipeId);
-        toasrt.success(`Recipe successfully removed from the meal plan`);
-
-        // Save the updated meal plans back to local storage
-        localStorage.setItem(userId, JSON.stringify(userMealPlans));
+        userMealPlans.splice(recipeIndex, 1);        
+        toastr.success(`Recipe successfully removed from the meal plan`);
+        
     } else {
         toastr.error(`This Recipe has not been added to your meal plan and cannot be removed`);
+        return;
     }
-}
-
-// Show or Hide Build Meal Plan Btn
-function showOrHideBuildMealPlanBtn(userId) {
-    debugger;
-    var buildBtn = document.getElementById("build-btn-container");
-
-    if (userId !== null && userHasMealPlans(userId)) {
-        buildBtn.removeAttribute("hidden");
-    } else {
-        buildBtn.setAttribute('hidden', '');
-    }
+    localStorage.setItem(userId, JSON.stringify(userMealPlans));
+    toggleAddRemoveBtn(event.currentTarget);
 }
 
 
-function toggleAddRemoveBtn(event, userId, recipeId) {
-    debugger;
-    const btn = event.currentTarget;
-    const icon = btn.querySelector('i');
+
+function toggleAddRemoveBtn(btn) {
+    debugger;    
+    const icon = btn.querySelector('i');    
 
     if (btn.classList.contains("plus")) {
         btn.classList.remove("plus");
         btn.classList.add("minus");
 
-        btn.onclick = null;
-        btn.onclick = function (event) {
-            removeRecipeFromMealPlan(event, userId, recipeId);
-        };
+        btn.removeEventListener('click', addRecipeToMealPlan, true);
+        btn.addEventListener('click', removeRecipeFromMealPlan, true);
 
         icon.classList.remove("fa-plus");
         icon.classList.add("fa-minus");
+
     } else {
         btn.classList.remove("minus");
         btn.classList.add("plus");
 
-        btn.onclick = null;
-        btn.onclick = function (event) {
-            addRecipeToMealPlan(event, userId, recipeId);
-        };
+        btn.removeEventListener('click', removeRecipeFromMealPlan, true);
+        btn.addEventListener('click', addRecipeToMealPlan, true);
 
         icon.classList.remove("fa-minus");
-        icon.classList.add("fa-plus");
-    }
+        icon.classList.add("fa-plus");  
+    }          
 }

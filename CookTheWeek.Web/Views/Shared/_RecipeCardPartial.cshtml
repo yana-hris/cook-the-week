@@ -13,26 +13,33 @@
 <div class="col recipe-container">
     <div class="card">
         <div class="position-relative">
-                <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" style="height: 200px;" src="@Model.ImageUrl">
-                @if (!string.IsNullOrEmpty(userId) && !isOwner)
-                {
-                    bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+            <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" style="height: 200px;" src="@Model.ImageUrl">
+            @if (!string.IsNullOrEmpty(userId) && !isOwner)
+            {
+                bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 
-                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                        @if (isLiked)
-                        {
-                            <i class="fa fa-heart liked-icon"></i>
-                        }
-                        else
-                        {
-                            <i class="fa fa-heart not-liked-icon"></i>
-                        }
-                </a>
-                } else if(isOwner && !isAdmin)
-                {
-                            <i class="fa fa-certificate" aria-hidden="true"></i>
-                }
-
+                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                    @if (isLiked)
+                    {
+                        <i class="fa fa-heart liked-icon"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-heart not-liked-icon"></i>
+                    }
+            </a>
+            } else if(isOwner && !isAdmin)
+            {
+                        <i class="fa fa-user" aria-hidden="true"></i>
+            }
+            @if(userId != String.Empty)
+            {
+                <div class="add-to-mealplan-container">
+                    <a data-recipeId="@Model.Id" class="add-to-mealplan-button plus">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                </div>
+            }            
         </div>
         <div class="card-body p-2">
             <p class="card-title"><span class="badge @GetBadgeColor(Model.Category.Name) d-block">@Model.Category.Name</span></p>
@@ -75,8 +82,7 @@
                 }
                  @if (!string.IsNullOrEmpty(userId)) // && is not already added
                 {
-                <div class="card-btns d-flex justify-content-between align-content-center">
-                    <a class="btn btn-success add-to-mealplan-button" type="button" onclick="addRecipeToMealPlan(event, '@recipeId')">Add to Meal Plan</a>
+                <div class="card-btns d-flex justify-content-center align-content-center">                    
                     <a class="btn btn-outline-success" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" type="button">View</a>
                 </div>
                 }

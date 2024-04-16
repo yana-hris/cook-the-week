@@ -45,11 +45,14 @@
                                     <i class="fa fa-heart not-liked-icon"></i>
                                 }
                             </a>
-                            <div class="add-to-mealplan-container">                             
-                                <a class="add-to-mealplan-button plus" onclick="addRecipeToMealPlan(event, '@userId', '@recipeId')">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                            @if(userId != String.Empty)
+                            {
+                                <div class="add-to-mealplan-container">
+                                    <a data-recipeId="@Model.Id" class="add-to-mealplan-button plus">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            }                           
                         </div>
                         <div class="col col-12 col-sm-4">
                             <ul class="list-group">
