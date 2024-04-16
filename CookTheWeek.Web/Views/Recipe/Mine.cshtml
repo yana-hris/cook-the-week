@@ -24,19 +24,26 @@ else
 {
     <div class="container-xl" style="max-width: 1200px;">
         <div class="row">
-            <div class="container pt-2">
+            <partial name="_BuildBtnPartial" />
+        </div>
+        <div class="row">            
+            <div class="container py-2">
             @if (!isAdmin)
             {
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    <h2 class="collection-heading">Your Favourite Recipes</h2>
+                <div class="row">
+                    <h3 class="collection-heading">Your Favourite Recipes</h3>                    
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
                     @foreach (var recipe in Model.FavouriteRecipes)
                     {
                         <partial name="_RecipeCardPartial" model="recipe" />
                     }
                 </div>                        
             }
+                <div class="row">
+                    <h3 class="collection-heading">@ownedRecipeHeading</h3>                    
+                </div>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    <h2 class="collection-heading">@ownedRecipeHeading</h2>
                     @foreach (var recipe in Model.OwnedRecipes)
                     {
                         <partial name="_RecipeCardPartial" model="recipe" />
@@ -46,7 +53,7 @@ else
         </div>
     </div>
 
-
+        // TODO: Implement horizontal scroll with hidden scrollbars and an arrow btn for each collection of recipes
         @* <div class="container d-flex flex-column gap-2" id="recipe-container">
         @if (!isAdmin)
         {

@@ -402,20 +402,6 @@ $badge-info-bg: #D24545;
     padding: 0 40px !important;
   }
 }
-/*.liked-icon, .not-liked-icon {
-    position: absolute;
-    top: 3px;
-    left: 5px;
-    font-size: 25px;
-}
-
-.liked-icon {
-    color: red;
-}
-
-.not-liked-icon {
-    color: rgba(255, 255, 255, 0.65);
-}*/
 #recipe-container {
   max-width: 1300px;
   padding: 0 10px;
@@ -534,11 +520,16 @@ svg.fi-icon {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--bs-success);
   border-radius: 50%;
   z-index: 0;
 }
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button .fa-plus {
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .plus::before {
+  background-color: var(--bs-success);
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .minus::before {
+  background-color: var(--bs-danger);
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button .fa {
   position: absolute;
   top: 50%; /* Position the icon vertically */
   left: 50%; /* Position the icon horizontally */

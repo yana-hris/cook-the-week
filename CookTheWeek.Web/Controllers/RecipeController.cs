@@ -54,7 +54,8 @@
             queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
                 .Cast<RecipeSorting>()
                 .ToDictionary(rs => (int)rs, rs => rs.ToString());
-            
+
+            ViewData["Title"] = "All Recipes";
             return View(queryModel);
         }
 
@@ -265,8 +266,9 @@
         public async Task<IActionResult> Details(string id)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
+            ViewData["Title"] = "Recipe Details";
 
-            if(!exists)
+            if (!exists)
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
 
@@ -289,8 +291,9 @@
         public async Task<IActionResult> Mine()
         {
             string userId = this.User.GetId();
+            ViewData["Title"] = "My Recipes";
 
-            if(User.IsAdmin())
+            if (User.IsAdmin())
             {
                 Redirect("/Admin/Recipe/Mine");
             }

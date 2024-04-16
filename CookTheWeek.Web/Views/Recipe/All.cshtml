@@ -3,16 +3,13 @@
 @inject IUserService UserService
 @inject IFavouriteRecipeService FavouriteRecipeService
 @model AllRecipesQueryModel
-@{
-    ViewBag.Title = "All Recipes";
+@{    
     string userId = User.GetId();
 }
 
 <div class="container-xl" style="max-width: 1200px;">
     <div class="row">
-        <div id="build-btn-container" class="text-center py-2" hidden>
-            <a asp-area="" asp-controller="MealPlan" asp-action="Build" class="btn btn-success btn-lg">Build Meal Plan</a>
-        </div>
+        <partial name="_BuildBtnPartial" />
         <p id="welcome-message" class="text-center">Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.</p>
      </div>
         
@@ -119,7 +116,7 @@
             </ul>
         </nav>  
 </div>
-@section Scripts {
+@section Scripts {    
     <script>
         // Like btn functionality
         function toggleFavourites(event, recipeId, userId) {

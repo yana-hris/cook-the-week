@@ -75,69 +75,154 @@
             })
     });
 })();
-window.onload = function () {
-    // Invoke your function here
-    showOrHideBuildMealPlanBtn();
+
+
+window.onload = function () {    
+    var userId = currentUserId;
+    var buildBtnShouldBeRendered = isSpecificView(currentView);
+
+    if (buildBtnShouldBeRendered) {
+        if (userId) {
+            showOrHideBuildMealPlanBtn(userId);
+        }
+        else {
+            showOrHideBuildMealPlanBtn(null);
+        }
+    }   
+    return;
 };
+
+function isSpecificView(view) {
+    // Check if the current View is any of these   
+    const specificViews = ["All Recipes", "Recipe Details", "My Recipes"];
+    return specificViews.includes(view);
+};
+
+function userHasMealPlans(userId) {
+    var mealPlans = getUserLocalStorage(userId);
+    if (mealPlans !== null) {
+        return true;
+    }
+    return false;
+}
+// Check if user has Local Storage Meal Plan:
+function getUserLocalStorage(userId) {
+    return localStorage.getItem(userId);
+}
+
+// Check if a Recipe is already added to User`s Meal Plan
+function isRecipeAddedToMealPlan(userId, recipeId) {
+    var userMealPlans = getUserLocalStorage(userId);
+
+    if (!userMealPlans) {
+        return false;
+    }
+    // Parse the user's meal plans
+    const mealPlans = JSON.parse(userMealPlans);
+
+    // Check if the recipe ID exists in the user's meal plans
+    return mealPlans.includes(recipeId);
+}
+
 // Create or Add To MealPlan
-function addRecipeToMealPlan(event, recipeId) {
+function addRecipeToMealPlan(event, userId, recipeId) {
+    // Check if local storage has meal plans for this user
     event.preventDefault();
+    let userMealPlans = getUserLocalStorage(userId);
+
+    // If the user doesn't have any meal plans yet, create an empty array
+    if (!userMealPlans) {
+        userMealPlans = [];
+    } else {
+        // Parse the existing meal plans
+        userMealPlans = JSON.parse(userMealPlans);
+    }
+
+    // Check if the recipe is already in the meal plan
+    const existingRecipeIndex = userMealPlans.findIndex(item => item === recipeId);
+
+    if (existingRecipeIndex === -1) {
+        // If the recipe doesn't exist, add it to the meal plan
+        userMealPlans.push(recipeId);
+        toggleAddRemoveBtn(event,userId, recipeId);
+        toastr.success(`Recipe "${recipeId}" added to meal plan`);
+    } else {
+        toastr.error(`Recipe is already added to your plan`);
+    }
+
+    // Save the updated meal plans back to local storage
+    localStorage.setItem(userId, JSON.stringify(userMealPlans));
+}
+
+// Remove recipe from Meal Plan
+function removeRecipeFromMealPlan(event, userId, recipeId) {
+    // Get the user's meal plans from local storage
+    let userMealPlans = getUserLocalStorage(userId);
+
+    // If the user doesn't have any meal plans yet, return
+    if (!userMealPlans) {
+        toastr.error(`No meal plan yet`);
+        return;
+    }
+
+    // Parse the user's meal plans
+    userMealPlans = JSON.parse(userMealPlans);
+
+    // Check if the recipe ID exists in the user's meal plans
+    const recipeIndex = userMealPlans.indexOf(recipeId);
+
+    if (recipeIndex !== -1) {
+        // Remove the recipe from the user's meal plans
+        userMealPlans.splice(recipeIndex, 1);
+        toggleAddRemoveBtn(event, userId, recipeId);
+        toasrt.success(`Recipe successfully removed from the meal plan`);
+
+        // Save the updated meal plans back to local storage
+        localStorage.setItem(userId, JSON.stringify(userMealPlans));
+    } else {
+        toastr.error(`This Recipe has not been added to your meal plan and cannot be removed`);
+    }
+}
+
+// Show or Hide Build Meal Plan Btn
+function showOrHideBuildMealPlanBtn(userId) {
     debugger;
-    if (!isAddedToMealPlan(recipeId)) {
-        var mealPlan = JSON.parse(localStorage.getItem('MealPlan')) || [];
-        mealPlan.push({ id: recipeId });
-        localStorage.setItem('MealPlan', JSON.stringify(mealPlan));
-        showOrHideBuildMealPlanBtn();
-    }
-    else {
-        toastr.warning("This recipe is already added to your Meal Plan!");
-    }
-}
-
-// Check if a recipe is added to the MealPlan
-function isAddedToMealPlan(recipeId) {
-    var allRecipes = getRecipesFromLocalStorage();
-    // Check if the specified recipeId exists in the list of added recipes
-    var isAdded = allRecipes.some(recipe => recipe.id === recipeId);
-
-    return isAdded;
-}
-
-// Function to get all recipes from local storage
-function getRecipesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('MealPlan')) || [];
-}
-
-// Function to remove a recipe from local storage
-function removeRecipeFromLocalStorage(recipeId) {
-    var mealPlan = JSON.parse(localStorage.getItem('MealPlan')) || [];
-    var updatedMealPlan = mealPlan.filter(recipe => recipe.id !== recipeId);
-    localStorage.setItem('MealPlan', JSON.stringify(updatedMealPlan));
-    showOrHideBuildMealPlanBtn();
-}
-
-// Show btn
-function showOrHideBuildMealPlanBtn() {
     var buildBtn = document.getElementById("build-btn-container");
-    var recipes = getRecipesFromLocalStorage();
-    debugger;
-    if (recipes.length > 0) {
+
+    if (userId !== null && userHasMealPlans(userId)) {
         buildBtn.removeAttribute("hidden");
     } else {
         buildBtn.setAttribute('hidden', '');
     }
-
-    showOrHideWelcomeMassage();
 }
 
-function showOrHideWelcomeMassage() {
-    var para = document.getElementById("welcome-message");
-    var recipes = getRecipesFromLocalStorage();
-    if (recipes.length > 0) {
-        para.setAttribute("hidden", '');
+
+function toggleAddRemoveBtn(event, userId, recipeId) {
+    debugger;
+    const btn = event.currentTarget;
+    const icon = btn.querySelector('i');
+
+    if (btn.classList.contains("plus")) {
+        btn.classList.remove("plus");
+        btn.classList.add("minus");
+
+        btn.onclick = null;
+        btn.onclick = function (event) {
+            removeRecipeFromMealPlan(event, userId, recipeId);
+        };
+
+        icon.classList.remove("fa-plus");
+        icon.classList.add("fa-minus");
     } else {
-        buildBtn.removeAttribute('hidden');
+        btn.classList.remove("minus");
+        btn.classList.add("plus");
+
+        btn.onclick = null;
+        btn.onclick = function (event) {
+            addRecipeToMealPlan(event, userId, recipeId);
+        };
+
+        icon.classList.remove("fa-minus");
+        icon.classList.add("fa-plus");
     }
 }
-
-

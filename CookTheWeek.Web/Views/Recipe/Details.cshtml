@@ -3,9 +3,7 @@
 @model RecipeDetailsViewModel
 @inject IFavouriteRecipeService FavouriteRecipeService
 @inject IUserService UserService
-@{
-    ViewData["Title"] = "Recipe Details";
-
+@{  
     string userId = User.GetId();
     bool isAdmin = User.IsAdmin();
     string recipeId = Model.Id;
@@ -14,6 +12,9 @@
 }
 
 <div id="recipe-details-container">    
+    <div class="row">
+        <partial name="_BuildBtnPartial" />        
+    </div>
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -45,7 +46,7 @@
                                 }
                             </a>
                             <div class="add-to-mealplan-container">                             
-                                <a class="add-to-mealplan-button" onclick="addRecipeToMealPlan(event, '@recipeId')">
+                                <a class="add-to-mealplan-button plus" onclick="addRecipeToMealPlan(event, '@userId', '@recipeId')">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </a>
                             </div>
