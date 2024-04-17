@@ -120,16 +120,16 @@ ADMIN USER
 ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/7aba1633-3c52-4146-8b0b-84108ae54c2a)
 
 ## Used technologies
-ASP.NET Core MVC
-ASP.NET Web API
-Entity Framework Core (EF Core)
-SQL Server
-jQuery
-AJAX
-JavaScript
-Bootstrap
-SCSS (SASS)
-Local Storage
+ASP.NET Core MVC  
+ASP.NET Web API  
+Entity Framework Core (EF Core)  
+SQL Server  
+jQuery  
+AJAX  
+JavaScript  
+Bootstrap  
+SCSS (SASS)  
+Local Storage  
 
 ## Acknowledgements
 
