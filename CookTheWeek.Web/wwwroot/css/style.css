@@ -537,6 +537,13 @@ svg.fi-icon {
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   color: grey;
 }
+#recipe-details-container .card .card-body .img-container .fa-user {
+  position: absolute;
+  color: yellow;
+  top: 9px;
+  left: 18px;
+  font-size: 25px;
+}
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container {
   display: inline-block; /* Ensure the container wraps around its contents */
   position: absolute;

@@ -2,18 +2,12 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using System.Security.Claims;
 
     using Models;
 
     public class MealPlanEntityConfiguration : IEntityTypeConfiguration<MealPlan>
-    {
-        private readonly ClaimsPrincipal currentUser;
-
-        public MealPlanEntityConfiguration(ClaimsPrincipal currentUser)
-        {
-            this.currentUser = currentUser;
-        }
+    {        
+        
         public void Configure(EntityTypeBuilder<MealPlan> builder)
         {
             builder

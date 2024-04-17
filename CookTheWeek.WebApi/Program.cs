@@ -12,6 +12,10 @@ namespace CookTheWeek.WebApi
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            // Add logging configuration
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+
             string? connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
                 options.UseSqlServer(connectionString));

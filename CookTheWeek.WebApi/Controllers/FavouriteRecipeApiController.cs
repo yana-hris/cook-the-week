@@ -1,10 +1,10 @@
 ﻿namespace CookTheWeek.WebApi.Controllers
 {
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
-    using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+
+    using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
 
     [Route("api/favouriteRecipe")]
     [ApiController]

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CookTheWeek.Web.ViewModels.Meal;
     using Data.Models.Recipe;
     using Web.ViewModels.Recipe;
 
@@ -20,5 +20,6 @@
         Task<int> MineCountAsync(string userId);         
         Task<int> AllCountAsync();
         Task<bool> IsIncludedInMealPlans(string id);
+        Task<MealAddFormModel> GetForMealByIdAsync(string recipeId);
     }
 }

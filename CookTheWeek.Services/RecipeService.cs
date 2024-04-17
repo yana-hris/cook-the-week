@@ -14,6 +14,7 @@
     using Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.ViewModels.Meal;
 
     public class RecipeService : IRecipeService
     {
@@ -379,7 +380,23 @@
                 .Where(r => r.OwnerId == userId)
                 .CountAsync();
         }
-        
-        
+
+        public Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
+        {
+            return this.dbContext
+                .Recipes
+                .AsNoTracking()
+                .Include(r => r.Category)
+                .Where(r => r.Id.ToString() == recipeId)
+                .Select(r => new MealAddFormModel()
+                {
+                    RecipeId = r.Id.ToString(),
+                    Title = r.Title,
+                    Servings = r.Servings,
+                    ImageUrl = r.ImageUrl,
+                    CategoryName = r.Category.Name
+                })
+                .FirstAsync();
+        }
     }
 }

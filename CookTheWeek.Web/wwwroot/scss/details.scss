@@ -66,6 +66,14 @@
                     }
                 }
 
+                .fa-user {
+                    position: absolute;
+                    color: yellow;
+                    top: 9px;
+                    left: 18px;
+                    font-size: 25px;
+                }
+
                 .add-to-mealplan-container {
                     display: inline-block; /* Ensure the container wraps around its contents */
                     position: absolute;

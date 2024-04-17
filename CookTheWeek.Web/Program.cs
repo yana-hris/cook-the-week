@@ -45,6 +45,12 @@ namespace CookTheWeek.Web
                 cfg.AccessDeniedPath = "/Home/Error/401";
             });
 
+            builder.Services.AddLogging(options =>
+            {
+                options.AddConsole();
+                options.AddDebug();
+            });
+
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
                 {

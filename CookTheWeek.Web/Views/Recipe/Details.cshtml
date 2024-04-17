@@ -35,16 +35,22 @@
                     <div class="row g-3">
                         <div class="col col col-sm-8 img-container">
                             <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                            <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                                @if (isLiked)
-                                {
-                                    <i class="fa fa-heart liked-icon"></i>
-                                }
-                                else
-                                {
-                                    <i class="fa fa-heart not-liked-icon"></i>
-                                }
-                            </a>
+                            @if(!isOwner){
+                                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                                    @if (isLiked)
+                                    {
+                                        <i class="fa fa-heart liked-icon"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-heart not-liked-icon"></i>
+                                    }
+                                </a>
+                            }
+                            else
+                            {
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                            }
                             @if(userId != String.Empty)
                             {
                                 <div class="add-to-mealplan-container">
