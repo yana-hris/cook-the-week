@@ -1,11 +1,11 @@
 # App Purpose
 
-CookTheWeek is an intuitive recipe application that helps you plan your meals for the entire week. With a predefined collection of recipes and ingredients, CookTheWeek lets you search and filter by Category, ingredient, or just Cooking Time. It allows you to add your favorite recipes, and include them in your Meal Plans. The app will remember your intended recipes between browsing sessions and will also give you access and renewal options for your past fulfilled Meal Plans.
+CookTheWeek is an intuitive recipe application that helps you plan your meals for the entire week. With a predefined collection of Recipes and Ingredients, CookTheWeek lets you search and filter by Category, Ingredient, or just Cooking Time. It allows you to add your favorite recipes, and include them in your Meal Plans. The app will remember your intended recipes between browsing sessions and devices and will also give you access and renewal options for your past fulfilled Meal Plans.
 
 ## App Limitations
-- **User Added Ingredients**: Ordinary Users cannot add their ingredients in case they want to add a Recipe, and an ingredient is missing. The ingredients are predefined and can be added, edited, or deleted solely by an admin user.  
-- **Recipe Ingredient Measures and Specifics**: Ordinary Users cannot add or edit the pre-defined recipe-ingredient measures and specifications. They are initially seeded in the database.  
-- **User Likes**: Users cannot like their User Added Recipes, they can only like the App`s Seeded (or Admin Added) Recipes or other Users' Added Recipes. If a Recipe is deleted, it will not appear in the user's collection of liked Recipes.  
+- **User Added Ingredients**: Ordinary Users cannot add their Ingredients in case they want to add a Recipe, and an Ingredient is missing. The Ingredients are predefined and can be added, edited, or deleted solely by an Admin User.  
+- **Recipe Ingredient Measures and Specifics**: Ordinary Users cannot add or edit the pre-defined Recipe-Ingredient Measures and Specifications. They are initially seeded in the database.  
+- **User Likes**: Users cannot like their User Added Recipes, they can only like the App`s Seeded (Admin Added) Recipes or other Users' Added Recipes. If a Recipe is deleted by its owner, it will not appear in the user's collection of liked Recipes.  
 - **Deleting Recipes**: Recipes, included in current Meal Plans cannot be deleted. Users can delete only their own Recipes in case they are not currently included in a Meal Plan.  
 - **Meal Plan**: Users can only have one unsaved/still-in-progress Meal Plan (stored in the Local Storage). Upon Building the Meal Plan, it will be available for Review in the tab "Meal Plans".  
 
