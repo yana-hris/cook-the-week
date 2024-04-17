@@ -10,20 +10,23 @@
     using CookTheWeek.Services.Data.Models.MealPlan;
     using System.Text;
 
-    //[Authorize]
+    [Authorize]
     public class MealPlanController : Controller
     {
         private readonly IMealplanService mealplanService;
         private readonly IRecipeService recipeService;
         private readonly ILogger<MealPlanController> logger;
 
-        public MealPlanController(IMealplanService mealplanService, IRecipeService recipeService, ILogger<MealPlanController> logger)
+        public MealPlanController(IMealplanService mealplanService, 
+            IRecipeService recipeService, 
+            ILogger<MealPlanController> logger)
         {
             this.mealplanService = mealplanService;
             this.recipeService = recipeService;
             this.logger = logger;
         }
 
+        // TODO
         //public Task<IActionResult> AllActive()
         //{
 
@@ -34,11 +37,11 @@
 
         //}
         
-        [HttpPost]
-        public IActionResult Add([FromBody] MealPlanAddFormModel model)
-        {
-            
-            return View(model);
-        }
+        // TODO
+        //[HttpPost]
+        //public IActionResult Add([FromBody] MealPlanAddFormModel model)
+        //{            
+        //    return View(model);
+        //}
     }
 }

@@ -12,12 +12,15 @@
     {
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
+        private readonly ILogger<UserController> logger;
 
         public UserController(IUserService userService
-            ,IMemoryCache memoryCache)
+            ,IMemoryCache memoryCache,
+            ILogger<UserController> logger)
         {
             this.userService = userService;
             this.memoryCache = memoryCache;
+            this.logger = logger;
         }
         public async Task<IActionResult> All()
         {
@@ -27,7 +30,15 @@
 
             if(users == null)
             {
-                users = await this.userService.AllAsync();
+                try
+                {
+                    users = await this.userService.AllAsync();
+                }
+                catch (Exception)
+                {
+                    logger.LogError($"Users were not successfully loaded.");
+                    return BadRequest();
+                }
 
                 MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan

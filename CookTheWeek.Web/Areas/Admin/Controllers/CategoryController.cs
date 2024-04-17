@@ -13,10 +13,13 @@
     public class CategoryController : BaseAdminController
     {
         private readonly ICategoryService categoryService;
+        private readonly ILogger<CategoryController> logger;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, 
+            ILogger<CategoryController> logger)
         {
             this.categoryService = categoryService;
+            this.logger = logger;
         }
 
         // Recipe Category Service
@@ -64,6 +67,7 @@
             }
             catch (Exception)
             {
+                logger.LogError($"Recipe Category with name {model.Name} not added!");
                 return BadRequest();
             }
 
@@ -127,6 +131,7 @@
 
             if(!exists)
             {
+                logger.LogError($"Recipe Category with id {id} does not exist.");
                 return NotFound();
             }
             
@@ -147,6 +152,7 @@
                 {
                     // Handle other exceptions
                     TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    logger.LogError($"Recipe Category with id {id} was not deleted.");
                     return BadRequest();
                 }
             }
@@ -157,10 +163,17 @@
         // Ingredient Category Service
         public async Task<IActionResult> AllIngredientCategories()
         {
-            ICollection<IngredientCategorySelectViewModel> all = await categoryService
+            try
+            {
+                ICollection<IngredientCategorySelectViewModel> all = await categoryService
                .AllIngredientCategoriesAsync();
-
-            return View(all);
+                return View(all);
+            }
+            catch (Exception)
+            {
+                logger.LogError("Ingredient Categories were not loaded.");
+                return BadRequest();
+            }
         }
 
         [HttpGet]
@@ -198,6 +211,7 @@
             }
             catch (Exception)
             {
+                logger.LogError($"Ingredient Category with name {model.Name} was not added.");
                 return BadRequest();
             }
 
@@ -211,12 +225,20 @@
 
             if (!exists)
             {
+                logger.LogError($"Ingredient Category with id {id} does not exist.");
                 return NotFound();
             }
 
-            IngredientCategoryEditFormModel model = await this.categoryService.GetIngredientCategoryForEditByIdAsync(id);
-
-            return View(model);
+            try
+            {
+                IngredientCategoryEditFormModel model = await this.categoryService.GetIngredientCategoryForEditByIdAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                logger.LogError($"Ingredient Category model for category with {id} was not loaded.");
+                return BadRequest();    
+            }
         }
 
         [HttpPost]
@@ -262,6 +284,7 @@
 
             if (!exists)
             {
+                logger.LogError($"Ingredient Category with id {id} does not exist and cannot be deleted.");
                 return NotFound();
             }
 
@@ -282,6 +305,7 @@
                 {
                     // Handle other exceptions
                     TempData[ErrorMessage] = "An error occurred while deleting the category.";
+                    logger.LogError($"Ingredient Category with id {id} was not deleted.");
                     return BadRequest();
                 }
             }

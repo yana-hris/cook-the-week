@@ -16,28 +16,38 @@
     {
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
+        private readonly ILogger<IngredientController> logger;
 
         public IngredientController(ICategoryService categoryService,
-            IIngredientService ingredientService)
+            IIngredientService ingredientService,
+            ILogger<IngredientController> logger)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
+            this.logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllIngredientsQueryModel queryModel)
         {
-            AllIngredientsFilteredAndPagedServiceModel serviceModel = await ingredientService
+            try
+            {
+                AllIngredientsFilteredAndPagedServiceModel serviceModel = await ingredientService
                 .AllAsync(queryModel);
+                queryModel.Ingredients = serviceModel.Ingredients;
+                queryModel.TotalIngredients = serviceModel.TotalIngredientsCount;
+                queryModel.Categories = await categoryService.AllIngredientCategoryNamesAsync();
+                queryModel.IngredientSortings = Enum.GetValues(typeof(IngredientSorting))
+                    .Cast<IngredientSorting>()
+                    .ToDictionary(rs => (int)rs, rs => rs.ToString());
 
-            queryModel.Ingredients = serviceModel.Ingredients;
-            queryModel.TotalIngredients = serviceModel.TotalIngredientsCount;
-            queryModel.Categories = await categoryService.AllIngredientCategoryNamesAsync();
-            queryModel.IngredientSortings = Enum.GetValues(typeof(IngredientSorting))
-                .Cast<IngredientSorting>()
-                .ToDictionary(rs => (int)rs, rs => rs.ToString());
-
-            return View(queryModel);
+                return View(queryModel);
+            }
+            catch (Exception)
+            {
+                logger.LogError($"Ingredient Query model was not successfully loaded.");
+                return BadRequest();
+            }
         }
 
         [HttpGet]
@@ -45,7 +55,6 @@
         {
             IngredientAddFormModel model = new IngredientAddFormModel();
             model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
-
 
             return View(model);
         }
@@ -76,6 +85,7 @@
                 }
                 catch (Exception)
                 {
+                    logger.LogError($"Ingredient with name {model.Name} was not successfully added.");
                     return BadRequest();
                 }
             }
@@ -91,14 +101,21 @@
 
             if(!exists)
             {
+                logger.LogError($"Ingredient with id {id} does not exist and cannot be edited.");
                 return NotFound();
             }
 
-            IngredientEditFormModel model = await ingredientService.GetForEditByIdAsync(id);
-            model.Categories = await categoryService.AllIngredientCategoriesAsync();
-
-            return View(model);
-
+            try
+            {
+                IngredientEditFormModel model = await ingredientService.GetForEditByIdAsync(id);
+                model.Categories = await categoryService.AllIngredientCategoriesAsync();
+                return View(model);
+            }
+            catch (Exception)
+            {
+                logger.LogError($"Model for ingredient with id {id} was not successfully loaded.");
+                return BadRequest();
+            }
         }
 
         [HttpPost]
@@ -108,6 +125,7 @@
 
             if(!ingredientExists)
             {
+                logger.LogError($"Ingredient with id {model.Id} does not exist and cannot be edited.");
                 return NotFound();
             }
 
@@ -133,6 +151,7 @@
                 }
                 catch (Exception)
                 {
+                    logger.LogError($"Ingredient with id {model.Id} was not edited successfully");
                     return BadRequest();
                 }
             }
@@ -148,6 +167,7 @@
 
             if(!exists)
             {
+                logger.LogError($"Ingredient with id {id} does not exist and cannot be deleted.");
                 return NotFound();
             }
             
@@ -168,6 +188,7 @@
                 {
                     // Handle other exceptions
                     TempData[ErrorMessage] = "An error occurred while deleting the Ingredient.";
+                    logger.LogError($"Ingredient with id {id} was not edited successfully.");
                     return BadRequest();
                 }
             }

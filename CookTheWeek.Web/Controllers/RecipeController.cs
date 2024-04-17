@@ -26,13 +26,15 @@
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly HtmlSanitizer sanitizer;
+        private readonly ILogger<RecipeController> logger;
 
         public RecipeController(IRecipeService recipeService, 
             ICategoryService categoryService, 
             IRecipeIngredientService recipeIngredientService,
             IIngredientService ingredientService,
             IUserService userService,
-            IFavouriteRecipeService favouriteRecipeService)
+            IFavouriteRecipeService favouriteRecipeService,
+            ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
@@ -41,22 +43,33 @@
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
             sanitizer = new HtmlSanitizer();
+            this.logger = logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllRecipesQueryModel queryModel)
-        {
-            AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
-            queryModel.Recipes = serviceModel.Recipes;
-            queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
-            queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
-            queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
-                .Cast<RecipeSorting>()
-                .ToDictionary(rs => (int)rs, rs => rs.ToString());
+        {            
+            try
+            {
+                AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
+                queryModel.Recipes = serviceModel.Recipes;
+                queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
+                queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
+                queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
+                    .Cast<RecipeSorting>()
+                    .ToDictionary(rs => (int)rs, rs => rs.ToString());
 
-            ViewData["Title"] = "All Recipes";
-            return View(queryModel);
+                ViewData["Title"] = "All Recipes";
+
+                return View(queryModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while processing the All recipes action");
+                return BadRequest();
+            }
+            
         }
 
         [HttpGet]
@@ -141,6 +154,7 @@
             }
             catch (Exception)
             {
+                logger.LogError("Reicpe was not added!");
                 return BadRequest();
             }
         }
@@ -177,6 +191,7 @@
             }
             catch (Exception)
             {
+                logger.LogError("Recipe model was not successfully loaded for edit!");
                 return BadRequest(); 
             }
         }
@@ -255,6 +270,7 @@
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
+                logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
                 return View(model);
             }
 
@@ -283,6 +299,7 @@
             }
             catch (Exception)
             {
+                logger.LogError("Recipe Details unsuccessfully loaded!");
                 return BadRequest();
             }            
         }
@@ -298,11 +315,19 @@
                 Redirect("/Admin/Recipe/Mine");
             }
 
-            RecipeMineViewModel model = new RecipeMineViewModel();
-            model.FavouriteRecipes = await this.favouriteRecipeService.AllByUserIdAsync(userId);
-            model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
-
-            return View(model);
+            try
+            {
+                RecipeMineViewModel model = new RecipeMineViewModel();
+                model.FavouriteRecipes = await this.favouriteRecipeService.AllByUserIdAsync(userId);
+                model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                logger.LogError("My Recipes unsuccessfully loaded to View Model!");
+                return BadRequest();
+            }
+            
         }
 
         [HttpGet]
@@ -338,6 +363,7 @@
             }
             catch (Exception)
             {
+                logger.LogError($"Delete of Recipe with id {id} unsuccessful");
                 return BadRequest();
             }           
             
@@ -369,6 +395,7 @@
             }
             catch (Exception)
             {
+                logger.LogError($"Something went wrong and the recipe with id {id} was not deleted!");
                 return BadRequest();
             }
 

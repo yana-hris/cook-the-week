@@ -77,8 +77,12 @@
 
                 await roleManager.CreateAsync(role);
 
-                ApplicationUser adminUser = await userManager.FindByNameAsync(userName);
-                await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+                ApplicationUser? adminUser = await userManager.FindByNameAsync(userName);
+
+                if (adminUser != null)
+                {
+                    await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+                }
             })
                 .GetAwaiter()
                 .GetResult();
