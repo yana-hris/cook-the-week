@@ -44,11 +44,6 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
   ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/83b80015-716b-41dd-b000-6afe730ccc16)
 
 
-
-- FUNCTIONALITY IN PROGRESS: **Customize Meals** according to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
-- FUNCTIONALITY IN PROGRESS: **Plan Days for Cooking** by selecting them from the drop-down menu in your Meal plan.
-- FUNCTIONALITY IN PROGRESS: **Meal Planner**: Plan your meals for the entire week by clicking a few buttons.
-- FUNCTIONALITY IN PROGRESS: **Ingredient Shopping List**: Automatically generate a shopping list based on your chosen recipes and servings.
 - **Admin Area**: The Admin User can access the admin panel where he can monitor, add, and edit the main app entities - Ingredient, Recipe Category, Ingredient Category. He can also edit all Recipes and see the User statistics:
 - 
 ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/f855d808-2c42-4c48-9782-c73cd23fa190)
@@ -61,6 +56,13 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 
 ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/7df0c93b-7fc0-4492-bea4-76957e0cd431)  
 
+
+
+
+- FUNCTIONALITY IN PROGRESS: **Customize Meals** according to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
+- FUNCTIONALITY IN PROGRESS: **Plan Days for Cooking** by selecting them from the drop-down menu in your Meal plan.
+- FUNCTIONALITY IN PROGRESS: **Meal Planner**: Plan your meals for the entire week by clicking a few buttons.
+- FUNCTIONALITY IN PROGRESS: **Ingredient Shopping List**: Automatically generate a shopping list based on your chosen recipes and servings.
 
 ---
 
