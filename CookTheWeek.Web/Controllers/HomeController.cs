@@ -37,6 +37,16 @@ namespace CookTheWeek.Web.Controllers
             return RedirectToAction("All", "Recipe");
         }
 
+        public IActionResult HowItWorks()
+        {
+            string userId = User.GetId();
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View();
+            }
+
+            return RedirectToAction("All", "Recipe");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode = null)

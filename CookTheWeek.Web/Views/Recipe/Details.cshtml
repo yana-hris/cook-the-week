@@ -180,7 +180,7 @@
                 <div class="buttons d-flex gap-2 align-items-center justify-content-center">
                     <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-danger text-center card-btn" type="button">
                         Edit
-                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" class="btn btn-danger text-center card-btn" type="button">
+                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger text-center card-btn" type="button">
                         Delete
                     </a>
                 </div>

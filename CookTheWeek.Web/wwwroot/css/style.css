@@ -419,6 +419,38 @@ $badge-info-bg: #D24545;
   font-weight: 400;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.container .steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .steps .step {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.container .steps .step .step h2, .container .steps .step .step .h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.container .steps .step .step p {
+  font-size: 18px;
+  color: #333;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .steps .step {
+    width: 30%;
+  }
+}
 .container-xl {
   max-width: 1200px;
 }
@@ -539,7 +571,7 @@ svg.fi-icon {
 }
 #recipe-details-container .card .card-body .img-container .fa-user {
   position: absolute;
-  color: yellow;
+  color: var(--bs-warning);
   top: 9px;
   left: 18px;
   font-size: 25px;

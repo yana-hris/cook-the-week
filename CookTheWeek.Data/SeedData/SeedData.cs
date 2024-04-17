@@ -782,8 +782,8 @@
                 new ()
                 {
                     Id = 83,
-                    Name = "Coconut Sugar",
-                    CategoryId = 6
+                    Name = "Pumpkin",
+                    CategoryId = 8
                 },
                 new ()
                 {
@@ -1802,6 +1802,12 @@
                     Name = "Himalayan Salt",
                     CategoryId = 5
                 },
+                new()
+                {
+                    Id = 253,
+                    Name = "Curry Paste",
+                    CategoryId = 10
+                },
             };
         }
         internal ICollection<Recipe> SeedRecipes()
@@ -1903,6 +1909,18 @@
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
                     CategoryId = 4,
+                },
+                new()
+                {
+                    Id = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    OwnerId = AppUserId,
+                    Title = "Thai Pumpkin Cream Soup",
+                    Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
+                    Instructions = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant. Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. Then, blend the soup until smooth using an immersion blender or countertop blender. Adjust seasoning with salt, pepper, and lime juice to taste. Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                    Servings = 4,
+                    TotalTime = TimeSpan.FromMinutes(40.0),
+                    ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
+                    CategoryId = 2,
                 },
             };
         }
@@ -2404,6 +2422,49 @@
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7
+                },// Recipe by AppUser (No 8)
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 116,
+                    Qty = 2,
+                    MeasureId = 7,
+                    SpecificationId = 5
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 155,
+                    Qty = 1,
+                    MeasureId = 8,
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 165,
+                    Qty = 400.0m,
+                    MeasureId = 3,
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 222,
+                    Qty = 2,
+                    MeasureId = 9,
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 83,
+                    Qty = 1,
+                    MeasureId = 6,
+                },
+                new()
+                {
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    IngredientId = 253,
+                    Qty = 1,
+                    MeasureId = 7,
                 },
             };
         }

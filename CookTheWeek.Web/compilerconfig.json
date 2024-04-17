@@ -42,5 +42,9 @@
   {
     "outputFile": "wwwroot/scss/about.css",
     "inputFile": "wwwroot/scss/about.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/how-it-works.css",
+    "inputFile": "wwwroot/scss/how-it-works.scss"
   }
 ]
