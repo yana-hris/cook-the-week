@@ -13,56 +13,66 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 
 - **User Profiles**: Create personalized profiles to save preferences, add your recipes, and explore the full functionality. 
 - **Recipe Collection**: Access a diverse range of recipes for different types of meals (breakfast, salad, soup, main course, or dessert).
-- **Customization**: Filter and order recipes based on category, ingredients, date created, or cooking time. 
-- **Suggestive Search for Ingredients Addition**: Start typing the ingredient name and the suggestions will start popping after the third character:  
-  ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/999e2d3f-238e-4553-b21f-f4db8ed15aa4)
-
-
-  
-  
 - **Add Recipes**: Add your favorite family recipes and include them in your future Meal Plans:
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/23cdc1e1-3e83-459a-af29-04a91080b41b)
-
-
-
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/23cdc1e1-3e83-459a-af29-04a91080b41b" width="900">  
 
 - **Save Favorites**: Bookmark your favorite recipes for quick access later and access them in your "Mine" collection:
-  ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/9d1bfd81-8312-4526-81a3-78c183e16e30)
+  
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/9d1bfd81-8312-4526-81a3-78c183e16e30" width="900">  
+
+- **Suggestive Search for Ingredients Addition**: Start typing the ingredient name and the suggestions will start popping after the third character:  
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/999e2d3f-238e-4553-b21f-f4db8ed15aa4" width="900">    
 
 
+- **Customization**: Filter and order recipes based on category, ingredients, date created, or cooking time. 
   
   
 - **Add Recipes to Meal Plan** by clicking the "+" button and save them for the future Meal Plan Build
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/9710cc0c-7eb7-4ba6-9982-029bfc0cfcbb)
 
-- **Change Theme** by clicking the button in the right upper corner:
-  
-  ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/b39816bf-9de9-401a-a13b-f9d8652ff2f7)
-
-  ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/26be14c6-18df-40e5-8ac9-cad24c639094)
-
-  ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/83b80015-716b-41dd-b000-6afe730ccc16)
-
-
-- **Admin Area**: The Admin User can access the admin panel where he can monitor, add, and edit the main app entities - Ingredient, Recipe Category, Ingredient Category. He can also edit all Recipes and see the User statistics:
-- 
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/f855d808-2c42-4c48-9782-c73cd23fa190)
-
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/c20c7353-032a-4074-b519-7c3b9b123151)  
-
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/bf44d8f3-ff66-4929-ba44-fa40a9a17bbf)  
-
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/4e772a09-b4c3-4198-a899-ff2796ebd775)  
-
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/7df0c93b-7fc0-4492-bea4-76957e0cd431)  
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/9710cc0c-7eb7-4ba6-9982-029bfc0cfcbb" width="900">  
 
 
 
+- **Change Theme** by clicking the button in the right upper corner:  
 
-- FUNCTIONALITY IN PROGRESS: **Customize Meals** according to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
-- FUNCTIONALITY IN PROGRESS: **Plan Days for Cooking** by selecting them from the drop-down menu in your Meal plan.
-- FUNCTIONALITY IN PROGRESS: **Meal Planner**: Plan your meals for the entire week by clicking a few buttons.
-- FUNCTIONALITY IN PROGRESS: **Ingredient Shopping List**: Automatically generate a shopping list based on your chosen recipes and servings.
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/b39816bf-9de9-401a-a13b-f9d8652ff2f7" width="900">
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/26be14c6-18df-40e5-8ac9-cad24c639094" width="900">
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/83b80015-716b-41dd-b000-6afe730ccc16" width="900">  
+
+### App User features:
+- Can Sign up or Log in to his/her User Account.    
+- Browse the Recipe collection, use filters and sorting to find Recipes by Name, Ingredient, Cooking Time, etc.     
+- Add his/her Recipes /only for registered and logged users/. The add ingredient tab allows suggestive search and makes it easy and fast /to explore this functionality, both **CookTheWeek.Web** and **CookTheWeek.WebApi** must be started as *Multiple Startup Projects*).    
+- Like and unlike recipes by other users.    
+- View his/her Recipes in the "Mine" tab - both user-added and user-liked.  
+- FUNCTIONALITY IN DEVELOPMENT: **Meal Planner**: Build a Meal Plan by adding Recipes, selecting Serving Sizes, and Cooking Dates (optional).
+- FUNCTIONALITY IN PROGRESS: **Customize Meals**: According to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
+- FUNCTIONALITY IN PROGRESS: **Plan Days for Cooking**: By selecting them from the drop-down menu in your Meal Plan.
+- FUNCTIONALITY IN DEVELOPMENT: **Ingredient Shopping List**: Generate a shopping list based on your chosen recipes and servings, and save it as a file or view it in-app.
+
+
+
+### Admin Area features:  
+- Has custom navigation and custom pages.  
+- Can Add, Edit, Delete, and View All:
+   - Recipes  
+   - Ingredients  
+   - Categories - both Recipe and Ingredient Categories    
+   - View Users and Statistics  
+   - FUNCTIONALITY IN DEVELOPMENT - view all users` saved Meal Plans   
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/f855d808-2c42-4c48-9782-c73cd23fa190" width="900">
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/c20c7353-032a-4074-b519-7c3b9b123151" width="900">   
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/bf44d8f3-ff66-4929-ba44-fa40a9a17bbf" width="900">  
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/4e772a09-b4c3-4198-a899-ff2796ebd775" width="900">  
+
+<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/7df0c93b-7fc0-4492-bea4-76957e0cd431" width="900">   
 
 ---
 
@@ -71,17 +81,20 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 ## Installation
 
 1. **Clone** the repository:  
-> git clone https://github.com/yana-hris/cook-the-week.git
+```bash
+git clone https://github.com/yana-hris/cook-the-week.git
+```
 
 2. **Navigate** to the project directory  
 
-3. **Install** ***dependencies*** 
+3. **Install** dependencies
 
-4. **Set up the database**: ***update*** the ***connection strings*** in ***Program.cs*** of both **CookTheWeek.Web** & **CookTheWeek.WebApi** 
+4. **Set up the database**: update the connection strings in **Program.cs** of both ***CookTheWeek.Web*** & ***CookTheWeek.WebApi***
 
 5. **Run migrations** to create the database schema:  
-> dotnet ef database update
-
+```bash
+dotnet ef database update
+```
 6. **Build** the project
 
 7. **Run** the project - Configure multiple StartUp Projects and *run both* **CookTheWeek.Web** & **CookTheWeek.WebApi**. The application should now be running locally. Two browsers must open - one for Swagger and one for the Web app.
@@ -91,32 +104,39 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 The Database is pre-seeded with 2 users. They can be used to log in and explore the app:
 
 ### Admin User  
-> Username: adminUser  
-> Password: admin1  
+> Username:
+```bash
+adminUser
+```
+> Password:
+```bash
+admin1
+```
 
 ### AppUser  
-> Username: appUser  
-> Password: 123456  
-
+> Username:
+```bash
+appUser
+```
+> Password:
+```bash
+123456  
+```
 Apart from that, you can register and log in with your account. The app does not require e-mail confirmation and works with a custom account, no external logins have been integrated so far.
 
-APP USER  
-1. Sign up or log in to some of the pre-defined accounts.  
-2. Explore the recipe collection or use filters to find recipes that suit your preferences.  
-3. Add your recipes if you are a registered user. The ingredient tab allows suggestive search and makes it easy and fast (works only if the project is started together with the web API).  
-4. Like and unlike recipes that are not user-owned.  
-5. View your recipes, liked and added by you in the "Mine" tab.  
-6. NOT FINISHED YET: Build your meal plan by adding recipes, and selecting serving sizes and cooking dates.  
-7. NOT FINISHED YET: Generate a shopping list and save it as a file or view it in-app.  
+ ### Recipes
+ The database is pre-seeded with several Recipes. You can try and add, edit and delete your own Recipes.
 
-ADMIN USER  
-- The Admin User has custom navigation and custom pages
-- Can Add, Edit, Delete and View All:
-   - Recipes
-   - Ingredients
-   - Categories - both Recipe and Ingredient Category
-   - Can View Users and statistics
-   - IN PROGRESS - view all users` saved Meal Plans
+ ### Ingredients
+ Admin User can add Ingredients, edit and delete them.
+
+ ### Categories
+ Admin User can Add, Remove and Edit Recipe Categroies and Ingredient Categories.
+
+ ### Users
+ Admin User can see all Users and also their statistics.
+
+
 
 ## Database Diagram:
 ![image](https://github.com/yana-hris/cook-the-week/assets/8995553/7aba1633-3c52-4146-8b0b-84108ae54c2a)
