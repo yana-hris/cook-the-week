@@ -49,8 +49,8 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 - Like and unlike recipes by other users.    
 - View his/her Recipes in the "Mine" tab - both user-added and user-liked.  
 - FUNCTIONALITY IN DEVELOPMENT: **Meal Planner**: Build a Meal Plan by adding Recipes, selecting Serving Sizes, and Cooking Dates (optional).
-- FUNCTIONALITY IN PROGRESS: **Customize Meals**: According to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
-- FUNCTIONALITY IN PROGRESS: **Plan Days for Cooking**: By selecting them from the drop-down menu in your Meal Plan.
+- FUNCTIONALITY IN DEVELOPMENT: **Customize Meals**: According to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
+- FUNCTIONALITY IN DEVELOPMENT: **Plan Days for Cooking**: By selecting them from the drop-down menu in your Meal Plan.
 - FUNCTIONALITY IN DEVELOPMENT: **Ingredient Shopping List**: Generate a shopping list based on your chosen recipes and servings, and save it as a file or view it in-app.
 
 
