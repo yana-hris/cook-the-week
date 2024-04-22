@@ -1,14 +1,18 @@
 ﻿namespace CookTheWeek.Services.Data.Models.MealPlan
 {
-    
+    using System.ComponentModel.DataAnnotations;
+
     public class MealPlanServiceModel
     {
         public MealPlanServiceModel()
         {
-            this.Meals = new List<MealServiceModel>();
+            this.Meals = new HashSet<MealServiceModel>();
         }
 
-        public string UserId { get; set; }
+        [Required]
+        public string UserId { get; set; } = null!;
+
+        [Required]
         public ICollection<MealServiceModel> Meals { get; set; }
     }
 }

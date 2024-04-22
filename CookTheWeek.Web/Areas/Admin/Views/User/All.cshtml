@@ -3,57 +3,60 @@
 @{
     ViewBag.Title = "All Users";
 }
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><label>Id</label></th>
-            <th><label>Username</label></th>
-            <th><label>Email</label></th>
-            <th><label>User Recipes</label></th>
-            <th><label>User Meal Plans</label></th>
-            <th><label>User Is Online</label></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+<div class="container">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <hr />
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td><label>@user.Id</label></td>
-                <td><label>@user.Username</label></td>
-                <td><label>@user.Email</label></td>
-                <td>
-                    @if (user.TotalRecipes == 0)
-                    {
-                        <label>❌</label>
-                    }
-                    else
-                    {
-                        <label class="text-center">@user.TotalRecipes</label>
-                    }
-                </td>
-                <td>
-                    @if (user.TotalMealPlans == 0)
-                    {
-                        <label>❌</label>
-                    }
-                    else
-                    {
-                        <label class="text-center">@user.TotalMealPlans</label>
-                    }
-                </td>
-                <td>
-                    @if(OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
-                    {
-                        <label>✔</label>
-                    }
-                    else
-                    {
-                        <label>❌</label>
-                    }
-                </td>
+                <th><label>Id</label></th>
+                <th><label>Username</label></th>
+                <th><label>Email</label></th>
+                <th><label>User Recipes</label></th>
+                <th><label>User Meal Plans</label></th>
+                <th><label>User Is Online</label></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td><label>@user.Id</label></td>
+                    <td><label>@user.Username</label></td>
+                    <td><label>@user.Email</label></td>
+                    <td>
+                        @if (user.TotalRecipes == 0)
+                        {
+                            <label>❌</label>
+                        }
+                        else
+                        {
+                            <label class="text-center">@user.TotalRecipes</label>
+                        }
+                    </td>
+                    <td>
+                        @if (user.TotalMealPlans == 0)
+                        {
+                            <label>❌</label>
+                        }
+                        else
+                        {
+                            <label class="text-center">@user.TotalMealPlans</label>
+                        }
+                    </td>
+                    <td>
+                        @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+                        {
+                            <label>✔</label>
+                        }
+                        else
+                        {
+                            <label>❌</label>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

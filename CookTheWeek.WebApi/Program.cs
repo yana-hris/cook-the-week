@@ -10,7 +10,7 @@ namespace CookTheWeek.WebApi
     {
         public static void Main(string[] args)
         {
-            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args);
 
             // Add logging configuration
             builder.Logging.AddConsole();
@@ -24,51 +24,45 @@ namespace CookTheWeek.WebApi
             builder.Services.AddApplicationServices(typeof(IIngredientService));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddCors(setup =>
+            builder.Services.AddCors(options =>
             {
-                setup.AddPolicy("CookTheWeekDevelopmentPolicy", policyBuilder =>
+                options.AddPolicy("AllowDevelopment", policy =>
                 {
-                    policyBuilder.WithOrigins("https://localhost:7170")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    policy.WithOrigins("https://localhost:7170")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
                 });
-                setup.AddPolicy("CookTheWeekProductionPolicy", policyBuilder =>
+
+                options.AddPolicy("AllowProduction", policy =>
                 {
-                    policyBuilder.WithOrigins("http://cooktheweek.com")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    policy.WithOrigins("http://cooktheweek.com")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
                 });
             });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors("AllowDevelopment");
+            }
+            else
+            {
+                app.UseHsts();
+                app.UseCors("AllowProduction");
             }
 
             app.UseHttpsRedirection();
-
+            app.UseRouting();
             app.UseAuthorization();
-
-
             app.MapControllers();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseCors("CookTheWeekDevelopmentPolicy");
-            }
-            else if(app.Environment.IsProduction())
-            {
-                app.UseCors("CookTheWeekProductionPolicy");
-            }            
-
             app.Run();
         }
     }

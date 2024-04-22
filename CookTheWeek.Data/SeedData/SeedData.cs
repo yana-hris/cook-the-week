@@ -280,6 +280,10 @@
                 new() {
                     Id = 10,
                     Description = "squeezed"
+                },
+                new() {
+                    Id = 11,
+                    Description = "dried"
                 }
             };
         }
@@ -476,8 +480,8 @@
                 new()
                 {
                     Id = 30,
-                    Name = "Mozzarella",
-                    CategoryId = 1
+                    Name = "Pizza Dough",
+                    CategoryId = 4
                 }, //31 and 32 are for meat
                 new()
                 {
@@ -1604,41 +1608,41 @@
                     Name = "Psyllium Seeds",
                     CategoryId = 13
                 },
-                //new Ingredient()
-                //{
-                //    Id = 220,
-                //    Name = "Rice",
-                //    IngredientCategoryId = 7
-                //},
-                //new Ingredient()
-                //{
-                //    Id = 221,
-                //    Name = "Brown Rice",
-                //    IngredientCategoryId = 7
-                //},
+                new Ingredient()
+                {
+                    Id = 220,
+                    Name = "Water",
+                    CategoryId = 10
+                },
+                new Ingredient()
+                {
+                    Id = 221,
+                    Name = "Warm Water",
+                    CategoryId = 10
+                },
                 new()
                 {
                     Id = 222,
                     Name = "Vegetable Broth",
-                    CategoryId = 12
+                    CategoryId = 10
                 },
                 new()
                 {
                     Id = 223,
                     Name = "Beef Broth",
-                    CategoryId = 12
+                    CategoryId = 10
                 },
                 new()
                 {
                     Id = 224,
                     Name = "Fish Broth",
-                    CategoryId = 12
+                    CategoryId = 10
                 },
                 new()
                 {
                     Id = 225,
                     Name = "Fish Broth",
-                    CategoryId = 12
+                    CategoryId = 10
                 },
                 new()
                 {
@@ -1807,6 +1811,18 @@
                     Id = 253,
                     Name = "Curry Paste",
                     CategoryId = 10
+                },
+                new()
+                {
+                    Id = 254,
+                    Name = "Instant Yeast",
+                    CategoryId = 4
+                },
+                new()
+                {
+                    Id = 255,
+                    Name = "Garlic Powder",
+                    CategoryId = 5
                 },
             };
         }

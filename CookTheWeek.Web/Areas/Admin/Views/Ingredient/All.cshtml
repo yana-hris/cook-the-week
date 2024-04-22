@@ -3,135 +3,139 @@
     ViewData["Title"] = "All Ingredients";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
-
-<form method="get" class="pb-4">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label asp-for="Category" class="form-label">Category</label>
-                <select asp-for="Category" class="form-control">
-                    <option value="">All</option>
-                    @foreach (var category in Model.Categories)
-                    {
-                        <option value="@category">@category</option>
-                    }
-                </select>
-            </div>
-        </div>    
-        <div class="col-sm-5">
-            <div class="form-group">
-                <label asp-for="SearchString" class="form-label">Search</label>
-                <input asp-for="SearchString" class="form-control" placeholder="..." />
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label asp-for="IngredientSorting" class="form-label">Sort By</label>
-                <select asp-for="IngredientSorting" class="form-control">
-                    @foreach (var option in Model.IngredientSortings)
-                    {
-                        <option value="@option.Key">@option.Value</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-auto">
-            <div class="row align-items-end">
-                <div class="col-sm-6">
-                    <div class="form-group mb-0">
-                        <label asp-for="IngredientsPerPage" class="form-label">Per Page</label>
-                        <select asp-for="IngredientsPerPage" class="form-control">
-                            <option value="20">20</option>
-                            <option value="40">40</option>
-                            <option value="60">60</option>
+<div class="container">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <hr />
+    <div class="container pt-2">
+        <form method="get" class="pb-4">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label asp-for="Category" class="form-label">Category</label>
+                        <select asp-for="Category" class="form-control">
+                            <option value="">All</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category">@category</option>
+                            }
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group mb-0 d-flex justify-content-end">
-                        <button type="submit" value="Search" class="btn btn-success">Search</button>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label asp-for="SearchString" class="form-label">Search</label>
+                        <input asp-for="SearchString" class="form-control" placeholder="..." />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="IngredientSorting" class="form-label">Sort By</label>
+                        <select asp-for="IngredientSorting" class="form-control">
+                            @foreach (var option in Model.IngredientSortings)
+                            {
+                                <option value="@option.Key">@option.Value</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-auto">
+                    <div class="row align-items-end">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0">
+                                <label asp-for="IngredientsPerPage" class="form-label">Per Page</label>
+                                <select asp-for="IngredientsPerPage" class="form-control">
+                                    <option value="20">20</option>
+                                    <option value="40">40</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0 d-flex justify-content-end">
+                                <button type="submit" value="Search" class="btn btn-success">Search</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
-<div class="container pt-2">
-    @if (!Model.Ingredients.Any())
-    {
-        <h2 class="text-center">No ingredients found by the given criteria!</h2>
-    }
-    else
-    {
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th><label>Id</label></th>
-                        <th><lable>Name</lable></th>
-                        <th><label>Category</label></th>
-                        <th><label>Edit</label></th>
-                        <th><lable>Delete</lable></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var ingredient in @Model.Ingredients)
-                    {
-                        <tr>
-                            <td><label>@ingredient.Id</label></td>
-                            <td><label>@ingredient.Name</label></td>
-                            <td><label>@ingredient.Category</label></td>
-                            <td><label><a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Edit" asp-route-id="@ingredient.Id">✔</a></label></td>
-                            <td>
-                                <label>
-                                    <a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Delete" asp-route-id="@ingredient.Id">❌</a>                                   
-                                </label>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-</div>
-@{
-    int previousPage = Model.CurrentPage - 1;
-    if (previousPage < 1)
-    {
-        previousPage = 1;
-    }
-
-    int maxPage = (int)Math.Ceiling((double)Model.TotalIngredients / Model.IngredientsPerPage);
-}
-<!-- Pagination buttons -->
-<nav aria-label="Page navigation" class="fixed-bottom">
-    <ul class="pagination justify-content-center g-1">
-        <li class="page-item">
-            <a class="btn btn-success @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-               asp-area="Admin"
-               asp-controller="Ingredient"
-               asp-action="All"
-               asp-route-currentPage="@previousPage"
-               asp-route-category="@Model.Category"
-               asp-route-searchTerm="@Model.SearchString"
-               asp-route-sorting="@((int)Model.IngredientSorting)">&lt;&lt;</a>
-        </li>
-        @{
-            bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
-            !Model.Ingredients.Any();
+    <div class="container pt-2">
+        @if (!Model.Ingredients.Any())
+        {
+            <h2 class="text-center">No ingredients found by the given criteria!</h2>
         }
-        <li class="page-item">
-            <a class="btn btn-success
+        else
+        {
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><label>Id</label></th>
+                            <th><lable>Name</lable></th>
+                            <th><label>Category</label></th>
+                            <th><label>Edit</label></th>
+                            <th><lable>Delete</lable></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ingredient in @Model.Ingredients)
+                        {
+                            <tr>
+                                <td><label>@ingredient.Id</label></td>
+                                <td><label>@ingredient.Name</label></td>
+                                <td><label>@ingredient.Category</label></td>
+                                <td><label><a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Edit" asp-route-id="@ingredient.Id">✔</a></label></td>
+                                <td>
+                                    <label>
+                                        <a class="btn" asp-area="Admin" asp-controller="Ingredient" asp-action="Delete" asp-route-id="@ingredient.Id">❌</a>
+                                    </label>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    @{
+        int previousPage = Model.CurrentPage - 1;
+        if (previousPage < 1)
+        {
+            previousPage = 1;
+        }
+
+        int maxPage = (int)Math.Ceiling((double)Model.TotalIngredients / Model.IngredientsPerPage);
+    }
+    <!-- Pagination buttons -->
+    <nav aria-label="Page navigation" class="fixed-bottom">
+        <ul class="pagination justify-content-center g-1">
+            <li class="page-item">
+                <a class="btn btn-success @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                   asp-area="Admin"
+                   asp-controller="Ingredient"
+                   asp-action="All"
+                   asp-route-currentPage="@previousPage"
+                   asp-route-category="@Model.Category"
+                   asp-route-searchTerm="@Model.SearchString"
+                   asp-route-sorting="@((int)Model.IngredientSorting)">&lt;&lt;</a>
+            </li>
+            @{
+                bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+                !Model.Ingredients.Any();
+            }
+            <li class="page-item">
+                <a class="btn btn-success
             @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-               asp-area="Admin"
-               asp-controller="Ingredient"
-               asp-action="All"
-               asp-route-currentPage="@(Model.CurrentPage + 1)"
-               asp-route-category="@Model.Category"
-               asp-route-searchTerm="@Model.SearchString"
-               asp-route-sorting="@((int)Model.IngredientSorting)">>></a>
-        </li>
-    </ul>
-</nav>
+                   asp-area="Admin"
+                   asp-controller="Ingredient"
+                   asp-action="All"
+                   asp-route-currentPage="@(Model.CurrentPage + 1)"
+                   asp-route-category="@Model.Category"
+                   asp-route-searchTerm="@Model.SearchString"
+                   asp-route-sorting="@((int)Model.IngredientSorting)">>></a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

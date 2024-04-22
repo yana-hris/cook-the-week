@@ -1,8 +1,10 @@
 ﻿namespace CookTheWeek.Services.Data.Models.MealPlan
 {
-    
+    using System.ComponentModel.DataAnnotations;
+
     public class MealServiceModel
     {
-        public string RecipeId { get; set; }
+        [Required]
+        public string RecipeId { get; set; } = null!;
     }
 }

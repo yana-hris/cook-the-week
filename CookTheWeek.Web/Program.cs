@@ -20,6 +20,7 @@ namespace CookTheWeek.Web
             string? connectionString = builder.Configuration["CookTheWeek:ConnectionString"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -56,7 +57,17 @@ namespace CookTheWeek.Web
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
-                });           
+                });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DevelopmentCorsPolicy", builder =>
+                {
+                    builder.WithOrigins("https://localhost:7279")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
 
             WebApplication app = builder.Build();
             
@@ -74,6 +85,9 @@ namespace CookTheWeek.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // CORS middleware should be placed before routing middleware
+            app.UseCors("DevelopmentCorsPolicy");
 
             app.UseRouting();
 

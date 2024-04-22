@@ -128,12 +128,13 @@
                 RecipeId: recipeId,
                 UserId: userId
             }
-
+            
             $.ajax({
                 url: url,
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
+
                 success: function (response) {
                     // Handle success response
                     $button.find('i').toggleClass('liked-icon not-liked-icon');
@@ -151,6 +152,9 @@
                 }
             });
         }
+    </script>
+    <script>
+       
     </script>
 }
 

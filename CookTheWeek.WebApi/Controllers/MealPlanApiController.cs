@@ -27,11 +27,11 @@
         }
 
         [HttpPost]
-        [Route("buildMealPlan")]
+        [Route("getMealPlanData")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MealPlanAddFormModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Build([FromBody] MealPlanServiceModel model)
+        public async Task<IActionResult> GetMealPlanData([FromBody] MealPlanServiceModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +49,8 @@
             }
 
             ICollection<MealServiceModel> recipes = model.Meals;
-            MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel();            
+            MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel();
+            mealPlanModel.Name = "Your Meal Plan";
 
             foreach (var recipe in recipes)
             {

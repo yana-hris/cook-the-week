@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+    using Ganss.Xss;
 
     using Data.Models;
     using ViewModels.User;
@@ -18,6 +19,7 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMemoryCache memoryCache;
+        private readonly HtmlSanitizer sanitizer;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
@@ -26,6 +28,7 @@
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.memoryCache = memoryCache;
+            sanitizer = new HtmlSanitizer();
         }
 
         [HttpGet]
@@ -43,6 +46,11 @@
             }
 
             ApplicationUser user = new ApplicationUser();
+
+            // Sanitizing User Input
+            model.Username = SanitizeInput(model.Username);
+            model.Password = SanitizeInput(model.Password);
+            model.ConfirmPassword = SanitizeInput(model.ConfirmPassword);
 
             await userManager.SetUserNameAsync(user, model.Username);
             await userManager.SetEmailAsync(user, user.Email);
@@ -86,6 +94,9 @@
             {
                 return View(model);
             }
+            // Sanitizing User Input
+            model.Username = SanitizeInput(model.Username);
+            model.Password = SanitizeInput(model.Password);
 
             var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
 
@@ -97,7 +108,7 @@
                 return View(model);
             }
 
-
+            this.memoryCache.Remove(UsersCacheKey);
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
 
@@ -105,7 +116,14 @@
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            this.memoryCache.Remove(UsersCacheKey);
             return RedirectToAction("Index", "Home");
         }
+
+        private string SanitizeInput(string input)
+        {
+            return sanitizer.Sanitize(input);
+        }
+
     }
 }

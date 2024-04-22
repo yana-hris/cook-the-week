@@ -99,7 +99,7 @@ function updateRecipeBtns() {
     let userMealPlans = getUserLocalStorage(userId) || [];
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-button');
 
-    if (userHasMealPlans) {
+    if (userHasMealPlans(userId)) {
         userMealPlans = JSON.parse(userMealPlans);
     }
 
@@ -141,14 +141,21 @@ function isSpecificView(view) {
 };
 
 function userHasMealPlans(userId) {
-    var mealPlans = getUserLocalStorage(userId);
-    if (mealPlans !== null) {
+    const userMealPlans = getUserLocalStorage(userId);
 
-        var mealsPlansAsObj = JSON.parse(mealPlans);
-        if (mealsPlansAsObj.length > 0) {
+    // Check if user meal plans exist
+    if (userMealPlans) {
+        // Parse the existing meal plans
+        const mealPlans = JSON.parse(userMealPlans);
+
+        // Check if the meal plans array is not empty
+        if (mealPlans.length > 0) {
+            // User has meal plans stored in local storage
             return true;
-        }        
+        }
     }
+
+    // User does not have any meal plans stored in local storage
     return false;
 }
 
@@ -275,55 +282,38 @@ function toggleAddRemoveBtn(btn) {
     }          
 }
 
-function buildMealPlan() {
-    
+function buildMealPlan(event) {
+    event.preventDefault();
+
     const userId = currentUserId;
     var userMealPlanList = JSON.parse(getUserLocalStorage(userId)) || [];
-    
+
     if (userMealPlanList.length === 0) {
         toastr.error("Error Building Meal Plan!");
         return;
     }
 
-    var data = {
+    var model = {
         UserId: userId,
         Meals: userMealPlanList.map(recipeId => ({ RecipeId: recipeId }))
     };
+    
+    console.log(model);
+    var data = JSON.stringify(model);
 
-    console.log(data);
+    debugger
 
-
-    // Make an HTTP POST request to your controller
     $.ajax({
-        url: 'https://localhost:7279/api/mealplan/buildMealPlan',
-        method: 'POST',
+        url: '/MealPlan/CreateMealPlanModel',
+        type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function (data) {
-            // Handle the successful response from the Web API
-            console.log('Received view model data:', data);
-            // Make a subsequent AJAX request to the MVC controller endpoint
-            $.ajax({
-                url: 'https://localhost:7170/MealPlan/Add', // URL of the MVC controller action
-                method: 'POST', // or 'GET', depending on your MVC controller action
-                contentType: 'application/json',               
-                data: JSON.stringify(data), // Pass the received JSON data directly
-                success: function (response) {
-                    // Handle the successful response from the MVC controller
-                   
-                    console.log('Successfully sent model data to MVC controller');
-                    // Optionally, do something with the response from the MVC controller
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // Handle the error from the MVC controller request
-
-                    console.error('Error sending model data to MVC controller:', errorThrown);
-                }
-            });
+        data: JSON.stringify(model),        
+        success: function (response) {
+            console.log('success');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            // Handle the error from the Web API request
-            console.error('Error building meal plan:', errorThrown);
+        error: function (xhr, status, error) {
+            // Handle error
+            console.error('Post to CreateMealPlanModel Failed!');
         }
     });
 }

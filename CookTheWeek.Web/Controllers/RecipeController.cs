@@ -53,6 +53,8 @@
             try
             {
                 AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
+
+                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
                 queryModel.Recipes = serviceModel.Recipes;
                 queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
                 queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
@@ -173,7 +175,7 @@
             string userId = User.GetId();
             bool isOwner = await this.userService.IsOwnerByRecipeId(id, userId);
 
-            if(!isOwner) 
+            if(!isOwner && !User.IsAdmin()) 
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
                 return RedirectToAction("Details", "Recipe", new { id });
@@ -369,7 +371,7 @@
             
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
