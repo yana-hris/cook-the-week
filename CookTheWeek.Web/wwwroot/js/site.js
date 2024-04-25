@@ -83,7 +83,7 @@ window.onload = function () {
 
     if (buildBtnShouldBeRendered) {
         if (userId) {
-            showOrHideBuildMealPlanBtn(userId);            
+            showOrHideBuildMealPlanBtn(userId); 
         }
         else {
             showOrHideBuildMealPlanBtn(null);
@@ -98,7 +98,7 @@ function updateRecipeBtns() {
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId) || [];
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-button');
-
+    debugger;
     if (userHasMealPlans(userId)) {
         userMealPlans = JSON.parse(userMealPlans);
     }
@@ -130,7 +130,20 @@ function updateRecipeBtns() {
         })
     } else {
         recipeButtons.forEach(btn => {
-            btn.addEventListener('click', addRecipeToMealPlan, true);
+            if (btn.classList.contains('minus')) {
+                const icon = btn.querySelector('i');
+
+                btn.classList.remove("minus");
+                btn.classList.add("plus");
+
+                icon.classList.remove("fa-minus");
+                icon.classList.add("fa-plus");
+
+                btn.removeEventListener('click', removeRecipeFromMealPlan, true);
+                btn.addEventListener('click', addRecipeToMealPlan, true);
+            } else {
+                btn.addEventListener('click', addRecipeToMealPlan, true);
+            }
         })
     }
 }
@@ -175,6 +188,7 @@ function getUserLocalStorage(userId) {
 }
 
 function eraseUserLocalStorage(userId) {
+    debugger;
     localStorage.removeItem(userId);
 }
 
@@ -195,7 +209,6 @@ function isRecipeAddedToMealPlan(userId, recipeId) {
 // Create or Add To MealPlan
 const addRecipeToMealPlan = function(event) {
     // Check if local storage has meal plans for this user
-    debugger;
     event.preventDefault();
     var recipeId = event.currentTarget.dataset.recipeid;
     var userId = currentUserId;
@@ -230,7 +243,6 @@ const addRecipeToMealPlan = function(event) {
 // Remove recipe from Meal Plan
 const removeRecipeFromMealPlan = function(event) {
     // Get the user's meal plans from local storage
-    debugger;
     var recipeId = event.currentTarget.dataset.recipeid;
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId);
@@ -261,7 +273,6 @@ const removeRecipeFromMealPlan = function(event) {
 }
 
 function toggleAddRemoveBtn(btn) {
-    debugger;    
     const icon = btn.querySelector('i');    
 
     if (btn.classList.contains("plus")) {
@@ -304,9 +315,7 @@ function buildMealPlan(event) {
     
     console.log(model);
     var data = JSON.stringify(model);
-
-    debugger
-
+    
     $.ajax({
         url: '/MealPlan/CreateMealPlanModel',
         type: 'POST',
@@ -326,3 +335,4 @@ function buildMealPlan(event) {
         }
     });
 }
+

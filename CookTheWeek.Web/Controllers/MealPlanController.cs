@@ -194,7 +194,7 @@
             try
             {
                 await this.mealplanService.AddAsync(userId, model);
-                ViewBag.EraseLocalStorageScript = "<script>eraseUserLocalStorage('userId');</script>";
+                TempData["SubmissionSuccess"] = true;
             }
             catch (Exception ex)
             {

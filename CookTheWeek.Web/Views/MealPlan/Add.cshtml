@@ -10,7 +10,7 @@
 
         <div class="pb-3">
             <div class="container">
-                <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" onsubmit="eraseUserLocalStorage('@User.GetId()')">
+                <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
                     <div class="row">
                         <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
@@ -164,9 +164,7 @@
             });
 
             function reindexRows() {
-                debugger;
                 $('.meal-row').each(function (rowIndex) {
-                    debugger;
                     $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
                         var idParts = element.id.split('__');
                         var newId = 'Meals_' + rowIndex + '__' + idParts[1];
@@ -187,8 +185,5 @@
             }
 
         });
-    </script>
-    <script>
-        @Html.Raw(ViewBag.EraseLocalStorageScript)
-    </script>
+    </script>       
 }

@@ -154,8 +154,22 @@
         }
     </script>
     <script>
-       
+        $(function () {
+            debugger
+            var submissionSuccess = @(TempData.ContainsKey("SubmissionSuccess") && TempData["SubmissionSuccess"] != null && (bool)TempData["SubmissionSuccess"] ? "true" : "false");
+
+            if (submissionSuccess) {
+                // Clear local storage if the form was submitted successfully
+                debugger;
+                eraseUserLocalStorage('@userId');
+                showOrHideBuildMealPlanBtn('@userId');
+                updateRecipeBtns();
+                console.log("Successfully updated local storage for user");
+            }
+
+        });
     </script>
+
 }
 
 
