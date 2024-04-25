@@ -52,25 +52,7 @@
                 }
             </p>
         </div>
-    </footer>
-    @* <footer class="text-center">
-        <div class="container text-muted py-2">
-            <div class="px-3">
-                <div class="row">
-                    <div class="col">
-                        <p class="d-md-flex justify-content-md-start" id="copyright">
-                            CookTheWeek &copy; Meal Planning App @ReleaseYear
-                            @if (DateTime.UtcNow.Year != ReleaseYear)
-                            {
-                                <span> - @DateTime.UtcNow.Year</span>
-                            }
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>  *@
-       
+    </footer>   
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

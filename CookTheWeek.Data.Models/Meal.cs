@@ -27,7 +27,8 @@
         public int ServingSize { get; set; }
 
         [Comment("Meal Cook Date")]
-        public DateTime? CookDate { get; set; }
+        [Required]
+        public DateTime CookDate { get; set; }
 
         [Comment("Meal completion Identifier")]
         [Required]

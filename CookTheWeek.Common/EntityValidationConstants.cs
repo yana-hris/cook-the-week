@@ -23,6 +23,7 @@
 
             public static int[] ServingsOptions =
             [
+                1,
                 2,
                 4,
                 6,
@@ -80,7 +81,7 @@
 
         public static class Meal
         {
-            public const int MinServingSize = 2;
+            public const int MinServingSize = 1;
             public const int MaxServingSize = 12;
         }
 

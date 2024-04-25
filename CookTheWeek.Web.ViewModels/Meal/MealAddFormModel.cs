@@ -2,9 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Common.HelperMethods;
     using static Common.EntityValidationConstants.Meal;
     using static Common.EntityValidationConstants.Recipe;
-    using Common.Helpers;
 
     public class MealAddFormModel
     {
@@ -32,7 +32,8 @@
         [Required]
         public string CategoryName { get; set; } = null!;
 
-        public string Date { get; set; }
+        [Required]
+        public string Date { get; set; } = null!;
 
         public int[] SelectServingOptions { get; set; }
 

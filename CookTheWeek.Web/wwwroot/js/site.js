@@ -174,6 +174,10 @@ function getUserLocalStorage(userId) {
     return localStorage.getItem(userId);
 }
 
+function eraseUserLocalStorage(userId) {
+    localStorage.removeItem(userId);
+}
+
 // Check if a Recipe is already added to User`s Meal Plan
 function isRecipeAddedToMealPlan(userId, recipeId) {
     var userMealPlans = getUserLocalStorage(userId);
@@ -308,8 +312,13 @@ function buildMealPlan(event) {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(model),        
-        success: function (response) {
-            console.log('success');
+        success: function (response, status, xhr) {
+            // Check if a redirect is happening
+            if (xhr.getResponseHeader('X-Redirect') != null) {
+                window.location.href = xhr.getResponseHeader('X-Redirect');
+            } else {
+                console.log('Success:', response);
+            }
         },
         error: function (xhr, status, error) {
             // Handle error

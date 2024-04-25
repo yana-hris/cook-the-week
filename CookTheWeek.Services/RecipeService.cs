@@ -394,7 +394,8 @@
                     Title = r.Title,
                     Servings = r.Servings,
                     ImageUrl = r.ImageUrl,
-                    CategoryName = r.Category.Name
+                    CategoryName = r.Category.Name,
+                    Date = DateTime.Now.ToString(MealDateFormat),
                 })
                 .FirstAsync();
         }

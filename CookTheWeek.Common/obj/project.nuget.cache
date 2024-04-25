@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "IGn5XkoGKIwonhTDpAbu9l0QPVL3dG3U3TQ3H6+YZhfwHez81HbtIU+rl8fkkUs4p2e7sKFgehw/f0qIrCDCAA==",
+  "dgSpecHash": "yGDv5sap6mB70PzLkbuhWGhbACv3Hus1aq3dMrtFhKACtFFycYayJBj5Gk0IC6lsVoeXakZIL6WwNPvGSDsZWA==",
   "success": true,
   "projectFilePath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Common\\CookTheWeek.Common.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Yana\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\anglesharp.css\\0.17.0\\anglesharp.css.0.17.0.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\htmlsanitizer\\8.0.843\\htmlsanitizer.8.0.843.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Yana\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

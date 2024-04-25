@@ -1,5 +1,6 @@
-﻿namespace CookTheWeek.Common.Helpers
+﻿namespace CookTheWeek.Common.HelperMethods
 {
+    using static Common.GeneralApplicationConstants;
     public class DateGenerator
     {
         public static string[] GenerateNext7Days()
@@ -11,7 +12,7 @@
             for (int i = 0; i < 7; i++)
             {
                 DateTime nextDay = currentDate.AddDays(i);
-                string dayAsString = nextDay.ToString("dd-MM-yyyy");
+                string dayAsString = nextDay.ToString(MealDateFormat);
                 next7Days[i] = dayAsString;
             }
 

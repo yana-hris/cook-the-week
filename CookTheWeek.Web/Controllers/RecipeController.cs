@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Ganss.Xss;
 
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
@@ -10,7 +9,7 @@
     using ViewModels.RecipeIngredient;
     using Services.Data.Interfaces;
     using Services.Data.Models.Recipe;
-
+    using Common.HelperMethods;
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
@@ -25,8 +24,8 @@
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
-        private readonly HtmlSanitizer sanitizer;
         private readonly ILogger<RecipeController> logger;
+        private readonly SanitizerHelper sanitizer;
 
         public RecipeController(IRecipeService recipeService, 
             ICategoryService categoryService, 
@@ -42,8 +41,8 @@
             this.ingredientService = ingredientService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
-            sanitizer = new HtmlSanitizer();
             this.logger = logger;
+            this.sanitizer = new SanitizerHelper();
         }
 
         [HttpGet]
@@ -54,7 +53,7 @@
             {
                 AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
 
-                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
+                queryModel.SearchString = sanitizer.SanitizeInput(queryModel.SearchString);
                 queryModel.Recipes = serviceModel.Recipes;
                 queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
                 queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
@@ -140,12 +139,12 @@
                 return View(model);
             }
             // Sanitize all string input
-            model.Title = SanitizeInput(model.Title);
+            model.Title = sanitizer.SanitizeInput(model.Title);
             if(model.Description != null)
             {
-                model.Description = SanitizeInput(model.Description);
+                model.Description = sanitizer.SanitizeInput(model.Description);
             }
-            model.Instructions = SanitizeInput(model.Instructions);
+            model.Instructions = sanitizer.SanitizeInput(model.Instructions);
 
             try
             {
@@ -257,13 +256,13 @@
             }
 
             // Sanitize all string input
-            model.Title = SanitizeInput(model.Title);
+            model.Title = sanitizer.SanitizeInput(model.Title);
             if (model.Description != null)
             {
-                model.Description = SanitizeInput(model.Description);
+                model.Description = sanitizer.SanitizeInput(model.Description);
             }
 
-            model.Instructions = SanitizeInput(model.Instructions);
+            model.Instructions = sanitizer.SanitizeInput(model.Instructions);
             try
             {
                 await this.recipeService.EditAsync(model);
@@ -414,11 +413,6 @@
             return false;
         }
 
-        // private method for string sanitization of the user input
-        private string SanitizeInput(string input)
-        {
-            return sanitizer.Sanitize(input);
-        }
-
+        
     }
 }
