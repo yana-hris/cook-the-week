@@ -205,6 +205,23 @@
             TempData[SuccessMessage] = $"Your Meal Plan \"{model.Name}\" was successfully Saved! You can go to Meal Plans and edit it if needed.";
             return RedirectToAction("All", "Recipe");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            string userId = this.User.GetId();
+
+            try
+            {
+                ICollection<MealPlanAllViewModel> allMine = await this.mealPlanService.MineAsync(userId);
+                return View(allMine);
+            }
+            catch (Exception)
+            {
+                logger.LogError("Mine Meal Plans unsuccessfully loaded to View Model");
+                return BadRequest();
+            }
+        }
         
     }
 }

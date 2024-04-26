@@ -15,32 +15,45 @@
 else
 {
     <div class="container-xl" style="max-width: 1200px;">
-        
-        <div class="row">
-            <div class="container py-2">
-                @if (!isAdmin)
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><label>Id</label></th>
+                    <th><label>Name</label></th>
+                    <th><label>Start Date</label></th>
+                    <th><label>End Date</label></th>
+                    <th><label>Total Meals</label></th>
+                    <th><label>View Details</label></th>
+                    <th><label>Build This Plan Again</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mealPlan in Model)
                 {
-                    <div class="row">
-                        <h3 class="collection-heading">Your Favourite Recipes</h3>
-                    </div>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-                        @foreach (var recipe in Model.FavouriteRecipes)
-                        {
-                            <partial name="_RecipeCardPartial" model="recipe" />
-                        }
-                    </div>
+                    <tr>
+                        <td><label>@mealPlan.Id</label></td>
+                        <td><label>@mealPlan.Name</label></td>
+                        <td><label>@mealPlan.StartDate</label></td>
+                        <td><label>@mealPlan.EndDate</label></td>
+                        <td><label>@mealPlan.MealsCount</label></td>
+                        <td>
+                            <label>
+                                <a asp-asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" class="btn btn-primary text-white">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </a>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <a asp-asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-danger text-white">
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                </a>
+                            </label>
+                        </td>
+                    </tr>
                 }
-                <div class="row">
-                    <h3 class="collection-heading">@ownedRecipeHeading</h3>
-                </div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    @foreach (var recipe in Model.OwnedRecipes)
-                    {
-                        <partial name="_RecipeCardPartial" model="recipe" />
-                    }
-                </div>
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
 
    
