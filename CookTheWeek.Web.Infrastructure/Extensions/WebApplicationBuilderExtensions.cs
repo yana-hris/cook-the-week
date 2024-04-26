@@ -1,9 +1,10 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿namespace CookTheWeek.Web.Infrastructure.Extensions
 {
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Web.Infrastructure.Middlewares;

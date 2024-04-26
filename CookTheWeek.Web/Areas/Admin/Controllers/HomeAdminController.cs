@@ -5,19 +5,19 @@
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.Areas.Admin.ViewModels;
 
-    public class HomeController : BaseAdminController
+    public class HomeAdminController : BaseAdminController
     {
         private readonly IRecipeService recipeService;
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
         private readonly IUserService userService;
-        private readonly IMealplanService mealplanService;
+        private readonly IMealPlanService mealplanService;
 
-        public HomeController(IRecipeService recipeService,
+        public HomeAdminController(IRecipeService recipeService,
             ICategoryService categoryService,
             IIngredientService ingredientService,
             IUserService userService,
-            IMealplanService mealplanService)
+            IMealPlanService mealplanService)
         {
             this.recipeService = recipeService; 
             this.categoryService = categoryService;

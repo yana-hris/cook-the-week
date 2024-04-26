@@ -19,20 +19,20 @@
     [Authorize]
     public class MealPlanController : Controller
     {
-        private readonly IMealplanService mealplanService;
+        private readonly IMealPlanService mealPlanService;
         private readonly IUserService userService;
         private readonly IRecipeService recipeService;
         private readonly ILogger<MealPlanController> logger;
         private readonly SanitizerHelper sanitizer;
         private readonly IMemoryCache memoryCache;
 
-        public MealPlanController(IMealplanService mealplanService,
+        public MealPlanController(IMealPlanService mealPlanService,
             IRecipeService recipeService,
             IUserService userService,
             ILogger<MealPlanController> logger,
             IMemoryCache memoryCache)
         {
-            this.mealplanService = mealplanService;
+            this.mealPlanService = mealPlanService;
             this.recipeService = recipeService;
             this.userService = userService;
             this.logger = logger;
@@ -94,8 +94,6 @@
 
             try
             {
-                TempData[InformationMessage] = "Your Meal Plan is being created!";
-
                 string cacheKey = userId + "mealPlan";
 
                 if (memoryCache.TryGetValue(cacheKey, out object? oldMealPlanModel))
@@ -106,8 +104,10 @@
                     }
                 }
                 memoryCache.Set(cacheKey, mealPlanModel);
-                string redirectUrl = Url.Action("Add", "MealPlan");
-                Response.Headers.Add("X-Redirect", redirectUrl);
+
+                string redirectUrl = Url.Action("Add", "MealPlan")!;
+                Response.Headers.Append("X-Redirect", redirectUrl);
+
                 return Ok();
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@
 
             if (model.Name == DefaultMealPlanName)
             {
-                ModelState.AddModelError(nameof(model.Name), "Give your Meal Plan a custom Name");
+                ModelState.AddModelError(nameof(model.Name), "Give your Meal Plan a fancy Name");
             }
 
             if (!model.Meals.Any())
@@ -193,7 +193,7 @@
 
             try
             {
-                await this.mealplanService.AddAsync(userId, model);
+                await this.mealPlanService.AddAsync(userId, model);
                 TempData["SubmissionSuccess"] = true;
             }
             catch (Exception ex)
@@ -205,5 +205,6 @@
             TempData[SuccessMessage] = $"Your Meal Plan \"{model.Name}\" was successfully Saved! You can go to Meal Plans and edit it if needed.";
             return RedirectToAction("All", "Recipe");
         }
+        
     }
 }

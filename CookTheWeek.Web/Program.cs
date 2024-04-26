@@ -7,6 +7,7 @@ namespace CookTheWeek.Web
     using Data;
     using Data.Models;
     using Infrastructure.ModelBinders;
+    using Infrastructure.Extensions;
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
@@ -106,7 +107,7 @@ namespace CookTheWeek.Web
 
             app.MapControllerRoute(
                 name: "areas",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area:exists}/{controller=HomeAdmin}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

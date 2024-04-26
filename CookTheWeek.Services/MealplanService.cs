@@ -1,22 +1,24 @@
 ﻿namespace CookTheWeek.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Globalization;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
+    using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.MealPlan;
-    using CookTheWeek.Data.Models;
+    using CookTheWeek.Common.Extensions;
 
     using static Common.GeneralApplicationConstants;
-    using System.Globalization;
 
-    public class MealplanService : IMealplanService
+    public class MealPlanService : IMealPlanService
     {
         private readonly CookTheWeekDbContext dbContext;
 
-        public MealplanService(CookTheWeekDbContext dbContext)
+        public MealPlanService(CookTheWeekDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -43,6 +45,22 @@
             await this.dbContext.MealPlans.AddAsync(newMealPlan);
             await this.dbContext.SaveChangesAsync();
            
+        }
+
+        public async Task<ICollection<MealPlanAllViewModel>> AllActiveAsync()
+        {
+            return await this.dbContext.MealPlans
+                .Where(mp => mp.IsFinished == false)
+                .OrderBy(mp => mp.StartDate)
+                .Select(mp => new MealPlanAllViewModel()
+                {
+                    Id = mp.Id.ToString(),
+                    Name = mp.Name.TrimToChar(30),
+                    OwnerUsername = mp.Owner.UserName!,
+                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    MealsCount = mp.Meals.Count
+                }).ToListAsync();
         }
 
         public async Task<int> AllActiveCountAsync()

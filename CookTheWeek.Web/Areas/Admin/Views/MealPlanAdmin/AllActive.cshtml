@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MealPlanAllViewModel>
+@{
+    ViewBag.Title = "All Active Meal Plans";
+}
+<div class="container">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <hr />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><label>Id</label></th>
+                <th><label>Name</label></th>
+                <th><label>Owner</label></th>
+                <th><label>Start Date</label></th>
+                <th><label>End Date</label></th>
+                <th><label>Total Meals</label></th>
+                <th><label>View Details</label></th>
+                <th><label>View Shopping List</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mealPlan in Model)
+            {
+                <tr>
+                    <td><label>@mealPlan.Id</label></td>
+                    <td><label>@mealPlan.Name</label></td>
+                    <td><label>@mealPlan.OwnerUsername</label></td>
+                    <td><label>@mealPlan.StartDate</label></td>
+                    <td><label>@mealPlan.EndDate</label></td>
+                    <td><label>@mealPlan.MealsCount</label></td>
+                    <td>
+                        <label>
+                            <a asp-asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" class="btn btn-primary text-white">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            </a>
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <a asp-asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-danger text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </a>
+                        </label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

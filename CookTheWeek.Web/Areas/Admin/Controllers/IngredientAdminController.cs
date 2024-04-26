@@ -12,15 +12,15 @@
     using static Common.NotificationMessagesConstants;
     
 
-    public class IngredientController : BaseAdminController
+    public class IngredientAdminController : BaseAdminController
     {
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
-        private readonly ILogger<IngredientController> logger;
+        private readonly ILogger<IngredientAdminController> logger;
 
-        public IngredientController(ICategoryService categoryService,
+        public IngredientAdminController(ICategoryService categoryService,
             IIngredientService ingredientService,
-            ILogger<IngredientController> logger)
+            ILogger<IngredientAdminController> logger)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;

@@ -8,15 +8,15 @@
 
     using static Common.GeneralApplicationConstants;
 
-    public class UserController : BaseAdminController
+    public class UserAdminController : BaseAdminController
     {
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
-        private readonly ILogger<UserController> logger;
+        private readonly ILogger<UserAdminController> logger;
 
-        public UserController(IUserService userService
+        public UserAdminController(IUserService userService
             ,IMemoryCache memoryCache,
-            ILogger<UserController> logger)
+            ILogger<UserAdminController> logger)
         {
             this.userService = userService;
             this.memoryCache = memoryCache;

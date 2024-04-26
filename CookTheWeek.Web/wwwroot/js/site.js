@@ -94,11 +94,10 @@ window.onload = function () {
 };
 
 function updateRecipeBtns() {
-    debugger
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId) || [];
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-button');
-    debugger;
+
     if (userHasMealPlans(userId)) {
         userMealPlans = JSON.parse(userMealPlans);
     }
@@ -188,7 +187,6 @@ function getUserLocalStorage(userId) {
 }
 
 function eraseUserLocalStorage(userId) {
-    debugger;
     localStorage.removeItem(userId);
 }
 

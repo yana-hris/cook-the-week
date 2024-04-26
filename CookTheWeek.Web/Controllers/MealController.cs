@@ -7,9 +7,9 @@
     [Authorize]
     public class MealController : Controller
     {
-        private readonly IMealplanService mealplanService;
+        private readonly IMealPlanService mealplanService;
 
-        public MealController(IMealplanService mealplanService)
+        public MealController(IMealPlanService mealplanService)
         {
             this.mealplanService = mealplanService;
         }

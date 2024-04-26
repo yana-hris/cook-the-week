@@ -21,6 +21,8 @@
         public const string MealDateFormat = "dd-MM-yyyy";
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
+        public const int TrimmedMealPlanNameLnegth = 30;
+
         public const string AppUserId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403";
         public const string AppUserUsername = "appUser";
         public const string AppUserEmail = "appUser@yahoo.com";

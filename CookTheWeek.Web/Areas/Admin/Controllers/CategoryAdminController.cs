@@ -10,13 +10,13 @@
     using static Common.NotificationMessagesConstants;
     
 
-    public class CategoryController : BaseAdminController
+    public class CategoryAdminController : BaseAdminController
     {
         private readonly ICategoryService categoryService;
-        private readonly ILogger<CategoryController> logger;
+        private readonly ILogger<CategoryAdminController> logger;
 
-        public CategoryController(ICategoryService categoryService, 
-            ILogger<CategoryController> logger)
+        public CategoryAdminController(ICategoryService categoryService, 
+            ILogger<CategoryAdminController> logger)
         {
             this.categoryService = categoryService;
             this.logger = logger;

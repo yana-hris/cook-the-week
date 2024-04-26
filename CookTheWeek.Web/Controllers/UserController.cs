@@ -12,6 +12,7 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.Infrastructure.Extensions;
 
     [AllowAnonymous]
     public class UserController : Controller
@@ -109,6 +110,12 @@
             }
 
             this.memoryCache.Remove(UsersCacheKey);
+
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
+            }
+
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
 

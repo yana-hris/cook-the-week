@@ -14,7 +14,7 @@ namespace CookTheWeek.Web.Controllers
         {
             if(this.User.IsAdmin())
             {
-                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+                return this.RedirectToAction("Index", "HomeAdmin", new { Area = AdminAreaName });
             }
 
             string userId = User.GetId();
