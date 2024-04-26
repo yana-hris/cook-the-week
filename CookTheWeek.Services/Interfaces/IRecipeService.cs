@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using CookTheWeek.Web.ViewModels.Meal;
+
     using Data.Models.Recipe;
+    using Web.ViewModels.Meal;
     using Web.ViewModels.Recipe;
 
     public interface IRecipeService

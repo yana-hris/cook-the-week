@@ -1,11 +1,11 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
-    using CookTheWeek.Services.Data;
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Services.Data.Models.Ingredient;
-    using CookTheWeek.Services.Data.Models.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.Ingredient;
-    using System.Globalization;
+    using Data;
+    using Data.Interfaces;
+    using Data.Models.Ingredient;
+    using Data.Models.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     [TestFixture]
     public class IngredientServiceTests : UnitTestBase
@@ -26,7 +26,7 @@
             {
                 SearchString = TestIngredient.Name,
                 Category = TestIngredient.Category.Name,
-                IngredientSorting = Web.ViewModels.Ingredient.Enums.IngredientSorting.NameAscending,
+                IngredientSorting = IngredientSorting.NameAscending,
             };
 
             AllIngredientsFilteredAndPagedServiceModel expectedResult = new()

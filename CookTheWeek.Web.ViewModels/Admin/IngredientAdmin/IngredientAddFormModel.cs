@@ -1,7 +1,6 @@
-﻿namespace CookTheWeek.Web.ViewModels.Ingredient
+﻿namespace CookTheWeek.Web.ViewModels.Admin.IngredientAdmin
 {
     using System.ComponentModel.DataAnnotations;
-
     using CookTheWeek.Web.ViewModels.Category;
     using static Common.EntityValidationConstants.Ingredient;
 

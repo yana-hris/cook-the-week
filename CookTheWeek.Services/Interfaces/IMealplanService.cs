@@ -1,14 +1,16 @@
 ﻿namespace CookTheWeek.Services.Data.Interfaces
 {
-    using CookTheWeek.Web.ViewModels.MealPlan;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using Web.ViewModels.Admin.MealPlanAdmin;
+    using Web.ViewModels.MealPlan;
 
     public interface IMealPlanService
     {
         Task AddAsync(string userId, MealPlanAddFormModel model);
-        Task<ICollection<MealPlanAllViewModel>> AllActiveAsync();
-        Task<ICollection<MealPlanAllViewModel>> AllFinishedAsync();
+        Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync();
+        Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync();
         Task<int> AllActiveCountAsync();
     }
 }

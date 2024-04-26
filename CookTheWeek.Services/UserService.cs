@@ -6,7 +6,7 @@
 
     using CookTheWeek.Data;
     using Interfaces;
-    using Web.ViewModels.User;
+    using Web.ViewModels.Admin.UserAdmin;
 
     public class UserService : IUserService
     {

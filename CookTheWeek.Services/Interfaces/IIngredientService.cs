@@ -5,7 +5,7 @@
 
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.Ingredient;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
 
     public interface IIngredientService
     {

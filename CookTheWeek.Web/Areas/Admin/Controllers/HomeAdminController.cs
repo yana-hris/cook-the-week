@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Web.Areas.Admin.ViewModels;
+    using Services.Data.Interfaces;
+    using ViewModels.Admin.HomeAdmin;
 
     public class HomeAdminController : BaseAdminController
     {

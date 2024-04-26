@@ -1,9 +1,8 @@
 namespace CookTheWeek.Services.Tests.UnitTests
 {
-    using CookTheWeek.Web.ViewModels.Recipe;
+    using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using Data.Interfaces;
     using Services.Data;
-    using Web.ViewModels.User;
 
     [TestFixture]
     public class UserTests : UnitTestBase

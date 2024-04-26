@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.Category
+﻿namespace CookTheWeek.Web.ViewModels.Admin.CategoryAdmin
 {
     using System.ComponentModel.DataAnnotations;
 

@@ -1,0 +1,52 @@
+﻿@model ICollection<MealPlanAllViewModel>
+@using CookTheWeek.Web.Infrastructure.Extensions
+@{
+    bool isAdmin = User.IsAdmin();
+    string userId = User.GetId();
+}
+@if (!Model.Any())
+{
+    <div class="text-center">
+        <h2 class="text-center">You have no Meal Plans yet!</h2>
+        <p>Ready to embark on your culinary journey? Start building your personalized meal plan now by exploring our All Recipes section and adding your favorite dishes with a simple click of 'Add to Meal Plan'. Let's create a week of unforgettable flavors together!</p>
+        <div class="button"><a class="btn btn-success" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
+    </div>
+}
+else
+{
+    <div class="container-xl" style="max-width: 1200px;">
+        
+        <div class="row">
+            <div class="container py-2">
+                @if (!isAdmin)
+                {
+                    <div class="row">
+                        <h3 class="collection-heading">Your Favourite Recipes</h3>
+                    </div>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+                        @foreach (var recipe in Model.FavouriteRecipes)
+                        {
+                            <partial name="_RecipeCardPartial" model="recipe" />
+                        }
+                    </div>
+                }
+                <div class="row">
+                    <h3 class="collection-heading">@ownedRecipeHeading</h3>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    @foreach (var recipe in Model.OwnedRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+}
+
+
+
+
+

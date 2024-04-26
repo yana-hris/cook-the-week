@@ -1,6 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Models.Ingredient
 {
-    using CookTheWeek.Web.ViewModels.Ingredient;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
 
     public class AllIngredientsFilteredAndPagedServiceModel
     {

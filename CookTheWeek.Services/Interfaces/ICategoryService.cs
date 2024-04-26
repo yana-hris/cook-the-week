@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Interfaces
 {
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
 
     public interface ICategoryService

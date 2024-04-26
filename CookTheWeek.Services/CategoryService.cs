@@ -7,7 +7,8 @@
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using Interfaces;
-    using Web.ViewModels.Category;
+    using Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Category;
 
     public class CategoryService : ICategoryService
     {

@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.User
+﻿namespace CookTheWeek.Web.ViewModels.Admin.UserAdmin
 {
     public class UserAllViewModel
     {

@@ -20,8 +20,8 @@
                 <tr>
                     <td><label>@category.Id</label></td>
                     <td><label>@category.Name</label></td>
-                    <td><label><a asp-asp-area="Admin" asp-asp-controller="Category" asp-action="EditIngredientCategory" asp-route-id="@category.Id">✔</a></label></td>
-                    <td><label><a asp-asp-area="Admin" asp-asp-controller="Category" asp-action="DeleteIngredientCategory" asp-route-id="@category.Id">❌</a></label></td>
+                    <td><label><a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="EditIngredientCategory" asp-route-id="@category.Id">✔</a></label></td>
+                    <td><label><a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="DeleteIngredientCategory" asp-route-id="@category.Id">❌</a></label></td>
                 </tr>
             }
         </tbody>

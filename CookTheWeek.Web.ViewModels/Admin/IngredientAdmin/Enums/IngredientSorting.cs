@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.Ingredient.Enums
+﻿namespace CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums
 {
     public enum IngredientSorting
     {

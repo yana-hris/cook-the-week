@@ -1,7 +1,8 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
-    using CookTheWeek.Services.Data;
-    using CookTheWeek.Services.Data.Interfaces;
+    using Data;
+    using Data.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
 
     [TestFixture]

@@ -10,8 +10,8 @@
     using CookTheWeek.Data.Models;
     using Models.Ingredient;
     using Models.RecipeIngredient;
-    using Web.ViewModels.Ingredient;
-    using Web.ViewModels.Ingredient.Enums;
+    using Web.ViewModels.Admin.IngredientAdmin;
+    using Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     public class IngredientService : IIngredientService
     {

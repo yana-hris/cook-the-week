@@ -6,11 +6,12 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    using Common.Extensions;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.MealPlan;
-    using CookTheWeek.Common.Extensions;
+    using Web.ViewModels.Admin.MealPlanAdmin;
 
     using static Common.GeneralApplicationConstants;
 

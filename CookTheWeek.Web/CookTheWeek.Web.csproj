@@ -144,6 +144,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\ViewModels\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 

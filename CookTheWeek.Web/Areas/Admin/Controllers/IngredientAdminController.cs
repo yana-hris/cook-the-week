@@ -6,11 +6,10 @@
 
     using Services.Data.Interfaces;
     using Services.Data.Models.Ingredient;
-    using Web.ViewModels.Ingredient;
-    using Web.ViewModels.Ingredient.Enums;
+    using ViewModels.Admin.IngredientAdmin;
+    using ViewModels.Admin.IngredientAdmin.Enums;
 
     using static Common.NotificationMessagesConstants;
-    
 
     public class IngredientAdminController : BaseAdminController
     {

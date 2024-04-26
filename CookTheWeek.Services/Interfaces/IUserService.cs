@@ -1,6 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Interfaces
 {
-    using CookTheWeek.Web.ViewModels.User;
+    using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
 
     public interface IUserService
     {

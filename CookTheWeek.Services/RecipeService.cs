@@ -9,12 +9,12 @@
     using Data.Models.Recipe;
     using Interfaces;
     using Web.ViewModels.Category;
+    using Web.ViewModels.Meal;
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
     using Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.ViewModels.Meal;
 
     public class RecipeService : IRecipeService
     {

@@ -3,8 +3,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Web.ViewModels.User;
+    using Services.Data.Interfaces;
+    using ViewModels.Admin.UserAdmin;
 
     using static Common.GeneralApplicationConstants;
 

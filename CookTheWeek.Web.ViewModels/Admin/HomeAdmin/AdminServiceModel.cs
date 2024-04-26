@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.Areas.Admin.ViewModels
+﻿namespace CookTheWeek.Web.ViewModels.Admin.HomeAdmin
 {
     public class AdminServiceModel
     {

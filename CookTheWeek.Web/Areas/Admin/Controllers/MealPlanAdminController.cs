@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Web.ViewModels.MealPlan;
+    using Services.Data.Interfaces;
+    using Web.ViewModels.Admin.MealPlanAdmin;
 
     public class MealPlanAdminController : BaseAdminController
     {
@@ -15,7 +15,7 @@
         }
         public async Task<IActionResult> AllActive()
         {
-            ICollection<MealPlanAllViewModel> allActive = await
+            ICollection<MealPlanAllAdminViewModel> allActive = await
                 this.mealPlanService.AllActiveAsync();
 
             return View(allActive);
@@ -23,7 +23,7 @@
 
         public async Task<IActionResult> AllFinished()
         {
-            ICollection<MealPlanAllViewModel> allFinished = await
+            ICollection<MealPlanAllAdminViewModel> allFinished = await
                 this.mealPlanService.AllFinishedAsync();
 
             return View(allFinished);
