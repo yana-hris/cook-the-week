@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MealPlanAllViewModel>
 @{
-    ViewBag.Title = "All Active Meal Plans";
+    ViewBag.Title = "All Finished Meal Plans";
 }
 <div class="container">
     <h2 class="text-center">@ViewBag.Title</h2>
@@ -13,8 +13,8 @@
                     <th><label>Id</label></th>
                     <th><label>Name</label></th>
                     <th><label>Owner</label></th>
-                    <th><label>Start Date</label></th>
-                    <th><label>End Date</label></th>
+                    <th><label>Started</label></th>
+                    <th><label>Finished</label></th>
                     <th><label>Total Meals</label></th>
                     <th><label>View Details</label></th>
                     <th><label>View Shopping List</label></th>
@@ -51,7 +51,7 @@
     }
     else
     {
-        <h2 class="text-center pt-5">No Active Meal Plans yet!</h2>
+        <h2 class="text-center pt-5">No Finished Meal Plans yet!</h2>
     }
 
 </div>

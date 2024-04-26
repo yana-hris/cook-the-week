@@ -20,5 +20,13 @@
 
             return View(allActive);
         }
+
+        public async Task<IActionResult> AllFinished()
+        {
+            ICollection<MealPlanAllViewModel> allFinished = await
+                this.mealPlanService.AllFinishedAsync();
+
+            return View(allFinished);
+        }
     }
 }

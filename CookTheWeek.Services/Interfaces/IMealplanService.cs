@@ -8,6 +8,7 @@
     {
         Task AddAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllViewModel>> AllActiveAsync();
+        Task<ICollection<MealPlanAllViewModel>> AllFinishedAsync();
         Task<int> AllActiveCountAsync();
     }
 }

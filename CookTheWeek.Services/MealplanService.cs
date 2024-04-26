@@ -52,6 +52,24 @@
             return await this.dbContext.MealPlans
                 .Where(mp => mp.IsFinished == false)
                 .OrderBy(mp => mp.StartDate)
+                .ThenBy(mp => mp.Name)
+                .Select(mp => new MealPlanAllViewModel()
+                {
+                    Id = mp.Id.ToString(),
+                    Name = mp.Name.TrimToChar(30),
+                    OwnerUsername = mp.Owner.UserName!,
+                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    MealsCount = mp.Meals.Count
+                }).ToListAsync();
+        }
+
+        public async Task<ICollection<MealPlanAllViewModel>> AllFinishedAsync()
+        {
+            return await this.dbContext.MealPlans
+                .Where(mp => mp.IsFinished == true)
+                .OrderByDescending(mp => mp.StartDate)
+                .ThenBy(mp => mp.Name)
                 .Select(mp => new MealPlanAllViewModel()
                 {
                     Id = mp.Id.ToString(),
