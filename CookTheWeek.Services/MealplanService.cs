@@ -10,10 +10,13 @@
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using Interfaces;
+    using Web.ViewModels.Admin.MealPlanAdmin;
+    using Web.ViewModels.Meal;
     using Web.ViewModels.MealPlan;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
+    using static Common.EntityValidationConstants.Recipe;
+    using CookTheWeek.Common.HelperMethods;
 
     public class MealPlanService : IMealPlanService
     {
@@ -107,5 +110,35 @@
                 .CountAsync();
         }
 
+        public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
+        {
+            MealPlanAddFormModel model = await this.dbContext.MealPlans.Where(mp => mp.Id.ToString() == id)
+                .Include(mp => mp.Meals)
+                .ThenInclude(mpm => mpm.Recipe)
+                .ThenInclude(mpmr => mpmr.Category)
+                .Select(mp => new MealPlanAddFormModel()
+                {
+                    Name = mp.Name,
+                    Meals = mp.Meals.Select(mpm => new MealAddFormModel()
+                    {
+                        RecipeId = mpm.RecipeId.ToString(),
+                        Title = mpm.Recipe.Title,
+                        Servings = mpm.ServingSize,
+                        ImageUrl = mpm.Recipe.ImageUrl,
+                        CategoryName = mpm.Recipe.Category.Name,
+                        Date = mpm.CookDate.ToString(MealDateFormat),
+                        SelectServingOptions = ServingsOptions
+                    }).ToList()
+                }).FirstAsync();
+
+            return model;
+        }
+
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await this.dbContext
+                .MealPlans
+                .AnyAsync(mp => mp.Id.ToString() == id);
+        }
     }
 }

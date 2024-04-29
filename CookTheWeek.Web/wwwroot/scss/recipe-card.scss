@@ -15,7 +15,7 @@
             object-fit: cover;
         }
 
-        .liked-icon, .not-liked-icon, .fa-user {
+        .liked-icon, .not-liked-icon, .fas {
             position: absolute;
             top: 8px;
             left: 10px;
@@ -30,8 +30,8 @@
             color: grey;
         }
 
-        .fa-user {
-            color: var(--bs-warning);
+        .fas.fa-tag {
+            color: var(--bs-primary);
         }
 
         .add-to-mealplan-container {

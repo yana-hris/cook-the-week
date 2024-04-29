@@ -18,36 +18,59 @@ else
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th><label>Id</label></th>
                     <th><label>Name</label></th>
                     <th><label>Start Date</label></th>
                     <th><label>End Date</label></th>
+                    <th><label>Status</label></th>
                     <th><label>Total Meals</label></th>
-                    <th><label>View Details</label></th>
-                    <th><label>Build This Plan Again</label></th>
+                    <th><label>Details</label></th>
+                    <th><label>Shopping List</label></th>
+                    <th><label>Build Again</label></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var mealPlan in Model)
                 {
                     <tr>
-                        <td><label>@mealPlan.Id</label></td>
                         <td><label>@mealPlan.Name</label></td>
                         <td><label>@mealPlan.StartDate</label></td>
                         <td><label>@mealPlan.EndDate</label></td>
+                        <td>
+                            <lablel>
+                                @if (mealPlan.IsFinished)
+                                {
+                                    <i class="fa-solid fa-flag-checkered" style="color: red"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-flag-checkered" style="color: green"></i>
+                                }
+                            </lablel>
+                        </td>
+                                        
                         <td><label>@mealPlan.MealsCount</label></td>
                         <td>
                             <label>
                                 <a asp-asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" class="btn btn-primary text-white">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    <i class="fas fa-th-list"></i>
                                 </a>
                             </label>
                         </td>
                         <td>
                             <label>
                                 <a asp-asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-danger text-white">
-                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <i class="fas fa-shopping-basket"></i>
                                 </a>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                            @if (mealPlan.IsFinished)
+                            {
+                                <a asp-asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" class="btn btn-primary text-white">
+                                    <i class="fas fa-sync-alt"></i>
+                                </a>
+                            }
                             </label>
                         </td>
                     </tr>

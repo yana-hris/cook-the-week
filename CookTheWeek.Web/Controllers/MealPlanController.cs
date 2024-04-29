@@ -1,4 +1,6 @@
-﻿namespace CookTheWeek.Web.Controllers
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace CookTheWeek.Web.Controllers
 {
     using System.Globalization;
 
@@ -42,7 +44,7 @@
 
         [HttpPost]
         [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> CreateMealPlanModel([FromBody]MealPlanServiceModel serviceModel)
+        public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel serviceModel)
         {
             if (!ModelState.IsValid)
             {
@@ -94,17 +96,7 @@
 
             try
             {
-                string cacheKey = userId + "mealPlan";
-
-                if (memoryCache.TryGetValue(cacheKey, out object? oldMealPlanModel))
-                {
-                    if (oldMealPlanModel != null)
-                    {
-                        memoryCache.Remove(cacheKey);
-                    }
-                }
-                memoryCache.Set(cacheKey, mealPlanModel);
-
+                SaveMealPlanToMemoryCache(mealPlanModel);
                 string redirectUrl = Url.Action("Add", "MealPlan")!;
                 Response.Headers.Append("X-Redirect", redirectUrl);
 
@@ -115,9 +107,9 @@
                 logger.LogError("View not loaded!");
                 return BadRequest(ex.Message);
             }
-            
+
         }
-     
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -142,11 +134,11 @@
                 logger.LogError($"Cannot retrieve value for the Meal Plan for user with id {userId}");
                 return NotFound();
             }
-           
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm]MealPlanAddFormModel model)
+        public async Task<IActionResult> Add([FromForm] MealPlanAddFormModel model)
         {
             string userId = User.GetId();
 
@@ -195,6 +187,8 @@
             {
                 await this.mealPlanService.AddAsync(userId, model);
                 TempData["SubmissionSuccess"] = true;
+                DeleteMealPlanFromMemmoryCache();
+
             }
             catch (Exception ex)
             {
@@ -222,6 +216,62 @@
                 return BadRequest();
             }
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> CopyMealPlan(string id)
+        {
+            string userId = User.GetId();
+
+            bool mealPlanExists = await this.mealPlanService.ExistsByIdAsync(id);
+            bool isMealPlanOwner = await this.userService.IsOwnerByMealPlanId(userId, id);
+
+            if (!mealPlanExists)
+            {
+                logger.LogError($"Meal Plan with id {id} does not exist!");
+                return NotFound();
+            }
+
+            if (!isMealPlanOwner)
+            {
+                logger.LogError($"User with Id {userId} is not the owner of Meal Plan with id {id}");
+                return Unauthorized();
+            }
+
+            MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
+            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
+
+            try
+            {
+                SaveMealPlanToMemoryCache(model);                
+                return RedirectToAction("Add", "MealPlan");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Unsuccessful redirect to Add Meal Plan View!");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        private void SaveMealPlanToMemoryCache(MealPlanAddFormModel mealPlanModel) 
+        {
+            string cacheKey = User.GetId() + "mealPlan";
+
+            if (memoryCache.TryGetValue(cacheKey, out object? oldMealPlanModel))
+            {
+                if (oldMealPlanModel != null)
+                {
+                    memoryCache.Remove(cacheKey);
+                }
+            }
+
+            memoryCache.Set(cacheKey, mealPlanModel);
+        }
+
+        private void DeleteMealPlanFromMemmoryCache()
+        {
+            string cacheKey = User.GetId() + "mealPlan";
+
+            memoryCache.Remove(cacheKey);
+        }
     }
 }

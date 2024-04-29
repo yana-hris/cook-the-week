@@ -22,7 +22,7 @@
   height: 8rem;
   object-fit: cover;
 }
-.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fa-user {
+.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fas {
   position: absolute;
   top: 8px;
   left: 10px;
@@ -34,8 +34,8 @@
 .recipe-container .card .not-liked-icon {
   color: grey;
 }
-.recipe-container .card .fa-user {
-  color: var(--bs-warning);
+.recipe-container .card .fas.fa-tag {
+  color: var(--bs-primary);
 }
 .recipe-container .card .add-to-mealplan-container {
   display: inline-block; /* The container that wraps the button and icon */

@@ -13,5 +13,7 @@
         Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync();
         Task<int> AllActiveCountAsync();
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
+        Task<MealPlanAddFormModel> GetForEditByIdAsync(string id);
+        Task<bool> ExistsByIdAsync(string id);
     }
 }

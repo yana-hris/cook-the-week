@@ -60,5 +60,13 @@
                 .Where(r => r.Id.ToString() == recipeId && r.OwnerId == userId)
                 .AnyAsync();
         }
+
+        public async Task<bool> IsOwnerByMealPlanId(string userId, string id)
+        {
+            return await this.dbContext
+                .MealPlans
+                .AnyAsync(mp => mp.Id.ToString() == id &&
+                          mp.OwnerId.ToString() == userId);
+        }
     }
 }
