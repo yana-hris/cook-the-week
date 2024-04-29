@@ -1,0 +1,63 @@
+﻿#add-mealplan {
+    max-width: 1000px;
+    padding-top: 10px !important;
+
+    .row {
+        padding-bottom: 24px;
+
+        th.col-xs-3, th.col-xs-4, th.col-xs-1 {
+            background-color: var(--bs-primary) !important;
+            color: #fff;
+            opacity: 0.85;
+        }
+
+        .info-pill {
+            border: 1px solid var(--bs-primary);
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 0.8rem 1.25rem;
+            margin-bottom: 8px;
+
+            li {
+                margin-bottom: 8px;
+            }
+
+            .no-wrap-text {
+                white-space: nowrap;
+            }
+        }
+
+        .info-pill.heading-pill {
+            font-size: x-large;
+            text-align:center;
+        }
+
+        .inner-padding {
+            padding: 8px;
+
+
+            .tip-start {
+                text-decoration: underline;
+                font-weight: 600;
+            }
+        }
+
+        .inner-padding.statistics-list {
+            padding: 20px 30px !important;
+            border-radius: 8px;
+            background-color: var(--bs-light);
+
+            .statistics {
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+        }
+
+        .btn {
+            padding: 0.75rem 1.2rem;
+            font-size: larger;
+            text-transform: uppercase;
+        }
+    }
+}
