@@ -13,7 +13,7 @@
 <div class="col recipe-container">
     <div class="card">
         <div class="position-relative image-container">
-            <img class="card-img-top w-100 d-block fit-cover" alt="Recipe Image" style="height: 200px;" src="@Model.ImageUrl">
+            <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
             @if (!string.IsNullOrEmpty(userId) && !isOwner)
             {
                 bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
@@ -42,7 +42,7 @@
             }            
         </div>
         <div class="card-body p-2">
-            <p class="card-title"><span class="badge @GetBadgeColor(Model.Category.Name) d-block">@Model.Category.Name</span></p>
+            <p class="card-title"><span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span></p>
                 <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div>
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>

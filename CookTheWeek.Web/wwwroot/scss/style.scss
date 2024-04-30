@@ -7,14 +7,14 @@
 @import 'theme-switcher';
 @import 'recipe-card';
 
-$primary: #4caf50;
-$secondary: #6c757d;
-$success: #2e6930;
+$primary: #2e6930;
+$secondary: #f8b324;
+$success: #4caf50;
 $info: #82a583;
 $warning: #ffc107;
 $danger: #DA0505;
-$light: #f8f9fa;
-$dark: #343a40;
+$light: #fdf2e9;//#fef0d3;
+$dark: #09150a;
 
 
 /*$badge-bg-primary: #FCDC2A;
@@ -28,12 +28,12 @@ $theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $succes
 
 // Light theme colors:
 
-$navbar-light-color: $success;
+$navbar-light-color: $primary;
 $navbar-hover-color: #70bf73;
-$nav-link-color: $success;
-$nav-link-hover-color: $primary;
+$nav-link-color: $primary;
+$nav-link-hover-color: $success;
 $dropdown-link-active-color: #ffffff;
-$dropdown-link-active-bg: $success;
+$dropdown-link-active-bg: $primary;
 // Dark theme colors:
 $navbar-dark-color: #ffffff;
 $navbar-dark-hover-color: #70bf73; // light green
@@ -42,6 +42,10 @@ $navbar-dark-hover-color: #70bf73; // light green
 $dropdown-dark-color: #ffffff;
 $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: #70bf73;
+
+$body-bg: $white;
+$body-emphasis-color: $primary;
+$secondary-bg: $light;
 
 
 

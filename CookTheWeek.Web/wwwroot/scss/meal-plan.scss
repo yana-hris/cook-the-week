@@ -8,7 +8,8 @@
         th.col-xs-3, th.col-xs-4, th.col-xs-1 {
             background-color: var(--bs-primary) !important;
             color: #fff;
-            opacity: 0.85;
+            border: none;
+            border-radius: 8px;
         }
 
         .info-pill {
@@ -28,9 +29,45 @@
             }
         }
 
+        .meal-row {
+            position: relative;
+
+            .remove-btn-container {
+                display: block;
+
+                .minus {
+                    position: relative;
+                    display: inline-block;
+                    width: 42px;
+                    height: 42px;
+                }
+
+                .minus::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    z-index: 0;
+                    background-color: var(--bs-danger);
+                }
+
+                .minus .fa-minus {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: white;
+                    font-size: 30px;
+                }
+            }
+        }
+
         .info-pill.heading-pill {
             font-size: x-large;
-            text-align:center;
+            text-align: center;
         }
 
         .inner-padding {

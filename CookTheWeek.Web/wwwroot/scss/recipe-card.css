@@ -5,24 +5,19 @@
   width: 280px;
   height: auto;
   position: relative;
-  /*.add-icon {
-      position: absolute;
-      top: 88px;
-      right: 3px;
-      font-size: 37px;
-      color: var(--bs-success);
-  }*/
 }
 @media (max-width: 575px) {
   .recipe-container .card {
     width: 376px !important;
   }
 }
-.recipe-container .card img.fit-cover {
-  height: 8rem;
+.recipe-container .card .card-img-top {
+  display: block;
+  height: 12rem;
   object-fit: cover;
+  width: 100%;
 }
-.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fas {
+.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fas.fa-tag {
   position: absolute;
   top: 8px;
   left: 10px;
@@ -60,7 +55,7 @@
   z-index: 0;
 }
 .recipe-container .card .add-to-mealplan-container .plus::before {
-  background-color: var(--bs-success);
+  background-color: var(--bs-primary);
 }
 .recipe-container .card .add-to-mealplan-container .minus::before {
   background-color: var(--bs-danger);
@@ -71,7 +66,7 @@
   left: 50%; /* Position the icon horizontally */
   transform: translate(-50%, -50%); /* Center the icon */
   color: white; /* Icon color */
-  font-size: 36px; /* Adjust icon size as needed */
+  font-size: 36px;
 }
 .recipe-container .card .material-icons.card-icon {
   font-size: 13px;
@@ -80,8 +75,8 @@
   font-size: 13px;
 }
 .recipe-container .card span.badge {
+  display: inline-block;
   font-size: 13px;
-  font-size: small;
   padding: 1px 6px 4px 6px;
 }
 .recipe-container .card .recipe-title {

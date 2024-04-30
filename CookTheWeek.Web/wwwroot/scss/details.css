@@ -13,7 +13,6 @@
   top: 5px; /* Adjust as needed */
   right: 8px; /* Adjust as needed */
   z-index: 15; /* Ensure it's on top of other content */
-  border: 1px solid var(--bs-success-text-emphasis);
   color: #fff !important;
 }
 #recipe-details-container .card .card-body .img-container {
@@ -78,7 +77,7 @@
   z-index: 0;
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .plus::before {
-  background-color: var(--bs-success);
+  background-color: var(--bs-primary);
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .minus::before {
   background-color: var(--bs-danger);
@@ -108,7 +107,7 @@
   #recipe-details-container {
     max-width: 980px !important;
     margin: 0 auto;
-    padding: 40px !important;
+    padding: 20px !important;
   }
   #recipe-details-container #recipe-details {
     position: relative;

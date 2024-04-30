@@ -33,13 +33,13 @@
                     <table class="table">
                         <thead>
                             <tr class="table-primary rounded">
-                                <th scope="col" class="col-xs-4 col-md-5 col-lg-7">
+                                <th scope="col" class="col-xs-5 col-md-6 col-lg-7">
                                     <div class="p-2 text-uppercase no-wrap-text">Meal</div>
                                 </th>
-                                <th scope="col" class="col-xs-3 col-md-3 col-lg-1">
+                                <th scope="col" class="col-xs-2 col-md-2 col-lg-1">
                                     <div class="py-2 text-uppercase no-wrap-text">Servings</div>
                                 </th>
-                                <th scope="col" class="col-xs-3 col-md-3 col-lg-3">
+                                <th scope="col" class="col-xs-4 col-md-3 col-lg-3">
                                     <div class="py-2 text-uppercase no-wrap-text">Cook On</div>
                                 </th>
                                 <th scope="col" class="col-xs-1 col-md-1 col-lg-1">
@@ -53,7 +53,7 @@
                             {
                                 @for (int i = 0; i < Model.Meals.Count; i++)
                                 {
-                                        <tr class="meal-row">
+                                    <tr class="meal-row">
                                         <th scope="row" class="border-0">
                                             <div class="p-2">
                                                 <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
@@ -96,7 +96,7 @@
                                                 </div>
                                             </strong>
                                         </td>
-                                        <td class="border-0 align-middle">
+                                        <td class="border-0 align-middle text-end">
                                             <div class="remove-btn-container">
                                                 <input type="hidden" asp-for="Meals[i].RecipeId" />
                                                 <a data-recipeId="@Model.Meals[i].RecipeId" class="minus">

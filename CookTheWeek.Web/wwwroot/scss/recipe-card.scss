@@ -10,12 +10,15 @@
             width: 376px !important;
         }
 
-        img.fit-cover {
-            height: 8rem;
+        .card-img-top {
+            display: block;
+            height: 12rem; 
             object-fit: cover;
+            width: 100%; 
+
         }
 
-        .liked-icon, .not-liked-icon, .fas {
+        .liked-icon, .not-liked-icon, .fas.fa-tag {
             position: absolute;
             top: 8px;
             left: 10px;
@@ -59,7 +62,7 @@
             }
 
             .plus::before {
-                background-color: var(--bs-success);
+                background-color: var(--bs-primary);
             }
 
             .minus::before {
@@ -72,16 +75,9 @@
                 left: 50%; /* Position the icon horizontally */
                 transform: translate(-50%, -50%); /* Center the icon */
                 color: white; /* Icon color */
-                font-size: 36px; /* Adjust icon size as needed */
+                font-size: 36px; 
             }
-        }
-        /*.add-icon {
-            position: absolute;
-            top: 88px;
-            right: 3px;
-            font-size: 37px;
-            color: var(--bs-success);
-        }*/
+        }        
 
         .material-icons.card-icon {
             font-size: 13px;
@@ -92,8 +88,8 @@
         }
 
         span.badge {
+            display: inline-block;
             font-size: 13px;
-            font-size: small;
             padding: 1px 6px 4px 6px;
         }
 
