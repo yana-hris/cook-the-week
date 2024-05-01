@@ -126,6 +126,11 @@
                 text-transform: capitalize;
                 color: var(--bs-primary);
             }
+
+            .statistics-value {
+                font-weight: 400;
+                font-style: italic; 
+            }
         }
 
         .btn {

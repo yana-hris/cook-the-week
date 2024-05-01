@@ -15,4 +15,5 @@ public class MealPlanAddFormModel
 
     [Required]
     public IList<MealAddFormModel> Meals { get; set; } = new List<MealAddFormModel>();
+    
 }

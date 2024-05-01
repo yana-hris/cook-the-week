@@ -795,6 +795,10 @@ html body nav.fixed-bottom {
   text-transform: capitalize;
   color: var(--bs-primary);
 }
+#add-mealplan .row .inner-padding.statistics-list .statistics-value {
+  font-weight: 400;
+  font-style: italic;
+}
 #add-mealplan .row .btn {
   padding: 0.75rem 1.2rem;
   font-size: larger;

@@ -218,6 +218,33 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            bool exists = await this.mealPlanService.ExistsByIdAsync(id);
+
+            if (!exists)
+            {
+                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+
+                return RedirectToAction("Mine", "MealPlan");
+            }
+
+            try
+            {
+                MealPlanViewModel model = await this.mealPlanService.GetByIdAsync(id);
+                model.TotalIngredients = await this.mealPlanService.GetIngredientsCount(id);
+                model.TotalCookingTimeMinutes = await this.mealPlanService.GetTotalMinutes(id);
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                logger.LogError("Meal Plan Details unsuccessfully loaded!");
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> CopyMealPlan(string id)
         {
             string userId = User.GetId();

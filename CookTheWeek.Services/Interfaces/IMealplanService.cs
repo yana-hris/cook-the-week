@@ -15,5 +15,8 @@
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
         Task<MealPlanAddFormModel> GetForEditByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
+        Task<MealPlanViewModel> GetByIdAsync(string id);
+        Task<int> GetIngredientsCount(string id);
+        Task<int> GetTotalMinutes(string id);
     }
 }

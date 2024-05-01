@@ -1,0 +1,104 @@
+﻿@model MealPlanViewModel
+@{
+    ViewData["Title"] = "Meal Plan Details";
+
+}
+<div id="details-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
+    
+        <div class="row">
+            <div class="col-12">
+                <div class="info-pill bg-primary text-light pill heading-pill">Meal Plan Details</div> 
+                <div class="p-2 text-center">
+                    <h2>@Model.Name</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Meal Plan table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="table">
+                                <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
+                                    <div class="text-uppercase no-wrap-text">Meal</div>
+                                </th>
+                                <th scope="col" class="bg-primary text-white col-xs-3 col-md-3">
+                                    <div class="text-uppercase no-wrap-text">Servings</div>
+                                </th>
+                                <th scope="col" class="bg-primary text-white col-xs-4 col-md-3">
+                                    <div class="text-uppercase no-wrap-text">Cook Date</div>
+                                </th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- For each -->
+                                @for (int i = 0; i < Model.Meals.Count; i++)
+                                {
+                                    <tr class="meal-row">
+                                        <th scope="row" class="border-0">
+                                            <div class="meal-info">
+                                                <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                <div class="ml-3 d-inline-block align-middle">
+                                                    <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
+                                                    <span class="category-text">Category: @Model.Meals[i].CategoryName</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="border-0 align-middle">
+                                            <strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                                                    <input type="text" class="form-control" value="@Model.Meals[i].Servings" readonly>
+                                                </div>
+                                            </strong>
+                                        </td>
+                                        <td class="border-0 align-middle">
+                                            <strong>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>                                            
+                                                    <input type="text" class="form-control" value="@Model.Meals[i].Date" readonly>
+                                                    <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                                </div>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="info-pill bg-light text-primary pill">Tips</div>
+            <div class="">
+                <ul class="list-unstyled inner-padding">
+                    <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
+                    <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
+                    <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="info-pill bg-primary text-light  pill ">Summary</div>
+                <ul class="list-unstyled inner-padding statistics-list">
+                    <li><span class="statistics">Total Meals:</span><span class="statistics-value"> @Model.Meals.Count</span></li>
+                    <li><span class="statistics">Total Servings:</span><span class="statistics-value"> @Model.TotalServings</span></li>
+                    <li><span class="statistics">Total Cooking Time:</span><span class="statistics-value"> @($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span></li>
+                    <li><span class="statistics">Total Ingredients:</span><span class="statistics-value"> @Model.TotalIngredients</span></li>
+                    <li><span class="statistics">Total Cooking Days:</span><span class="statistics-value"> @Model.TotalCookingDays</span></li>
+                </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-between align-middle">
+            <a class="btn btn-outline-danger py-2 btn-block text-white btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit Meal Plan</a>
+            <a href="/MealPlan/Delete/@Model.Id" class="btn btn-danger btn-block">Delete</a>
+        </div>
+    </div>
+</div>
+
+

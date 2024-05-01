@@ -16,7 +16,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using CookTheWeek.Common.HelperMethods;
 
     public class MealPlanService : IMealPlanService
     {
@@ -112,7 +111,9 @@
 
         public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
         {
-            MealPlanAddFormModel model = await this.dbContext.MealPlans.Where(mp => mp.Id.ToString() == id)
+            MealPlanAddFormModel model = await this.dbContext
+                .MealPlans
+                .Where(mp => mp.Id.ToString() == id)
                 .Include(mp => mp.Meals)
                 .ThenInclude(mpm => mpm.Recipe)
                 .ThenInclude(mpmr => mpmr.Category)
@@ -128,7 +129,7 @@
                         CategoryName = mpm.Recipe.Category.Name,
                         Date = mpm.CookDate.ToString(MealDateFormat),
                         SelectServingOptions = ServingsOptions
-                    }).ToList()
+                    }).ToList(),
                 }).FirstAsync();
 
             return model;
@@ -139,6 +140,62 @@
             return await this.dbContext
                 .MealPlans
                 .AnyAsync(mp => mp.Id.ToString() == id);
+        }
+
+        public async Task<MealPlanViewModel> GetByIdAsync(string id)
+        {
+            // without IngredientsCount
+            MealPlanViewModel model = await this.dbContext
+                .MealPlans                
+                .Where(mp => mp.Id.ToString() == id)
+                .Include(mp => mp.Meals)
+                    .ThenInclude(mpm => mpm.Recipe)                        
+                        .ThenInclude(recipe => recipe.Category)
+                .Select(mp => new MealPlanViewModel()
+                {
+                    Id = mp.Id.ToString(),
+                    Name = mp.Name,
+                    Meals = mp.Meals.Select(mpm => new MealViewModel()
+                    {
+                        Id = mpm.Id.ToString(),
+                        RecipeId = mpm.RecipeId.ToString(),
+                        Title = mpm.Recipe.Title,
+                        Servings = mpm.ServingSize,
+                        ImageUrl = mpm.Recipe.ImageUrl,
+                        CategoryName = mpm.Recipe.Category.Name,
+                        Date = mpm.CookDate.ToString(MealDateFormat),
+                    }).ToList(),
+                    TotalServings = mp.Meals.Sum(mpm => mpm.ServingSize),                    
+                    TotalCookingDays = mp.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
+
+                }).FirstAsync();
+
+            return model;
+        }
+
+        public async Task<int> GetIngredientsCount(string id)
+        {
+            var mealPlan = await this.dbContext
+                .MealPlans
+                .Where(mp => mp.Id.ToString() == id)
+                    .Include(mp => mp.Meals)
+                        .ThenInclude(m => m.Recipe)  
+                            .ThenInclude(r => r.RecipesIngredients)
+                .FirstAsync();
+
+            return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count());
+        }
+
+        public async Task<int> GetTotalMinutes(string id)
+        {
+            var mealPlan = await this.dbContext
+                .MealPlans
+                .Where(mp => mp.Id.ToString() == id)
+                .Include(mp => mp.Meals)
+                .ThenInclude(m => m.Recipe)
+                .FirstAsync();
+
+            return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
         }
     }
 }
