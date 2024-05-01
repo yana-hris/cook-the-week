@@ -1,6 +1,7 @@
 ﻿@model RecipeAllViewModel
 @inject IUserService UserService
 @inject IFavouriteRecipeService FavouriteRecipeService
+@using CookTheWeek.Common.Extensions
 @using CookTheWeek.Services.Data.Interfaces
 @using static CookTheWeek.Common.GeneralApplicationConstants
 @{
@@ -47,37 +48,12 @@
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div>
                 <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>
                 </div>
-                @{
-                    int titleLength = Model.Title.Length;
-                    string shortTitle = "";
-                    if(titleLength > RecipeCardTitleMaxLength)
-                    {
-                        shortTitle = Model.Title.Substring(0, RecipeCardTitleMaxLength) + "..";
-                    <p class="recipe-title">@shortTitle</p>
-                    }
-                    else
-                    {
-                        <p class="recipe-title">@Model.Title</p>
-                    }
-                 }
+                    <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
                 <hr/>
                 @if (Model.Description != null)
                 {
                 <div class="recipe-description">
-                    @{
-                        int initialLength = Model.Description.Length;
-                        string shortDescription = "";
-                        if(initialLength > RecipeCardDescriptionMaxLength)
-                        {
-                            shortDescription = Model.Description.Substring(0, RecipeCardDescriptionMaxLength) + "..";
-                            <p class="card-text text-overflow-clamp">@shortDescription</p>
-                        }
-                        else
-                        {
-                            <p class="card-text text-overflow-clamp">@Model.Description</p>
-                        }
-                    }
-                    
+                    <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
                 </div>
                 }
                  @if (!string.IsNullOrEmpty(userId)) // && is not already added

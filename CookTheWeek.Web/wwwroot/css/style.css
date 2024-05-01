@@ -674,9 +674,9 @@ html body nav.fixed-bottom {
 
 @media (min-width: 576px) {
   #recipe-details-container {
-    max-width: 980px !important;
+    max-width: 940px !important;
     margin: 0 auto;
-    padding: 20px !important;
+    padding: 0 !important;
   }
   #recipe-details-container #recipe-details {
     position: relative;
