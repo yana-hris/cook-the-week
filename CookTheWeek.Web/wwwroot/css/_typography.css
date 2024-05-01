@@ -1,18 +1,47 @@
-﻿html {
+﻿:root {
+  --meal-title-color: var(--bs-primary);
+  --body-bg: var(--bs-white);
+  --body-color: var(--bs-dark);
+}
+:root body {
+  position: relative;
+  margin: 0 auto;
+}
+:root body #build-btn-container {
+  position: fixed;
+  bottom: 39px;
+  right: 7px;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+:root body #build-btn-container:hover {
+  opacity: 0.9;
+}
+
+html {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   position: relative;
   min-height: 100%;
 }
 html body {
-  margin: 0 auto;
-  position: relative;
+  /*margin: 0 auto;
+  position: relative;*/
 }
 html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
-html body #main-container .suggestionsList {
+html body #main-container #add-recipe, html body #main-container #edit-recipe {
+  max-width: 1000px;
+}
+html body #main-container #add-recipe .suggestionsList, html body #main-container #edit-recipe .suggestionsList {
   position: absolute;
   z-index: 1000;
   top: 29px;
@@ -42,6 +71,18 @@ html body nav.fixed-bottom {
   padding-bottom: 30px;
 }
 
+@media (min-width: 992px) {
+  #build-btn-container {
+    bottom: 45px !important;
+    right: 42px !important;
+  }
+}
+@media (min-width: 769px) {
+  #build-btn-container {
+    bottom: 45px;
+    right: 13px;
+  }
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;

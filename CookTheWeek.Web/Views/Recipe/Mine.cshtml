@@ -23,9 +23,6 @@
 else
 {
     <div class="container-xl" style="max-width: 1200px;">
-        <div class="row">
-            <partial name="_BuildBtnPartial" />
-        </div>
         <div class="row">            
             <div class="container py-2">
             @if (!isAdmin)
@@ -51,6 +48,7 @@ else
                 </div>
             </div>
         </div>
+        <partial name="_BuildBtnPartial" />
     </div>
 
         // TODO: Implement horizontal scroll with hidden scrollbars and an arrow btn for each collection of recipes

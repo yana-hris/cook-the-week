@@ -8,8 +8,8 @@
 }
 
 <div class="container-xl" style="max-width: 1200px;">
-    <div class="row">
-        <partial name="_BuildBtnPartial" />
+
+    <div class="row">        
         <p id="welcome-message" class="text-center">Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.</p>
      </div>
         
@@ -61,6 +61,7 @@
             </div>
         </form>
     </div>
+    <partial name="_BuildBtnPartial" />
     <div class="row">        
         <div class="container">
             @if (!Model.Recipes.Any())

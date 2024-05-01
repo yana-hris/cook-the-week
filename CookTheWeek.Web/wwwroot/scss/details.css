@@ -15,6 +15,9 @@
   z-index: 15; /* Ensure it's on top of other content */
   color: #fff !important;
 }
+#recipe-details-container .card .card-body .recipe-title {
+  font-family: "Libre Baskerville", serif;
+}
 #recipe-details-container .card .card-body .img-container {
   max-width: 600px;
   height: 300px;

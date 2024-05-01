@@ -1,4 +1,30 @@
 ﻿@charset "UTF-8";
+:root {
+  --meal-title-color: var(--bs-primary);
+  --body-bg: var(--bs-white);
+  --body-color: var(--bs-dark);
+}
+:root body {
+  position: relative;
+  margin: 0 auto;
+}
+:root body #build-btn-container {
+  position: fixed;
+  bottom: 39px;
+  right: 7px;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+:root body #build-btn-container:hover {
+  opacity: 0.9;
+}
+
 html {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
@@ -6,14 +32,17 @@ html {
   min-height: 100%;
 }
 html body {
-  margin: 0 auto;
-  position: relative;
+  /*margin: 0 auto;
+  position: relative;*/
 }
 html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
-html body #main-container .suggestionsList {
+html body #main-container #add-recipe, html body #main-container #edit-recipe {
+  max-width: 1000px;
+}
+html body #main-container #add-recipe .suggestionsList, html body #main-container #edit-recipe .suggestionsList {
   position: absolute;
   z-index: 1000;
   top: 29px;
@@ -43,6 +72,18 @@ html body nav.fixed-bottom {
   padding-bottom: 30px;
 }
 
+@media (min-width: 992px) {
+  #build-btn-container {
+    bottom: 45px !important;
+    right: 42px !important;
+  }
+}
+@media (min-width: 769px) {
+  #build-btn-container {
+    bottom: 45px;
+    right: 13px;
+  }
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -284,7 +325,7 @@ html body nav.fixed-bottom {
   padding: 1px 6px 4px 6px;
 }
 .recipe-container .card .recipe-title {
-  font-family: "Lora", serif;
+  font-family: "Libre Baskerville", serif;
   font-size: 16px;
   font-weight: 500;
   margin-top: 5px;
@@ -301,13 +342,19 @@ html body nav.fixed-bottom {
   margin-bottom: 10px;
 }
 
-/*$badge-bg-primary: #FCDC2A;
-$badge-secondary-bg: #FF9800;
-$badge-success-bg: #87A922;
-$badge-danger-bg: #E8751A;
-$badge-warning-bg: #9A031E;
-$badge-info-bg: #D24545;
-*/
+[data-bs-theme=light] {
+  --body-bg: var(--bs-white);
+  --body-color: var(--bs-dark);
+  --body-emphasis-color: var(--bs-primary);
+  --meal-title-color: var(--bs-primary);
+}
+
+[data-bs-theme=dark] {
+  --body-bg: var(--bs-dark);
+  --body-color: var(--bs-white);
+  --meal-title-color: var(--bs-white);
+}
+
 #admin-container {
   max-width: 1200px;
   padding: 30px;
@@ -370,7 +417,7 @@ $badge-info-bg: #D24545;
   }
 }
 [data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
-  background-color: var(--bs-success);
+  background-color: var(--bs-primary);
   color: #ffffff;
   bottom: 10px;
 }
@@ -448,10 +495,6 @@ $badge-info-bg: #D24545;
 }
 .container-xl {
   max-width: 1200px;
-}
-.container-xl #build-btn-container {
-  position: relative;
-  top: -20px;
 }
 
 .recipe-container {
@@ -537,6 +580,9 @@ $badge-info-bg: #D24545;
   right: 8px; /* Adjust as needed */
   z-index: 15; /* Ensure it's on top of other content */
   color: #fff !important;
+}
+#recipe-details-container .card .card-body .recipe-title {
+  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body .img-container {
   max-width: 600px;
@@ -643,16 +689,10 @@ $badge-info-bg: #D24545;
 }
 #add-mealplan {
   max-width: 1000px;
-  padding-top: 10px !important;
+  padding-top: 0 !important;
 }
 #add-mealplan .row {
-  padding-bottom: 24px;
-}
-#add-mealplan .row th.col-xs-3, #add-mealplan .row th.col-xs-4, #add-mealplan .row th.col-xs-1 {
-  background-color: var(--bs-primary) !important;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+  padding-bottom: 16px;
 }
 #add-mealplan .row .info-pill {
   border: 1px solid var(--bs-primary);
@@ -662,14 +702,48 @@ $badge-info-bg: #D24545;
   padding: 0.8rem 1.25rem;
   margin-bottom: 8px;
 }
-#add-mealplan .row .info-pill li {
-  margin-bottom: 8px;
-}
 #add-mealplan .row .info-pill .no-wrap-text {
   white-space: nowrap;
 }
+#add-mealplan .row .info-pill input[type=text] {
+  font-family: "Libre Baskerville", serif;
+  font-size: 16px;
+}
+#add-mealplan .row li {
+  margin-bottom: 10px;
+  font-weight: 300;
+}
 #add-mealplan .row .meal-row {
   position: relative;
+}
+#add-mealplan .row .meal-row .meal-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#add-mealplan .row .meal-row img {
+  object-fit: cover;
+  width: 28%;
+  max-width: 80px;
+  min-width: 50px;
+  display: block;
+  height: 5rem;
+}
+#add-mealplan .row .meal-row .meal-title {
+  font-family: "Libre Baskerville", serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 0;
+  color: var(--meal-title-color);
+}
+#add-mealplan .row .meal-row select {
+  font-family: "Libre Baskerville", serif;
+  font-size: 14px;
+}
+#add-mealplan .row .meal-row .category-text {
+  font-size: 14px;
+  font-weight: 400;
 }
 #add-mealplan .row .meal-row .remove-btn-container {
   display: block;
@@ -677,8 +751,8 @@ $badge-info-bg: #D24545;
 #add-mealplan .row .meal-row .remove-btn-container .minus {
   position: relative;
   display: inline-block;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
 }
 #add-mealplan .row .meal-row .remove-btn-container .minus::before {
   content: "";
@@ -714,10 +788,12 @@ $badge-info-bg: #D24545;
   padding: 20px 30px !important;
   border-radius: 8px;
   background-color: var(--bs-light);
+  color: var(--bs-primary);
 }
 #add-mealplan .row .inner-padding.statistics-list .statistics {
   font-weight: 600;
   text-transform: capitalize;
+  color: var(--bs-primary);
 }
 #add-mealplan .row .btn {
   padding: 0.75rem 1.2rem;
@@ -761,16 +837,16 @@ $badge-info-bg: #D24545;
   --bs-info: #82a583;
   --bs-warning: #ffc107;
   --bs-danger: #DA0505;
-  --bs-light: #fdf2e9;
-  --bs-dark: #09150a;
+  --bs-light: #eaf0ea;
+  --bs-dark: #373b3e;
   --bs-primary-rgb: 46, 105, 48;
   --bs-secondary-rgb: 248, 179, 36;
   --bs-success-rgb: 76, 175, 80;
   --bs-info-rgb: 130, 165, 131;
   --bs-warning-rgb: 255, 193, 7;
   --bs-danger-rgb: 218, 5, 5;
-  --bs-light-rgb: 253, 242, 233;
-  --bs-dark-rgb: 9, 21, 10;
+  --bs-light-rgb: 234, 240, 234;
+  --bs-dark-rgb: 55, 59, 62;
   --bs-primary-text-emphasis: #052c65;
   --bs-secondary-text-emphasis: #2b2f32;
   --bs-success-text-emphasis: #0a3622;
@@ -808,8 +884,8 @@ $badge-info-bg: #D24545;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg: #fff;
   --bs-body-bg-rgb: 255, 255, 255;
-  --bs-emphasis-color: #2e6930;
-  --bs-emphasis-color-rgb: 46, 105, 48;
+  --bs-emphasis-color: #000;
+  --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
   --bs-secondary-color-rgb: 33, 37, 41;
   --bs-secondary-bg: #e9ecef;
@@ -3793,36 +3869,36 @@ textarea.form-control-lg {
 
 .btn-light {
   --bs-btn-color: #000;
-  --bs-btn-bg: #fdf2e9;
-  --bs-btn-border-color: #fdf2e9;
+  --bs-btn-bg: #eaf0ea;
+  --bs-btn-border-color: #eaf0ea;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #d7cec6;
-  --bs-btn-hover-border-color: #cac2ba;
-  --bs-btn-focus-shadow-rgb: 215, 206, 198;
+  --bs-btn-hover-bg: #c7ccc7;
+  --bs-btn-hover-border-color: #bbc0bb;
+  --bs-btn-focus-shadow-rgb: 199, 204, 199;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #cac2ba;
-  --bs-btn-active-border-color: #beb6af;
+  --bs-btn-active-bg: #bbc0bb;
+  --bs-btn-active-border-color: #b0b4b0;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #fdf2e9;
-  --bs-btn-disabled-border-color: #fdf2e9;
+  --bs-btn-disabled-bg: #eaf0ea;
+  --bs-btn-disabled-border-color: #eaf0ea;
 }
 
 .btn-dark {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #09150a;
-  --bs-btn-border-color: #09150a;
+  --bs-btn-bg: #373b3e;
+  --bs-btn-border-color: #373b3e;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #2e382f;
-  --bs-btn-hover-border-color: #222c23;
-  --bs-btn-focus-shadow-rgb: 46, 56, 47;
+  --bs-btn-hover-bg: #55585b;
+  --bs-btn-hover-border-color: #4b4f51;
+  --bs-btn-focus-shadow-rgb: 85, 88, 91;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #3a443b;
-  --bs-btn-active-border-color: #222c23;
+  --bs-btn-active-bg: #5f6265;
+  --bs-btn-active-border-color: #4b4f51;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #09150a;
-  --bs-btn-disabled-border-color: #09150a;
+  --bs-btn-disabled-bg: #373b3e;
+  --bs-btn-disabled-border-color: #373b3e;
 }
 
 .btn-outline-primary {
@@ -3928,36 +4004,36 @@ textarea.form-control-lg {
 }
 
 .btn-outline-light {
-  --bs-btn-color: #fdf2e9;
-  --bs-btn-border-color: #fdf2e9;
+  --bs-btn-color: #eaf0ea;
+  --bs-btn-border-color: #eaf0ea;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #fdf2e9;
-  --bs-btn-hover-border-color: #fdf2e9;
-  --bs-btn-focus-shadow-rgb: 253, 242, 233;
+  --bs-btn-hover-bg: #eaf0ea;
+  --bs-btn-hover-border-color: #eaf0ea;
+  --bs-btn-focus-shadow-rgb: 234, 240, 234;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #fdf2e9;
-  --bs-btn-active-border-color: #fdf2e9;
+  --bs-btn-active-bg: #eaf0ea;
+  --bs-btn-active-border-color: #eaf0ea;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fdf2e9;
+  --bs-btn-disabled-color: #eaf0ea;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #fdf2e9;
+  --bs-btn-disabled-border-color: #eaf0ea;
   --bs-gradient: none;
 }
 
 .btn-outline-dark {
-  --bs-btn-color: #09150a;
-  --bs-btn-border-color: #09150a;
+  --bs-btn-color: #373b3e;
+  --bs-btn-border-color: #373b3e;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #09150a;
-  --bs-btn-hover-border-color: #09150a;
-  --bs-btn-focus-shadow-rgb: 9, 21, 10;
+  --bs-btn-hover-bg: #373b3e;
+  --bs-btn-hover-border-color: #373b3e;
+  --bs-btn-focus-shadow-rgb: 55, 59, 62;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #09150a;
-  --bs-btn-active-border-color: #09150a;
+  --bs-btn-active-bg: #373b3e;
+  --bs-btn-active-border-color: #373b3e;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #09150a;
+  --bs-btn-disabled-color: #373b3e;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #09150a;
+  --bs-btn-disabled-border-color: #373b3e;
   --bs-gradient: none;
 }
 
@@ -7632,8 +7708,8 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-light-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-light:hover, .link-light:focus {
-  color: RGBA(253, 245, 237, var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(253, 245, 237, var(--bs-link-underline-opacity, 1)) !important;
+  color: RGBA(238, 243, 238, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(238, 243, 238, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-dark {
@@ -7641,8 +7717,8 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-dark-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-dark:hover, .link-dark:focus {
-  color: RGBA(7, 17, 8, var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(7, 17, 8, var(--bs-link-underline-opacity, 1)) !important;
+  color: RGBA(44, 47, 50, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(44, 47, 50, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-body-emphasis {

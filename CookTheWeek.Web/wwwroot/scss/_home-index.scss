@@ -1,17 +1,8 @@
 ﻿[data-bs-theme="light"] {
-
-    $card-cap-color: var(--bs-primary);
-    $card-cap-bg: var(--bs-light);
-    $card-border-color: var(--bs-dark);
-    $card-color: var(--bs-primary);
-    $card-bg: var(--bs-light);
-    $card-title-color: var(--bs-primary);
-    $body-color: var(--bs-light);
-
-
+    
     nav .fixed-bottom {
         a.btn.btn-primary {
-            background-color: var(--bs-success);
+            background-color: var(--bs-primary);
             color: #ffffff;
             bottom: 10px;
         }

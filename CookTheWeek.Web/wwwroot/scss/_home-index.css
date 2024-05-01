@@ -1,5 +1,5 @@
 ﻿[data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
-  background-color: var(--bs-success);
+  background-color: var(--bs-primary);
   color: #ffffff;
   bottom: 10px;
 }

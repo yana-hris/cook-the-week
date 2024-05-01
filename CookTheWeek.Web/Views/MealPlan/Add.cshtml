@@ -32,18 +32,18 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr class="table-primary rounded">
-                                <th scope="col" class="col-xs-5 col-md-6 col-lg-7">
-                                    <div class="p-2 text-uppercase no-wrap-text">Meal</div>
+                            <tr class="table">
+                                <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
+                                    <div class="text-uppercase no-wrap-text">Meal</div>
                                 </th>
-                                <th scope="col" class="col-xs-2 col-md-2 col-lg-1">
-                                    <div class="py-2 text-uppercase no-wrap-text">Servings</div>
+                                <th scope="col" class="bg-primary text-white col-xs-2 col-md-2 col-lg-2">
+                                    <div class="text-uppercase no-wrap-text">Servings</div>
                                 </th>
-                                <th scope="col" class="col-xs-4 col-md-3 col-lg-3">
-                                    <div class="py-2 text-uppercase no-wrap-text">Cook On</div>
+                                <th scope="col" class="bg-primary text-white col-xs-4 col-md-3 col-lg-3">
+                                    <div class="text-uppercase no-wrap-text">Cook On</div>
                                 </th>
-                                <th scope="col" class="col-xs-1 col-md-1 col-lg-1">
-                                    <div class="py-2 text-uppercase no-wrap-text">Remove</div>
+                                <th scope="col" class="rounded-end bg-primary text-white col-xs-1 col-md-1 col-lg-1">
+                                    <div class="text-uppercase no-wrap-text">Remove</div>
                                 </th>
                             </tr>
                         </thead>
@@ -55,14 +55,14 @@
                                 {
                                     <tr class="meal-row">
                                         <th scope="row" class="border-0">
-                                            <div class="p-2">
+                                            <div class="meal-info">
                                                 <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
                                                 <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
                                                 <div class="ml-3 d-inline-block align-middle">
                                                     <input type="hidden" asp-for="Meals[i].Title" />
-                                                    <h5 class="mb-0"> <a href="/Recipe/Details/@Model.Meals[i].RecipeId" class="text-dark d-inline-block align-middle">@Model.Meals[i].Title</a></h5>
+                                                    <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
                                                     <input type="hidden" asp-for="Meals[i].CategoryName" />
-                                                    <span class="text-muted font-weight-normal font-italic d-block">Category: @Model.Meals[i].CategoryName</span>
+                                                    <span class="category-text">Category: @Model.Meals[i].CategoryName</span>
                                                 </div>
                                             </div>
                                         </th>
@@ -129,19 +129,17 @@
         </div>
         <div class="col-lg-6">
             <div class="info-pill bg-primary text-light  pill ">Summary</div>
-            <div class="">
-                <ul class="list-unstyled inner-padding statistics-list">
-                    <li><span class="statistics">Total Meals:</span> @Model.Meals.Count</li>
-                    <li><span class="statistics">Total Servings:</span> ADD</li>
-                    <li><span class="statistics">Total Time:</span> ADD h ADD min</li>
-                </ul>
-            </div>
+            <ul class="list-unstyled inner-padding statistics-list">
+                <li><span class="statistics">Total Meals:</span> @Model.Meals.Count</li>
+                <li><span class="statistics">Total Servings:</span> ADD</li>
+                <li><span class="statistics">Total Time:</span> ADD h ADD min</li>
+            </ul>
         </div>
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
             <button form="add-mealplan-form" class="btn btn-primary py-2 btn-block text-white btn-lg" type="submit">Save Meal Plan</button>
-            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-outline-primary text-white btn-block">Browse Recipes</a>
+            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-outline-primary btn-block">Browse Recipes</a>
         </div>
     </div>
 </div>
