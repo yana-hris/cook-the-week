@@ -7,7 +7,9 @@
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;
-       
+
+        public bool IsFinished { get; set; }
+
         public IList<MealViewModel> Meals { get; set; } = new List<MealViewModel>();
 
         public int? TotalServings { get; set; }

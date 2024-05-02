@@ -16,6 +16,7 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
+    using Microsoft.Extensions.Logging;
 
     public class MealPlanService : IMealPlanService
     {
@@ -85,29 +86,30 @@
         {
             MealPlan mealPlanToEdit = await this.dbContext
                 .MealPlans
+                .Include(mp => mp.Meals)
                 .FirstAsync(mp => mp.Id.ToString() == model.Id);
 
             mealPlanToEdit.Name = model.Name;
 
             // Add or update existing Meals
-            foreach (var mpm in model.Meals)
+            foreach (var modelMeal in model.Meals)
             {
-                if (mealPlanToEdit.Meals.Any(m => m.RecipeId.ToString() == mpm.RecipeId))
+                if (mealPlanToEdit.Meals.Any(m => m.RecipeId.ToString() == modelMeal.RecipeId.ToLower()))
                 {
                     Meal currentMeal = await this.dbContext
                         .Meals
-                        .FirstAsync(m => m.MealPlanId.ToString() == model.Id && m.RecipeId.ToString() == mpm.RecipeId);
+                        .FirstAsync(m => m.MealPlanId.ToString() == model.Id && m.RecipeId.ToString() == modelMeal.RecipeId);
 
-                    currentMeal.ServingSize = mpm.Servings;
-                    currentMeal.CookDate = DateTime.ParseExact(mpm.Date, MealDateFormat, CultureInfo.InvariantCulture);
+                    currentMeal.ServingSize = modelMeal.Servings;
+                    currentMeal.CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture);
                 }
                 else
                 {
                     Meal newMeal = new Meal()
                     {
-                        RecipeId = Guid.Parse(mpm.RecipeId),
-                        ServingSize = mpm.Servings,
-                        CookDate = DateTime.ParseExact(mpm.Date, MealDateFormat, CultureInfo.InvariantCulture),
+                        RecipeId = Guid.Parse(modelMeal.RecipeId),
+                        ServingSize = modelMeal.Servings,
+                        CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture),
                     };
                     mealPlanToEdit.Meals.Add(newMeal);
                 }                
@@ -116,7 +118,10 @@
             // Delete removed Meals from Meal Plan Database
             foreach (var existingMeal in mealPlanToEdit.Meals)
             {
-                if(!model.Meals.Any(m => m.RecipeId == existingMeal.RecipeId.ToString()))
+                string databaseMealRecipeId = existingMeal.RecipeId.ToString();
+                bool remains = model.Meals.Any(m => m.RecipeId.ToLower() == databaseMealRecipeId);
+
+                if (!remains)
                 {
                     dbContext.Meals.Remove(existingMeal);
                 }
@@ -153,6 +158,7 @@
                 {
                     Id = mp.Id.ToString(),
                     Name = mp.Name,
+                    IsFinished = mp.IsFinished,
                     Meals = mp.Meals.Select(mpm => new MealViewModel()
                     {
                         Id = mpm.Id.ToString(),
@@ -184,7 +190,7 @@
                     StartDate = mp.StartDate,
                     Meals = mp.Meals.Select(mpm => new MealAddFormModel()
                     {
-                        RecipeId = mpm.RecipeId.ToString(),
+                        RecipeId = mpm.RecipeId.ToString().ToLower(),
                         Title = mpm.Recipe.Title,
                         Servings = mpm.ServingSize,
                         ImageUrl = mpm.Recipe.ImageUrl,

@@ -304,7 +304,7 @@ namespace CookTheWeek.Web.Controllers
             try
             {
                 MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
-                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate); // ensure the plan start date stays the same
                 model.Id = id;
 
                 return View(model);

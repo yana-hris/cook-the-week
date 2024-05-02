@@ -8,7 +8,7 @@
     <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">
         <div class="row">
             <div class="col-12">
-                <div class="info-pill bg-primary text-light pill heading-pill">Edit Your Meal Plan</div>
+                <div class="info-pill bg-primary text-light pill heading-pill">Edit "@Model.Name"</div>
                 <div class="row py-2 inner-padding">
                     <p class="">
                         Providing a distinct name for your Meal Plan enhances its visibility and ease of retrieval for
@@ -134,7 +134,7 @@
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
-            <button form="edit-mealplan-form" class="btn btn-primary py-2 btn-block text-white btn-lg" type="submit">Save Meal Plan</button>
+            <button form="edit-mealplan-form" class="btn btn-primary py-2 btn-block text-white btn-lg" type="submit">Save</button>
             <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-outline-primary btn-block">Browse Recipes</a>
         </div>
     </div>
@@ -148,10 +148,7 @@
             var mealsIndex = @initialCount;
             $(document).on('click', '.minus', function (event) {
                 debugger;
-
-                var recipeId = this.dataset.recipeid;
                 var mealsCount = $('.meal-row').length;
-
                 if (mealsCount === 1) {
                     event.preventDefault();
                     toastr.error('To build a Meal Plan, at least one Meal is required.');
@@ -160,9 +157,6 @@
                 $(this).closest('.meal-row').remove();
                 mealsIndex--;
                 reindexRows();
-                
-                // TODO: remove recipe from meal plan local storage                
-                removeFromLocalStorage(recipeId);
             });
 
             function reindexRows() {
@@ -184,21 +178,6 @@
                 });
 
                 $('form').validate().form();
-            }
-
-            function removeFromLocalStorage(recipeId) {
-                // get user local storage
-                var userMealPlans = localStorage.getItem(currentUserId);
-                if (userMealPlans) {
-                    userMealPlans = JSON.parse(userMealPlans);
-                    const recipeIndex = userMealPlans.indexOf(recipeId);
-
-                    if (recipeIndex !== -1) {
-                        userMealPlans.splice(recipeIndex, 1);
-                        toasrt.success(`Recipe successfully removed from the meal plan`);
-                    }
-                    localStorage.setItem(currentUserId, JSON.stringify(userMealPlan));
-                }
             }
 
         });

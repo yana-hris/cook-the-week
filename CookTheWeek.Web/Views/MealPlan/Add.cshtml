@@ -139,8 +139,6 @@
         </div>
     </div>
 </div>
-
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
@@ -148,7 +146,10 @@
             var mealsIndex = @initialCount;
             $(document).on('click', '.minus', function (event) {
                 debugger;
+
+                var recipeId = this.dataset.recipeid;
                 var mealsCount = $('.meal-row').length;
+
                 if (mealsCount === 1) {
                     event.preventDefault();
                     toastr.error('To build a Meal Plan, at least one Meal is required.');
@@ -157,6 +158,9 @@
                 $(this).closest('.meal-row').remove();
                 mealsIndex--;
                 reindexRows();
+
+                // TODO: remove recipe from meal plan local storage
+                removeFromLocalStorage(recipeId);
             });
 
             function reindexRows() {
@@ -176,10 +180,37 @@
                     var $element = $(element);
                     $element.attr('data-valmsg-for', $element.attr('data-valmsg-for').replace(/\[\d+\]/g, '[' + index + ']'));
                 });
-                        
+
                 $('form').validate().form();
             }
 
+            function removeFromLocalStorage(recipeId) {
+                // get user local storage
+                debugger;
+                var userMealPlans = localStorage.getItem(currentUserId);
+                console.log(userMealPlans);
+                if (userMealPlans) {
+                    userMealPlans = JSON.parse(userMealPlans);
+                    const recipeIndex = userMealPlans.indexOf(recipeId);
+
+                    if (recipeIndex !== -1) {
+                        userMealPlans.splice(recipeIndex, 1);
+
+                        try {
+                            localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
+                            toastr.success(`Recipe successfully removed from the meal plan`);
+                        } catch (error) {
+                            console.error('Local storage not saved!');
+                            toastr.error("Something went wrong!");
+                        }
+                        
+                    }
+                }
+            }
+
         });
-    </script>       
+    </script>
 }
+
+
+

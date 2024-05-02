@@ -92,8 +92,15 @@
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
-            <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit Meal Plan</a>
-            <a href="/MealPlan/Delete/@Model.Id" class="btn btn-danger btn-block">Delete</a>
+            @if (Model.IsFinished)
+            {
+                <a class="btn btn-primary btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">Build Again</a>
+            }
+            else
+            {
+                <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            }
+            <a href="/MealPlan/Delete/@Model.Id" class="btn btn-danger btn-block">Remove</a>
         </div>
     </div>
 </div>
