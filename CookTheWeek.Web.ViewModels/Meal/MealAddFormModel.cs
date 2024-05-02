@@ -15,6 +15,8 @@
             this.Date = SelectDates[0];
         }
 
+        public string? Id { get; set; }
+
         [Required]
         public string RecipeId { get; set; } = null!;
 

@@ -7,7 +7,7 @@
         Task<ICollection<UserAllViewModel>> AllAsync();
         Task<int> AllCountAsync();
         Task<bool> ExistsByIdAsync(string id);
-        Task<bool> IsOwnerByMealPlanId(string userId, string id);
+        Task<bool> IsOwnerByMealPlanId(string id, string userId);
         Task<bool> IsOwnerByRecipeId(string recipeId, string userId);
     }
 }

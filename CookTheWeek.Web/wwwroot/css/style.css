@@ -687,14 +687,15 @@ html body nav.fixed-bottom {
     right: 1px;
   }
 }
-#add-mealplan {
+#add-mealplan, #details-mealplan, #edit-mealplan {
   max-width: 1000px;
-  padding-top: 0 !important;
+  padding-top: 20px !important;
+  margin-top: -40px;
 }
-#add-mealplan .row {
+#add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 16px;
 }
-#add-mealplan .row .info-pill {
+#add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
   border: 1px solid var(--bs-primary);
   border-radius: 8px;
   text-transform: uppercase;
@@ -702,26 +703,26 @@ html body nav.fixed-bottom {
   padding: 0.8rem 1.25rem;
   margin-bottom: 8px;
 }
-#add-mealplan .row .info-pill .no-wrap-text {
+#add-mealplan .row .info-pill .no-wrap-text, #details-mealplan .row .info-pill .no-wrap-text, #edit-mealplan .row .info-pill .no-wrap-text {
   white-space: nowrap;
 }
-#add-mealplan .row .info-pill input[type=text] {
+#add-mealplan .row .info-pill .text-style, #details-mealplan .row .info-pill .text-style, #edit-mealplan .row .info-pill .text-style {
   font-family: "Libre Baskerville", serif;
   font-size: 16px;
 }
-#add-mealplan .row li {
+#add-mealplan .row li, #details-mealplan .row li, #edit-mealplan .row li {
   margin-bottom: 10px;
   font-weight: 300;
 }
-#add-mealplan .row .meal-row {
+#add-mealplan .row .meal-row, #details-mealplan .row .meal-row, #edit-mealplan .row .meal-row {
   position: relative;
 }
-#add-mealplan .row .meal-row .meal-info {
+#add-mealplan .row .meal-row .meal-info, #details-mealplan .row .meal-row .meal-info, #edit-mealplan .row .meal-row .meal-info {
   display: flex;
   gap: 8px;
   align-items: center;
 }
-#add-mealplan .row .meal-row img {
+#add-mealplan .row .meal-row img, #details-mealplan .row .meal-row img, #edit-mealplan .row .meal-row img {
   object-fit: cover;
   width: 28%;
   max-width: 80px;
@@ -729,7 +730,7 @@ html body nav.fixed-bottom {
   display: block;
   height: 5rem;
 }
-#add-mealplan .row .meal-row .meal-title {
+#add-mealplan .row .meal-row .meal-title, #details-mealplan .row .meal-row .meal-title, #edit-mealplan .row .meal-row .meal-title {
   font-family: "Libre Baskerville", serif;
   font-size: 16px;
   font-weight: 500;
@@ -737,24 +738,24 @@ html body nav.fixed-bottom {
   margin-bottom: 0;
   color: var(--meal-title-color);
 }
-#add-mealplan .row .meal-row select {
+#add-mealplan .row .meal-row select, #details-mealplan .row .meal-row select, #edit-mealplan .row .meal-row select {
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
 }
-#add-mealplan .row .meal-row .category-text {
+#add-mealplan .row .meal-row .category-text, #details-mealplan .row .meal-row .category-text, #edit-mealplan .row .meal-row .category-text {
   font-size: 14px;
   font-weight: 400;
 }
-#add-mealplan .row .meal-row .remove-btn-container {
+#add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
   display: block;
 }
-#add-mealplan .row .meal-row .remove-btn-container .minus {
+#add-mealplan .row .meal-row .remove-btn-container .minus, #details-mealplan .row .meal-row .remove-btn-container .minus, #edit-mealplan .row .meal-row .remove-btn-container .minus {
   position: relative;
   display: inline-block;
   width: 38px;
   height: 38px;
 }
-#add-mealplan .row .meal-row .remove-btn-container .minus::before {
+#add-mealplan .row .meal-row .remove-btn-container .minus::before, #details-mealplan .row .meal-row .remove-btn-container .minus::before, #edit-mealplan .row .meal-row .remove-btn-container .minus::before {
   content: "";
   position: absolute;
   top: 0;
@@ -765,7 +766,7 @@ html body nav.fixed-bottom {
   z-index: 0;
   background-color: var(--bs-danger);
 }
-#add-mealplan .row .meal-row .remove-btn-container .minus .fa-minus {
+#add-mealplan .row .meal-row .remove-btn-container .minus .fa-minus, #details-mealplan .row .meal-row .remove-btn-container .minus .fa-minus, #edit-mealplan .row .meal-row .remove-btn-container .minus .fa-minus {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -773,33 +774,36 @@ html body nav.fixed-bottom {
   color: white;
   font-size: 30px;
 }
-#add-mealplan .row .info-pill.heading-pill {
+#add-mealplan .row .info-pill.heading-pill, #details-mealplan .row .info-pill.heading-pill, #edit-mealplan .row .info-pill.heading-pill {
   font-size: x-large;
   text-align: center;
 }
-#add-mealplan .row .inner-padding {
+#add-mealplan .row .inner-padding, #details-mealplan .row .inner-padding, #edit-mealplan .row .inner-padding {
   padding: 8px;
 }
-#add-mealplan .row .inner-padding .tip-start {
+#add-mealplan .row .inner-padding .tip-start, #details-mealplan .row .inner-padding .tip-start, #edit-mealplan .row .inner-padding .tip-start {
   text-decoration: underline;
   font-weight: 600;
 }
-#add-mealplan .row .inner-padding.statistics-list {
+#add-mealplan .row .statistics-message, #details-mealplan .row .statistics-message, #edit-mealplan .row .statistics-message {
+  padding: 40px 10px;
+}
+#add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
   padding: 20px 30px !important;
   border-radius: 8px;
   background-color: var(--bs-light);
   color: var(--bs-primary);
 }
-#add-mealplan .row .inner-padding.statistics-list .statistics {
-  font-weight: 600;
+#add-mealplan .row .inner-padding.statistics-list .statistics, #details-mealplan .row .inner-padding.statistics-list .statistics, #edit-mealplan .row .inner-padding.statistics-list .statistics {
+  font-weight: 700;
   text-transform: capitalize;
   color: var(--bs-primary);
 }
-#add-mealplan .row .inner-padding.statistics-list .statistics-value {
+#add-mealplan .row .inner-padding.statistics-list .statistics-value, #details-mealplan .row .inner-padding.statistics-list .statistics-value, #edit-mealplan .row .inner-padding.statistics-list .statistics-value {
   font-weight: 400;
   font-style: italic;
 }
-#add-mealplan .row .btn {
+#add-mealplan .row .btn, #details-mealplan .row .btn, #edit-mealplan .row .btn {
   padding: 0.75rem 1.2rem;
   font-size: larger;
   text-transform: uppercase;

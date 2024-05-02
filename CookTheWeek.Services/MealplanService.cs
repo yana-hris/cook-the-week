@@ -26,6 +26,38 @@
             this.dbContext = dbContext;
         }
 
+        public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
+        {
+            return await this.dbContext.MealPlans
+                .Where(mp => mp.IsFinished == false)
+                .OrderBy(mp => mp.StartDate)
+                .ThenBy(mp => mp.Name)
+                .Select(mp => new MealPlanAllAdminViewModel()
+                {
+                    Id = mp.Id.ToString(),
+                    Name = mp.Name.TrimToChar(30),
+                    OwnerUsername = mp.Owner.UserName!,
+                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    MealsCount = mp.Meals.Count
+                }).ToListAsync();
+        }
+        public async Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync()
+        {
+            return await this.dbContext.MealPlans
+                .Where(mp => mp.IsFinished == true)
+                .OrderByDescending(mp => mp.StartDate)
+                .ThenBy(mp => mp.Name)
+                .Select(mp => new MealPlanAllAdminViewModel()
+                {
+                    Id = mp.Id.ToString(),
+                    Name = mp.Name.TrimToChar(30),
+                    OwnerUsername = mp.Owner.UserName!,
+                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
+                    MealsCount = mp.Meals.Count
+                }).ToListAsync();
+        }
         public async Task AddAsync(string userId, MealPlanAddFormModel model)
         {
             MealPlan newMealPlan = new MealPlan()
@@ -49,41 +81,49 @@
             await this.dbContext.SaveChangesAsync();
            
         }
-
-        public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
+        public async Task EditAsync(string userId, MealPlanAddFormModel model)
         {
-            return await this.dbContext.MealPlans
-                .Where(mp => mp.IsFinished == false)
-                .OrderBy(mp => mp.StartDate)
-                .ThenBy(mp => mp.Name)
-                .Select(mp => new MealPlanAllAdminViewModel()
-                {
-                    Id = mp.Id.ToString(),
-                    Name = mp.Name.TrimToChar(30),
-                    OwnerUsername = mp.Owner.UserName!,
-                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    MealsCount = mp.Meals.Count
-                }).ToListAsync();
-        }
+            MealPlan mealPlanToEdit = await this.dbContext
+                .MealPlans
+                .FirstAsync(mp => mp.Id.ToString() == model.Id);
 
-        public async Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync()
-        {
-            return await this.dbContext.MealPlans
-                .Where(mp => mp.IsFinished == true)
-                .OrderByDescending(mp => mp.StartDate)
-                .ThenBy(mp => mp.Name)
-                .Select(mp => new MealPlanAllAdminViewModel()
+            mealPlanToEdit.Name = model.Name;
+
+            // Add or update existing Meals
+            foreach (var mpm in model.Meals)
+            {
+                if (mealPlanToEdit.Meals.Any(m => m.RecipeId.ToString() == mpm.RecipeId))
                 {
-                    Id = mp.Id.ToString(),
-                    Name = mp.Name.TrimToChar(30),
-                    OwnerUsername = mp.Owner.UserName!,
-                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    MealsCount = mp.Meals.Count
-                }).ToListAsync();
-        }
-        
+                    Meal currentMeal = await this.dbContext
+                        .Meals
+                        .FirstAsync(m => m.MealPlanId.ToString() == model.Id && m.RecipeId.ToString() == mpm.RecipeId);
+
+                    currentMeal.ServingSize = mpm.Servings;
+                    currentMeal.CookDate = DateTime.ParseExact(mpm.Date, MealDateFormat, CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    Meal newMeal = new Meal()
+                    {
+                        RecipeId = Guid.Parse(mpm.RecipeId),
+                        ServingSize = mpm.Servings,
+                        CookDate = DateTime.ParseExact(mpm.Date, MealDateFormat, CultureInfo.InvariantCulture),
+                    };
+                    mealPlanToEdit.Meals.Add(newMeal);
+                }                
+            }
+
+            // Delete removed Meals from Meal Plan Database
+            foreach (var existingMeal in mealPlanToEdit.Meals)
+            {
+                if(!model.Meals.Any(m => m.RecipeId == existingMeal.RecipeId.ToString()))
+                {
+                    dbContext.Meals.Remove(existingMeal);
+                }
+            }
+
+            await this.dbContext.SaveChangesAsync();
+        }                
         public async Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId)
         {
             return await this.dbContext
@@ -100,48 +140,6 @@
                     IsFinished = mp.IsFinished
                 }).ToListAsync();
         }
-
-        public async Task<int> AllActiveCountAsync()
-        {
-            return await this.dbContext
-                .MealPlans
-                .Where(mp => mp.IsFinished == false)
-                .CountAsync();
-        }
-
-        public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
-        {
-            MealPlanAddFormModel model = await this.dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                .Include(mp => mp.Meals)
-                .ThenInclude(mpm => mpm.Recipe)
-                .ThenInclude(mpmr => mpmr.Category)
-                .Select(mp => new MealPlanAddFormModel()
-                {
-                    Name = mp.Name,
-                    Meals = mp.Meals.Select(mpm => new MealAddFormModel()
-                    {
-                        RecipeId = mpm.RecipeId.ToString(),
-                        Title = mpm.Recipe.Title,
-                        Servings = mpm.ServingSize,
-                        ImageUrl = mpm.Recipe.ImageUrl,
-                        CategoryName = mpm.Recipe.Category.Name,
-                        Date = mpm.CookDate.ToString(MealDateFormat),
-                        SelectServingOptions = ServingsOptions
-                    }).ToList(),
-                }).FirstAsync();
-
-            return model;
-        }
-
-        public async Task<bool> ExistsByIdAsync(string id)
-        {
-            return await this.dbContext
-                .MealPlans
-                .AnyAsync(mp => mp.Id.ToString() == id);
-        }
-
         public async Task<MealPlanViewModel> GetByIdAsync(string id)
         {
             // without IngredientsCount
@@ -172,8 +170,46 @@
 
             return model;
         }
+        public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
+        {
+            MealPlanAddFormModel model = await this.dbContext
+                .MealPlans
+                .Where(mp => mp.Id.ToString() == id)
+                .Include(mp => mp.Meals)
+                .ThenInclude(mpm => mpm.Recipe)
+                .ThenInclude(mpmr => mpmr.Category)
+                .Select(mp => new MealPlanAddFormModel()
+                {
+                    Name = mp.Name,
+                    StartDate = mp.StartDate,
+                    Meals = mp.Meals.Select(mpm => new MealAddFormModel()
+                    {
+                        RecipeId = mpm.RecipeId.ToString(),
+                        Title = mpm.Recipe.Title,
+                        Servings = mpm.ServingSize,
+                        ImageUrl = mpm.Recipe.ImageUrl,
+                        CategoryName = mpm.Recipe.Category.Name,
+                        Date = mpm.CookDate.ToString(MealDateFormat),
+                        SelectServingOptions = ServingsOptions
+                    }).ToList(),
+                }).FirstAsync();
 
-        public async Task<int> GetIngredientsCount(string id)
+            return model;
+        }
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await this.dbContext
+                .MealPlans
+                .AnyAsync(mp => mp.Id.ToString() == id);
+        }
+        public async Task<int> AllActiveCountAsync()
+        {
+            return await this.dbContext
+                .MealPlans
+                .Where(mp => mp.IsFinished == false)
+                .CountAsync();
+        }
+        public async Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id)
         {
             var mealPlan = await this.dbContext
                 .MealPlans
@@ -185,8 +221,7 @@
 
             return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count());
         }
-
-        public async Task<int> GetTotalMinutes(string id)
+        public async Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id)
         {
             var mealPlan = await this.dbContext
                 .MealPlans
@@ -197,5 +232,6 @@
 
             return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
         }
+
     }
 }

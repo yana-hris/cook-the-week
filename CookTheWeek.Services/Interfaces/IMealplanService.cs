@@ -8,15 +8,18 @@
 
     public interface IMealPlanService
     {
-        Task AddAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync();
         Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync();
-        Task<int> AllActiveCountAsync();
+        Task AddAsync(string userId, MealPlanAddFormModel model);
+        Task EditAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
+        Task<MealPlanViewModel> GetByIdAsync(string id);
         Task<MealPlanAddFormModel> GetForEditByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
-        Task<MealPlanViewModel> GetByIdAsync(string id);
-        Task<int> GetIngredientsCount(string id);
-        Task<int> GetTotalMinutes(string id);
+        Task<int> AllActiveCountAsync();
+
+        // Helper methods for Meal Plan Details View
+        Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id);
+        Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id);
     }
 }

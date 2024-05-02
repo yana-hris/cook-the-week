@@ -7,10 +7,7 @@
     
         <div class="row">
             <div class="col-12">
-                <div class="info-pill bg-primary text-light pill heading-pill">Meal Plan Details</div> 
-                <div class="p-2 text-center">
-                    <h2>@Model.Name</h2>
-                </div>
+                <div class="info-pill bg-primary text-light pill heading-pill">Meal Plan "@Model.Name"</div> 
             </div>
         </div>
         <div class="row">
@@ -20,10 +17,10 @@
                     <table class="table">
                         <thead>
                             <tr class="table">
-                                <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
+                                <th scope="col" class="rounded-start bg-primary text-white col-xs-6 col-md-7">
                                     <div class="text-uppercase no-wrap-text">Meal</div>
                                 </th>
-                                <th scope="col" class="bg-primary text-white col-xs-3 col-md-3">
+                                <th scope="col" class="bg-primary text-white col-xs-2 col-md-2">
                                     <div class="text-uppercase no-wrap-text">Servings</div>
                                 </th>
                                 <th scope="col" class="bg-primary text-white col-xs-4 col-md-3">
@@ -49,15 +46,15 @@
                                             <strong>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
-                                                    <input type="text" class="form-control" value="@Model.Meals[i].Servings" readonly>
+                                                    <input type="text" class="form-control text-style" value="@Model.Meals[i].Servings" readonly>
                                                 </div>
                                             </strong>
                                         </td>
                                         <td class="border-0 align-middle">
                                             <strong>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>                                            
-                                                    <input type="text" class="form-control" value="@Model.Meals[i].Date" readonly>
+                                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                    <input type="text" class="form-control text-style" value="@Model.Meals[i].Date" readonly>
                                                     <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
                                                 </div>
                                             </strong>
@@ -85,17 +82,17 @@
         <div class="col-lg-6">
             <div class="info-pill bg-primary text-light  pill ">Summary</div>
                 <ul class="list-unstyled inner-padding statistics-list">
-                    <li><span class="statistics">Total Meals:</span><span class="statistics-value"> @Model.Meals.Count</span></li>
-                    <li><span class="statistics">Total Servings:</span><span class="statistics-value"> @Model.TotalServings</span></li>
-                    <li><span class="statistics">Total Cooking Time:</span><span class="statistics-value"> @($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span></li>
-                    <li><span class="statistics">Total Ingredients:</span><span class="statistics-value"> @Model.TotalIngredients</span></li>
-                    <li><span class="statistics">Total Cooking Days:</span><span class="statistics-value"> @Model.TotalCookingDays</span></li>
+                <li><span class="statistics">@Model.Meals.Count</span><span class="statistics-value"> <strong>Meals</strong> cooked</span></li>
+                <li><span class="statistics">@Model.TotalServings</span><span class="statistics-value"> Total <strong>Servings</strong></span></li>
+                <li><span class="statistics">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span><span class="statistics-value"> spent cooking</span></li>
+                <li><span class="statistics">@Model.TotalIngredients</span><span class="statistics-value"> <strong>Ingredients</strong> used</span></li>
+                <li><span class="statistics">@Model.TotalCookingDays</span><span class="statistics-value"> day(s) cooking</span></li>
                 </ul>
         </div>
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
-            <a class="btn btn-outline-danger py-2 btn-block text-white btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit Meal Plan</a>
+            <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit Meal Plan</a>
             <a href="/MealPlan/Delete/@Model.Id" class="btn btn-danger btn-block">Delete</a>
         </div>
     </div>

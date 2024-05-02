@@ -61,7 +61,7 @@
                 .AnyAsync();
         }
 
-        public async Task<bool> IsOwnerByMealPlanId(string userId, string id)
+        public async Task<bool> IsOwnerByMealPlanId(string id, string userId)
         {
             return await this.dbContext
                 .MealPlans

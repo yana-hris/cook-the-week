@@ -8,17 +8,20 @@
         /// </summary>
         /// <param name="startDate"></param>
         /// <returns></returns>
-        public static string[] GenerateNext7Days(DateTime startDate)
+        public static string[] GenerateNext7Days(DateTime? startDate)
         {
             string[] next7Days = new string[7];
-            
-            next7Days[0] = startDate.ToString(MealDateFormat);
 
-            for (int i = 1; i < 7; i++)
+            if (startDate.HasValue && startDate.Value != DateTime.MinValue)
             {
-                DateTime nextDay = startDate.AddDays(i);
-                string dayAsString = nextDay.ToString(MealDateFormat);
-                next7Days[i] = dayAsString;
+                next7Days[0] = startDate.Value.ToString(MealDateFormat);
+
+                for (int i = 1; i < 7; i++)
+                {
+                    DateTime nextDay = startDate.Value.AddDays(i);
+                    string dayAsString = nextDay.ToString(MealDateFormat);
+                    next7Days[i] = dayAsString;
+                }
             }
 
             return next7Days;

@@ -1,6 +1,7 @@
-﻿#add-mealplan {
+﻿#add-mealplan, #details-mealplan, #edit-mealplan {
     max-width: 1000px;
-    padding-top: 0 !important;
+    padding-top: 20px !important;
+    margin-top: -40px;
 
     .row {
         padding-bottom: 16px;
@@ -17,7 +18,7 @@
                 white-space: nowrap;
             }
 
-            input[type="text"] {
+            .text-style {
                 font-family: 'Libre Baskerville', serif;
                 font-size: 16px;
             }
@@ -114,7 +115,9 @@
                 font-weight: 600;
             }
         }
-
+        .statistics-message {
+            padding: 40px 10px;
+        }
         .inner-padding.statistics-list {
             padding: 20px 30px !important;
             border-radius: 8px;
@@ -122,14 +125,14 @@
             color: var(--bs-primary);
 
             .statistics {
-                font-weight: 600;
+                font-weight: 700;
                 text-transform: capitalize;
                 color: var(--bs-primary);
             }
 
             .statistics-value {
                 font-weight: 400;
-                font-style: italic; 
+                font-style: italic;
             }
         }
 

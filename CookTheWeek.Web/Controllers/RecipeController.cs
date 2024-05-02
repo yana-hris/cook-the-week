@@ -168,6 +168,7 @@
             if (!exists)
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                logger.LogWarning($"Recipe with id {id} does not exist in database!");
                 return RedirectToAction("All", "Recipe");
             }
 
@@ -177,6 +178,7 @@
             if(!isOwner && !User.IsAdmin()) 
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                logger.LogWarning("The user id of the recipe owner and current user do not match!");
                 return RedirectToAction("Details", "Recipe", new { id });
             }
 

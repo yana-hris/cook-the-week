@@ -70,7 +70,7 @@
                                             <strong>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
-                                                    <select class="form-control" asp-for="Meals[i].Servings">
+                                                    <select class="form-control text-style" asp-for="Meals[i].Servings">
                                                         <option value="">-</option>
                                                         @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
                                                         {
@@ -85,7 +85,7 @@
                                             <strong>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                    <select class="form-control" asp-for="Meals[i].Date">
+                                                    <select class="form-control text-style" asp-for="Meals[i].Date">
                                                         <option value="">-</option>
                                                         @foreach (var option in @Model.Meals.First().SelectDates)
                                                         {

@@ -232,8 +232,8 @@ namespace CookTheWeek.Web.Controllers
             try
             {
                 MealPlanViewModel model = await this.mealPlanService.GetByIdAsync(id);
-                model.TotalIngredients = await this.mealPlanService.GetIngredientsCount(id);
-                model.TotalCookingTimeMinutes = await this.mealPlanService.GetTotalMinutes(id);
+                model.TotalIngredients = await this.mealPlanService.GetIMealPlanIngredientsCountForDetailsAsync(id);
+                model.TotalCookingTimeMinutes = await this.mealPlanService.GetMealPlanTotalMinutesForDetailsAsync(id);
 
                 return View(model);
             }
@@ -279,6 +279,121 @@ namespace CookTheWeek.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool exists = await this.mealPlanService.ExistsByIdAsync(id);
+
+            if(!exists)
+            {
+                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+                logger.LogWarning($"Meal Plan with id {id} does not exist in database!");
+                return RedirectToAction("Mine", "MealPlan");
+            }
+
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByMealPlanId(id, userId);
+
+            if (!isOwner)
+            {
+                TempData[ErrorMessage] = "You must be the owner of the Meal Plan to edit it!";
+                logger.LogWarning("The user id of the meal plan owner and current user do not match!");
+                return RedirectToAction("Mine", "MealPlan");
+            }
+
+            try
+            {
+                MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
+                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+                model.Id = id;
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                logger.LogError("Meal Plan model was not successfully loaded for edit!");
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MealPlanAddFormModel model)
+        {
+            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id);
+
+            if (!exists)
+            {
+                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+                logger.LogWarning($"Meal Plan with id {model.Id} does not exist in database!");
+                return RedirectToAction("Mine", "MealPlan");
+            }
+
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByMealPlanId(model.Id, userId);
+
+            if (!isOwner)
+            {
+                TempData[ErrorMessage] = "You must be the owner of the Meal Plan to edit it!";
+                logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
+                return RedirectToAction("Mine", "MealPlan");
+            }
+
+            if (model.Name == DefaultMealPlanName)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Give your Meal Plan a fancy Name");
+            }
+
+            if (!model.Meals.Any())
+            {
+                ModelState.AddModelError(nameof(model.Meals), "Meals are required!");
+            }
+            else
+            {
+                foreach (var meal in model.Meals)
+                {
+                    bool recipeExists = await this.recipeService.ExistsByIdAsync(meal.RecipeId);
+
+                    if (!recipeExists)
+                    {
+                        ModelState.AddModelError(nameof(meal.RecipeId), $"No such recipe found: {meal.RecipeId}");
+                    }
+
+                    if (!DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
+                    {
+                        ModelState.AddModelError(nameof(meal.Date), $"Incorrect Cooking Date Format for recipe with id {meal.RecipeId}");
+                    }
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+                string formattedMessage = string.Join(Environment.NewLine, modelErrors);
+                TempData[ErrorMessage] = formattedMessage;
+                logger.LogError($"Model State is Invalid: {formattedMessage}");
+
+                return View(model);
+            }
+
+            model.Name = sanitizer.SanitizeInput(model.Name);
+
+            try
+            {
+                await this.mealPlanService.EditAsync(userId, model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully edited!");
+                return BadRequest();
+            }
+
+            TempData[SuccessMessage] = $"Meal Plan \"{model.Name}\" successfully Edited!";
+            return RedirectToAction("Mine", "MealPlan");
+        }
+
+        // Private Helper Methods
         private void SaveMealPlanToMemoryCache(MealPlanAddFormModel mealPlanModel) 
         {
             string cacheKey = User.GetId() + "mealPlan";
@@ -293,7 +408,6 @@ namespace CookTheWeek.Web.Controllers
 
             memoryCache.Set(cacheKey, mealPlanModel);
         }
-
         private void DeleteMealPlanFromMemmoryCache()
         {
             string cacheKey = User.GetId() + "mealPlan";
