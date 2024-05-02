@@ -122,7 +122,7 @@
             await this.dbContext.Recipes.AddAsync(recipe);
             await this.dbContext.SaveChangesAsync();
 
-            return recipe.Id.ToString();
+            return recipe.Id.ToString().ToLower();
         }
         public async Task EditAsync(RecipeEditFormModel model)
         {

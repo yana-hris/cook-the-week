@@ -159,7 +159,7 @@
             return View(model);
         }
 
-       
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             bool exists = await this.ingredientService.ExistsByIdAsync(id);

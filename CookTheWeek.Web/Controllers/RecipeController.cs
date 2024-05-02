@@ -149,9 +149,9 @@
             try
             {
                 string ownerId = User.GetId();
-                await this.recipeService.AddAsync(model, ownerId);
+                string recipeId = await this.recipeService.AddAsync(model, ownerId);
                 TempData[SuccessMessage] = "Your recipe was successfully added!";
-                return RedirectToAction("All");
+                return RedirectToAction("Details", new {id = recipeId});
             }
             catch (Exception)
             {
