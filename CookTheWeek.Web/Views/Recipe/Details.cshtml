@@ -1,5 +1,6 @@
 ﻿@using CookTheWeek.Services.Data.Interfaces
 @using CookTheWeek.Web.Infrastructure.Extensions
+@using static CookTheWeek.Common.HelperMethods.IngredientHelper;
 @model RecipeDetailsViewModel
 @inject IFavouriteRecipeService FavouriteRecipeService
 @inject IUserService UserService
@@ -91,7 +92,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.OilsHerbsSpicesSweeteners)
                                 {
-                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                 }                       
                                 </ul>
                             </div>
@@ -105,7 +106,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.DiaryMeatSeafood)
                                 {
-                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -117,7 +118,7 @@
                                 <ul class="list-unstyled">
                                     @foreach (var item in Model.Produce)
                                     {
-                                        <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                     }
                                 </ul>
                             </div>
@@ -129,7 +130,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.PastaGrainsBakery)
                                 {
-                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -141,7 +142,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.Legumes)
                                 {
-                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -153,7 +154,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.NutsSeedsAndOthers)
                                 {
-                                    <li>@item.Qty @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
                                 }                            
                                 </ul>
                             </div>

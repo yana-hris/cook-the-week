@@ -87,7 +87,6 @@
                 Recipes = allRecipes
             };
         }
-
         public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId)
         {
             Recipe recipe = new Recipe()
@@ -380,7 +379,6 @@
                 .Where(r => r.OwnerId == userId)
                 .CountAsync();
         }
-
         public Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
         {
             return this.dbContext
