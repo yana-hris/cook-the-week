@@ -20,54 +20,43 @@
             }
             
         }
-
+        /// <summary>
+        /// Retturns the nearest fraction representation of decimals between 0.001 and 0.999 by rounding to a set of fractions
+        /// </summary>
+        /// <param name="fraction"></param>
+        /// <returns></returns>
         private static string FractionGenerator(decimal fraction)
         {
-            // Initialize variables for integer part, numerator, and denominator
-            int integerPart = (int)Math.Floor(fraction);
-            int numerator = 0;
-            int denominator = 0;
+            int wholeNumber = (int)Math.Truncate(fraction);
+            fraction -= wholeNumber;
 
-            // Calculate the fractional part
-            decimal fractionalPart = fraction - integerPart;
+            decimal[] possibleFractions = { 1m / 8, 1m / 4, 1m / 3, 1m / 2, 2m / 3, 3m / 4 };
 
-            // If the fractional part is greater than zero, convert it to numerator and denominator
-            if (fractionalPart > 0)
+            decimal minDifference = decimal.MaxValue;
+            decimal closestFraction = 0;
+
+            foreach (decimal frac in possibleFractions)
             {
-                int gcd = GCD((int)(fractionalPart * 10000), 10000);
-                numerator = (int)(fractionalPart * 10000) / gcd;
-                denominator = 10000 / gcd;
+                decimal difference = Math.Abs(frac - fraction);
+                if (difference < minDifference)
+                {
+                    minDifference = difference;
+                    closestFraction = frac;
+                }
             }
 
-            // If there's no fractional part, return the integer part
-            if (numerator == 0)
+            // Convert the closest fraction to a string representation
+            string[] fractionStrings = { "1/8", "1/4", "1/3", "1/2", "2/3", "3/4" };
+            string closestFractionString = fractionStrings[Array.IndexOf(possibleFractions, closestFraction)];
+
+            if (wholeNumber == 0)
             {
-                return integerPart.ToString();
+                return closestFractionString.Replace("/", "<span>&frasl;</span>");
             }
-            // If there's an integer part and a fractional part, return the combined string
             else
             {
-                // If there's also an integer part, combine it with the fraction
-                if (integerPart > 0)
-                {
-                    return $"{integerPart} {numerator}<span>&frasl;</span>{denominator}";
-                }
-                else
-                {
-                    return $"{numerator}<span>&frasl;</span>{denominator}";
-                }
+                return $"{wholeNumber} {closestFractionString.Replace("/", "<span>&frasl;</span>")}";
             }
-        }
-
-        private static int GCD(int a, int b)
-        {
-            while (b != 0)
-            {
-                int temp = b;
-                b = a % b;
-                a = temp;
-            }
-            return a;
         }
     }
 }
