@@ -662,10 +662,14 @@ html body nav.fixed-bottom {
 #recipe-details-container .card .card-body .recipe-description {
   margin-top: 10px;
   margin-bottom: 20px;
+  font-weight: 300;
 }
 #recipe-details-container .card .card-body .ingredient-heading {
   font-size: 16px;
   text-decoration: underline;
+  font-weight: 500;
+}
+#recipe-details-container .card .card-body .units-styler {
   font-weight: 300;
 }
 #recipe-details-container .card .card-footer .card-btn {
@@ -807,6 +811,18 @@ html body nav.fixed-bottom {
   padding: 0.75rem 1.2rem;
   font-size: larger;
   text-transform: uppercase;
+}
+
+#add-recipe #ingredientsContainer .ingredient-row .form-check-input {
+  background-color: var(--bs-light);
+  border-color: var(--bs-success);
+}
+#add-recipe #ingredientsContainer .ingredient-row .form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary-emphasis);
+}
+#add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
+  margin-top: 4px;
 }
 
 /*!

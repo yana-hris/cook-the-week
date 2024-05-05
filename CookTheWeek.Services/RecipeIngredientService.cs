@@ -55,14 +55,14 @@
                 .Where(i => i.Name.ToLower() == model.Name.ToLower())
                 .Select(i => i.Id)
                 .FirstOrDefaultAsync();
-                
 
+         
             RecipeIngredient recipeIngredient = new RecipeIngredient()
             {
                 IngredientId = ingredientId,
                 RecipeId = Guid.Parse(recipeId),
-                Qty = model.Qty,
                 MeasureId = model.MeasureId,
+                Qty = model.Qty.GetDecimalQtyValue(),
                 SpecificationId = model.SpecificationId
             };
 

@@ -203,7 +203,7 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            string userId = this.User.GetId();
+            string userId = User.GetId();
 
             try
             {
@@ -250,7 +250,7 @@ namespace CookTheWeek.Web.Controllers
             string userId = User.GetId();
 
             bool mealPlanExists = await this.mealPlanService.ExistsByIdAsync(id);
-            bool isMealPlanOwner = await this.userService.IsOwnerByMealPlanId(userId, id);
+            bool isMealPlanOwner = await this.userService.IsOwnerByMealPlanId(id, userId);
 
             if (!mealPlanExists)
             {
@@ -261,7 +261,7 @@ namespace CookTheWeek.Web.Controllers
             if (!isMealPlanOwner)
             {
                 logger.LogError($"User with Id {userId} is not the owner of Meal Plan with id {id}");
-                return Unauthorized();
+                return BadRequest();
             }
 
             MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);

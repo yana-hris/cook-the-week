@@ -1,4 +1,5 @@
 ﻿@model RecipeAddFormModel
+@using static CookTheWeek.Common.GeneralApplicationConstants;
 @{
     ViewData["Title"] = "Add Recipe";
     int nextIndex = Model.RecipeIngredients.Count;
@@ -106,7 +107,7 @@
                                     @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
                                     {
                                         <div class="row ingredient-row">
-                                            <div class="col col-8 col-lg-5 p-2">
+                                            <div class="col col-6 col-lg-4 p-2">
                                                 <div class="input-group">
                                                     <span asp-for="RecipeIngredients[i].Name" class="input-group-text">Ingredient</span>
                                                     <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
@@ -115,11 +116,28 @@
                                                     <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-4 col-lg-2 p-2">
-                                                <div class="input-group">
+                                            <div class="col col-6 col-lg-3 p-2">              
+                                                <div class="decimal-qty-input input-group">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty" class="form-control">
-                                                    <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="1.00" />
+                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
+                                                </div>
+                                                <div class="fraction-qty-inputs input-group" style="display: none;">
+                                                    <span class="input-group-text">Qty</span>
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="1">
+                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
+                                                        <option value="">1/2</option>
+                                                        @foreach (var option in FractionOptions)
+                                                        {
+                                                            <option value="@option.Key">@option.Key</option>
+                                                        }
+                                                    </select>
+                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyWhole" class="small text-danger"></span>
+                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyFraction" class="small text-danger"></span>
+                                                </div>  
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input show-fraction-checkbox" type="checkbox" />
+                                                    <label class="form-check-label">Use Fractions</label>
                                                 </div>
                                             </div>
                                             <div class="col col-6 col-lg-2 p-2">
@@ -137,7 +155,7 @@
                                             </div>
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Spec</span>
+                                                    <span class="input-group-text">Note</span>
                                                     <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
                                                         <option value="">Type</option>
                                                         @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
@@ -147,7 +165,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col col-1 p-2 d-flex justify-content-center align-items-center">
+                                            <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
                                                 <a class="btn remove-btn btn-danger remove-ingredient" type="button">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </a>                                                
@@ -398,7 +416,26 @@
                 });
                 $('form').validate().form();
             }
+
+            $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
+                // Find the closest ingredient line
+                var ingredientLine = $(event.target).closest('.ingredient-row');
+
+                // Find the decimal and fraction input divs within the ingredient line
+                var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
+                var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
+
+                // Toggle visibility of input divs based on checkbox state
+                if ($(event.target).is(':checked')) {
+                    decimalQtyInput.hide();
+                    fractionQtyInputs.show();
+                } else {
+                    decimalQtyInput.show();
+                    fractionQtyInputs.hide();
+                }
+            });
+            
         });
 
-    </script>
+    </script>    
 }

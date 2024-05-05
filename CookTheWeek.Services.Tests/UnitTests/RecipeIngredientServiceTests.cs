@@ -83,7 +83,7 @@
             var testRecipeIngredientModel = new RecipeIngredientFormViewModel()
             {
                 Name = TestIngredient.Name,
-                Qty = 10,
+                Qty = new RecipeIngredientQtyFormModel() { QtyDecimal = 10},
                 MeasureId = data.Measures.First().Id,
                 SpecificationId = data.Specifications.First().Id,
             };            

@@ -46,5 +46,9 @@
   {
     "outputFile": "wwwroot/scss/how-it-works.css",
     "inputFile": "wwwroot/scss/how-it-works.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/recipe-form.css",
+    "inputFile": "wwwroot/scss/recipe-form.scss"
   }
 ]

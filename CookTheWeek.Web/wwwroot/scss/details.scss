@@ -123,11 +123,18 @@
             .recipe-description {
                 margin-top: 10px;
                 margin-bottom: 20px;
+                font-weight: 300;
             }
 
             .ingredient-heading {
                 font-size: 16px;
                 text-decoration: underline;
+                font-weight: 500;
+            }
+
+            
+            .units-styler {
+                
                 font-weight: 300;
             }
         }

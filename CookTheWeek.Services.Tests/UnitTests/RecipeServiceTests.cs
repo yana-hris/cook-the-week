@@ -206,7 +206,7 @@
                     new()
                     {
                         Name = NewIngredient.Name,
-                        Qty = NewRecipeIngredient.Qty,
+                        Qty = new RecipeIngredientQtyFormModel() {QtyDecimal = NewRecipeIngredient.Qty },
                         MeasureId = NewRecipeIngredient.MeasureId,
                         SpecificationId = NewRecipeIngredient.SpecificationId,
                     }
@@ -278,7 +278,11 @@
                     new()
                     {
                         Name = NewIngredient.Name,
-                        Qty = NewRecipeIngredient.Qty,
+                        Qty = new RecipeIngredientQtyFormModel()
+                        {
+                            QtyDecimal = NewRecipeIngredient.Qty,
+
+                        },
                         MeasureId = NewRecipeIngredient.MeasureId,
                         SpecificationId = NewRecipeIngredient.SpecificationId
                     }
@@ -308,7 +312,7 @@
                 while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())
                 {
                     Assert.That(expectedEnumerator.Current.Name, Is.EqualTo(actualEnumerator.Current.Ingredient.Name));
-                    Assert.That(expectedEnumerator.Current.Qty, Is.EqualTo(actualEnumerator.Current.Qty));
+                    Assert.That(expectedEnumerator.Current.Qty.QtyDecimal, Is.EqualTo(actualEnumerator.Current.Qty));
                     Assert.That(expectedEnumerator.Current.MeasureId, Is.EqualTo(actualEnumerator.Current.MeasureId));
                     Assert.That(expectedEnumerator.Current.SpecificationId, Is.EqualTo(actualEnumerator.Current.SpecificationId));
                 }

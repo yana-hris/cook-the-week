@@ -112,7 +112,7 @@
                     recipe.RecipesIngredients.Add(new RecipeIngredient()
                     {
                         IngredientId = ingredientId, 
-                        Qty = ingredient.Qty,
+                        Qty = ingredient.Qty.GetDecimalQtyValue(),
                         MeasureId = ingredient.MeasureId,
                         SpecificationId = ingredient.SpecificationId
                     });
@@ -153,7 +153,7 @@
                     recipe.RecipesIngredients.Add(new RecipeIngredient()
                     {
                         IngredientId = ingredientId,
-                        Qty = ingredient.Qty,
+                        Qty = ingredient.Qty.GetDecimalQtyValue(),
                         MeasureId = ingredient.MeasureId,
                         SpecificationId = ingredient.SpecificationId
                     });
@@ -309,7 +309,7 @@
                     RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormViewModel()
                     {
                         Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
+                        Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty),
                         MeasureId = ri.MeasureId,
                         SpecificationId = ri.SpecificationId
                     }).ToList()

@@ -88,11 +88,11 @@
                         @if (@Model.OilsHerbsSpicesSweeteners.Any())
                         {
                             <div id="aside-container" class="col col col-sm-4">
-                                <p class="ingredient-heading">Oils, Sauces, Herbs &amp; Spices</p>
+                                <p class="ingredient-heading">Herbs, Spices, Oils &amp; Sauces</p>
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.OilsHerbsSpicesSweeteners)
                                 {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                 }                       
                                 </ul>
                             </div>
@@ -106,7 +106,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.DiaryMeatSeafood)
                                 {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -118,7 +118,7 @@
                                 <ul class="list-unstyled">
                                     @foreach (var item in Model.Produce)
                                     {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                     }
                                 </ul>
                             </div>
@@ -130,7 +130,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.PastaGrainsBakery)
                                 {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -142,7 +142,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.Legumes)
                                 {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                 }
                                 </ul>
                             </div>
@@ -154,7 +154,7 @@
                                 <ul class="list-unstyled">
                                 @foreach (var item in Model.NutsSeedsAndOthers)
                                 {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) @item.Measure @item.Name @item.Specification</li>
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
                                 }                            
                                 </ul>
                             </div>

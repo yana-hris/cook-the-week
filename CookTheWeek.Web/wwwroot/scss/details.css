@@ -96,10 +96,14 @@
 #recipe-details-container .card .card-body .recipe-description {
   margin-top: 10px;
   margin-bottom: 20px;
+  font-weight: 300;
 }
 #recipe-details-container .card .card-body .ingredient-heading {
   font-size: 16px;
   text-decoration: underline;
+  font-weight: 500;
+}
+#recipe-details-container .card .card-body .units-styler {
   font-weight: 300;
 }
 #recipe-details-container .card .card-footer .card-btn {

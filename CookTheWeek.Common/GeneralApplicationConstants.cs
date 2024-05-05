@@ -11,6 +11,13 @@
         public const int RecipeCardTitleMaxLength = 50;
         public const int RecipeCardDescriptionMaxLength = 113;
 
+        public static readonly decimal[] IngredientQtyFractionsArray = InitilizeFractionsArray();
+
+        public static readonly Dictionary<string, decimal> FractionOptions;
+       
+
+        public const string HtmlEntityFractionSlash = "<span>&frasl;</span>";
+
         public static int[] DiaryMeatSeafoodIngredientCategories = [1, 2, 11];
         public static int[] ProduceIngredientCategories = [8, 9];
         public static int[] LegumesIngredientCategories = [3];
@@ -21,7 +28,7 @@
         public const string MealDateFormat = "dd-MM-yyyy";
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
-        public const int TrimmedMealPlanNameLnegth = 30;
+        public const int MealPlanTrimmedNameLnegth = 30;
 
         public const string AppUserId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403";
         public const string AppUserUsername = "appUser";
@@ -42,5 +49,25 @@
 
         public const string OnlineUsersCookieName = "IsOnline";
         public const int LastActivityBeforeOfflineMinutes = 10;
+
+        static GeneralApplicationConstants()
+        {
+            FractionOptions = new Dictionary<string, decimal>
+            {
+                { "1/8", 1m / 8 },
+                { "1/4", 1m / 4 },
+                { "1/3", 1m / 3 },
+                { "1/2", 1m / 2 },
+                { "2/3", 2m / 3 },
+                { "3/4", 3m / 4 }
+            };
+        }
+
+        private static decimal[] InitilizeFractionsArray()
+        {
+            return new decimal[] { 1m / 8, 1m / 4, 1m / 3, 1m / 2, 2m / 3, 3m / 4 };
+        }
+
+
     }
 }
