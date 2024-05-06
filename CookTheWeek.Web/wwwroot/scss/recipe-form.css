@@ -1,11 +1,19 @@
-﻿#add-recipe #ingredientsContainer .ingredient-row .form-check-input {
+﻿#add-recipe, #edit-recipe {
+  max-width: 1200px;
+}
+#add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
   background-color: var(--bs-light);
   border-color: var(--bs-success);
 }
-#add-recipe #ingredientsContainer .ingredient-row .form-check-input:checked {
+#add-recipe #ingredientsContainer .ingredient-row .form-check-input:checked, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input:checked {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary-emphasis);
 }
-#add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
+#add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
   margin-top: 4px;
+}
+#add-recipe #ingredientsContainer hr, #edit-recipe #ingredientsContainer hr {
+  margin-top: 0;
+  margin-bottom: 8px;
+  padding: 0;
 }

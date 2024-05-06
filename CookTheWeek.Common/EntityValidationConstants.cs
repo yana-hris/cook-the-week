@@ -42,11 +42,13 @@
 
         public static class RecipeIngredient
         {
+            public const int QtyWholeMinValue = 1;
+            public const int QtyWholeMaxValue = 9999;
             public const double QtyMinDecimalValue = 0.01;
             public const double QtyMaxDecimalValue = 9999.99;
             public const string QtyRegularExpression = @"^\d+(\.\d{1,2})?$";
-            public const string QtyDecimalRangeErrorMessage = "Qty can be in the range from 0.01 to 9999.99";
-            public const string QtyDecimalFormatErrorMessage = "Qty can be in the format 0.00";
+            //public const string QtyDecimalRangeErrorMessage = "Qty can be in the range from 0.01 to 9999.99";
+            //public const string QtyDecimalFormatErrorMessage = "Qty can be in the format 0.00";
         }
 
         public static class Measure

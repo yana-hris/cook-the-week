@@ -2,16 +2,19 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static Common.EntityValidationConstants.RecipeIngredient;
     using static Common.GeneralApplicationConstants;
     public class RecipeIngredientQtyFormModel
     {
         [Display(Name = "Qty Whole")]
+        [Range(QtyWholeMinValue, QtyWholeMaxValue)]
         public int? QtyWhole { get; set; }
 
         [Display(Name = "Qty Fraction")]
         public string? QtyFraction { get; set; }
 
         [Display(Name = "Qty Decimal")]
+        [Range(QtyMinDecimalValue, QtyMaxDecimalValue)]
         public decimal? QtyDecimal { get; set; }
 
         public decimal GetDecimalQtyValue()
@@ -22,18 +25,24 @@
             {
                 decimalQty = QtyDecimal.Value;
             }
-            else if (QtyWhole.HasValue && !string.IsNullOrEmpty(QtyFraction))
+            else if (!string.IsNullOrEmpty(QtyFraction))
             {
                 // Calculate decimal value from whole number and fraction
                 var matchedFraction = FractionOptions.FirstOrDefault(kv => kv.Key == QtyFraction);
+                
                 if (matchedFraction.Key != null)
                 {
                     decimal fractionValue = matchedFraction.Value;
-                    decimalQty = QtyWhole.Value + fractionValue;
+                    decimalQty = fractionValue;
                 }
                 else
                 {
-                    throw new InvalidOperationException("Invalid fraction value.");
+                    throw new InvalidOperationException();
+                }
+
+                if (QtyWhole.HasValue)
+                {
+                    decimalQty += QtyWhole.Value;
                 }
             }
             else if (QtyWhole.HasValue)

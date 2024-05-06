@@ -119,14 +119,14 @@
                                             <div class="col col-6 col-lg-3 p-2">              
                                                 <div class="decimal-qty-input input-group">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="1.00" />
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" />
                                                     <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
                                                 </div>
                                                 <div class="fraction-qty-inputs input-group" style="display: none;">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="1">
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
                                                     <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
-                                                        <option value="">1/2</option>
+                                                        <option value="">Frac</option>
                                                         @foreach (var option in FractionOptions)
                                                         {
                                                             <option value="@option.Key">@option.Key</option>
@@ -140,7 +140,7 @@
                                                     <label class="form-check-label">Use Fractions</label>
                                                 </div>
                                             </div>
-                                            <div class="col col-6 col-lg-2 p-2">
+                                            <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Unit</span>
                                                        <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
@@ -153,7 +153,7 @@
                                                         <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col col-5 col-lg-2 p-2">
+                                            <div class="col col-6 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Note</span>
                                                     <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
@@ -173,13 +173,16 @@
                                         </div>
                                     }
                                 </div>
-                                <div class="row">
-                                    <div class="col offset-9 text-nowrap col-12 p-2">
-                                        <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                            </span>
-                                            <a id="add-ingredient" class="btn btn-secondary" type="button">Add Ingredient</a></div>
+                                <hr />
+                                @* Add Ingredient Btn *@
+                                <div class="row justify-content-end pt-3 pb-2">
+                                    <div class="col-6">
+                                        <!-- Empty column to push the button to the end -->
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <a id="add-ingredient" class="btn btn-outline-primary" type="button">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
+                                        </a>
                                     </div>
                                 </div>
                         </div>
@@ -318,60 +321,74 @@
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
             $('#add-ingredient').click(function () {
-                var newIngredientHtml = ` <div class="row ingredient-row"><hr class="my-2" />
-             <div class="col col-8 col-lg-5 p-2">
-                 <div class="input-group">
-                     <span class="input-group-text">Ingredient</span>
-
-                                 <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
-                                 <div class="suggestionsList invisible"></div>
-                                 <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true"></span>
-                             </div></div>
-
-
-         <div class="col col-4 col-lg-2 p-2">
-            <div class="input-group">
-                                 <span class="input-group-text">Qty</span>
-                                 <input id="RecipeIngredients_${ingredientIndex}__Qty" class="form-control" type="number" name="RecipeIngredients[${ingredientIndex}].Qty" required min="0.001" max="10000" />
-                                 <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty" data-valmsg-replace="true"></span>
-                             </div></div>
-
-
-        <div class="col col-5 col-lg-2 p-2">
-            <div class="input-group">
-                <span class="input-group-text">Unit</span>
-
-                                 <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required>
-                                     <option value="">Unit</option>`;
-        @foreach (var measure in @Model.RecipeIngredients.First().Measures)
-        {
-            <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
-        }
-                    newIngredientHtml +=
-                `</select>
-                                  <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
-                                  </span>
-                             </div></div>
-
-
-                        <div class="col col-6 col-lg-2 p-2">
-            <div class="input-group">
-                <span class="input-group-text">Spec</span>
-                                 <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
-                                     <option value="">Type</option>`;
-        @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
-        {
-            <text>newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
-        }
-                    newIngredientHtml +=
-                `</select>
-                             </div></div>
-                                        <div class="col col-1 p-2 d-flex justify-content-center align-items-center">
-                                            <a class="btn remove-btn btn-danger remove-ingredient" type="button">
-                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-        </div>`;
+                var newIngredientHtml = ` <hr/>
+                 <div class="row ingredient-row">
+                     <div class="col col-6 col-lg-4 p-2">
+                         <div class="input-group">
+                             <span class="input-group-text">Ingredient</span>
+                             <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
+                             <div class="suggestionsList invisible"></div>
+                             <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true" class="small text-danger"></span>
+                         </div>
+                     </div>
+                     <div class="col col-6 col-lg-3 p-2">
+                        <div class="decimal-qty-input input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" name="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" min="0.001" max="9999.99" />
+                                    <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" data-valmsg-replace="true" class="small text-danger"></span>
+                        </div>
+                        <div class="fraction-qty-inputs input-group" style="display: none;">
+                            <span class="input-group-text">Qty</span>
+                            <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyWhole" class="form-control qty-whole" placeholder="0" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" min="1" max="9999"/>
+                            <select id="RecipeIngredients_${ingredientIndex}__Qty.QtyFraction" class="form-control qty-fraction" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole">
+                                <option value="">Frac</option>
+                            @foreach (var option in FractionOptions)
+                            {
+                                <option value="@option.Key">@option.Key</option>
+                            }
+                            </select>
+                             <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" class="small text-danger" data-valmsg-replace="true"></span>
+                             <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyFraction" class="small text-danger" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input show-fraction-checkbox" type="checkbox" />
+                            <label class="form-check-label">Use Fractions</label>
+                        </div>
+                     </div>
+                     <div class="col col-5 col-lg-2 p-2">
+                         <div class="input-group">
+                            <span class="input-group-text">Unit</span>
+                            <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required >
+                                <option value="">Unit</option>`;
+                            @foreach (var measure in @Model.RecipeIngredients.First().Measures)
+                            {
+                                <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
+                            }
+                                    newIngredientHtml +=
+                            `</select>
+                            <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
+                            </span>
+                        </div>
+                     </div>
+                     <div class="col col-6 col-lg-2 p-2">
+                         <div class="input-group">
+                             <span class="input-group-text">Spec</span>
+                             <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
+                                 <option value="">Type</option>`;
+                            @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
+                            {
+                                <text>newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
+                            }
+                            newIngredientHtml +=
+                            `</select>
+                         </div>
+                     </div>
+                     <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
+                        <a class="btn remove-btn btn-danger remove-ingredient" type="button">
+                           <i class="fa fa-minus" aria-hidden="true"></i>
+                        </a>
+                     </div>
+                </div>`;
 
                 $('#ingredientList').append(newIngredientHtml);
                 ingredientIndex++;
@@ -387,7 +404,27 @@
                     toastr.error('At least one ingredient is required.');
                     return false;
                 }
-                $(this).closest('.ingredient-row').remove();
+                // remove the horizontal line
+                var ingredientRow = $(this).closest('.ingredient-row');
+                var precedingHr = ingredientRow.prev('hr');
+                var followingHr = ingredientRow.next('hr');
+
+                ingredientRow.remove();
+
+                if (precedingHr.length && !precedingHr.next().hasClass('ingredient-row')) {
+                    precedingHr.remove();
+                }
+
+                // Check if a following <hr/> exists and if it's the only one, remove it
+                if (followingHr.length && !followingHr.prev().hasClass('ingredient-row')) {
+                    followingHr.remove();
+                } else {
+                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
+                    var nextIngredientRow = ingredientRow.next('.ingredient-row');
+                    if (!nextIngredientRow.length) {
+                        followingHr.remove();
+                    }
+                }
                 ingredientIndex--;
                 reindexIngredients();
             });
@@ -402,36 +439,51 @@
                         $(this).attr('id', newId);
                     });
                     row.find('[name]').each(function () {
-                        this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
+                        // Update name attribute for all fields except the ones related to the Qty property
+                        if (!$(this).attr('name').includes('.Qty')) {
+                            this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
+                        }
                     });
+
+                    // Update name attribute for Qty fields
+                    row.find('input.qty-whole, input.qty-decimal, select.qty-fraction').each(function () {
+                        var newName = $(this).attr('name').replace(/\[\d+\]\.Qty/, '[' + index + '].Qty');
+                        $(this).attr('name', newName);
+                    });
+
+                    // Update data-valmsg-for attribute for Qty validation spans
                     row.find('.small[data-valmsg-for]').each(function () {
-                        var propertyName = $(this).attr('data-valmsg-for').split('.')[1];
-                        $(this).attr('data-valmsg-for', 'RecipeIngredients[' + index + '].' + propertyName);
+                        var propertyName = $(this).attr('data-valmsg-for').split('.')[2];
+                        var newIndex = '[' + index + '].Qty.' + propertyName;
+                        $(this).attr('data-valmsg-for', 'RecipeIngredients' + newIndex);
                     });
 
-
-
-                    // Update value attribute of hidden input field for Qty property
-                    row.find('input[type="hidden"][name="__Invariant"]').attr('value', 'RecipeIngredients[' + index + '].Qty');
-                });
-                $('form').validate().form();
-            }
+                    row.find('input[aria-describedby], select[aria-describedby]').each(function () {
+                        var ariaDescribedBy = $(this).attr('aria-describedby');
+                        if (ariaDescribedBy && ariaDescribedBy.includes('RecipeIngredients_') && ariaDescribedBy.includes('__') && ariaDescribedBy.split('_')[1] != index) {
+                            var newAriaDescribedBy = ariaDescribedBy.replace(/\d+/, index);
+                            $(this).attr('aria-describedby', newAriaDescribedBy);
+                        }
+                    });
+                     });
+                    $('form').validate().form();
+                }
 
             $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
-                // Find the closest ingredient line
                 var ingredientLine = $(event.target).closest('.ingredient-row');
-
-                // Find the decimal and fraction input divs within the ingredient line
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
                 var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
 
-                // Toggle visibility of input divs based on checkbox state
                 if ($(event.target).is(':checked')) {
                     decimalQtyInput.hide();
                     fractionQtyInputs.show();
+                    // Clear decimal input
+                    decimalQtyInput.find('input').val('');
                 } else {
                     decimalQtyInput.show();
                     fractionQtyInputs.hide();
+                    // Clear fraction inputs
+                    fractionQtyInputs.find('input, select').val('');
                 }
             });
             

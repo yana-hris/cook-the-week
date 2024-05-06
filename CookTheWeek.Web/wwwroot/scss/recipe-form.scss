@@ -1,4 +1,6 @@
-﻿#add-recipe {
+﻿#add-recipe, #edit-recipe {
+
+    max-width: 1200px;
 
     #ingredientsContainer {
 
@@ -17,6 +19,12 @@
             .adjust-btn-position {
                 margin-top: 4px;
             }
+        }
+
+        hr {
+            margin-top: 0;
+            margin-bottom: 8px;
+            padding: 0;
         }
     }
 }
