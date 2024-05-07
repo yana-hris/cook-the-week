@@ -95,6 +95,7 @@
         {
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
+        
     }  
     
 }

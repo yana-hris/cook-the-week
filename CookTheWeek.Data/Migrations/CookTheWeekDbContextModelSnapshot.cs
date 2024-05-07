@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dbc00b96-9b47-41e3-b092-1dda5ec54dd9",
+                            ConcurrencyStamp = "5d95e38d-f8ae-421e-95ef-3dc20a821d17",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOf4kbbJMVSRd7n9pv+HOKQKhEUdgUXpAE72vrYyS4ZcCZEzkWKZ0jjMJhCbKzYMng==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGoPNUL34gVW6jeoUqKS+H9EHJeYBruombJx6x7j7+We/k182ENqQII5ps+KKxSAig==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "177b48d0-e76c-440a-9eb4-a1020cbb8446",
+                            SecurityStamp = "c3bb3f5e-6f8f-4c52-a0de-7a48063850f9",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1262b19-4fe8-4b4d-a93f-2a5cd2d439df",
+                            ConcurrencyStamp = "1fc50751-c91f-498d-bdc9-f9ced66bbdc9",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGDzDtwo41nWrviIQLwicKNbw3ZzMb0WoNURxMgf2EuSgcii4zLmjP3g8TRvh+u6hQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECzaaFIGB1apOrHblQxsrdTpnjw8XDFLvY2Ki5qu7ixQvHk3Mv41C9Bsrd++2rSTgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e8aae201-cc0a-46d3-a7b3-e7f8fedc929d",
+                            SecurityStamp = "b6dccf8e-1ae1-4823-81f4-42377f73d67c",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -248,12 +248,6 @@ namespace CookTheWeek.Data.Migrations
                         },
                         new
                         {
-                            Id = 32,
-                            CategoryId = 2,
-                            Name = "Meatboll(s)"
-                        },
-                        new
-                        {
                             Id = 12,
                             CategoryId = 1,
                             Name = "Egg(s)"
@@ -363,98 +357,8 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 30,
-                            CategoryId = 1,
-                            Name = "Mozzarella"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            CategoryId = 3,
-                            Name = "Lentils"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            CategoryId = 3,
-                            Name = "Chickpeas"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            CategoryId = 3,
-                            Name = "Green Peas"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            CategoryId = 3,
-                            Name = "White Beans"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            CategoryId = 3,
-                            Name = "Soybeans"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            CategoryId = 3,
-                            Name = "Mung Beans"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            CategoryId = 3,
-                            Name = "Red Lentils"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            CategoryId = 3,
-                            Name = "Black Beans"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            CategoryId = 3,
-                            Name = "Edamame"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            CategoryId = 3,
-                            Name = "Green Lentils"
-                        },
-                        new
-                        {
-                            Id = 43,
                             CategoryId = 4,
-                            Name = "White Flour"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            CategoryId = 4,
-                            Name = "Whole Wheat Flour"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            CategoryId = 4,
-                            Name = "Rye Flour"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            CategoryId = 4,
-                            Name = "Spelt Flour"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            CategoryId = 4,
-                            Name = "Almond Flour"
+                            Name = "Pizza Dough"
                         },
                         new
                         {
@@ -669,8 +573,8 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 83,
-                            CategoryId = 6,
-                            Name = "Coconut Sugar"
+                            CategoryId = 8,
+                            Name = "Pumpkin"
                         },
                         new
                         {
@@ -1490,26 +1394,38 @@ namespace CookTheWeek.Data.Migrations
                         },
                         new
                         {
+                            Id = 220,
+                            CategoryId = 10,
+                            Name = "Water"
+                        },
+                        new
+                        {
+                            Id = 221,
+                            CategoryId = 10,
+                            Name = "Warm Water"
+                        },
+                        new
+                        {
                             Id = 222,
-                            CategoryId = 12,
+                            CategoryId = 10,
                             Name = "Vegetable Broth"
                         },
                         new
                         {
                             Id = 223,
-                            CategoryId = 12,
+                            CategoryId = 10,
                             Name = "Beef Broth"
                         },
                         new
                         {
                             Id = 224,
-                            CategoryId = 12,
+                            CategoryId = 10,
                             Name = "Fish Broth"
                         },
                         new
                         {
                             Id = 225,
-                            CategoryId = 12,
+                            CategoryId = 10,
                             Name = "Fish Broth"
                         },
                         new
@@ -1673,6 +1589,60 @@ namespace CookTheWeek.Data.Migrations
                             Id = 252,
                             CategoryId = 5,
                             Name = "Himalayan Salt"
+                        },
+                        new
+                        {
+                            Id = 253,
+                            CategoryId = 8,
+                            Name = "Pumpkin"
+                        },
+                        new
+                        {
+                            Id = 254,
+                            CategoryId = 4,
+                            Name = "Instant Yeast"
+                        },
+                        new
+                        {
+                            Id = 255,
+                            CategoryId = 5,
+                            Name = "Orange Peels"
+                        },
+                        new
+                        {
+                            Id = 256,
+                            CategoryId = 7,
+                            Name = "Rolled Oats"
+                        },
+                        new
+                        {
+                            Id = 257,
+                            CategoryId = 4,
+                            Name = "Baking Powder"
+                        },
+                        new
+                        {
+                            Id = 258,
+                            CategoryId = 5,
+                            Name = "Nutmeg (ground)"
+                        },
+                        new
+                        {
+                            Id = 259,
+                            CategoryId = 4,
+                            Name = "Baking Soda"
+                        },
+                        new
+                        {
+                            Id = 260,
+                            CategoryId = 9,
+                            Name = "Raisin(s)"
+                        },
+                        new
+                        {
+                            Id = 261,
+                            CategoryId = 6,
+                            Name = "Dried Fruits"
                         });
                 });
 
@@ -1775,7 +1745,7 @@ namespace CookTheWeek.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CookDate")
+                    b.Property<DateTime>("CookDate")
                         .HasColumnType("datetime2")
                         .HasComment("Meal Cook Date");
 
@@ -1815,12 +1785,6 @@ namespace CookTheWeek.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Meal Plan Key Identifier");
-
-                    b.Property<bool>("IsFinished")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasComment("Meal Plan Completion Identifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2051,7 +2015,7 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                            CategoryId = 2,
+                            CategoryId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
@@ -2103,6 +2067,34 @@ namespace CookTheWeek.Data.Migrations
                             Servings = 1,
                             Title = "Avocado Toast",
                             TotalTime = new TimeSpan(0, 0, 10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            CategoryId = 4,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
+                            ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
+                            Instructions = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours. Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.\r\n\r\nPrepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.\r\n\r\nPressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.\r\n\r\nCheck the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt.\r\n\r\nFinal Cooking: Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. For enhanced flavor, allow the stew to sit with the lid on for at least a few hours.\r\n\r\nServe: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                            IsDeleted = false,
+                            OwnerId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403",
+                            Servings = 8,
+                            Title = "Beans stew",
+                            TotalTime = new TimeSpan(0, 2, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            CategoryId = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
+                            ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
+                            Instructions = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant. Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. Then, blend the soup until smooth using an immersion blender or countertop blender. Adjust seasoning with salt, pepper, and lime juice to taste. Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                            IsDeleted = false,
+                            OwnerId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403",
+                            Servings = 4,
+                            Title = "Thai Pumpkin Cream Soup",
+                            TotalTime = new TimeSpan(0, 0, 40, 0, 0)
                         });
                 });
 
@@ -2607,6 +2599,133 @@ namespace CookTheWeek.Data.Migrations
                             IngredientId = 123,
                             MeasureId = 1,
                             Qty = 6m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 36,
+                            MeasureId = 5,
+                            Qty = 500.00m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 52,
+                            MeasureId = 7,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 54,
+                            MeasureId = 8,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 59,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 64,
+                            MeasureId = 10,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 67,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 112,
+                            MeasureId = 2,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 113,
+                            MeasureId = 1,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 114,
+                            MeasureId = 1,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 122,
+                            MeasureId = 1,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 127,
+                            MeasureId = 1,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            IngredientId = 188,
+                            MeasureId = 7,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 116,
+                            MeasureId = 7,
+                            Qty = 2m,
+                            SpecificationId = 5
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 155,
+                            MeasureId = 8,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 165,
+                            MeasureId = 3,
+                            Qty = 400.0m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 222,
+                            MeasureId = 9,
+                            Qty = 2m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 83,
+                            MeasureId = 6,
+                            Qty = 1m
+                        },
+                        new
+                        {
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            IngredientId = 253,
+                            MeasureId = 7,
+                            Qty = 1m
                         });
                 });
 
@@ -2682,6 +2801,11 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 10,
                             Description = "squeezed"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "dried"
                         });
                 });
 

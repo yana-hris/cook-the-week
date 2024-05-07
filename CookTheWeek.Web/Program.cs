@@ -11,6 +11,7 @@ namespace CookTheWeek.Web
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.Infrastructure.BackgroundServices;
 
     public class Program
     {
@@ -37,6 +38,8 @@ namespace CookTheWeek.Web
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
+
+            builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 
             builder.Services.AddMemoryCache();
             builder.Services.AddResponseCaching();
@@ -99,7 +102,7 @@ namespace CookTheWeek.Web
             app.UseAuthorization();
 
             app.EnableOnlineUsersCheck();
-
+           
             if(app.Environment.IsDevelopment())
             {
                 app.SeedAdministrator(AdminUserUsername);

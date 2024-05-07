@@ -19,11 +19,7 @@
                 .WithMany(o => o.MealPlans)
                 .HasForeignKey(mp => mp.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder
-                .Property(mp => mp.IsFinished)
-                .HasDefaultValue(false);
-
+            
             builder
                 .HasMany(mp => mp.Meals)
                 .WithOne(m => m.MealPlan)

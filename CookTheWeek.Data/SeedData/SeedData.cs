@@ -363,12 +363,12 @@
                     Name = "Sausage(s)",
                     CategoryId = 2
                 },
-                new()
-                {
-                    Id = 32,
-                    Name = "Meatboll(s)",
-                    CategoryId = 2
-                },
+                //new()
+                //{
+                //    Id = 32,
+                //    Name = "Meatboll(s)",
+                //    CategoryId = 2
+                //},
                 new()
                 {
                     Id = 12,
@@ -483,96 +483,96 @@
                     Name = "Pizza Dough",
                     CategoryId = 4
                 }, //31 and 32 are for meat
-                new()
-                {
-                    Id = 33,
-                    Name = "Lentils",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 34,
-                    Name = "Chickpeas",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 35,
-                    Name = "Green Peas",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 36,
-                    Name = "White Beans",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 37,
-                    Name = "Soybeans",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 38,
-                    Name = "Mung Beans",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 39,
-                    Name = "Red Lentils",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 40,
-                    Name = "Black Beans",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 41,
-                    Name = "Edamame",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 42,
-                    Name = "Green Lentils",
-                    CategoryId = 3
-                },
-                new()
-                {
-                    Id = 43,
-                    Name = "White Flour",
-                    CategoryId = 4
-                },
-                new()
-                {
-                    Id = 44,
-                    Name = "Whole Wheat Flour",
-                    CategoryId = 4
-                },
-                new()
-                {
-                    Id = 45,
-                    Name = "Rye Flour",
-                    CategoryId = 4
-                },
-                new()
-                {
-                    Id = 46,
-                    Name = "Spelt Flour",
-                    CategoryId = 4
-                },
-                new()
-                {
-                    Id = 47,
-                    Name = "Almond Flour",
-                    CategoryId = 4
-                },
+                //new()
+                //{
+                //    Id = 33,
+                //    Name = "Lentils",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 34,
+                //    Name = "Chickpeas",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 35,
+                //    Name = "Green Peas",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 36,
+                //    Name = "White Beans",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 37,
+                //    Name = "Soybeans",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 38,
+                //    Name = "Mung Beans",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 39,
+                //    Name = "Red Lentils",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 40,
+                //    Name = "Black Beans",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 41,
+                //    Name = "Edamame",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 42,
+                //    Name = "Green Lentils",
+                //    CategoryId = 3
+                //},
+                //new()
+                //{
+                //    Id = 43,
+                //    Name = "White Flour",
+                //    CategoryId = 4
+                //},
+                //new()
+                //{
+                //    Id = 44,
+                //    Name = "Whole Wheat Flour",
+                //    CategoryId = 4
+                //},
+                //new()
+                //{
+                //    Id = 45,
+                //    Name = "Rye Flour",
+                //    CategoryId = 4
+                //},
+                //new()
+                //{
+                //    Id = 46,
+                //    Name = "Spelt Flour",
+                //    CategoryId = 4
+                //},
+                //new()
+                //{
+                //    Id = 47,
+                //    Name = "Almond Flour",
+                //    CategoryId = 4
+                //},
                 new()
                 {
                     Id = 48,
@@ -1809,8 +1809,8 @@
                 new()
                 {
                     Id = 253,
-                    Name = "Curry Paste",
-                    CategoryId = 10
+                    Name = "Pumpkin",
+                    CategoryId = 8
                 },
                 new()
                 {
@@ -1821,8 +1821,44 @@
                 new()
                 {
                     Id = 255,
-                    Name = "Garlic Powder",
+                    Name = "Orange Peels",
                     CategoryId = 5
+                },
+                new()
+                {
+                    Id = 256,
+                    Name = "Rolled Oats",
+                    CategoryId = 7
+                },
+                new()
+                {
+                    Id = 257,
+                    Name = "Baking Powder",
+                    CategoryId = 4
+                },
+                new()
+                {
+                    Id = 258,
+                    Name = "Nutmeg (ground)",
+                    CategoryId = 5
+                },
+                new()
+                {
+                    Id = 259,
+                    Name = "Baking Soda",
+                    CategoryId = 4
+                },
+                new()
+                {
+                    Id = 260,
+                    Name = "Raisin(s)",
+                    CategoryId = 9
+                },
+                new()
+                {
+                    Id = 261,
+                    Name = "Dried Fruits",
+                    CategoryId = 6
                 },
             };
         }

@@ -30,7 +30,7 @@
         public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
         {
             return await this.dbContext.MealPlans
-                .Where(mp => mp.IsFinished == false)
+                .Where(mp => !mp.IsFinished)
                 .OrderBy(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
                 .Select(mp => new MealPlanAllAdminViewModel()
@@ -238,6 +238,8 @@
 
             return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
         }
+
+       
 
     }
 }
