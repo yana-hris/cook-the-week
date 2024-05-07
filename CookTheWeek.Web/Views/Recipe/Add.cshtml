@@ -127,7 +127,7 @@
                                                     <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
                                                     <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
                                                         <option value="">Frac</option>
-                                                        @foreach (var option in FractionOptions)
+                                                        @foreach (var option in QtyFractionOptions)
                                                         {
                                                             <option value="@option.Key">@option.Key</option>
                                                         }
@@ -342,7 +342,7 @@
                             <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyWhole" class="form-control qty-whole" placeholder="0" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" min="1" max="9999"/>
                             <select id="RecipeIngredients_${ingredientIndex}__Qty.QtyFraction" class="form-control qty-fraction" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole">
                                 <option value="">Frac</option>
-                            @foreach (var option in FractionOptions)
+                            @foreach (var option in QtyFractionOptions)
                             {
                                 <option value="@option.Key">@option.Key</option>
                             }

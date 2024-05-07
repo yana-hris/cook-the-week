@@ -13,7 +13,7 @@
         {
             const string defaultErrorMessage = "Error with ingredient Qty";
             ErrorMessage ??= defaultErrorMessage;
-            fractionOptions = FractionOptions;
+            fractionOptions = QtyFractionOptions;
         }
         protected override ValidationResult? IsValid(object? value, 
             ValidationContext validationContext)

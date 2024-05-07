@@ -47,7 +47,7 @@
             }
 
             // Convert the closest fraction to a string representation
-            string[] fractionStrings = FractionOptions.Keys.ToArray();
+            string[] fractionStrings = QtyFractionOptions.Keys.ToArray();
             string closestFractionString = fractionStrings[Array.IndexOf(possibleFractions, closestFraction)];
 
             if (wholeNumber == 0)

@@ -13,11 +13,12 @@
 
         public static readonly decimal[] IngredientQtyFractionsArray = InitilizeFractionsArray();
 
-        public static readonly Dictionary<string, decimal> FractionOptions;
+        public static readonly Dictionary<string, decimal> QtyFractionOptions;
        
 
         public const string HtmlEntityFractionSlash = "<span>&frasl;</span>";
 
+        // Ingredients by categories FOR Recipe Details View
         public static int[] DiaryMeatSeafoodIngredientCategories = [1, 2, 11];
         public static int[] ProduceIngredientCategories = [8, 9];
         public static int[] LegumesIngredientCategories = [3];
@@ -29,6 +30,33 @@
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
         public const int MealPlanTrimmedNameLnegth = 30;
+
+        // Ingredients by categories FOR Shopping List View
+        public static string[] ShoppingListCategoryNames = new string[]
+        {
+            "Fruits & Veggies",
+            "Beans, Lentils and Legumes",
+            "Nuts, Seeds and Others",
+            "Bread & Bakery",
+            "Meat & Seafood",
+            "Diary, Cheese & Eggs",
+            "Pasta & Rice",
+            "Fats, Oils, Sauces and Broths",
+            "Herbs, Spices and Sweeteners",
+        };
+
+        public static int[][] ShoppingListCategoryIds = new int[][]
+        {
+             new int[] { 8, 9 },
+             new int[] { 3 },
+             new int[] { 12, 13 },
+             new int[] { 4 },
+             new int[] { 2, 11 },
+             new int[] { 1 },
+             new int[] { 7 },
+             new int[] { 10 },
+             new int[] { 5, 6 },
+        };
 
         public const string AppUserId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403";
         public const string AppUserUsername = "appUser";
@@ -52,7 +80,7 @@
 
         static GeneralApplicationConstants()
         {
-            FractionOptions = new Dictionary<string, decimal>
+            QtyFractionOptions = new Dictionary<string, decimal>
             {
                 { "1/8", 1m / 8 },
                 { "1/4", 1m / 4 },

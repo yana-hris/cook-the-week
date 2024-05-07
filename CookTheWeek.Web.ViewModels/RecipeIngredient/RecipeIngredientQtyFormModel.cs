@@ -28,7 +28,7 @@
             else if (!string.IsNullOrEmpty(QtyFraction))
             {
                 // Calculate decimal value from whole number and fraction
-                var matchedFraction = FractionOptions.FirstOrDefault(kv => kv.Key == QtyFraction);
+                var matchedFraction = QtyFractionOptions.FirstOrDefault(kv => kv.Key == QtyFraction);
                 
                 if (matchedFraction.Key != null)
                 {
@@ -75,7 +75,7 @@
             decimal minDifference = decimal.MaxValue;
             string closestFraction = null;
 
-            foreach (var fractionOption in FractionOptions)
+            foreach (var fractionOption in QtyFractionOptions)
             {
                 decimal difference = Math.Abs(fractionOption.Value - fractionalPart);
                 if (difference < minDifference)
