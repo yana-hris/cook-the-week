@@ -3,6 +3,7 @@
 @{
     bool isAdmin = User.IsAdmin();
     string userId = User.GetId();
+    ViewData["Title"] = "My Meal Plans";
 }
 @if (!Model.Any())
 {

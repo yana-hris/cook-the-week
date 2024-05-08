@@ -26,6 +26,7 @@
                 .Where(mp => mp.Id.ToString() == id)
                 .Select(mp => new ShoppingListViewModel()
                 {
+                    Id = id,
                     Title = mp.Name,
                     StartDate = mp.StartDate.ToString(MealDateFormat),
                     EndDate = mp.StartDate.AddDays(6).ToString(MealDateFormat),
@@ -88,6 +89,7 @@
             ICollection<ProductListViewModel> productsByCategories = new List<ProductListViewModel>();
 
             var measures = await this.dbContext.Measures.ToListAsync();
+            var specifications = await this.dbContext.Specifications.ToListAsync();
             
 
             for(int i = 0; i < ShoppingListCategoryNames.Length; i++)
@@ -103,7 +105,8 @@
                             {
                                 Qty = FormatIngredientQty(p.Qty),
                                 Measure = measures.Where(m => m.Id == p.MeasureId).Select(m => m.Name).First(),
-                                Name = p.Name
+                                Name = p.Name,
+                                Specification = specifications.Where(s => s.Id == p.SpecificationId).Select(s => s.Description).FirstOrDefault()
                             }).ToList()
                 };
 

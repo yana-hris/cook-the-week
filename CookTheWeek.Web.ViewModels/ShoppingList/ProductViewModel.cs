@@ -6,5 +6,6 @@
         public string Qty { get; set; }
         public string Measure { get; set; } = null!;
         public string Name { get; set; } = null!;
+        public string? Specification { get; set; } = null!;
     }
 }

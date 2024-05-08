@@ -3,6 +3,7 @@
 @using CookTheWeek.Web.Infrastructure.Extensions
 @inject IFavouriteRecipeService FavouriteRecipeService
 @{
+    ViewData["Title"] = "My Recipes";
     string ownedRecipeHeading = "Added By You";
     bool isAdmin = User.IsAdmin();
     string userId = User.GetId();

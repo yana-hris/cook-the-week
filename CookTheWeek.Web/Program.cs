@@ -12,6 +12,9 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Web.Infrastructure.BackgroundServices;
+    using Microsoft.AspNetCore.Mvc.ViewEngines;
+    using Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure;
+    using Rotativa.AspNetCore;
 
     public class Program
     {
@@ -38,7 +41,7 @@ namespace CookTheWeek.Web
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
-
+            builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 
             builder.Services.AddMemoryCache();
@@ -62,6 +65,8 @@ namespace CookTheWeek.Web
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
+
+            
 
             builder.Services.AddCors(options =>
             {
@@ -116,6 +121,8 @@ namespace CookTheWeek.Web
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            app.UseRotativa();
 
             app.Run();
         }

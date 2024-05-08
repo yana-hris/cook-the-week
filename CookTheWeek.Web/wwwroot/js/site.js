@@ -311,8 +311,6 @@ function buildMealPlan(event) {
         Meals: userMealPlanList.map(recipeId => ({ RecipeId: recipeId }))
     };
     
-    console.log(model);
-    var data = JSON.stringify(model);
     
     $.ajax({
         url: '/MealPlan/CreateMealPlanModel',

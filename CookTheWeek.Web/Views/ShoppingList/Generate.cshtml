@@ -1,4 +1,7 @@
 ﻿@model ShoppingListViewModel
+@{
+    ViewData["Title"] = "Shopping List";
+}
 
 <div style="max-width: 800px;margin: 0 auto;">
     <section class="p-3" style="max-width: 800px;">
@@ -17,18 +20,28 @@
                             <ul class="list-unstyled">
                                 @foreach (var product in category.Products)
                                 {
-                                    <li>@product.Qty @product.Measure @product.Name</li>
+                                    <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Specification</li>
                                 }
                             </ul>
                         </div>
                     }
                 }
              </div>
+            <button id="generatePdfBtn">Save File</button>
         </div>
     </section>
 </div>
     
-
+<script>
+    $(document).ready(function () {
+        // Attach click event to the button
+        $('#generatePdfBtn').click(function () {
+            debugger;
+            // Navigate to the controller action URL to trigger download
+            window.location.href = '/ShoppingList/GeneratePdf?id=@Model.Id';
+        });
+    });
+</script>
 
 
 
