@@ -1,0 +1,30 @@
+﻿@model ShoppingListViewModel
+@{
+    ViewData["Title"] = "Generate Pdf";
+}
+
+<section class="p-3" style="max-width: 800px;">
+    <div id="heading-container" class="m-2 p-2">
+        <h1>Shopping List "@Model.Title"</h1>
+        <sup class="dates" style="font-weight: 400;font-size: 15px;/*padding-top: 18px;*/">For @Model.StartDate to @Model.EndDate</sup>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var category in Model.ProductsByCategories)
+            {
+                if (category.Products.Any())
+                {
+                    <div class="col col-12 col-md-6">
+                        <p class="ingredient-heading">@category.Title:</p>
+                        <ul class="list-unstyled">
+                            @foreach (var product in category.Products)
+                            {
+                                <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Specification</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Rotativa.AspNetCore;
 
     using Services.Data.Interfaces;
@@ -13,16 +12,13 @@
     {
         private readonly IShoppingListService shoppingListService;
         private readonly IMealPlanService mealPlanService;
-        private readonly ICompositeViewEngine viewEngine;
         private readonly ILogger<ShoppingListController> logger;
 
         public ShoppingListController(IShoppingListService shoppingListService,
-            ICompositeViewEngine viewEngine,
             ILogger<ShoppingListController> logger,
             IMealPlanService mealPlanService)
         {
             this.shoppingListService = shoppingListService;
-            this.viewEngine = viewEngine;
             this.logger = logger;
             this.mealPlanService = mealPlanService;
         }
@@ -55,7 +51,8 @@
             try
             {
                 ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanId(id);
-                return new ViewAsPdf("Generate", model)
+                // Render the partial view to HTML
+                return new ViewAsPdf("GeneratePdf", model)
                 {
                     FileName = $"Shopping_list_{model.Title}_{DateTime.Today.ToString("dd-MM-yyyy")}.pdf" 
                 };
@@ -66,6 +63,8 @@
                 return BadRequest("Error generating PDF."); 
             }
         }
-        
+
+       
+
     }
 }
