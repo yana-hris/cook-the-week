@@ -14,13 +14,18 @@
         private readonly IMealPlanService mealPlanService;
         private readonly ILogger<ShoppingListController> logger;
 
+        // Inject IWebHostEnvironment in your controller constructor
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         public ShoppingListController(IShoppingListService shoppingListService,
             ILogger<ShoppingListController> logger,
-            IMealPlanService mealPlanService)
+            IMealPlanService mealPlanService,
+            IWebHostEnvironment hostingEnvironment)
         {
             this.shoppingListService = shoppingListService;
             this.logger = logger;
             this.mealPlanService = mealPlanService;
+            _hostingEnvironment = hostingEnvironment;   
         }
 
         [HttpGet]
@@ -51,10 +56,15 @@
             try
             {
                 ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanId(id);
+                string contentRootPath = _hostingEnvironment.ContentRootPath;
+
                 // Render the partial view to HTML
                 return new ViewAsPdf("GeneratePdf", model)
                 {
-                    FileName = $"Shopping_list_{model.Title}_{DateTime.Today.ToString("dd-MM-yyyy")}.pdf" 
+                    FileName = $"Shopping_list_{model.Title}_{DateTime.Today.ToString("dd-MM-yyyy")}.pdf",
+                    CustomSwitches = "--print-media-type",
+                    PageWidth = 210,
+                    PageHeight = 297
                 };
             }
             catch (Exception ex)
