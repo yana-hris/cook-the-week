@@ -3,15 +3,18 @@
     ViewData["Title"] = "Shopping List";
 }
 
-<div style="max-width: 800px;margin: 0 auto;">
+<div id="shopping-list">
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
-    <button id="generatePdfBtn">Save File</button>
+    <a id="generatePdfBtn" class="btn btn-primary text-white">
+        <i class="fa fa-download"></i>
+    </a>
 </div>
     
 <script>
     $(document).ready(function () {
         // Attach click event to the button
-        $('#generatePdfBtn').click(function () {
+        $('#generatePdfBtn').click(function (e) {
+            e.preventDefault();
             debugger;
             // Navigate to the controller action URL to trigger download
             window.location.href = '/ShoppingList/GeneratePdf?id=@Model.Id';

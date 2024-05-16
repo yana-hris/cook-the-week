@@ -1,35 +1,52 @@
-﻿section#shopping-list-section {
+﻿div#shopping-list {
     max-width: 800px;
+    margin: 0 auto;
+    position: relative;
 
-    #heading-container {
-        margin-bottom: 12px;
+    section#shopping-list-section {
+        max-width: 800px;
 
-        h2 {
-            font-family: "Libre Baskerville", serif;
+        #heading-container {
+            margin-bottom: 12px;
+
+            h2 {
+                font-family: "Libre Baskerville", serif;
+            }
+
+            .dates {
+                font-weight: 400;
+                font-size: 14px;
+
+                .date {
+                    font-weight: 500;
+                }
+            }
         }
 
-        .dates {
-            font-weight: 400;
-            font-size: 14px;
-
-            .date {
+        .container {
+            p.ingredient-heading {
+                font-size: 16px;
+                text-decoration: underline;
                 font-weight: 500;
+                margin-bottom: 2px;
+            }
+
+            li {
+                .units-styler {
+                    font-weight: 300;
+                }
             }
         }
     }
 
-    .container {
-        p.ingredient-heading {
-            font-size: 16px;
-            text-decoration: underline;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
+    #generatePdfBtn {
+        position: absolute;
+        top: 17px;
+        right: 17px;
 
-        li {
-            .units-styler {
-                font-weight: 300;
-            }
+        .fa-download {
+            font-size: 25px;
+            color: white;
         }
     }
 }
