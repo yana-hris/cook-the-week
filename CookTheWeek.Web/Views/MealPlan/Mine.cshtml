@@ -33,10 +33,10 @@ else
                 @foreach (var mealPlan in Model)
                 {
                     <tr>
-                        <td><label>@mealPlan.Name</label></td>
-                        <td><label>@mealPlan.StartDate</label></td>
-                        <td><label>@mealPlan.EndDate</label></td>
-                        <td>
+                        <td class="align-baseline">@mealPlan.Name</td>
+                        <td class="align-baseline"><label>@mealPlan.StartDate</label></td>
+                        <td class="align-baseline"><label>@mealPlan.EndDate</label></td>
+                        <td class="align-baseline">
                             <lablel>
                                 @if (mealPlan.IsFinished)
                                 {
@@ -48,23 +48,23 @@ else
                                 }
                             </lablel>
                         </td>
-                                        
-                        <td><label>@mealPlan.MealsCount</label></td>
-                        <td>
+
+                        <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
+                        <td class="align-baseline">
                             <label>
                                 <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary text-white">
                                     <i class="fas fa-th-list"></i>
                                 </a>
                             </label>
                         </td>
-                        <td>
+                        <td class="align-baseline">
                             <label>
                                 <a asp-asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-danger text-white">
                                     <i class="fas fa-shopping-basket"></i>
                                 </a>
                             </label>
                         </td>
-                        <td>
+                        <td class="align-baseline">
                             <label>
                             @if (mealPlan.IsFinished)
                             {

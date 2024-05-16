@@ -50,5 +50,9 @@
   {
     "outputFile": "wwwroot/scss/recipe-form.css",
     "inputFile": "wwwroot/scss/recipe-form.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/shopping-list.css",
+    "inputFile": "wwwroot/scss/shopping-list.scss"
   }
 ]

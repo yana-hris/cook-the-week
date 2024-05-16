@@ -1,0 +1,27 @@
+﻿section#shopping-list-section {
+    max-width: 800px;
+
+    #heading-container {
+        h1 {
+        }
+
+        .dates {
+            font-weight: 400;
+            font-size: 15px;
+        }
+    }
+
+    .container {
+        p.ingredient-heading {
+            font-size: 16px;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        li {
+            .units-styler {
+                font-weight: 300;
+            }
+        }
+    }
+}
