@@ -2,12 +2,19 @@
     max-width: 800px;
 
     #heading-container {
-        h1 {
+        margin-bottom: 12px;
+
+        h2 {
+            font-family: "Libre Baskerville", serif;
         }
 
         .dates {
             font-weight: 400;
-            font-size: 15px;
+            font-size: 14px;
+
+            .date {
+                font-weight: 500;
+            }
         }
     }
 
@@ -16,6 +23,7 @@
             font-size: 16px;
             text-decoration: underline;
             font-weight: 500;
+            margin-bottom: 2px;
         }
 
         li {
