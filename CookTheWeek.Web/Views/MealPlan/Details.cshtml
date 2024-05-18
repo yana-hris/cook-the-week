@@ -116,15 +116,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete meal plan @Model.Name?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     <a id="confirmDeleteBtn" 
                        asp-controller="MealPlan"
                        asp-action="Delete"
@@ -142,7 +139,19 @@
             e.preventDefault(); // Prevent the default link behavior
             $('#confirmDeleteModal').modal('show');
         });
-    });  
+
+        // Close the modal when the "Cancel" button is clicked
+        $('#confirmDeleteModal .btn-primary').on('click', function () {
+            $('#confirmDeleteModal').modal('hide');
+        });
+
+        // Close the modal when clicking outside the modal area
+        $(document).on('click', function (e) {
+            if ($(e.target).closest('.modal-content').length === 0) {
+                $('#confirmDeleteModal').modal('hide');
+            }
+        });
+    });
 </script>
 
 
