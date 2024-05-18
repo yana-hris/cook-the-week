@@ -21,5 +21,6 @@
         // Helper methods for Meal Plan Details View
         Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id);
         Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id);
+        Task DeleteById(string id);
     }
 }

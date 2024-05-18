@@ -396,10 +396,38 @@ namespace CookTheWeek.Web.Controllers
             return RedirectToAction("Mine", "MealPlan");
         }
 
-        //public async Task<IActionResult> Delete(string id)
-        //{
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool exists = await this.mealPlanService.ExistsByIdAsync(id);
+            string currentUserId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByMealPlanId(id, currentUserId);
 
-        //}
+            if (!exists)
+            {
+                logger.LogError($"Meal Plan with id {id} does not exist");
+                return NotFound();
+            }
+
+            if (!isOwner && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = "You must be the owner of this meal plan to delete it!";
+                return RedirectToAction("Details", "MealPlan", new { id });
+            }
+
+            try
+            {
+                await this.mealPlanService.DeleteById(id);
+                TempData[SuccessMessage] = "Meal Plan successfully deleted!";
+            }
+            catch (Exception)
+            {
+                logger.LogError($"Something went wrong and meal plan with id {id} was not deleted!");
+                return BadRequest();
+            }
+
+            return RedirectToAction("Mine");
+        }
 
         // Private Helper Methods
         private void SaveMealPlanToMemoryCache(MealPlanAddFormModel mealPlanModel) 

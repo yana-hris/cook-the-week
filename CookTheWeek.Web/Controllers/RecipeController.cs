@@ -382,6 +382,7 @@
 
             if (!exists)
             {
+                logger.LogError($"Recipe with id {id} does not exist");
                 return NotFound();
             }
 

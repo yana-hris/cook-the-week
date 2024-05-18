@@ -106,10 +106,43 @@
                 {
                     <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                 }
-                <a href="/MealPlan/Delete/@Model.Id" class="btn btn-danger btn-block">Remove</a>
+                <a id="removeBtn" class="btn btn-danger btn-block">Remove</a>
             </div>
         </div>
-    }    
+    }   
+    @* Modal for Delete *@
+    <div id="confirmDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete meal plan @Model.Name?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a id="confirmDeleteBtn" 
+                       asp-controller="MealPlan"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id" 
+                       class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#removeBtn').on('click', function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            $('#confirmDeleteModal').modal('show');
+        });
+    });  
+</script>
 
 

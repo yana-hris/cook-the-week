@@ -240,8 +240,20 @@
 
             return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
         }
+        public async Task DeleteById(string id)
+        {
+            MealPlan mealPlanToDelete = await this.dbContext
+                .MealPlans
+                .Where(mp => mp.Id.ToString() == id)
+                .FirstAsync();
 
-       
+            if (mealPlanToDelete != null && mealPlanToDelete.Meals.Any())
+            {
+                this.dbContext.Meals.RemoveRange(mealPlanToDelete.Meals);
+            }
 
+            this.dbContext.MealPlans.Remove(mealPlanToDelete);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }
