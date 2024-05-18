@@ -16,7 +16,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using Microsoft.Extensions.Logging;
 
     public class MealPlanService : IMealPlanService
     {

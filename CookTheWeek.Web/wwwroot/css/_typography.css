@@ -38,6 +38,13 @@ html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
+html body #main-container .btn-primary {
+  color: #fff;
+}
+html body #main-container .btn-primary:hover {
+  background-color: #fff;
+  color: var(--bs-primary);
+}
 html body #main-container #add-recipe, html body #main-container #edit-recipe {
   max-width: 1000px;
 }

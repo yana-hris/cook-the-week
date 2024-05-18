@@ -12,10 +12,9 @@
 
         .card-img-top {
             display: block;
-            height: 12rem; 
+            height: 12rem;
             object-fit: cover;
-            width: 100%; 
-
+            width: 100%;
         }
 
         .liked-icon, .not-liked-icon, .fas.fa-tag {
@@ -48,6 +47,7 @@
                 display: inline-block;
                 width: 50px;
                 height: 50px;
+                transition: background-color 0.3s ease;
             }
 
             .add-to-mealplan-button::before {
@@ -59,15 +59,24 @@
                 height: 100%;
                 border-radius: 50%;
                 z-index: 0;
+                transition: background-color 0.3s ease;
             }
 
             .plus::before {
                 background-color: var(--bs-primary);
+                color: #fff;
             }
+
 
             .minus::before {
                 background-color: var(--bs-danger);
+                color: #fff;
             }
+
+            .plus:hover::before, .minus:hover::before {
+                background-color: #fff;
+            }
+
 
             .add-to-mealplan-button .fa {
                 position: absolute;
@@ -75,9 +84,17 @@
                 left: 50%; /* Position the icon horizontally */
                 transform: translate(-50%, -50%); /* Center the icon */
                 color: white; /* Icon color */
-                font-size: 36px; 
+                font-size: 36px;
             }
-        }        
+
+            .add-to-mealplan-button.plus .fa:hover {
+                color: var(--bs-primary);
+            }
+
+            .add-to-mealplan-button.minus .fa:hover {
+                color: var(--bs-danger);
+            }
+        }
 
         .material-icons.card-icon {
             font-size: 13px;

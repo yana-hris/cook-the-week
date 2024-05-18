@@ -39,6 +39,13 @@ html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
+html body #main-container .btn-primary {
+  color: #fff;
+}
+html body #main-container .btn-primary:hover {
+  background-color: #fff;
+  color: var(--bs-primary);
+}
 html body #main-container #add-recipe, html body #main-container #edit-recipe {
   max-width: 1000px;
 }
@@ -293,6 +300,7 @@ html body nav.fixed-bottom {
   display: inline-block;
   width: 50px;
   height: 50px;
+  transition: background-color 0.3s ease;
 }
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button::before {
   content: ""; /* A pseudo-element for the circular background */
@@ -303,12 +311,18 @@ html body nav.fixed-bottom {
   height: 100%;
   border-radius: 50%;
   z-index: 0;
+  transition: background-color 0.3s ease;
 }
 .recipe-container .card .add-to-mealplan-container .plus::before {
   background-color: var(--bs-primary);
+  color: #fff;
 }
 .recipe-container .card .add-to-mealplan-container .minus::before {
   background-color: var(--bs-danger);
+  color: #fff;
+}
+.recipe-container .card .add-to-mealplan-container .plus:hover::before, .recipe-container .card .add-to-mealplan-container .minus:hover::before {
+  background-color: #fff;
 }
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button .fa {
   position: absolute;
@@ -317,6 +331,12 @@ html body nav.fixed-bottom {
   transform: translate(-50%, -50%); /* Center the icon */
   color: white; /* Icon color */
   font-size: 36px;
+}
+.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.plus .fa:hover {
+  color: var(--bs-primary);
+}
+.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.minus .fa:hover {
+  color: var(--bs-danger);
 }
 .recipe-container .card .material-icons.card-icon {
   font-size: 13px;
