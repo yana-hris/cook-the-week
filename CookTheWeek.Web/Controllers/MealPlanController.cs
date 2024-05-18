@@ -126,13 +126,15 @@ namespace CookTheWeek.Web.Controllers
                 else
                 {
                     logger.LogError($"Retriveved value for Meal Plan for user with ID {userId} is null");
-                    return BadRequest();
+                    TempData[InformationMessage] = "Add Recipes to Build Your Meal Plan";
+                    return RedirectToAction("All", "Recipe");
                 }
             }
             else
             {
                 logger.LogError($"Cannot retrieve value for the Meal Plan for user with id {userId}");
-                return NotFound();
+                TempData[InformationMessage] = "Add Recipes to Build Your Meal Plan";
+                return RedirectToAction("All", "Recipe");
             }
 
         }
@@ -185,9 +187,11 @@ namespace CookTheWeek.Web.Controllers
 
             try
             {
-                await this.mealPlanService.AddAsync(userId, model);
+                string id = await this.mealPlanService.AddAsync(userId, model);
                 TempData["SubmissionSuccess"] = true;
                 DeleteMealPlanFromMemmoryCache();
+                TempData[SuccessMessage] = $"Your Meal Plan \"{model.Name}\" was successfully Created!";
+                return RedirectToAction("Details", "MealPlan", new { id = id });
 
             }
             catch (Exception ex)
@@ -196,8 +200,7 @@ namespace CookTheWeek.Web.Controllers
                 return BadRequest();
             }
 
-            TempData[SuccessMessage] = $"Your Meal Plan \"{model.Name}\" was successfully Saved! You can go to Meal Plans and edit it if needed.";
-            return RedirectToAction("All", "Recipe");
+            
         }
 
         [HttpGet]
@@ -392,6 +395,11 @@ namespace CookTheWeek.Web.Controllers
             TempData[SuccessMessage] = $"Meal Plan \"{model.Name}\" successfully Edited!";
             return RedirectToAction("Mine", "MealPlan");
         }
+
+        //public async Task<IActionResult> Delete(string id)
+        //{
+
+        //}
 
         // Private Helper Methods
         private void SaveMealPlanToMemoryCache(MealPlanAddFormModel mealPlanModel) 

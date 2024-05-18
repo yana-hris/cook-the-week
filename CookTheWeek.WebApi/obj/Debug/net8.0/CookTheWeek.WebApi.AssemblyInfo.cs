@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CookTheWeek.WebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a7217eac02cc6c48ee061ceea70020a238f5b61")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d8b28a3bbec74c31ab747c140f448a2b82921d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CookTheWeek.WebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CookTheWeek.WebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

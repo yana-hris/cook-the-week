@@ -10,7 +10,7 @@
     {
         Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync();
         Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync();
-        Task AddAsync(string userId, MealPlanAddFormModel model);
+        Task<string> AddAsync(string userId, MealPlanAddFormModel model);
         Task EditAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
         Task<MealPlanViewModel> GetByIdAsync(string id);

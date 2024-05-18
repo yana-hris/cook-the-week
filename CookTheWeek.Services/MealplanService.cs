@@ -59,7 +59,7 @@
                     MealsCount = mp.Meals.Count
                 }).ToListAsync();
         }
-        public async Task AddAsync(string userId, MealPlanAddFormModel model)
+        public async Task<string> AddAsync(string userId, MealPlanAddFormModel model)
         {
             MealPlan newMealPlan = new MealPlan()
             {
@@ -80,6 +80,8 @@
 
             await this.dbContext.MealPlans.AddAsync(newMealPlan);
             await this.dbContext.SaveChangesAsync();
+
+            return newMealPlan.Id.ToString();
            
         }
         public async Task EditAsync(string userId, MealPlanAddFormModel model)
