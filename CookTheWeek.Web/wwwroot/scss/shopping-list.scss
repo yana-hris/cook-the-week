@@ -52,4 +52,36 @@
             color: white;
         }
     }
+
+    #generatePdfBtn:hover {
+        color: var(--bs-primary);
+        background-color: #fff;
+
+        .fa-download {
+            font-size: 25px;
+            color: var(--bs-primary);
+            background-color: #fff;
+        }
+    }
+
+    #backBtn {
+        position: absolute;
+        bottom: 33px;
+        right: 33px;
+
+        .fa-long-arrow-left {
+            font-size: 25px;
+            color: var(--bs-primary);
+        }
+    }
+
+    #backBtn:hover {
+        background-color: var(--bs-primary);
+        color: #fff;
+
+        .fa-long-arrow-left {
+            font-size: 25px;
+            color: #fff;
+        }
+    }
 }

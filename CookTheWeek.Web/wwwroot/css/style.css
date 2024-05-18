@@ -880,6 +880,32 @@ div#shopping-list #generatePdfBtn .fa-download {
   font-size: 25px;
   color: white;
 }
+div#shopping-list #generatePdfBtn:hover {
+  color: var(--bs-primary);
+  background-color: #fff;
+}
+div#shopping-list #generatePdfBtn:hover .fa-download {
+  font-size: 25px;
+  color: var(--bs-primary);
+  background-color: #fff;
+}
+div#shopping-list #backBtn {
+  position: absolute;
+  bottom: 33px;
+  right: 33px;
+}
+div#shopping-list #backBtn .fa-long-arrow-left {
+  font-size: 25px;
+  color: var(--bs-primary);
+}
+div#shopping-list #backBtn:hover {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
+div#shopping-list #backBtn:hover .fa-long-arrow-left {
+  font-size: 25px;
+  color: #fff;
+}
 
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
