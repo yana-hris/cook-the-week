@@ -1,7 +1,10 @@
 ﻿div#shopping-list {
   max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
   position: relative;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 div#shopping-list section#shopping-list-section {
   max-width: 800px;
@@ -30,8 +33,8 @@ div#shopping-list section#shopping-list-section .container li .units-styler {
 }
 div#shopping-list #generatePdfBtn {
   position: absolute;
-  top: 17px;
-  right: 17px;
+  top: 33px;
+  right: 33px;
 }
 div#shopping-list #generatePdfBtn .fa-download {
   font-size: 25px;
