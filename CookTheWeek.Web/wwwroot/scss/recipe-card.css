@@ -21,19 +21,7 @@
   position: absolute;
   top: 8px;
   left: 10px;
-  font-size: 25px;
-}
-.recipe-container .card .liked-icon {
-  color: red;
-}
-.recipe-container .card .liked-icon:hover {
-  color: grey;
-}
-.recipe-container .card .not-liked-icon {
-  color: grey;
-}
-.recipe-container .card .not-liked-icon:hover {
-  color: red;
+  font-size: 24px;
 }
 .recipe-container .card .fas.fa-tag {
   color: var(--bs-primary);
@@ -47,45 +35,9 @@
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   transition: background-color 0.3s ease;
-}
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button::before {
-  content: ""; /* A pseudo-element for the circular background */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  z-index: 0;
-  transition: background-color 0.3s ease;
-}
-.recipe-container .card .add-to-mealplan-container .plus::before {
-  background-color: var(--bs-primary);
-  color: #fff;
-}
-.recipe-container .card .add-to-mealplan-container .minus::before {
-  background-color: var(--bs-danger);
-  color: #fff;
-}
-.recipe-container .card .add-to-mealplan-container .plus:hover::before, .recipe-container .card .add-to-mealplan-container .minus:hover::before {
-  background-color: #fff;
-}
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button .fa {
-  position: absolute;
-  top: 50%; /* Position the icon vertically */
-  left: 50%; /* Position the icon horizontally */
-  transform: translate(-50%, -50%); /* Center the icon */
-  color: white; /* Icon color */
-  font-size: 36px;
-}
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.plus:hover .fa {
-  color: var(--bs-primary);
-}
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.minus:hover .fa {
-  color: var(--bs-danger);
 }
 .recipe-container .card .material-icons.card-icon {
   font-size: 13px;

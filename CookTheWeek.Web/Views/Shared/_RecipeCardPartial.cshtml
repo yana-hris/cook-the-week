@@ -22,11 +22,11 @@
                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                     @if (isLiked)
                     {
-                        <i class="fa fa-heart liked-icon"></i>
+                        <i class="fas fa-heart liked-icon"></i>
                     }
                     else
                     {
-                        <i class="fa fa-heart not-liked-icon"></i>
+                        <i class="fas fa-heart not-liked-icon"></i>
                     }
             </a>
             } else if(isOwner && !isAdmin)
@@ -56,7 +56,7 @@
                     <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
                 </div>
                 }
-                 @if (!string.IsNullOrEmpty(userId)) // && is not already added
+                 @if (!string.IsNullOrEmpty(userId)) 
                 {
                 <div class="card-btns d-flex justify-content-center align-content-center">                    
                     <a class="btn btn-outline-success" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" type="button">View</a>

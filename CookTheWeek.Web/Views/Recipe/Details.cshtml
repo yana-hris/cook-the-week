@@ -37,17 +37,17 @@
                                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                                     @if (isLiked)
                                     {
-                                        <i class="fa fa-heart liked-icon"></i>
+                                        <i class="fas fa-heart liked-icon"></i>
                                     }
                                     else
                                     {
-                                        <i class="fa fa-heart not-liked-icon"></i>
+                                        <i class="fas fa-heart not-liked-icon"></i>
                                     }
                                 </a>
                             }
                             else
                             {
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fas fa-tag"></i>
                             }
                             @if(userId != String.Empty)
                             {
@@ -61,22 +61,19 @@
                         <div class="col col-12 col-sm-4">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-utensils"></i><span> @Model.Servings Serving(s)</span>
+                                    <i class="fa-solid fa-utensils"></i><span>&nbsp;&nbsp;&nbsp;@Model.Servings Serving(s)</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-clock"></i><span> </span>
-                                    <span>
-                                        @(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")
-                                        @(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + "min" : "")
-                                    </span>
+                                    <i class="fa-solid fa-clock"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")@(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + " min" : "")</span>
                                 </li>
                                 <li class="list-group-item">
                                     <i class="fa fa-tag" aria-hidden="true"></i>
-                                    <span> @Model.CategoryName</span>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
                                 </li>
                                 <li class="list-group-item">
                                     <i class="fa fa-archive" aria-hidden="true"></i>
-                                    <span> Created on: @Model.CreatedOn</span>
+                                    <span>&nbsp;&nbsp;&nbsp;Created on:&nbsp;@Model.CreatedOn</span>
                                 </li>
                             </ul>
                         </div>
