@@ -300,8 +300,8 @@ html body nav.fixed-bottom {
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   transition: background-color 0.3s ease;
 }
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button::before {
@@ -334,10 +334,10 @@ html body nav.fixed-bottom {
   color: white; /* Icon color */
   font-size: 36px;
 }
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.plus .fa:hover {
+.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.plus:hover .fa {
   color: var(--bs-primary);
 }
-.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.minus .fa:hover {
+.recipe-container .card .add-to-mealplan-container .add-to-mealplan-button.minus:hover .fa {
   color: var(--bs-danger);
 }
 .recipe-container .card .material-icons.card-icon {

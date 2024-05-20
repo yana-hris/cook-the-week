@@ -45,8 +45,8 @@
             .add-to-mealplan-button {
                 position: relative;
                 display: inline-block;
-                width: 50px;
-                height: 50px;
+                width: 44px;
+                height: 44px;
                 transition: background-color 0.3s ease;
             }
 
@@ -87,12 +87,16 @@
                 font-size: 36px;
             }
 
-            .add-to-mealplan-button.plus .fa:hover {
-                color: var(--bs-primary);
+            .add-to-mealplan-button.plus:hover {
+                .fa {
+                    color: var(--bs-primary);
+                }
             }
 
-            .add-to-mealplan-button.minus .fa:hover {
-                color: var(--bs-danger);
+            .add-to-mealplan-button.minus:hover {
+                .fa {
+                    color: var(--bs-danger);
+                }
             }
         }
 
