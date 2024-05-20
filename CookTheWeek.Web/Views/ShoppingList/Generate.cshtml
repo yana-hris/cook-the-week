@@ -5,12 +5,10 @@
 
 <div id="shopping-list">
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
-    <a id="generatePdfBtn" class="btn btn-primary">
+    <a id="generatePdfBtn" class="btn btn-primary fixed-size-btn">
         <i class="fa fa-download"></i>
     </a>
-    <a id="backBtn" class="btn btn-outline-primary">
-        <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-    </a>
+    <partial name="_BackBtnPartial"/>
 </div>
     
 <script>

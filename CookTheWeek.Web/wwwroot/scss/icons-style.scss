@@ -82,4 +82,10 @@
             color: var(--bs-danger);
         }
     }
+    // owned recipe style
+    .fa-tag {
+        color: yellow;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #b3b300;
+    }
 }

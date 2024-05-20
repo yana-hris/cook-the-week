@@ -48,7 +48,7 @@
         right: 33px;
 
         .fa-download {
-            font-size: 25px;
+            font-size: 24px;
             color: white;
         }
     }
@@ -68,20 +68,6 @@
         position: absolute;
         bottom: 33px;
         right: 33px;
-
-        .fa-long-arrow-left {
-            font-size: 25px;
-            color: var(--bs-primary);
-        }
     }
-
-    #backBtn:hover {
-        background-color: var(--bs-primary);
-        color: #fff;
-
-        .fa-long-arrow-left {
-            font-size: 25px;
-            color: #fff;
-        }
-    }
+    
 }

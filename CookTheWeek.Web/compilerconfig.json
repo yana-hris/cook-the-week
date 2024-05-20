@@ -58,5 +58,9 @@
   {
     "outputFile": "wwwroot/scss/icons-style.css",
     "inputFile": "wwwroot/scss/icons-style.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/btn-style.css",
+    "inputFile": "wwwroot/scss/btn-style.scss"
   }
 ]

@@ -63,3 +63,8 @@ html .add-to-mealplan-button.plus:hover .fa {
 html .add-to-mealplan-button.minus:hover .fa {
   color: var(--bs-danger);
 }
+html .fa-tag {
+  color: yellow;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #b3b300;
+}

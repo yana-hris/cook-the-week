@@ -47,8 +47,9 @@
 }
 .recipe-container .card span.badge {
   display: inline-block;
-  font-size: 13px;
-  padding: 1px 6px 4px 6px;
+  font-size: 12px;
+  padding: 1px 6px 2px 6px;
+  width: 120px;
 }
 .recipe-container .card .recipe-title {
   font-family: "Libre Baskerville", serif;

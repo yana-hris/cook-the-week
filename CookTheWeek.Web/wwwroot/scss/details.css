@@ -10,9 +10,9 @@
 }
 #recipe-details-container .card .card-header .back-button {
   position: absolute;
-  top: 5px; /* Adjust as needed */
-  right: 8px; /* Adjust as needed */
-  z-index: 15; /* Ensure it's on top of other content */
+  top: 4px;
+  right: 8px;
+  z-index: 15;
 }
 #recipe-details-container .card .card-body .recipe-title {
   font-family: "Libre Baskerville", serif;
@@ -45,9 +45,6 @@
 }
 #recipe-details-container .card .card-body .img-container .fa-tag {
   position: absolute;
-  color: yellow;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #b3b300;
   top: 12px;
   left: 23px;
   font-size: 40px;
@@ -81,6 +78,16 @@
   font-size: 16px;
 }
 
+@media screen and (max-width: 768px) {
+  #recipe-details-container .fixed-size-btn {
+    height: 34px;
+    width: 42px;
+  }
+  #recipe-details-container .back-button {
+    top: 2px;
+    font-size: 18px;
+  }
+}
 @media (min-width: 576px) {
   #recipe-details-container {
     max-width: 940px !important;
@@ -92,7 +99,13 @@
   }
   #recipe-details-container #recipe-details #aside-container {
     position: absolute;
-    top: 247px;
+    top: 292px;
+    right: 1px;
+  }
+}
+@media screen and (max-width: 1015px) {
+  #recipe-details-container #recipe-details #aside-container {
+    top: 240px;
     right: 1px;
   }
 }

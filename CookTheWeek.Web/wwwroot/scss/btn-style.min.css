@@ -1,0 +1,1 @@
+﻿html .fixed-size-btn{display:flex;height:40px;width:50px;justify-content:center;align-items:center;cursor:pointer;}html .back-button{font-size:20px;}html .back-button:hover{background-color:var(--bs-primary);color:#fff;}

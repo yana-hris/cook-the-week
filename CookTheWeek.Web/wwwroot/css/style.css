@@ -322,6 +322,27 @@ html .add-to-mealplan-button.plus:hover .fa {
 html .add-to-mealplan-button.minus:hover .fa {
   color: var(--bs-danger);
 }
+html .fa-tag {
+  color: yellow;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #b3b300;
+}
+
+html .fixed-size-btn {
+  display: flex;
+  height: 40px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+html .back-button {
+  font-size: 20px;
+}
+html .back-button:hover {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
 
 .recipe-container {
   flex-grow: 0;
@@ -372,8 +393,9 @@ html .add-to-mealplan-button.minus:hover .fa {
 }
 .recipe-container .card span.badge {
   display: inline-block;
-  font-size: 13px;
-  padding: 1px 6px 4px 6px;
+  font-size: 12px;
+  padding: 1px 6px 2px 6px;
+  width: 120px;
 }
 .recipe-container .card .recipe-title {
   font-family: "Libre Baskerville", serif;
@@ -621,9 +643,9 @@ html .add-to-mealplan-button.minus:hover .fa {
 }
 #recipe-details-container .card .card-header .back-button {
   position: absolute;
-  top: 5px; /* Adjust as needed */
-  right: 8px; /* Adjust as needed */
-  z-index: 15; /* Ensure it's on top of other content */
+  top: 4px;
+  right: 8px;
+  z-index: 15;
 }
 #recipe-details-container .card .card-body .recipe-title {
   font-family: "Libre Baskerville", serif;
@@ -656,9 +678,6 @@ html .add-to-mealplan-button.minus:hover .fa {
 }
 #recipe-details-container .card .card-body .img-container .fa-tag {
   position: absolute;
-  color: yellow;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #b3b300;
   top: 12px;
   left: 23px;
   font-size: 40px;
@@ -692,6 +711,16 @@ html .add-to-mealplan-button.minus:hover .fa {
   font-size: 16px;
 }
 
+@media screen and (max-width: 768px) {
+  #recipe-details-container .fixed-size-btn {
+    height: 34px;
+    width: 42px;
+  }
+  #recipe-details-container .back-button {
+    top: 2px;
+    font-size: 18px;
+  }
+}
 @media (min-width: 576px) {
   #recipe-details-container {
     max-width: 940px !important;
@@ -703,7 +732,13 @@ html .add-to-mealplan-button.minus:hover .fa {
   }
   #recipe-details-container #recipe-details #aside-container {
     position: absolute;
-    top: 247px;
+    top: 292px;
+    right: 1px;
+  }
+}
+@media screen and (max-width: 1015px) {
+  #recipe-details-container #recipe-details #aside-container {
+    top: 240px;
     right: 1px;
   }
 }
@@ -888,7 +923,7 @@ div#shopping-list #generatePdfBtn {
   right: 33px;
 }
 div#shopping-list #generatePdfBtn .fa-download {
-  font-size: 25px;
+  font-size: 24px;
   color: white;
 }
 div#shopping-list #generatePdfBtn:hover {
@@ -904,18 +939,6 @@ div#shopping-list #backBtn {
   position: absolute;
   bottom: 33px;
   right: 33px;
-}
-div#shopping-list #backBtn .fa-long-arrow-left {
-  font-size: 25px;
-  color: var(--bs-primary);
-}
-div#shopping-list #backBtn:hover {
-  background-color: var(--bs-primary);
-  color: #fff;
-}
-div#shopping-list #backBtn:hover .fa-long-arrow-left {
-  font-size: 25px;
-  color: #fff;
 }
 
 /*!

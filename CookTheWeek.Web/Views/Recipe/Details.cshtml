@@ -19,7 +19,7 @@
                 <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Recipe Info</span></a></li>
                 <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
             </ul>
-            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary back-button">Back</a>
+            <partial name="_BackBtnPartial"/>
         </div>
 
         <div class="card-body p-4 d-md-grid" id="recipe-details">
@@ -61,19 +61,20 @@
                         <div class="col col-12 col-sm-4">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-utensils"></i><span>&nbsp;&nbsp;&nbsp;@Model.Servings Serving(s)</span>
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.Servings Serving(s)</span>
                                 </li>
                                 <li class="list-group-item">
                                     <i class="fa-solid fa-clock"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")@(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + " min" : "")</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-font-awesome"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
                                 </li>
                                 <li class="list-group-item">
                                     <i class="fa fa-archive" aria-hidden="true"></i>
-                                    <span>&nbsp;&nbsp;&nbsp;Created on:&nbsp;@Model.CreatedOn</span>
+                                    <span>&nbsp;&nbsp;&nbsp;Created&nbsp;on:&nbsp;@Model.CreatedOn</span>
                                 </li>
                             </ul>
                         </div>
@@ -173,7 +174,7 @@
          <div class="card-footer">
             <div class="col text-center pt-3 pb-2">
                 <div class="buttons d-flex gap-2 align-items-center justify-content-center">
-                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-danger text-center card-btn" type="button">
+                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-center card-btn" type="button">
                         Edit
                     </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger text-center card-btn" type="button">
                         Delete
@@ -220,5 +221,13 @@
                 }
             });
         }
-    </script>    
+    </script>  
+    <script>
+        $(document).ready(function () {
+            $('#backBtn').click(function () {
+                window.history.back();
+                return false; // Prevents any server-side postback
+            });
+        });
+    </script>
 }
