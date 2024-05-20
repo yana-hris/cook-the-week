@@ -6,6 +6,10 @@
 
     .theme-switcher {
         position: relative;
+
+        .dropdown-toggle {
+            text-decoration: none;
+        }
     }
 }
 

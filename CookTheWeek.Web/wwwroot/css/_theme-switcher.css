@@ -7,6 +7,9 @@
 #theme-container .theme-switcher {
   position: relative;
 }
+#theme-container .theme-switcher .dropdown-toggle {
+  text-decoration: none;
+}
 
 @media (min-width: 768px) {
   #theme-container {
