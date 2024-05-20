@@ -13,9 +13,9 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.RecipesTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="" asp-controller="Recipe" asp-action="Add">Add</a>
-                        <a asp-area="" asp-controller="Recipe" asp-action="All">View All</a>
-                        <a asp-area="" asp-controller="Recipe" asp-action="Mine">View Mine</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="Add" class="btn btn-primary">Add</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary">View All</a>
+                        <a asp-area="" asp-controller="Recipe" asp-action="Mine" class="btn btn-primary">View Mine</a>
                     </div>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.RecipeCategoriesTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddRecipeCategory">Add</a>
-                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllRecipeCategories">View All</a>
+                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddRecipeCategory" class="btn btn-primary">Add</a>
+                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllRecipeCategories" class="btn btn-primary">View All</a>
                     </div>
                 </div>
             </div>
@@ -40,8 +40,8 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.IngredientsTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Add">Add</a>
-                        <a asp-area="Admin" asp-controller="IngredientAdmin" asp-action="All">View All</a>
+                        <a asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Add" class="btn btn-primary">Add</a>
+                        <a asp-area="Admin" asp-controller="IngredientAdmin" asp-action="All" class="btn btn-primary">View All</a>
                     </div>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.IngredientCategoriesTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddIngredientCategory">Add</a>
-                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllIngredientCategories">View All</a>
+                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddIngredientCategory" class="btn btn-primary">Add</a>
+                        <a asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllIngredientCategories" class="btn btn-primary">View All</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.UsersTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="Admin" asp-controller="UserAdmin" asp-action="All">View All</a>
+                        <a asp-area="Admin" asp-controller="UserAdmin" asp-action="All" class="btn btn-primary">View All</a>
                     </div>
                 </div>
             </div>
@@ -78,8 +78,8 @@
                     <h6 class="text-muted card-subtitle mb-2">Total</h6>
                     <p class="card-text big-number">@Model.MealPlansTotalCount</p>
                     <div class="card-links">
-                        <a asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllActive" class="btn">All Active</a>
-                        <a asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllFinished" class="btn">All Finished</a>
+                        <a asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllActive" class="btn btn-primary">All Active</a>
+                        <a asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllFinished" class="btn btn-primary">All Finished</a>
                     </div>
                 </div>
             </div>

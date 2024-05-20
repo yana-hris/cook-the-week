@@ -52,7 +52,7 @@ else
                         <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
                         <td class="align-baseline">
                             <label>
-                                <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary text-white">
+                                <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary">
                                     <i class="fas fa-th-list"></i>
                                 </a>
                             </label>
@@ -68,7 +68,7 @@ else
                             <label>
                             @if (mealPlan.IsFinished)
                             {
-                                <a asp-asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" class="btn btn-primary text-white">
+                                <a asp-asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" class="btn btn-primary">
                                     <i class="fas fa-sync-alt"></i>
                                 </a>
                             }
