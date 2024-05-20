@@ -28,10 +28,18 @@
             color: red;
         }
 
+        .liked-icon:hover {
+            color: grey;
+        }
+
         .not-liked-icon {
             color: grey;
         }
 
+        .not-liked-icon:hover {
+            color: red;
+        } 
+        
         .fas.fa-tag {
             color: var(--bs-primary);
         }

@@ -26,8 +26,14 @@
 .recipe-container .card .liked-icon {
   color: red;
 }
+.recipe-container .card .liked-icon:hover {
+  color: grey;
+}
 .recipe-container .card .not-liked-icon {
   color: grey;
+}
+.recipe-container .card .not-liked-icon:hover {
+  color: red;
 }
 .recipe-container .card .fas.fa-tag {
   color: var(--bs-primary);
