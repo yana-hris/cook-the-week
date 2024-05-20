@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group mb-0 d-flex justify-content-end">
-                                <button type="submit" value="Search" class="btn btn-success">Search</button>
+                                <button type="submit" value="Search" class="btn btn-primary">Search</button>
                             </div>
                         </div>
                     </div>
@@ -82,11 +82,11 @@
                         @foreach (var ingredient in @Model.Ingredients)
                         {
                             <tr>
-                                <td><label>@ingredient.Id</label></td>
-                                <td><label>@ingredient.Name</label></td>
-                                <td><label>@ingredient.Category</label></td>
-                                <td><label><a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Edit" asp-route-id="@ingredient.Id">✔</a></label></td>
-                                <td>
+                                <td class="align-baseline">@ingredient.Id</td>
+                                <td class="align-baseline">@ingredient.Name</td>
+                                <td class="align-baseline">@ingredient.Category</td>
+                                <td class="align-baseline"><label><a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Edit" asp-route-id="@ingredient.Id">✔</a></label></td>
+                                <td class="align-baseline">
                                     <label>
                                         <a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Delete" asp-route-id="@ingredient.Id">❌</a>
                                     </label>
@@ -111,9 +111,9 @@
     <nav aria-label="Page navigation" class="fixed-bottom">
         <ul class="pagination justify-content-center g-1">
             <li class="page-item">
-                <a class="btn btn-success @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                    asp-area="Admin"
-                   asp-controller="Ingredient"
+                   asp-controller="IngredientAdmin"
                    asp-action="All"
                    asp-route-currentPage="@previousPage"
                    asp-route-category="@Model.Category"
@@ -125,10 +125,10 @@
                 !Model.Ingredients.Any();
             }
             <li class="page-item">
-                <a class="btn btn-success
+                <a class="btn btn-primary
             @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                    asp-area="Admin"
-                   asp-controller="Ingredient"
+                   asp-controller="IngredientAdmin"
                    asp-action="All"
                    asp-route-currentPage="@(Model.CurrentPage + 1)"
                    asp-route-category="@Model.Category"

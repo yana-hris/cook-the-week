@@ -38,6 +38,10 @@
                 .drop-down-item:hover {
                     color: #70bf73 !important;
                 }
+
+                .dropdown-item:active {
+                    background-color: var(--bs-primary) !important;
+                }
             }
 
             li.user-btn, .nav-item.dropdown {

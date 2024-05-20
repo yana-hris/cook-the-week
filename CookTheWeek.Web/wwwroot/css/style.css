@@ -31,10 +31,6 @@ html {
   position: relative;
   min-height: 100%;
 }
-html body {
-  /*margin: 0 auto;
-  position: relative;*/
-}
 html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
@@ -146,6 +142,9 @@ html body nav.fixed-bottom {
 }
 #navigation #nav-container #navcol-5 .nav-item .drop-down-item:hover {
   color: #70bf73 !important;
+}
+#navigation #nav-container #navcol-5 .nav-item .dropdown-item:active {
+  background-color: var(--bs-primary) !important;
 }
 #navigation #nav-container #navcol-5 li.user-btn, #navigation #nav-container #navcol-5 .nav-item.dropdown {
   padding: 8px 16px 10px 16px;

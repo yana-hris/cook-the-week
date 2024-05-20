@@ -2,8 +2,8 @@
     --meal-title-color: var(--bs-primary);
     --body-bg: var(--bs-white);
     --body-color: var(--bs-dark);
-
-    body {
+        
+        body {
         position: relative;
         margin: 0 auto;
 
@@ -32,11 +32,9 @@ html {
     font-size: 14px;
     position: relative;
     min-height: 100%;
-    $link-decoration: none;
+    $link-decoration: none;    
 
     body {
-        /*margin: 0 auto;
-        position: relative;*/
 
         #main-container {
             margin: 0 auto;
@@ -44,6 +42,7 @@ html {
 
             .btn-primary {
                 color: #fff;
+
                 &:hover {
                     background-color: #fff;
                     color: var(--bs-primary);

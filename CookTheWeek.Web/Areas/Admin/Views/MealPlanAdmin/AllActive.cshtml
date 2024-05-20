@@ -24,20 +24,20 @@
                 @foreach (var mealPlan in Model)
                 {
                     <tr>
-                        <td><label>@mealPlan.Id</label></td>
-                        <td><label>@mealPlan.Name</label></td>
-                        <td><label>@mealPlan.OwnerUsername</label></td>
-                        <td><label>@mealPlan.StartDate</label></td>
-                        <td><label>@mealPlan.EndDate</label></td>
-                        <td><label>@mealPlan.MealsCount</label></td>
-                        <td>
+                        <td class="align-baseline">@mealPlan.Id</td>
+                        <td class="align-baseline">@mealPlan.Name</td>
+                        <td class="align-baseline">@mealPlan.OwnerUsername</td>
+                        <td class="align-baseline">@mealPlan.StartDate</td>
+                        <td class="align-baseline">@mealPlan.EndDate</td>
+                        <td class="align-baseline">@mealPlan.MealsCount</td>
+                        <td class="align-baseline">
                             <label>
                                 <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary">
                                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 </a>
                             </label>
                         </td>
-                        <td>
+                        <td class="align-baseline">
                             <label>
                                 <a href="/ShoppingList/Generate/@mealPlan.Id" class="btn btn-danger">
                                     <i class="fas fa-shopping-basket"></i>
