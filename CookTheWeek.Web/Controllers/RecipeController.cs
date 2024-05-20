@@ -284,6 +284,13 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
+            if (this.User.GetId() == string.Empty)
+            {
+                TempData[ErrorMessage] = "You need to be logged in to view Details";
+                return RedirectToAction("Login", "User");
+            }
+
+
             bool exists = await this.recipeService.ExistsByIdAsync(id);
             ViewData["Title"] = "Recipe Details";
 

@@ -48,16 +48,10 @@
                     <span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>
                     <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>
                 </div>
-                 @if (!string.IsNullOrEmpty(userId)) 
-                {
-                     <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">
-                         <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
-                    </a>
-                } else
-                {
+                <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">
                     <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
-                }
-            <hr/>
+                </a>
+                <hr/>
                 @if (Model.Description != null)
                 {
                 <div class="recipe-description">
