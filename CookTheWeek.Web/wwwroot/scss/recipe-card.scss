@@ -24,10 +24,6 @@
             font-size: 24px;
         }
 
-        .fas.fa-tag {
-            color: var(--bs-primary);
-        }
-
         .add-to-mealplan-container {
             display: inline-block; /* The container that wraps the button and icon */
             position: absolute;
@@ -41,7 +37,6 @@
                 height: 40px;
                 transition: background-color 0.3s ease;
             }
-            
         }
 
         .material-icons.card-icon {
@@ -58,13 +53,22 @@
             padding: 1px 6px 2px 6px;
             width: 120px;
         }
-
+        
         .recipe-title {
             font-family: "Libre Baskerville", serif;
             font-size: 16px;
             font-weight: 500;
             margin-top: 5px;
             margin-bottom: 2px;
+            color: var(--bs-body-color);
+        }
+
+        .recipe-details-link:hover {
+
+            .recipe-title {
+                color: var(--bs-primary);
+                text-decoration: underline;
+            }
         }
 
         hr {

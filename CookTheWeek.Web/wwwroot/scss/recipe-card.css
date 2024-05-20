@@ -23,9 +23,6 @@
   left: 10px;
   font-size: 24px;
 }
-.recipe-container .card .fas.fa-tag {
-  color: var(--bs-primary);
-}
 .recipe-container .card .add-to-mealplan-container {
   display: inline-block; /* The container that wraps the button and icon */
   position: absolute;
@@ -57,6 +54,11 @@
   font-weight: 500;
   margin-top: 5px;
   margin-bottom: 2px;
+  color: var(--bs-body-color);
+}
+.recipe-container .card .recipe-details-link:hover .recipe-title {
+  color: var(--bs-primary);
+  text-decoration: underline;
 }
 .recipe-container .card hr {
   padding: 0;

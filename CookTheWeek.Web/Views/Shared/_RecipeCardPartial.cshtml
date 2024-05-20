@@ -48,20 +48,22 @@
                     <span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>
                     <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp; @Model.CookingTime</span></div>
                 </div>
-                <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
-                <hr/>
+                 @if (!string.IsNullOrEmpty(userId)) 
+                {
+                     <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">
+                         <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
+                    </a>
+                } else
+                {
+                    <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
+                }
+            <hr/>
                 @if (Model.Description != null)
                 {
                 <div class="recipe-description">
                     <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
                 </div>
-                }
-                 @if (!string.IsNullOrEmpty(userId)) 
-                {
-                <div class="card-btns d-flex justify-content-center align-content-center">                    
-                    <a class="btn btn-outline-primary" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" type="button">View</a>
-                </div>
-                }
+                }                
         </div>
     </div>
 </div>
@@ -71,7 +73,7 @@
         switch (mealCategoryName)
         {
             case "Breakfast":
-                return "bg-outline-primary";
+                return "bg-primary";
             case "Soup":
                 return "bg-warning text-dark";
             case "Salad":
