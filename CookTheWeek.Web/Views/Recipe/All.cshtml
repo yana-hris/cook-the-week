@@ -228,9 +228,11 @@
         $(document).ready(function () {
             debugger
             var isUserAdmin = '@isAdmin';
+            var justLoggedIn = '@(TempData["JustLoggedIn"] != null ? "true" : "false")';
+
             if (!currentUserId) {
                 $('#welcomeModal').modal('show');
-            } else if (isUserAdmin == 'False') {
+            } else if (isUserAdmin == 'False' && justLoggedIn === "true") {
                 $('#welcomeModal').modal('show');
             } else {
                 console.log('Condition not met');

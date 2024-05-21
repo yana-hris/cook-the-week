@@ -69,6 +69,7 @@
             }
 
             await signInManager.SignInAsync(user, isPersistent: false);
+            TempData["JustLoggedIn"] = true;
             this.memoryCache.Remove(UsersCacheKey);
 
             return RedirectToAction("Index", "Home");
@@ -109,6 +110,7 @@
                 return View(model);
             }
 
+            TempData["JustLoggedIn"] = true;
             this.memoryCache.Remove(UsersCacheKey);
 
             if (User.IsAdmin())
