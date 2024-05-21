@@ -5,18 +5,7 @@
 @model AllRecipesQueryModel
 @{
     string userId = User.GetId();
-    string welcomeTitle;
-    string welcomeMessage;
-    if (userId == string.Empty)
-    {
-        welcomeTitle = "Welcome to CookTheWeek!";
-        welcomeMessage = "Welcome to CookTheWeek! Discover a world of culinary inspiration right at your fingertips. Explore our diverse collection of recipes and start imagining your perfect meal plan. Sign up today to unlock the full experience and effortlessly add your favorite recipes to a personalized meal plan. Your journey to delicious, home-cooked meals begins here. Join us and make every week a feast!";
-    }
-    else
-    {
-        welcomeTitle = "We are happy to have you back!";
-        welcomeMessage = "Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes. Let the journey begin as you customize your week with a delightful array of dishes, all at your command.";        
-    }
+    bool isAdmin = User.IsAdmin();
 }
 
 <div class="container-xl" style="max-width: 1200px;">
@@ -90,32 +79,60 @@
         </div>
     </div>
     @* MODAL WINDOW -> Wellcome Message! *@
+    <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="welcomeModalLabel">@welcomeTitle</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @welcomeMessage
-                </div>
+                
+                @if (userId == string.Empty)
+                {
+                    <div class="modal-header d-flex justify-content-center">
+                        <h2 class="modal-title" id="welcomeModalLabel">Welcome to CookTheWeek!</h2>
+                        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Discover a world of culinary inspiration right at your fingertips. Explore our diverse collection of recipes and start imagining your perfect meal plan.
+                        </p>
+                        <p>
+                            Sign up today to unlock the full experience and effortlessly add your favorite recipes to a personalized meal plan. 
+                        </p>                
+                    </div>
+                }
+                else
+                {
+                    <div class="modal-header d-flex justify-content-center">
+                        <h2 class="modal-title" id="welcomeModalLabel">Tailor Your Meal Plan Now!</h2>
+                        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes.
+                        </p>                            
+                        <p>
+                            Once saved, your Meal Plans can be reused and tailored to your current needs. Find out more on Meal Plans Section!
+                        </p>
+                    </div>
+                }
+                              
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     @if (userId == string.Empty)
                     {
-                        <a asp-area="" asp-action="Register" asp-controller="User" class="btn btn-warning">Sign Up Now</a>
+                        <a asp-area="" asp-action="Register" asp-controller="User" class="btn btn-danger">Sign Up Now</a>
                         <a asp-area="" asp-action="Login" asp-controller="User" class="btn btn-primary">Log In</a>
                     }
                     else
                     {
                         <a asp-area="" asp-action="All" asp-controller="Recipe" class="btn btn-primary">Browse Recipes</a>
-                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-outline-danger">Your Meal Plans</a>
+                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-danger">Your Meal Plans</a>
                     }
                 </div>
             </div>
+        </div>
         </div>
     </div>
         @{
@@ -209,7 +226,27 @@
     </script>
     <script>
         $(document).ready(function () {
-            $('#welcomeModal').modal('show');
+            debugger
+            var isUserAdmin = '@isAdmin';
+            if (!currentUserId) {
+                $('#welcomeModal').modal('show');
+            } else if (isUserAdmin == 'False') {
+                $('#welcomeModal').modal('show');
+            } else {
+                console.log('Condition not met');
+            }
+
+            $('#welcomeModal').on('show.bs.modal', function (e) {
+                $('#modalOverlay').show();
+            });
+
+            $('#welcomeModal').on('hidden.bs.modal', function (e) {
+                $('#modalOverlay').hide();
+            });
+
+            $('#welcomeModal').on('click', '[data-dismiss="modal"]', function (e) {
+                $('#welcomeModal').modal('hide');
+            });
         });
     </script>
 
