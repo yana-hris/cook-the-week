@@ -17,6 +17,7 @@
             this.RecipesIngredients = new List<RecipeIngredient>();
             this.FavouriteRecipes = new HashSet<FavouriteRecipe>();
             this.Meals = new HashSet<Meal>();   
+            this.Instructions = new List<Step>();
         }
 
         [Comment("Key Indetifier")]
@@ -38,7 +39,7 @@
 
         [Comment("Recipe Instructions")]
         [Required]
-        public string Instructions { get; set; } = null!;
+        public ICollection<Step> Instructions { get; set; }
 
         [Comment("Recipe Serving Size")]
         [Required]
@@ -75,6 +76,8 @@
         public ICollection<FavouriteRecipe> FavouriteRecipes { get; set; }
 
         [Comment("A collection of Meals with a Recipe")]
-        public ICollection<Meal> Meals { get; set; } 
+        public ICollection<Meal> Meals { get; set; }
+
+        
     }
 }
