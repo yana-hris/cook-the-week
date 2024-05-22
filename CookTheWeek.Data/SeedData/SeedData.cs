@@ -8,17 +8,6 @@
 
     internal class SeedData
     {
-        public SeedData()
-        {
-            SeedUsers();
-            SeedRecipeCategories();
-            SeedIngredients();
-            SeedMeasures();
-            SeedSpecifications();
-            SeedRecipes();
-            SeedRecipeIngredients();
-        }
-
         internal ICollection<ApplicationUser> SeedUsers()
         {
             ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
@@ -1872,7 +1861,7 @@
                     OwnerId = AdminUserId,
                     Title = "Moussaka",
                     Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
-                    Instructions = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
+                    
                     Servings = 8,
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
@@ -1884,7 +1873,7 @@
                     OwnerId = AdminUserId,
                     Title = "Beef Stew",
                     Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
-                    Instructions = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker. Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes. Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip. Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. Bring the pressure cooker to a boil again and cook for another 20 minutes.\r\n",
+                    
                     Servings = 4,
                     TotalTime = TimeSpan.FromMinutes(90.0),
                     ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
@@ -1896,7 +1885,7 @@
                     OwnerId = AdminUserId,
                     Title = "Homemade Chicken Soup",
                     Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
-                    Instructions = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour. Remove the chicken and portion it into small pieces. Take the remaining chicken broth back and again bring to a boil. Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. After boiling for another 5 minutes, add some finely cut celery. ",
+                   
                     Servings = 6,
                     TotalTime = TimeSpan.FromMinutes(60.0),
                     ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
@@ -1908,7 +1897,7 @@
                     OwnerId = AdminUserId,
                     Title = "Stuffed red peppers with ground meat and rice",
                     Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
-                    Instructions = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. 2. Add the minced meat while constantly mixing 3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove 4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) 5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                   
                     Servings = 8,
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
@@ -1920,7 +1909,7 @@
                     OwnerId = AdminUserId,
                     Title = "Fruity Strawberry Smoothy",
                     Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
-                    Instructions = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.\r\nOnce the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.\r\nBlend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.\r\nPour the smoothie into glasses and serve immediately for a delightful and nutritious treat. Enjoy your refreshing fruity smoothie!",
+                   
                     Servings = 1,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
@@ -1932,7 +1921,7 @@
                     OwnerId = AdminUserId,
                     Title = "Overnight Oats (prepare the night beofre)",
                     Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
-                    Instructions = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth. Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. Mix well and pour half of the blended milk with banana on top of each bowl. Store in a fridge during the night. The morning after top with granolla and fruits of your choice.",
+                  
                     Servings = 2,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
@@ -1944,7 +1933,7 @@
                     OwnerId = AdminUserId,
                     Title = "Avocado Toast",
                     Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
-                    Instructions = "For a delicious twist, grill your slice of bread to your preference. Then, simply smash the avocado with a fork and spread it generously over the bread. Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. Now, savor the flavors and enjoy your delightful avocado toast!",
+                   
                     Servings = 1,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
@@ -1956,7 +1945,7 @@
                     OwnerId = AppUserId,
                     Title = "Beans stew",
                     Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
-                    Instructions = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours. Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.\r\n\r\nPrepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.\r\n\r\nPressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.\r\n\r\nCheck the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt.\r\n\r\nFinal Cooking: Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. For enhanced flavor, allow the stew to sit with the lid on for at least a few hours.\r\n\r\nServe: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                    
                     Servings = 8,
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
@@ -1968,11 +1957,306 @@
                     OwnerId = AppUserId,
                     Title = "Thai Pumpkin Cream Soup",
                     Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
-                    Instructions = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant. Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. Then, blend the soup until smooth using an immersion blender or countertop blender. Adjust seasoning with salt, pepper, and lime juice to taste. Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                   
                     Servings = 4,
                     TotalTime = TimeSpan.FromMinutes(40.0),
                     ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
                     CategoryId = 2,
+                },
+            };
+        }
+        internal ICollection<Step> GetStepsByRecipeId(string recipeId)
+        {
+            var allSteps = SeedSteps();
+            var filteredSteps = allSteps.Where(s => s.RecipeId.ToString() == recipeId).ToList();
+
+            return filteredSteps;
+        }
+        internal ICollection<Step> SeedSteps()
+        {
+            return new HashSet<Step>()
+            {
+                new Step()
+                {
+                    Id = 1,
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    Description = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. ",
+                },
+                new Step()
+                {
+                    Id = 2,
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    Description = "Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. ",
+                },
+                new Step()
+                {
+                    Id = 3,
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    Description = "Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). ",
+                },
+                new Step()
+                {
+                    Id = 4,
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    Description = "In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
+                },
+                new Step()
+                {
+                    Id = 5,
+                    RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                    Description = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker.",
+                },
+                new Step()
+                {
+                    Id = 6,
+                    Description = "Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes.",
+                    RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                },
+                new Step()
+                {
+                    Id = 7,
+                    RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                    Description = "Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip.",
+                },
+                new Step()
+                {
+                    Id = 8,
+                    RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                    Description = " Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. ",
+                },
+                new Step()
+                {
+                    Id = 9,
+                    RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                    Description = "Bring the pressure cooker to a boil again and cook for another 20 minutes.",
+                },
+                new Step()
+                {
+                    Id = 10,
+                    Description = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour.",
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                },
+                new Step()
+                {
+                    Id = 11,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    Description = "Remove the chicken and portion it into small pieces.",
+                },
+                new Step()
+                {
+                    Id = 12,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    Description = "Take the remaining chicken broth back and again bring to a boil. ",
+                },
+                new Step()
+                {
+                    Id = 13,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    Description = "Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. ",
+                },
+                new Step()
+                {
+                    Id = 14,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    Description = "After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. ",
+                },
+                new Step()
+                {
+                    Id = 15,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    Description = "After boiling for another 5 minutes, add some finely cut celery.",
+                },
+                new Step()
+                {
+                    Id = 16,
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                    Description = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
+                },
+                new Step()
+                {
+                    Id = 17,
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                    Description = "2. Add the minced meat while constantly mixing",
+                },
+                new Step()
+                {
+                    Id = 18,
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                    Description = "3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
+                },
+                new Step()
+                {
+                    Id = 19,
+                    Description = "4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                },
+                new Step()
+                {
+                    Id = 20,
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                    Description = "5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                },
+                new Step()
+                {
+                    Id = 21,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    Description = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth.",
+                },
+                new Step()
+                {
+                    Id = 22,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    Description = "Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. ",
+                },
+                new Step()
+                {
+                    Id = 23,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    Description = "Mix well and pour half of the blended milk with banana on top of each bowl. ",
+                },
+                new Step()
+                {
+                    Id = 24,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    Description = "Store in a fridge during the night. ",
+                },
+                new Step()
+                {
+                    Id = 25,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    Description = "The morning after top with granolla and fruits of your choice.",
+                },
+                new Step()
+                {
+                    Id = 26,
+                    RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                    Description = "For a delicious twist, grill your slice of bread to your preference. ",
+                },
+                new Step()
+                {
+                    Id = 27,
+                    RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                    Description = "Then, simply smash the avocado with a fork and spread it generously over the bread. ",
+                },
+                new Step()
+                {
+                    Id = 28,
+                    RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                    Description = "Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. ",
+                },
+                new Step()
+                {
+                    Id = 29,
+                    RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                    Description = "Now, savor the flavors and enjoy your delightful avocado toast!",
+                },
+                new Step()
+                {
+                    Id = 30,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours.",
+                },
+                new Step()
+                {
+                    Id = 31,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.",
+                },
+                new Step()
+                {
+                    Id = 32,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Prepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. ",
+                },
+                new Step()
+                {
+                    Id = 33,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.",
+                },
+                new Step()
+                {
+                    Id = 34,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Pressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.",
+                },
+                new Step()
+                {
+                    Id = 35,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Check the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt. Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. ",
+                },
+                new Step()
+                {
+                    Id = 36,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Final Cooking: For enhanced flavor, allow the stew to sit with the lid on for at least a few hours. ",
+                },
+                new Step()
+                {
+                    Id = 37,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    Description = "Serve: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                },
+                new Step()
+                {
+                    Id = 38,
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    Description = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant.",
+                },
+                new Step()
+                {
+                    Id = 39,
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    Description = "Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. ",
+                },
+                new Step()
+                {
+                    Id = 40,
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    Description = "Then, blend the soup until smooth using an immersion blender or countertop blender.",
+                },
+                new Step()
+                {
+                    Id = 41,
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    Description = "Adjust seasoning with salt, pepper, and lime juice to taste. ",
+                },
+                new Step()
+                {
+                    Id = 42,
+                    RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
+                    Description = "Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                },
+                new Step()
+                {
+                    Id = 43,
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                    Description = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften."
+                },
+                new Step()
+                {
+                    Id = 44,
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                    Description = "Once the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender."
+                },
+                new Step()
+                {
+                    Id = 45,
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                    Description = "Blend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining."
+                },
+                new Step()
+                {
+                    Id = 46,
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                    Description = "our the smoothie into glasses and serve immediately for a delightful and nutritious treat. "
+                },
+                new Step()
+                {
+                    Id = 47,
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                    Description = "Enjoy your refreshing fruity smoothie!"
                 },
             };
         }

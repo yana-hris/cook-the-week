@@ -6,7 +6,6 @@
     using System.Reflection;
 
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Data.SeedData;
 
     public class CookTheWeekDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
@@ -26,25 +25,18 @@
             this.seedDb = seed;
         }
 
-        public DbSet<IngredientCategory> IngredientCategories { get; set; } = null!;
-
-        public DbSet<Ingredient> Ingredients { get; set; } = null!;
-
         public DbSet<RecipeCategory> RecipeCategories { get; set; } = null!;
-
-        public DbSet<Recipe> Recipes { get; set; } = null!;
-
+        public DbSet<IngredientCategory> IngredientCategories { get; set; } = null!;
         public DbSet<Measure> Measures { get; set; } = null!;
-
-        public DbSet<RecipeIngredient> RecipesIngredients { get; set; } = null!;
-
         public DbSet<Specification> Specifications { get; set; } = null!;
-
+        public DbSet<Ingredient> Ingredients { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
+        public DbSet<Step> Steps { get; set; } = null!;
+        public DbSet<RecipeIngredient> RecipesIngredients { get; set; } = null!;
         public DbSet<FavouriteRecipe> FavoriteRecipes { get; set; } = null!;
-
         public DbSet<Meal> Meals { get; set; } = null!;
-
         public DbSet<MealPlan> MealPlans { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -77,6 +69,9 @@
 
                 builder.Entity<Recipe>()
                     .HasData(data.SeedRecipes());
+
+                builder.Entity<Step>()
+                   .HasData(data.SeedSteps());
 
                 builder.Entity<RecipeIngredient>()
                     .HasData(data.SeedRecipeIngredients());

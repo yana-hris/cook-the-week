@@ -7,16 +7,13 @@
             public const int TitleMinLength = 3;
             public const int TitleMaxLength = 100;
 
-            public const int DescriptionMaxLength = 1000;
+            public const int DescriptionMaxLength = 1500;
 
             public const int ImageUlrMinLength = 15;
             public const int ImageUlrMaxLength = 2048;
 
-            public const int InstructionsMinLength = 10;
-            public const int InstructionsMaxLength = 2000;
-
             public const int ServingsMinValue = 1;
-            public const int ServingsMaxValue = 12;
+            public const int ServingsMaxValue = 20;
 
             public const int CookingTimeMinValue = 10;
             public const int CookingTimeMaxValue = 720;
@@ -33,7 +30,11 @@
             ];
         }
 
-       
+        public static class Step
+        {
+            public const int DescriptionMinLength = 5;
+            public const int DescriptionMaxLength = 1000;
+        }
         public static class Ingredient
         {
             public const int NameMinLength = 2;

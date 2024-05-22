@@ -13,6 +13,7 @@
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
     using Web.ViewModels.RecipeIngredient;
+    using Web.ViewModels.Step;
 
     using static Common.GeneralApplicationConstants;
 
@@ -94,12 +95,19 @@
                 Title = model.Title,
                 OwnerId = ownerId,
                 Description = model.Description,
-                Instructions = model.Instructions,
                 Servings = model.Servings,
                 TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes),
                 ImageUrl = model.ImageUrl,
                 CategoryId = model.RecipeCategoryId                
             };
+
+            foreach (var step in model.Steps)
+            {
+                recipe.Steps.Add(new Step()
+                {
+                    Description = step.Description
+                });
+            }
 
             foreach (var ingredient in model.RecipeIngredients!)
             {
@@ -133,11 +141,22 @@
 
             recipe.Title = model.Title;
             recipe.Description = model.Description;
-            recipe.Instructions = model.Instructions;
             recipe.Servings = model.Servings;
             recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
             recipe.ImageUrl = model.ImageUrl;
             recipe.CategoryId = model.RecipeCategoryId;
+
+            ICollection<Step> oldSteps = recipe.Steps;
+            this.dbContext.Steps.RemoveRange(oldSteps);
+
+            foreach (var step in model.Steps!)
+            {
+                recipe.Steps.Add(new Step()
+                {
+                    Description = step.Description
+                });
+            }
+
 
             ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
             this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
@@ -174,7 +193,11 @@
                     Id = r.Id.ToString(),
                     Title = r.Title,
                     Description = r.Description,
-                    Instructions = r.Instructions,
+                    Steps = r.Steps.Select(s => new StepViewModel()
+                    {
+                        Id = s.Id,
+                        Description = s.Description
+                    }).ToList(),
                     Servings = r.Servings,
                     TotalTime = r.TotalTime, //String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
                     ImageUrl = r.ImageUrl,
@@ -270,13 +293,19 @@
             
             recipeToDelete.IsDeleted = true;
 
-            // Delete RecipeIngredients of deleted recipes
+            // Delete Steps of deleted recipe
+            if (recipeToDelete != null && recipeToDelete.Steps.Any())
+            {
+                this.dbContext.Steps.RemoveRange(recipeToDelete.Steps);
+            }
+
+            // Delete RecipeIngredients of deleted recipe
             if(recipeToDelete != null && recipeToDelete.RecipesIngredients.Any())
             {
                 this.dbContext.RecipesIngredients.RemoveRange(recipeToDelete.RecipesIngredients);
             }
 
-            // Delete User Likes for Deleted Recipes
+            // Delete User Likes for Deleted Recipe
             if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
             {
                 this.dbContext.FavoriteRecipes.RemoveRange(recipeToDelete.FavouriteRecipes);
@@ -301,7 +330,12 @@
                     Id = r.Id.ToString(),
                     Title = r.Title,
                     Description = r.Description,
-                    Instructions = r.Instructions,
+                    Steps = r.Steps.Select(s => new StepFormModel()
+                    {
+                        Id = s.Id,
+                        Description = s.Description
+                        
+                    }).ToList(),
                     Servings = r.Servings,
                     CookingTimeMinutes = (int)r.TotalTime.TotalMinutes,
                     ImageUrl = r.ImageUrl,

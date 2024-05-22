@@ -1,11 +1,13 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Recipe
 {
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Step;
 
     public class RecipeDetailsViewModel
     {
         public RecipeDetailsViewModel()
         {
+            this.Steps = new List<StepViewModel>();
             this.DiaryMeatSeafood = new List<RecipeIngredientDetailsViewModel>();
             this.Produce = new List<RecipeIngredientDetailsViewModel>();
             this.Legumes = new List<RecipeIngredientDetailsViewModel>();
@@ -19,7 +21,6 @@
 
         public string? Description { get; set; } 
 
-        public string Instructions { get; set; } = null!;
 
         public int Servings { get; set; }
 
@@ -30,7 +31,7 @@
         public string CategoryName { get; set; }
 
         public string CreatedOn { get; set; } = null!;
-
+        public List<StepViewModel> Steps { get; set; }
         public ICollection<RecipeIngredientDetailsViewModel> DiaryMeatSeafood { get; set; }
         public ICollection<RecipeIngredientDetailsViewModel> Produce { get; set; }
         public ICollection<RecipeIngredientDetailsViewModel> Legumes { get; set; }

@@ -1,8 +1,10 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Recipe
 {
+    using System.ComponentModel.DataAnnotations;
+
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using System.ComponentModel.DataAnnotations;
+    using CookTheWeek.Web.ViewModels.Step;
 
     using static Common.EntityValidationConstants.Recipe;
 
@@ -11,6 +13,7 @@
         public RecipeEditFormModel()
         {
             this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
+            this.Steps = new List<StepFormModel>();
         }
         [Required]
         public string Id { get; set; }
@@ -24,9 +27,8 @@
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        [StringLength(InstructionsMaxLength, MinimumLength = InstructionsMinLength, ErrorMessage = "Cooking instructions cannot be shorter than {2}")]
         [Display(Name = "How to Cook")]
-        public string Instructions { get; set; } = null!;
+        public List<StepFormModel> Steps { get; set; } 
 
         [Required(ErrorMessage = "Required")]
         [Range(ServingsMinValue, ServingsMaxValue, ErrorMessage = @"Servings cannot be < {2} and > {1}")]

@@ -14,25 +14,29 @@
         [Key]
         public int Id { get; set; }
 
+
         [Comment("Recipe Key Identifier")]
         [Required]
         [ForeignKey(nameof(Recipe))]
         public Guid RecipeId { get; set; } 
-
-        public Recipe Recipe { get; set; } = null!;        
+        public Recipe Recipe { get; set; } = null!;    
+        
 
         [Comment("Meal Serving Size")]
         [Required]
         [Range(MinServingSize,MaxServingSize)]
         public int ServingSize { get; set; }
 
+
         [Comment("Meal Cook Date")]
         [Required]
         public DateTime CookDate { get; set; }
 
+
         [Comment("Meal completion Identifier")]
         [Required]
         public bool IsCooked { get; set; }
+
 
         [Comment("Meal Plan Key Identifier")]
         [Required]

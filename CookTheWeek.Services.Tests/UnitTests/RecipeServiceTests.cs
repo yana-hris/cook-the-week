@@ -52,7 +52,7 @@
                 Id = TestRecipe.Id.ToString(),
                 Title = TestRecipe.Title,
                 Description = TestRecipe.Description,
-                Instructions = TestRecipe.Instructions,
+                //Instructions = TestRecipe.Instructions,
                 Servings = TestRecipe.Servings,
                 CookingTimeMinutes = (int)TestRecipe.TotalTime.TotalMinutes,
                 ImageUrl = TestRecipe.ImageUrl,
@@ -73,7 +73,7 @@
                     Assert.That(expctedResult.Id, Is.EqualTo(actualResult.Id));
                     Assert.That(expctedResult.Title, Is.EqualTo(actualResult.Title));
                     Assert.That(expctedResult.Description, Is.EqualTo(actualResult.Description));
-                    Assert.That(expctedResult.Instructions, Is.EqualTo(actualResult.Instructions));
+                    //Assert.That(expctedResult.Instructions, Is.EqualTo(actualResult.Instructions));
                     Assert.That(expctedResult.Servings, Is.EqualTo(actualResult.Servings));
                     Assert.That(expctedResult.CookingTimeMinutes, Is.EqualTo(actualResult.CookingTimeMinutes));
                     Assert.That(expctedResult.ImageUrl, Is.EqualTo(actualResult.ImageUrl));
@@ -196,7 +196,7 @@
             {
                 Title = NewRecipe.Title,
                 Description = NewRecipe.Description,
-                Instructions = NewRecipe.Instructions,
+                //Instructions = NewRecipe.Instructions,
                 Servings = NewRecipe.Servings,
                 CookingTimeMinutes = NewRecipe.TotalTime.Minutes,
                 ImageUrl = NewRecipe.ImageUrl,
@@ -225,7 +225,7 @@
             Assert.That(newrecipeInDb.Id.ToString(), Is.EqualTo(newRecipeId));
             Assert.That(newrecipeInDb.Title, Is.EqualTo(NewRecipe.Title));
             Assert.That(newrecipeInDb.Description, Is.EqualTo(NewRecipe.Description));
-            Assert.That(newrecipeInDb.Instructions, Is.EqualTo(NewRecipe.Instructions));
+            //Assert.That(newrecipeInDb.Instructions, Is.EqualTo(NewRecipe.Instructions));
             Assert.That(newrecipeInDb.Servings, Is.EqualTo(NewRecipe.Servings));
             Assert.That(newrecipeInDb.TotalTime, Is.EqualTo(NewRecipe.TotalTime));
             Assert.That(newrecipeInDb.ImageUrl, Is.EqualTo(NewRecipe.ImageUrl));
@@ -268,7 +268,7 @@
                 Id = TestRecipe.Id.ToString(),
                 Title = editedTitle,
                 Description = editedDescrption,
-                Instructions = editedInstructions,
+                //Instructions = editedInstructions,
                 Servings = editedServings,
                 CookingTimeMinutes = editedCookingTime,
                 ImageUrl = editedUrl,
@@ -295,7 +295,7 @@
             // Assert              
             Assert.That(recipeToEdit.Title, Is.EqualTo(editedTitle));
             Assert.That(recipeToEdit.Description, Is.EqualTo(editedDescrption));
-            Assert.That(recipeToEdit.Instructions, Is.EqualTo(editedInstructions));
+            //Assert.That(recipeToEdit.Instructions, Is.EqualTo(editedInstructions));
             Assert.That(recipeToEdit.Servings, Is.EqualTo(editedServings));
             Assert.That(recipeToEdit.TotalTime, Is.EqualTo(TimeSpan.FromMinutes(editedCookingTime)));
             Assert.That(recipeToEdit.ImageUrl, Is.EqualTo(editedUrl));
@@ -332,7 +332,7 @@
                 Id = recipe.Id.ToString(),
                 Title = recipe.Title,
                 Description = recipe.Description,
-                Instructions = recipe.Instructions,
+                //Instructions = recipe.Instructions,
                 Servings = recipe.Servings,
                 TotalTime = recipe.TotalTime,
                 ImageUrl = recipe.ImageUrl,
@@ -382,7 +382,7 @@
             Assert.That(resultModel.Id, Is.EqualTo(expectedModel.Id.ToString()));
             Assert.That(resultModel.Title, Is.EqualTo(expectedModel.Title));
             Assert.That(resultModel.Description, Is.EqualTo(expectedModel.Description));
-            Assert.That(resultModel.Instructions, Is.EqualTo(expectedModel.Instructions));
+            //Assert.That(resultModel.Instructions, Is.EqualTo(expectedModel.Instructions));
             Assert.That(resultModel.Servings, Is.EqualTo(expectedModel.Servings));
             Assert.That(resultModel.TotalTime, Is.EqualTo(expectedModel.TotalTime));
             Assert.That(resultModel.ImageUrl, Is.EqualTo(expectedModel.ImageUrl));

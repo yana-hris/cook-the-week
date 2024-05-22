@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d95e38d-f8ae-421e-95ef-3dc20a821d17",
+                            ConcurrencyStamp = "58114e28-6ac6-47b7-9a7c-d20a6608b246",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGoPNUL34gVW6jeoUqKS+H9EHJeYBruombJx6x7j7+We/k182ENqQII5ps+KKxSAig==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED/m6BheGfVujxJjJKVpISJEWTUSmhvmwM9RY40L/lcrbaY7/lBVnRegjJXCx6c3NQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3bb3f5e-6f8f-4c52-a0de-7a48063850f9",
+                            SecurityStamp = "ad8530f0-eee2-4856-8b43-0bd7c40f57e8",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1fc50751-c91f-498d-bdc9-f9ced66bbdc9",
+                            ConcurrencyStamp = "b0b44f29-7e59-4804-b1cf-78218a1ac913",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAECzaaFIGB1apOrHblQxsrdTpnjw8XDFLvY2Ki5qu7ixQvHk3Mv41C9Bsrd++2rSTgg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJInoC+PIZSURu564kAAPRABXsehpwWSo2z1pN0sS6d1LuLivR+oDC9OrJOU9v776g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6dccf8e-1ae1-4823-81f4-42377f73d67c",
+                            SecurityStamp = "131fc6fe-d436-4791-8d2f-e6228c5d315d",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -248,6 +248,12 @@ namespace CookTheWeek.Data.Migrations
                         },
                         new
                         {
+                            Id = 32,
+                            CategoryId = 2,
+                            Name = "Meatboll(s)"
+                        },
+                        new
+                        {
                             Id = 12,
                             CategoryId = 1,
                             Name = "Egg(s)"
@@ -359,6 +365,96 @@ namespace CookTheWeek.Data.Migrations
                             Id = 30,
                             CategoryId = 4,
                             Name = "Pizza Dough"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CategoryId = 3,
+                            Name = "Lentils"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CategoryId = 3,
+                            Name = "Chickpeas"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CategoryId = 3,
+                            Name = "Green Peas"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CategoryId = 3,
+                            Name = "White Beans"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CategoryId = 3,
+                            Name = "Soybeans"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CategoryId = 3,
+                            Name = "Mung Beans"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CategoryId = 3,
+                            Name = "Red Lentils"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CategoryId = 3,
+                            Name = "Black Beans"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CategoryId = 3,
+                            Name = "Edamame"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CategoryId = 3,
+                            Name = "Green Lentils"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CategoryId = 4,
+                            Name = "White Flour"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CategoryId = 4,
+                            Name = "Whole Wheat Flour"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CategoryId = 4,
+                            Name = "Rye Flour"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CategoryId = 4,
+                            Name = "Spelt Flour"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CategoryId = 4,
+                            Name = "Almond Flour"
                         },
                         new
                         {
@@ -1786,6 +1882,10 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Meal Plan Key Identifier");
 
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("bit")
+                        .HasComment("Meal Plan Completion Identifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -1838,12 +1938,12 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "pc/s"
+                            Name = "pc"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "clove/s"
+                            Name = "clove"
                         },
                         new
                         {
@@ -1868,37 +1968,37 @@ namespace CookTheWeek.Data.Migrations
                         new
                         {
                             Id = 7,
-                            Name = "tsp/s"
+                            Name = "tsp"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "tbsp/s"
+                            Name = "tbsp"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "cup/s"
+                            Name = "cup"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "bunch/es"
+                            Name = "bunch"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "pkg/s"
+                            Name = "pkg"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "slice/s"
+                            Name = "slice"
                         },
                         new
                         {
                             Id = 13,
-                            Name = "pinch/es"
+                            Name = "pinch"
                         });
                 });
 
@@ -1920,8 +2020,8 @@ namespace CookTheWeek.Data.Migrations
                         .HasComment("Date and Time of a Recipe Creation");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)")
                         .HasComment("Recipe Description");
 
                     b.Property<string>("ImageUrl")
@@ -1930,16 +2030,11 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("nvarchar(2048)")
                         .HasComment("Recipe Image Link");
 
-                    b.Property<string>("Instructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Recipe Instructions");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
-                        .HasComment("Soft Delete for a Recipe");
+                        .HasComment("Soft Delete the Recipe");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
@@ -1977,7 +2072,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                             ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
-                            Instructions = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 8,
@@ -1991,7 +2085,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
                             ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
-                            Instructions = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker. Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes. Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip. Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. Bring the pressure cooker to a boil again and cook for another 20 minutes.\r\n",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 4,
@@ -2005,7 +2098,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
                             ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
-                            Instructions = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour. Remove the chicken and portion it into small pieces. Take the remaining chicken broth back and again bring to a boil. Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. After boiling for another 5 minutes, add some finely cut celery. ",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 6,
@@ -2019,7 +2111,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                             ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
-                            Instructions = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. 2. Add the minced meat while constantly mixing 3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove 4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) 5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 8,
@@ -2033,7 +2124,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
                             ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
-                            Instructions = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.\r\nOnce the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.\r\nBlend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.\r\nPour the smoothie into glasses and serve immediately for a delightful and nutritious treat. Enjoy your refreshing fruity smoothie!",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 1,
@@ -2047,7 +2137,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                             ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
-                            Instructions = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth. Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. Mix well and pour half of the blended milk with banana on top of each bowl. Store in a fridge during the night. The morning after top with granolla and fruits of your choice.",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 2,
@@ -2061,7 +2150,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
                             ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
-                            Instructions = "For a delicious twist, grill your slice of bread to your preference. Then, simply smash the avocado with a fork and spread it generously over the bread. Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. Now, savor the flavors and enjoy your delightful avocado toast!",
                             IsDeleted = false,
                             OwnerId = "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16",
                             Servings = 1,
@@ -2075,7 +2163,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
                             ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
-                            Instructions = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours. Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.\r\n\r\nPrepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.\r\n\r\nPressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.\r\n\r\nCheck the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt.\r\n\r\nFinal Cooking: Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. For enhanced flavor, allow the stew to sit with the lid on for at least a few hours.\r\n\r\nServe: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
                             IsDeleted = false,
                             OwnerId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403",
                             Servings = 8,
@@ -2089,7 +2176,6 @@ namespace CookTheWeek.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
                             ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
-                            Instructions = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant. Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. Then, blend the soup until smooth using an immersion blender or countertop blender. Adjust seasoning with salt, pepper, and lime juice to taste. Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
                             IsDeleted = false,
                             OwnerId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403",
                             Servings = 4,
@@ -2809,6 +2895,319 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.Step", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Step Key Identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
+                        .HasComment("Cooking Step Instructions");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Recipe Key Identifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Steps", t =>
+                        {
+                            t.HasComment("Cooking Step");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. ",
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. ",
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). ",
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker.",
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes.",
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip.",
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = " Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. ",
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Bring the pressure cooker to a boil again and cook for another 20 minutes.",
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour.",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Remove the chicken and portion it into small pieces.",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Take the remaining chicken broth back and again bring to a boil. ",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. ",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. ",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "After boiling for another 5 minutes, add some finely cut celery.",
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "2. Add the minced meat while constantly mixing",
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth.",
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. ",
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Mix well and pour half of the blended milk with banana on top of each bowl. ",
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Store in a fridge during the night. ",
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "The morning after top with granolla and fruits of your choice.",
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "For a delicious twist, grill your slice of bread to your preference. ",
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "Then, simply smash the avocado with a fork and spread it generously over the bread. ",
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. ",
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "Now, savor the flavors and enjoy your delightful avocado toast!",
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours.",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "Prepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. ",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "Pressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "Check the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt. Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. ",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Description = "Final Cooking: For enhanced flavor, allow the stew to sit with the lid on for at least a few hours. ",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Description = "Serve: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Description = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant.",
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Description = "Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. ",
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Description = "Then, blend the soup until smooth using an immersion blender or countertop blender.",
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Description = "Adjust seasoning with salt, pepper, and lime juice to taste. ",
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Description = "Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Description = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.",
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Description = "Once the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.",
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Description = "Blend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.",
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Description = "our the smoothie into glasses and serve immediately for a delightful and nutritious treat. ",
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Description = "Enjoy your refreshing fruity smoothie!",
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3048,6 +3447,17 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("Specification");
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.Step", b =>
+                {
+                    b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
+                        .WithMany("Steps")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -3128,6 +3538,8 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("Meals");
 
                     b.Navigation("RecipesIngredients");
+
+                    b.Navigation("Steps");
                 });
 
             modelBuilder.Entity("CookTheWeek.Data.Models.RecipeCategory", b =>

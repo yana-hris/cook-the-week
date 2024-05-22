@@ -1,13 +1,31 @@
 ﻿namespace CookTheWeek.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using static CookTheWeek.Common.EntityValidationConstants.Step;
 
     [Comment("Cooking Step")]
     public class Step
     {
+        [Comment("Step Key Identifier")]
+        [Key]
+        public int Id { get; set; }
+
+
+        [Comment("Recipe Key Identifier")]
+        [Required]
+        [ForeignKey(nameof(Recipe))]
+        public Guid RecipeId { get; set; }
+        public Recipe Recipe { get; set; } = null!;
+
+
         [Comment("Cooking Step Instructions")]
         [Required]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
     }
 }

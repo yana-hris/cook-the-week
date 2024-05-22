@@ -4,6 +4,7 @@
 
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Step;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
     public class RecipeAddFormModel
@@ -11,6 +12,7 @@
         public RecipeAddFormModel()
         {
             this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
+            this.Steps = new List<StepFormModel>();
         }
 
         [Required(ErrorMessage = @"{0} required!")]
@@ -19,12 +21,7 @@
         public string Title { get; set; } = null!;
         
         [MaxLength(DescriptionMaxLength)]
-        public string? Description { get; set; }
-
-        [Required(ErrorMessage = @"{0} required!")]
-        [StringLength(InstructionsMaxLength, MinimumLength = InstructionsMinLength)]
-        [Display(Name = "How to Cook")]
-        public string Instructions { get; set; } = null!;
+        public string? Description { get; set; }        
 
         [Required(ErrorMessage = @"{0} required!")]
         [Range(ServingsMinValue, ServingsMaxValue)]
@@ -47,6 +44,7 @@
         public ICollection<int>? ServingsOptions { get; set; } = null!;
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; } = null!;
         public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
+        public List<StepFormModel> Steps { get; set; } = null!;
 
 
     }

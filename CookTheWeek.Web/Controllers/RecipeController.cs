@@ -144,7 +144,13 @@
             {
                 model.Description = sanitizer.SanitizeInput(model.Description);
             }
-            model.Instructions = sanitizer.SanitizeInput(model.Instructions);
+            if (model.Steps.Any())
+            {
+                foreach (var step in model.Steps)
+                {
+                    step.Description = sanitizer.SanitizeInput(step.Description);
+                }
+            }
 
             try
             {
@@ -264,7 +270,14 @@
                 model.Description = sanitizer.SanitizeInput(model.Description);
             }
 
-            model.Instructions = sanitizer.SanitizeInput(model.Instructions);
+            if (model.Steps.Any())
+            {
+                foreach (var step in model.Steps)
+                {
+                    step.Description = sanitizer.SanitizeInput(step.Description);
+                }
+            }
+            
             try
             {
                 await this.recipeService.EditAsync(model);

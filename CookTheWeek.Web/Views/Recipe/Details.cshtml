@@ -162,7 +162,14 @@
                 <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
                     <div class="row">
                         <div class="col">
-                            <p>@Model.Instructions</p>
+                           @for (int i = 1; i <= Model.Steps.Count; i++)
+                            {
+                                string currentStepText = Model.Steps[i].Description;
+                                <div class="p-2 d-flex flex-row g-2">
+                                    <span class="step-number">@i</span>
+                                    <p>@currentStepText</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

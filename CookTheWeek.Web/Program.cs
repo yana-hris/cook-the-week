@@ -24,7 +24,11 @@ namespace CookTheWeek.Web
                         
             string? connectionString = builder.Configuration["CookTheWeek:ConnectionString"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            {
+                options.UseSqlServer(connectionString);
+                options.EnableSensitiveDataLogging();
+            });
+                
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

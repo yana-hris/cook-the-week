@@ -20,6 +20,34 @@
             builder
                 .Property(r => r.IsDeleted)
                 .HasDefaultValue(false);
+
+            builder
+                .HasOne(r => r.Category)
+                .WithMany(rc => rc.Recipes)
+                .HasForeignKey(r => r.CategoryId);
+            
+
+            builder
+                .HasMany(r => r.RecipesIngredients)
+                .WithOne(ri => ri.Recipe)
+                .HasForeignKey(ri => ri.RecipeId);
+
+            builder
+                .HasMany(r => r.Steps)
+                .WithOne(s => s.Recipe)
+                .HasForeignKey(s => s.RecipeId);
+
+            builder
+                .HasMany(r => r.Meals)
+                .WithOne(m => m.Recipe)
+                .HasForeignKey(m => m.RecipeId);
+
+            builder
+                .HasMany(r => r.FavouriteRecipes)
+                .WithOne(fr => fr.Recipe)
+                .HasForeignKey(fr =>fr.RecipeId);
+            
+            
         }
     }
 }

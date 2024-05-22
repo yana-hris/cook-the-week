@@ -80,7 +80,7 @@
                 OwnerId = AdminUserId,
                 Title = "Test Recipe Title",
                 Description = "Test Recipe Description",
-                Instructions = "Test Recipe Instructions",
+                //Instructions = "Test Recipe Instructions",
                 Servings = 4,
                 TotalTime = TimeSpan.FromMinutes(10.0),
                 ImageUrl = "https://cdn.pixabay.com/photo/2014/06/03/19/38/board-361516_640.jpg",
@@ -107,7 +107,7 @@
             {
                 Title = "Test Newly Added Recipe Title",
                 Description = "Test Newly Added Recipe Description",
-                Instructions = "Test Newly Added Recipe Instructions",
+                //Instructions = "Test Newly Added Recipe Instructions",
                 Servings = 2,
                 TotalTime = TimeSpan.FromMinutes(20.0),
                 ImageUrl = "https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png",
