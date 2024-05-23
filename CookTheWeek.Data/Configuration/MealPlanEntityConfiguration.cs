@@ -13,6 +13,10 @@
             builder
                 .Property(mp => mp.StartDate)
                 .HasDefaultValueSql("GETDATE()");
+
+            builder
+                .Property(mp => mp.IsFinished)
+                .HasDefaultValue(false);
            
             builder
                 .HasOne(mp => mp.Owner)

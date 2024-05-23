@@ -1965,13 +1965,6 @@
                 },
             };
         }
-        internal ICollection<Step> GetStepsByRecipeId(string recipeId)
-        {
-            var allSteps = SeedSteps();
-            var filteredSteps = allSteps.Where(s => s.RecipeId.ToString() == recipeId).ToList();
-
-            return filteredSteps;
-        }
         internal ICollection<Step> SeedSteps()
         {
             return new HashSet<Step>()

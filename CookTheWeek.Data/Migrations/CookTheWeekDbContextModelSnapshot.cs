@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58114e28-6ac6-47b7-9a7c-d20a6608b246",
+                            ConcurrencyStamp = "15775793-09cc-4118-8e6c-f9c74171ba27",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAED/m6BheGfVujxJjJKVpISJEWTUSmhvmwM9RY40L/lcrbaY7/lBVnRegjJXCx6c3NQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELC8RaayaXqFhRIZFcE7FejuRvGVy3oehrvtnTWaCyHvIhfWm3aMBi4pMy5DxIvEeA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ad8530f0-eee2-4856-8b43-0bd7c40f57e8",
+                            SecurityStamp = "b5a75f2f-22ba-4829-a86d-1d517e429119",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0b44f29-7e59-4804-b1cf-78218a1ac913",
+                            ConcurrencyStamp = "e654d84b-1ba9-48b3-bc1e-b66d4d399e15",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJInoC+PIZSURu564kAAPRABXsehpwWSo2z1pN0sS6d1LuLivR+oDC9OrJOU9v776g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENvPJD2sGd0BWOUbRVDfmeUPdcG+kW7BU9OLQlJCb0/FM0krujwq1L5XE9r7G39ltg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "131fc6fe-d436-4791-8d2f-e6228c5d315d",
+                            SecurityStamp = "d4ec94e0-3b35-4648-8569-fa18ff444bef",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -1883,7 +1883,9 @@ namespace CookTheWeek.Data.Migrations
                         .HasComment("Meal Plan Key Identifier");
 
                     b.Property<bool>("IsFinished")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasComment("Meal Plan Completion Identifier");
 
                     b.Property<string>("Name")

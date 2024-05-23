@@ -37,7 +37,7 @@
 
         [Comment("Meal Plan Completion Identifier")]
         [Required]
-        public bool IsFinished { get; set; } = false;
+        public bool IsFinished { get; set; } 
 
         [Comment("A collection of Meals, included in the Meal Plan")]
         [Required]

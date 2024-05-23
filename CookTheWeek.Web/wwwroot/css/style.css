@@ -573,6 +573,7 @@ html .back-button:hover {
   justify-content: center;
 }
 .container-xl .modal-overlay {
+  display: none; /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;
@@ -580,16 +581,13 @@ html .back-button:hover {
   height: 100%;
   background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
   backdrop-filter: blur(30px); /* Adjust blur level */
-  display: none; /* Hidden by default */
-  z-index: 1500;
+  z-index: 1040;
 }
 .container-xl .modal {
-  z-index: 2000;
+  z-index: 1500;
   top: 25%;
-  display: block;
 }
 .container-xl .modal .modal-dialog {
-  display: block;
   width: 80%;
   min-width: 450px;
   height: 50%;
