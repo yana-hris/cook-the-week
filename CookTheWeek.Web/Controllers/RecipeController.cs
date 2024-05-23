@@ -13,6 +13,7 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
+    using CookTheWeek.Web.ViewModels.Step;
 
     [Authorize]
     public class RecipeController : Controller
@@ -85,6 +86,10 @@
                         Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
                         Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
                     }
+                },
+                Steps = new List<StepFormModel>()
+                {
+                    new StepFormModel()
                 },
                 Categories = await this.categoryService.AllRecipeCategoriesAsync(),
                 ServingsOptions = ServingsOptions,

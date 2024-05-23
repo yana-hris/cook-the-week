@@ -11,8 +11,8 @@
     {
         public RecipeAddFormModel()
         {
-            this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
             this.Steps = new List<StepFormModel>();
+            this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
         }
 
         [Required(ErrorMessage = @"{0} required!")]
@@ -43,8 +43,8 @@
         public int RecipeCategoryId { get; set; }
         public ICollection<int>? ServingsOptions { get; set; } = null!;
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; } = null!;
-        public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
         public List<StepFormModel> Steps { get; set; } = null!;
+        public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
 
 
     }
