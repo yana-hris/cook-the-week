@@ -1,18 +1,19 @@
 # App Purpose
 
-CookTheWeek is an intuitive recipe application that helps you plan your meals for the entire week. With a predefined collection of Recipes and Ingredients, CookTheWeek lets you search and filter by Category, Ingredient, or just Cooking Time. It allows you to add your favorite recipes, and include them in your Meal Plans. The app will remember your intended recipes between browsing sessions and devices and will also give you access and renewal options for your past fulfilled Meal Plans.
+CookTheWeek is an intuitive recipe application that helps you plan your meals for the entire week. With a predefined collection of Recipes and Ingredients, CookTheWeek lets you search and filter by Category, Ingredient, or by Cooking Time. It allows you to add and save in the database your favorite recipes, and later include them in your Meal Plans. The app will remember your intended recipes between browsing sessions and will also give you access and renewal options for your past fulfilled Meal Plans.
 
 ## App Limitations
-- **User Added Ingredients**: Ordinary Users cannot add their Ingredients in case they want to add a Recipe, and an Ingredient is missing. The Ingredients are predefined and can be added, edited, or deleted solely by an Admin User.  
-- **Recipe Ingredient Measures and Specifics**: Ordinary Users cannot add or edit the pre-defined Recipe-Ingredient Measures and Specifications. They are initially seeded in the database.  
-- **User Likes**: Users cannot like their User Added Recipes, they can only like the App`s Seeded (Admin Added) Recipes or other Users' Added Recipes. If a Recipe is deleted by its owner, it will not appear in the user's collection of liked Recipes.  
-- **Deleting Recipes**: Recipes, included in current Meal Plans cannot be deleted. Users can delete only their own Recipes in case they are not currently included in a Meal Plan.  
-- **Meal Plan**: Users can only have one unsaved/still-in-progress Meal Plan (stored in the Local Storage). Upon Building the Meal Plan, it will be available for Review in the tab "Meal Plans".  
+- **User Added Ingredients**: Ordinary Users cannot add their Ingredients in case they want to add a Recipe, and an Ingredient is missing. The Ingredients are predefined and can be added, edited, or deleted solely by an Admin User. This app limitation ensures database consistency.  
+- **Recipe Ingredient Measures and Specifics**: Ordinary Users cannot add or edit the pre-defined Recipe-Ingredient Measures and Specifications. They are predefined and can be added, edited or deleted by Admin User.
+- **User Likes**: Users cannot like their own Recipes, they can only like the App Pre-defined Recipes. 
+- **Deleting Recipes**: Recipes, included in current Meal Plans cannot be deleted. Users can delete only their own Recipes in case they are not currently included in a Meal Plan. This app limitation ensures consistency.
+- **Meal Plan**: Users can only have one unsaved/still-in-progress Meal Plan (whose Recipes are stored in the Local Storage). Upon Building the Meal Plan, it will be available for review in the "Meal Plans" tab.  
 
 ## App Features
 
 - **User Profiles**: Create personalized profiles to save preferences, add your recipes, and explore the full functionality. 
 - **Recipe Collection**: Access a diverse range of recipes for different types of meals (breakfast, salad, soup, main course, or dessert).
+- **Filtering and Sorting**: Filter and order recipes based on category, ingredients, date created, or cooking time.   
 - **Add Recipes**: Add your favorite family recipes and include them in your future Meal Plans:
 <img src="https://github.com/yana-hris/cook-the-week/assets/8995553/23cdc1e1-3e83-459a-af29-04a91080b41b" width="900">  
 
@@ -23,9 +24,6 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 - **Suggestive Search for Ingredients Addition**: Start typing the ingredient name and the suggestions will start popping after the third character:  
 
 <img src="https://github.com/yana-hris/cook-the-week/assets/8995553/999e2d3f-238e-4553-b21f-f4db8ed15aa4" width="900">    
-
-
-- **Customization**: Filter and order recipes based on category, ingredients, date created, or cooking time. 
   
   
 - **Add Recipes to Meal Plan** by clicking the "+" button and save them for the future Meal Plan Build
@@ -34,7 +32,7 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 
 
 
-- **Change Theme** by clicking the button in the right upper corner:  
+- **Change App Theme** by clicking the button in the right upper corner:  
 
 <img src="https://github.com/yana-hris/cook-the-week/assets/8995553/b39816bf-9de9-401a-a13b-f9d8652ff2f7" width="900">
 
@@ -48,10 +46,11 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
 - Add his/her Recipes /only for registered and logged users/. The add ingredient tab allows suggestive search and makes it easy and fast /to explore this functionality, both **CookTheWeek.Web** and **CookTheWeek.WebApi** must be started as *Multiple Startup Projects*).    
 - Like and unlike recipes by other users.    
 - View his/her Recipes in the "Mine" tab - both user-added and user-liked.  
-- FUNCTIONALITY IN DEVELOPMENT: **Meal Planner**: Build a Meal Plan by adding Recipes, selecting Serving Sizes, and Cooking Dates (optional).
-- FUNCTIONALITY IN DEVELOPMENT: **Customize Meals**: According to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
-- FUNCTIONALITY IN DEVELOPMENT: **Plan Days for Cooking**: By selecting them from the drop-down menu in your Meal Plan.
-- FUNCTIONALITY IN DEVELOPMENT: **Ingredient Shopping List**: Generate a shopping list based on your chosen recipes and servings, and save it as a file or view it in-app.
+- Build a Meal Plan by adding Recipes, selecting Serving Sizes, and Cooking Dates (optional).
+- Customize Meals according to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
+- Plan Days for Cooking by selecting them from the drop-down menu in your Meal Plan.
+- Ingredient Shopping List: Generate a shopping list based on your chosen recipes and servings, and save it as a file or view it in-app.
+- Download Shopping List as Pdf.
 
 
 
@@ -62,7 +61,7 @@ CookTheWeek is an intuitive recipe application that helps you plan your meals fo
    - Ingredients  
    - Categories - both Recipe and Ingredient Categories    
    - View Users and Statistics  
-   - FUNCTIONALITY IN DEVELOPMENT - view all users` saved Meal Plans   
+   - View all users` saved Meal Plans - both finished and not finished
 
 <img src="https://github.com/yana-hris/cook-the-week/assets/8995553/f855d808-2c42-4c48-9782-c73cd23fa190" width="900">
 
