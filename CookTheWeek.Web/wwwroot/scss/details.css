@@ -74,6 +74,16 @@
 #recipe-details-container .card .card-body .units-styler {
   font-weight: 300;
 }
+#recipe-details-container .card .card-body #instructions .step-number {
+  width: 35px;
+  height: 35px;
+  background-color: var(--bs-primary);
+  border-radius: 8px;
+  text-align: center;
+  line-height: 35px;
+  font-size: 18px;
+  color: #fff;
+}
 #recipe-details-container .card .card-footer .card-btn {
   font-size: 16px;
 }

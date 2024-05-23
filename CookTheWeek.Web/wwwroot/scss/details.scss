@@ -17,8 +17,8 @@
             .back-button {
                 position: absolute;
                 top: 4px;
-                right: 8px; 
-                z-index: 15; 
+                right: 8px;
+                z-index: 15;
             }
         }
 
@@ -97,6 +97,20 @@
 
             .units-styler {
                 font-weight: 300;
+            }
+
+            #instructions {
+
+                .step-number {                       
+                    width: 35px;
+                    height: 35px;
+                    background-color: var(--bs-primary);
+                    border-radius: 8px;
+                    text-align: center;
+                    line-height: 35px;
+                    font-size: 18px;
+                    color: #fff;
+                }
             }
         }
 
