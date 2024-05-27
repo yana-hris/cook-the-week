@@ -26,7 +26,7 @@
         <div class="card-body">
             <form id="add-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="Add">
                 <div id="info-content" class="tab-content g-3">
-                @* TAB RECIPE DETAILS *@
+                    @* TAB RECIPE DETAILS *@
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row">
                             <div class="col col-12 col-md-8 col-xl-9 p-2">
@@ -110,13 +110,6 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            @* <div class="col col-12 p-2">
-                                        <div class="input-group">
-                                        <span class="input-group-text">Instructions</span>
-                                        <textarea asp-for="Instructions" class="form-control" rows="12" placeholder="Your steps how to cook.."></textarea>
-                                        <span asp-validation-for="Instructions" class="small text-danger"></span>
-                                        </div>
-                                        </div> *@
                                         </div>
                                     }
                                 </div>
@@ -357,6 +350,8 @@
             var stepIndex = @nextStepIndex;
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
+
+            // Ingredient Functions
             $('#add-ingredient').click(function () {
                 var newIngredientHtml = ` <hr/>
                  <div class="row ingredient-row">
@@ -433,62 +428,6 @@
                 $('.ingredientName').on('keyup', suggestWords);
                 //$('form').validate().form();
             });
-
-            $('#add-step').click(function () {
-                var newStepHtml = `<hr/>
-                        <div class="row instructions-row">
-                            <div class="col-11 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Step</span>
-                                    <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
-                                    <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
-                                </div>
-                            </div>
-                            <div class="col-1 p-2">
-                                <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
-                                    <button class="btn remove-btn btn-danger remove-step" type="button">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>`;
-                $('#instructionsList').append(newStepHtml);
-                stepIndex++;
-               
-            });
-
-            $(document).on('click', '.remove-step', function (event) {
-                var stepsCount = $('.instructions-row').length;
-                if (stepsCount === 1) {
-                    event.preventDefault();
-                    toastr.error('At least one cooking step is required.');
-                    return false;
-                }
-                // remove the horizontal line
-                var stepRow = $(this).closest('.instructions-row');
-                var precedingHr = stepRow.prev('hr');
-                var followingHr = stepRow.next('hr');
-
-                stepRow.remove();
-
-                if (precedingHr.length && !precedingHr.next().hasClass('instructions-row')) {
-                    precedingHr.remove();
-                }
-
-                // Check if a following <hr/> exists and if it's the only one, remove it
-                if (followingHr.length && !followingHr.prev().hasClass('instructions-row')) {
-                    followingHr.remove();
-                } else {
-                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
-                    var nextStepRow = stepRow.next('.instructions-row');
-                    if (!nextStepRow.length) {
-                        followingHr.remove();
-                    }
-                }
-                stepIndex--;
-                reindexSteps();
-            });
-
             $(document).on('click', '.remove-ingredient', function (event) {
                 var ingredientCount = $('.ingredient-row').length;
                 if (ingredientCount === 1) {
@@ -520,7 +459,6 @@
                 ingredientIndex--;
                 reindexIngredients();
             });
-
             function reindexIngredients() {
                 $('.ingredient-row').each(function (index) {
                     var row = $(this);
@@ -560,8 +498,79 @@
                      });
                     $('form').validate().form();
                 }
+            $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
+                var ingredientLine = $(event.target).closest('.ingredient-row');
+                var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
+                var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
+
+                if ($(event.target).is(':checked')) {
+                    decimalQtyInput.hide();
+                    fractionQtyInputs.show();
+                    // Clear decimal input
+                    decimalQtyInput.find('input').val('');
+                } else {
+                    decimalQtyInput.show();
+                    fractionQtyInputs.hide();
+                    // Clear fraction inputs
+                    fractionQtyInputs.find('input, select').val('');
+                }
+            });
 
 
+            // Instructions Functions
+            $('#add-step').click(function () {
+                var newStepHtml = `<hr/>
+                        <div class="row instructions-row">
+                            <div class="col-11 p-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Step</span>
+                                    <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
+                                    <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="col-1 p-2">
+                                <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
+                                    <button class="btn remove-btn btn-danger remove-step" type="button">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                $('#instructionsList').append(newStepHtml);
+                stepIndex++;
+               
+            });
+            $(document).on('click', '.remove-step', function (event) {
+                var stepsCount = $('.instructions-row').length;
+                if (stepsCount === 1) {
+                    event.preventDefault();
+                    toastr.error('At least one cooking step is required.');
+                    return false;
+                }
+                // remove the horizontal line
+                var stepRow = $(this).closest('.instructions-row');
+                var precedingHr = stepRow.prev('hr');
+                var followingHr = stepRow.next('hr');
+
+                stepRow.remove();
+
+                if (precedingHr.length && !precedingHr.next().hasClass('instructions-row')) {
+                    precedingHr.remove();
+                }
+
+                // Check if a following <hr/> exists and if it's the only one, remove it
+                if (followingHr.length && !followingHr.prev().hasClass('instructions-row')) {
+                    followingHr.remove();
+                } else {
+                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
+                    var nextStepRow = stepRow.next('.instructions-row');
+                    if (!nextStepRow.length) {
+                        followingHr.remove();
+                    }
+                }
+                stepIndex--;
+                reindexSteps();
+            });
             function reindexSteps() {
                 $('.instructions-row').each(function (index) {
                     var row = $(this);
@@ -591,24 +600,6 @@
                 });
                 $('form').validate().form();
             }
-
-            $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
-                var ingredientLine = $(event.target).closest('.ingredient-row');
-                var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
-                var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
-
-                if ($(event.target).is(':checked')) {
-                    decimalQtyInput.hide();
-                    fractionQtyInputs.show();
-                    // Clear decimal input
-                    decimalQtyInput.find('input').val('');
-                } else {
-                    decimalQtyInput.show();
-                    fractionQtyInputs.hide();
-                    // Clear fraction inputs
-                    fractionQtyInputs.find('input, select').val('');
-                }
-            });
             
         });
 

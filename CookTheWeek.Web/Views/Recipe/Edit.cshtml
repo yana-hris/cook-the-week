@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Edit Recipe";
     int nextIndex = Model.RecipeIngredients.Count;
-
+    int nextStepIndex = Model.Steps.Count;
 }
 <div id="edit-recipe" class="container">
     <h2 class="text-center pt-5 fw-semibold">Edit Recipe</h2>
@@ -90,14 +90,42 @@
                     </div>
                     @*  TAB INSTRUCTIONS *@
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row">
-                           @*  <div class="col col-12 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Instructions</span>
-                                    <textarea asp-for="Instructions" class="form-control" rows="12" placeholder="Your steps how to cook.."></textarea>
-                                    <span asp-validation-for="Instructions" class="small text-danger"></span>
+                        <div id="instructions-content" class="tab-content">
+                            <div id="instructionsContainer" class="row g-3">
+                                <div id="instructionsList">
+                                    @for (int i = 0; i < Model.Steps.Count; i++)
+                                    {
+                                        <div class="row instructions-row">
+                                            <div class="col-11 p-2">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Step</span>
+                                                    <textarea class="form-control" asp-for="Steps[i].Description" rows="3" placeholder="Tell us how to cook.."></textarea>
+                                                    <span asp-validation-for="Steps[i].Description" class="small text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 p-2">
+                                                <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
+                                                    <button class="btn remove-btn btn-danger remove-step" type="button">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
-                            </div> *@
+                                <hr />
+                                @* Add Step Btn *@
+                                <div class="row justify-content-end pt-3 pb-2">
+                                    <div class="col-6">
+                                        <!-- Empty column to push the button to the end -->
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <a id="add-step" class="btn btn-outline-primary" type="button">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @* TAB INGREDIENTS *@
@@ -333,8 +361,11 @@
     <script>
         $(document).ready(function () {
             var ingredientIndex = @nextIndex;
+            var stepIndex = @nextStepIndex;
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
+
+            // Ingredient Functions
             $('#add-ingredient').click(function () {
                 var newIngredientHtml = ` <hr/>
                          <div class="row ingredient-row">
@@ -411,7 +442,6 @@
                 $('.ingredientName').on('keyup', suggestWords);
                 //$('form').validate().form();
             });
-
             $(document).on('click', '.remove-ingredient', function (event) {
                 var ingredientCount = $('.ingredient-row').length;
                 if (ingredientCount === 1) {
@@ -443,7 +473,6 @@
                 ingredientIndex--;
                 reindexIngredients();
             });
-
             function reindexIngredients() {
                 $('.ingredient-row').each(function (index) {
                     var row = $(this);
@@ -483,7 +512,6 @@
                 });
                 $('form').validate().form();
             }
-
             $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
                 var ingredientLine = $(event.target).closest('.ingredient-row');
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
@@ -501,6 +529,90 @@
                     fractionQtyInputs.find('input, select').val('');
                 }
             });
+
+            // Instructions Functions
+            $('#add-step').click(function () {
+                var newStepHtml = `<hr/>
+                                <div class="row instructions-row">
+                                    <div class="col-11 p-2">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Step</span>
+                                            <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
+                                            <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-2">
+                                        <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
+                                            <button class="btn remove-btn btn-danger remove-step" type="button">
+                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>`;
+                $('#instructionsList').append(newStepHtml);
+                stepIndex++;
+
+            });
+            $(document).on('click', '.remove-step', function (event) {
+                var stepsCount = $('.instructions-row').length;
+                if (stepsCount === 1) {
+                    event.preventDefault();
+                    toastr.error('At least one cooking step is required.');
+                    return false;
+                }
+                // remove the horizontal line
+                var stepRow = $(this).closest('.instructions-row');
+                var precedingHr = stepRow.prev('hr');
+                var followingHr = stepRow.next('hr');
+
+                stepRow.remove();
+
+                if (precedingHr.length && !precedingHr.next().hasClass('instructions-row')) {
+                    precedingHr.remove();
+                }
+
+                // Check if a following <hr/> exists and if it's the only one, remove it
+                if (followingHr.length && !followingHr.prev().hasClass('instructions-row')) {
+                    followingHr.remove();
+                } else {
+                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
+                    var nextStepRow = stepRow.next('.instructions-row');
+                    if (!nextStepRow.length) {
+                        followingHr.remove();
+                    }
+                }
+                stepIndex--;
+                reindexSteps();
+            });
+            function reindexSteps() {
+                $('.instructions-row').each(function (index) {
+                    var row = $(this);
+
+                    // Update IDs and Names for textarea fields
+                    row.find('[id]').each(function () {
+                        var newId = this.id.replace(/\d+/, index);
+                        $(this).attr('id', newId);
+                    });
+                    row.find('[name]').each(function () {
+                        this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
+                    });
+
+
+                    // Update data-valmsg-for attribute for validation spans
+                    row.find('.small[data-valmsg-for]').each(function () {
+                        $(this).attr('data-valmsg-for', `Steps[${index}].Description`);
+                    });
+
+                    row.find('textarea[aria-describedby]').each(function () {
+                        var ariaDescribedBy = $(this).attr('aria-describedby');
+                        if (ariaDescribedBy && ariaDescribedBy.includes('Steps_') && ariaDescribedBy.includes('__') && ariaDescribedBy.split('_')[1] != index) {
+                            var newAriaDescribedBy = ariaDescribedBy.replace(/\d+/, index);
+                            $(this).attr('aria-describedby', newAriaDescribedBy);
+                        }
+                    });
+                });
+                $('form').validate().form();
+            }
 
         });
 

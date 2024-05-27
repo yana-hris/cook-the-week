@@ -5,6 +5,7 @@
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
+
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
     public class RecipeAddFormModel
@@ -41,10 +42,14 @@
         [Required(ErrorMessage = @"{0} required!")]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
-        public ICollection<int>? ServingsOptions { get; set; } = null!;
-        public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; } = null!;
+
         public List<StepFormModel> Steps { get; set; } = null!;
+
         public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
+
+        public ICollection<int>? ServingsOptions { get; set; } = null!;
+
+        public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; } = null!;
 
 
     }

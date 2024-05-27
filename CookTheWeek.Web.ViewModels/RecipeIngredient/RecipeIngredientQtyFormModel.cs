@@ -10,8 +10,10 @@
         [Range(QtyWholeMinValue, QtyWholeMaxValue)]
         public int? QtyWhole { get; set; }
 
+
         [Display(Name = "Qty Fraction")]
         public string? QtyFraction { get; set; }
+
 
         [Display(Name = "Qty Decimal")]
         [Range(QtyMinDecimalValue, QtyMaxDecimalValue)]
@@ -66,14 +68,26 @@
                 model.QtyDecimal = null;
                 return model;
             }
-           
+
             // If not, Separate the decimal into whole number and fractional parts
-            model.QtyWhole = (int)decimalQty;
-            decimal fractionalPart = decimalQty - model.QtyWhole.Value;
+            decimal fractionalPart = 0.0m;
+
+            if (decimalQty > 1)
+            {
+                model.QtyDecimal = null;
+                model.QtyWhole = (int)decimalQty;
+                fractionalPart = decimalQty - model.QtyWhole.Value;
+            } 
+            else
+            {
+                model.QtyDecimal = null;
+                model.QtyWhole = null;
+            }
+            
 
             // Find the closest fraction from the predefined options
             decimal minDifference = decimal.MaxValue;
-            string closestFraction = null;
+            string closestFraction = "";
 
             foreach (var fractionOption in QtyFractionOptions)
             {
@@ -87,7 +101,6 @@
 
             // Set the closest fraction and return the model
             model.QtyFraction = closestFraction;
-            model.QtyDecimal = null;
 
             return model;
         }
