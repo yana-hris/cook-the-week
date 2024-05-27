@@ -72,7 +72,10 @@
                 font-style: italic;
             }
 
-
+            .cook-btn {
+                padding: 4px 10px;
+            } 
+            
             .remove-btn-container {
                 display: block;
 
@@ -120,9 +123,11 @@
                 font-weight: 600;
             }
         }
+
         .statistics-message {
             padding: 40px 10px;
         }
+
         .inner-padding.statistics-list {
             padding: 20px 30px !important;
             border-radius: 8px;
@@ -145,6 +150,45 @@
             padding: 0.75rem 1.2rem;
             font-size: larger;
             text-transform: uppercase;
+        }
+    }
+}
+
+@media screen and (max-width: 660px) {
+    #add-mealplan, #details-mealplan, #edit-mealplan {
+
+        .heading-pill {
+            font-size: 18px !important;
+        }
+
+        .text-uppercase {
+            font-size: 10px !important;
+        }
+
+        .meal-info {
+            gap: 3px !important;
+
+            img {
+                max-width: 40px !important;
+            }
+
+            .meal-title {
+                font-size: 14px !important;
+            }
+
+            .category-text {
+                font-size: 12px !important;
+            }
+        }
+
+        .input-group {
+            .input-group-text {
+                display: none;
+            }
+
+            .text-style {
+                font-size: 11px !important;
+            }
         }
     }
 }

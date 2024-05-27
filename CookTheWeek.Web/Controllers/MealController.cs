@@ -13,8 +13,13 @@
         {
             this.mealplanService = mealplanService;
         }
-        public IActionResult Index()
+
+        [HttpGet]
+        public async Task<IActionResult> Cook(int id)
         {
+
+            //var model = await this.mealService.GetMeal(id);
+            //return View(model);
             return View();
         }
     }

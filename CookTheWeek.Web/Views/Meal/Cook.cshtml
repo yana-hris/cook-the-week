@@ -1,0 +1,186 @@
+﻿@using CookTheWeek.Services.Data.Interfaces
+@using CookTheWeek.Web.Infrastructure.Extensions
+@using static CookTheWeek.Common.HelperMethods.IngredientHelper;
+@model MealDetailsViewModel
+@inject IFavouriteRecipeService FavouriteRecipeService
+@inject IUserService UserService
+@{
+    string userId = User.GetId();
+    bool isAdmin = User.IsAdmin();
+}
+
+<div id="meal-cook-container">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Ingredients</span></a></li>
+                <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
+            </ul>
+            <partial name="_BackBtnPartial" />
+        </div>
+
+        <div class="card-body p-4 d-md-grid" id="recipe-details">
+            <div id="info-content" class="tab-content g-3">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="recipe-title">Cook @Model.Title</h1>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col col col-sm-8 img-container">
+                            <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
+                        </div>
+                        <div class="col col-12 col-sm-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.ServingSize Serving(s)</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@(Model.CookingTime.Hours > 0 ? Model.CookingTime.Hours.ToString() + "h " : "")@(Model.CookingTime.Minutes > 0 ? Model.CookingTime.Minutes.ToString() + " min" : "")</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-font-awesome"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
+                                </li>                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row g-3 pt-2">
+                        <div class="col col-12 col-sm-8">
+                            <p class="recipe-description">@Model.Description</p>
+                        </div>
+                        @if (@Model.OilsHerbsSpicesSweeteners.Any())
+                        {
+                            <div id="aside-container" class="col col col-sm-4">
+                                <p class="ingredient-heading">Herbs, Spices, Oils &amp; Sauces</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.OilsHerbsSpicesSweeteners)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                    <div class="row g-3">
+                        @if (Model.DiaryMeatSeafood.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Meat, Diary Products &amp; Seafood</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.DiaryMeatSeafood)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if (Model.Produce.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Produce (Fruit &amp; Vegetables)</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.Produce)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if (Model.PastaGrainsBakery.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Pasta, Grains &amp; Bakery</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.PastaGrainsBakery)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if (Model.Legumes.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Beans, Lentils and Legumes</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.Legumes)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if (Model.NutsSeedsAndOthers.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Nuts, Seeds &amp; Others</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.NutsSeedsAndOthers)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
+                    <div class="row">
+                        <div class="col">
+                            @for (int i = 0; i < Model.CookingSteps.Count; i++)
+                            {
+                                string currentStepText = Model.CookingSteps[i].Description;
+                                <div class="row mb-4 align-items-start">
+                                    @if (i > 0)
+                                    {
+                                        <hr class="steps-delimeter" />
+                                    }
+                                    <div class="col-auto align-self-start">
+                                        <div class="step-number">@(i + 1)</div>
+                                    </div>
+                                    <div class="col align-self-start">@currentStepText</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+@section Scripts {    
+    <script>
+        $(document).ready(function () {
+            $('#backBtn').click(function (event) {
+                event.preventDefault(); // Prevent the default action
+                debugger;
+
+                // Check if the referrer is the edit view page with an ID in the URL
+                var referrer = document.referrer;
+                var editViewPattern = /^https:\/\/localhost:7170\/Recipe\/Edit\/[0-9a-fA-F-]+$/;
+                var addViewPattern = /^https:\/\/localhost:7170\/Recipe\/Add$/;
+
+                if (referrer) {
+                    if (editViewPattern.test(referrer)) {
+                        // If the referrer matches the edit view pattern, go back three steps (to TargetView(-3) <-Details(-2) <-Edit(-1) <-Details(current view))
+                        window.history.go(-3);
+                    } else if (addViewPattern.test(referrer)) {
+                        // If the referrer matches the add view pattern, go back two steps (to TargetView(-2) <-Add(-1) <-Details(current view))
+                        window.history.go(-2);
+                    } else {
+                        // Otherwise, just go back one step
+                        window.history.back();
+                    }
+                } else {
+                    // If there's no referrer, just go back one step
+                    window.history.back();
+                }
+            });
+        });
+    </script>
+}

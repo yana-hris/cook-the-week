@@ -886,6 +886,9 @@ html .back-button:hover {
   font-weight: 400;
   font-style: italic;
 }
+#add-mealplan .row .meal-row .cook-btn, #details-mealplan .row .meal-row .cook-btn, #edit-mealplan .row .meal-row .cook-btn {
+  padding: 4px 10px;
+}
 #add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
   display: block;
 }
@@ -949,6 +952,32 @@ html .back-button:hover {
   text-transform: uppercase;
 }
 
+@media screen and (max-width: 660px) {
+  #add-mealplan .heading-pill, #details-mealplan .heading-pill, #edit-mealplan .heading-pill {
+    font-size: 18px !important;
+  }
+  #add-mealplan .text-uppercase, #details-mealplan .text-uppercase, #edit-mealplan .text-uppercase {
+    font-size: 10px !important;
+  }
+  #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
+    gap: 3px !important;
+  }
+  #add-mealplan .meal-info img, #details-mealplan .meal-info img, #edit-mealplan .meal-info img {
+    max-width: 40px !important;
+  }
+  #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
+    font-size: 14px !important;
+  }
+  #add-mealplan .meal-info .category-text, #details-mealplan .meal-info .category-text, #edit-mealplan .meal-info .category-text {
+    font-size: 12px !important;
+  }
+  #add-mealplan .input-group .input-group-text, #details-mealplan .input-group .input-group-text, #edit-mealplan .input-group .input-group-text {
+    display: none;
+  }
+  #add-mealplan .input-group .text-style, #details-mealplan .input-group .text-style, #edit-mealplan .input-group .text-style {
+    font-size: 11px !important;
+  }
+}
 #add-recipe, #edit-recipe {
   max-width: 1200px;
 }
