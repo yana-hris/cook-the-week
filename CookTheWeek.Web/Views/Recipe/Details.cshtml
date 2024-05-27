@@ -237,9 +237,30 @@
     </script>  
     <script>
         $(document).ready(function () {
-            $('#backBtn').click(function () {
-                window.history.back();
-                return false; // Prevents any server-side postback
+            $('#backBtn').click(function (event) {
+                event.preventDefault(); // Prevent the default action
+                debugger;
+
+                // Check if the referrer is the edit view page with an ID in the URL
+                var referrer = document.referrer;
+                var editViewPattern = /^https:\/\/localhost:7170\/Recipe\/Edit\/[0-9a-fA-F-]+$/;
+                var addViewPattern = /^https:\/\/localhost:7170\/Recipe\/Add$/;
+
+                if (referrer) {
+                    if (editViewPattern.test(referrer)) {
+                        // If the referrer matches the edit view pattern, go back three steps
+                        window.history.go(-3);
+                    } else if (addViewPattern.test(referrer)) {
+                        // If the referrer matches the add view pattern, go back three steps
+                        window.history.go(-2);
+                    } else {
+                        // Otherwise, just go back one step
+                        window.history.back();
+                    }
+                } else {
+                    // If there's no referrer, just go back one step
+                    window.history.back();
+                }
             });
         });
     </script>
