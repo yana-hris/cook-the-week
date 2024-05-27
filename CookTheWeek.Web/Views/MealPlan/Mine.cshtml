@@ -5,13 +5,15 @@
     string userId = User.GetId();
     ViewData["Title"] = "My Meal Plans";
 }
-<div class="container-xl" style="max-width: 1200px;">
+<div id="meal-plans-mine" class="container-xl">
 @if (!Model.Any())
 {
-    <div class="text-center">
-        <h2 class="text-center">You have no Meal Plans yet!</h2>
-        <p>Ready to embark on your culinary journey? Start building your personalized meal plan now by exploring our All Recipes section and adding your favorite dishes with a simple click of 'Add to Meal Plan'. Let's create a week of unforgettable flavors together!</p>
-        <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
+    <div id="no-meal-plans-message-container" class="p-3 text-center">
+        <h2 class="text-center pb-3 accent-heading">You have no Meal Plans yet!</h2>
+            <p>Ready to embark on your culinary journey?</p>
+            <p>We are thrilled to have you here! Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="text-primary flex-nowrap custom-link">All Recipes</a> section to find a variety of dishes. With a quick click of the <strong class="flex-nowrap">'Add to Meal Plan'</strong> button, you can start building your personalized meal plan. You can even add your own recipes to make your meal plan truly unique and tailored to your tastes. Our platform makes meal planning easy and enjoyable.</p>
+            <p class="pb-3">Let's create a week of unforgettable flavors together!</p>
+        <div class="button p-2"><a class="btn btn-primary btn-lg" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
     </div>
 }
 else

@@ -56,6 +56,17 @@ html body #main-container #add-recipe .suggestionsList, html body #main-containe
 html body #main-container a {
   text-decoration: none;
 }
+html body #main-container .custom-link {
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+html body #main-container .custom-link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+html body #main-container .accent-heading {
+  font-family: "Libre Baskerville", serif;
+}
 html body footer {
   font-size: 14px;
   font-weight: 300;

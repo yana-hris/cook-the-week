@@ -32,7 +32,7 @@ html {
     font-size: 14px;
     position: relative;
     min-height: 100%;
-    $link-decoration: none;    
+    $link-decoration: none;
 
     body {
 
@@ -65,6 +65,20 @@ html {
 
             a {
                 text-decoration: none;
+            }
+
+            .custom-link {
+                color: var(--bs-primary);
+                text-decoration: none;
+            }
+
+            .custom-link:hover {
+                color: var(--bs-primary);
+                text-decoration: underline;
+            }
+
+            .accent-heading {
+                font-family: "Libre Baskerville", serif;
             }
         }
 

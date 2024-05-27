@@ -57,6 +57,17 @@ html body #main-container #add-recipe .suggestionsList, html body #main-containe
 html body #main-container a {
   text-decoration: none;
 }
+html body #main-container .custom-link {
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+html body #main-container .custom-link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+html body #main-container .accent-heading {
+  font-family: "Libre Baskerville", serif;
+}
 html body footer {
   font-size: 14px;
   font-weight: 300;
@@ -863,6 +874,9 @@ html .back-button:hover {
   margin-bottom: 0;
   color: var(--meal-title-color);
 }
+#add-mealplan .row .meal-row .meal-title:hover, #details-mealplan .row .meal-row .meal-title:hover, #edit-mealplan .row .meal-row .meal-title:hover {
+  text-decoration: underline;
+}
 #add-mealplan .row .meal-row select, #details-mealplan .row .meal-row select, #edit-mealplan .row .meal-row select {
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
@@ -870,6 +884,7 @@ html .back-button:hover {
 #add-mealplan .row .meal-row .category-text, #details-mealplan .row .meal-row .category-text, #edit-mealplan .row .meal-row .category-text {
   font-size: 14px;
   font-weight: 400;
+  font-style: italic;
 }
 #add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
   display: block;
@@ -1011,6 +1026,20 @@ div#shopping-list #backBtn {
   right: 33px;
 }
 
+#meal-plans-mine {
+  max-width: 1200px;
+}
+#meal-plans-mine #no-meal-plans-message-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  #meal-plans-mine #no-meal-plans-message-container {
+    margin-top: 50px !important;
+  }
+}
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

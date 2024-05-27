@@ -42,7 +42,7 @@
                                                 <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
                                                 <div class="ml-3 d-inline-block align-middle">
                                                     <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
-                                                    <span class="category-text">Category: @Model.Meals[i].CategoryName</span>
+                                                    <span class="category-text">@Model.Meals[i].CategoryName</span>
                                                 </div>
                                             </div>
                                         </th>
@@ -98,6 +98,8 @@
     {
         <div class="row">
             <div class="col d-flex justify-content-between align-middle">
+                <a asp-asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@Model.Id" class="btn btn-primary btn-block">Shopping List</a>
+                <div class="d-flex gap-2">
                 @if (Model.IsFinished)
                 {
                     <a class="btn btn-primary btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">Build Again</a>
@@ -107,6 +109,7 @@
                     <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                 }
                 <a id="removeBtn" class="btn btn-danger btn-block">Remove</a>
+                </div>
             </div>
         </div>
     }   

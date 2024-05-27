@@ -1,0 +1,19 @@
+﻿#meal-plans-mine {
+    max-width: 1200px;  
+
+    #no-meal-plans-message-container {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-top: 30px;       
+        
+    }
+}
+
+
+@media (min-width: 768px) {
+    #meal-plans-mine {
+        #no-meal-plans-message-container {
+            margin-top: 50px !important;
+        }
+    }
+}
