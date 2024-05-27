@@ -135,6 +135,7 @@
         {
             Recipe recipe = await this.dbContext
                 .Recipes
+                .Include(r => r.Steps)
                 .Include(r => r.RecipesIngredients)
                 .Where(r => r.Id.ToString() == model.Id)
                 .FirstAsync();
