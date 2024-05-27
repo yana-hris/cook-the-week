@@ -248,10 +248,10 @@
 
                 if (referrer) {
                     if (editViewPattern.test(referrer)) {
-                        // If the referrer matches the edit view pattern, go back three steps
+                        // If the referrer matches the edit view pattern, go back three steps (to TargetView(-3) <-Details(-2) <-Edit(-1) <-Details(current view))
                         window.history.go(-3);
                     } else if (addViewPattern.test(referrer)) {
-                        // If the referrer matches the add view pattern, go back three steps
+                        // If the referrer matches the add view pattern, go back two steps (to TargetView(-2) <-Add(-1) <-Details(current view))
                         window.history.go(-2);
                     } else {
                         // Otherwise, just go back one step

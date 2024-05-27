@@ -50,10 +50,10 @@
                 </div>
                 <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">
                     <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
-                </a>
-                <hr/>
+                </a>                
                 @if (Model.Description != null)
                 {
+                <hr />
                 <div class="recipe-description">
                     <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
                 </div>
