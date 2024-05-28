@@ -16,7 +16,8 @@
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Recipe Info</span></a></li>
+                <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Info</span></a></li>
+                <li class="nav-item"><a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false"><span>Ingredients</span></a></li>
                 <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
             </ul>
             <partial name="_BackBtnPartial"/>
@@ -27,7 +28,7 @@
                 <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                     <div class="row">
                         <div class="col">
-                            <h1 class="recipe-title">@Model.Title</h1>
+                            <h3 class="recipe-title">@Model.Title</h3>
                         </div>
                     </div>
                     <div class="row g-3">
@@ -47,7 +48,7 @@
                             }
                             else
                             {
-                                <i class="fas fa-tag"></i>
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
                             }
                             @if(userId != String.Empty)
                             {
@@ -69,7 +70,7 @@
                                     <span>&nbsp;&nbsp;&nbsp;@(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")@(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + " min" : "")</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-font-awesome"></i>
+                                    <i class="fas fa-tag"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
                                 </li>
                                 <li class="list-group-item">
@@ -82,33 +83,25 @@
                     <div class="row g-3 pt-2">
                         <div class="col col-12 col-sm-8">
                             <p class="recipe-description">@Model.Description</p>
-                        </div>
-                        @if (@Model.OilsHerbsSpicesSweeteners.Any())
-                        {
-                            <div id="aside-container" class="col col col-sm-4">
-                                <p class="ingredient-heading">Herbs, Spices, Oils &amp; Sauces</p>
-                                <ul class="list-unstyled">
-                                @foreach (var item in Model.OilsHerbsSpicesSweeteners)
-                                {
-                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
-                                }                       
-                                </ul>
-                            </div>
-                        }                
+                        </div>                              
                     </div>
+                    
+                </div>
+                <div id="ingredients" class="tab-pane fade">
                     <div class="row g-3">
-                        @if(Model.DiaryMeatSeafood.Any())
+                        
+                        @if (Model.DiaryMeatSeafood.Any())
                         {
                             <div class="col col-12 col-sm-6 col-lg-4">
                                 <p class="ingredient-heading">Meat, Diary Products &amp; Seafood</p>
                                 <ul class="list-unstyled">
-                                @foreach (var item in Model.DiaryMeatSeafood)
-                                {
+                                    @foreach (var item in Model.DiaryMeatSeafood)
+                                    {
                                         <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
-                                }
+                                    }
                                 </ul>
                             </div>
-                        }  
+                        }
                         @if (Model.Produce.Any())
                         {
                             <div class="col col-12 col-sm-6 col-lg-4">
@@ -121,15 +114,15 @@
                                 </ul>
                             </div>
                         }
-                        @if(Model.PastaGrainsBakery.Any())
+                        @if (Model.PastaGrainsBakery.Any())
                         {
                             <div class="col col-12 col-sm-6 col-lg-4">
                                 <p class="ingredient-heading">Pasta, Grains &amp; Bakery</p>
                                 <ul class="list-unstyled">
-                                @foreach (var item in Model.PastaGrainsBakery)
-                                {
+                                    @foreach (var item in Model.PastaGrainsBakery)
+                                    {
                                         <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
-                                }
+                                    }
                                 </ul>
                             </div>
                         }
@@ -138,25 +131,37 @@
                             <div class="col col-12 col-sm-6 col-lg-4">
                                 <p class="ingredient-heading">Beans, Lentils and Legumes</p>
                                 <ul class="list-unstyled">
-                                @foreach (var item in Model.Legumes)
-                                {
+                                    @foreach (var item in Model.Legumes)
+                                    {
                                         <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
-                                }
+                                    }
                                 </ul>
                             </div>
                         }
-                       @if (Model.NutsSeedsAndOthers.Any())
-                       {
+                        @if (Model.NutsSeedsAndOthers.Any())
+                        {
                             <div class="col col-12 col-sm-6 col-lg-4">
                                 <p class="ingredient-heading">Nuts, Seeds &amp; Others</p>
                                 <ul class="list-unstyled">
-                                @foreach (var item in Model.NutsSeedsAndOthers)
-                                {
+                                    @foreach (var item in Model.NutsSeedsAndOthers)
+                                    {
                                         <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
-                                }                            
+                                    }
                                 </ul>
                             </div>
-                       }              
+                        }
+                        @if (@Model.OilsHerbsSpicesSweeteners.Any())
+                        {
+                            <div class="col col-12 col-sm-6 col-lg-4">
+                                <p class="ingredient-heading">Herbs, Spices, Oils &amp; Sauces</p>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in Model.OilsHerbsSpicesSweeteners)
+                                    {
+                                        <li>@Html.Raw(FormatIngredientQty(@item.Qty)) <span class="units-styler">@item.Measure</span> @item.Name @item.Specification</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">

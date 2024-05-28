@@ -17,7 +17,7 @@
             width: 100%;
         }
 
-        .liked-icon, .not-liked-icon, .fas.fa-tag {
+        .liked-icon, .not-liked-icon, .fa-user-circle {
             position: absolute;
             top: 8px;
             left: 10px;
@@ -25,7 +25,7 @@
         }
 
         .add-to-mealplan-container {
-            display: inline-block; /* The container that wraps the button and icon */
+            display: inline-block; 
             position: absolute;
             bottom: 3px;
             right: 14px;

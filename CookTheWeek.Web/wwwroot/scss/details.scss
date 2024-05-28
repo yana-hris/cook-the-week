@@ -26,22 +26,28 @@
 
             .recipe-title, .meal-title {
                 font-family: "Libre Baskerville", serif;
+
+                .meal-title-style {
+                    text-decoration: underline;
+                }
             }
 
             .img-container {
-                max-width: 600px;
+                position: relative;
+
                 height: 300px;
+                max-width: 560px;
                 border-radius: 10px;
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                position: relative;
                 overflow: hidden;
 
                 .image {
                     width: 100%;
-                    height: auto;
-                    object-fit: contain;
+                    height: 100%;
+                    object-fit: cover;
                     border-radius: 10px;
                     transition: transform 0.3s ease;
                 }
@@ -60,11 +66,11 @@
                     }
                 }
 
-                .fa-tag {
+                .fa-user-circle {
                     position: absolute;
-                    top: 12px;
-                    left: 23px;
-                    font-size: 40px;
+                    top: 10px;
+                    left: 19px;
+                    font-size: 28px;
                 }
 
                 .add-to-mealplan-container {
@@ -143,31 +149,9 @@
         max-width: 940px !important;
         margin: 0 auto;
         padding: 0 !important;
-
-        #recipe-details, #meal-details {
-            position: relative;
-
-            #aside-container {
-                position: absolute;
-                top: 292px;
-                right: 1px;
-            }
-        }
     }
 }
 
-@media screen and (max-width: 1015px) {
-    #recipe-details-container, #meal-cook-container {
-
-        #recipe-details, #meal-details {
-
-            #aside-container {
-                top: 240px;
-                right: 1px;
-            }
-        }
-    }
-}
 
 
 

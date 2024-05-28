@@ -17,20 +17,23 @@
 #recipe-details-container .card .card-body .recipe-title, #recipe-details-container .card .card-body .meal-title, #meal-cook-container .card .card-body .recipe-title, #meal-cook-container .card .card-body .meal-title {
   font-family: "Libre Baskerville", serif;
 }
+#recipe-details-container .card .card-body .recipe-title .meal-title-style, #recipe-details-container .card .card-body .meal-title .meal-title-style, #meal-cook-container .card .card-body .recipe-title .meal-title-style, #meal-cook-container .card .card-body .meal-title .meal-title-style {
+  text-decoration: underline;
+}
 #recipe-details-container .card .card-body .img-container, #meal-cook-container .card .card-body .img-container {
-  max-width: 600px;
+  position: relative;
   height: 300px;
+  max-width: 560px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   overflow: hidden;
 }
 #recipe-details-container .card .card-body .img-container .image, #meal-cook-container .card .card-body .img-container .image {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
@@ -43,11 +46,11 @@
   left: 20px;
   font-size: 28px;
 }
-#recipe-details-container .card .card-body .img-container .fa-tag, #meal-cook-container .card .card-body .img-container .fa-tag {
+#recipe-details-container .card .card-body .img-container .fa-user-circle, #meal-cook-container .card .card-body .img-container .fa-user-circle {
   position: absolute;
-  top: 12px;
-  left: 23px;
-  font-size: 40px;
+  top: 10px;
+  left: 19px;
+  font-size: 28px;
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container {
   display: inline-block; /* Ensure the container wraps around its contents */
@@ -103,19 +106,5 @@
     max-width: 940px !important;
     margin: 0 auto;
     padding: 0 !important;
-  }
-  #recipe-details-container #recipe-details, #recipe-details-container #meal-details, #meal-cook-container #recipe-details, #meal-cook-container #meal-details {
-    position: relative;
-  }
-  #recipe-details-container #recipe-details #aside-container, #recipe-details-container #meal-details #aside-container, #meal-cook-container #recipe-details #aside-container, #meal-cook-container #meal-details #aside-container {
-    position: absolute;
-    top: 292px;
-    right: 1px;
-  }
-}
-@media screen and (max-width: 1015px) {
-  #recipe-details-container #recipe-details #aside-container, #recipe-details-container #meal-details #aside-container, #meal-cook-container #recipe-details #aside-container, #meal-cook-container #meal-details #aside-container {
-    top: 240px;
-    right: 1px;
   }
 }

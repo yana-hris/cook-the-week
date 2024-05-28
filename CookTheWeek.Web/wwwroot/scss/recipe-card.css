@@ -17,14 +17,14 @@
   object-fit: cover;
   width: 100%;
 }
-.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fas.fa-tag {
+.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fa-user-circle {
   position: absolute;
   top: 8px;
   left: 10px;
   font-size: 24px;
 }
 .recipe-container .card .add-to-mealplan-container {
-  display: inline-block; /* The container that wraps the button and icon */
+  display: inline-block;
   position: absolute;
   bottom: 3px;
   right: 14px;

@@ -12,18 +12,6 @@
             bottom: 39px;
             right: 7px;
             z-index: 10000;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-        }
-
-        #build-btn-container:hover {
-            opacity: 0.9;
         }
     }
 }
@@ -38,16 +26,7 @@ html {
 
         #main-container {
             margin: 0 auto;
-            padding: 91px 12px;
-
-            .btn-primary {
-                color: #fff;
-
-                &:hover {
-                    background-color: #fff;
-                    color: var(--bs-primary);
-                }
-            }
+            padding: 91px 12px;            
 
             #add-recipe, #edit-recipe {
                 max-width: 1000px;
@@ -86,18 +65,7 @@ html {
             font-size: 14px;
             font-weight: 300;
         }
-
-        .remove-btn {
-            height: 30px;
-            width: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bs-danger);
-            color: var(--bs-white);
-            border-radius: 50%;
-        }
-
+        
         nav.fixed-bottom {
             padding-bottom: 30px;
         }

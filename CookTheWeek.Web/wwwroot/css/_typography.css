@@ -12,16 +12,6 @@
   bottom: 39px;
   right: 7px;
   z-index: 10000;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-:root body #build-btn-container:hover {
-  opacity: 0.9;
 }
 
 html {
@@ -33,13 +23,6 @@ html {
 html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
-}
-html body #main-container .btn-primary {
-  color: #fff;
-}
-html body #main-container .btn-primary:hover {
-  background-color: #fff;
-  color: var(--bs-primary);
 }
 html body #main-container #add-recipe, html body #main-container #edit-recipe {
   max-width: 1000px;
@@ -70,16 +53,6 @@ html body #main-container .accent-heading {
 html body footer {
   font-size: 14px;
   font-weight: 300;
-}
-html body .remove-btn {
-  height: 30px;
-  width: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--bs-danger);
-  color: var(--bs-white);
-  border-radius: 50%;
 }
 html body nav.fixed-bottom {
   padding-bottom: 30px;
