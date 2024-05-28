@@ -21,7 +21,7 @@
         [Comment("Recipe Category Name")]
         [Required]
         [MaxLength(NameMaxLength)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Comment("A collection in Recipes in Category")]
         public ICollection<Recipe> Recipes { get; set; }

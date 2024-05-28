@@ -32,7 +32,7 @@
         public const int MealPlanTrimmedNameLnegth = 30;
 
         // Ingredients by categories FOR Shopping List View
-        public static string[] ShoppingListCategoryNames = new string[]
+        public static string[] ProductListCategoryNames = new string[]
         {
             "Fruits & Veggies",
             "Beans, Lentils and Legumes",
@@ -45,7 +45,7 @@
             "Herbs, Spices and Sweeteners",
         };
 
-        public static int[][] ShoppingListCategoryIds = new int[][]
+        public static int[][] ProductListCategoryIds = new int[][]
         {
              new int[] { 8, 9 },
              new int[] { 3 },

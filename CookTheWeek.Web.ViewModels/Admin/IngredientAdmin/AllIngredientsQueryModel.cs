@@ -29,9 +29,9 @@
 
         public int TotalIngredients { get; set; }
 
-        public ICollection<string> Categories { get; set; }
+        public ICollection<string> Categories { get; set; } = null!;
 
-        public IDictionary<int, string> IngredientSortings { get; set; }
+        public IDictionary<int, string> IngredientSortings { get; set; } = null!;
 
         public ICollection<IngredientAllViewModel> Ingredients { get; set; }
     }

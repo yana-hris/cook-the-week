@@ -16,7 +16,6 @@
         // Attach click event to the button
         $('#generatePdfBtn').click(function (e) {
             e.preventDefault();
-            debugger;
             // Navigate to the controller action URL to trigger download
             window.location.href = '/ShoppingList/GeneratePdf?id=@Model.Id';
         });

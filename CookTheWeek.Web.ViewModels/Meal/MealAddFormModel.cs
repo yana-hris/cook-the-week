@@ -29,7 +29,7 @@
 
         [Required]
         [Url]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         public string CategoryName { get; set; } = null!;

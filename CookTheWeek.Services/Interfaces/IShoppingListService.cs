@@ -5,6 +5,6 @@
 
     public interface IShoppingListService
     {
-        Task<ShoppingListViewModel> GetByMealPlanId(string id);
+        Task<ShoppingListViewModel> GetByMealPlanIdAsync(string id);
     }
 }

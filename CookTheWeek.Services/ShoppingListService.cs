@@ -8,8 +8,8 @@
     using Data.Interfaces;
     using Web.ViewModels.ShoppingList;
 
-    using static Common.HelperMethods.IngredientHelper;
     using static Common.GeneralApplicationConstants;
+    using static Common.HelperMethods.IngredientHelper;
 
     public class ShoppingListService : IShoppingListService
     {
@@ -19,7 +19,7 @@
         {
             this.dbContext = dbContext;
         }
-        public async Task<ShoppingListViewModel> GetByMealPlanId(string id)
+        public async Task<ShoppingListViewModel> GetByMealPlanIdAsync(string id)
         {
             ShoppingListViewModel model = await this.dbContext
                 .MealPlans
@@ -92,13 +92,13 @@
             var specifications = await this.dbContext.Specifications.ToListAsync();
             
 
-            for(int i = 0; i < ShoppingListCategoryNames.Length; i++)
+            for(int i = 0; i < ProductListCategoryNames.Length; i++)
             {
-                int[] categoriesArr = ShoppingListCategoryIds[i];
+                int[] categoriesArr = ProductListCategoryIds[i];
 
                 ProductListViewModel productModel = new ProductListViewModel()
                 {
-                    Title = ShoppingListCategoryNames[i],
+                    Title = ProductListCategoryNames[i],
                     Products = products
                             .Where(p => categoriesArr.Contains(p.CategoryId))
                             .Select(p => new ProductViewModel()

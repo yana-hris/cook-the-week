@@ -30,9 +30,9 @@
 
         public int TotalRecipes { get; set; }
 
-        public ICollection<string> Categories { get; set; }
+        public ICollection<string> Categories { get; set; } = null!;
 
-        public IDictionary<int, string> RecipeSortings { get; set; }
+        public IDictionary<int, string> RecipeSortings { get; set; } = null!;
 
         public ICollection<RecipeAllViewModel> Recipes { get; set; }
     }

@@ -15,7 +15,7 @@
         private readonly ILogger<ShoppingListController> logger;
 
         // Inject IWebHostEnvironment in your controller constructor
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
         public ShoppingListController(IShoppingListService shoppingListService,
             ILogger<ShoppingListController> logger,
@@ -25,13 +25,13 @@
             this.shoppingListService = shoppingListService;
             this.logger = logger;
             this.mealPlanService = mealPlanService;
-            _hostingEnvironment = hostingEnvironment;   
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
         public async Task<IActionResult> Generate(string id)
         {
-            ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanId(id);
+            ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanIdAsync(id);
 
             return View(model);
         }
@@ -49,14 +49,14 @@
 
             if (!exists)
             {
-                logger.LogError($"Meal Plan with id {id} does not exist in the DB");
+                logger.LogError($"Meal Plan with id {id} does not exist in the DB.");
                 return BadRequest();
             }
 
             try
             {
-                ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanId(id);
-                string contentRootPath = _hostingEnvironment.ContentRootPath;
+                ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanIdAsync(id);
+                string contentRootPath = hostingEnvironment.ContentRootPath;
 
                 // Render the partial view to HTML
                 return new ViewAsPdf("GeneratePdf", model)

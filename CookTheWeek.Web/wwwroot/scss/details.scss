@@ -1,5 +1,5 @@
 ﻿
-#recipe-details-container {
+#recipe-details-container, #meal-cook-container {
     margin: 0 auto;
     position: relative;
 
@@ -24,7 +24,7 @@
 
         .card-body {
 
-            .recipe-title {
+            .recipe-title, .meal-title {
                 font-family: "Libre Baskerville", serif;
             }
 
@@ -82,7 +82,7 @@
                 }
             }
 
-            .recipe-description {
+            .recipe-description, .meal-description {
                 margin-top: 10px;
                 margin-bottom: 20px;
                 font-weight: 300;
@@ -101,7 +101,7 @@
 
             #instructions {
 
-                .step-number {                       
+                .step-number {
                     width: 35px;
                     height: 35px;
                     background-color: var(--bs-primary);
@@ -124,7 +124,7 @@
 
 
 @media screen and (max-width: 768px) {
-    #recipe-details-container {
+    #recipe-details-container, #meal-cook-container {
 
         .fixed-size-btn {
             height: 34px;
@@ -139,12 +139,12 @@
 }
 
 @media (min-width: 576px) {
-    #recipe-details-container {
+    #recipe-details-container, #meal-cook-container {
         max-width: 940px !important;
         margin: 0 auto;
         padding: 0 !important;
 
-        #recipe-details {
+        #recipe-details, #meal-details {
             position: relative;
 
             #aside-container {
@@ -157,9 +157,9 @@
 }
 
 @media screen and (max-width: 1015px) {
-    #recipe-details-container {
-        
-        #recipe-details {
+    #recipe-details-container, #meal-cook-container {
+
+        #recipe-details, #meal-details {
 
             #aside-container {
                 top: 240px;

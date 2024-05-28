@@ -1,0 +1,112 @@
+﻿@model MealDetailsViewModel
+@using static CookTheWeek.Common.HelperMethods.IngredientHelper;
+@{
+    ViewData["Title"] = "Meal Details";
+}
+
+<div id="meal-cook-container">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true"><span>Info</span></a></li>
+                <li class="nav-item"><a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="true"><span>Ingredients</span></a></li>
+                <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
+            </ul>
+            <partial name="_BackBtnPartial" />
+        </div>
+
+        <div class="card-body p-4 d-md-grid" id="meal-details">
+            <div id="info-content" class="tab-content g-3">
+                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="meal-title">Meal Details for @Model.Title</h1>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col col col-sm-8 img-container">
+                            <img class="img-fluid image" alt="Meal Image" src="@Model.ImageUrl">
+                        </div>
+                        <div class="col col-12 col-sm-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.ServingSize Serving(s)</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@(Model.CookingTime.Hours > 0 ? Model.CookingTime.Hours.ToString() + "h " : "")@(Model.CookingTime.Minutes > 0 ? Model.CookingTime.Minutes.ToString() + " min" : "")</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-font-awesome"></i>
+                                    <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
+                                </li>                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row g-3 pt-2">
+                        <div class="col col-12 col-sm-8">
+                            <p class="meal-description">@Model.Description</p>
+                        </div>
+                    </div>
+                             
+                </div>
+                <div id="ingredients" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="meal-title">Ingredients needed:</h4>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        @foreach (var category in Model.IngredientsByCategories)
+                        {
+                            if (category.Products.Any())
+                            {
+                                <div class="col col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <p class="ingredient-heading">@category.Title:</p>
+                                    <ul class="list-unstyled">
+                                        @foreach (var ingredient in category.Products)
+                                        {
+                                            <li>@Html.Raw(ingredient.Qty) <span class="units-styler">@ingredient.Measure</span> @ingredient.Name @ingredient.Specification</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
+                    <div class="row">
+                        <div class="col">
+                            @for (int i = 0; i < Model.CookingSteps.Count; i++)
+                            {
+                                string currentStepText = Model.CookingSteps[i].Description;
+                                <div class="row mb-4 align-items-start">
+                                    @if (i > 0)
+                                    {
+                                        <hr class="steps-delimeter" />
+                                    }
+                                    <div class="col-auto align-self-start">
+                                        <div class="step-number">@(i + 1)</div>
+                                    </div>
+                                    <div class="col align-self-start">@currentStepText</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+@section Scripts {    
+    <script>
+        $(document).ready(function () {
+            $('#backBtn').click(function (event) {
+                event.preventDefault(); // Prevent the default action
+                window.history.back();
+            });
+        });
+    </script>
+}
