@@ -22,11 +22,11 @@
                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                     @if (isLiked)
                     {
-                        <i class="fas fa-heart liked-icon"></i>
+                        <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
                     }
                     else
                     {
-                        <i class="fas fa-heart not-liked-icon"></i>
+                        <i class="fas fa-heart not-liked-icon" data-toggle="tooltip" title="Add to Favorites"></i>
                     }
             </a>
             } else if(isOwner && !isAdmin)
@@ -83,3 +83,8 @@
         }
     }
 }
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
