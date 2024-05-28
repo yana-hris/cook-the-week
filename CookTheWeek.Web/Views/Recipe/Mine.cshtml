@@ -99,21 +99,29 @@ else
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function (response) {
-                // Handle success response
-                $button.find('i').toggleClass('liked-icon not-liked-icon');
-                toastr.success("Your preference is saved!");
-            },
-            error: function (xhr, status, error) {
-                // Handle error
-                if (xhr.status === 400) {
-                    // Handle 400 Bad Request error
-                    toastr.error('Bad Request: Please check your input and try again.');
-                } else {
-                    // Display generic error message
-                    toastr.error('Your preference not saved:', error);
+                success: function (response) {
+                    // Handle success response
+
+                    $button.find('i').toggleClass('liked-icon not-liked-icon');
+                    var isLiked = $button.find('i').hasClass('liked-icon');
+                    var newTitle = isLiked ? 'Remove from Favorites' : 'Add to Favorites';
+
+                    $button.find('i').attr('title', newTitle)
+                        .tooltip('dispose') // Dispose of the current tooltip
+                        .tooltip();
+
+                    toastr.success("Your preference is saved!");
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    if (xhr.status === 400) {
+                        // Handle 400 Bad Request error
+                        toastr.error('Bad Request: Please check your input and try again.');
+                    } else {
+                        // Display generic error message
+                        toastr.error('Your preference not saved:', error);
+                    }
                 }
-            }
         });
     }
 </script>

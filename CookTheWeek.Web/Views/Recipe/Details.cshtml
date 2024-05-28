@@ -38,17 +38,17 @@
                                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                                     @if (isLiked)
                                     {
-                                        <i class="fas fa-heart liked-icon"></i>
+                                        <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
                                     }
                                     else
                                     {
-                                        <i class="fas fa-heart not-liked-icon"></i>
+                                        <i class="fas fa-heart not-liked-icon" data-toggle="tooltip" title="Add to Favorites"></i>
                                     }
                                 </a>
                             }
                             else
                             {
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
                             }
                             @if(userId != String.Empty)
                             {
@@ -224,7 +224,15 @@
                 data: JSON.stringify(data),
                 success: function (response) {
                     // Handle success response
+
                     $button.find('i').toggleClass('liked-icon not-liked-icon');
+                    var isLiked = $button.find('i').hasClass('liked-icon');
+                    var newTitle = isLiked ? 'Remove from Favorites' : 'Add to Favorites';
+
+                    $button.find('i').attr('title', newTitle)
+                        .tooltip('dispose') // Dispose of the current tooltip
+                        .tooltip();
+
                     toastr.success("Your preference is saved!");
                 },
                 error: function (xhr, status, error) {
@@ -242,6 +250,7 @@
     </script>  
     <script>
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
             $('#backBtn').click(function (event) {
                 event.preventDefault(); // Prevent the default action
                 debugger;
