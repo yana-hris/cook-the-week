@@ -33,7 +33,6 @@ html .add-to-mealplan-button .fa {
   left: 50%; /* Position the icon horizontally */
   transform: translate(-50%, -50%); /* Center the icon */
   color: white; /* Icon color */
-  font-size: 36px;
 }
 html .plus::before {
   background-color: var(--bs-primary);

@@ -276,7 +276,6 @@ html .add-to-mealplan-button .fa {
   left: 50%; /* Position the icon horizontally */
   transform: translate(-50%, -50%); /* Center the icon */
   color: white; /* Icon color */
-  font-size: 36px;
 }
 html .plus::before {
   background-color: var(--bs-primary);
@@ -333,11 +332,9 @@ html #main-container #build-btn-container {
   height: 50px;
 }
 html #main-container .fixed-size-btn {
-  height: 40px;
-  width: 50px;
-}
-html #main-container .back-button {
-  font-size: 20px;
+  height: 42px;
+  width: 42px;
+  font-size: 24px;
 }
 html #main-container .back-button:hover {
   background-color: var(--bs-primary);
@@ -384,14 +381,12 @@ html #main-container .remove-btn:hover {
 .recipe-container .card .add-to-mealplan-container {
   display: inline-block;
   position: absolute;
-  bottom: 3px;
-  right: 14px;
+  bottom: 8px;
+  right: 10px;
 }
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
   transition: background-color 0.3s ease;
 }
 .recipe-container .card .material-icons.card-icon {
@@ -544,37 +539,90 @@ html #main-container .remove-btn:hover {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1200px !important;
   margin: 0 auto;
   padding: 0 20px;
 }
-.container .steps {
-  display: flex;
-  flex-direction: column;
+.container .subheading {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--bs-primary);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.7px;
+}
+.container .heading-secondary {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 3.6rem;
+  text-transform: capitalize;
+}
+.container #steps-container {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 6.4rem;
+  row-gap: 6.4rem;
+  margin-bottom: 8rem;
   align-items: center;
 }
-.container .steps .step {
-  margin-bottom: 40px;
-  text-align: center;
+.container #steps-container .grid:last-child {
+  margin-bottom: 0;
 }
-.container .steps .step .step h2, .container .steps .step .step .h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.container #steps-container .step-text-box .step-number {
+  font-size: 6rem;
+  font-weight: 700;
+  color: #97b498;
+  margin-bottom: 0;
 }
-.container .steps .step .step p {
-  font-size: 18px;
-  color: #333;
+.container #steps-container .step-text-box .heading-tertiary {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--bs-primary);
+  line-height: 1;
+  letter-spacing: 0.65px;
+  margin-bottom: 0.4rem;
+}
+.container #steps-container .step-text-box .step-decsription {
+  font-size: 2rem;
+  line-height: 2;
+  font-weight: 400;
+}
+.container #steps-container .step-img-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container #steps-container .step-img-box .step-img {
+  width: 35%;
+  z-index: 10;
+}
+.container #steps-container .step-img-box::before,
+.container #steps-container .step-img-box::after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.container #steps-container .step-img-box::before {
+  width: 60%;
+  padding-bottom: 60%;
+  background-color: #fbe2b4;
+  z-index: -2;
+}
+.container #steps-container .step-img-box::after {
+  width: 45%;
+  padding-bottom: 45%;
+  background-color: #f7c569;
+  z-index: -1;
 }
 
-@media (min-width: 768px) {
-  .steps {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .steps .step {
-    width: 30%;
-  }
-}
 .container-xl {
   max-width: 1200px;
   /* Show the overlay when the modal is open */
@@ -766,8 +814,6 @@ html #main-container .remove-btn:hover {
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
 }
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
@@ -797,11 +843,9 @@ html #main-container .remove-btn:hover {
 }
 
 @media screen and (max-width: 768px) {
-  #recipe-details-container .fixed-size-btn, #meal-cook-container .fixed-size-btn {
-    height: 34px;
-    width: 42px;
-  }
   #recipe-details-container .back-button, #meal-cook-container .back-button {
+    height: 34px !important;
+    width: 42px !important;
     top: 2px;
     font-size: 18px;
   }

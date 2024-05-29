@@ -26,14 +26,12 @@
 .recipe-container .card .add-to-mealplan-container {
   display: inline-block;
   position: absolute;
-  bottom: 3px;
-  right: 14px;
+  bottom: 8px;
+  right: 10px;
 }
 .recipe-container .card .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
   transition: background-color 0.3s ease;
 }
 .recipe-container .card .material-icons.card-icon {

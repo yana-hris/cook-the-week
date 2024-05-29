@@ -19,11 +19,9 @@ html #main-container #build-btn-container {
   height: 50px;
 }
 html #main-container .fixed-size-btn {
-  height: 40px;
-  width: 50px;
-}
-html #main-container .back-button {
-  font-size: 20px;
+  height: 42px;
+  width: 42px;
+  font-size: 24px;
 }
 html #main-container .back-button:hover {
   background-color: var(--bs-primary);

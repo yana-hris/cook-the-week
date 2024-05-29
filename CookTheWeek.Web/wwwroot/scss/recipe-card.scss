@@ -27,14 +27,12 @@
         .add-to-mealplan-container {
             display: inline-block; 
             position: absolute;
-            bottom: 3px;
-            right: 14px;
+            bottom: 8px;
+            right: 10px;
 
             .add-to-mealplan-button {
                 position: relative;
                 display: inline-block;
-                width: 40px;
-                height: 40px;
                 transition: background-color 0.3s ease;
             }
         }

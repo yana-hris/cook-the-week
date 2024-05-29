@@ -61,8 +61,6 @@
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .add-to-mealplan-button {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
 }
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
@@ -92,11 +90,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  #recipe-details-container .fixed-size-btn, #meal-cook-container .fixed-size-btn {
-    height: 34px;
-    width: 42px;
-  }
   #recipe-details-container .back-button, #meal-cook-container .back-button {
+    height: 34px !important;
+    width: 42px !important;
     top: 2px;
     font-size: 18px;
   }
