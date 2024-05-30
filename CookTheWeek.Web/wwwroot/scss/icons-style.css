@@ -67,3 +67,12 @@ html .fa-user-circle {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #b3b300;
 }
+html .fa-flag-checkered {
+  font-size: 24px;
+}
+html .finished {
+  color: var(--bs-danger);
+}
+html .not-finished {
+  color: var(--bs-primary);
+}

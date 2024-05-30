@@ -28,8 +28,9 @@ html #main-container .back-button:hover {
   color: #fff;
 }
 html #main-container .remove-btn {
-  height: 30px;
-  width: 30px;
+  height: 32px;
+  width: 32px;
+  font-size: 24px;
   background-color: var(--bs-danger);
   color: var(--bs-white);
   border: 1px solid #990404;
@@ -38,4 +39,17 @@ html #main-container .remove-btn:hover {
   color: var(--bs-danger);
   background-color: var(--bs-white);
   border: 1px solid #990404;
+}
+
+@media (min-width: 992px) {
+  #build-btn-container {
+    bottom: 45px !important;
+    right: 42px !important;
+  }
+}
+@media (min-width: 769px) {
+  #build-btn-container {
+    bottom: 45px;
+    right: 13px;
+  }
 }

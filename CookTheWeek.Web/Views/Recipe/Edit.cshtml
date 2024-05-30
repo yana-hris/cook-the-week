@@ -95,7 +95,7 @@
                                 <div id="instructionsList">
                                     @for (int i = 0; i < Model.Steps.Count; i++)
                                     {
-                                        <div class="row instructions-row">
+                                        <div class="row instructions-row align-items-center">
                                             <div class="col-11 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Step</span>
@@ -368,7 +368,7 @@
             // Ingredient Functions
             $('#add-ingredient').click(function () {
                 var newIngredientHtml = ` <hr/>
-                         <div class="row ingredient-row">
+                                 <div class="row ingredient-row">
                              <div class="col col-6 col-lg-4 p-2">
                                  <div class="input-group">
                                      <span class="input-group-text">Ingredient</span>
@@ -533,7 +533,7 @@
             // Instructions Functions
             $('#add-step').click(function () {
                 var newStepHtml = `<hr/>
-                                <div class="row instructions-row">
+                                        <div class="row instructions-row align-items-center">
                                     <div class="col-11 p-2">
                                         <div class="input-group">
                                             <span class="input-group-text">Step</span>

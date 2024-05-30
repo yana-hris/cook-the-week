@@ -1,5 +1,14 @@
 ﻿#add-recipe, #edit-recipe {
-  max-width: 1200px;
+  max-width: 1000px;
+}
+#add-recipe #ingredientsContainer .ingredient-row .suggestionsList, #edit-recipe #ingredientsContainer .ingredient-row .suggestionsList {
+  position: absolute;
+  z-index: 1000;
+  top: 29px;
+  left: 100px;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
 }
 #add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
   background-color: var(--bs-light);

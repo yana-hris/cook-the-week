@@ -24,27 +24,20 @@ html {
 
     body {
 
+        .accent-heading {
+            font-family: "Libre Baskerville", serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+
         #main-container {
             margin: 0 auto;
-            padding: 91px 12px;            
-
-            #add-recipe, #edit-recipe {
-                max-width: 1000px;
-
-                .suggestionsList {
-                    position: absolute;
-                    z-index: 1000;
-                    top: 29px;
-                    left: 100px;
-                    border-top: none;
-                    max-height: 200px;
-                    overflow-y: auto;
-                }
-            }
-
-            a {
-                text-decoration: none;
-            }
+            padding: 91px 12px;
+            // Links
 
             .custom-link {
                 color: var(--bs-primary);
@@ -55,9 +48,23 @@ html {
                 color: var(--bs-primary);
                 text-decoration: underline;
             }
+            // Headings
+            .subheading {
+                display: block;
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: var(--bs-primary);
+                text-transform: uppercase;
+                letter-spacing: 0.70px;
+                margin-bottom: 0.20rem;
+            }
 
-            .accent-heading {
+            .heading-secondary {
                 font-family: "Libre Baskerville", serif;
+                font-size: 2.0rem;
+                line-height: 1.2;
+                text-transform: capitalize;
+                margin-bottom: 3.6rem;
             }
         }
 
@@ -65,32 +72,21 @@ html {
             font-size: 14px;
             font-weight: 300;
         }
-        
+
         nav.fixed-bottom {
             padding-bottom: 30px;
         }
     }
 }
-@media (min-width: 992px) {
-    #build-btn-container {
-        bottom: 45px !important;
-        right: 42px !important;
-    }
-}
-@media (min-width: 769px) {
-    #build-btn-container {
-        bottom: 45px;
-        right: 13px;
-    }
-}
+
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 16px !important;
 
         body {
             #main-container {
-                padding: 98px 20px;
+                padding: 98px 20px !important;
             }
         }
     }
@@ -98,11 +94,11 @@ html {
 
 @media (min-width: 1200px) {
     html {
-        font-size: 16px;
+        font-size: 16px !important;
 
         body {
             #main-container {
-                padding: 98px 40px;
+                padding: 98px 40px !important;
             }
         }
     }

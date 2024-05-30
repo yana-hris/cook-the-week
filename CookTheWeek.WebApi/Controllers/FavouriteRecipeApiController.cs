@@ -39,45 +39,37 @@
            
             bool recipeExists = await this.recipeService
                 .ExistsByIdAsync(recipeId);
-
-            bool userExists = await this.userService.ExistsByIdAsync(userId);
-
-            bool isAlreadyAdded = await this.favouriteRecipeService
-                .ExistsByUserIdAsync(recipeId, userId);
-
             if (!recipeExists)
             {
                 return NotFound();
             }
+
+            bool userExists = await this.userService.ExistsByIdAsync(userId);
             if (!userExists)
             {
                 return Unauthorized();
             }
-            // If the recipe is already in the user`s favourites, we have to remove it (delete entity FavouriteRecipe)
-            if (isAlreadyAdded)
-            {
-                try
-                {
-                    await this.favouriteRecipeService.RemoveByUserIdAsync(recipeId, userId);
-                }
-                catch (Exception)
-                {
-                    return StatusCode(500, "An unexpected error occurred.");
-                }
 
-                return Ok();
-            }
-            // if not, we have to add it (create FavouriteRecipe entity)
+            // If the recipe is already in the user`s favourites, we have to remove it (delete entity FavouriteRecipe)
+            bool isAlreadyAdded = await this.favouriteRecipeService
+                .ExistsByUserIdAsync(recipeId, userId);
             try
             {
-                await this.favouriteRecipeService.AddByUserIdAsync(recipeId, userId);
+                if (isAlreadyAdded)
+                {
+                    await this.favouriteRecipeService.RemoveByUserIdAsync(recipeId, userId);
+                    return Ok();
+                }
+                else
+                {
+                    await this.favouriteRecipeService.AddByUserIdAsync(recipeId, userId);
+                    return Ok();
+                }
             }
             catch (Exception)
             {
-                return StatusCode(500, "An unexpected error occurred.");
-            }
-
-            return Created();
+                return StatusCode(500, "An unexpected error occured.");
+            }           
             
         }
     }

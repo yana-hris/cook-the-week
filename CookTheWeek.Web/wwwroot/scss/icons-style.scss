@@ -88,5 +88,15 @@
         -webkit-text-stroke-color: #b3b300;
     }
 
-    
+    .fa-flag-checkered {
+        font-size: 24px;
+    }
+
+    .finished {
+        color: var(--bs-danger);
+    }
+
+    .not-finished {
+        color: var(--bs-primary);
+    }
 }
