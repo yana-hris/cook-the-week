@@ -2,19 +2,19 @@ namespace CookTheWeek.Web
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Microsoft.EntityFrameworkCore;
 
     using Data;
     using Data.Models;
     using Infrastructure.ModelBinders;
     using Infrastructure.Extensions;
+    using Infrastructure.BackgroundServices;
+    using Infrastructure.HostedServices;
+    using Rotativa.AspNetCore;
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.Infrastructure.BackgroundServices;
-    using Microsoft.AspNetCore.Mvc.ViewEngines;
-    using Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure;
-    using Rotativa.AspNetCore;
 
     public class Program
     {
@@ -43,8 +43,13 @@ namespace CookTheWeek.Web
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
+            builder.Services.AddHttpClient();
 
             builder.Services.AddApplicationServices(typeof(IRecipeService));
+
+            // Register the warm-up service
+            builder.Services.AddHostedService<WarmUpService>();
+
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 

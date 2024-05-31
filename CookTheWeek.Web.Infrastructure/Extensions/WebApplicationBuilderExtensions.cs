@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Web.Infrastructure.Middlewares;
@@ -60,6 +61,7 @@
             // In static classes this is the only way to get the service container (as it cannot be injected in the contructor)
             IServiceProvider serviceProvider = scopedServices.ServiceProvider;
 
+
             UserManager<ApplicationUser> userManager =
                 serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -69,21 +71,43 @@
             // In static classes we cannot have async await pattern, so we need to use Tasks to have asynchronous code in synchronous static methods
             Task.Run(async () =>
             {
-                if (await roleManager.RoleExistsAsync(AdminRoleName))
+                try
                 {
-                    return;
+                    if (!await roleManager.RoleExistsAsync(AdminRoleName))
+                    {
+                        IdentityRole<Guid> role = new IdentityRole<Guid>(AdminRoleName);
+
+                        var roleResult = await roleManager.CreateAsync(role);
+
+                        if (!roleResult.Succeeded)
+                        {
+                            // log error $"Failed to create role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}"
+                            return;
+                        }
+
+                    }
+
+                    ApplicationUser? adminUser = await userManager.FindByNameAsync(userName);
+
+                    if (adminUser == null)
+                    {
+                        //log error $"Admin user '{userName}' not found."
+                        return;
+                    }
+
+                    var result = await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+                    if (!result.Succeeded)
+                    {
+                        //log error $"Failed to assign role to user: {string.Join(", ", result.Errors.Select(e => e.Description))}"
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // log error (ex, "Error occurred while seeding administrator.");
                 }
 
-                IdentityRole<Guid> role = new(AdminRoleName);
 
-                await roleManager.CreateAsync(role);
-
-                ApplicationUser? adminUser = await userManager.FindByNameAsync(userName);
-
-                if (adminUser != null)
-                {
-                    await userManager.AddToRoleAsync(adminUser, AdminRoleName);
-                }
             })
                 .GetAwaiter()
                 .GetResult();
@@ -95,7 +119,8 @@
         {
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
-        
+
+
     }  
     
 }

@@ -24,8 +24,6 @@
         }
         public async Task<IActionResult> All()
         {
-            //IEnumerable<UserViewModel> users =
-            //    await this.userService.AllAsync();
             IEnumerable<UserAllViewModel>? users = this.memoryCache.Get<IEnumerable<UserAllViewModel>>(UsersCacheKey);
 
             if(users == null)

@@ -226,7 +226,7 @@
                             .ThenInclude(r => r.RecipesIngredients)
                 .FirstAsync();
 
-            return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count());
+            return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count);
         }
         public async Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id)
         {

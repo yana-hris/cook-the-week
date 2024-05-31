@@ -20,13 +20,14 @@ namespace CookTheWeek.WebApi
             string? connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
+           
             // Add services to the container.
             builder.Services.AddApplicationServices(typeof(IIngredientService));
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            
 
             builder.Services.AddCors(options =>
             {

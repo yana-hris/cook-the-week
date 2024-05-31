@@ -2,46 +2,83 @@
     ViewData["Title"] = "About";
 }
 <div class="container" id="features-container">
-    <div class="row row-cols-1 row-cols-md-2">
-        <div class="col"><img class="rounded" id="features-img" src="~/img/micheile-henderson-3YHXTs1CxFI-unsplash.jpg" width="" height=""></div>
+    <div class="row">
         <div class="col d-flex flex-column justify-content-center p-4">
-            <div class="text-center text-md-start d-flex flex-column align-items-center align-items-md-start mb-5">
-                <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon md">
-                    <div class="icon-box">
-                        <i class="fa-regular fa-bookmark"></i>
+            <div class="d-flex flex-column align-items-md-start mb-5">
+                
+                <div class="subheading">About</div>
+                <div class="heading-secondary">App Purpose</div>
+                <div class="mb-3 row">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="rounded float-start" src="~/img/who-am-i.jpg" alt="creator photo" width="200px"/>
+                        </div>
+                        <div class="col-md-8">
+                            <p>
+                                Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I was always searching for new recipes and ways to optimize grocery shopping. Inspired by my experiences and daily meal prep challenges, I created CookTheWeek—a user-friendly app designed to help busy parents plan and prepare delicious meals with ease.
+                            </p>
+                            <p>
+                                CookTheWeek was born from my love of cooking and the desire to simplify meal planning for busy households. As someone constantly on the lookout for fresh produce and creative recipes, I understand the challenges of juggling family responsibilities while trying to prepare wholesome meals. CookTheWeek streamlines the meal planning process, offering inspiration, organization, and convenience to families everywhere.
+                            </p>
+                            <p>
+                                Have questions or feedback? I'd love to hear from you! Reach out through the form below, and I'll get back to you as soon as possible. Thank you for choosing CookTheWeek to simplify your meal planning journey!
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <h4>Recipe Library</h4>
-                <div class="features-container">
-                    <p>Dive into our extensive recipe library featuring a diverse range of dishes from around the world.<br><br>Easily add your own favorite recipes with our intuitive pre-defined ingredients in just a few clicks. Have them all in one place,&nbsp;conveniently organized for easy browsing.</p><a asp-area="" asp-action="All" asp-controller="Recipe" class="text-capitalize features-link">
-                        Browse All Recipes&nbsp;
-                        <i class="fa-regular fa-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="text-center text-md-start d-flex flex-column align-items-center align-items-md-start mb-5">
-                <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon md">
-                    <div class="icon-box">
-                        <i class="fa-regular fa-calendar-days"></i>
+                    <div class="row">
+                        <div class="contact-form">
+                            <div class="container">
+                                <div class="cta">
+                                    <div class="cta-text-box">
+                                        <h2 class="heading-secondary">Get your first meal for free!</h2>
+                                        <p class="cta-text">
+                                            Healthy, tasty and hassle-free meals are waiting for you. Start
+                                            eating well today. You can cancel or pause anytime. And the
+                                            first meal is on us!
+                                        </p>
+
+                                        <form class="cta-form" action="#">
+                                            <div>
+                                                <label for="full-name">Full Name</label>
+                                                <input id="full-name"
+                                                       type="text"
+                                                       placeholder="John Smith"
+                                                       required />
+                                            </div>
+
+                                            <div>
+                                                <label for="email">Email address</label>
+                                                <input id="email"
+                                                       type="email"
+                                                       placeholder="me@example.com"
+                                                       required />
+                                            </div>
+
+                                            <div>
+                                                <label for="select-where">Where did you hear from us?</label>
+                                                <select id="select-where" required>
+                                                    <option value="">Please choose one option:</option>
+                                                    <option value="friends">Friends and family</option>
+                                                    <option value="youtube">YouTube video</option>
+                                                    <option value="podcast">Podcast</option>
+                                                    <option value="ad">Facebook ad</option>
+                                                    <option value="others">Others</option>
+                                                </select>
+                                            </div>
+
+                                            <button class="btn btn--form">Sign up now</button>
+
+                                            <!-- <input type="checkbox" />
+                                            <input type="number" /> -->
+                                        </form>
+                                    </div>
+                                    <div class="cta-img-box"
+                                         role="img"
+                                         aria-label="Woman enjoying food"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="features-container">
-                    <h4>Custom Meal Plans</h4>
-                    <p>Tailor all recipes to your specific family needs, guest number or pre-cooked meals with our adjustable serving size functionality.<br><br>You pick the meals, we make the calculations!</p><a asp-area="" asp-controller="User" asp-action="Register" class="text-capitalize features-link">
-                        Sign Up To Try Out&nbsp;
-                        <i class="fa-regular fa-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="text-center text-md-start d-flex flex-column align-items-center align-items-md-start">
-                <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon md">
-                    <div class=" icon-box">
-                        <i class="fa-regular fa-rectangle-list"></i>
-                    </div>
-                </div>
-                <div class="features-container">
-                    <h4>Shopping List&nbsp;</h4>
-                    <p>Say goodbye to forgotten ingredients with our automatic shopping list generator.<br><br>Quickly compile a comprehensive list of groceries based on your chosen recipes, saving you time and hassle at the store.</p>
                 </div>
             </div>
         </div>

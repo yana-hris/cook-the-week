@@ -7,12 +7,13 @@
     using Microsoft.Extensions.Caching.Memory;
     using Ganss.Xss;
 
+    
+    using CookTheWeek.Web.Infrastructure.Extensions;
     using Data.Models;
     using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.Infrastructure.Extensions;
 
     [AllowAnonymous]
     public class UserController : Controller
@@ -109,15 +110,14 @@
                 
                 return View(model);
             }
-
-            TempData["JustLoggedIn"] = true;
+            
             this.memoryCache.Remove(UsersCacheKey);
 
-            if (User.IsAdmin())
+            if (this.User.IsAdmin())
             {
                 return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
             }
-
+            TempData["JustLoggedIn"] = true;
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
 

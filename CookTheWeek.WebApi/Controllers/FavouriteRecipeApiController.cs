@@ -20,7 +20,6 @@
             this.recipeService = recipeService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
-            
         }
 
         [HttpPost]
@@ -34,8 +33,7 @@
         public async Task<IActionResult> ToggleFavourites([FromBody]FavouriteRecipeServiceModel model)
         {
             string userId = model.UserId;
-            string recipeId = model.RecipeId;           
-
+            string recipeId = model.RecipeId; 
            
             bool recipeExists = await this.recipeService
                 .ExistsByIdAsync(recipeId);
@@ -58,6 +56,7 @@
                 if (isAlreadyAdded)
                 {
                     await this.favouriteRecipeService.RemoveByUserIdAsync(recipeId, userId);
+
                     return Ok();
                 }
                 else
@@ -69,8 +68,7 @@
             catch (Exception)
             {
                 return StatusCode(500, "An unexpected error occured.");
-            }           
-            
+            } 
         }
     }
 }
