@@ -10,6 +10,7 @@
   column-gap: 6.4rem;
   row-gap: 6.4rem;
   margin-bottom: 8rem;
+  margin-top: 2.4rem;
   align-items: center;
 }
 .container #steps-container .step-text-box .step-number {

@@ -1,13 +1,15 @@
 ﻿@{
     ViewData["Title"] = "How It Works";
+    var headingModel = new PageHeadingViewModel
+        {
+            Subheading = "How It Works",
+            HeadingSecondary = "Your weekly meals in 4 simple steps"
+        };
 }
 
 
 <div id="how-it-works" class="container">
-    <div class="container">
-        <span class="subheading">How It Works</span>
-        <h2 class="heading-secondary">Your weekly meals in 4 simple steps</h2>
-    </div>
+    <partial name="_HeadingPartial" model=headingModel />
 
     <div id="steps-container">
 

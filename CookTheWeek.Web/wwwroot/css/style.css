@@ -53,7 +53,7 @@ html body #main-container .heading-secondary {
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
-  margin-bottom: 3.6rem;
+  margin-bottom: 1.4rem;
 }
 html body footer {
   font-size: 14px;
@@ -564,6 +564,7 @@ html .not-finished {
   column-gap: 6.4rem;
   row-gap: 6.4rem;
   margin-bottom: 8rem;
+  margin-top: 2.4rem;
   align-items: center;
 }
 .container #steps-container .step-text-box .step-number {
