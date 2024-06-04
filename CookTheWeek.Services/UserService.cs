@@ -15,9 +15,6 @@
         {
             this.dbContext = dbContext;
         }
-
-        
-
         public async Task<bool> ExistsByIdAsync(string id)
         {
             return await this.dbContext.Users
