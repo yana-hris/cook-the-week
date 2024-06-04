@@ -10,18 +10,18 @@
 
     public class UserAdminController : BaseAdminController
     {
-        private readonly IUserService userService;
+        private readonly IUserAdminService userAdminService;
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserAdminController> logger;
 
        
 
-        public UserAdminController(IUserService userService
+        public UserAdminController(IUserAdminService userAdminService
             ,IMemoryCache memoryCache,
             ILogger<UserAdminController> logger
             )
         {
-            this.userService = userService;
+            this.userAdminService = userAdminService;
             this.memoryCache = memoryCache;
             this.logger = logger;
             
@@ -34,7 +34,7 @@
             {
                 try
                 {
-                    users = await this.userService.AllAsync();
+                    users = await this.userAdminService.AllAsync();
                 }
                 catch (Exception)
                 {

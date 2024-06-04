@@ -1,8 +1,9 @@
 namespace CookTheWeek.Services.Tests.UnitTests
 {
-    
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using Data.Interfaces;
+    using Microsoft.AspNetCore.Identity;
     using Services.Data;
 
     [TestFixture]
@@ -10,13 +11,17 @@ namespace CookTheWeek.Services.Tests.UnitTests
     {
         private IUserService userService;
         private IRecipeService recipeService;
+        private IUserAdminService userAdminService;
+        private UserManager<ApplicationUser> userManager;
 
         [SetUp]
-        public void SetUp()
+        public void SetUp(UserManager<ApplicationUser> userManager)
         {
             
             this.recipeService = new RecipeService(data);
-            this.userService = new UserService(data, this.recipeService);
+            this.userManager = userManager;
+            this.userAdminService = new UserAdminService(data, recipeService, userManager);
+            this.userService = new UserService(data);
         }
 
         [Test]
@@ -46,7 +51,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             const int usersCount = 2;
 
             // Act
-            int result = await this.userService.AllCountAsync();
+            int result = await this.userAdminService.AllCountAsync();
 
             // Arrange
             Assert.AreEqual(usersCount, result);
@@ -77,7 +82,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             };
 
             // Act
-            var actualResult = await this.userService.AllAsync();
+            var actualResult = await this.userAdminService.AllAsync();
 
             // Assert
             Assert.Multiple(() =>
