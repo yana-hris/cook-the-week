@@ -15,7 +15,7 @@
     <div class="card">
         <div class="position-relative image-container">
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
-            @if (!string.IsNullOrEmpty(userId) && !isOwner)
+            @if (!string.IsNullOrEmpty(userId) && !isOwner && !isAdmin)
             {
                 bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 
@@ -33,7 +33,7 @@
             {
                 <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
             }
-            @if(userId != String.Empty)
+            @if(userId != String.Empty && !isAdmin)
             {
                 <div class="add-to-mealplan-container">
                     <a data-recipeId="@Model.Id" class="add-to-mealplan-button plus fixed-size-btn">
