@@ -7,7 +7,7 @@
 @{
     string recipeId = Model.Id.ToString();
     string userId = this.User.GetId();
-    bool isOwner = await this.UserService.IsOwnerByRecipeId(recipeId, userId);
+    bool isOwner = await this.UserService.IsOwnerByRecipeIdAsync(recipeId, userId);
     bool isAdmin = User.IsAdmin();
 }
 

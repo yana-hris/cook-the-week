@@ -2,9 +2,11 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data;
+    using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.Admin.UserAdmin;
 
@@ -12,6 +14,7 @@
     {
         private readonly CookTheWeekDbContext dbContext;
         private readonly IRecipeService recipeService;
+        
         public UserService(CookTheWeekDbContext dbContext, IRecipeService recipeService)
         {
             this.dbContext = dbContext;
@@ -53,20 +56,21 @@
                 .AnyAsync(u => u.Id.ToString() == id);
         }
 
-        public async Task<bool> IsOwnerByRecipeId(string recipeId, string userId)
+        public async Task<bool> IsOwnerByRecipeIdAsync(string recipeId, string userId)
         {
             return await this.dbContext
                 .Recipes
-                .Where(r => r.Id.ToString() == recipeId && r.OwnerId == userId)
+                .Where(r => r.Id.ToString() == recipeId && r.OwnerId.ToString() == userId)
                 .AnyAsync();
         }
 
-        public async Task<bool> IsOwnerByMealPlanId(string id, string userId)
+        public async Task<bool> IsOwnerByMealPlanIdAsync(string id, string userId)
         {
             return await this.dbContext
                 .MealPlans
                 .AnyAsync(mp => mp.Id.ToString() == id &&
                           mp.OwnerId.ToString() == userId);
         }
+               
     }
 }

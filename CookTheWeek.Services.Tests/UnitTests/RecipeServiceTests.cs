@@ -428,10 +428,10 @@
         public async Task AllAddedByUserAsync_ShouldReturn_CorrectData()
         {
             // Arrange
-            string userId = TestRecipe.OwnerId;
-            int expectedUserRecipesCount = data.Recipes.Where(r => r.OwnerId == userId).Count();
+            string userId = TestRecipe.OwnerId.ToString();
+            int expectedUserRecipesCount = data.Recipes.Where(r => r.OwnerId.ToString() == userId).Count();
 
-            ICollection<RecipeAllViewModel> expectedResult = data.Recipes.Where(r => r.OwnerId == userId)
+            ICollection<RecipeAllViewModel> expectedResult = data.Recipes.Where(r => r.OwnerId.ToString() == userId)
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -479,7 +479,7 @@
         {
             // Arrange the result for Admin User (Admin => Mine)
             string ownerId = AdminUserId;
-            int expectedCount = data.Recipes.Where(r => r.OwnerId == ownerId).Count();
+            int expectedCount = data.Recipes.Where(r => r.OwnerId.ToString() == ownerId).Count();
 
             // Act
             int actualCount = await this.recipeService.MineCountAsync(ownerId);

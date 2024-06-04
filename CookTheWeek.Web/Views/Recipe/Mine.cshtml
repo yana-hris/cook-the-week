@@ -11,84 +11,126 @@
     var headingModel = new PageHeadingViewModel
         {
             Subheading = "My Recipes",
-            HeadingSecondary = "Liked"
         };
+
+    if (Model.FavouriteRecipes.Any())
+    {
+        headingModel.HeadingSecondary = "Liked by you";
+    } else if (Model.OwnedRecipes.Any())
+    {
+        headingModel.HeadingSecondary = ownedRecipeHeading;
+    }
 
     if(isAdmin)
     {
-        headingModel.Subheading = "Site Recipes";
-        headingModel.HeadingSecondary = string.Empty;
+        headingModel.Subheading = "All Recipes";
+        headingModel.HeadingSecondary = "Site Recipes";
     }
 }
-@if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any())
-{
-    <div class="text-center">
-        <h2 class="text-center">You have no recipes yet!</h2>
-        <p>Ready to embark on your culinary journey? Start building your personalized meal plan now by exploring our All Recipes section and adding your favorite dishes with a simple click of 'Add to Meal Plan'. Let's create a week of unforgettable flavors together!</p>
-        <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
-    </div>
-}
-else
-{
-    <div class="container-xl" style="max-width: 1200px;">
-        <div class="row">            
-            <div class="container py-2">
-                <div class="row">
-                    <partial name="_HeadingPartial" model=headingModel />
-                </div>
 
-            @if (!isAdmin)
-            {               
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-                    @foreach (var recipe in Model.FavouriteRecipes)
-                    {
-                        <partial name="_RecipeCardPartial" model="recipe" />
-                    }
-                </div>
-                <div class="row">
-                    <h2 class="heading-secondary">@ownedRecipeHeading</h2>
+<div class="container-xl" style="max-width: 1200px;">
+    <div class="row">
+        <div class="container py-2">
+            <div class="row">
+                <partial name="_HeadingPartial" model="headingModel" />
+            </div>
+            @* // TODO: change apparance of "No recipes view" *@
+            @if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any() && !isAdmin)
+            {
+                <div class="text-center">
+                    <h2 class="text-center">You have no recipes yet!</h2>
+                    <p>Ready to embark on your culinary journey? Start building your personalized meal plan now by exploring our All Recipes section and adding your favorite dishes with a simple click of 'Add to Meal Plan'. Let's create a week of unforgettable flavors together!</p>
+                    <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
                 </div>
             }
-                
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    @foreach (var recipe in Model.OwnedRecipes)
-                    {
-                        <partial name="_RecipeCardPartial" model="recipe" />
-                    }
+            else if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any() && isAdmin)
+            {
+                <div class="text-center">
+                    <h2 class="text-center">No Recipes Yet!</h2>
+                    <p>There are no added recipes, neither by an Admin, nor by users on the site!</p>
+                    <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a></div>
                 </div>
-            </div>
-        </div>
-        <partial name="_BuildBtnPartial" />
-    </div>
-
-        // TODO: Implement horizontal scroll with hidden scrollbars and an arrow btn for each collection of recipes
-        @* <div class="container d-flex flex-column gap-2" id="recipe-container">
-        @if (!isAdmin)
-        {
-            <h2 class="collection-heading">Your Favourite Recipes</h2>
-            <div id="favourite-recipes">
-                <div class="row d-flex g-3 align-items-start p-1 flex-row flex-nowrap">
-                    @{
-                        foreach (var recipe in Model.FavouriteRecipes)
+            }
+            else
+            {
+                @if (!isAdmin)
+                {               
+                    @if (Model.FavouriteRecipes.Any())
+                    {
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+                            @foreach (var recipe in Model.FavouriteRecipes)
+                            {
+                                <partial name="_RecipeCardPartial" model="recipe" />
+                            }
+                        </div>
+                        @if (Model.OwnedRecipes.Any())
                         {
-                            <partial name="_RecipeCardPartial" model="recipe"/>
+                            <div class="row">
+                                <h2 class="heading-secondary">@ownedRecipeHeading</h2>
+                            </div>
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                                @foreach (var recipe in Model.OwnedRecipes)
+                                {
+                                    <partial name="_RecipeCardPartial" model="recipe" />
+                                }
+                            </div>
                         }
                     }
-                </div>
-            </div>
-        }
+                    else if (Model.OwnedRecipes.Any())
+                    {
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                            @foreach (var recipe in Model.OwnedRecipes)
+                            {
+                                <partial name="_RecipeCardPartial" model="recipe" />
+                            }
+                        </div>
+                    }
 
-        <h2 class="collection-heading">@ownedRecipeHeading</h2>
-        <div id="owned-recipes">
-            <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
-                @foreach (var recipe in Model.OwnedRecipes)
-                {
-                   <partial name="_RecipeCardPartial" model="recipe"/>
                 }
-            </div>
+                else
+                {
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                        @foreach (var recipe in Model.OwnedRecipes)
+                        {
+                            <partial name="_RecipeCardPartial" model="recipe" />
+                        }
+                    </div>
+                }
+            
+                <partial name="_BuildBtnPartial" />
+    
+
+                    // TODO: Implement horizontal scroll with hidden scrollbars and an arrow btn for each collection of recipes
+                    @* <div class="container d-flex flex-column gap-2" id="recipe-container">
+                    @if (!isAdmin)
+                    {
+                        <h2 class="collection-heading">Your Favourite Recipes</h2>
+                        <div id="favourite-recipes">
+                            <div class="row d-flex g-3 align-items-start p-1 flex-row flex-nowrap">
+                                @{
+                                    foreach (var recipe in Model.FavouriteRecipes)
+                                    {
+                                        <partial name="_RecipeCardPartial" model="recipe"/>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <h2 class="collection-heading">@ownedRecipeHeading</h2>
+                    <div id="owned-recipes">
+                        <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
+                            @foreach (var recipe in Model.OwnedRecipes)
+                            {
+                               <partial name="_RecipeCardPartial" model="recipe"/>
+                            }
+                        </div>
+                    </div>
+                </div> *@
+            }
         </div>
-    </div> *@
-}
+    </div>
+</div>
 
 @section Scripts {  
 <script>

@@ -28,7 +28,9 @@
 
         [Comment("Recipe Creator")]
         [Required]
-        public string OwnerId { get; set; } = null!;
+        [ForeignKey(nameof(Owner))]
+        public Guid OwnerId { get; set; }
+        public ApplicationUser Owner { get; set; }
 
 
         [Comment("Recipe Title")]

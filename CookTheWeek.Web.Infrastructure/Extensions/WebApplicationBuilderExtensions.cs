@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Web.Infrastructure.Middlewares;

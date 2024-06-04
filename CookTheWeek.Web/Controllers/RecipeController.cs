@@ -184,7 +184,7 @@
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeId(id, userId);
+            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
 
             if(!isOwner && !User.IsAdmin()) 
             {
@@ -222,7 +222,7 @@
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeId(model.Id, userId);
+            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
 
             if (!isOwner && !User.IsAdmin())
             {
@@ -340,7 +340,7 @@
 
             if (User.IsAdmin())
             {
-                Redirect("/Admin/Recipe/Mine");
+                Redirect("/Admin/RecipeAdmin/Site");
             }
 
             try
@@ -364,7 +364,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeId(id, userId);
+            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
 
             if(!exists)
             {
@@ -403,7 +403,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeId(id, currentUserId);
+            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, currentUserId);
 
             if (!exists)
             {

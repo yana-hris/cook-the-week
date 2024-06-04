@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Meal Plan Details";
     string userId = User.GetId();
-    bool isOwner = await this.UserService.IsOwnerByMealPlanId(Model.Id, userId); 
+    bool isOwner = await this.UserService.IsOwnerByMealPlanIdAsync(Model.Id, userId); 
 
 }
 <div id="details-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">

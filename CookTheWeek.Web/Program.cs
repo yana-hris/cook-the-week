@@ -43,8 +43,9 @@ namespace CookTheWeek.Web
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
-            builder.Services.AddHttpClient();
 
+
+            builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
             // Register the warm-up service

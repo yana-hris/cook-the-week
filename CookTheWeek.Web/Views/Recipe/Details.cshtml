@@ -4,15 +4,22 @@
 @model RecipeDetailsViewModel
 @inject IFavouriteRecipeService FavouriteRecipeService
 @inject IUserService UserService
-@{  
+@{
     string userId = User.GetId();
     bool isAdmin = User.IsAdmin();
     string recipeId = Model.Id;
-    bool isOwner = await this.UserService.IsOwnerByRecipeId(recipeId, userId);
+    bool isOwner = await this.UserService.IsOwnerByRecipeIdAsync(recipeId, userId);
     bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+
+    var headingModel = new PageHeadingViewModel
+            {
+                Subheading = "Recipe Details",
+                HeadingSecondary = "Description, Ingredients and Cooking Steps"
+            };
 }
 
 <div id="recipe-details-container">    
+    <partial name="_HeadingPartial" model="headingModel"/>
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">

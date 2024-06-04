@@ -77,7 +77,7 @@
             TestRecipe = new Recipe()
             {
                 Id = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
-                OwnerId = AdminUserId,
+                OwnerId = Guid.Parse(AdminUserId),
                 Title = "Test Recipe Title",
                 Description = "Test Recipe Description",
                 //Instructions = "Test Recipe Instructions",

@@ -93,7 +93,7 @@
             Recipe recipe = new Recipe()
             {
                 Title = model.Title,
-                OwnerId = ownerId,
+                OwnerId = Guid.Parse(ownerId),
                 Description = model.Description,
                 Servings = model.Servings,
                 TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes),
@@ -375,7 +375,7 @@
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
                 .Recipes
                 .Include(r => r.Category)
-                .Where(r => r.OwnerId == userId)
+                .Where(r => r.OwnerId.ToString() == userId)
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
@@ -411,7 +411,7 @@
         {
             return await this.dbContext
                 .Recipes
-                .Where(r => r.OwnerId == userId)
+                .Where(r => r.OwnerId.ToString() == userId)
                 .CountAsync();
         }
         public Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
@@ -431,6 +431,39 @@
                     Date = DateTime.Now.ToString(MealDateFormat),
                 })
                 .FirstAsync();
+        }
+
+        public async Task<ICollection<RecipeAllViewModel>> AllSite(string[] adminUserIds)
+        {
+            List<RecipeAllViewModel> siteRecipes = new List<RecipeAllViewModel>();
+
+            foreach (var adminId in adminUserIds)
+            {
+                var currentAdminRecipes = await this.dbContext.Recipes
+                    .Where(r => r.OwnerId.ToString() == adminId)
+                    .Select(r => new RecipeAllViewModel()
+                    {
+                        Id = r.Id.ToString(),
+                        ImageUrl = r.ImageUrl,
+                        Title = r.Title,
+                        Description = r.Description,
+                        Category = new RecipeCategorySelectViewModel()
+                        {
+                            Id = r.CategoryId,
+                            Name = r.Category.Name
+                        },
+                        Servings = r.Servings,
+                        CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                    }).ToListAsync();
+
+                if (currentAdminRecipes.Count > 0)
+                {
+                    siteRecipes.AddRange(currentAdminRecipes);
+                }
+                
+            }
+
+            return siteRecipes;
         }
     }
 }

@@ -22,5 +22,6 @@
         Task<int> AllCountAsync();
         Task<bool> IsIncludedInMealPlans(string id);
         Task<MealAddFormModel> GetForMealByIdAsync(string recipeId);
+        Task<ICollection<RecipeAllViewModel>> AllSite(string[] adminUserIds);
     }
 }

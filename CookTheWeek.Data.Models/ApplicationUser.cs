@@ -12,9 +12,14 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();   
+            this.Recipes = new HashSet<Recipe>();   
             this.FavoriteRecipes = new HashSet<FavouriteRecipe>();
             this.MealPlans = new HashSet<MealPlan>();
         }
+
+        [Comment("A collection of user`s owned recipes")]
+        public ICollection<Recipe> Recipes { get; set; }
+
         [Comment("A collection of the user`s favourite recipes")]
         public ICollection<FavouriteRecipe> FavoriteRecipes { get; set; }
 

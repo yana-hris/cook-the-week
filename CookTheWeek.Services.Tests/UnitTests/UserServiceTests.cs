@@ -1,5 +1,6 @@
 namespace CookTheWeek.Services.Tests.UnitTests
 {
+    
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using Data.Interfaces;
     using Services.Data;
@@ -13,6 +14,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
+            
             this.recipeService = new RecipeService(data);
             this.userService = new UserService(data, this.recipeService);
         }
@@ -108,11 +110,11 @@ namespace CookTheWeek.Services.Tests.UnitTests
         public async Task IsOwnerByRecipeIdAsync_ShouldReturn_True_If_IsOwner()
         {
             // Arrange
-            string userId = TestRecipe.OwnerId;
+            string userId = TestRecipe.OwnerId.ToString();
             string recipeId = TestRecipe.Id.ToString();
 
             // Act
-            bool result = await userService.IsOwnerByRecipeId(recipeId, userId);
+            bool result = await userService.IsOwnerByRecipeIdAsync(recipeId, userId);
 
             // Assert
             Assert.IsTrue(result);
@@ -126,7 +128,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             string recipeId = TestRecipe.Id.ToString();
 
             // Act
-            bool result = await userService.IsOwnerByRecipeId(recipeId, userId);
+            bool result = await userService.IsOwnerByRecipeIdAsync(recipeId, userId);
 
             // Assert
             Assert.IsFalse(result);

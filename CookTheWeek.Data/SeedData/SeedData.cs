@@ -1858,7 +1858,7 @@
                 new()
                 {
                     Id = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Moussaka",
                     Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                     
@@ -1870,7 +1870,7 @@
                 new()
                 {
                     Id = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Beef Stew",
                     Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
                     
@@ -1882,7 +1882,7 @@
                 new()
                 {
                     Id = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Homemade Chicken Soup",
                     Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
                    
@@ -1894,7 +1894,7 @@
                 new()
                 {
                     Id = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Stuffed red peppers with ground meat and rice",
                     Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                    
@@ -1906,7 +1906,7 @@
                 new()
                 {
                     Id = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Fruity Strawberry Smoothy",
                     Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
                    
@@ -1918,7 +1918,7 @@
                 new()
                 {
                     Id = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Overnight Oats (prepare the night beofre)",
                     Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                   
@@ -1930,7 +1930,7 @@
                 new()
                 {
                     Id = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
-                    OwnerId = AdminUserId,
+                    OwnerId = Guid.Parse(AdminUserId),
                     Title = "Avocado Toast",
                     Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
                    
@@ -1942,7 +1942,7 @@
                 new()
                 {
                     Id = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
-                    OwnerId = AppUserId,
+                    OwnerId = Guid.Parse(AppUserId),
                     Title = "Beans stew",
                     Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
                     
@@ -1954,7 +1954,7 @@
                 new()
                 {
                     Id = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
-                    OwnerId = AppUserId,
+                    OwnerId = Guid.Parse(AppUserId),
                     Title = "Thai Pumpkin Cream Soup",
                     Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
                    

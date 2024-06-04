@@ -14,13 +14,17 @@
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserAdminController> logger;
 
+       
+
         public UserAdminController(IUserService userService
             ,IMemoryCache memoryCache,
-            ILogger<UserAdminController> logger)
+            ILogger<UserAdminController> logger
+            )
         {
             this.userService = userService;
             this.memoryCache = memoryCache;
             this.logger = logger;
+            
         }
         public async Task<IActionResult> All()
         {
@@ -47,5 +51,8 @@
 
             return View(users);
         }
+
+
+        
     }
 }

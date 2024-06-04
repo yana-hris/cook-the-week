@@ -25,6 +25,12 @@
                 .HasOne(r => r.Category)
                 .WithMany(rc => rc.Recipes)
                 .HasForeignKey(r => r.CategoryId);
+
+            builder
+                .HasOne(r => r.Owner)
+                .WithMany(o => o.Recipes)
+                .HasForeignKey(r => r.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
             
 
             builder
@@ -35,7 +41,8 @@
             builder
                 .HasMany(r => r.Steps)
                 .WithOne(s => s.Recipe)
-                .HasForeignKey(s => s.RecipeId);
+                .HasForeignKey(s => s.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(r => r.Meals)

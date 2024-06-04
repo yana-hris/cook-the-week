@@ -6,6 +6,7 @@ namespace CookTheWeek.WebApi
     using Data;
     using Services.Data.Interfaces;
     using Web.Infrastructure.Extensions;
+    using CookTheWeek.Services.Data;
 
     public class Program
     {
@@ -20,9 +21,12 @@ namespace CookTheWeek.WebApi
             string? connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
                 options.UseSqlServer(connectionString));
-           
+
             // Add services to the container.
-            builder.Services.AddApplicationServices(typeof(IIngredientService));
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRecipeService, RecipeService>();
+            builder.Services.AddScoped<IFavouriteRecipeService, FavouriteRecipeService>();
+            builder.Services.AddScoped<IIngredientService, IngredientService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
