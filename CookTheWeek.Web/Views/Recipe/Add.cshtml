@@ -5,9 +5,20 @@
     int nextIngredientIndex = Model.RecipeIngredients.Count;
     int nextStepIndex = Model.Steps.Count;
 
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+
+    };
+
+    if (User.GetId() != string.Empty && !User.IsAdmin())
+    {
+        headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
+    }  
 }
+
 <div id="add-recipe" class="container">
-    <h2 class="text-center pt-5 fw-semibold">Add Recipe</h2>
+    <partial name="_HeadingPartial" model="headingModel" />
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="recipe" role="tablist">
