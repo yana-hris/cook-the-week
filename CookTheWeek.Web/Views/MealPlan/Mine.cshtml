@@ -1,11 +1,19 @@
 ﻿@model ICollection<MealPlanAllViewModel>
 @using CookTheWeek.Web.Infrastructure.Extensions
 @{
+    ViewData["Title"] = "My Meal Plans";
+
     bool isAdmin = User.IsAdmin();
     string userId = User.GetId();
-    ViewData["Title"] = "My Meal Plans";
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = "Review your active or rebuild your finished meal plans"
+    };
 }
 <div id="meal-plans-mine" class="container-xl">
+    <partial name="_HeadingPartial" model="headingModel" />
 @if (!Model.Any())
 {
     <div id="no-meal-plans-message-container" class="p-3 text-center">

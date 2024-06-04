@@ -6,14 +6,15 @@
     string userId = User.GetId();
     bool isOwner = await this.UserService.IsOwnerByMealPlanIdAsync(Model.Id, userId); 
 
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = $"Meal Plan \"{Model.Name}\""
+    };
+
 }
 <div id="details-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
-    
-        <div class="row">
-            <div class="col-12">
-                <div class="info-pill bg-primary text-light pill heading-pill">Meal Plan "@Model.Name"</div> 
-            </div>
-        </div>
+    <partial name="_HeadingPartial" model="headingModel" />        
         <div class="row">
             <div class="col-lg-12">
                 <!-- Meal Plan table -->

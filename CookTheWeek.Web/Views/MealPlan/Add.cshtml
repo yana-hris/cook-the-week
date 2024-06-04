@@ -3,26 +3,37 @@
     ViewData["Title"] = "Add Meal Plan";
     int initialCount = Model.Meals.Count;
 
+    var headingModel = new PageHeadingViewModel
+
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = "Adjust servings and plan cooking dates"
+
+    };
+
 }
 <div id="add-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
+    <partial name="_HeadingPartial" model="headingModel" />
     <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
-        <div class="row">
+        <div class="row pt-2">
             <div class="col-12">
-                <div class="info-pill bg-primary text-light pill heading-pill">Build Your Meal Plan</div>
-                <div class="row py-2 inner-padding">
-                    <p class="meal-plan-name-text">
+                <div class="col-lg-6 pb-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Name</span>
+                        <input asp-for="Name" class="form-control" placeholder="Name it.." type="text">
+                        <span asp-validation-for="Name" class="small text-danger"></span>
+                    </div>
+                </div>
+                <div class="row inner-padding meal-plan-name-text">                    
+                    <p>
                         Providing a distinct name for your Meal Plan enhances its visibility and ease of retrieval for
-                        future use. Consider names like: <span class="example-names">'Veggie Vibes Weekly'</span> or <span class="example-names">'Winter Warmth Week'</span> for a descriptive touch.
+                        future use. 
+                    </p>                        
+                     <p>
+                        Consider names like: <span class="example-names">'Veggie Vibes Weekly'</span> or <span class="example-names">'Winter Warmth Week'</span> for a descriptive touch.
                         Alternatively, opt for catchy titles such as <span class="example-names">'Carb Clever Weekly'</span>, <span class="example-names">'Summer Fresh Plan'</span>, or <span class="example-names">'Trim Carbs Treats'</span>
                         to make your Meal Plan stand out.
-                    </p>
-                    <div class="col-lg-6">
-                        <div class="input-group">
-                            <span class="input-group-text">Name</span>
-                            <input asp-for="Name" class="form-control" placeholder="Name it.." type="text">
-                            <span asp-validation-for="Name" class="small text-danger"></span>
-                        </div>
-                    </div>
+                     </p>
                 </div>
             </div>
         </div>
