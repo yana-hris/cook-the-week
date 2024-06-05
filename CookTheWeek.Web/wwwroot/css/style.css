@@ -31,6 +31,24 @@ html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
+html body #main-container .input-group span.input-group-text {
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
+  border: none;
+}
+html body #main-container .input-group input.form-control, html body #main-container .input-group textarea.form-control, html body #main-container .input-group select.form-control {
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+html body #main-container span.text-danger {
+  display: block;
+  font-size: 14px;
+  margin-left: 3px;
+}
 html body #main-container .custom-link {
   color: var(--bs-primary);
   text-decoration: none;
@@ -507,6 +525,11 @@ html .not-finished {
     height: 2rem;
   }
 }
+#main-container #add-category-ingredient {
+  max-width: 800px !important;
+  padding: 2rem;
+}
+
 [data-bs-theme=light] nav .fixed-bottom a.btn.btn-primary {
   background-color: var(--bs-primary);
   color: #ffffff;
@@ -879,6 +902,14 @@ html .not-finished {
 }
 #add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 1rem;
+}
+#add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
+  border: 1px solid var(--bs-primary);
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.8rem 1.25rem;
+  margin-bottom: 8px;
 }
 #add-mealplan .row .no-wrap-text, #details-mealplan .row .no-wrap-text, #edit-mealplan .row .no-wrap-text {
   white-space: nowrap;

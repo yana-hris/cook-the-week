@@ -62,5 +62,9 @@
   {
     "outputFile": "wwwroot/scss/btn-style.css",
     "inputFile": "wwwroot/scss/btn-style.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/admin-form-styles.css",
+    "inputFile": "wwwroot/scss/admin-form-styles.scss"
   }
 ]

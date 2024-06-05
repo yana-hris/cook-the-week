@@ -30,6 +30,24 @@ html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
 }
+html body #main-container .input-group span.input-group-text {
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
+  border: none;
+}
+html body #main-container .input-group input.form-control, html body #main-container .input-group textarea.form-control, html body #main-container .input-group select.form-control {
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+html body #main-container span.text-danger {
+  display: block;
+  font-size: 14px;
+  margin-left: 3px;
+}
 html body #main-container .custom-link {
   color: var(--bs-primary);
   text-decoration: none;

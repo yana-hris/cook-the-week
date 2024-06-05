@@ -1,26 +1,31 @@
 ﻿@model IngredientCategoryAddFormModel
 @{
     ViewData["Title"] = "Add Ingredient Category";
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+    };
 }
+<div id="add-category-ingredient" class="container">
+    <partial name="_HeadingPartial" model="headingModel" />
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <div class="input-group">
+                    <span class="input-group-text">Name</span>
+                    <input asp-for="Name" class="form-control" placeholder="Category Name..." type="text">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
 
-<h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
-
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post">
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" placeholder="Category Name...">
-                <span asp-validation-for="Name" class="small text-danger"></span>
-            </div>
-
-            <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Add Ingredient Category" />
-            </div>
-        </form>
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3" type="submit" value="Add Ingredient Category" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 
 @section Scripts
 {

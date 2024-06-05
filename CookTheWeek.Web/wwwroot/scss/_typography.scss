@@ -33,12 +33,34 @@ html {
         }
 
 
-
         #main-container {
             margin: 0 auto;
             padding: 91px 12px;
             // Links
 
+            .input-group {
+
+                span.input-group-text {
+                    border-radius: 8px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    background-color: var(--bs-primary);
+                    color: var(--bs-white);
+                    border: none;
+                }
+
+                input.form-control, textarea.form-control, select.form-control {
+                    border-radius: 8px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+
+            span.text-danger {
+                display: block;
+                font-size: 14px;
+                margin-left: 3px;
+            }
             .custom-link {
                 color: var(--bs-primary);
                 text-decoration: none;
