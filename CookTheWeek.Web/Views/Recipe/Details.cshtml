@@ -12,10 +12,10 @@
     bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
 
     var headingModel = new PageHeadingViewModel
-            {
-                Subheading = "Recipe Details",
-                HeadingSecondary = "Description, Ingredients and Cooking Steps"
-            };
+    {
+        Subheading = "Recipe Details",
+        HeadingSecondary = "Description, Ingredients and Cooking Steps"
+    };
 }
 
 <div id="recipe-details-container">    

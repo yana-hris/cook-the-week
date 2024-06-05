@@ -6,10 +6,20 @@
 @{
     string userId = User.GetId();
     bool isAdmin = User.IsAdmin();
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = "Browse Recipes"
+    };
+
+    if (!isAdmin)
+    {
+        headingModel.HeadingSecondary = "Browse, filter, and order delicious recipes to cook this week";
+    }
 }
 
 <div class="container-xl" style="max-width: 1200px;">
- 
+    <partial name="_HeadingPartial" model="headingModel" />
         
     <div class="row">
         <form id="all-recipes-form" method="get" class="pb-3">

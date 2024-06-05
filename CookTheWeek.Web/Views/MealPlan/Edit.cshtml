@@ -3,8 +3,16 @@
     ViewData["Title"] = "Edit Meal Plan";
     int initialCount = Model.Meals.Count;
 
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = "Adjust servings and cooking dates"
+    };
+
 }
 <div id="edit-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
+    <partial name="_HeadingPartial" model="headingModel" />
+
     <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">
         <div class="row">
             <div class="col-12">

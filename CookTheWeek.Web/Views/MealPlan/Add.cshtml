@@ -4,7 +4,6 @@
     int initialCount = Model.Meals.Count;
 
     var headingModel = new PageHeadingViewModel
-
     {
         Subheading = ViewData["Title"]!.ToString(),
         HeadingSecondary = "Adjust servings and plan cooking dates"
@@ -14,6 +13,7 @@
 }
 <div id="add-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
     <partial name="_HeadingPartial" model="headingModel" />
+
     <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
         <div class="row pt-2">
             <div class="col-12">

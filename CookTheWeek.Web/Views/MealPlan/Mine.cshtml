@@ -14,81 +14,81 @@
 }
 <div id="meal-plans-mine" class="container-xl">
     <partial name="_HeadingPartial" model="headingModel" />
-@if (!Model.Any())
-{
-    <div id="no-meal-plans-message-container" class="p-3 text-center">
-        <h2 class="text-center pb-3 accent-heading">You have no Meal Plans yet!</h2>
-            <p>Ready to embark on your culinary journey?</p>
-            <p>We are thrilled to have you here! Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="text-primary flex-nowrap custom-link">All Recipes</a> section to find a variety of dishes. With a quick click of the <strong class="flex-nowrap">'Add to Meal Plan'</strong> button, you can start building your personalized meal plan. You can even add your own recipes to make your meal plan truly unique and tailored to your tastes. Our platform makes meal planning easy and enjoyable.</p>
-            <p class="pb-3">Let's create a week of unforgettable flavors together!</p>
-        <div class="button p-2"><a class="btn btn-primary btn-lg" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
-    </div>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th><label>Name</label></th>
-                <th><label>Start Date</label></th>
-                <th><label>End Date</label></th>
-                <th><label>Status</label></th>
-                <th><label>Total Meals</label></th>
-                <th><label>Details</label></th>
-                <th><label>Shopping List</label></th>
-                <th><label>Build Again</label></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var mealPlan in Model)
-            {
+    @if (!Model.Any())
+    {
+        <div id="no-meal-plans-message-container" class="p-3 text-center">
+            <h2 class="text-center pb-3 accent-heading">You have no Meal Plans yet!</h2>
+                <p>Ready to embark on your culinary journey?</p>
+                <p>We are thrilled to have you here! Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="text-primary flex-nowrap custom-link">All Recipes</a> section to find a variety of dishes. With a quick click of the <strong class="flex-nowrap">'Add to Meal Plan'</strong> button, you can start building your personalized meal plan. You can even add your own recipes to make your meal plan truly unique and tailored to your tastes. Our platform makes meal planning easy and enjoyable.</p>
+                <p class="pb-3">Let's create a week of unforgettable flavors together!</p>
+            <div class="button p-2"><a class="btn btn-primary btn-lg" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td class="align-baseline">@mealPlan.Name</td>
-                    <td class="align-baseline"><label>@mealPlan.StartDate</label></td>
-                    <td class="align-baseline"><label>@mealPlan.EndDate</label></td>
-                    <td class="align-baseline">
-                        <lablel>
+                    <th><label>Name</label></th>
+                    <th><label>Start Date</label></th>
+                    <th><label>End Date</label></th>
+                    <th><label>Status</label></th>
+                    <th><label>Total Meals</label></th>
+                    <th><label>Details</label></th>
+                    <th><label>Shopping List</label></th>
+                    <th><label>Build Again</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mealPlan in Model)
+                {
+                    <tr>
+                        <td class="align-baseline">@mealPlan.Name</td>
+                        <td class="align-baseline"><label>@mealPlan.StartDate</label></td>
+                        <td class="align-baseline"><label>@mealPlan.EndDate</label></td>
+                        <td class="align-baseline">
+                            <lablel>
+                                @if (mealPlan.IsFinished)
+                                {
+                                    <i class="fa-solid fa-flag-checkered finished"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-flag-checkered not-finished"></i>
+                                }
+                            </lablel>
+                        </td>
+
+                        <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
+                        <td class="align-baseline">
+                            <label>
+                                <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary fixed-size-btn">
+                                    <i class="fas fa-th-list"></i>
+                                </a>
+                            </label>
+                        </td>
+                        <td class="align-baseline">
+                            <label>
+                                <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-outline-primary fixed-size-btn">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </a>
+                            </label>
+                        </td>
+                        <td class="align-baseline">
+                            <label>
                             @if (mealPlan.IsFinished)
                             {
-                                <i class="fa-solid fa-flag-checkered finished"></i>
+                                <a asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" class="btn btn-primary fixed-size-btn">
+                                    <i class="fas fa-sync-alt"></i>
+                                </a>
                             }
-                            else
-                            {
-                                <i class="fa-solid fa-flag-checkered not-finished"></i>
-                            }
-                        </lablel>
-                    </td>
-
-                    <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
-                    <td class="align-baseline">
-                        <label>
-                            <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary fixed-size-btn">
-                                <i class="fas fa-th-list"></i>
-                            </a>
-                        </label>
-                    </td>
-                    <td class="align-baseline">
-                        <label>
-                            <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" class="btn btn-outline-primary fixed-size-btn">
-                                <i class="fas fa-shopping-basket"></i>
-                            </a>
-                        </label>
-                    </td>
-                    <td class="align-baseline">
-                        <label>
-                        @if (mealPlan.IsFinished)
-                        {
-                            <a asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" class="btn btn-primary fixed-size-btn">
-                                <i class="fas fa-sync-alt"></i>
-                            </a>
-                        }
-                        </label>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                            </label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
 
 
