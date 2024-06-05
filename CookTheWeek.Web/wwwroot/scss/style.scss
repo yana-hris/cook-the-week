@@ -11,12 +11,13 @@
 
 $primary: #2e6930;
 $secondary: #f8b324;
-$success: #4caf50;
+$success: #B4E33D;
 $info: #82a583;
 $warning: #ffc107;
 $danger: #DA0505;
-$light: #eaf0ea; //#fef0d3;
+$light: #FBE2B4; 
 $dark: #373b3e;
+
 
 $theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark, );
 
@@ -24,7 +25,7 @@ $theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $succes
 $dropdown-link-active-bg: $primary;
 $navbar-light-color: $primary;
 $navbar-hover-color: #70bf73;
-$nav-link-color: $primary;
+$nav-link-color: $success;
 $nav-link-hover-color: $success;
 $dropdown-link-active-color: #ffffff;
 $dropdown-link-active-bg: $primary;
@@ -36,14 +37,21 @@ $dropdown-dark-link-hover-color: #70bf73;
 $navbar-dark-color: #ffffff;
 $navbar-dark-hover-color: #70bf73; // light green
 
+$card-cap-bg: var(--bs-primary); 
+$card-cap-color: var(--bs-primary);
+$card-bg: var(--bs-success);
+$nav-tabs-link-active-color: var(--bs-primary);
+$nav-tabs-link-hover-color: var(--bs-primary);
+
+
 
 [data-bs-theme="light"] {
-
-    --body-bg: var(--bs-white);
+    --body-bg: var(--bs-light);
     --body-color: var(--bs-dark);
     --body-emphasis-color: var(--bs-primary);
     --meal-title-color: var(--bs-primary);
     
+
 }
 
 
@@ -51,7 +59,7 @@ $navbar-dark-hover-color: #70bf73; // light green
     --body-bg: var(--bs-dark);
     --body-color: var(--bs-white);
     --meal-title-color: var(--bs-white);
-    
+
 }
 
 

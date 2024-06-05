@@ -6,6 +6,9 @@
   height: auto;
   position: relative;
 }
+.recipe-container .card .card-body {
+  background-color: var(--bs-body-bg) !important;
+}
 @media (max-width: 575px) {
   .recipe-container .card {
     width: 376px !important;

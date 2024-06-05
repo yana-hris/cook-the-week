@@ -6,6 +6,10 @@
         height: auto;
         position: relative;
 
+        .card-body {
+            background-color: var(--bs-body-bg) !important;
+        }
+
         @media (max-width: 575px) {
             width: 376px !important;
         }
