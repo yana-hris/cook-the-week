@@ -144,7 +144,7 @@ html body nav.fixed-bottom {
   color: #ffffff !important;
 }
 #navigation #nav-container #navcol-5 .nav-item .drop-down-item:hover {
-  color: #70bf73 !important;
+  color: var(--bs-success) !important;
 }
 #navigation #nav-container #navcol-5 .nav-item .dropdown-item:active {
   background-color: var(--bs-primary) !important;

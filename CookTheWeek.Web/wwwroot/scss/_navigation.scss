@@ -30,13 +30,12 @@
                 }
 
                 .drop-down-item {
-                    //color: rgba(255,255,255,0.65)!important;
                     text-decoration: none !important;
                     color: #ffffff !important;
                 }
 
                 .drop-down-item:hover {
-                    color: #70bf73 !important;
+                    color: var(--bs-success) !important;
                 }
 
                 .dropdown-item:active {
