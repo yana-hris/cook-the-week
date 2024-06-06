@@ -26,40 +26,78 @@ $dropdown-link-active-bg: $primary;
 $navbar-light-color: $primary;
 $navbar-hover-color: #70bf73;
 $nav-link-color: $success;
-$nav-link-hover-color: $success;
+$nav-link-hover-color: $light;
 $dropdown-link-active-color: #ffffff;
 $dropdown-link-active-bg: $primary;
 
 $dropdown-dark-color: #ffffff;
 $dropdown-dark-link-color: #ffffff;
-$dropdown-dark-link-hover-color: #70bf73;
+$dropdown-dark-link-hover-color: $success;
 
 $navbar-dark-color: #ffffff;
-$navbar-dark-hover-color: #70bf73; // light green
-
+$navbar-dark-hover-color: $success;
 $card-cap-bg: var(--bs-primary); 
-$card-cap-color: var(--bs-primary);
-$card-bg: var(--bs-success);
+$card-cap-color: var(--bs-success);
+$card-bg: var(--bs-body-bg);
 $nav-tabs-link-active-color: var(--bs-primary);
 $nav-tabs-link-hover-color: var(--bs-primary);
 
 
 
 [data-bs-theme="light"] {
-    --body-bg: var(--bs-light);
+    --body-bg: #fff;
     --body-color: var(--bs-dark);
     --body-emphasis-color: var(--bs-primary);
     --meal-title-color: var(--bs-primary);
-    
 
+    .subheading {
+        color: var(--bs-primary);
+    }
+
+    .input-group {
+        select, input, textarea{
+
+        background-color: #fff;
+        color: var(--bs-dark);
+        }
+    }
+
+    .recipe-title {
+        color: var(--bs-primary);
+    }
+
+    .heading-tertiary {
+        color: var(--bs-primary);
+    }
+
+    .step-number {
+        color: var(--bs-success);
+    }
 }
 
 
 [data-bs-theme="dark"] {
-    --body-bg: var(--bs-dark);
+    --body-bg: var(--bs-body-bg);
     --body-color: var(--bs-white);
-    --meal-title-color: var(--bs-white);
+    --body-emphasis-color: var(--bs-success);
+    --meal-title-color: var(--bs-light);
 
+    .subheading {
+        color: var(--bs-success);
+    }
+
+    .recipe-title {
+        color: var(--bs-light);
+    }
+
+    .heading-tertiary {
+        color: var(--bs-light);
+    }
+
+    .step-number {
+        color: var(--bs-light);
+        opacity: 0.7;
+    }
 }
 
 

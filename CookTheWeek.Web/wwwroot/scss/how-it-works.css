@@ -16,14 +16,12 @@
 .container #steps-container .step-text-box .step-number {
   font-size: 6rem;
   font-weight: 700;
-  color: #97b498;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 .container #steps-container .step-text-box .heading-tertiary {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--bs-primary);
   line-height: 1;
   letter-spacing: -0.35px;
   margin-bottom: 0.5rem;

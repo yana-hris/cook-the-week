@@ -47,8 +47,6 @@ html body #main-container .input-group input.form-control, html body #main-conta
   border-radius: 8px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: #FBE2B4;
-  color: var(--bs-dark);
   border: 1px solid var(--bs-primary);
 }
 html body #main-container .input-group input.form-control.search {
@@ -72,9 +70,8 @@ html body #main-container .subheading {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--bs-primary);
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.65px;
   margin-bottom: 0.2rem;
 }
 html body #main-container .heading-secondary {

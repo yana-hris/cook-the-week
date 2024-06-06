@@ -55,10 +55,9 @@
   font-weight: 500;
   margin-top: 5px;
   margin-bottom: 2px;
-  color: var(--bs-body-color);
 }
 .recipe-container .card .recipe-title:hover {
-  color: var(--bs-primary);
+  color: var(--bs-success);
   text-decoration: underline;
 }
 .recipe-container .card hr {

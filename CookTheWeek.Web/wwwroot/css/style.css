@@ -48,8 +48,6 @@ html body #main-container .input-group input.form-control, html body #main-conta
   border-radius: 8px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: #FBE2B4;
-  color: var(--bs-dark);
   border: 1px solid var(--bs-primary);
 }
 html body #main-container .input-group input.form-control.search {
@@ -73,9 +71,8 @@ html body #main-container .subheading {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--bs-primary);
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.65px;
   margin-bottom: 0.2rem;
 }
 html body #main-container .heading-secondary {
@@ -454,10 +451,9 @@ html .not-finished {
   font-weight: 500;
   margin-top: 5px;
   margin-bottom: 2px;
-  color: var(--bs-body-color);
 }
 .recipe-container .card .recipe-title:hover {
-  color: var(--bs-primary);
+  color: var(--bs-success);
   text-decoration: underline;
 }
 .recipe-container .card hr {
@@ -473,16 +469,46 @@ html .not-finished {
 }
 
 [data-bs-theme=light] {
-  --body-bg: var(--bs-light);
+  --body-bg: #fff;
   --body-color: var(--bs-dark);
   --body-emphasis-color: var(--bs-primary);
   --meal-title-color: var(--bs-primary);
 }
+[data-bs-theme=light] .subheading {
+  color: var(--bs-primary);
+}
+[data-bs-theme=light] .input-group select, [data-bs-theme=light] .input-group input, [data-bs-theme=light] .input-group textarea {
+  background-color: #fff;
+  color: var(--bs-dark);
+}
+[data-bs-theme=light] .recipe-title {
+  color: var(--bs-primary);
+}
+[data-bs-theme=light] .heading-tertiary {
+  color: var(--bs-primary);
+}
+[data-bs-theme=light] .step-number {
+  color: var(--bs-success);
+}
 
 [data-bs-theme=dark] {
-  --body-bg: var(--bs-dark);
+  --body-bg: var(--bs-body-bg);
   --body-color: var(--bs-white);
-  --meal-title-color: var(--bs-white);
+  --body-emphasis-color: var(--bs-success);
+  --meal-title-color: var(--bs-light);
+}
+[data-bs-theme=dark] .subheading {
+  color: var(--bs-success);
+}
+[data-bs-theme=dark] .recipe-title {
+  color: var(--bs-light);
+}
+[data-bs-theme=dark] .heading-tertiary {
+  color: var(--bs-light);
+}
+[data-bs-theme=dark] .step-number {
+  color: var(--bs-light);
+  opacity: 0.7;
 }
 
 #admin-container {
@@ -540,7 +566,7 @@ html .not-finished {
     height: 2rem;
   }
 }
-#main-container #add-category-ingredient {
+#main-container #category {
   max-width: 800px !important;
   padding: 2rem;
 }
@@ -608,14 +634,12 @@ html .not-finished {
 .container #steps-container .step-text-box .step-number {
   font-size: 6rem;
   font-weight: 700;
-  color: #97b498;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 .container #steps-container .step-text-box .heading-tertiary {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--bs-primary);
   line-height: 1;
   letter-spacing: -0.35px;
   margin-bottom: 0.5rem;
@@ -4785,7 +4809,7 @@ textarea.form-control-lg {
   --bs-dropdown-border-color: var(--bs-border-color-translucent);
   --bs-dropdown-box-shadow: ;
   --bs-dropdown-link-color: #ffffff;
-  --bs-dropdown-link-hover-color: #70bf73;
+  --bs-dropdown-link-hover-color: #B4E33D;
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
   --bs-dropdown-link-active-color: #fff;
@@ -4899,7 +4923,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: #B4E33D;
-  --bs-nav-link-hover-color: #B4E33D;
+  --bs-nav-link-hover-color: #FBE2B4;
   --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
@@ -5443,7 +5467,7 @@ textarea.form-control-lg {
 .navbar-dark,
 .navbar[data-bs-theme=dark] {
   --bs-navbar-color: #ffffff;
-  --bs-navbar-hover-color: #70bf73;
+  --bs-navbar-hover-color: #B4E33D;
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
   --bs-navbar-active-color: #fff;
   --bs-navbar-brand-color: #fff;
@@ -5470,10 +5494,10 @@ textarea.form-control-lg {
   --bs-card-cap-padding-y: 0.5rem;
   --bs-card-cap-padding-x: 1rem;
   --bs-card-cap-bg: var(--bs-primary);
-  --bs-card-cap-color: var(--bs-primary);
+  --bs-card-cap-color: var(--bs-success);
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: var(--bs-success);
+  --bs-card-bg: var(--bs-body-bg);
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;

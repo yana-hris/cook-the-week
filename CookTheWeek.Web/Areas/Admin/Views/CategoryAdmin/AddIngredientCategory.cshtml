@@ -7,7 +7,7 @@
         Subheading = ViewData["Title"]!.ToString(),
     };
 }
-<div id="add-category-ingredient" class="container">
+<div id="category" class="container">
     <partial name="_HeadingPartial" model="headingModel" />
     <div class="row">
         <div class="col">
@@ -15,11 +15,11 @@
                 <div class="input-group">
                     <span class="input-group-text">Name</span>
                     <input asp-for="Name" class="form-control" placeholder="Category Name..." type="text">
-                    <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
+                <span asp-validation-for="Name" class="small text-danger"></span>
 
                 <div class="text-center">
-                    <input class="btn btn-primary mt-3" type="submit" value="Add Ingredient Category" />
+                    <input class="btn btn-primary btn-lg" type="submit" value="SAVE" />
                 </div>
             </form>
         </div>
