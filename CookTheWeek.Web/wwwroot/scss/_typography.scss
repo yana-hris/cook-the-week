@@ -25,10 +25,6 @@ html {
 
     body {
 
-        .accent-heading {
-            font-family: "Libre Baskerville", serif;
-        }
-
         a {
             text-decoration: none;
         }
@@ -58,7 +54,6 @@ html {
                     border-radius: 8px;
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
-                    
                     border: 1px solid var(--bs-primary);
                 }
 
@@ -84,11 +79,15 @@ html {
                 text-decoration: underline;
             }
             // Headings
+
+            .heading-container {
+                margin-left: 2px;
+            }
+
             .subheading {
                 display: block;
                 font-size: 1.2rem;
                 font-weight: 600;
-                
                 text-transform: uppercase;
                 letter-spacing: 0.65px;
                 margin-bottom: 0.20rem;
@@ -100,6 +99,10 @@ html {
                 line-height: 1.2;
                 text-transform: capitalize;
                 margin-bottom: 1.4rem;
+            }
+
+            .accent-heading {
+                font-family: "Libre Baskerville", serif;
             }
         }
 

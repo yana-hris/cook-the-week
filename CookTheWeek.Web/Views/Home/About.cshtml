@@ -1,84 +1,86 @@
 ﻿@{
     ViewData["Title"] = "About";
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = "App Purpose"
+    };
 }
-<div class="container" id="features-container">
+<div id="about-container" class="container">
+    <partial name="_HeadingPartial" model="headingModel" />
+
     <div class="row">
-        <div class="col d-flex flex-column justify-content-center p-4">
-            <div class="d-flex flex-column align-items-md-start mb-5">
-                
-                <div class="subheading">About</div>
-                <div class="heading-secondary">App Purpose</div>
-                <div class="mb-3 row">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img class="rounded float-start" src="~/img/who-am-i.jpg" alt="creator photo" width="200px"/>
-                        </div>
-                        <div class="col-md-8">
-                            <p>
-                                Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I was always searching for new recipes and ways to optimize grocery shopping. Inspired by my experiences and daily meal prep challenges, I created CookTheWeek—a user-friendly app designed to help busy parents plan and prepare delicious meals with ease.
-                            </p>
-                            <p>
-                                CookTheWeek was born from my love of cooking and the desire to simplify meal planning for busy households. As someone constantly on the lookout for fresh produce and creative recipes, I understand the challenges of juggling family responsibilities while trying to prepare wholesome meals. CookTheWeek streamlines the meal planning process, offering inspiration, organization, and convenience to families everywhere.
-                            </p>
-                            <p>
-                                Have questions or feedback? I'd love to hear from you! Reach out through the form below, and I'll get back to you as soon as possible. Thank you for choosing CookTheWeek to simplify your meal planning journey!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="contact-form">
-                            <div class="container">
-                                <div class="cta">
-                                    <div class="cta-text-box">
-                                        <h2 class="heading-secondary">Get your first meal for free!</h2>
-                                        <p class="cta-text">
-                                            Healthy, tasty and hassle-free meals are waiting for you. Start
-                                            eating well today. You can cancel or pause anytime. And the
-                                            first meal is on us!
-                                        </p>
+        <!-- Image column -->
+        <div class="col-12 col-md-4">
+            <img class="img-fluid rounded" src="~/img/who-am-i.jpg" alt="creator photo" />
+        </div>
+        <!-- Text column -->
+        <div class="col-12 col-md-8">
+            <p>
+                Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I faced the daily challenge of finding new recipes and optimizing grocery shopping. This inspired me to create CookTheWeek—a user-friendly app designed to help busy parents effortlessly plan and prepare delicious meals.
+            </p>
+            <p>
+                CookTheWeek is born from my love of cooking and my desire to simplify meal planning for households. The app streamlines the process, providing fresh ideas, organizational tools, and convenience for families looking to enjoy wholesome meals without the hassle.
+            </p>
+            <p>
+                I'd love to hear your questions or feedback! Reach out through the form below, and I'll get back to you as soon as possible. 
+            </p>
+            <p>
+                Thank you for choosing CookTheWeek to enhance your meal planning experience!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="contact-form">
+            <div class="container">
+                <div class="cta">
+                    <div class="cta-text-box">
+                        <h2 class="heading-secondary">Give me your feedback if you feel so!</h2>
+                        <p class="cta-text">
+                            Healthy, tasty and hassle-free meals are waiting for you. Start
+                            eating well today. You can cancel or pause anytime. And the
+                            first meal is on us!
+                        </p>
 
-                                        <form class="cta-form" action="#">
-                                            <div>
-                                                <label for="full-name">Full Name</label>
-                                                <input id="full-name"
-                                                       type="text"
-                                                       placeholder="John Smith"
-                                                       required />
-                                            </div>
-
-                                            <div>
-                                                <label for="email">Email address</label>
-                                                <input id="email"
-                                                       type="email"
-                                                       placeholder="me@example.com"
-                                                       required />
-                                            </div>
-
-                                            <div>
-                                                <label for="select-where">Where did you hear from us?</label>
-                                                <select id="select-where" required>
-                                                    <option value="">Please choose one option:</option>
-                                                    <option value="friends">Friends and family</option>
-                                                    <option value="youtube">YouTube video</option>
-                                                    <option value="podcast">Podcast</option>
-                                                    <option value="ad">Facebook ad</option>
-                                                    <option value="others">Others</option>
-                                                </select>
-                                            </div>
-
-                                            <button class="btn btn--form">Sign up now</button>
-
-                                            <!-- <input type="checkbox" />
-                                            <input type="number" /> -->
-                                        </form>
-                                    </div>
-                                    <div class="cta-img-box"
-                                         role="img"
-                                         aria-label="Woman enjoying food"></div>
-                                </div>
+                        <form class="cta-form" action="#">
+                            <div>
+                                <label for="full-name">Full Name</label>
+                                <input id="full-name"
+                                        type="text"
+                                        placeholder="John Smith"
+                                        required />
                             </div>
-                        </div>
+
+                            <div>
+                                <label for="email">Email address</label>
+                                <input id="email"
+                                        type="email"
+                                        placeholder="me@example.com"
+                                        required />
+                            </div>
+
+                            <div>
+                                <label for="select-where">Where did you hear from us?</label>
+                                <select id="select-where" required>
+                                    <option value="">Please choose one option:</option>
+                                    <option value="friends">Friends and family</option>
+                                    <option value="youtube">YouTube video</option>
+                                    <option value="podcast">Podcast</option>
+                                    <option value="ad">Facebook ad</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn--form">Sign up now</button>
+
+                            <!-- <input type="checkbox" />
+                            <input type="number" /> -->
+                        </form>
                     </div>
+                    <div class="cta-img-box"
+                            role="img"
+                            aria-label="Woman enjoying food"></div>
                 </div>
             </div>
         </div>

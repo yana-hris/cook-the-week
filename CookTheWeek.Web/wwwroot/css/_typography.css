@@ -21,9 +21,6 @@ html {
   position: relative;
   min-height: 100%;
 }
-html body .accent-heading {
-  font-family: "Libre Baskerville", serif;
-}
 html body a {
   text-decoration: none;
 }
@@ -66,6 +63,9 @@ html body #main-container .custom-link:hover {
   color: var(--bs-primary);
   text-decoration: underline;
 }
+html body #main-container .heading-container {
+  margin-left: 2px;
+}
 html body #main-container .subheading {
   display: block;
   font-size: 1.2rem;
@@ -80,6 +80,9 @@ html body #main-container .heading-secondary {
   line-height: 1.2;
   text-transform: capitalize;
   margin-bottom: 1.4rem;
+}
+html body #main-container .accent-heading {
+  font-family: "Libre Baskerville", serif;
 }
 html body footer {
   font-size: 14px;
