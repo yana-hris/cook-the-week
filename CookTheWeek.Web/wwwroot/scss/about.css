@@ -7,3 +7,12 @@
 #about-container .row div {
   margin-bottom: 1rem;
 }
+
+@media (max-width: 768px) {
+  #about-container .row {
+    margin-bottom: 1rem;
+  }
+  #about-container .row div {
+    margin-bottom: 0.5rem;
+  }
+}

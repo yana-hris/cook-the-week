@@ -22,20 +22,22 @@ $dark: #373b3e;
 $theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark, );
 
 
-$dropdown-link-active-bg: $primary;
 $navbar-light-color: $primary;
 $navbar-hover-color: $success;
+
 $nav-link-color: $success;
-$nav-link-hover-color: $light;
-$dropdown-link-active-color: #ffffff;
+$nav-link-hover-color: #ffffff;
+
+$navbar-dark-color: #ffffff;
+$navbar-dark-hover-color: $success;
+
 $dropdown-link-active-bg: $primary;
+$dropdown-link-active-color: #ffffff;
 
 $dropdown-dark-color: #ffffff;
 $dropdown-dark-link-color: #ffffff;
 $dropdown-dark-link-hover-color: $success;
 
-$navbar-dark-color: #ffffff;
-$navbar-dark-hover-color: $success;
 $card-cap-bg: var(--bs-primary); 
 $card-cap-color: var(--bs-success);
 $card-bg: var(--bs-body-bg);
@@ -60,6 +62,12 @@ $nav-tabs-link-hover-color: var(--bs-primary);
         background-color: #fff;
         color: var(--bs-dark);
         }
+    }
+
+    span.input-group-text {
+        background-color: var(--bs-success) !important;
+        color: var(--bs-primary) !important;
+        border: 1px solid var(--bs-primary) !important;
     }
 
     .recipe-title {
@@ -89,7 +97,7 @@ $nav-tabs-link-hover-color: var(--bs-primary);
     .recipe-title {
         color: var(--bs-light);
     }
-
+    
     .heading-tertiary {
         color: var(--bs-light);
     }
@@ -97,6 +105,10 @@ $nav-tabs-link-hover-color: var(--bs-primary);
     .step-number {
         color: var(--bs-light);
         opacity: 0.7;
+    }
+
+    button.nav-link.active {
+        color: #ffffff !important;
     }
 }
 

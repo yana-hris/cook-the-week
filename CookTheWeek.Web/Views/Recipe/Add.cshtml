@@ -50,7 +50,8 @@
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
-                                    <span class="input-group-text">Servs</span><select class="form-control" asp-for="Servings">
+                                    <span class="input-group-text">Servs</span>
+                                    <select class="form-control" asp-for="Servings">
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions)
                                         {

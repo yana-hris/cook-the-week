@@ -49,12 +49,10 @@ html .minus::before {
 html .plus:hover::before {
   background-color: #fff;
   border: 1px solid var(--bs-primary);
-  box-shadow: 0px 0px 1px 0px black;
 }
 html .minus:hover::before {
   background-color: #fff;
   border: 1px solid var(--bs-danger);
-  box-shadow: 0px 0px 1px 0px black;
 }
 html .add-to-mealplan-button.plus:hover .fa {
   color: var(--bs-primary);
@@ -63,9 +61,9 @@ html .add-to-mealplan-button.minus:hover .fa {
   color: var(--bs-danger);
 }
 html .fa-user-circle {
-  color: yellow;
+  color: var(--bs-success);
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #b3b300;
+  -webkit-text-stroke-color: var(--bs-primary);
 }
 html .fa-flag-checkered {
   font-size: 24px;

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ContactFormModel
+@{
     ViewData["Title"] = "About";
 
     var headingModel = new PageHeadingViewModel
@@ -12,11 +13,11 @@
 
     <div class="row">
         <!-- Image column -->
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 g-md-3">
             <img class="img-fluid rounded" src="~/img/who-am-i.jpg" alt="creator photo" />
         </div>
         <!-- Text column -->
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-8 g-md-3">
             <p>
                 Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I faced the daily challenge of finding new recipes and optimizing grocery shopping. This inspired me to create CookTheWeek—a user-friendly app designed to help busy parents effortlessly plan and prepare delicious meals.
             </p>
@@ -33,57 +34,75 @@
     </div>
     <div class="row">
         <div class="contact-form">
-            <div class="container">
-                <div class="cta">
-                    <div class="cta-text-box">
-                        <h2 class="heading-secondary">Give me your feedback if you feel so!</h2>
-                        <p class="cta-text">
-                            Healthy, tasty and hassle-free meals are waiting for you. Start
-                            eating well today. You can cancel or pause anytime. And the
-                            first meal is on us!
-                        </p>
+            <h2 class="heading-secondary">Have something to say?</h2>
+            <p class="contact-form-text">
+                Have questions or feedback? Share your thoughts with me and help make CookTheWeek even better!
+            </p>
 
-                        <form class="cta-form" action="#">
-                            <div>
-                                <label for="full-name">Full Name</label>
-                                <input id="full-name"
-                                        type="text"
-                                        placeholder="John Smith"
-                                        required />
-                            </div>
-
-                            <div>
-                                <label for="email">Email address</label>
-                                <input id="email"
-                                        type="email"
-                                        placeholder="me@example.com"
-                                        required />
-                            </div>
-
-                            <div>
-                                <label for="select-where">Where did you hear from us?</label>
-                                <select id="select-where" required>
-                                    <option value="">Please choose one option:</option>
-                                    <option value="friends">Friends and family</option>
-                                    <option value="youtube">YouTube video</option>
-                                    <option value="podcast">Podcast</option>
-                                    <option value="ad">Facebook ad</option>
-                                    <option value="others">Others</option>
-                                </select>
-                            </div>
-
-                            <button class="btn btn--form">Sign up now</button>
-
-                            <!-- <input type="checkbox" />
-                            <input type="number" /> -->
-                        </form>
+            <form id="feedback-form" method="post" asp-area="" asp-controller="Home" asp-action="SubmitContactForm">
+                <div class="row contact-form-row">
+                    <div class="col col-12 col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">Your Name</span>
+                            <input asp-for="FullName"
+                                    type="text"
+                                    placeholder="John Smith"
+                                    class="form-control"
+                                    />
+                        </div>
+                        <span asp-validation-for="FullName" class="small text-danger"></span>
                     </div>
-                    <div class="cta-img-box"
-                            role="img"
-                            aria-label="Woman enjoying food"></div>
+                    <div class="col col-12 col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">Email address</span>
+                            <input asp-for="EmailAddress"
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="me@example.com"
+                                    />
+                        </div>
+                        <span asp-validation-for="EmailAddress" class="small text-danger"></span>
+                    </div>
                 </div>
-            </div>
+                <div class="row contact-form-row">
+                    <div class="col col-12">
+                        <div class="input-group">
+                            <span class="input-group-text">Subject</span>
+                            <select class="form-control" asp-for="Subject">
+                                <option value="">Please choose one option:</option>
+                                <option value="user-experience">User Experience</option>
+                                <option value="features">Features</option>
+                                <option value="recipes">Recipes</option>
+                                <option value="performance">Performance</option>
+                                <option value="design">Design</option>
+                                <option value="content">Content</option>
+                                <option value="customer-support">Customer Support</option>
+                                <option value="overall-satisfaction">Overall Satisfaction</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Subject" class="small text-danger"></span>
+                    </div>
+                </div>
+                <div class="row contact-form-row">
+                    <div class="col col-12">
+                        <div class="input-group">
+                            <span class="input-group-text">Message</span>
+                            <textarea asp-for="Message" rows="5" class="form-control" placeholder="Tell me all about it.."></textarea>
+                        </div>
+                        <span asp-validation-for="Message" class="small text-danger"></span>
+                    </div>
+                </div>
+                <div class="row btn-row">
+                    <div class="col col-12 text-center">
+                        <button form="feedback-form" class="btn btn-success text-dark btn-lg" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

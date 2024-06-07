@@ -2,14 +2,27 @@ namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SendGrid;
+    using SendGrid.Helpers.Mail;
 
+    using CookTheWeek.Web.ViewModels.Home;
     using Infrastructure.Extensions;
 
     using static Common.GeneralApplicationConstants;
+    using static Common.NotificationMessagesConstants;
 
     [AllowAnonymous]
     public class HomeController : Controller
     {        
+        private readonly IConfiguration configuration;
+        private readonly ILogger<HomeController> logger;
+
+        public HomeController(IConfiguration configuration,
+            ILogger<HomeController> logger) 
+        {
+            this.configuration = configuration;
+            this.logger = logger;
+        }
         public IActionResult Index()
         {
             if(this.User.IsAdmin())
@@ -46,6 +59,40 @@ namespace CookTheWeek.Web.Controllers
             }
 
             return RedirectToAction("All", "Recipe");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitContactForm(ContactFormModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var apiKey = configuration["SendGrid:CookTheWeek_API_Key"];
+                var client = new SendGridClient(apiKey);
+                
+                var from = new EmailAddress(configuration["EmailSettings:FromEmail"], "Cook The Week Support");
+                var subject = model.Subject;
+                var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");
+                var plainTextContent = $"Name: {model.FullName}\nEmail: {model.EmailAddress}\nMessage: {model.Message}";
+                var htmlContent = $"<strong>Name:</strong> {model.FullName}<br><strong>Email:</strong> {model.EmailAddress}<br><strong>Message:</strong> {model.Message}";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                
+                var response = await client.SendEmailAsync(msg);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                {
+                    TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
+                }
+                else
+                {
+                    logger.LogError($"Failed to send contact form message for user {User.GetId()}");
+                    TempData[ErrorMessage] = "Error sending email. Please try again later.";
+                }
+
+                return View("About");
+            }
+
+            return View("About", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

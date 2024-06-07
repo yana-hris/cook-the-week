@@ -10,6 +10,19 @@
     }
 }
 
+@media (max-width: 768px) {
+    #about-container {
+
+        .row {
+            margin-bottom: 1rem;
+
+            div {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}
+
 
 
 

@@ -61,13 +61,13 @@
     .plus:hover::before {
         background-color: #fff;
         border: 1px solid var(--bs-primary);
-        box-shadow: 0px 0px 1px 0px black;
+        //box-shadow: 0px 0px 1px 0px black;
     }
 
     .minus:hover::before {
         background-color: #fff;
         border: 1px solid var(--bs-danger);
-        box-shadow: 0px 0px 1px 0px black;
+        //box-shadow: 0px 0px 1px 0px black;
     }
 
     .add-to-mealplan-button.plus:hover {
@@ -83,9 +83,9 @@
     }
     // owned recipe style
     .fa-user-circle {
-        color: yellow;
+        color: var(--bs-success);
         -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #b3b300;
+        -webkit-text-stroke-color: var(--bs-primary);
     }
 
     .fa-flag-checkered {

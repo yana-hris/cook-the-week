@@ -6,13 +6,16 @@
         height: auto;
         position: relative;
 
+        box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+        overflow: hidden;
+        transition: all 0.4s;
+
         .card-body {
             background-color: var(--bs-body-bg) !important;
         }
-
-        @media (max-width: 575px) {
+        /*@media (max-width: 575px) {
             width: 376px !important;
-        }
+        }*/
 
         .card-img-top {
             display: block;
@@ -29,7 +32,7 @@
         }
 
         .add-to-mealplan-container {
-            display: inline-block; 
+            display: inline-block;
             position: absolute;
             bottom: 8px;
             right: 10px;
@@ -55,7 +58,7 @@
             padding: 1px 6px 2px 6px;
             width: 120px;
         }
-        
+
         .recipe-title {
             font-family: "Libre Baskerville", serif;
             font-size: 16px;
@@ -63,9 +66,8 @@
             margin-top: 5px;
             margin-bottom: 2px;
         }
-        
-        .recipe-title:hover {
-            color: var(--bs-success);
+
+        .recipe-title:hover {            
             text-decoration: underline;
         }
 
@@ -81,5 +83,10 @@
             padding-bottom: 0;
             margin-bottom: 10px;
         }
+    }
+
+    .card:hover {
+        transform: translateY(-0.6rem);
+        box-shadow: 0 3.2rem 6.4rem rgba(0,0,0,0.6);
     }
 }

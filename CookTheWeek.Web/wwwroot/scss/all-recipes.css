@@ -6,6 +6,7 @@
   display: flex;
   align-items: start;
   justify-content: center;
+  margin-top: 2rem;
 }
 .container-xl .modal-overlay {
   display: none; /* Hidden by default */
