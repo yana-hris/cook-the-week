@@ -1,7 +1,4 @@
-﻿#about-container {
-  max-width: 940px !important;
-}
-#about-container .row .text-container p {
+﻿#about-container .row .text-container p {
   margin-bottom: 1.5rem;
   line-height: 1.8;
   font-weight: 400;
@@ -19,11 +16,11 @@
   max-width: 120rem;
   margin: 0 auto;
   padding: 2rem 3.2rem;
+  color: #121706;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
   overflow: hidden;
-  color: #121706;
 }
 #about-container .row .contact-form .heading-secondary {
   margin-bottom: 1rem;

@@ -15,10 +15,12 @@
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <Content Remove="wwwroot\scss\admin-form-styles.scss" />
+    <Content Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\scss\admin-form-styles.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -149,6 +151,7 @@
     <None Include="wwwroot\lib\bootstrap\scss\_variables-dark.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_variables.scss" />
     <None Include="wwwroot\scss\admin-form-styles.scss" />
+    <None Include="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>

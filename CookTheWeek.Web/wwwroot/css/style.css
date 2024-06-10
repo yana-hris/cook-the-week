@@ -470,6 +470,24 @@ html .not-finished {
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.6);
 }
 
+.list-container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1000px;
+}
+
+.card-container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 800px;
+}
+
 [data-bs-theme=light] {
   --body-bg: #fff;
   --body-color: var(--bs-dark);
@@ -813,9 +831,6 @@ html .not-finished {
   height: 100%;
 }
 
-#about-container {
-  max-width: 940px !important;
-}
 #about-container .row .text-container p {
   margin-bottom: 1.5rem;
   line-height: 1.8;
@@ -834,11 +849,11 @@ html .not-finished {
   max-width: 120rem;
   margin: 0 auto;
   padding: 2rem 3.2rem;
+  color: #121706;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
   overflow: hidden;
-  color: #121706;
 }
 #about-container .row .contact-form .heading-secondary {
   margin-bottom: 1rem;

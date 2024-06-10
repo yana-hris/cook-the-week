@@ -1,6 +1,6 @@
-﻿#about-container {
-    max-width: 940px !important;
+﻿@import 'variables';
 
+#about-container {
     .row {
 
         .text-container {
@@ -28,12 +28,12 @@
             max-width: 120rem;
             margin: 0 auto;
             padding: 2rem 3.2rem;
+            color: $very-dark-green-text-color;
             box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
             border-radius: 8px;
-            background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
+            background-image: linear-gradient(to right bottom, $yellowish-gradient-left-color, $greenish-gradient-right-color);
             overflow: hidden;
-            color: #121706; //var(--bs-dark);
-
+            
             .heading-secondary {
                 margin-bottom: 1rem;
             }
@@ -43,15 +43,15 @@
             }
 
             .input-group-text {
-                background-color: #485b18 !important;
-                color: #f8fcec !important;
+                background-color: $input-form-span-bg-dark-green-color !important;
+                color: $very-light-green-text-color !important;
             }
 
             .btn-row {
                 padding-top: 1.2rem;
 
                 button {
-                    color: #121706; //dark green
+                    color: $very-dark-green-text-color;
                     padding: 0.6rem 3.2rem;
                     font-size: 18px;
                 }
@@ -125,3 +125,4 @@
         }
     }
 }
+

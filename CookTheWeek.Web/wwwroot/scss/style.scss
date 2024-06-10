@@ -2,6 +2,7 @@
 @import '../lib/bootstrap/scss/variables';
 @import '../lib/bootstrap/scss/variables-dark';
 @import '../lib/bootstrap/scss/mixins';
+@import 'variables';
 @import 'typography';
 @import 'navigation';
 @import 'theme-switcher';
@@ -9,42 +10,26 @@
 @import 'icons-style';
 @import 'recipe-card';
 
-$primary: #2e6930;
-$secondary: #f8b324;
-$success: #B4E33D;
-$info: #82a583;
-$warning: #ffc107;
-$danger: #DA0505;
-$light: #FBE2B4; 
-$dark: #373b3e;
 
+@mixin make-container($padding-x: $container-padding-x) {
+    width: 100%;
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+    margin-right: auto;
+    margin-left: auto;
+}
 
-$theme-colors: ( "primary":$primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark, );
+// Custom containers
+.list-container {
+    @include make-container();
 
+    max-width: 1000px;
+}
 
-$navbar-light-color: $primary;
-$navbar-hover-color: $success;
-
-$nav-link-color: $success;
-$nav-link-hover-color: #ffffff;
-
-$navbar-dark-color: #ffffff;
-$navbar-dark-hover-color: $success;
-
-$dropdown-link-active-bg: $primary;
-$dropdown-link-active-color: #ffffff;
-
-$dropdown-dark-color: #ffffff;
-$dropdown-dark-link-color: #ffffff;
-$dropdown-dark-link-hover-color: $success;
-
-$card-cap-bg: var(--bs-primary); 
-$card-cap-color: var(--bs-success);
-$card-bg: var(--bs-body-bg);
-$nav-tabs-link-active-color: var(--bs-primary);
-$nav-tabs-link-hover-color: var(--bs-primary);
-
-
+.card-container {
+    @include make-container();
+    max-width: 800px;
+}
 
 [data-bs-theme="light"] {
     --body-bg: #fff;
@@ -98,6 +83,7 @@ $nav-tabs-link-hover-color: var(--bs-primary);
     --body-color: var(--bs-white);
     --body-emphasis-color: var(--bs-success);
     --meal-title-color: var(--bs-light);
+    
 
     .subheading {
         color: var(--bs-success);
