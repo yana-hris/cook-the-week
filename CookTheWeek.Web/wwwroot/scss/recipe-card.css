@@ -8,12 +8,10 @@
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
   overflow: hidden;
   transition: all 0.4s;
-  /*@media (max-width: 575px) {
-      width: 376px !important;
-  }*/
 }
 .recipe-container .card .card-body {
   background-color: var(--bs-body-bg) !important;
+  padding: 0.65rem !important;
 }
 .recipe-container .card .card-img-top {
   display: block;
@@ -47,8 +45,8 @@
 .recipe-container .card span.badge {
   display: inline-block;
   font-size: 12px;
-  padding: 1px 6px 2px 6px;
-  width: 120px;
+  padding: 2px 6px 3px 6px;
+  width: auto;
 }
 .recipe-container .card .recipe-title {
   font-family: "Libre Baskerville", serif;
@@ -68,8 +66,7 @@
 .recipe-container .card .recipe-description {
   font-weight: 400;
   font-size: 15px;
-  padding-bottom: 0;
-  margin-bottom: 10px;
+  padding-bottom: 1.2rem;
 }
 .recipe-container .card:hover {
   transform: translateY(-0.6rem);

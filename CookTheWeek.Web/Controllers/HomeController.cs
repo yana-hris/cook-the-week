@@ -13,15 +13,14 @@ namespace CookTheWeek.Web.Controllers
 
     [AllowAnonymous]
     public class HomeController : Controller
-    {        
-        private readonly string apiKey;
+    { 
+        
         private readonly ILogger<HomeController> logger;
         private readonly IConfiguration configuration;
 
         public HomeController(IConfiguration configuration,
             ILogger<HomeController> logger) 
         {
-            apiKey = configuration["SendGrid:CookTheWeek_API_Key"]!;
             this.configuration = configuration;
             this.logger = logger;
         }
@@ -69,8 +68,8 @@ namespace CookTheWeek.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                var apiKey = configuration["SendGrid:CookTheWeek_API_Key"];
                 var client = new SendGridClient(apiKey);
-                
                 var from = new EmailAddress(configuration["EmailSettings:FromEmail"], "Cook The Week Support");
                 var subject = model.Subject;
                 var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");

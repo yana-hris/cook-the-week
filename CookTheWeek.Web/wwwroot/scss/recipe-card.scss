@@ -12,11 +12,9 @@
 
         .card-body {
             background-color: var(--bs-body-bg) !important;
+            padding: 0.65rem !important;
         }
-        /*@media (max-width: 575px) {
-            width: 376px !important;
-        }*/
-
+        
         .card-img-top {
             display: block;
             height: 12rem;
@@ -55,8 +53,8 @@
         span.badge {
             display: inline-block;
             font-size: 12px;
-            padding: 1px 6px 2px 6px;
-            width: 120px;
+            padding: 2px 6px 3px 6px;
+            width: auto;
         }
 
         .recipe-title {
@@ -80,8 +78,7 @@
         .recipe-description {
             font-weight: 400;
             font-size: 15px;
-            padding-bottom: 0;
-            margin-bottom: 10px;
+            padding-bottom: 1.2rem;
         }
     }
 

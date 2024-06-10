@@ -34,14 +34,10 @@
   width: 100%;
   position: relative;
 }
-.container-xl .modal .modal-dialog .modal-content .modal-title {
-  font-size: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
 .container-xl .modal .modal-dialog .modal-content p {
-  margin: 1rem 2rem;
-  line-height: 1.5;
+  margin: 1rem 1.6rem;
+  line-height: 1.6;
+  text-align: center;
 }
 .container-xl .modal .modal-dialog .modal-content .close.btn {
   position: absolute;
@@ -61,6 +57,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  margin-bottom: 1rem;
 }
 .container-xl .modal.show + .modal-overlay {
   display: block;

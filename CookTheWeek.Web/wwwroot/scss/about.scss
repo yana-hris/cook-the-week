@@ -1,17 +1,18 @@
 ﻿#about-container {
     max-width: 940px !important;
 
-
-
     .row {
-        margin-bottom: 3.6rem;
 
         .text-container {
-            padding-top: 1.6rem;
+
             p {
-                margin-bottom: 0.8rem;
+                margin-bottom: 1.5rem;
                 line-height: 1.8;
                 font-weight: 400;
+            }
+
+            p:first-child {
+                text-indent: 2rem;
             }
         }
 
@@ -29,30 +30,98 @@
             padding: 2rem 3.2rem;
             box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
             border-radius: 8px;
-            background-image: linear-gradient(to right bottom, var(--bs-success), var(--bs-primary));
+            background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
             overflow: hidden;
-            color: var(--bs-dark);
+            color: #121706; //var(--bs-dark);
+
+            .heading-secondary {
+                margin-bottom: 1rem;
+            }
+
+            .contact-form-text {
+                padding-bottom: 0.8rem;
+            }
 
             .input-group-text {
-                background-color: var(--bs-primary) !important;
-                color: #ffffff !important;
-            }
-        }
-        }
-    }
-
-    @media (max-width: 768px) {
-        #about-container {
-            .rows-container {
-                margin-bottom: 0.75rem;
+                background-color: #485b18 !important;
+                color: #f8fcec !important;
             }
 
-            .row {
-                margin-bottom: 1rem;
+            .btn-row {
+                padding-top: 1.2rem;
 
-                div.row {
-                    margin-bottom: 0.5rem;
+                button {
+                    color: #121706; //dark green
+                    padding: 0.6rem 3.2rem;
+                    font-size: 18px;
                 }
             }
         }
     }
+
+    .thank-message-row {
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+
+        .quote {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .thank-message {
+            font-size: 1em;
+        }
+    }
+
+    .spacer {
+        margin-bottom: 4.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #about-container {
+        
+        .contact-form {
+            .first-row {
+                margin-bottom: 1rem !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 568px) {
+    #about-container {
+
+        .row {
+
+            .image-row {
+                margin-bottom: 1rem !important;
+            }
+
+
+            .contact-form {
+                padding: 2.4rem 1.2rem !important;
+
+                .heading-secondary {
+                    font-size: 1.8rem;
+                }
+            }
+        }
+
+        .spacer {
+            margin-bottom: 2.2rem;
+        }
+
+        button {
+            width: 100%;
+            margin-bottom: 2.5rem;
+        }
+    }
+}

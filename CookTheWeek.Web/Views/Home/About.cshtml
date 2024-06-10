@@ -13,36 +13,46 @@
 
     <div class="row">
         <!-- Image column -->
-        <div class="col-12 col-sm-4 g-2 g-sm-3">
+        <div class="col-12 col-sm-4 g-2 g-sm-3 image-row">
             <img class="img-fluid rounded" src="~/img/who-am-i.jpg" alt="creator photo" />
         </div>
         <!-- Text column -->
-        <div class="col-12 col-sm-8 text-container">
-            <p>
-                Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I faced the daily challenge of finding new recipes and optimizing grocery shopping. This inspired me to create CookTheWeek—a user-friendly app designed to help busy parents effortlessly plan and prepare delicious meals.
-            </p>
-            <p>
-                CookTheWeek is born from my love of cooking and my desire to simplify meal planning for households. The app streamlines the process, providing fresh ideas, organizational tools, and convenience for families looking to enjoy wholesome meals without the hassle.
-            </p>
-            <p>
-                I'd love to hear your questions or feedback! Reach out through the form below, and I'll get back to you as soon as possible. 
-            </p>
-            <p>
+        <div class="col-12 col-sm-8 g-2 g-sm-3 text-container">
+            <div>
+                <p>
+                    Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I faced the daily challenge of finding new recipes and optimizing grocery shopping. This inspired me to create CookTheWeek—a user-friendly app designed to help busy parents effortlessly plan and prepare delicious meals.
+                </p>
+                <p>
+                    CookTheWeek is born from my love of cooking and my desire to simplify meal planning for households. The app streamlines the process, providing fresh ideas, organizational tools, and convenience for families looking to enjoy wholesome meals without the hassle.
+                </p>
+                <p>
+                    I'd love to hear your questions or feedback! Reach out through the form below, and I'll get back to you as soon as possible.
+                </p>
+            </div>            
+        </div>        
+    </div>
+    <div class="row thank-message-row">
+        <div class="col col-12">
+            <p class="quote">
+                "Cooking is an art, and planning is the brush that brings the masterpiece to life. At CookTheWeek, we believe that a well-planned week of meals not only nourishes the body but also fuels the soul with creativity and joy."
+             </p>
+            <p class="author">- CookTheWeek Team</p>
+            <p class="thank-message">
                 Thank you for choosing CookTheWeek to enhance your meal planning experience!
             </p>
         </div>
     </div>
-    <div class="row">
+    <div class="row spacer">
         <div class="contact-form">
             <h2 class="heading-secondary">Have something to say?</h2>
             <p class="contact-form-text">
-                Have questions or feedback? Share your thoughts with me and help make CookTheWeek even better!
+                Have questions or feedback? Your input matters! Please reach out to share any thoughts, suggestions, or issues you encounter to help make CookTheWeek even better. Contact me anytime!
             </p>
 
             <form id="feedback-form" method="post" asp-area="" asp-controller="Home" asp-action="SubmitContactForm">
                 <div class="rows-container">
                     <div class="row contact-form-row">
-                        <div class="col col-12 col-md-6">
+                        <div class="col col-12 col-md-6 first-row">
                             <div class="input-group">
                                 <span class="input-group-text">Your Name</span>
                                 <input asp-for="FullName"
@@ -95,7 +105,7 @@
                     </div>
                     <div class="row btn-row">
                         <div class="col col-12 text-center">
-                            <button form="feedback-form" class="btn btn-success text-dark btn-lg" type="submit">Submit</button>
+                            <button form="feedback-form" class="btn btn-success" type="submit">Send Message</button>
                         </div>
                     </div>
                 </div>

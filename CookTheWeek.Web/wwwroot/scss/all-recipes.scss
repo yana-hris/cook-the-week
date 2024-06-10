@@ -39,14 +39,14 @@
                 position: relative;
 
                 .modal-title {
-                    font-size: 20px;
-                    text-transform: uppercase;
-                    font-weight: bold;
+                    
                 }
 
                 p {
-                    margin: 1rem 2rem;
-                    line-height: 1.5;
+                    margin: 1rem 1.6rem;
+                    line-height: 1.6;
+                    text-align: center;
+
                 }
 
                 .close.btn {
@@ -69,6 +69,7 @@
                     align-items: center;
                     justify-content: center;
                     gap: 12px;
+                    margin-bottom: 1rem;
                 }
             }
         }

@@ -24,7 +24,7 @@ namespace CookTheWeek.Web
 
             builder.Configuration.AddUserSecrets<Program>();
 
-            string? connectionString = builder.Configuration["CookTheWeek:ConnectionString"];
+            string? connectionString = builder.Configuration["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);

@@ -16,6 +16,7 @@
     using Web.ViewModels.Step;
 
     using static Common.GeneralApplicationConstants;
+    using static Common.HelperMethods.CookingTimeHelper;
 
     public class RecipeService : IRecipeService
     {
@@ -76,7 +77,7 @@
                         Name = r.Category.Name
                     },
                     Servings = r.Servings,
-                    CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                    CookingTime = FormatCookingTime(r.TotalTime)
                 })
                 .ToListAsync();
 
@@ -388,7 +389,7 @@
                         Name = r.Category.Name
                     },
                     Servings = r.Servings,
-                    CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                    CookingTime = FormatCookingTime(r.TotalTime)
 
                 }).ToListAsync();
 
@@ -453,7 +454,7 @@
                             Name = r.Category.Name
                         },
                         Servings = r.Servings,
-                        CookingTime = String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                        CookingTime = FormatCookingTime(r.TotalTime)
                     }).ToListAsync();
 
                 if (currentAdminRecipes.Count > 0)
