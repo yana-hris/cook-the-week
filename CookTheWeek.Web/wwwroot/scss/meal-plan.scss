@@ -1,5 +1,5 @@
-﻿#add-mealplan, #details-mealplan, #edit-mealplan {
-    max-width: 1000px;
+﻿@import 'variables';
+#add-mealplan, #details-mealplan, #edit-mealplan {
     padding-top: 20px !important;
     margin-top: -10px;
 
@@ -13,6 +13,10 @@
             font-weight: bold;
             padding: 0.8rem 1.25rem;
             margin-bottom: 8px;
+        }
+
+        .info-pill.bg-success {
+            color: $input-form-span-bg-dark-green-color;
         }
 
         .no-wrap-text {
@@ -154,10 +158,9 @@
         .btn {
             padding: 0.75rem 1.2rem;
             font-size: larger;
-            text-transform: uppercase;
-        }
         }
     }
+}
 
     @media screen and (max-width: 660px) {
         #add-mealplan, #details-mealplan, #edit-mealplan {

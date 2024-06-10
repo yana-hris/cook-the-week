@@ -18,7 +18,7 @@
     }  
 }
 
-<div id="add-recipe" class="container">
+<div id="add-recipe" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
     <div class="card">
         <div class="card-header">
@@ -419,7 +419,7 @@
                      </div>
                      <div class="col col-6 col-lg-2 p-2">
                          <div class="input-group">
-                             <span class="input-group-text">Spec</span>
+                             <span class="input-group-text">Note</span>
                              <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
                                  <option value="">Type</option>`;
                             @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
@@ -538,9 +538,9 @@
                             <div class="col-11 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Step</span>
-                                    <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
-                                    <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
+                                    <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required="true"></textarea>
                                 </div>
+                                <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
                             </div>
                             <div class="col-1 p-2">
                                 <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">

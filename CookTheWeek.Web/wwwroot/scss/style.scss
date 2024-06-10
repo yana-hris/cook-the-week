@@ -28,6 +28,7 @@
 
 .card-container {
     @include make-container();
+
     max-width: 800px;
 }
 

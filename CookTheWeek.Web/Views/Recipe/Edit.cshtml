@@ -16,7 +16,7 @@
         headingModel.HeadingSecondary = "Edit your recipe in a few simple steps";
     }
 }
-<div id="edit-recipe" class="container">
+<div id="edit-recipe" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
     <div class="card">
         <div class="card-header">
@@ -43,8 +43,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Title</span>
                                     <input asp-for="Title" class="form-control" placeholder="Name it.." type="text">
-                                    <span asp-validation-for="Title" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="Title" class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
@@ -55,8 +55,8 @@
                                             <option value="@option">@option</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="Servings" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="Servings" class="small text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
@@ -64,15 +64,15 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
                                     <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
-                                    <span asp-validation-for="Description" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="Description" class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
                                     <input asp-for="CookingTimeMinutes" class="form-control" type="number">
-                                    <span asp-validation-for="CookingTimeMinutes" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="CookingTimeMinutes" class="small text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
@@ -80,8 +80,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
                                     <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here..." type="url">
-                                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
@@ -93,8 +93,8 @@
                                             <option value="@category.Id">@category.Name</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="RecipeCategoryId" class="small text-danger"></span>
                                 </div>
+                                <span asp-validation-for="RecipeCategoryId" class="small text-danger"></span>
                             </div>
 
                         </div>
@@ -111,8 +111,8 @@
                                                 <div class="input-group">
                                                     <span class="input-group-text">Step</span>
                                                     <textarea class="form-control" asp-for="Steps[i].Description" rows="3" placeholder="Tell us how to cook.."></textarea>
-                                                    <span asp-validation-for="Steps[i].Description" class="small text-danger"></span>
                                                 </div>
+                                                <span asp-validation-for="Steps[i].Description" class="small text-danger"></span>
                                             </div>
                                             <div class="col-1 p-2">
                                                 <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
@@ -153,8 +153,8 @@
                                                     <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
                                                     <div class="suggestionsList invisible">
                                                     </div>
-                                                    <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                                 </div>
+                                                <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                             </div>
                                             @{
                                                 string decimalsDisplayStyle = "none;";
@@ -169,8 +169,8 @@
                                                 <div class="decimal-qty-input input-group" style="display: @decimalsDisplayStyle">
                                                     <span class="input-group-text">Qty</span>
                                                     <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" />
-                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
                                                 </div>
+                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
                                                 @if (Model.RecipeIngredients[i].Qty.QtyFraction != String.Empty || Model.RecipeIngredients[i].Qty.QtyWhole > 0)
                                                 {
                                                     fractionsDisplayStyle = "flex;";
@@ -204,8 +204,8 @@
                                                             <option value="@measure.Id">@measure.Name</option>
                                                         }
                                                     </select>
-                                                    <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
                                                 </div>
+                                                <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
                                             </div>
                                             <div class="col col-6 col-lg-2 p-2">
                                                 <div class="input-group">
@@ -249,7 +249,7 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" class="btn btn-primary btn-lg" type="submit">Save Changes</button>
+                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -385,15 +385,15 @@
                                      <span class="input-group-text">Ingredient</span>
                                      <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
                                      <div class="suggestionsList invisible"></div>
-                                     <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true" class="small text-danger"></span>
                                  </div>
+                                 <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true" class="small text-danger"></span>
                              </div>
                              <div class="col col-6 col-lg-3 p-2">
                                 <div class="decimal-qty-input input-group">
                                     <span class="input-group-text">Qty</span>
                                     <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" name="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" min="0.001" max="9999.99" />
-                                            <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" data-valmsg-replace="true" class="small text-danger"></span>
                                 </div>
+                                <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" data-valmsg-replace="true" class="small text-danger"></span>
                                 <div class="fraction-qty-inputs input-group" style="display: none;">
                                     <span class="input-group-text">Qty</span>
                                     <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyWhole" class="form-control qty-whole" placeholder="0" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" min="1" max="9999"/>
@@ -404,9 +404,9 @@
                                             <option value="@option.Key">@option.Key</option>
         }
                                     </select>
-                                     <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" class="small text-danger" data-valmsg-replace="true"></span>
-                                     <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyFraction" class="small text-danger" data-valmsg-replace="true"></span>
                                 </div>
+                                <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" class="small text-danger" data-valmsg-replace="true"></span>
+                                <span data-valmsg-for="RecipeIngredients[${ingredientIndex}].Qty.QtyFraction" class="small text-danger" data-valmsg-replace="true"></span>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input show-fraction-checkbox" type="checkbox" />
                                     <label class="form-check-label">Use Fractions</label>
@@ -423,13 +423,13 @@
         }
                     newIngredientHtml +=
                 `</select>
-                                    <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
-                                    </span>
                                 </div>
+                                <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true">
+                                </span>
                              </div>
                              <div class="col col-6 col-lg-2 p-2">
                                  <div class="input-group">
-                                     <span class="input-group-text">Spec</span>
+                                     <span class="input-group-text">Note</span>
                                      <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
                                          <option value="">Type</option>`;
         @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
@@ -549,8 +549,8 @@
                                         <div class="input-group">
                                             <span class="input-group-text">Step</span>
                                             <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
-                                            <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
                                         </div>
+                                        <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
                                     </div>
                                     <div class="col-1 p-2">
                                         <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">

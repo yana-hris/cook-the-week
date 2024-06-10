@@ -11,7 +11,7 @@
     };
 
 }
-<div id="add-mealplan" class="container rounded shadow-sm p-2 p-md-3 p-lg-5">
+<div id="add-mealplan" class="list-container p-1 p-md-3">
     <partial name="_HeadingPartial" model="headingModel" />
 
     <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
@@ -21,8 +21,8 @@
                     <div class="input-group">
                         <span class="input-group-text">Name</span>
                         <input asp-for="Name" class="form-control" placeholder="Name it.." type="text">
-                        <span asp-validation-for="Name" class="small text-danger"></span>
                     </div>
+                    <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
                 <div class="row inner-padding meal-plan-name-text">                    
                     <p>
@@ -145,8 +145,8 @@
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
-            <button form="add-mealplan-form" class="btn btn-primary py-2 btn-block btn-lg" type="submit">Save Meal Plan</button>
-            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-outline-primary btn-block">Browse Recipes</a>
+            <button form="add-mealplan-form" class="btn btn-success py-2 btn-block btn-lg" type="submit">Save Meal Plan</button>
+            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary btn-block">Browse Recipes</a>
         </div>
     </div>
 </div>
