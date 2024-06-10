@@ -21,7 +21,9 @@ namespace CookTheWeek.Web
         public static void Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-                        
+
+            builder.Configuration.AddUserSecrets<Program>();
+
             string? connectionString = builder.Configuration["CookTheWeek:ConnectionString"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
