@@ -61,71 +61,67 @@
             RecipeIngredientQtyFormModel model = new RecipeIngredientQtyFormModel();
 
             // If Measure is ml, l, g or kg and the number is not int => it is decimal
-            string[] decimalMeasures = {"ml", "l", "g", "kg" };
+            bool isFractionalMeasure = FractionalMeasures.Contains(measure.ToLower());
 
+            // If the quantity is fractional and measure cannot be fractional
             if (decimalQty % 1 != 0)
             {
-                if (decimalMeasures.Contains(measure.ToLower())) // Check if the measure cannot be fraction
+                if (!isFractionalMeasure)
                 {
-                    model.QtyDecimal = decimalQty * 1.0m;
+                    model.QtyDecimal = decimalQty;
                     model.QtyWhole = null;
                     model.QtyFraction = null;
                     return model;
                 }
-                else
-                {
-                    // If not, Separate the decimal into whole number and fractional parts
-                    decimal fractionalPart = 0.0m;
 
-                    if (decimalQty > 1.0m)
-                    {
-                        model.QtyDecimal = null;
-                        model.QtyWhole = (int)decimalQty;
-                        fractionalPart = decimalQty - model.QtyWhole.Value;
-                    }
-                    else
-                    {
-                        model.QtyDecimal = null;
-                        model.QtyWhole = null;
-                    }
-
-                    // Find the closest fraction from the predefined options
-                    decimal minDifference = decimal.MaxValue;
-                    string closestFraction = "";
-
-                    foreach (var fractionOption in QtyFractionOptions)
-                    {
-                        decimal difference = Math.Abs(fractionOption.Value - fractionalPart);
-                        if (difference < minDifference)
-                        {
-                            minDifference = difference;
-                            closestFraction = fractionOption.Key;
-                        }
-                    }
-
-                    // Set the closest fraction and return the model
-                    model.QtyFraction = closestFraction;
-
-                    return model;
-                }
-            }
-            else // Check if the decimal quantity is an integer
-            {
-                if (decimalMeasures.Contains(measure.ToLower())) // Check if the measure cannot be fraction
-                {
-                    model.QtyDecimal = decimalQty * 1.0m;
-                    model.QtyWhole = null;
-                    model.QtyFraction = null;
-                    return model;
-                }
-                else
+                // Split the decimal quantity into whole and fractional parts
+                if (decimalQty > 1)
                 {
                     model.QtyWhole = (int)decimalQty;
-                    model.QtyFraction = null;
-                    model.QtyDecimal = null;
-                    return model;
-                }                
+                    decimal fractionalPart = decimalQty - model.QtyWhole.Value;
+                    model.QtyFraction = GetClosestFraction(fractionalPart);
+                }
+                else
+                {
+                    model.QtyWhole = null;
+                    model.QtyFraction = GetClosestFraction(decimalQty);
+                }
+
+                model.QtyDecimal = null;
+                return model;
             }
+
+            // If the quantity is whole
+            if (!isFractionalMeasure)
+            {
+                model.QtyDecimal = decimalQty;
+                model.QtyWhole = null;
+                model.QtyFraction = null;
+                return model;
+            }
+
+            model.QtyWhole = (int)decimalQty;
+            model.QtyFraction = null;
+            model.QtyDecimal = null;
+            return model;
+        }
+
+        private static string GetClosestFraction(decimal fractionalPart)
+        {
+            decimal minDifference = decimal.MaxValue;
+            string closestFraction = "";
+
+            foreach (var fractionOption in QtyFractionOptions)
+            {
+                decimal difference = Math.Abs(fractionOption.Value - fractionalPart);
+                if (difference < minDifference)
+                {
+                    minDifference = difference;
+                    closestFraction = fractionOption.Key;
+                }
+            }
+
+            return closestFraction;
         }
     }
 }

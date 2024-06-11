@@ -13,8 +13,7 @@
 
         public static readonly decimal[] IngredientQtyFractionsArray = InitilizeFractionsArray();
 
-        public static readonly Dictionary<string, decimal> QtyFractionOptions;
-       
+        public static readonly Dictionary<string, decimal> QtyFractionOptions;       
 
         public const string HtmlEntityFractionSlash = "<span>&frasl;</span>";
 
@@ -77,6 +76,10 @@
 
         public const string OnlineUsersCookieName = "IsOnline";
         public const int LastActivityBeforeOfflineMinutes = 10;
+
+        // RecipeIngredient Measures 
+        public static string[] DecimalMeasures = { "ml", "l", "g", "kg" };
+        public static string[] FractionalMeasures = { "clove", "pc", "tsp", "tbsp", "cup", "bunch", "pkg", "slice", "pinch"};
 
         static GeneralApplicationConstants()
         {
