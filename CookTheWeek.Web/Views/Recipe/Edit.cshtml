@@ -1,4 +1,5 @@
-﻿@model RecipeEditFormModel
+﻿@using Newtonsoft.Json
+@model RecipeEditFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @{
     ViewData["Title"] = "Edit Recipe";
@@ -15,6 +16,8 @@
     {
         headingModel.HeadingSecondary = "Edit your recipe in a few simple steps";
     }
+
+    var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
 }
 <div id="edit-recipe" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
@@ -50,7 +53,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span><select class="form-control" asp-for="Servings">
                                         <option value="">Choose</option>
-                                        @foreach (var option in @Model.ServingsOptions)
+                                        @foreach (var option in @Model.ServingsOptions!)
                                         {
                                             <option value="@option">@option</option>
                                         }
@@ -162,8 +165,9 @@
                                                 bool isChecked = false;
                                             }
                                             <div class="col col-6 col-lg-3 p-2">
-                                                @if (Model.RecipeIngredients[i].Qty.QtyDecimal != null && Model.RecipeIngredients[i].Qty.QtyWhole == null
-                                                    && Model.RecipeIngredients[i].Qty.QtyFraction == null)
+                                                @if (Model.RecipeIngredients[i].Qty.QtyDecimal != null &&
+                                                     Model.RecipeIngredients[i].Qty.QtyWhole == null && 
+                                                     Model.RecipeIngredients[i].Qty.QtyFraction == null)
                                                 {
                                                     decimalsDisplayStyle = "flex;";
                                                 }
@@ -171,32 +175,29 @@
                                                     <span class="input-group-text">Qty</span>
                                                     <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" />
                                                 </div>
-                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
-                                                @if (Model.RecipeIngredients[i].Qty.QtyFraction != null || Model.RecipeIngredients[i].Qty.QtyWhole != null 
-                                                    && Model.RecipeIngredients[i].Qty.QtyDecimal == null)
+                                                @if ((Model.RecipeIngredients[i].Qty.QtyFraction != null ||
+                                                      Model.RecipeIngredients[i].Qty.QtyWhole != null) &&
+                                                      Model.RecipeIngredients[i].Qty.QtyDecimal == null)
                                                 {
                                                     fractionsDisplayStyle = "flex;";
                                                     isChecked = true;
                                                 }
-                                                <div class="fraction-qty-inputs">
-                                                    <div class="input-group" style="display: @fractionsDisplayStyle">
-                                                        <span class="input-group-text">Qty</span>
-                                                        <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
-                                                        <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
-                                                            <option value="">Frac</option>
-                                                            @foreach (var option in QtyFractionOptions)
-                                                            {
-                                                                <option value="@option.Key">@option.Key</option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyWhole" class="small text-danger"></span>
-                                                    <span asp-validation-for="RecipeIngredients[i].Qty.QtyFraction" class="small text-danger"></span>
+                                                <div class="fraction-qty-inputs input-group" style="display: @fractionsDisplayStyle">
+                                                    <span class="input-group-text">Qty</span>
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
+                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
+                                                        <option value="">Frac</option>
+                                                        @foreach (var option in QtyFractionOptions)
+                                                        {
+                                                            <option value="@option.Key">@option.Key</option>
+                                                        }
+                                                    </select>
                                                 </div>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input show-fraction-checkbox" type="checkbox" @(isChecked ? "checked" : "") />
                                                     <label class="form-check-label">Use Fractions</label>
                                                 </div>
+                                                <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
                                             </div>
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
@@ -377,6 +378,12 @@
         $(document).ready(function () {
             var ingredientIndex = @nextIndex;
             var stepIndex = @nextStepIndex;
+            
+            // Define the serialized JSON as a string and escape it for JavaScript
+            var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
+
+            // Parse the JSON string to a JavaScript object
+            var QtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
 
             // TODO: Fix client-side validation for dynamically added input fields (input and select)
 
@@ -457,6 +464,7 @@
                 $('.ingredientName').on('keyup', suggestWords);
                 //$('form').validate().form();
             });
+
             $(document).on('click', '.remove-ingredient', function (event) {
                 var ingredientCount = $('.ingredient-row').length;
                 if (ingredientCount === 1) {
@@ -488,6 +496,7 @@
                 ingredientIndex--;
                 reindexIngredients();
             });
+
             function reindexIngredients() {
                 $('.ingredient-row').each(function (index) {
                     var row = $(this);
@@ -527,23 +536,137 @@
                 });
                 $('form').validate().form();
             }
+
             $('#ingredientsContainer').on('change', '.show-fraction-checkbox', function (event) {
+                debugger;
                 var ingredientLine = $(event.target).closest('.ingredient-row');
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
                 var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
 
                 if ($(event.target).is(':checked')) {
+                    // Convert decimal to whole and fraction and update the inputs
+                    let decimalValue = parseFloat(decimalQtyInput.find('input').val()) || 0;
+                    let { whole, fraction } = decimalToFraction(decimalValue);
+
+                    // Update the fraction input fields
+                    fractionQtyInputs.find('.qty-whole').val(whole);
+                    fractionQtyInputs.find('.qty-fraction').val(fraction);
+
+                    decimalQtyInput.find('input').val('');
                     decimalQtyInput.hide();
                     fractionQtyInputs.show();
-                    // Clear decimal input
-                    decimalQtyInput.find('input').val('');
                 } else {
+                    // Convert whole and fraction to decimal and update the input
+                    let wholeValue = parseInt(fractionQtyInputs.find('.qty-whole').val()) || 0;
+                    let fractionValue = fractionQtyInputs.find('.qty-fraction').val();
+                    let decimalValue = fractionToDecimal(wholeValue, fractionValue);
+
+                    // Update the decimal input field
+                    decimalQtyInput.find('input').val(decimalValue);
+
                     decimalQtyInput.show();
-                    fractionQtyInputs.hide();
-                    // Clear fraction inputs
                     fractionQtyInputs.find('input, select').val('');
+                    fractionQtyInputs.hide();
                 }
             });
+
+            $.validator.addMethod("validateQty", function (value, element, params) {
+                var parentModel = params.parentModel;
+                var model = parentModel.Qty;
+
+                if ((model.QtyDecimal !== null && (model.QtyWhole !== null || model.QtyFraction !== '')) ||
+                    (model.QtyDecimal === null && (model.QtyWhole === null && model.QtyFraction === ''))) {
+                    return false;
+                }
+
+                if (model.QtyDecimal !== null && (model.QtyDecimal < 0.001 || model.QtyDecimal > 9999.99)) {
+                    return false;
+                }
+
+                if (model.QtyFraction !== '' && !(model.QtyFraction in params.fractionOptions)) {
+                    return false;
+                }
+
+                if (model.QtyWhole !== null && (model.QtyWhole < 1 || model.QtyWhole > 9999)) {
+                    return false;
+                }
+
+                return true;
+            }, "Please enter either a decimal or a fraction quantity.");
+
+            $("#edit-recipe-form").validate({
+                rules: {
+                    "RecipeIngredientQtyFormModel.Qty.QtyWhole": {
+                        range: [1, 9999],
+                        validateQty: {
+                            parentModel: function () {
+                                return $("#edit-recipe-form").serializeJSON();
+                            },
+                            fractionOptions: @Html.Raw(qtyFractionOptions)
+                            }
+                    },
+                    "RecipeIngredientQtyFormModel.Qty.QtyFraction": {
+                        validateQty: {
+                            parentModel: function () {
+                                return $("#edit-recipe-form").serializeJSON();
+                            },
+                            fractionOptions: @Html.Raw(qtyFractionOptions)
+                            }
+                    },
+                    "RecipeIngredientQtyFormModel.Qty.QtyDecimal": {
+                        range: [0.001, 9999.99],
+                        validateQty: {
+                            parentModel: function () {
+                                return $("#edit-recipe-form").serializeJSON();
+                            },
+                            fractionOptions: @Html.Raw(qtyFractionOptions)
+                            }
+                    }
+                },
+                messages: {
+                    "RecipeIngredientQtyFormModel.Qty.QtyWhole": {
+                        range: "Qty must be between 1 and 9999."
+                    },
+                    "RecipeIngredientQtyFormModel.Qty.QtyFraction": {
+                        validateQty: "Please enter a valid fraction."
+                    },
+                    "RecipeIngredientQtyFormModel.Qty.QtyDecimal": {
+                        range: "Decimal quantity must be between [0.001-9999.99]."
+                    }
+                }
+            });
+
+            // Helper function to convert decimal to whole and fraction
+            function decimalToFraction(decimal) {
+                let whole = Math.floor(decimal);
+                let fraction = decimal - whole;
+
+                if(fraction > 0) {
+                    let closestFraction = '';
+                    let minDifference = Number.MAX_VALUE;
+
+                    for (const [key, value] of Object.entries(QtyFractionOptions)) {
+                        const difference = Math.abs(value - fraction);
+                        if (difference < minDifference) {
+                            minDifference = difference;
+                            closestFraction = key;
+                        }
+                    }
+
+                    fraction = closestFraction;
+                }
+                else {
+                    fraction = '';
+                }
+
+                return { whole, fraction};
+            }
+
+            // Helper function to convert whole and fraction to decimal
+            function fractionToDecimal(whole, fraction) {
+                let fractionValue = QtyFractionOptions[fraction] || 0;
+                return parseFloat(whole) + fractionValue;
+            }
 
             // Instructions Functions
             $('#add-step').click(function () {
@@ -568,6 +691,7 @@
                 stepIndex++;
 
             });
+
             $(document).on('click', '.remove-step', function (event) {
                 var stepsCount = $('.instructions-row').length;
                 if (stepsCount === 1) {
@@ -599,6 +723,7 @@
                 stepIndex--;
                 reindexSteps();
             });
+
             function reindexSteps() {
                 $('.instructions-row').each(function (index) {
                     var row = $(this);

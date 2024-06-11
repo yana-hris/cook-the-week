@@ -3,6 +3,8 @@
     using System.ComponentModel.DataAnnotations;
 
     using ValidationAttributes;
+
+    using static Common.ValidationErrorMessages.RecipeIngredient;
     public class RecipeIngredientFormViewModel
     {
         public RecipeIngredientFormViewModel()
@@ -11,17 +13,17 @@
             this.Specifications = new HashSet<RecipeIngredientSelectSpecificationViewModel>();
         }
         
-        [Required(ErrorMessage = "Please enter ingredient.")]
+        [Required(ErrorMessage = NameErrorMessage)]
         [Display(Name = "Ingredient")]
         public string Name { get; set; } = null!;
 
         [Required]
-        [ValidateQty(ErrorMessage = "Invalid qty.")]
-        public RecipeIngredientQtyFormModel Qty { get; set; }
+        [ValidateQty(ErrorMessage = QtyErrorMessage)]
+        public RecipeIngredientQtyFormModel Qty { get; set; } = null!;
 
         [Required]
         [Display(Name = "Unit")]
-        [Range(1, int.MaxValue, ErrorMessage="Please choose a unit.")]
+        [Range(1, int.MaxValue, ErrorMessage = MeasureErrorMessage)]
         public int MeasureId { get; set; }
 
         [Display(Name = "Note")]
