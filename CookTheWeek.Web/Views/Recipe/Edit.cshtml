@@ -162,7 +162,8 @@
                                                 bool isChecked = false;
                                             }
                                             <div class="col col-6 col-lg-3 p-2">
-                                                @if (Model.RecipeIngredients[i].Qty.QtyDecimal > 0.0m)
+                                                @if (Model.RecipeIngredients[i].Qty.QtyDecimal != null && Model.RecipeIngredients[i].Qty.QtyWhole == null
+                                                    && Model.RecipeIngredients[i].Qty.QtyFraction == null)
                                                 {
                                                     decimalsDisplayStyle = "flex;";
                                                 }
@@ -171,21 +172,24 @@
                                                     <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" />
                                                 </div>
                                                 <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
-                                                @if (Model.RecipeIngredients[i].Qty.QtyFraction != String.Empty || Model.RecipeIngredients[i].Qty.QtyWhole > 0)
+                                                @if (Model.RecipeIngredients[i].Qty.QtyFraction != null || Model.RecipeIngredients[i].Qty.QtyWhole != null 
+                                                    && Model.RecipeIngredients[i].Qty.QtyDecimal == null)
                                                 {
                                                     fractionsDisplayStyle = "flex;";
                                                     isChecked = true;
                                                 }
-                                                <div class="fraction-qty-inputs input-group" style="display: @fractionsDisplayStyle">
-                                                    <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
-                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
-                                                        <option value="">Frac</option>
-                                                        @foreach (var option in QtyFractionOptions)
-                                                        {
-                                                            <option value="@option.Key">@option.Key</option>
-                                                        }
-                                                    </select>
+                                                <div class="fraction-qty-inputs">
+                                                    <div class="input-group" style="display: @fractionsDisplayStyle">
+                                                        <span class="input-group-text">Qty</span>
+                                                        <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0">
+                                                        <select asp-for="RecipeIngredients[i].Qty.QtyFraction" class="form-select qty-fraction">
+                                                            <option value="">Frac</option>
+                                                            @foreach (var option in QtyFractionOptions)
+                                                            {
+                                                                <option value="@option.Key">@option.Key</option>
+                                                            }
+                                                        </select>
+                                                    </div>
                                                     <span asp-validation-for="RecipeIngredients[i].Qty.QtyWhole" class="small text-danger"></span>
                                                     <span asp-validation-for="RecipeIngredients[i].Qty.QtyFraction" class="small text-danger"></span>
                                                 </div>
@@ -417,7 +421,7 @@
                                     <span class="input-group-text">Unit</span>
                                     <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required >
                                         <option value="">Unit</option>`;
-        @foreach (var measure in @Model.RecipeIngredients.First().Measures)
+        @foreach (var measure in @Model.RecipeIngredients.First().Measures!)
         {
             <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
         }
@@ -432,7 +436,7 @@
                                      <span class="input-group-text">Note</span>
                                      <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
                                          <option value="">Type</option>`;
-        @foreach (var specification in @Model.RecipeIngredients.First().Specifications)
+        @foreach (var specification in @Model.RecipeIngredients.First().Specifications!)
         {
             <text>newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
         }
@@ -550,7 +554,7 @@
                                             <span class="input-group-text">Step</span>
                                             <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
                                         </div>
-                                        <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
+                                        <span class="small text-danger" data-valmsg-for="Steps[${stepIndex}].Description" data-valmsg-replace="true"></span>
                                     </div>
                                     <div class="col-1 p-2">
                                         <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">

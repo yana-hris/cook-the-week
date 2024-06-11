@@ -534,13 +534,13 @@
             // Instructions Functions
             $('#add-step').click(function () {
                 var newStepHtml = `<hr/>
-                        <div class="row instructions-row  align-items-center">
+                        <div class="row instructions-row align-items-center">
                             <div class="col-11 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Step</span>
                                     <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required="true"></textarea>
                                 </div>
-                                <span data-valmsg-for=="Steps[${stepIndex}].Description" class="small text-danger" data-valmsg-replace="true"></span>
+                                <span  class="small text-danger" data-valmsg-for="Steps[${stepIndex}].Description" data-valmsg-replace="true"></span>
                             </div>
                             <div class="col-1 p-2">
                                 <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">

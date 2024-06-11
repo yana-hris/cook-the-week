@@ -345,7 +345,7 @@
                     RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormViewModel()
                     {
                         Name = ri.Ingredient.Name,
-                        Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty),
+                        Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty, ri.Measure.Name),
                         MeasureId = ri.MeasureId,
                         SpecificationId = ri.SpecificationId
                     }).ToList()

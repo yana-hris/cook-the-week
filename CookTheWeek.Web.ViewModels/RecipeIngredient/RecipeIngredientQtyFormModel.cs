@@ -56,53 +56,76 @@
             return decimalQty;
         }
 
-        public static RecipeIngredientQtyFormModel ConvertFromDecimalQty(decimal decimalQty)
+        public static RecipeIngredientQtyFormModel ConvertFromDecimalQty(decimal decimalQty, string measure)
         {
             RecipeIngredientQtyFormModel model = new RecipeIngredientQtyFormModel();
 
-            // Check if the decimal quantity is an integer
-            if (decimalQty % 1 == 0)
-            {
-                model.QtyWhole = (int)decimalQty;
-                model.QtyFraction = null;
-                model.QtyDecimal = null;
-                return model;
-            }
+            // If Measure is ml, l, g or kg and the number is not int => it is decimal
+            string[] decimalMeasures = {"ml", "l", "g", "kg" };
 
-            // If not, Separate the decimal into whole number and fractional parts
-            decimal fractionalPart = 0.0m;
-
-            if (decimalQty > 1)
+            if (decimalQty % 1 != 0)
             {
-                model.QtyDecimal = null;
-                model.QtyWhole = (int)decimalQty;
-                fractionalPart = decimalQty - model.QtyWhole.Value;
-            } 
-            else
-            {
-                model.QtyDecimal = null;
-                model.QtyWhole = null;
-            }
-            
-
-            // Find the closest fraction from the predefined options
-            decimal minDifference = decimal.MaxValue;
-            string closestFraction = "";
-
-            foreach (var fractionOption in QtyFractionOptions)
-            {
-                decimal difference = Math.Abs(fractionOption.Value - fractionalPart);
-                if (difference < minDifference)
+                if (decimalMeasures.Contains(measure.ToLower())) // Check if the measure cannot be fraction
                 {
-                    minDifference = difference;
-                    closestFraction = fractionOption.Key;
+                    model.QtyDecimal = decimalQty * 1.0m;
+                    model.QtyWhole = null;
+                    model.QtyFraction = null;
+                    return model;
+                }
+                else
+                {
+                    // If not, Separate the decimal into whole number and fractional parts
+                    decimal fractionalPart = 0.0m;
+
+                    if (decimalQty > 1.0m)
+                    {
+                        model.QtyDecimal = null;
+                        model.QtyWhole = (int)decimalQty;
+                        fractionalPart = decimalQty - model.QtyWhole.Value;
+                    }
+                    else
+                    {
+                        model.QtyDecimal = null;
+                        model.QtyWhole = null;
+                    }
+
+                    // Find the closest fraction from the predefined options
+                    decimal minDifference = decimal.MaxValue;
+                    string closestFraction = "";
+
+                    foreach (var fractionOption in QtyFractionOptions)
+                    {
+                        decimal difference = Math.Abs(fractionOption.Value - fractionalPart);
+                        if (difference < minDifference)
+                        {
+                            minDifference = difference;
+                            closestFraction = fractionOption.Key;
+                        }
+                    }
+
+                    // Set the closest fraction and return the model
+                    model.QtyFraction = closestFraction;
+
+                    return model;
                 }
             }
-
-            // Set the closest fraction and return the model
-            model.QtyFraction = closestFraction;
-
-            return model;
+            else // Check if the decimal quantity is an integer
+            {
+                if (decimalMeasures.Contains(measure.ToLower())) // Check if the measure cannot be fraction
+                {
+                    model.QtyDecimal = decimalQty * 1.0m;
+                    model.QtyWhole = null;
+                    model.QtyFraction = null;
+                    return model;
+                }
+                else
+                {
+                    model.QtyWhole = (int)decimalQty;
+                    model.QtyFraction = null;
+                    model.QtyDecimal = null;
+                    return model;
+                }                
+            }
         }
     }
 }
