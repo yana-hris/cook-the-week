@@ -4,25 +4,25 @@
     {
         public static class RecipeIngredient
         {
-            public const string NameErrorMessage = "Please enter ingredient.";
+            public const string NameErrorMessage = "Ingredient name required";
 
-            public const string QtyErrorMessage = "Invalid qty.";
+            public const string QtyErrorMessage = "Invalid quantity";
 
-            public const string MeasureErrorMessage = "Please choose a unit.";
+            public const string MeasureErrorMessage = "Unit/measure required";
 
         }
 
         public static class RecipeIngredientQty
         {
-            public const string DefaultErrorMessage = "Invalid qty.";
+            public const string DefaultErrorMessage = "Invalid quantity";
 
-            public const string MissingFormInputErrorMessage = "Please enter either a decimal or a fraction quantity.";
+            public const string MissingFormInputErrorMessage = "Required either decimal or fractional quantity";
 
-            public const string InvalidDecimalRangeErrorMessage = "Decimal quantity must be between [0.001-9999.99].";
+            public const string InvalidDecimalRangeErrorMessage = "Invalid quantity range, must be [0.001-9999.99]";
 
-            public const string InvalidFractionErrorMessage = "Please enter a valid fraction.";
+            public const string InvalidFractionErrorMessage = "Required fraction selection";
 
-            public const string InvalidWholeQtyErrorMessage = "Qty must be between in the range [1-9999].";
+            public const string InvalidWholeQtyErrorMessage = "Invalid quantity range, must be [1-9999]";
         }
     }
 }

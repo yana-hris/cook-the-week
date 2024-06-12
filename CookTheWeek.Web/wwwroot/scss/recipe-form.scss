@@ -16,13 +16,13 @@
             }
 
             .form-check-input {
-                background-color: var(--bs-light);
-                border-color: var(--bs-success);
+                background-color: var(--bs-success);
+                border-color: var(--bs-primary);
             }
 
             .form-check-input:checked {
                 background-color: var(--bs-primary);
-                border-color: var(--bs-primary-emphasis);
+                border-color: var(--bs-primary-success);
             }
 
             .adjust-btn-position {

@@ -11,12 +11,12 @@
   overflow-y: auto;
 }
 #add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
-  background-color: var(--bs-light);
-  border-color: var(--bs-success);
+  background-color: var(--bs-success);
+  border-color: var(--bs-primary);
 }
 #add-recipe #ingredientsContainer .ingredient-row .form-check-input:checked, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input:checked {
   background-color: var(--bs-primary);
-  border-color: var(--bs-primary-emphasis);
+  border-color: var(--bs-primary-success);
 }
 #add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
   margin-top: 4px;
