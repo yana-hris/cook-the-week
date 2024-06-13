@@ -179,14 +179,14 @@
                                                 @* DECIMAL INPUT *@
                                                 <div class="decimal-qty-input input-group" style="display: @decimalsDisplayStyle">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" data-val="false" placeholder="0.00" />
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty qty-decimal" data-val="false" placeholder="0.00" />
                                                 </div>
 
                                                 @* FRACTIONAL / WHOLE NUMBER INPUT *@
                                                 <div class="fraction-qty-inputs input-group" style="display: @fractionsDisplayStyle">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty-whole" placeholder="0" data-val="false">
-                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" data-val="false" class="form-select qty-fraction">
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty qty-whole" placeholder="0" data-val="false">
+                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" data-val="false" class="form-select qty qty-fraction">
                                                         <option value="">Frac</option>
                                                         @foreach (var option in QtyFractionOptions)
                                                         {
@@ -267,9 +267,9 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <partial name="_ComplexValidationScriptsPartial" />
+    @* <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> *@
     <script>
         $('.ingredientName').on('keyup', suggestWords);
         function suggestWords() {
@@ -393,112 +393,91 @@
             // Extract keys from QtyFractionOptions as valid fractions
             var fractionOptions = Object.keys(qtyFractionOptions);
 
-            // Custom validation method for quantity input
-            $.validator.addMethod("qtyValidation", function (value, element, params) {
-                var $row = $(element).closest('.ingredient-row');
-                var qtyWhole = parseFloat($row.find('.qty-whole').val());
-                var qtyFraction = $row.find('.qty-fraction').val();
-                var qtyDecimal = parseFloat($row.find('.qty-decimal').val());
+            // Apply validation rules on document ready
+            addValidationRules();
 
-                // Check for invalid combinations
-                if ((qtyDecimal && (qtyWhole || qtyFraction)) ||
-                    (!qtyDecimal && (!qtyWhole && !qtyFraction))) {
-                    return false; // Missing input or conflicting input
-                }
-
-                // Check for range errors
-                if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
-                    return false;
-                }
-
-                if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
-                    return false;
-                }
-
-                if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
-                    return false;
-                }
-
-                return true;
-            }, function (params, element) {
-                var $row = $(element).closest('.ingredient-row');
-                var qtyWhole = parseFloat($row.find('.qty-whole').val());
-                var qtyFraction = $row.find('.qty-fraction').val();
-                var qtyDecimal = parseFloat($row.find('.qty-decimal').val());
-
-                if ((qtyDecimal && (qtyWhole || qtyFraction)) ||
-                    (!qtyDecimal && (!qtyWhole && !qtyFraction))) {
-                    return params.messages.missingFormInput; // Missing input or conflicting input
-                }
-
-                if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
-                    return params.messages.invalidDecimalRange;
-                }
-
-                if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
-                    return params.messages.invalidFraction;
-                }
-
-                if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
-                    return params.messages.invalidWholeQty;
-                }
-
-                return "@DefaultErrorMessage";
+            form.on('change', '.qty-decimal, .qty-whole, .qty-fraction', function () {
+                console.log("Validation triggered");
+                form.valid();
             });
 
-            function rebindValidation() {
-                form.validate({
-                    rules: {
-                        // Using class selectors for validation
-                        'qty-decimal': {
-                            qtyValidation: {
-                                messages: {
-                                    missingFormInput: "@MissingFormInputErrorMessage",
-                                    invalidDecimalRange: "@InvalidDecimalRangeErrorMessage",
-                                    invalidFraction: "@InvalidFractionErrorMessage",
-                                    invalidWholeQty: "@InvalidWholeQtyErrorMessage"
-                                }
-                            }
-                        },
-                        'qty-whole': {
-                            qtyValidation: {
-                                messages: {
-                                    missingFormInput: "@MissingFormInputErrorMessage",
-                                    invalidDecimalRange: "@InvalidDecimalRangeErrorMessage",
-                                    invalidFraction: "@InvalidFractionErrorMessage",
-                                    invalidWholeQty: "@InvalidWholeQtyErrorMessage"
-                                }
-                            }
-                        },
-                        'qty-fraction': {
-                            qtyValidation: {
-                                messages: {
-                                    missingFormInput: "@MissingFormInputErrorMessage",
-                                    invalidDecimalRange: "@InvalidDecimalRangeErrorMessage",
-                                    invalidFraction: "@InvalidFractionErrorMessage",
-                                    invalidWholeQty: "@InvalidWholeQtyErrorMessage"
-                                }
-                            }
-                        }
-                    },
-                    messages: {
-                        'qty-decimal': {
-                            qtyValidation: "@MissingFormInputErrorMessage"
-                        },
-                        'qty-whole': {
-                            qtyValidation: "@MissingFormInputErrorMessage"
-                        },
-                        'qty-fraction': {
-                            qtyValidation: "@MissingFormInputErrorMessage"
-                        }
-                    },
-                    errorPlacement: function (error, element) {
-                        // Place error message in a <span> element with class "small text-danger"
-                        error.appendTo(element.closest('.qty-row').find('.text-danger'));
-                    }
-                });
-            }
+            // Initialize validation
+            form.validate({
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.closest('.qty-row').find('span.text-danger'));
+                }
+            });
 
+           
+
+            $.validator.addMethod("decimalQtyValidation", function (value, element) {
+                console.log("Entered decimal validation.");
+                console.log(element);
+                console.log(value);
+                console.log(/^[0-9]+(\.[0-9]{1,2})?$/.test(value));
+
+                return /^[0-9]+(\.[0-9]{1,2})?$/.test(value); // Validate decimal number with up to 2 decimal places
+            }, "Please enter a valid decimal quantity.");
+
+            // Custom validation method for whole number quantity
+            $.validator.addMethod("wholeQtyValidation", function (value, element) {
+                console.log("Entered whole qty validation.");
+                console.log(element);
+                console.log(value);
+                console.log(/^[0-9]+$/.test(value));
+
+                return /^[0-9]+$/.test(value); // Validate whole number
+            }, "Please enter a valid whole number quantity.");
+
+            $.validator.addMethod("fractionQtyValidation", function (value, element) {
+                console.log("Entered fractional qty validation.");
+                console.log(element);
+                console.log(value);
+                console.log(fractionOptions.includes(value.toString()));
+
+                return fractionOptions.includes(value.toString()) // Validate whole number
+            }, "Please select a valid fraction.");
+
+            // Function to add validation rules to input fields
+            function addValidationRules() {
+                console.log("Entered addVlidationRules function. Start adding rules!");
+
+                $('.qty-decimal').each(function () {
+                    $(this).rules('add', {
+                        require_from_group: [1, '.qty'],
+                        decimalQtyValidation: true,
+                        messages: {
+                            decimalQtyValidation: "Please enter a valid decimal quantity.",
+                            require_from_group: "Please enter either decimal or fractional quantity."
+                        }
+                    });
+                });
+
+                $('.qty-whole').each(function () {
+                    $(this).rules('add', {
+                        require_from_group: [1, '.qty'],
+                        decimalQtyValidation: true,
+                        messages: {
+                            wholeQtyValidation: "Please enter a valid whole number quantity.",
+                            require_from_group: "Please enter either decimal or fractional quantity."
+                        }
+                    });
+                });
+
+                $('.qty-fraction').each(function () {
+                    $(this).rules('add', {
+                        require_from_group: [1, '.qty'],
+                        decimalQtyValidation: true,
+                        messages: {
+                            fractionQtyValidation: "Please select a valid fraction.",
+                            require_from_group: "Please enter either decimal or fractional quantity."
+                        }
+                    });
+                });
+
+                console.log("Validation rules added!");
+            }
+            
             // Helper function to convert decimal to whole and fraction
             function decimalToFraction(decimal) {
                 let whole = Math.floor(decimal);
@@ -529,25 +508,8 @@
             function fractionToDecimal(whole, fraction) {
                 let fractionValue = qtyFractionOptions[fraction] || 0;
                 return parseFloat(whole) + fractionValue;
-            }
-
-            function triggerQtyValidation(event) {
-                // Validate the current quantity input
-                var $row = $(event.target).closest('.ingredient-row');
-                $row.find('.qty-decimal, .qty-whole, .qty-fraction').each(function () {
-                    (this).valid();
-                });
-            }
-
-            // Function to trigger validation
-            function triggerValidation(event) {
-                form.valid();
-            }
-
-            // Initialize validation on form
-            rebindValidation();
-            triggerValidation();
-
+            }            
+            
             //
             //
             // Ingredient Functions
@@ -622,7 +584,8 @@
                 ingredientIndex++;
 
                 $('.ingredientName').on('keyup', suggestWords);
-                rebindValidation();
+                addValidationRules();
+                form.valid();
             });
 
             $(document).on('click', '.remove-ingredient', function (event) {
@@ -655,7 +618,7 @@
                 }
                 ingredientIndex--;
                 reindexIngredients();
-                triggerValidation();
+                form.valid();
             });
 
             function reindexIngredients() {
@@ -720,7 +683,8 @@
                                 </div>`;
                 $('#instructionsList').append(newStepHtml);
                 stepIndex++;
-                rebindValidation();
+                addValidationRules();
+                form.valid();
 
             });
 
@@ -754,7 +718,7 @@
                 }
                 stepIndex--;
                 reindexSteps();
-                rebindValidation();
+                form.valid();
             });
 
             function reindexSteps() {
@@ -784,7 +748,6 @@
                         }
                     });
                 });
-                triggerValidation();
             }
 
             //
@@ -822,9 +785,7 @@
                     fractionQtyInputs.hide();
                 }
             });
-
-            // Apply triggerValidation on change and focusout events
-            form.on('change focusout', '.qty-whole, .qty-fraction, .qty-decimal', triggerQtyValidation);
+            
         });
     </script>
 }
