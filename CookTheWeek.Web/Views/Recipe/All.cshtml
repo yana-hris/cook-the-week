@@ -27,7 +27,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2 order-md-first">
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
-                        <select asp-for="Category" class="form-control">
+                        <select asp-for="Category" class="form-select">
                             <option value="">All</option>
                             @foreach (var category in Model.Categories)
                             {
@@ -39,7 +39,7 @@
                 <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
                     <div class="input-group">
                         <span class="input-group-text">Sort</span>
-                        <select asp-for="RecipeSorting" class="form-control">
+                        <select asp-for="RecipeSorting" class="form-select">
                             @foreach (var option in Model.RecipeSortings)
                             {
                                 <option value="@option.Key">@option.Value</option>
@@ -57,7 +57,7 @@
                 <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
                     <div class="input-group">
                         <span class="input-group-text">Per Pg</span>
-                        <select asp-for="RecipesPerPage" class="form-control">
+                        <select asp-for="RecipesPerPage" class="form-select">
                             <option value="8">8</option>
                             <option value="12">12</option>
                             <option value="16">16</option>

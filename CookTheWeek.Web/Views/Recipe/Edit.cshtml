@@ -52,7 +52,7 @@
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
-                                    <span class="input-group-text">Servs</span><select class="form-control" asp-for="Servings">
+                                    <span class="input-group-text">Servs</span><select class="form-select" asp-for="Servings">
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions!)
                                         {
@@ -90,7 +90,7 @@
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
-                                    <select asp-for="RecipeCategoryId" class="form-control">
+                                    <select asp-for="RecipeCategoryId" class="form-select">
                                         <option value="">Choose</option>
                                         @foreach (var category in @Model.Categories!)
                                         {
@@ -179,14 +179,14 @@
                                                 @* DECIMAL INPUT *@
                                                 <div class="decimal-qty-input input-group" style="display: @decimalsDisplayStyle">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty qty-decimal" data-val="false" placeholder="0.00" />
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" data-val="true" placeholder="0.00" />
                                                 </div>
-
+                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
                                                 @* FRACTIONAL / WHOLE NUMBER INPUT *@
                                                 <div class="fraction-qty-inputs input-group" style="display: @fractionsDisplayStyle">
                                                     <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty qty-whole" placeholder="0" data-val="false">
-                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" data-val="false" class="form-select qty qty-fraction">
+                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty qty-whole" placeholder="0" data-val="true">
+                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" data-val="true" class="form-select qty qty-fraction">
                                                         <option value="">Frac</option>
                                                         @foreach (var option in QtyFractionOptions)
                                                         {
@@ -194,20 +194,19 @@
                                                         }
                                                     </select>
                                                 </div>
-
+                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyWhole" class="small text-danger"></span>
+                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyFraction" class="small text-danger"></span>
                                                 @* INPUT SWITCHER *@
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input show-fraction-checkbox" type="checkbox" @(isChecked ? "checked" : "")/>
                                                     <label class="form-check-label">Use Fractions</label>
-                                                </div>
-
-                                                <span asp-validation-for="RecipeIngredients[i].Qty" class="small text-danger"></span>
+                                                </div>                                               
                                             </div>
 
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Unit</span>
-                                                    <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
+                                                    <select asp-for="RecipeIngredients[i].MeasureId" class="form-select">
                                                         <option value="">Unit</option>
                                                         @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                         {
@@ -220,7 +219,7 @@
                                             <div class="col col-6 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Note</span>
-                                                    <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
+                                                    <select class="form-select" asp-for="RecipeIngredients[i].SpecificationId">
                                                         <option value="">Type</option>
                                                         @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                         {
@@ -392,91 +391,117 @@
 
             // Extract keys from QtyFractionOptions as valid fractions
             var fractionOptions = Object.keys(qtyFractionOptions);
+            console.log(fractionOptions);
+
+            // $.validator.addMethod("decimalQtyValidation", function (value, element) {
+
+            //     return /^[0-9]+(\.[0-9]{1,3})?$/.test(value) && value >= 0.001 && value <= 9999.999;
+            // }, "Please enter a valid decimal quantity.");
+
+            // // Custom validation method for whole number quantity
+            // $.validator.addMethod("wholeQtyValidation", function (value, element) {
+               
+            //     return /^[1-9][0-9]{0,3}$/.test(value) && parseInt(value) >= 1 && parseInt(value) <= 9999;
+            // }, "Please enter a valid whole number quantity.");
+
+            // $.validator.addMethod("fractionQtyValidation", function (value, element) {
+               
+            //     return fractionOptions.includes(value.toString()) || value === "";
+            // }, "Please select a valid fraction.");
 
             // Apply validation rules on document ready
-            addValidationRules();
+            // addValidationRules();
 
-            form.on('change', '.qty-decimal, .qty-whole, .qty-fraction', function () {
-                console.log("Validation triggered");
-                form.valid();
-            });
+            // // Initialize validation
+            // $('form').validate({
+            //     debug: true, // Enable debug mode for detailed logging
+            //     // Handle the invalid element state
+            //     invalidHandler: function (event, validator) {
+            //         debugger;
+            //         console.log("Invalid handler triggered");
 
-            // Initialize validation
-            form.validate({
-                errorPlacement: function (error, element) {
-                    error.appendTo(element.closest('.qty-row').find('span.text-danger'));
-                }
-            });
+            //         $.each(validator.errorList, function (index, error) {
 
-           
+            //             console.log(error.element); // Log the invalid element causing the error
+            //             console.log(error.message); // Log the error message
 
-            $.validator.addMethod("decimalQtyValidation", function (value, element) {
-                console.log("Entered decimal validation.");
-                console.log(element);
-                console.log(value);
-                console.log(/^[0-9]+(\.[0-9]{1,2})?$/.test(value));
+            //             $(error.element).attr('aria-invalid', 'true');
+            //             var errorContainer = $(error.element).closest('.qty-row').find('.small.text-danger');
+                        
+            //             console.log(error.messages);
+            //             console.log(errorContainer);
+            //             errorContainer.show();
+            //         });
+            //     },
+            //     errorPlacement: function (error, element) {
+            //         debugger;
+            //         console.log("Error placement handler triggered");
 
-                return /^[0-9]+(\.[0-9]{1,2})?$/.test(value); // Validate decimal number with up to 2 decimal places
-            }, "Please enter a valid decimal quantity.");
+            //         var errorContainer = element.closest('.qty-row').find('.small.text-danger');                    
+                   
+            //         error.appendTo(errorContainer);
+            //         console.log("Entered form validation for adding error placement rules!");
+            //     },
+                
+            //     // Reset the valid element state
+            //     success: function (label, element) {
+                    
+            //         $(element).attr('aria-invalid', 'false');
+            //         var errorContainer = $(element).closest('.qty-row').find('.small.text-danger');
+                   
+            //         errorContainer.hide();
+            //     }
+            // });
 
-            // Custom validation method for whole number quantity
-            $.validator.addMethod("wholeQtyValidation", function (value, element) {
-                console.log("Entered whole qty validation.");
-                console.log(element);
-                console.log(value);
-                console.log(/^[0-9]+$/.test(value));
+            // form.valid();
 
-                return /^[0-9]+$/.test(value); // Validate whole number
-            }, "Please enter a valid whole number quantity.");
+            // form.on('change', '.qty-decimal, .qty-whole, .qty-fraction', function () {
+            //     debugger;
+            //     console.log("Validation triggered");
+            //     form.valid();
+            // });
 
-            $.validator.addMethod("fractionQtyValidation", function (value, element) {
-                console.log("Entered fractional qty validation.");
-                console.log(element);
-                console.log(value);
-                console.log(fractionOptions.includes(value.toString()));
-
-                return fractionOptions.includes(value.toString()) // Validate whole number
-            }, "Please select a valid fraction.");
-
+            
+            
             // Function to add validation rules to input fields
-            function addValidationRules() {
-                console.log("Entered addVlidationRules function. Start adding rules!");
+            // function addValidationRules() {
+            //     console.log("Entered addVlidationRules function. Start adding rules!");
 
-                $('.qty-decimal').each(function () {
-                    $(this).rules('add', {
-                        require_from_group: [1, '.qty'],
-                        decimalQtyValidation: true,
-                        messages: {
-                            decimalQtyValidation: "Please enter a valid decimal quantity.",
-                            require_from_group: "Please enter either decimal or fractional quantity."
-                        }
-                    });
-                });
+            //     $('.qty-decimal').each(function () {
+            //         $(this).rules('add', {
+            //             required: true,
+            //             decimalQtyValidation: true,
+            //             messages: {
+            //                 required: "@MissingFormInputErrorMessage",
+            //                 decimalQtyValidation: "@InvalidDecimalRangeErrorMessage",
+            //             }
+            //         });
+            //     });
 
-                $('.qty-whole').each(function () {
-                    $(this).rules('add', {
-                        require_from_group: [1, '.qty'],
-                        decimalQtyValidation: true,
-                        messages: {
-                            wholeQtyValidation: "Please enter a valid whole number quantity.",
-                            require_from_group: "Please enter either decimal or fractional quantity."
-                        }
-                    });
-                });
+            //     $('.qty-whole').each(function () {
+            //         $(this).rules('add', {
+            //             require_from_group: [1, '.qty'],
+            //             wholeQtyValidation: true,
+            //             messages: {
+            //                 require_from_group: "@MissingFractionalOrWholeInputMessage",
+            //                 wholeQtyValidation: "@InvalidWholeQtyErrorMessage"
+            //             }
+            //         });
+            //     });
 
-                $('.qty-fraction').each(function () {
-                    $(this).rules('add', {
-                        require_from_group: [1, '.qty'],
-                        decimalQtyValidation: true,
-                        messages: {
-                            fractionQtyValidation: "Please select a valid fraction.",
-                            require_from_group: "Please enter either decimal or fractional quantity."
-                        }
-                    });
-                });
+            //     $('.qty-fraction').each(function () {
+            //         $(this).rules('add', {
+            //             require_from_group: [1, '.qty'],
+            //             fractionQtyValidation: true,
+            //             messages: {
+            //                 require_from_group: "@MissingFractionalOrWholeInputMessage",
+            //                 fractionQtyValidation: "Please select a valid fraction."
+            //             }
+            //         });
+            //     });
 
-                console.log("Validation rules added!");
-            }
+            //     console.log("Validation rules added!");
+            // }
             
             // Helper function to convert decimal to whole and fraction
             function decimalToFraction(decimal) {
@@ -752,9 +777,9 @@
 
             //
             //
-            //
+            //  works fine!
             form.on('change', '.show-fraction-checkbox', function (event) {
-                
+               
                 var ingredientLine = $(event.target).closest('.ingredient-row');
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
                 var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
@@ -763,14 +788,32 @@
                     // Convert decimal to whole and fraction and update the inputs
                     let decimalValue = parseFloat(decimalQtyInput.find('input').val()) || 0;
                     let { whole, fraction } = decimalToFraction(decimalValue);
-
-                    // Update the fraction input fields
-                    fractionQtyInputs.find('.qty-whole').val(whole);
-                    fractionQtyInputs.find('.qty-fraction').val(fraction);
-
+                    //decimalQtyInput.find('input').rules('remove');
                     decimalQtyInput.find('input').val('');
                     decimalQtyInput.hide();
+
+                    // Update the fraction input fields and add validation rules
                     fractionQtyInputs.show();
+                    fractionQtyInputs.find('.qty-whole').val(whole);
+                    fractionQtyInputs.find('.qty-fraction').val(fraction);
+                    // Add validation
+                    // fractionQtyInputs.find('.qty-whole').rules('add', {
+                    //     require_from_group: [1, '.qty'],
+                    //     wholeQtyValidation: true,
+                    //     messages: {
+                    //         require_from_group: "@MissingFractionalOrWholeInputMessage",
+                    //         wholeQtyValidation: "@InvalidWholeQtyErrorMessage"
+                    //     }
+                    // });
+                    // fractionQtyInputs.find('.qty-fraction').rules('add', {
+                    //     require_from_group: [1, '.qty'],
+                    //     fractionQtyValidation: true,
+                    //     messages: {
+                    //         require_from_group: "@MissingFractionalOrWholeInputMessage",
+                    //         fractionQtyValidation: "Please select a valid fraction."
+                    //     }
+                    // });
+                    
                 } else {
                     // Convert whole and fraction to decimal and update the input
                     let wholeValue = parseInt(fractionQtyInputs.find('.qty-whole').val()) || 0;
@@ -778,12 +821,26 @@
                     let decimalValue = fractionToDecimal(wholeValue, fractionValue);
 
                     // Update the decimal input field
-                    decimalQtyInput.find('input').val(decimalValue.toFixed(3));
-
                     decimalQtyInput.show();
+                    decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    // Add rules
+                    // decimalQtyInput.rules('add', {
+                    //     required: true,
+                    //     decimalQtyValidation: true,
+                    //     messages: {
+                    //         required: "@MissingFormInputErrorMessage",
+                    //         decimalQtyValidation: "@InvalidDecimalRangeErrorMessage"
+                    //     }
+                    // });                    
+
+                    // Null, hide and remove validation for the fractional inputs
+                    // fractionQtyInputs.find('.qty-whole').rules('remove');
+                    // fractionQtyInputs.find('.qty-fraction').rules('remove');
                     fractionQtyInputs.find('input, select').val('');
                     fractionQtyInputs.hide();
                 }
+
+                form.valid();
             });
             
         });

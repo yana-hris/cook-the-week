@@ -18,6 +18,8 @@
 
             public const string MissingFormInputErrorMessage = "Required either decimal or fractional quantity";
 
+            public const string MissingFractionalOrWholeInputMessage = "Required either a whole and/or fractional quantity";
+
             public const string InvalidDecimalRangeErrorMessage = "Invalid quantity range, must be [0.001-9999.99]";
 
             public const string InvalidFractionErrorMessage = "Required fraction selection";

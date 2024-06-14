@@ -51,7 +51,7 @@
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span>
-                                    <select class="form-control" asp-for="Servings">
+                                    <select class="form-select" asp-for="Servings">
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions)
                                         {
@@ -88,7 +88,7 @@
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
-                                    <select asp-for="RecipeCategoryId" class="form-control">
+                                    <select asp-for="RecipeCategoryId" class="form-select">
                                         <option value="">Choose</option>
                                         @foreach (var category in @Model.Categories!)
                                         {
@@ -187,7 +187,7 @@
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Unit</span>
-                                                       <select asp-for="RecipeIngredients[i].MeasureId" class="form-control">
+                                                       <select asp-for="RecipeIngredients[i].MeasureId" class="form-select">
                                                             <option value="">Unit</option>
                                                             @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                             {
@@ -200,7 +200,7 @@
                                             <div class="col col-6 col-lg-2 p-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Note</span>
-                                                    <select class="form-control" asp-for="RecipeIngredients[i].SpecificationId">
+                                                    <select class="form-select" asp-for="RecipeIngredients[i].SpecificationId">
                                                         <option value="">Type</option>
                                                         @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                         {

@@ -52,11 +52,16 @@ html {
                     border: none;
                 }
 
-                input.form-control, textarea.form-control, select.form-control {
+                input.form-control, textarea.form-control, select.form-select {
                     border-radius: 8px;
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
                     border: 1px solid var(--bs-primary);
+                }
+
+                input.qty-whole {
+                    border-top-right-radius: 0 !important;
+                    border-bottom-right-radius: 0 !important;
                 }
 
                 input.form-control.search {

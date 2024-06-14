@@ -41,11 +41,15 @@ html body #main-container .input-group span.input-group-text {
   opacity: 0.95;
   border: none;
 }
-html body #main-container .input-group input.form-control, html body #main-container .input-group textarea.form-control, html body #main-container .input-group select.form-control {
+html body #main-container .input-group input.form-control, html body #main-container .input-group textarea.form-control, html body #main-container .input-group select.form-select {
   border-radius: 8px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border: 1px solid var(--bs-primary);
+}
+html body #main-container .input-group input.qty-whole {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 html body #main-container .input-group input.form-control.search {
   border-top-right-radius: 0 !important;
