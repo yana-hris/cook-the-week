@@ -1,13 +1,15 @@
 ﻿namespace CookTheWeek.Web.ViewModels.ValidationAttributes
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+    using System.Web.Mvc;
+
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
     using static Common.ValidationErrorMessages.RecipeIngredientQty;
 
-    public class ValidateQtyAttribute : ValidationAttribute
+    public class ValidateQtyAttribute : ValidationAttribute, IClientValidatable
     {
         private readonly Dictionary<string, decimal> fractionOptions;
         public ValidateQtyAttribute() 
@@ -16,6 +18,7 @@
             ErrorMessage ??= defaultErrorMessage;
             fractionOptions = QtyFractionOptions;
         }
+        
         protected override ValidationResult? IsValid(object? value, 
             ValidationContext validationContext)
         {
@@ -48,5 +51,17 @@
 
             return ValidationResult.Success;
         }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule
+            {
+                ErrorMessage = FormatErrorMessage(metadata.DisplayName),
+                ValidationType = "validateqty"
+            };
+            
+            yield return rule;
+        }
+
     }
 }

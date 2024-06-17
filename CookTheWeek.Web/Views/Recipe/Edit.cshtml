@@ -266,9 +266,7 @@
 </div>
 
 @section Scripts {
-    <partial name="_ComplexValidationScriptsPartial" />
-    @* <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> *@
+    <partial name="_ValidationScriptsPartial" />
     <script>
         $('.ingredientName').on('keyup', suggestWords);
         function suggestWords() {
@@ -842,7 +840,84 @@
 
                 form.valid();
             });
-            
+        });
+    </script>
+    <script>
+        // KnockoutJS adding steps dynamically
+        // Server-side ViewModel passed to the view as JSON
+        //var serverModel = ko.mapping.fromJS(@Html.Raw(JsonConvert.SerializeObject(Model)));
+
+        $(document).ready(function () {
+            // Server-side ViewModel data
+            function Step(description) {
+                this.description = ko.observable(description).extend({ required: true });
+            }
+
+            function Ingredient(name, qtyDecimal, qtyWhole, qtyFraction, measureId, specificationId) {
+                this.name = ko.observable(name).extend({ required: true });
+                this.qtyDecimal = ko.observable(qtyDecimal);
+                this.qtyWhole = ko.observable(qtyWhole);
+                this.qtyFraction = ko.observable(qtyFraction);
+                this.measureId = ko.observable(measureId);
+                this.specificationId = ko.observable(specificationId);
+            }
+
+            function RecipeViewModel(data) {
+                var self = this;
+
+                self.title = ko.observable(data.title).extend({ required: true });
+                self.servings = ko.observable(data.servings).extend({ required: true });
+                self.description = ko.observable(data.description).extend({ required: true });
+                self.cookingTimeMinutes = ko.observable(data.cookingTimeMinutes).extend({ required: true });
+                self.imageUrl = ko.observable(data.imageUrl).extend({ required: true, url: true });
+                self.recipeCategoryId = ko.observable(data.recipeCategoryId).extend({ required: true });
+
+                self.steps = ko.observableArray(ko.utils.arrayMap(data.steps, function (step) {
+                    return new Step(step.description);
+                }));
+
+                self.ingredients = ko.observableArray(ko.utils.arrayMap(data.ingredients, function (ingredient) {
+                    return new Ingredient(
+                        ingredient.name,
+                        ingredient.qtyDecimal,
+                        ingredient.qtyWhole,
+                        ingredient.qtyFraction,
+                        ingredient.measureId,
+                        ingredient.specificationId
+                    );
+                }));
+
+                self.addStep = function () {
+                    self.steps.push(new Step(""));
+                };
+
+                self.removeStep = function (step) {
+                    self.steps.remove(step);
+                };
+
+                self.addIngredient = function () {
+                    self.ingredients.push(new Ingredient("", null, null, null, null, null));
+                };
+
+                self.removeIngredient = function (ingredient) {
+                    self.ingredients.remove(ingredient);
+                };
+
+                self.validateAndSubmit = function () {
+                    if (self.errors().length === 0) {
+                        // Submit form
+                        document.getElementById('edit-recipe-form').submit();
+                    } else {
+                        self.errors.showAllMessages();
+                    }
+                };
+
+                self.errors = ko.validation.group(self);
+            }
+
+            // Initialize ViewModel with data from your server model
+            var data = @Html.Raw(JsonConvert.SerializeObject(Model));
+            ko.applyBindings(new RecipeViewModel(data));
         });
     </script>
 }
