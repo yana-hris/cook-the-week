@@ -14,6 +14,7 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using CookTheWeek.Web.ViewModels.Step;
+    using Newtonsoft.Json;
 
     [Authorize]
     public class RecipeController : Controller
@@ -211,91 +212,103 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RecipeEditFormModel model)
+        public async Task<IActionResult> EditJson(string jsonData)
         {
-            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
+            RecipeEditFormModel? model = JsonConvert.DeserializeObject<RecipeEditFormModel>(jsonData);
 
-            if (!exists)
+            if (model != null)
             {
-                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
-                return RedirectToAction("All", "Recipe");
-            }
+                bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
 
-            string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
-
-            if (!isOwner && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
-                return RedirectToAction("Details", "Recipe", new { id = model.Id });
-            }
-
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-
-            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
-            bool categoryExists =
-               await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
-
-            if (!categoryExists)
-            {
-                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
-            }
-
-            foreach (var ingredient in model.RecipeIngredients)
-            {
-                if (!await IsIngredientValid(ingredient.Name))
+                if (!exists)
                 {
-                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
+                    TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                    return RedirectToAction("All", "Recipe");
                 }
-                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+
+                string userId = User.GetId();
+                bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
+
+                if (!isOwner && !User.IsAdmin())
                 {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingrediet {ingredient.Name}");
+                    TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                    return RedirectToAction("Details", "Recipe", new { id = model.Id });
                 }
-                if (ingredient.SpecificationId != null)
+
+                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+                model.ServingsOptions = ServingsOptions;
+
+                model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+                model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+                bool categoryExists =
+                   await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+
+                if (!categoryExists)
                 {
-                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                }
+
+                foreach (var ingredient in model.RecipeIngredients)
+                {
+                    if (!await IsIngredientValid(ingredient.Name))
                     {
-                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingrediet {ingredient.Name}");
+                        ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
+                    }
+                    if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                    {
+                        ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingrediet {ingredient.Name}");
+                    }
+                    if (ingredient.SpecificationId != null)
+                    {
+                        if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                        {
+                            ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingrediet {ingredient.Name}");
+                        }
                     }
                 }
-            }
 
-            if (!ModelState.IsValid)
-            {                
-                return View(model);
-            }
-
-            // Sanitize all string input
-            model.Title = sanitizer.SanitizeInput(model.Title);
-            if (model.Description != null)
-            {
-                model.Description = sanitizer.SanitizeInput(model.Description);
-            }
-
-            if (model.Steps.Any())
-            {
-                foreach (var step in model.Steps)
+                if (!ModelState.IsValid)
                 {
-                    step.Description = sanitizer.SanitizeInput(step.Description);
+                    return View(model);
                 }
+
+                // Sanitize all string input
+                model.Title = sanitizer.SanitizeInput(model.Title);
+                if (model.Description != null)
+                {
+                    model.Description = sanitizer.SanitizeInput(model.Description);
+                }
+
+                if (model.Steps.Any())
+                {
+                    foreach (var step in model.Steps)
+                    {
+                        step.Description = sanitizer.SanitizeInput(step.Description);
+                    }
+                }
+
+                try
+                {
+                    await this.recipeService.EditAsync(model);
+                    TempData[SuccessMessage] = "Your recipe was successfully edited!";
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
+                    logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
+                    return View(model);
+                }
+
+                return RedirectToAction("Details", new { id = model.Id });
             }
-            
-            try
+            else
             {
-                await this.recipeService.EditAsync(model);
-                TempData[SuccessMessage] = "Your recipe was successfully edited!";
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
-                logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-                return View(model);
+                logger.LogError("Model not retrieved from JSON");
+                return BadRequest();
             }
 
-            return RedirectToAction("Details", new { id = model.Id });
+            
         }
 
         [HttpGet]

@@ -15,7 +15,7 @@
 
     if (User.GetId() != string.Empty && !User.IsAdmin())
     {
-        headingModel.HeadingSecondary = "Edit your recipe in a few simple steps";
+        headingModel.HeadingSecondary = $"Edit {Model.Title}";
     }
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
@@ -38,7 +38,8 @@
         </div>
 
         <div class="card-body">
-            <form id="edit-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="Edit">
+            <form id="edit-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="EditJson">
+                <input type="hidden" name="JsonData" />
                 <div id="info-content" class="tab-content g-3">
                     @* TAB RECIPE DETAILS *@
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -46,13 +47,14 @@
                             <div class="col col-12 col-md-8 col-xl-9 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Title</span>
-                                    <input asp-for="Title" class="form-control" placeholder="Name it.." type="text">
+                                    <input data-bind="value: Title" class="form-control" placeholder="Name it.." type="text">
                                 </div>
-                                <span asp-validation-for="Title" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
-                                    <span class="input-group-text">Servs</span><select class="form-select" asp-for="Servings">
+                                    <span class="input-group-text">Servs</span>
+                                    <select class="form-select" data-bind="value: Servings">
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions!)
                                         {
@@ -60,37 +62,37 @@
                                         }
                                     </select>
                                 </div>
-                                <span asp-validation-for="Servings" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-12 col-md-7 col-xl-8 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
-                                    <textarea asp-for="Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
+                                    <textarea data-bind="value: Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
                                 </div>
-                                <span asp-validation-for="Description" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
-                                    <input asp-for="CookingTimeMinutes" class="form-control" type="number">
+                                    <input data-bind="value: CookingTimeMinutes" class="form-control" type="number">
                                 </div>
-                                <span asp-validation-for="CookingTimeMinutes" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-12 col-md-6 col-xl-7 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
-                                    <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here..." type="url">
+                                    <input data-bind="value: ImageUrl" class="form-control" placeholder="Your fine URL here..." type="url">
                                 </div>
-                                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
-                                    <select asp-for="RecipeCategoryId" class="form-select">
+                                    <select data-bind="value: RecipeCategoryId" class="form-select">
                                         <option value="">Choose</option>
                                         @foreach (var category in @Model.Categories!)
                                         {
@@ -98,35 +100,34 @@
                                         }
                                     </select>
                                 </div>
-                                <span asp-validation-for="RecipeCategoryId" class="small text-danger"></span>
+                                <span class="small text-danger"></span>
                             </div>
 
                         </div>
                     </div>
-                    @*  TAB INSTRUCTIONS *@
+                    @*  TAB INSTRUCTIONS - ICOLLECTION OF STEPS *@
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
                         <div id="instructions-content" class="tab-content">
                             <div id="instructionsContainer" class="row g-3">
-                                <div id="instructionsList">
-                                    @for (int i = 0; i < Model.Steps.Count; i++)
-                                    {
-                                        <div class="row instructions-row align-items-center">
-                                            <div class="col-11 p-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Step</span>
-                                                    <textarea class="form-control" asp-for="Steps[i].Description" rows="3" placeholder="Tell us how to cook.."></textarea>
-                                                </div>
-                                                <span asp-validation-for="Steps[i].Description" class="small text-danger"></span>
+                                <div id="instructionsList" data-bind="foreach: Steps">
+                                    @* USING KNOCKOUTJS DATA BINDING INSTEAD OF ASP-FOR BUILT IN MODEL BINDING *@
+                                    <div class="row instructions-row align-items-center">
+                                        <div class="col-11 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Step</span>
+                                                <textarea class="form-control" data-bind="value: Description" rows="3" placeholder="Tell us how to cook.."></textarea>
                                             </div>
-                                            <div class="col-1 p-2">
-                                                <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
-                                                    <button class="btn remove-btn btn-danger remove-step" type="button">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
+                                            <span class="small text-danger"></span> 
+                                        </div>
+                                        <div class="col-1 p-2">
+                                            <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
+                                                <button class="btn remove-btn btn-danger remove-step" type="button" data-bind="click: $parent.removeStep">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                         </div>
-                                    }
+                                    </div>
+                                   
                                 </div>
                                 <hr />
                                 @* Add Step Btn *@
@@ -135,7 +136,7 @@
                                         <!-- Empty column to push the button to the end -->
                                     </div>
                                     <div class="col-6 text-end">
-                                        <a id="add-step" class="btn btn-outline-primary" type="button">
+                                        <a id="add-step" class="btn btn-outline-primary" type="button" data-bind="click: addStep">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
                                         </a>
                                     </div>
@@ -143,99 +144,83 @@
                             </div>
                         </div>
                     </div>
-                    @* TAB INGREDIENTS *@
+                    @* TAB RECIPE INGREDIENTS *@
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <div id="ingredients" class="tab-content">
+                        <div id="ingredients-content" class="tab-content">
                             <div id="ingredientsContainer" class="row g-3">
-                                <div id="ingredientList">
-                                    @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
-                                    {
-                                        <div class="row ingredient-row">
-                                            <div class="col col-6 col-lg-4 p-2">
-                                                <div class="input-group">
-                                                    <span asp-for="RecipeIngredients[i].Name" class="input-group-text">Ingredient</span>
-                                                    <input asp-for="RecipeIngredients[i].Name" class="form-control ingredientName" type="text" autocomplete="off">
-                                                    <div class="suggestionsList invisible">
-                                                    </div>
+                                <div id="ingredientList" data-bind="foreach: RecipeIngredients">
+                                @* USING KNOCKOUTJS DATA BINDING *@
+                                    <div class="row ingredient-row">
+                                        <div class="col col-6 col-lg-4 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Ingredient</span>
+                                                <input data-bind="value: Name" class="form-control ingredientName" type="text" autocomplete="off" >
+                                                <div class="suggestionsList invisible">
                                                 </div>
-                                                <span asp-validation-for="RecipeIngredients[i].Name" class="small text-danger"></span>
                                             </div>
-                                            @* COMPLEX QUANTITY INPUT *@
-                                            @{
-                                                // to ensure always one will be shown in case of failed server side Qty validation, decimal is the default input
-                                                string decimalsDisplayStyle = "flex;"; 
-                                                string fractionsDisplayStyle = "none;";
-                                                bool isChecked = false;
+                                            <span class="small text-danger"></span>
+                                        </div>
+                                        @* COMPLEX QUANTITY INPUT *@
+                                        <div class="col col-6 col-lg-3 p-2 qty-row">
 
-                                                if (Model.RecipeIngredients[i].Qty.QtyDecimal == null)
-                                                {
-                                                    fractionsDisplayStyle = "flex;";
-                                                    decimalsDisplayStyle = "none";
-                                                    isChecked = true;
-                                                }
-                                            }
-                                            <div class="col col-6 col-lg-3 p-2 qty-row">
+                                            @* DECIMAL INPUT *@
+                                            <div class="decimal-qty-input input-group" data-bind="style: { display: Qty().QtyDecimal() ? 'flex' : 'none' }">
+                                                <span class="input-group-text">Qty</span>
+                                                <input class="form-control qty-decimal" data-bind="value: Qty().QtyDecimal" placeholder="0.00" />
+                                            </div>
+                                            <span class="small text-danger"></span>
+                                            @* FRACTIONAL / WHOLE NUMBER INPUT *@
+                                            <div class="fraction-qty-inputs input-group" data-bind="style: { display: Qty().QtyDecimal() ? 'none' : 'flex' }">
+                                                <span class="input-group-text">Qty</span>
+                                                <input data-bind="value: Qty().QtyWhole" class="form-control qty qty-whole" placeholder="0">
+                                                <select data-bind="value: Qty().QtyFraction" class="form-select qty qty-fraction">
+                                                    <option value="">Frac</option>
+                                                    @foreach (var option in QtyFractionOptions)
+                                                    {
+                                                        <option value="@option.Key">@option.Key</option>
+                                                    }
+                                                </select>
+                                            </div>                                                
+                                            <span class="small text-danger"></span>
+                                            @* INPUT SWITCHER *@
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input show-fraction-checkbox" type="checkbox" data-bind="checked: Qty().QtyDecimal(), checkedValue: false, uncheckedValue: true">
+                                                <label class="form-check-label">Use Fractions</label>
+                                            </div>                                               
+                                        </div>
 
-                                                @* DECIMAL INPUT *@
-                                                <div class="decimal-qty-input input-group" style="display: @decimalsDisplayStyle">
-                                                    <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyDecimal" class="form-control qty-decimal" data-val="true" placeholder="0.00" />
-                                                </div>
-                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyDecimal" class="small text-danger"></span>
-                                                @* FRACTIONAL / WHOLE NUMBER INPUT *@
-                                                <div class="fraction-qty-inputs input-group" style="display: @fractionsDisplayStyle">
-                                                    <span class="input-group-text">Qty</span>
-                                                    <input asp-for="RecipeIngredients[i].Qty.QtyWhole" class="form-control qty qty-whole" placeholder="0" data-val="true">
-                                                    <select asp-for="RecipeIngredients[i].Qty.QtyFraction" data-val="true" class="form-select qty qty-fraction">
-                                                        <option value="">Frac</option>
-                                                        @foreach (var option in QtyFractionOptions)
-                                                        {
-                                                            <option value="@option.Key">@option.Key</option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyWhole" class="small text-danger"></span>
-                                                <span asp-validation-for="RecipeIngredients[i].Qty.QtyFraction" class="small text-danger"></span>
-                                                @* INPUT SWITCHER *@
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input show-fraction-checkbox" type="checkbox" @(isChecked ? "checked" : "")/>
-                                                    <label class="form-check-label">Use Fractions</label>
-                                                </div>                                               
+                                        <div class="col col-5 col-lg-2 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Unit</span>
+                                                <select data-bind="value: MeasureId" class="form-select">
+                                                    <option value="">Unit</option>
+                                                    @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
+                                                    {
+                                                        <option value="@measure.Id">@measure.Name</option>
+                                                    }
+                                                </select>
                                             </div>
-
-                                            <div class="col col-5 col-lg-2 p-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Unit</span>
-                                                    <select asp-for="RecipeIngredients[i].MeasureId" class="form-select">
-                                                        <option value="">Unit</option>
-                                                        @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
-                                                        {
-                                                            <option value="@measure.Id">@measure.Name</option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                                <span asp-validation-for="RecipeIngredients[i].MeasureId" class="small text-danger"></span>
-                                            </div>
-                                            <div class="col col-6 col-lg-2 p-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Note</span>
-                                                    <select class="form-select" asp-for="RecipeIngredients[i].SpecificationId">
-                                                        <option value="">Type</option>
-                                                        @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
-                                                        {
-                                                            <option value="@specification.Id">@specification.Description</option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
-                                                <a class="btn remove-btn btn-danger remove-ingredient" type="button">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </a>
+                                            <span class="small text-danger"></span>
+                                        </div>
+                                        <div class="col col-6 col-lg-2 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Note</span>
+                                                <select class="form-select" data-bind="value: SpecificationId">
+                                                    <option value="">Type</option>
+                                                    @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
+                                                    {
+                                                        <option value="@specification.Id">@specification.Description</option>
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
-                                        <hr/>
-                                    }
+                                        <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
+                                            <a data-bind="click: $parent.removeIngredient" class="btn remove-btn btn-danger remove-ingredient" type="button">
+                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                                 @* Add Ingredient Btn *@
                                 <div class="row justify-content-end pt-3 pb-2">
@@ -243,7 +228,7 @@
                                         <!-- Empty column to push the button to the end -->
                                     </div>
                                     <div class="col-6 text-end">
-                                        <a id="add-ingredient" class="btn btn-outline-primary" type="button">
+                                        <a data-bind="click: addIngredient" id="add-ingredient" class="btn btn-outline-primary" type="button">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
                                         </a>
                                     </div>
@@ -258,7 +243,7 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit">Save Changes</button>
+                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit" data-bind="click: saveRecipe">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -267,6 +252,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/qty-custom-validation.js"></script>
     <script>
         $('.ingredientName').on('keyup', suggestWords);
         function suggestWords() {
@@ -379,8 +365,8 @@
     <script>
         $(document).ready(function () {
             
-            var ingredientIndex = @nextIndex;
-            var stepIndex = @nextStepIndex;
+            //var ingredientIndex = @nextIndex;
+            //var stepIndex = @nextStepIndex;
             var form = $("#edit-recipe-form");
 
             // Parse the QtyFractionOptions from the JSON string
@@ -389,117 +375,7 @@
 
             // Extract keys from QtyFractionOptions as valid fractions
             var fractionOptions = Object.keys(qtyFractionOptions);
-            console.log(fractionOptions);
-
-            // $.validator.addMethod("decimalQtyValidation", function (value, element) {
-
-            //     return /^[0-9]+(\.[0-9]{1,3})?$/.test(value) && value >= 0.001 && value <= 9999.999;
-            // }, "Please enter a valid decimal quantity.");
-
-            // // Custom validation method for whole number quantity
-            // $.validator.addMethod("wholeQtyValidation", function (value, element) {
-               
-            //     return /^[1-9][0-9]{0,3}$/.test(value) && parseInt(value) >= 1 && parseInt(value) <= 9999;
-            // }, "Please enter a valid whole number quantity.");
-
-            // $.validator.addMethod("fractionQtyValidation", function (value, element) {
-               
-            //     return fractionOptions.includes(value.toString()) || value === "";
-            // }, "Please select a valid fraction.");
-
-            // Apply validation rules on document ready
-            // addValidationRules();
-
-            // // Initialize validation
-            // $('form').validate({
-            //     debug: true, // Enable debug mode for detailed logging
-            //     // Handle the invalid element state
-            //     invalidHandler: function (event, validator) {
-            //         debugger;
-            //         console.log("Invalid handler triggered");
-
-            //         $.each(validator.errorList, function (index, error) {
-
-            //             console.log(error.element); // Log the invalid element causing the error
-            //             console.log(error.message); // Log the error message
-
-            //             $(error.element).attr('aria-invalid', 'true');
-            //             var errorContainer = $(error.element).closest('.qty-row').find('.small.text-danger');
-                        
-            //             console.log(error.messages);
-            //             console.log(errorContainer);
-            //             errorContainer.show();
-            //         });
-            //     },
-            //     errorPlacement: function (error, element) {
-            //         debugger;
-            //         console.log("Error placement handler triggered");
-
-            //         var errorContainer = element.closest('.qty-row').find('.small.text-danger');                    
-                   
-            //         error.appendTo(errorContainer);
-            //         console.log("Entered form validation for adding error placement rules!");
-            //     },
-                
-            //     // Reset the valid element state
-            //     success: function (label, element) {
-                    
-            //         $(element).attr('aria-invalid', 'false');
-            //         var errorContainer = $(element).closest('.qty-row').find('.small.text-danger');
-                   
-            //         errorContainer.hide();
-            //     }
-            // });
-
-            // form.valid();
-
-            // form.on('change', '.qty-decimal, .qty-whole, .qty-fraction', function () {
-            //     debugger;
-            //     console.log("Validation triggered");
-            //     form.valid();
-            // });
-
-            
-            
-            // Function to add validation rules to input fields
-            // function addValidationRules() {
-            //     console.log("Entered addVlidationRules function. Start adding rules!");
-
-            //     $('.qty-decimal').each(function () {
-            //         $(this).rules('add', {
-            //             required: true,
-            //             decimalQtyValidation: true,
-            //             messages: {
-            //                 required: "@MissingFormInputErrorMessage",
-            //                 decimalQtyValidation: "@InvalidDecimalRangeErrorMessage",
-            //             }
-            //         });
-            //     });
-
-            //     $('.qty-whole').each(function () {
-            //         $(this).rules('add', {
-            //             require_from_group: [1, '.qty'],
-            //             wholeQtyValidation: true,
-            //             messages: {
-            //                 require_from_group: "@MissingFractionalOrWholeInputMessage",
-            //                 wholeQtyValidation: "@InvalidWholeQtyErrorMessage"
-            //             }
-            //         });
-            //     });
-
-            //     $('.qty-fraction').each(function () {
-            //         $(this).rules('add', {
-            //             require_from_group: [1, '.qty'],
-            //             fractionQtyValidation: true,
-            //             messages: {
-            //                 require_from_group: "@MissingFractionalOrWholeInputMessage",
-            //                 fractionQtyValidation: "Please select a valid fraction."
-            //             }
-            //         });
-            //     });
-
-            //     console.log("Validation rules added!");
-            // }
+           
             
             // Helper function to convert decimal to whole and fraction
             function decimalToFraction(decimal) {
@@ -531,251 +407,9 @@
             function fractionToDecimal(whole, fraction) {
                 let fractionValue = qtyFractionOptions[fraction] || 0;
                 return parseFloat(whole) + fractionValue;
-            }            
-            
-            //
-            //
-            // Ingredient Functions
-            $('#add-ingredient').click(function () {
-                var newIngredientHtml = `<hr/>
-                                  <div class="row ingredient-row">
-                                     <div class="col col-6 col-lg-4 p-2">
-                                         <div class="input-group">
-                                             <span class="input-group-text">Ingredient</span>
-                                             <input id="RecipeIngredients_${ingredientIndex}__Name" class="ingredientName form-control" type="text" name="RecipeIngredients[${ingredientIndex}].Name" autocomplete="off" required />
-                                             <div class="suggestionsList invisible"></div>
-                                         </div>
-                                         <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].Name" data-valmsg-replace="true" style="display: block;"></span>
-                                     </div>
-                                     <div class="col col-6 col-lg-3 p-2 qty-row">
-                                        <div class="decimal-qty-input input-group">
-                                            <span class="input-group-text">Qty</span>
-                                            <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyDecimal" class="form-control qty-decimal" placeholder="0.00" name="RecipeIngredients[${ingredientIndex}].Qty.QtyDecimal" min="0.001" max="9999.99" />
-                                        </div>
-                                        <div class="fraction-qty-inputs input-group" style="display: none;">
-                                            <span class="input-group-text">Qty</span>
-                                            <input id="RecipeIngredients_${ingredientIndex}__Qty.QtyWhole" class="form-control qty-whole" placeholder="0" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole" min="1" max="9999"/>
-                                            <select id="RecipeIngredients_${ingredientIndex}__Qty.QtyFraction" class="form-control qty-fraction" name="RecipeIngredients[${ingredientIndex}].Qty.QtyWhole">
-                                                <option value="">Frac</option>`;
-        @foreach (var option in QtyFractionOptions)
-        {
-            <text>newIngredientHtml += `<option value="@option.Key">@option.Key</option>`; </text>
-        }
-
-                    newIngredientHtml += `</select></div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input show-fraction-checkbox" type="checkbox" />
-                                            <label class="form-check-label">Use Fractions</label>
-                                        </div>
-                                                <span data-valmsg-for="RecipeIngredients[{ingredientIndex}].Qty" data-valmsg-replace="true" class="small text-danger" style="display: block;"></span>
-                                     </div>
-                                     <div class="col col-5 col-lg-2 p-2">
-                                         <div class="input-group">
-                                            <span class="input-group-text">Unit</span>
-                                            <select id="RecipeIngredients_${ingredientIndex}__MeasureId" class="form-control" name="RecipeIngredients[${ingredientIndex}].MeasureId" required >
-                                                <option value="">Unit</option>`;
-        @foreach (var measure in @Model.RecipeIngredients.First().Measures!)
-        {
-            <text>newIngredientHtml += '<option value="@measure.Id">@measure.Name</option>'; </text>
-        }
-                    newIngredientHtml +=
-                `</select>
-                                        </div>
-                                        <span class="small text-danger" data-valmsg-for="RecipeIngredients[${ingredientIndex}].MeasureId" data-valmsg-replace="true" style="display:block;"></span>
-                                     </div>
-                                     <div class="col col-6 col-lg-2 p-2">
-                                         <div class="input-group">
-                                             <span class="input-group-text">Note</span>
-                                             <select id="RecipeIngredients_${ingredientIndex}__SpecificationId" class="form-control" name="RecipeIngredients[${ingredientIndex}].SpecificationId">
-                                                 <option value="">Type</option>`;
-        @foreach (var specification in @Model.RecipeIngredients.First().Specifications!)
-        {
-            <text>newIngredientHtml += '<option value="@specification.Id">@specification.Description</option>'; </text>
-        }
-                    newIngredientHtml +=
-                `</select>
-                                         </div>
-                                     </div>
-                                     <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
-                                        <a class="btn remove-btn btn-danger remove-ingredient" type="button">
-                                           <i class="fa fa-minus" aria-hidden="true"></i>
-                                        </a>
-                                     </div>
-                                </div>`;
-
-                $('#ingredientList').append(newIngredientHtml);
-                ingredientIndex++;
-
-                $('.ingredientName').on('keyup', suggestWords);
-                addValidationRules();
-                form.valid();
-            });
-
-            $(document).on('click', '.remove-ingredient', function (event) {
-                var ingredientCount = $('.ingredient-row').length;
-                if (ingredientCount === 1) {
-                    event.preventDefault();
-                    toastr.error('At least one ingredient is required.');
-                    return false;
-                }
-                // remove the horizontal line
-                var ingredientRow = $(this).closest('.ingredient-row');
-                var precedingHr = ingredientRow.prev('hr');
-                var followingHr = ingredientRow.next('hr');
-
-                ingredientRow.remove();
-
-                if (precedingHr.length && !precedingHr.next().hasClass('ingredient-row')) {
-                    precedingHr.remove();
-                }
-
-                // Check if a following <hr/> exists and if it's the only one, remove it
-                if (followingHr.length && !followingHr.prev().hasClass('ingredient-row')) {
-                    followingHr.remove();
-                } else {
-                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
-                    var nextIngredientRow = ingredientRow.next('.ingredient-row');
-                    if (!nextIngredientRow.length) {
-                        followingHr.remove();
-                    }
-                }
-                ingredientIndex--;
-                reindexIngredients();
-                form.valid();
-            });
-
-            function reindexIngredients() {
-                $('.ingredient-row').each(function (index) {
-                    var row = $(this);
-
-                    // Update IDs and Names for visible input fields
-                    row.find('[id]').each(function () {
-                        var newId = this.id.replace(/\d+/, index);
-                        $(this).attr('id', newId);
-                    });
-                    row.find('[name]').each(function () {
-                        // Update name attribute for all fields except the ones related to the Qty property
-                        if (!$(this).attr('name').includes('.Qty')) {
-                            this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
-                        }
-                    });
-
-                    // Update name attribute for Qty fields
-                    row.find('input.qty-whole, input.qty-decimal, select.qty-fraction').each(function () {
-                        var newName = $(this).attr('name').replace(/\[\d+\]\.Qty/, '[' + index + '].Qty');
-                        $(this).attr('name', newName);
-                    });
-
-                    // Update data-valmsg-for attribute for Qty validation spans
-                    row.find('.small[data-valmsg-for]').each(function () {
-                        var propertyName = $(this).attr('data-valmsg-for').split('.')[2];
-                        var newIndex = '[' + index + '].Qty.' + propertyName;
-                        $(this).attr('data-valmsg-for', 'RecipeIngredients' + newIndex);
-                    });
-
-                    row.find('input[aria-describedby], select[aria-describedby]').each(function () {
-                        var ariaDescribedBy = $(this).attr('aria-describedby');
-                        if (ariaDescribedBy && ariaDescribedBy.includes('RecipeIngredients_') && ariaDescribedBy.includes('__') && ariaDescribedBy.split('_')[1] != index) {
-                            var newAriaDescribedBy = ariaDescribedBy.replace(/\d+/, index);
-                            $(this).attr('aria-describedby', newAriaDescribedBy);
-                        }
-                    });
-                });
-            }
-            
-            //
-            //
-            // Instructions Functions
-            $('#add-step').click(function () {
-                var newStepHtml = `<hr/>
-                                        <div class="row instructions-row align-items-center">
-                                    <div class="col-11 p-2">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Step</span>
-                                            <textarea id="Steps_${stepIndex}__Description" class="form-control" name="Steps[${stepIndex}].Description" rows="3" placeholder="Tell us how to cook.." required ></textarea>
-                                        </div>
-                                        <span class="small text-danger" data-valmsg-for="Steps[${stepIndex}].Description" data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="col-1 p-2">
-                                        <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
-                                            <button class="btn remove-btn btn-danger remove-step" type="button">
-                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>`;
-                $('#instructionsList').append(newStepHtml);
-                stepIndex++;
-                addValidationRules();
-                form.valid();
-
-            });
-
-            $(document).on('click', '.remove-step', function (event) {
-                var stepsCount = $('.instructions-row').length;
-                if (stepsCount === 1) {
-                    event.preventDefault();
-                    toastr.error('At least one cooking step is required.');
-                    return false;
-                }
-                // remove the horizontal line
-                var stepRow = $(this).closest('.instructions-row');
-                var precedingHr = stepRow.prev('hr');
-                var followingHr = stepRow.next('hr');
-
-                stepRow.remove();
-
-                if (precedingHr.length && !precedingHr.next().hasClass('instructions-row')) {
-                    precedingHr.remove();
-                }
-
-                // Check if a following <hr/> exists and if it's the only one, remove it
-                if (followingHr.length && !followingHr.prev().hasClass('instructions-row')) {
-                    followingHr.remove();
-                } else {
-                    // If there's no preceding ingredient row, check if there's a following <hr> and remove it
-                    var nextStepRow = stepRow.next('.instructions-row');
-                    if (!nextStepRow.length) {
-                        followingHr.remove();
-                    }
-                }
-                stepIndex--;
-                reindexSteps();
-                form.valid();
-            });
-
-            function reindexSteps() {
-                $('.instructions-row').each(function (index) {
-                    var row = $(this);
-
-                    // Update IDs and Names for textarea fields
-                    row.find('[id]').each(function () {
-                        var newId = this.id.replace(/\d+/, index);
-                        $(this).attr('id', newId);
-                    });
-                    row.find('[name]').each(function () {
-                        this.name = this.name.replace(/\[\d+\]/, '[' + index + ']');
-                    });
-
-
-                    // Update data-valmsg-for attribute for validation spans
-                    row.find('.small[data-valmsg-for]').each(function () {
-                        $(this).attr('data-valmsg-for', `Steps[${index}].Description`);
-                    });
-
-                    row.find('textarea[aria-describedby]').each(function () {
-                        var ariaDescribedBy = $(this).attr('aria-describedby');
-                        if (ariaDescribedBy && ariaDescribedBy.includes('Steps_') && ariaDescribedBy.includes('__') && ariaDescribedBy.split('_')[1] != index) {
-                            var newAriaDescribedBy = ariaDescribedBy.replace(/\d+/, index);
-                            $(this).attr('aria-describedby', newAriaDescribedBy);
-                        }
-                    });
-                });
-            }
-
-            //
-            //
-            //  works fine!
+            }    
+           
+            // Update fraction and decimal input fields upon "change input units" request
             form.on('change', '.show-fraction-checkbox', function (event) {
                
                 var ingredientLine = $(event.target).closest('.ingredient-row');
@@ -794,23 +428,7 @@
                     fractionQtyInputs.show();
                     fractionQtyInputs.find('.qty-whole').val(whole);
                     fractionQtyInputs.find('.qty-fraction').val(fraction);
-                    // Add validation
-                    // fractionQtyInputs.find('.qty-whole').rules('add', {
-                    //     require_from_group: [1, '.qty'],
-                    //     wholeQtyValidation: true,
-                    //     messages: {
-                    //         require_from_group: "@MissingFractionalOrWholeInputMessage",
-                    //         wholeQtyValidation: "@InvalidWholeQtyErrorMessage"
-                    //     }
-                    // });
-                    // fractionQtyInputs.find('.qty-fraction').rules('add', {
-                    //     require_from_group: [1, '.qty'],
-                    //     fractionQtyValidation: true,
-                    //     messages: {
-                    //         require_from_group: "@MissingFractionalOrWholeInputMessage",
-                    //         fractionQtyValidation: "Please select a valid fraction."
-                    //     }
-                    // });
+                  
                     
                 } else {
                     // Convert whole and fraction to decimal and update the input
@@ -821,19 +439,7 @@
                     // Update the decimal input field
                     decimalQtyInput.show();
                     decimalQtyInput.find('input').val(decimalValue.toFixed(3));
-                    // Add rules
-                    // decimalQtyInput.rules('add', {
-                    //     required: true,
-                    //     decimalQtyValidation: true,
-                    //     messages: {
-                    //         required: "@MissingFormInputErrorMessage",
-                    //         decimalQtyValidation: "@InvalidDecimalRangeErrorMessage"
-                    //     }
-                    // });                    
-
-                    // Null, hide and remove validation for the fractional inputs
-                    // fractionQtyInputs.find('.qty-whole').rules('remove');
-                    // fractionQtyInputs.find('.qty-fraction').rules('remove');
+                   
                     fractionQtyInputs.find('input, select').val('');
                     fractionQtyInputs.hide();
                 }
@@ -843,81 +449,54 @@
         });
     </script>
     <script>
-        // KnockoutJS adding steps dynamically
-        // Server-side ViewModel passed to the view as JSON
-        //var serverModel = ko.mapping.fromJS(@Html.Raw(JsonConvert.SerializeObject(Model)));
-
+        //Knockout Viewmodel, taken from the server-side model, enabling two-way data binding
         $(document).ready(function () {
-            // Server-side ViewModel data
-            function Step(description) {
-                this.description = ko.observable(description).extend({ required: true });
-            }
-
-            function Ingredient(name, qtyDecimal, qtyWhole, qtyFraction, measureId, specificationId) {
-                this.name = ko.observable(name).extend({ required: true });
-                this.qtyDecimal = ko.observable(qtyDecimal);
-                this.qtyWhole = ko.observable(qtyWhole);
-                this.qtyFraction = ko.observable(qtyFraction);
-                this.measureId = ko.observable(measureId);
-                this.specificationId = ko.observable(specificationId);
-            }
+            var modelData = @Html.Raw(JsonConvert.SerializeObject(Model));
 
             function RecipeViewModel(data) {
                 var self = this;
 
-                self.title = ko.observable(data.title).extend({ required: true });
-                self.servings = ko.observable(data.servings).extend({ required: true });
-                self.description = ko.observable(data.description).extend({ required: true });
-                self.cookingTimeMinutes = ko.observable(data.cookingTimeMinutes).extend({ required: true });
-                self.imageUrl = ko.observable(data.imageUrl).extend({ required: true, url: true });
-                self.recipeCategoryId = ko.observable(data.recipeCategoryId).extend({ required: true });
-
-                self.steps = ko.observableArray(ko.utils.arrayMap(data.steps, function (step) {
-                    return new Step(step.description);
-                }));
-
-                self.ingredients = ko.observableArray(ko.utils.arrayMap(data.ingredients, function (ingredient) {
-                    return new Ingredient(
-                        ingredient.name,
-                        ingredient.qtyDecimal,
-                        ingredient.qtyWhole,
-                        ingredient.qtyFraction,
-                        ingredient.measureId,
-                        ingredient.specificationId
-                    );
-                }));
-
-                self.addStep = function () {
-                    self.steps.push(new Step(""));
-                };
-
-                self.removeStep = function (step) {
-                    self.steps.remove(step);
-                };
+                // Use knockout.mapping to map the data to observables
+                ko.mapping.fromJS(data, {}, self);
 
                 self.addIngredient = function () {
-                    self.ingredients.push(new Ingredient("", null, null, null, null, null));
+                    self.RecipeIngredients.push({
+                        Name: ko.observable(''),
+                        Qty: ko.mapping.fromJS({
+                            QtyWhole: null,
+                            QtyFraction: '',
+                            QtyDecimal: null
+                        }),
+                        MeasureId: ko.observable(''),
+                        SpecificationId: ko.observable('')
+                    });
                 };
 
                 self.removeIngredient = function (ingredient) {
-                    self.ingredients.remove(ingredient);
+                    self.RecipeIngredients.remove(ingredient);
                 };
 
-                self.validateAndSubmit = function () {
-                    if (self.errors().length === 0) {
-                        // Submit form
-                        document.getElementById('edit-recipe-form').submit();
-                    } else {
-                        self.errors.showAllMessages();
-                    }
+                self.addStep = function () {
+                    self.Steps.push({
+                        Description: ko.observable('')
+                    });
                 };
 
-                self.errors = ko.validation.group(self);
+                self.removeStep = function (step) {
+                    self.Steps.remove(step);
+                };
+
+                self.saveRecipe = function () {
+                    var jsonData = ko.mapping.toJSON(self);
+                    $('input[name="JsonData"]').val(jsonData);
+                    $('#edit-recipe-form')[0].submit();
+                };
             }
 
-            // Initialize ViewModel with data from your server model
-            var data = @Html.Raw(JsonConvert.SerializeObject(Model));
-            ko.applyBindings(new RecipeViewModel(data));
+            var viewModel = new RecipeViewModel(modelData);
+            ko.applyBindings(viewModel);
         });
+
+       
     </script>
 }

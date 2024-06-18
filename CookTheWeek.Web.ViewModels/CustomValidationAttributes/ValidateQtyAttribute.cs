@@ -56,10 +56,12 @@
         {
             var rule = new ModelClientValidationRule
             {
-                ErrorMessage = FormatErrorMessage(metadata.DisplayName),
+                ErrorMessage = this.ErrorMessageString,
                 ValidationType = "validateqty"
             };
-            
+
+            rule.ValidationParameters.Add("fractionoptions", string.Join(",", fractionOptions.Keys));
+
             yield return rule;
         }
 
