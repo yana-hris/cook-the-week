@@ -185,7 +185,7 @@
                                             <span class="small text-danger"></span>
                                             @* INPUT SWITCHER *@
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input show-fraction-checkbox" type="checkbox" data-bind="checked: Qty().QtyDecimal(), checkedValue: false, uncheckedValue: true">
+                                                <input class="form-check-input show-fraction-checkbox" type="checkbox" data-bind="checked: isUsingFractionsForIngredient">
                                                 <label class="form-check-label">Use Fractions</label>
                                             </div>                                               
                                         </div>
@@ -409,7 +409,7 @@
            
             // Update fraction and decimal input fields upon "change input units" request
             form.on('change', '.show-fraction-checkbox', function (event) {
-               
+               debugger
                 var ingredientLine = $(event.target).closest('.ingredient-row');
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
                 var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
@@ -458,11 +458,13 @@
             self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes);
             self.ImageUrl = ko.observable(data.ImageUrl);
             self.RecipeCategoryId = ko.observable(data.RecipeCategoryId);
+
             self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
                 return {
                     Description: ko.observable(step.Description)
                 };
             }));
+
             self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
                 return {
                     Name: ko.observable(ingredient.Name),
@@ -472,10 +474,15 @@
                         QtyFraction: ko.observable(ingredient.Qty.QtyFraction)
                     }),
                     MeasureId: ko.observable(ingredient.MeasureId),
-                    SpecificationId: ko.observable(ingredient.SpecificationId)
+                    SpecificationId: ko.observable(ingredient.SpecificationId),
+
+                    // Method to determine if to show fractions or decimals for this ingredient
+                    isUsingFractionsForIngredient: ko.pureComputed(function () {
+                        return ko.unwrap(ingredient.Qty.QtyDecimal) === null || ko.unwrap(ingredient.Qty.QtyDecimal) === undefined;
+                    })
                 };
             }));
-
+                        
             self.addStep = function () {
                 self.Steps.push({ Description: ko.observable('') });
             };
@@ -493,7 +500,12 @@
                         QtyFraction: ko.observable(null)
                     }),
                     MeasureId: ko.observable(''),
-                    SpecificationId: ko.observable('')
+                    SpecificationId: ko.observable(''),
+
+                    // Method to determine if to show fractions or decimals for this ingredient
+                    isUsingFractionsForIngredient: ko.pureComputed(function () {
+                        return true; // Default to fractions
+                    })
                 });
             };
 
