@@ -116,15 +116,20 @@
                     .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
                     .Select(i => i.Id)
                     .FirstOrDefaultAsync();
+
                 if(ingredientId != 0)
                 {
-                    recipe.RecipesIngredients.Add(new RecipeIngredient()
+                    // Make sure there are no duplicate ingredients
+                    if (!recipe.RecipesIngredients.Any(ri => ri.IngredientId == ingredientId))
                     {
-                        IngredientId = ingredientId, 
-                        Qty = ingredient.Qty.GetDecimalQtyValue(),
-                        MeasureId = ingredient.MeasureId,
-                        SpecificationId = ingredient.SpecificationId
-                    });
+                        recipe.RecipesIngredients.Add(new RecipeIngredient()
+                        {
+                            IngredientId = ingredientId,
+                            Qty = ingredient.Qty.GetDecimalQtyValue(),
+                            MeasureId = ingredient.MeasureId,
+                            SpecificationId = ingredient.SpecificationId
+                        });
+                    }
                 }
             }
             await this.dbContext.Recipes.AddAsync(recipe);
