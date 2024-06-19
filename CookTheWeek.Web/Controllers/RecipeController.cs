@@ -216,99 +216,99 @@
         {
             RecipeEditFormModel? model = JsonConvert.DeserializeObject<RecipeEditFormModel>(jsonData);
 
-            if (model != null)
-            {
-                bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
-
-                if (!exists)
-                {
-                    TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
-                    return RedirectToAction("All", "Recipe");
-                }
-
-                string userId = User.GetId();
-                bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
-
-                if (!isOwner && !User.IsAdmin())
-                {
-                    TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
-                    return RedirectToAction("Details", "Recipe", new { id = model.Id });
-                }
-
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-
-                model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
-                bool categoryExists =
-                   await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
-
-                if (!categoryExists)
-                {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
-                }
-
-                foreach (var ingredient in model.RecipeIngredients)
-                {
-                    if (!await IsIngredientValid(ingredient.Name))
-                    {
-                        ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
-                    }
-                    if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
-                    {
-                        ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingrediet {ingredient.Name}");
-                    }
-                    if (ingredient.SpecificationId != null)
-                    {
-                        if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                        {
-                            ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingrediet {ingredient.Name}");
-                        }
-                    }
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return View("Edit", model);
-                }
-
-                // Sanitize all string input
-                model.Title = sanitizer.SanitizeInput(model.Title);
-                if (model.Description != null)
-                {
-                    model.Description = sanitizer.SanitizeInput(model.Description);
-                }
-
-                if (model.Steps.Any())
-                {
-                    foreach (var step in model.Steps)
-                    {
-                        step.Description = sanitizer.SanitizeInput(step.Description);
-                    }
-                }
-
-                try
-                {
-                    await this.recipeService.EditAsync(model);
-                    TempData[SuccessMessage] = "Your recipe was successfully edited!";
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
-                    logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-                    return View("Edit", model);
-                }
-
-                return RedirectToAction("Details", new { id = model.Id });
-            }
-            else
+            if (model == null)
             {
                 logger.LogError("Model not retrieved from JSON");
                 return BadRequest();
             }
 
-            
+            // Explicitly validate the model
+            TryValidateModel(model);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
+            if (!exists)
+            {
+                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                return RedirectToAction("All", "Recipe");
+            }
+
+            string userId = User.GetId();
+            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
+            if (!isOwner && !User.IsAdmin())
+            {
+                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                return RedirectToAction("Details", "Recipe", new { id = model.Id });
+            }
+
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+
+            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+            bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+            if (!categoryExists)
+            {
+                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+            }
+
+            foreach (var ingredient in model.RecipeIngredients)
+            {
+                if (!await IsIngredientValid(ingredient.Name))
+                {
+                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingredient!");
+                }
+                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                {
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingredient {ingredient.Name}");
+                }
+                if (ingredient.SpecificationId != null)
+                {
+                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                    {
+                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingredient {ingredient.Name}");
+                    }
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // Returning validation errors as JSON
+                return BadRequest(ModelState);
+            }
+
+            // Sanitize all string input
+            model.Title = sanitizer.SanitizeInput(model.Title);
+            if (model.Description != null)
+            {
+                model.Description = sanitizer.SanitizeInput(model.Description);
+            }
+
+            if (model.Steps.Any())
+            {
+                foreach (var step in model.Steps)
+                {
+                    step.Description = sanitizer.SanitizeInput(step.Description);
+                }
+            }
+
+            try
+            {
+                await this.recipeService.EditAsync(model);
+                TempData[SuccessMessage] = "Your recipe was successfully edited!";
+                return Ok(new { success = true });
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
+                logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet]

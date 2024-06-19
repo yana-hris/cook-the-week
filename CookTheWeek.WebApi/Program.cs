@@ -5,7 +5,6 @@ namespace CookTheWeek.WebApi
 
     using Data;
     using Services.Data.Interfaces;
-    using Web.Infrastructure.Extensions;
     using CookTheWeek.Services.Data;
 
     public class Program

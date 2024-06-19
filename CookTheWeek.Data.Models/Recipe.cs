@@ -10,7 +10,6 @@
     [Comment("Recipe")]
     public class Recipe
     {
-        private string title;
         public Recipe()
         {
             Id = Guid.NewGuid();
@@ -30,7 +29,7 @@
         [Required]
         [ForeignKey(nameof(Owner))]
         public Guid OwnerId { get; set; }
-        public ApplicationUser Owner { get; set; }
+        public ApplicationUser Owner { get; set; } = null!;
 
 
         [Comment("Recipe Title")]
