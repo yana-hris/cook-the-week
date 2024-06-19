@@ -4,8 +4,8 @@
 @using static CookTheWeek.Common.ValidationErrorMessages.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Edit Recipe";
-    int nextIndex = Model.RecipeIngredients.Count;
-    int nextStepIndex = Model.Steps.Count;
+    //int nextIndex = Model.RecipeIngredients.Count;
+    //int nextStepIndex = Model.Steps.Count;
 
     var headingModel = new PageHeadingViewModel
     {
@@ -39,9 +39,12 @@
 
         <div class="card-body">
             <form id="edit-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="EditJson">
-                <input type="hidden" name="JsonData" />
+                <input type="hidden" name="JsonData" data-bind="value: ko.toJSON($root)" />
+
+                <!-- Bindings for Recipe Title, Description, Servings, etc. -->
+
                 <div id="info-content" class="tab-content g-3">
-                    @* TAB RECIPE DETAILS *@
+                    <!-- TAB RECIPE DETAILS -->
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row">
                             <div class="col col-12 col-md-8 col-xl-9 p-2">
@@ -243,7 +246,7 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit" data-bind="click: saveRecipe">Save Changes</button>
+                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit" >Save Changes</button>
                 </div>
             </div>
         </div>
@@ -363,10 +366,8 @@
 
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function () {            
             
-            //var ingredientIndex = @nextIndex;
-            //var stepIndex = @nextStepIndex;
             var form = $("#edit-recipe-form");
 
             // Parse the QtyFractionOptions from the JSON string
@@ -450,53 +451,68 @@
     </script>
     <script>
         //Knockout Viewmodel, taken from the server-side model, enabling two-way data binding
-        $(document).ready(function () {
-            var modelData = @Html.Raw(JsonConvert.SerializeObject(Model));
-
-            function RecipeViewModel(data) {
-                var self = this;
-
-                // Use knockout.mapping to map the data to observables
-                ko.mapping.fromJS(data, {}, self);
-
-                self.addIngredient = function () {
-                    self.RecipeIngredients.push({
-                        Name: ko.observable(''),
-                        Qty: ko.mapping.fromJS({
-                            QtyWhole: null,
-                            QtyFraction: '',
-                            QtyDecimal: null
-                        }),
-                        MeasureId: ko.observable(''),
-                        SpecificationId: ko.observable('')
-                    });
+        // ViewModel definition
+        function RecipeViewModel(data) {
+            var self = this;
+            self.Id = ko.observable(data.Id);
+            self.Title = ko.observable(data.Title);
+            self.Description = ko.observable(data.Description);
+            self.Servings = ko.observable(data.Servings);
+            self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes);
+            self.ImageUrl = ko.observable(data.ImageUrl);
+            self.RecipeCategoryId = ko.observable(data.RecipeCategoryId);
+            self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
+                return {
+                    Description: ko.observable(step.Description)
                 };
-
-                self.removeIngredient = function (ingredient) {
-                    self.RecipeIngredients.remove(ingredient);
+            }));
+            self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
+                return {
+                    Name: ko.observable(ingredient.Name),
+                    Qty: ko.observable({
+                        QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal),
+                        QtyWhole: ko.observable(ingredient.Qty.QtyWhole),
+                        QtyFraction: ko.observable(ingredient.Qty.QtyFraction)
+                    }),
+                    MeasureId: ko.observable(ingredient.MeasureId),
+                    SpecificationId: ko.observable(ingredient.SpecificationId)
                 };
+            }));
 
-                self.addStep = function () {
-                    self.Steps.push({
-                        Description: ko.observable('')
-                    });
-                };
+            self.addStep = function () {
+                self.Steps.push({ Description: ko.observable('') });
+            };
 
-                self.removeStep = function (step) {
-                    self.Steps.remove(step);
-                };
+            self.removeStep = function (step) {
+                self.Steps.remove(step);
+            };
 
-                self.saveRecipe = function () {
-                    var jsonData = ko.mapping.toJSON(self);
-                    $('input[name="JsonData"]').val(jsonData);
-                    $('#edit-recipe-form')[0].submit();
-                };
-            }
+            self.addIngredient = function () {
+                self.RecipeIngredients.push({
+                    Name: ko.observable(''),
+                    Qty: ko.observable({
+                        QtyDecimal: ko.observable(null),
+                        QtyWhole: ko.observable(null),
+                        QtyFraction: ko.observable(null)
+                    }),
+                    MeasureId: ko.observable(''),
+                    SpecificationId: ko.observable('')
+                });
+            };
 
-            var viewModel = new RecipeViewModel(modelData);
-            ko.applyBindings(viewModel);
-        });
+            self.removeIngredient = function (ingredient) {
+                self.RecipeIngredients.remove(ingredient);
+            };
 
+            // Ensure the hidden field is updated with the JSON representation
+            ko.computed(function () {
+                document.querySelector('input[name="JsonData"]').value = ko.toJSON(self);
+            });
+        }
+
+        // Initialize the ViewModel with the initial data
+        var initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
+        ko.applyBindings(new RecipeViewModel(initialData));
        
     </script>
 }
