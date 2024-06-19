@@ -4,9 +4,7 @@
 @using static CookTheWeek.Common.ValidationErrorMessages.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Edit Recipe";
-    //int nextIndex = Model.RecipeIngredients.Count;
-    //int nextStepIndex = Model.Steps.Count;
-
+    
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
@@ -257,11 +255,10 @@
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/qty-custom-validation.js"></script>
     <script>
-        $('.ingredientName').on('keyup', suggestWords);
-        function suggestWords() {
-            let inputValue = $(this).val();
-            $(this).next().empty();
-            let contextForm = this;
+        $(document).on('keyup', '.ingredientName', suggestWords);
+        
+        function suggestWords(event) {
+            let inputValue = $(this).val();            
             let suggestionsContainer = this.parentNode.querySelector("div.suggestionsList");
 
             if (inputValue.length > 1) {
@@ -273,13 +270,14 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-                        renderSuggestionResults(response, inputValue, suggestionsContainer, contextForm);
+                        renderSuggestionResults(response, inputValue, suggestionsContainer, event.target);
                     }
                 });
             } else {
-                $(this).next().empty();
+                $(suggestionsContainer).empty();
             }
         }
+
         function renderSuggestionResults(results, search, container, inputForm) {
             // delete unordered list from previous search result
             $(container).empty();
@@ -313,15 +311,14 @@
                         event.preventDefault();
                         event.stopPropagation();
                         // get text from list item and set it into reffered form field
-                        let ingredientName = a.innerText;
-                        let ingredientId = $(a).attr('id');
+                        let ingredientName = item.name;
 
-                        inputForm.value = ingredientName;
-                        $('#addButton a.btn').attr("id", ingredientId.toString());
+                        $(inputForm).val(ingredientName).trigger('change');
+                        // TODO: add validation for already added ingredients
 
                         // after a result is chose, make the div with results invisible -> or after changing input content again,
                         // all of childs of current div will be deleted [line 48,49]
-                        $(container).empty(); // NOT SURE!
+                        $(container).empty();
                         container.classList.add('invisible');
 
                     });

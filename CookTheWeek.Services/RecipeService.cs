@@ -134,6 +134,7 @@
         }
         public async Task EditAsync(RecipeEditFormModel model)
         {
+            // Load the recipe including related entities
             Recipe recipe = await this.dbContext
                 .Recipes
                 .Include(r => r.Steps)
@@ -141,6 +142,7 @@
                 .Where(r => r.Id.ToString() == model.Id)
                 .FirstAsync();
 
+            // Update the recipe details
             recipe.Title = model.Title;
             recipe.Description = model.Description;
             recipe.Servings = model.Servings;
@@ -148,39 +150,47 @@
             recipe.ImageUrl = model.ImageUrl;
             recipe.CategoryId = model.RecipeCategoryId;
 
-            ICollection<Step> oldSteps = recipe.Steps;
-            this.dbContext.Steps.RemoveRange(oldSteps);
+            // Remove the old steps from the context and clear the collection
+            this.dbContext.Steps.RemoveRange(recipe.Steps);
+            recipe.Steps.Clear();
 
-            foreach (var step in model.Steps!)
+            // Add the new steps
+            foreach (var step in model.Steps)
             {
-                recipe.Steps.Add(new Step()
+                recipe.Steps.Add(new Step
                 {
                     Description = step.Description
                 });
             }
 
+            // Remove the old ingredients from the context and clear the collection
+            this.dbContext.RecipesIngredients.RemoveRange(recipe.RecipesIngredients);
+            recipe.RecipesIngredients.Clear();
 
-            ICollection<RecipeIngredient> oldIngredients = recipe.RecipesIngredients;
-            this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
-
-            foreach (var ingredient in model.RecipeIngredients!)
+            // Add the new ingredients, ensuring no duplicates
+            foreach (var ingredient in model.RecipeIngredients)
             {
                 int ingredientId = await this.dbContext.Ingredients
                     .Where(i => i.Name.ToLower() == ingredient.Name.ToLower())
                     .Select(i => i.Id)
                     .FirstOrDefaultAsync();
+
                 if (ingredientId != 0)
                 {
-                    recipe.RecipesIngredients.Add(new RecipeIngredient()
+                    if (!recipe.RecipesIngredients.Any(ri => ri.IngredientId == ingredientId))
                     {
-                        IngredientId = ingredientId,
-                        Qty = ingredient.Qty.GetDecimalQtyValue(),
-                        MeasureId = ingredient.MeasureId,
-                        SpecificationId = ingredient.SpecificationId
-                    });
+                        recipe.RecipesIngredients.Add(new RecipeIngredient
+                        {
+                            IngredientId = ingredientId,
+                            Qty = ingredient.Qty.GetDecimalQtyValue(),
+                            MeasureId = ingredient.MeasureId,
+                            SpecificationId = ingredient.SpecificationId
+                        });
+                    }
                 }
             }
-            
+
+            // Save changes to the database
             await this.dbContext.SaveChangesAsync();
 
         }

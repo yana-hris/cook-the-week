@@ -270,7 +270,7 @@
 
                 if (!ModelState.IsValid)
                 {
-                    return View(model);
+                    return View("Edit", model);
                 }
 
                 // Sanitize all string input
@@ -297,7 +297,7 @@
                 {
                     ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                     logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-                    return View(model);
+                    return View("Edit", model);
                 }
 
                 return RedirectToAction("Details", new { id = model.Id });
