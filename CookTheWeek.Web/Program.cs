@@ -15,6 +15,7 @@ namespace CookTheWeek.Web
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
+    using Newtonsoft.Json.Serialization;
 
     public class Program
     {
@@ -74,12 +75,15 @@ namespace CookTheWeek.Web
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new JsonModelBinderProvider());
-                    options.ModelBinderProviders.Insert(1, new DecimalModelBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                }).AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    // Add other settings as needed
                 });
 
-            
+
 
             builder.Services.AddCors(options =>
             {

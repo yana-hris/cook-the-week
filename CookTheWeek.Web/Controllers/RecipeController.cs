@@ -15,6 +15,7 @@
     using static Common.EntityValidationConstants.Recipe;
     using CookTheWeek.Web.ViewModels.Step;
     using Newtonsoft.Json;
+    using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     [Authorize]
     public class RecipeController : Controller
@@ -212,23 +213,22 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditJson(string jsonData)
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model)
         {
-            RecipeEditFormModel? model = JsonConvert.DeserializeObject<RecipeEditFormModel>(jsonData);
 
             if (model == null)
             {
                 logger.LogError("Model not retrieved from JSON");
                 return BadRequest();
             }
-
-            // Explicitly validate the model
-            TryValidateModel(model);
-
+           
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                logger.LogWarning($"Invalid model received!");
+                return View(model);
             }
+
 
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
             if (!exists)
@@ -279,7 +279,7 @@
             if (!ModelState.IsValid)
             {
                 // Returning validation errors as JSON
-                return BadRequest(ModelState);
+                return View(model);
             }
 
             // Sanitize all string input
@@ -300,14 +300,18 @@
             try
             {
                 await this.recipeService.EditAsync(model);
-                TempData[SuccessMessage] = "Your recipe was successfully edited!";
-                return Ok(new { success = true });
+
+                //TempData[SuccessMessage] = "Your recipe was successfully edited!";
+                string redirectUrl = Url.Action("Details", "Recipe", new {id = model.Id})!;
+                Response.Headers.Append("X-Redirect", redirectUrl);
+
+                return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                 logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-                return BadRequest(ModelState);
+                return View(model);
             }
         }
 

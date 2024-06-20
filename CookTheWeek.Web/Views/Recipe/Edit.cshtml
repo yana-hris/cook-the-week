@@ -13,7 +13,7 @@
 
     if (User.GetId() != string.Empty && !User.IsAdmin())
     {
-        headingModel.HeadingSecondary = $"Edit {Model.Title}";
+        headingModel.HeadingSecondary = $"Edit \"{Model.Title}\"";
     }
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
@@ -36,8 +36,8 @@
         </div>
 
         <div class="card-body">
-            <form id="edit-recipe-form" method="post" asp-area="" asp-controller="Recipe" asp-action="EditJson">
-                <input type="hidden" name="JsonData" data-bind="value: ko.toJSON($root)" />
+            <form id="edit-recipe-form">
+                <input type="hidden" id="jsonData" name="jsonData" />
 
                 <!-- Bindings for Recipe Title, Description, Servings, etc. -->
 
@@ -244,7 +244,7 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" class="btn btn-success btn-lg" type="submit" >Save Changes</button>
+                    <button form="edit-recipe-form" data-bind="click: submitForm" class="btn btn-success btn-lg" type="submit" >Save Changes</button>
                 </div>
             </div>
         </div>
@@ -513,10 +513,33 @@
                 self.RecipeIngredients.remove(ingredient);
             };
 
-            // Ensure the hidden field is updated with the JSON representation
-            ko.computed(function () {
-                document.querySelector('input[name="JsonData"]').value = ko.toJSON(self);
-            });
+            self.submitForm = function () {
+                var jsonData = ko.toJSON(self);
+                debugger;
+                // Perform AJAX POST request
+                $.ajax({
+                    url: '/Recipe/Edit',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: jsonData,
+                    success: function (response, status, xhr) {
+                        if (response.success) {
+                            toastr.success('Recipe edited successfully!');
+
+                            if (xhr.getResponseHeader('X-Redirect') != null) {
+                                window.location.href = xhr.getResponseHeader('X-Redirect');
+                            }
+                        } else {
+                            alert('Error: ' + response.errors.join(', '));
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Model unsuccessfully sent to Edit Recipe Action!');
+                    }
+                });
+
+                return false; // Prevent the default form submission
+            };
         }
 
         // Initialize the ViewModel with the initial data
