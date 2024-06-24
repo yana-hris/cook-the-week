@@ -21,10 +21,15 @@
             // Image URL
             public const int ImageUlrMinLength = 15;
             public const int ImageUlrMaxLength = 2048;
+            public const string UrlPattern = @"^(http(s)?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(/.*)?$";
 
             public const string ImageRequiredErrorMessage = "Your image URL is required";
             public const string ImageInvalidErrorMessage = "Invalid URL";
             public const string ImageRangeErrorMessage = "Invalid URL length";
+
+            // Meal Type (RecipeCategoryId)
+            public const string RecipeCategoryIdRequiredErrorMessage = "Meal type is required";
+            public const string RecipeCategoryIdInvalidErrorMessage = "Invalid meal type";
 
             // Servings
             public const int ServingsMinValue = 1;

@@ -59,3 +59,4 @@ $.validator.unobtrusive.adapters.add('rangebasedoncollectioncount', ['collection
     };
     options.messages['rangebasedoncollectioncount'] = options.message;
 });
+

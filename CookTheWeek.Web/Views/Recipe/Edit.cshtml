@@ -67,8 +67,7 @@
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span>
-                                    <select 
-                                        data-bind="value: Servings"
+                                    <select data-bind="value: Servings, valueUpdate: 'afterkeydown'"
                                         class="form-select" 
                                     >
                                         <option value="">Choose</option>
@@ -78,7 +77,10 @@
                                         }
                                     </select>
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    data-bind="text: Servings.error"
+                                    class="small text-danger"
+                                ></span>
                             </div>
                         </div>
                         <div class="row">
@@ -86,25 +88,31 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
                                     <textarea 
-                                        data-bind="value: Description" 
+                                        data-bind="value: Description, valueUpdate: 'afterkeydown'"
                                         rows="3" 
                                         class="form-control" 
-                                        placeholder="What it is.."
+                                        placeholder="Would be great to know more about this recipe.."
                                     ></textarea>
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    class="small text-danger"
+                                    data-bind="text: Description.error"
+                                ></span>
                             </div>
                             <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
                                     <input 
-                                        data-bind="value: CookingTimeMinutes" 
+                                        data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'" 
                                         class="form-control" 
                                         placeholder="minutes"
                                         type="number"
                                     />
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    data-bind="text: CookingTimeMinutes.error"
+                                    class="small text-danger"
+                                ></span>
                             </div>
                         </div>
                         <div class="row">
@@ -112,19 +120,22 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
                                     <input 
-                                        data-bind="value: ImageUrl" 
+                                        data-bind="value: ImageUrl, valueUpdate: 'afterkeydown'" 
                                         class="form-control" 
-                                        placeholder="Your image URL here..." 
+                                        placeholder="Your image link here..." 
                                         type="url"
                                     />
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    data-bind="text: ImageUrl.error"
+                                    class="small text-danger"
+                                ></span>
                             </div>
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
                                     <select 
-                                        data-bind="value: RecipeCategoryId" 
+                                        data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'" 
                                         class="form-select"
                                     >
                                         <option value="">Choose</option>
@@ -134,7 +145,10 @@
                                         }
                                     </select>
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    data-bind="text: RecipeCategoryId.error"
+                                    class="small text-danger"
+                                ></span>
                             </div>
 
                         </div>
@@ -538,6 +552,20 @@
             errorElementClass: 'text-danger',
             messagesOnModified: true
         });
+
+        const ValidationConstants = {
+            UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
+        };
+        ko.validation.rules['url'] = {
+            validator: function (val, validate) {
+                if (!val || !validate) return true;
+                return ValidationConstants.UrlPattern.test(val);
+            },
+            message: '@ImageInvalidErrorMessage'
+        };
+
+        ko.validation.registerExtenders();
+       
         //Knockout Viewmodel, taken from the server-side model, enabling two-way data binding
         // ViewModel definition
         function RecipeViewModel(data) {
@@ -568,11 +596,66 @@
             });
 
 
-            self.Description = ko.observable(data.Description);
-            self.Servings = ko.observable(data.Servings);
-            self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes);
-            self.ImageUrl = ko.observable(data.ImageUrl);
-            self.RecipeCategoryId = ko.observable(data.RecipeCategoryId);
+            self.Servings = ko.observable(data.Servings).extend({
+                required: {
+                    message: '@ServingsRequiredErrorMessage'
+                },
+                min: {
+                    message: '@ServingsRangeErrorMessage',
+                    params: '@ServingsMinValue'
+                },
+                max: {
+                    message: '@ServingsRangeErrorMessage',
+                    params: '@ServingsMaxValue'
+                }
+            });
+
+            self.Description = ko.observable(data.Description).extend({
+                minLength: {
+                    message: '@DescriptionRangeErrorMessage',
+                    params: '@DescriptionMinLength'
+                },
+                maxLength: {
+                    message: '@DescriptionRangeErrorMessage',
+                    params: '@DescriptionMaxLength'
+                }
+            
+            });
+
+            self.ImageUrl = ko.observable(data.ImageUrl).extend({
+                required: {
+                    message: '@ImageRequiredErrorMessage',
+                },
+                minLength: {
+                    message: '@ImageRangeErrorMessage',
+                    params: '@ImageUlrMinLength'
+                },
+                maxLength: {
+                    message: '@ImageRangeErrorMessage',
+                    params: '@ImageUlrMaxLength'
+                },
+                url: true
+            });
+
+            self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes).extend({
+                required: {
+                    message: '@CookingTimeRequiredErrorMessage'
+                },
+                min: {
+                    message: '@CookingTimeRangeErrorMessage',
+                    params: '@CookingTimeMinValue'
+                },
+                max: {
+                    message: '@CookingTimeRangeErrorMessage',
+                    params: '@CookingTimeMaxValue'
+                }
+            });
+
+            self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
+                required: {
+                    message: '@'
+                }
+            });
 
             self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
                 return {

@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.CustomValidationAttributes;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
 
@@ -37,13 +38,14 @@
         public int CookingTimeMinutes { get; set; }
 
         [Required(ErrorMessage = ImageRequiredErrorMessage)]
-        [Url(ErrorMessage = ImageInvalidErrorMessage)]
+        [RegularExpression(UrlPattern, ErrorMessage = ImageInvalidErrorMessage)]
         [StringLength(ImageUlrMaxLength, MinimumLength = ImageUlrMinLength, ErrorMessage = ImageRangeErrorMessage)]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = null!;
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = RecipeCategoryIdRequiredErrorMessage)]
         [Display(Name = "Meal Type")]
+        [ValidateRangeBasedOnCollectionSize(nameof(Categories), RecipeCategoryIdInvalidErrorMessage)]
         public int RecipeCategoryId { get; set; }
 
         [Required(ErrorMessage = StepsRequiredErrorMessage)]
