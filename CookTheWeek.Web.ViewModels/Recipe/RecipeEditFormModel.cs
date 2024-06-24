@@ -18,39 +18,39 @@
         [Required]
         public string Id { get; set; } = null!;
 
-        [Required(ErrorMessage = "Required")]
-        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "Title cannot be shorter than {2} characters")]
+        [Required(ErrorMessage = TitleRequiredErrorMessage)]
+        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = TitleMinLengthErrorMessage)]
         [Display(Name = "Recipe Title")]
         public string Title { get; set; } = null!;
 
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionRangeErrorMessage)]
         public string? Description { get; set; }        
 
-        [Required(ErrorMessage = "Required")]
-        [Range(ServingsMinValue, ServingsMaxValue, ErrorMessage = @"Servings cannot be < {2} and > {1}")]
+        [Required(ErrorMessage = ServingsRequiredErrorMessage)]
+        [Range(ServingsMinValue, ServingsMaxValue, ErrorMessage = ServingsRangeErrorMessage)]
         [Display(Name = "Serves")]
         public int Servings { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        [Display(Name = "Minutes")]
-        [Range(CookingTimeMinValue, CookingTimeMaxValue, ErrorMessage = "Cooking Time cannot be less than 10 minutes")]
+        [Required(ErrorMessage = CookingTimeRequiredErrorMessage)]
+        [Display(Name = "Ready for")]
+        [Range(CookingTimeMinValue, CookingTimeMaxValue, ErrorMessage = CookingTimeRangeErrorMessage)]
         public int CookingTimeMinutes { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        [Url]
-        [StringLength(ImageUlrMaxLength, MinimumLength = ImageUlrMinLength, ErrorMessage = "Invalid URL link")]
-        [Display(Name = "Image URL Link")]
+        [Required(ErrorMessage = ImageRequiredErrorMessage)]
+        [Url(ErrorMessage = ImageInvalidErrorMessage)]
+        [StringLength(ImageUlrMaxLength, MinimumLength = ImageUlrMinLength, ErrorMessage = ImageRangeErrorMessage)]
+        [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = null!;
 
         [Required(ErrorMessage = "Required")]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = StepsRequiredErrorMessage)]
         [Display(Name = "Cooking Steps")]
+        public List<StepFormModel> Steps { get; set; } = null!;
 
-        public List<StepFormModel> Steps { get; set; }
-
+        [Required(ErrorMessage = IngredientsRequiredErrorMessage)]
         public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
 
         public ICollection<int>? ServingsOptions { get; set; } = null!;

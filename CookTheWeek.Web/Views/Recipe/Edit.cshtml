@@ -1,7 +1,8 @@
 ﻿@using Newtonsoft.Json
 @model RecipeEditFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
-@using static CookTheWeek.Common.ValidationErrorMessages.RecipeIngredientQty;
+@using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Edit Recipe";
     
@@ -37,7 +38,11 @@
 
         <div class="card-body">
             <form id="edit-recipe-form">
-                <input type="hidden" id="jsonData" name="jsonData" />
+                <input 
+                    type="hidden" 
+                    id="jsonData" 
+                    name="jsonData" 
+                />
 
                 <!-- Bindings for Recipe Title, Description, Servings, etc. -->
 
@@ -48,14 +53,24 @@
                             <div class="col col-12 col-md-8 col-xl-9 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Title</span>
-                                    <input data-bind="value: Title" class="form-control" placeholder="Name it.." type="text">
+                                    <input 
+                                        data-bind="value: Title, valueUpdate: 'afterkeydown'"
+                                        class="form-control" 
+                                        placeholder="Name it.." 
+                                        type="text"
+                                    />
                                 </div>
-                                <span class="small text-danger"></span>
+                                <span 
+                                    class="small text-danger"
+                                      data-bind="text: Title.error"></span>
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span>
-                                    <select class="form-select" data-bind="value: Servings">
+                                    <select 
+                                        data-bind="value: Servings"
+                                        class="form-select" 
+                                    >
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions!)
                                         {
@@ -70,14 +85,24 @@
                             <div class="col col-12 col-md-7 col-xl-8 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
-                                    <textarea data-bind="value: Description" rows="3" class="form-control" placeholder="What it is.."></textarea>
+                                    <textarea 
+                                        data-bind="value: Description" 
+                                        rows="3" 
+                                        class="form-control" 
+                                        placeholder="What it is.."
+                                    ></textarea>
                                 </div>
                                 <span class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
-                                    <input data-bind="value: CookingTimeMinutes" class="form-control" type="number">
+                                    <input 
+                                        data-bind="value: CookingTimeMinutes" 
+                                        class="form-control" 
+                                        placeholder="minutes"
+                                        type="number"
+                                    />
                                 </div>
                                 <span class="small text-danger"></span>
                             </div>
@@ -86,14 +111,22 @@
                             <div class="col col-12 col-md-6 col-xl-7 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
-                                    <input data-bind="value: ImageUrl" class="form-control" placeholder="Your fine URL here..." type="url">
+                                    <input 
+                                        data-bind="value: ImageUrl" 
+                                        class="form-control" 
+                                        placeholder="Your image URL here..." 
+                                        type="url"
+                                    />
                                 </div>
                                 <span class="small text-danger"></span>
                             </div>
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Meal Type</span>
-                                    <select data-bind="value: RecipeCategoryId" class="form-select">
+                                    <select 
+                                        data-bind="value: RecipeCategoryId" 
+                                        class="form-select"
+                                    >
                                         <option value="">Choose</option>
                                         @foreach (var category in @Model.Categories!)
                                         {
@@ -116,7 +149,12 @@
                                         <div class="col-11 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Step</span>
-                                                <textarea class="form-control" data-bind="value: Description" rows="3" placeholder="Tell us how to cook.."></textarea>
+                                                <textarea 
+                                                    data-bind="value: Description" 
+                                                    class="form-control" 
+                                                    rows="3" 
+                                                    placeholder="Tell us how to cook.."
+                                                ></textarea>
                                             </div>
                                             <span class="small text-danger"></span> 
                                         </div>
@@ -155,7 +193,12 @@
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
-                                                <input data-bind="value: Name" class="form-control ingredientName" type="text" autocomplete="off" >
+                                                <input 
+                                                    data-bind="value: Name" 
+                                                    class="form-control ingredientName" 
+                                                    type="text" 
+                                                    autocomplete="off" 
+                                                />
                                                 <div class="suggestionsList invisible">
                                                 </div>
                                             </div>
@@ -167,14 +210,28 @@
                                             @* DECIMAL INPUT *@
                                             <div class="decimal-qty-input input-group" data-bind="style: { display: Qty().QtyDecimal() ? 'flex' : 'none' }">
                                                 <span class="input-group-text">Qty</span>
-                                                <input class="form-control qty-decimal" data-bind="value: Qty().QtyDecimal" placeholder="0.00" />
+                                                <input 
+                                                    data-bind="value: Qty().QtyDecimal" 
+                                                    class="form-control qty-decimal" 
+                                                    placeholder="0.00" 
+                                                />
                                             </div>
                                             <span class="small text-danger"></span>
                                             @* FRACTIONAL / WHOLE NUMBER INPUT *@
-                                            <div class="fraction-qty-inputs input-group" data-bind="style: { display: Qty().QtyDecimal() ? 'none' : 'flex' }">
+                                            <div 
+                                                data-bind="style: { display: Qty().QtyDecimal() ? 'none' : 'flex' }"
+                                                class="fraction-qty-inputs input-group" 
+                                            >
                                                 <span class="input-group-text">Qty</span>
-                                                <input data-bind="value: Qty().QtyWhole" class="form-control qty qty-whole" placeholder="0">
-                                                <select data-bind="value: Qty().QtyFraction" class="form-select qty qty-fraction">
+                                                <input 
+                                                    data-bind="value: Qty().QtyWhole" 
+                                                    class="form-control qty qty-whole" 
+                                                    placeholder="0"
+                                                />
+                                                <select 
+                                                    data-bind="value: Qty().QtyFraction" 
+                                                    class="form-select qty qty-fraction"
+                                                >
                                                     <option value="">Frac</option>
                                                     @foreach (var option in QtyFractionOptions)
                                                     {
@@ -185,7 +242,11 @@
                                             <span class="small text-danger"></span>
                                             @* INPUT SWITCHER *@
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input show-fraction-checkbox" type="checkbox" data-bind="checked: isUsingFractionsForIngredient">
+                                                <input 
+                                                    data-bind="checked: isUsingFractionsForIngredient"
+                                                    class="form-check-input show-fraction-checkbox" 
+                                                    type="checkbox" 
+                                                />
                                                 <label class="form-check-label">Use Fractions</label>
                                             </div>                                               
                                         </div>
@@ -193,7 +254,10 @@
                                         <div class="col col-5 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Unit</span>
-                                                <select data-bind="value: MeasureId" class="form-select">
+                                                <select 
+                                                    data-bind="value: MeasureId" 
+                                                    class="form-select"
+                                                >
                                                     <option value="">Unit</option>
                                                     @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                     {
@@ -206,7 +270,10 @@
                                         <div class="col col-6 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
-                                                <select class="form-select" data-bind="value: SpecificationId">
+                                                <select 
+                                                    data-bind="value: SpecificationId"
+                                                    class="form-select" 
+                                                >
                                                     <option value="">Type</option>
                                                     @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                     {
@@ -216,7 +283,11 @@
                                             </div>
                                         </div>
                                         <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
-                                            <a data-bind="click: $parent.removeIngredient" class="btn remove-btn btn-danger remove-ingredient" type="button">
+                                            <a 
+                                                data-bind="click: $parent.removeIngredient" 
+                                                class="btn remove-btn btn-danger remove-ingredient" 
+                                                type="button"
+                                            >
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -229,7 +300,12 @@
                                         <!-- Empty column to push the button to the end -->
                                     </div>
                                     <div class="col-6 text-end">
-                                        <a data-bind="click: addIngredient" id="add-ingredient" class="btn btn-outline-primary" type="button">
+                                        <a 
+                                            data-bind="click: addIngredient" 
+                                            id="add-ingredient" 
+                                            class="btn btn-outline-primary" 
+                                            type="button"
+                                        >
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
                                         </a>
                                     </div>
@@ -244,7 +320,12 @@
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
                     @* SUBMIT FORM BTN *@
-                    <button form="edit-recipe-form" data-bind="click: submitForm" class="btn btn-success btn-lg" type="submit" >Save Changes</button>
+                    <button 
+                        data-bind="click: submitForm" 
+                        class="btn btn-success btn-lg" 
+                        form="edit-recipe-form" 
+                        type="submit" 
+                    >Save Changes</button>
                 </div>
             </div>
         </div>
@@ -253,7 +334,10 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/qty-custom-validation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js" integrity="sha512-vs7+jbztHoMto5Yd/yinM4/y2DOkPLt0fATcN+j+G4ANY2z4faIzZIOMkpBmWdcxt+596FemCh9M18NUJTZwvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/custom-validation-methods-and-adapters.js"></script>
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
         
@@ -447,12 +531,43 @@
         });
     </script>
     <script>
+        // Configure Knockout Validation plugin
+        ko.validation.init({
+            insertMessages: false,
+            decorateElement: true,
+            errorElementClass: 'text-danger',
+            messagesOnModified: true
+        });
         //Knockout Viewmodel, taken from the server-side model, enabling two-way data binding
         // ViewModel definition
         function RecipeViewModel(data) {
             var self = this;
+
             self.Id = ko.observable(data.Id);
-            self.Title = ko.observable(data.Title);
+
+            self.Title = ko.observable(data.Title).extend({
+                required: {
+                    message: '@TitleRequiredErrorMessage'
+                },
+                minLength: {
+                    message: '@TitleMinLengthErrorMessage',
+                    params: '@TitleMinLength'
+                },
+                maxLength: {
+                    message: '@TitleMaxLengthErrorMessage',
+                    params: '@TitleMaxLength'
+                },
+            });
+
+            self.TitleValidationMessage = ko.observable('');
+            // Subscribe to validation changes
+            self.Title.hasError = ko.computed(function () {
+                var hasError = self.Title.isValid() ? '' : self.Title.error;
+                self.TitleValidationMessage(hasError);
+                return hasError;
+            });
+
+
             self.Description = ko.observable(data.Description);
             self.Servings = ko.observable(data.Servings);
             self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes);
@@ -514,32 +629,39 @@
             };
 
             self.submitForm = function () {
-                var jsonData = ko.toJSON(self);
-                debugger;
-                // Perform AJAX POST request
-                $.ajax({
-                    url: '/Recipe/Edit',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: jsonData,
-                    success: function (response, status, xhr) {
-                        if (response.success) {
-                            toastr.success('Recipe edited successfully!');
+                debugger
+                if (self.errors().length === 0) {
+                    var jsonData = ko.toJSON(self);
 
-                            if (xhr.getResponseHeader('X-Redirect') != null) {
-                                window.location.href = xhr.getResponseHeader('X-Redirect');
+                    // Perform AJAX POST request
+                    $.ajax({
+                        url: '/Recipe/Edit',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: jsonData,
+                        success: function (response) {
+                            if (response.success && response.redirectUrl) {
+                                toastr.success('Recipe edited successfully!');
+                                window.location.href = response.redirectUrl; // Redirect to details page
+                            } else {
+                                // Replace form content with server-rendered HTML (containing model errors)
+                                $('#edit-recipe-form').html(response);
                             }
-                        } else {
-                            alert('Error: ' + response.errors.join(', '));
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error occurred while submitting form:', error);
+                            $('#edit-recipe-form').html(xhr.responseText); // Display server error response
+                            alert('Error occurred while submitting form. Please try again later.');
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Model unsuccessfully sent to Edit Recipe Action!');
-                    }
-                });
+                    });
+                } else {
+                    self.errors.showAllMessages();
+                }                
 
                 return false; // Prevent the default form submission
             };
+
+            self.errors = ko.validation.group(self);
         }
 
         // Initialize the ViewModel with the initial data

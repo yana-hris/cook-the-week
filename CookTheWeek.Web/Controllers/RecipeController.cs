@@ -14,8 +14,6 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using CookTheWeek.Web.ViewModels.Step;
-    using Newtonsoft.Json;
-    using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     [Authorize]
     public class RecipeController : Controller
@@ -219,13 +217,17 @@
 
             if (model == null)
             {
-                logger.LogError("Model not retrieved from JSON");
+                logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
                 return BadRequest();
             }
            
             if (!ModelState.IsValid)
             {
                 logger.LogWarning($"Invalid model received!");
+                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+                model.ServingsOptions = ServingsOptions;
+                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
                 return View(model);
             }
 
@@ -279,6 +281,10 @@
             if (!ModelState.IsValid)
             {
                 // Returning validation errors as JSON
+                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+                model.ServingsOptions = ServingsOptions;
+                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
                 return View(model);
             }
 
@@ -300,18 +306,20 @@
             try
             {
                 await this.recipeService.EditAsync(model);
+                // Construct the redirect URL
+                string redirectUrl = Url.Action("Details", "Recipe", new { id = model.Id })!;
 
-                //TempData[SuccessMessage] = "Your recipe was successfully edited!";
-                string redirectUrl = Url.Action("Details", "Recipe", new {id = model.Id})!;
-                Response.Headers.Append("X-Redirect", redirectUrl);
+                // Return JSON response with redirect URL
+                return Ok(new { success = true, redirectUrl });
 
-                return Ok();
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                 logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-                return View(model);
+
+                string redirectUrl = Url.Action("Edit", "Recipe", model)!;
+                return BadRequest(new { success = false, redirectUrl });
             }
         }
 
@@ -458,6 +466,5 @@
             return false;
         }
 
-        
     }
 }

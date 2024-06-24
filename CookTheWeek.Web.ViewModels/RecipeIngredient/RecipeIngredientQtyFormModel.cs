@@ -3,20 +3,22 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.RecipeIngredient;
+    using static Common.EntityValidationConstants.RecipeIngredientQty;
     using static Common.GeneralApplicationConstants;
     public class RecipeIngredientQtyFormModel
     {
         [Display(Name = "Qty Whole")]
-        [Range(QtyWholeMinValue, QtyWholeMaxValue)]
+        [Range(QtyWholeMinValue, QtyWholeMaxValue, ErrorMessage = InvalidWholeQtyErrorMessage)]
         public int? QtyWhole { get; set; }
 
 
         [Display(Name = "Qty Fraction")]
+
         public string? QtyFraction { get; set; }
 
 
         [Display(Name = "Qty Decimal")]
-        [Range(QtyMinDecimalValue, QtyMaxDecimalValue)]
+        [Range(QtyMinDecimalValue, QtyMaxDecimalValue, ErrorMessage = InvalidDecimalRangeErrorMessage)]
         public decimal? QtyDecimal { get; set; }
 
         public decimal GetDecimalQtyValue()

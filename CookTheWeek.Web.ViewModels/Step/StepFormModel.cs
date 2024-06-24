@@ -7,9 +7,9 @@
     {
         public int? Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = StepRequiredErrorMessage)]
         [Display(Name = "Cooking Step")]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Required")]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = StepDescriptionRangeErrorMessage)]
         public string Description { get; set; } = null!;
     }
 }

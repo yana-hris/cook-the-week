@@ -7,7 +7,7 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.ValidationErrorMessages.RecipeIngredientQty;
+    using static Common.EntityValidationConstants.RecipeIngredientQty;
 
     public class ValidateQtyAttribute : ValidationAttribute, IClientValidatable
     {
@@ -52,7 +52,8 @@
             return ValidationResult.Success;
         }
 
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, 
+            ControllerContext context)
         {
             var rule = new ModelClientValidationRule
             {

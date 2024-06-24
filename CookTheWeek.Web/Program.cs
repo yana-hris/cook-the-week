@@ -80,7 +80,6 @@ namespace CookTheWeek.Web
                 }).AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    // Add other settings as needed
                 });
 
 

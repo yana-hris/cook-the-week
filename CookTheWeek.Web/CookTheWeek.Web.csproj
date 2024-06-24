@@ -14,13 +14,12 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
-    <Content Remove="wwwroot\js\qty-custom-validation.js" />
+    <Content Remove="wwwroot\js\custom-validation-methods-and-adapters.js" />
     <Content Remove="wwwroot\scss\admin-form-styles.scss" />
     <Content Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\js\qty-custom-validation.js" />
     <_ContentIncludedByDefault Remove="wwwroot\scss\admin-form-styles.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
@@ -60,7 +59,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\js\qty-custom-validation.js" />
+    <None Include="wwwroot\js\custom-validation-methods-and-adapters.js" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-grid.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-reboot.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-utilities.scss" />
