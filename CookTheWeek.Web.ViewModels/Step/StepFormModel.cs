@@ -9,7 +9,7 @@
 
         [Required(ErrorMessage = StepRequiredErrorMessage)]
         [Display(Name = "Cooking Step")]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = StepDescriptionRangeErrorMessage)]
+        [StringLength(StepDescriptionMaxLength, MinimumLength = StepDescriptionMinLength, ErrorMessage = StepDescriptionRangeErrorMessage)]
         public string Description { get; set; } = null!;
     }
 }

@@ -66,10 +66,10 @@
 
         public static class Step
         {
-            public const int DescriptionMinLength = 5;
-            public const int DescriptionMaxLength = 1000;
+            public const int StepDescriptionMinLength = 5;
+            public const int StepDescriptionMaxLength = 1000;
 
-            public const string StepRequiredErrorMessage = "At least one step is required";
+            public const string StepRequiredErrorMessage = "Step Description is required";
             public const string StepDescriptionRangeErrorMessage = "The cooking step description can be between 5 and 1000 characters long";
         }
         public static class Ingredient

@@ -2,6 +2,7 @@
 @model RecipeEditFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+@using static CookTheWeek.Common.EntityValidationConstants.Step;
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Edit Recipe";
@@ -163,14 +164,16 @@
                                         <div class="col-11 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Step</span>
-                                                <textarea 
-                                                    data-bind="value: Description" 
-                                                    class="form-control" 
+                                                <textarea data-bind="value: Description, validationElement: Description, valueUpdate: 'afterkeydown'"
+                                                          class="form-control" 
                                                     rows="3" 
                                                     placeholder="Tell us how to cook.."
                                                 ></textarea>
                                             </div>
-                                            <span class="small text-danger"></span> 
+                                            <span 
+                                                data-bind="text: Description.error"
+                                                class="small text-danger"
+                                            ></span> 
                                         </div>
                                         <div class="col-1 p-2">
                                             <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
@@ -653,13 +656,25 @@
 
             self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
                 required: {
-                    message: '@'
+                    message: '@RecipeCategoryIdRequiredErrorMessage'
                 }
             });
 
             self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
                 return {
-                    Description: ko.observable(step.Description)
+                    Description: ko.observable(step.Description).extend({
+                        required: {
+                            message: '@StepRequiredErrorMessage'
+                        },
+                        minLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMinLength'
+                        },
+                        maxLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMaxLength'
+                        }
+                    })
                 };
             }));
 
@@ -682,7 +697,21 @@
             }));
                         
             self.addStep = function () {
-                self.Steps.push({ Description: ko.observable('') });
+                self.Steps.push({
+                    Description: ko.observable('').extend({ 
+                        required: {
+                            message: '@StepRequiredErrorMessage'
+                        },
+                        minLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMinLength'
+                        },
+                        maxLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMaxLength'
+                        }
+                    })
+                });
             };
 
             self.removeStep = function (step) {

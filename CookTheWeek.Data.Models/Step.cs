@@ -24,7 +24,7 @@
 
         [Comment("Cooking Step Instructions")]
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [MaxLength(StepDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
     }
