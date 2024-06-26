@@ -214,20 +214,20 @@
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model)
         {
-
             if (model == null)
             {
                 logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
                 return BadRequest();
             }
-           
+
+            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
             if (!ModelState.IsValid)
             {
-                logger.LogWarning($"Invalid model received!");
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+                logger.LogWarning($"Invalid model received!");                
                 return View(model);
             }
 
@@ -246,12 +246,6 @@
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
                 return RedirectToAction("Details", "Recipe", new { id = model.Id });
             }
-
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-
-            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
             if (!categoryExists)
@@ -281,10 +275,6 @@
             if (!ModelState.IsValid)
             {
                 // Returning validation errors as JSON
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
                 return View(model);
             }
 

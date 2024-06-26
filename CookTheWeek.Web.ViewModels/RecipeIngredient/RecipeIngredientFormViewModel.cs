@@ -1,10 +1,8 @@
 ﻿namespace CookTheWeek.Web.ViewModels.RecipeIngredient
 {
-    using CookTheWeek.Web.ViewModels.CustomValidationAttributes;
     using System.ComponentModel.DataAnnotations;
-
-    using ValidationAttributes;
-
+    
+    using CustomValidationAttributes;
     using static Common.EntityValidationConstants.RecipeIngredient;
     public class RecipeIngredientFormViewModel
     {
@@ -15,8 +13,8 @@
             this.Specifications = new HashSet<RecipeIngredientSelectSpecificationViewModel>();
         }
         
-        [Required(ErrorMessage = NameRequiredErrorMessage)]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameRangeErrorMessage)]
+        [Required(ErrorMessage = RecipeIngredientNameRequiredErrorMessage)]
+        [StringLength(RecipeIngredientNameMaxLength, MinimumLength = RecipeIngredientNameMinLength, ErrorMessage = RecipeIngredientNameRangeErrorMessage)]
         [Display(Name = "Ingredient")]
         public string Name { get; set; } = null!;
 
@@ -26,11 +24,9 @@
 
         [Required(ErrorMessage = MeasureRequiredErrorMessage)]
         [Display(Name = "Unit")]
-        [ValidateRangeBasedOnCollectionSize(nameof(Measures), MeasureRangeErrorMessage)]
         public int MeasureId { get; set; }
 
         [Display(Name = "Note")]
-        [ValidateRangeBasedOnCollectionSize(nameof(Specifications), SpecificationRangeErrorMessage)]
         public int? SpecificationId { get; set; }
         public ICollection<RecipeIngredientSelectMeasureViewModel>? Measures { get; set; }
 

@@ -3,6 +3,7 @@
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 @using static CookTheWeek.Common.EntityValidationConstants.Step;
+@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Edit Recipe";
@@ -19,6 +20,15 @@
     }
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
+
+    var errorMessages = new Dictionary<string, string>
+    {
+        { "MissingFormInputErrorMessage", EntityValidationConstants.RecipeIngredientQty.MissingFormInputErrorMessage },
+        { "MissingFractionalOrWholeInputMessage", EntityValidationConstants.RecipeIngredientQty.MissingFractionalOrWholeInputMessage },
+        { "InvalidDecimalRangeErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
+        { "InvalidFractionErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidFractionErrorMessage },
+        { "InvalidWholeQtyErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+    };
 }
 <div id="edit-recipe" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
@@ -210,8 +220,8 @@
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
-                                                <input 
-                                                    data-bind="value: Name" 
+                                                <input
+                                                    data-bind="value: Name, validationElement: Name"
                                                     class="form-control ingredientName" 
                                                     type="text" 
                                                     autocomplete="off" 
@@ -219,36 +229,42 @@
                                                 <div class="suggestionsList invisible">
                                                 </div>
                                             </div>
-                                            <span class="small text-danger"></span>
+                                            <span 
+                                                data-bind="text: Name.error"
+                                                class="small text-danger"
+                                            ></span>
                                         </div>
                                         @* COMPLEX QUANTITY INPUT *@
                                         <div class="col col-6 col-lg-3 p-2 qty-row">
 
                                             @* DECIMAL INPUT *@
-                                            <div class="decimal-qty-input input-group" data-bind="style: { display: Qty().QtyDecimal() ? 'flex' : 'none' }">
+                                            <div class="decimal-qty-input input-group" data-bind="style: { display: isUsingFractionsForIngredient() ? 'none' : 'flex' }">
                                                 <span class="input-group-text">Qty</span>
-                                                <input 
-                                                    data-bind="value: Qty().QtyDecimal" 
-                                                    class="form-control qty-decimal" 
-                                                    placeholder="0.00" 
-                                                />
+                                                <input type="number"                                                      
+                                                       data-val="true"
+                                                       data-val-validateqty="Invalid decimal quantity"
+                                                       data-bind="value: Qty().QtyDecimal, validationElement: Qty().QtyDecimal, valueUpdate: 'afterkeydown'"
+                                                       class="form-control qty-decimal"
+                                                       placeholder="0.00" />
                                             </div>
-                                            <span class="small text-danger"></span>
+                                            <span 
+                                                data-bind="validationMessage: Qty().QtyDecimal" 
+                                                class="text-danger small"
+                                            ></span>
                                             @* FRACTIONAL / WHOLE NUMBER INPUT *@
                                             <div 
-                                                data-bind="style: { display: Qty().QtyDecimal() ? 'none' : 'flex' }"
+                                                data-bind="style: { display: isUsingFractionsForIngredient() ? 'flex' : 'none' }"
                                                 class="fraction-qty-inputs input-group" 
                                             >
                                                 <span class="input-group-text">Qty</span>
-                                                <input 
-                                                    data-bind="value: Qty().QtyWhole" 
-                                                    class="form-control qty qty-whole" 
-                                                    placeholder="0"
-                                                />
-                                                <select 
-                                                    data-bind="value: Qty().QtyFraction" 
-                                                    class="form-select qty qty-fraction"
-                                                >
+                                                <input type="number"                                                      
+                                                       data-val="true"
+                                                       data-bind="value: Qty().QtyWhole, validationElement: Qty().QtyWhole, valueUpdate: 'afterkeydown'"
+                                                       class="form-control qty qty-whole"
+                                                       placeholder="0" />
+                                                <select data-val="true"
+                                                        data-bind="value: Qty().QtyFraction, validationElement: Qty().QtyFraction, valueUpdate: 'afterkeydown'"
+                                                        class="form-select qty qty-fraction">
                                                     <option value="">Frac</option>
                                                     @foreach (var option in QtyFractionOptions)
                                                     {
@@ -256,7 +272,10 @@
                                                     }
                                                 </select>
                                             </div>                                                
-                                            <span class="small text-danger"></span>
+                                            <span 
+                                                data-bind="text: Qty.error || Qty().QtyWhole.error || Qty().QtyFractional.error"
+                                                class="small text-danger"
+                                            ></span>
                                             @* INPUT SWITCHER *@
                                             <div class="form-check form-switch">
                                                 <input 
@@ -272,7 +291,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-text">Unit</span>
                                                 <select 
-                                                    data-bind="value: MeasureId" 
+                                                    data-bind="value: MeasureId, valueUpdate: 'afterkeydown'"
                                                     class="form-select"
                                                 >
                                                     <option value="">Unit</option>
@@ -282,13 +301,15 @@
                                                     }
                                                 </select>
                                             </div>
-                                            <span class="small text-danger"></span>
+                                            <span 
+                                                data-bind="text: MeasureId.error"
+                                                class="small text-danger"
+                                            ></span>
                                         </div>
                                         <div class="col col-6 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
-                                                <select 
-                                                    data-bind="value: SpecificationId"
+                                                <select data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
                                                     class="form-select" 
                                                 >
                                                     <option value="">Type</option>
@@ -548,14 +569,71 @@
         });
     </script>
     <script>
+        var errorMessages = {
+            MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
+            MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
+            InvalidDecimalRangeErrorMessage: '@errorMessages["InvalidDecimalRangeErrorMessage"]',
+            InvalidFractionErrorMessage: '@errorMessages["InvalidFractionErrorMessage"]',
+            InvalidWholeQtyErrorMessage: '@errorMessages["InvalidWholeQtyErrorMessage"]'
+        };
+        // Parse the QtyFractionOptions from the JSON string
+        var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
+        var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
+
+        // Extract keys from QtyFractionOptions as valid fractions
+        var fractionOptions = Object.keys(qtyFractionOptions);
         // Configure Knockout Validation plugin
         ko.validation.init({
             insertMessages: false,
             decorateElement: true,
-            errorElementClass: 'text-danger',
-            messagesOnModified: true
+            errorElementClass: 'error',
+            parseInputAttributes: true,
+            messagesOnModified: true,
         });
+        ko.validation.rules['validateqty'] = {
+            validator: function (val, params) {
+                var fractionOptions = params.fractionoptions;
+                var isUsingFractions = ko.unwrap(params.isUsingFractions);
+                debugger
+                var qtyDecimal = ko.unwrap(val.QtyDecimal);
+                var qtyWhole = ko.unwrap(val.QtyWhole);
+                var qtyFraction = ko.unwrap(val.QtyFraction);
 
+                if (isUsingFractions) {
+                    if ((!qtyWhole && !qtyFraction)) {
+                        params.errorMessage = errorMessages.MissingFractionalOrWholeInputMessage;
+                        return false;
+                    } else if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
+                        params.errorMessage = errorMessages.InvalidFractionErrorMessage;
+                        return false;
+                    }
+                    if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
+                        params.errorMessage = errorMessages.InvalidWholeQtyErrorMessage;
+                        return false;
+                    }
+                } else {
+                    if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
+                        params.errorMessage = errorMessages.InvalidDecimalRangeErrorMessage;
+                        return false;
+                    }
+                }
+
+                if (!qtyDecimal && !qtyWhole && !qtyFraction) {
+                    params.errorMessage = errorMessages.MissingFormInputErrorMessage;
+                    return false;
+                }
+
+                return true;
+            },
+            message: function (params) {
+                return params.errorMessage;
+            }
+        };
+
+        // Register the validation rule
+        ko.validation.registerExtenders();
+
+        ko.validation.registerExtenders();
         const ValidationConstants = {
             UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
         };
@@ -573,6 +651,53 @@
         // ViewModel definition
         function RecipeViewModel(data) {
             var self = this;
+
+            function createIngredient(ingredient) {
+                var qtyObservable = {
+                    QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal).extend({ required: false }),
+                    QtyWhole: ko.observable(ingredient.Qty.QtyWhole).extend({ required: false }),
+                    QtyFraction: ko.observable(ingredient.Qty.QtyFraction).extend({ required: false })
+                };
+
+                var isUsingFractionsForIngredient = ko.pureComputed(function () {
+                    return ko.unwrap(qtyObservable.QtyDecimal) === null && (ko.unwrap(qtyObservable.QtyFraction) !== null || ko.unwrap(qtyObservable.QtyWhole) !== null);
+                });
+
+                return {
+                    Name: ko.observable(ingredient.Name).extend({
+                        required: {
+                            message: '@RecipeIngredientNameRequiredErrorMessage'
+                        },
+                        minLength: {
+                            message: '@RecipeIngredientNameRangeErrorMessage',
+                            params: '@RecipeIngredientNameMinLength'
+                        },
+                        maxLength: {
+                            message: '@RecipeIngredientNameRangeErrorMessage',
+                            params: '@RecipeIngredientNameMaxLength'
+                        }
+                    }).extend({ validatable: true }),
+                    Qty: ko.observable(qtyObservable).extend({
+                        validateqty: {
+                            params: {
+                                fractionoptions: fractionOptions,
+                                isUsingFractions: isUsingFractionsForIngredient,
+                                errorMessage: ko.observable('')
+                            },
+                            element: true  // Ensure Knockout passes the element context
+                        }
+                    }).extend({ validatable: true }),
+                    MeasureId: ko.observable(ingredient.MeasureId).extend({
+                        required: {
+                            message: '@MeasureRequiredErrorMessage'
+                        },
+                    }).extend({ validatable: true }),
+                    SpecificationId: ko.observable(ingredient.SpecificationId),
+
+                    // Keep the computed observable for data-binding in the markup
+                    isUsingFractionsForIngredient: isUsingFractionsForIngredient
+                };
+            }
 
             self.Id = ko.observable(data.Id);
 
@@ -679,21 +804,7 @@
             }));
 
             self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
-                return {
-                    Name: ko.observable(ingredient.Name),
-                    Qty: ko.observable({
-                        QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal),
-                        QtyWhole: ko.observable(ingredient.Qty.QtyWhole),
-                        QtyFraction: ko.observable(ingredient.Qty.QtyFraction)
-                    }),
-                    MeasureId: ko.observable(ingredient.MeasureId),
-                    SpecificationId: ko.observable(ingredient.SpecificationId),
-
-                    // Method to determine if to show fractions or decimals for this ingredient
-                    isUsingFractionsForIngredient: ko.pureComputed(function () {
-                        return ko.unwrap(ingredient.Qty.QtyDecimal) === null || ko.unwrap(ingredient.Qty.QtyDecimal) === undefined;
-                    })
-                };
+                return createIngredient(ingredient);
             }));
                         
             self.addStep = function () {
@@ -710,7 +821,7 @@
                             message: '@StepDescriptionRangeErrorMessage',
                             params: '@StepDescriptionMaxLength'
                         }
-                    })
+                    }).extend({ validatable: true }),
                 });
             };
 
@@ -719,21 +830,12 @@
             };
 
             self.addIngredient = function () {
-                self.RecipeIngredients.push({
-                    Name: ko.observable(''),
-                    Qty: ko.observable({
-                        QtyDecimal: ko.observable(null),
-                        QtyWhole: ko.observable(null),
-                        QtyFraction: ko.observable(null)
-                    }),
-                    MeasureId: ko.observable(''),
-                    SpecificationId: ko.observable(''),
-
-                    // Method to determine if to show fractions or decimals for this ingredient
-                    isUsingFractionsForIngredient: ko.pureComputed(function () {
-                        return true; // Default to fractions
-                    })
-                });
+                self.RecipeIngredients.push(createIngredient({
+                    Name: '',
+                    Qty: { QtyDecimal: null, QtyWhole: null, QtyFraction: null },
+                    MeasureId: '',
+                    SpecificationId: ''
+                }));
             };
 
             self.removeIngredient = function (ingredient) {

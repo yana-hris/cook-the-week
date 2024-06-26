@@ -45,7 +45,6 @@
 
         [Required(ErrorMessage = RecipeCategoryIdRequiredErrorMessage)]
         [Display(Name = "Meal Type")]
-        [ValidateRangeBasedOnCollectionSize(nameof(Categories), RecipeCategoryIdInvalidErrorMessage)]
         public int RecipeCategoryId { get; set; }
 
         [Required(ErrorMessage = StepsRequiredErrorMessage)]

@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.ValidationAttributes
+﻿namespace CookTheWeek.Web.ViewModels.CustomValidationAttributes
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -14,7 +14,7 @@
         private readonly Dictionary<string, decimal> fractionOptions;
         public ValidateQtyAttribute() 
         {
-            const string defaultErrorMessage = DefaultErrorMessage;
+            const string defaultErrorMessage = MissingFormInputErrorMessage;
             ErrorMessage ??= defaultErrorMessage;
             fractionOptions = QtyFractionOptions;
         }

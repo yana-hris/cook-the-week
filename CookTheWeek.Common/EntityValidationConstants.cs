@@ -81,11 +81,11 @@
         public static class RecipeIngredient
         {
             // Name
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 50;
+            public const int RecipeIngredientNameMinLength = 2;
+            public const int RecipeIngredientNameMaxLength = 50;
 
-            public const string NameRequiredErrorMessage = "Ingredient name is required";
-            public const string NameRangeErrorMessage = "Ingredient name cannot be shorter than 2 and longer than 50 characters";
+            public const string RecipeIngredientNameRequiredErrorMessage = "Ingredient name is required";
+            public const string RecipeIngredientNameRangeErrorMessage = "Ingredient name cannot be shorter than 2 and longer than 50 characters";
 
 
             // Qty
@@ -110,15 +110,14 @@
 
         public static class RecipeIngredientQty
         {
-            public const string DefaultErrorMessage = "Invalid quantity";
-
+            
             public const string MissingFormInputErrorMessage = "Required either decimal or fractional quantity";
 
             public const string MissingFractionalOrWholeInputMessage = "Required either a whole and/or fractional quantity";
 
             public const string InvalidDecimalRangeErrorMessage = "Qty must be in the range [0.001-9999.99]";
 
-            public const string InvalidFractionErrorMessage = "Required fraction selection";
+            public const string InvalidFractionErrorMessage = "Invalid fraction selection";
 
             public const string InvalidWholeQtyErrorMessage = "Qty must be in the range [1-9999]";
         }
