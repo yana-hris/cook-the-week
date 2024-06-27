@@ -823,10 +823,11 @@
                             observable.isValid(); // Ensure validation messages are updated
                         }
 
-                        // Apply validation on keyup event to avoid interfering with typing
+                        // Apply validation on keyup
                         ko.utils.registerEventHandler(element, 'keyup', function () {
                             applyValidation();
-                            observable.isModified(true); // Trigger validation on each keyup event
+                            // Trigger validation on each keypress without interfering with typing
+                            observable.valueHasMutated();
                         });
 
                         // Also apply validation on blur to ensure messages are shown when focus is lost
@@ -837,6 +838,7 @@
                 // Push the new step to the observableArray
                 self.Steps.push(newStep);
             };
+
 
 
             self.removeStep = function (step) {

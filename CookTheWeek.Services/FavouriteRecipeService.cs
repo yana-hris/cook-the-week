@@ -8,6 +8,8 @@
     using Web.ViewModels.Category;
     using Web.ViewModels.Recipe;
 
+    using static Common.HelperMethods.CookingTimeHelper;
+
     public class FavouriteRecipeService : IFavouriteRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
@@ -64,7 +66,7 @@
                         Name = fr.Recipe.Category.Name
                     },
                     Servings = fr.Recipe.Servings,
-                    CookingTime = String.Format(@"{0}h {1}min", fr.Recipe.TotalTime.Hours.ToString(), fr.Recipe.TotalTime.Minutes.ToString()),
+                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
 
                 }).ToListAsync();
 

@@ -232,7 +232,7 @@
             }
 
 
-            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
+            bool exists = await this.recipeService.ExistsByIdAsync(model.Id.ToLower());
             if (!exists)
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
