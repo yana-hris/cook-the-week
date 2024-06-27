@@ -23,11 +23,11 @@
 
     var errorMessages = new Dictionary<string, string>
     {
-        { "MissingFormInputErrorMessage", EntityValidationConstants.RecipeIngredientQty.MissingFormInputErrorMessage },
-        { "MissingFractionalOrWholeInputMessage", EntityValidationConstants.RecipeIngredientQty.MissingFractionalOrWholeInputMessage },
-        { "InvalidDecimalRangeErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
-        { "InvalidFractionErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidFractionErrorMessage },
-        { "InvalidWholeQtyErrorMessage", EntityValidationConstants.RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+        { "MissingFormInputErrorMessage", MissingFormInputErrorMessage },
+        { "MissingFractionalOrWholeInputMessage", MissingFractionalOrWholeInputMessage },
+        { "InvalidDecimalRangeErrorMessage", InvalidDecimalRangeErrorMessage },
+        { "InvalidFractionErrorMessage", InvalidFractionErrorMessage },
+        { "InvalidWholeQtyErrorMessage", InvalidWholeQtyErrorMessage },
     };
 }
 <div id="edit-recipe" class="card-container">
@@ -54,9 +54,7 @@
                     id="jsonData" 
                     name="jsonData" 
                 />
-
-                <!-- Bindings for Recipe Title, Description, Servings, etc. -->
-
+               
                 <div id="info-content" class="tab-content g-3">
                     <!-- TAB RECIPE DETAILS -->
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -164,24 +162,24 @@
 
                         </div>
                     </div>
-                    @*  TAB INSTRUCTIONS - ICOLLECTION OF STEPS *@
+                    <!-- TAB INSTRUCTIONS - ICOLLECTION OF STEPS -->
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
                         <div id="instructions-content" class="tab-content">
                             <div id="instructionsContainer" class="row g-3">
                                 <div id="instructionsList" data-bind="foreach: Steps">
-                                    @* USING KNOCKOUTJS DATA BINDING INSTEAD OF ASP-FOR BUILT IN MODEL BINDING *@
                                     <div class="row instructions-row align-items-center">
                                         <div class="col-11 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Step</span>
-                                                <textarea data-bind="value: Description, validationElement: Description, valueUpdate: 'afterkeydown'"
-                                                          class="form-control" 
+                                                <textarea 
+                                                    data-val="true"
+                                                          data-bind="value: Description, deferValidation: Description"
+                                                    class="form-control" 
                                                     rows="3" 
                                                     placeholder="Tell us how to cook.."
                                                 ></textarea>
                                             </div>
-                                            <span 
-                                                data-bind="text: Description.error"
+                                            <span data-bind="validationMessage: Description"
                                                 class="small text-danger"
                                             ></span> 
                                         </div>
@@ -196,7 +194,7 @@
                                    
                                 </div>
                                 <hr />
-                                @* Add Step Btn *@
+                                <!-- Add Step Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
                                     <div class="col-6">
                                         <!-- Empty column to push the button to the end -->
@@ -210,12 +208,12 @@
                             </div>
                         </div>
                     </div>
-                    @* TAB RECIPE INGREDIENTS *@
+                    <!-- TAB RECIPE INGREDIENTS -->
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <div id="ingredients-content" class="tab-content">
                             <div id="ingredientsContainer" class="row g-3">
                                 <div id="ingredientList" data-bind="foreach: RecipeIngredients">
-                                @* USING KNOCKOUTJS DATA BINDING *@
+                                    <!-- USING KNOCKOUTJS DATA BINDING -->
                                     <div class="row ingredient-row">
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
@@ -234,10 +232,10 @@
                                                 class="small text-danger"
                                             ></span>
                                         </div>
-                                        @* COMPLEX QUANTITY INPUT *@
+                                        <!-- COMPLEX QUANTITY INPUT -->
                                         <div class="col col-6 col-lg-3 p-2 qty-row">
 
-                                            @* DECIMAL INPUT *@
+                                            <!--  DECIMAL INPUT -->
                                             <div class="decimal-qty-input input-group" data-bind="style: { display: isUsingFractionsForIngredient() ? 'none' : 'flex' }">
                                                 <span class="input-group-text">Qty</span>
                                                 <input type="number"                                                      
@@ -251,7 +249,7 @@
                                                 data-bind="validationMessage: Qty().QtyDecimal" 
                                                 class="text-danger small"
                                             ></span>
-                                            @* FRACTIONAL / WHOLE NUMBER INPUT *@
+                                            <!-- FRACTIONAL / WHOLE NUMBER INPUT -->
                                             <div 
                                                 data-bind="style: { display: isUsingFractionsForIngredient() ? 'flex' : 'none' }"
                                                 class="fraction-qty-inputs input-group" 
@@ -273,10 +271,10 @@
                                                 </select>
                                             </div>                                                
                                             <span 
-                                                data-bind="text: Qty.error || Qty().QtyWhole.error || Qty().QtyFractional.error"
+                                                data-bind="text: Qty.error || Qty().QtyWhole.error || Qty().QtyFraction.error"
                                                 class="small text-danger"
                                             ></span>
-                                            @* INPUT SWITCHER *@
+                                            <!-- INPUT SWITCHER -->
                                             <div class="form-check form-switch">
                                                 <input 
                                                     data-bind="checked: isUsingFractionsForIngredient"
@@ -332,7 +330,7 @@
                                     </div>
                                     <hr>
                                 </div>
-                                @* Add Ingredient Btn *@
+                                <!-- Add Ingredient Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
                                     <div class="col-6">
                                         <!-- Empty column to push the button to the end -->
@@ -357,7 +355,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
-                    @* SUBMIT FORM BTN *@
+                    <!-- SUBMIT FORM BTN -->
                     <button 
                         data-bind="click: submitForm" 
                         class="btn btn-success btn-lg" 
@@ -531,7 +529,7 @@
            
             // Update fraction and decimal input fields upon "change input units" request
             form.on('change', '.show-fraction-checkbox', function (event) {
-               debugger
+               
                 var ingredientLine = $(event.target).closest('.ingredient-row');
                 var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
                 var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
@@ -569,6 +567,7 @@
         });
     </script>
     <script>
+        // Reused variables
         var errorMessages = {
             MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
             MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
@@ -579,10 +578,10 @@
         // Parse the QtyFractionOptions from the JSON string
         var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
         var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-
         // Extract keys from QtyFractionOptions as valid fractions
         var fractionOptions = Object.keys(qtyFractionOptions);
-        // Configure Knockout Validation plugin
+
+        // Configure Knockout Validation plugin        
         ko.validation.init({
             insertMessages: false,
             decorateElement: true,
@@ -590,6 +589,8 @@
             parseInputAttributes: true,
             messagesOnModified: true,
         });
+
+        // Register the QTY validation rule
         ko.validation.rules['validateqty'] = {
             validator: function (val, params) {
                 var fractionOptions = params.fractionoptions;
@@ -630,13 +631,11 @@
             }
         };
 
-        // Register the validation rule
-        ko.validation.registerExtenders();
-
-        ko.validation.registerExtenders();
+        // Create Regex URL pattern, corresponding to server-side regex
         const ValidationConstants = {
             UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
         };
+        // Register URL validation rule
         ko.validation.rules['url'] = {
             validator: function (val, validate) {
                 if (!val || !validate) return true;
@@ -647,16 +646,15 @@
 
         ko.validation.registerExtenders();
        
-        //Knockout Viewmodel, taken from the server-side model, enabling two-way data binding
-        // ViewModel definition
+        //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
         function RecipeViewModel(data) {
             var self = this;
 
             function createIngredient(ingredient) {
                 var qtyObservable = {
-                    QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal).extend({ required: false }),
-                    QtyWhole: ko.observable(ingredient.Qty.QtyWhole).extend({ required: false }),
-                    QtyFraction: ko.observable(ingredient.Qty.QtyFraction).extend({ required: false })
+                    QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal).extend({ required: false, validatable: true }),
+                    QtyWhole: ko.observable(ingredient.Qty.QtyWhole).extend({ required: false, validatable: true }),
+                    QtyFraction: ko.observable(ingredient.Qty.QtyFraction).extend({ required: false, validatable: true })
                 };
 
                 var isUsingFractionsForIngredient = ko.pureComputed(function () {
@@ -676,25 +674,22 @@
                             message: '@RecipeIngredientNameRangeErrorMessage',
                             params: '@RecipeIngredientNameMaxLength'
                         }
-                    }).extend({ validatable: true }),
+                    }),
                     Qty: ko.observable(qtyObservable).extend({
                         validateqty: {
                             params: {
                                 fractionoptions: fractionOptions,
                                 isUsingFractions: isUsingFractionsForIngredient,
                                 errorMessage: ko.observable('')
-                            },
-                            element: true  // Ensure Knockout passes the element context
+                            }
                         }
-                    }).extend({ validatable: true }),
+                    }),
                     MeasureId: ko.observable(ingredient.MeasureId).extend({
                         required: {
                             message: '@MeasureRequiredErrorMessage'
-                        },
-                    }).extend({ validatable: true }),
+                        }
+                    }),
                     SpecificationId: ko.observable(ingredient.SpecificationId),
-
-                    // Keep the computed observable for data-binding in the markup
                     isUsingFractionsForIngredient: isUsingFractionsForIngredient
                 };
             }
@@ -712,17 +707,8 @@
                 maxLength: {
                     message: '@TitleMaxLengthErrorMessage',
                     params: '@TitleMaxLength'
-                },
+                }
             });
-
-            self.TitleValidationMessage = ko.observable('');
-            // Subscribe to validation changes
-            self.Title.hasError = ko.computed(function () {
-                var hasError = self.Title.isValid() ? '' : self.Title.error;
-                self.TitleValidationMessage(hasError);
-                return hasError;
-            });
-
 
             self.Servings = ko.observable(data.Servings).extend({
                 required: {
@@ -747,12 +733,11 @@
                     message: '@DescriptionRangeErrorMessage',
                     params: '@DescriptionMaxLength'
                 }
-            
             });
 
             self.ImageUrl = ko.observable(data.ImageUrl).extend({
                 required: {
-                    message: '@ImageRequiredErrorMessage',
+                    message: '@ImageRequiredErrorMessage'
                 },
                 minLength: {
                     message: '@ImageRangeErrorMessage',
@@ -806,36 +791,67 @@
             self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
                 return createIngredient(ingredient);
             }));
-                        
+
             self.addStep = function () {
-                self.Steps.push({
-                    Description: ko.observable('').extend({ 
-                        required: {
-                            message: '@StepRequiredErrorMessage'
-                        },
-                        minLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMinLength'
-                        },
-                        maxLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMaxLength'
+                var newStep = {
+                    Description: ko.observable('')
+                };
+
+                // Custom binding handler to apply validation rules on first user interaction
+                ko.bindingHandlers.deferValidation = {
+                    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                        var observable = valueAccessor();
+                        var isValidated = false;
+
+                        function applyValidation() {
+                            if (!isValidated) {
+                                observable.extend({
+                                    required: {
+                                        message: '@StepRequiredErrorMessage'
+                                    },
+                                    minLength: {
+                                        message: '@StepDescriptionRangeErrorMessage',
+                                        params: parseInt('@StepDescriptionMinLength', 10)
+                                    },
+                                    maxLength: {
+                                        message: '@StepDescriptionRangeErrorMessage',
+                                        params: parseInt('@StepDescriptionMaxLength', 10)
+                                    }
+                                });
+                                isValidated = true;
+                            }
+                            observable.isValid(); // Ensure validation messages are updated
                         }
-                    }).extend({ validatable: true }),
-                });
+
+                        // Apply validation on keyup event to avoid interfering with typing
+                        ko.utils.registerEventHandler(element, 'keyup', function () {
+                            applyValidation();
+                            observable.isModified(true); // Trigger validation on each keyup event
+                        });
+
+                        // Also apply validation on blur to ensure messages are shown when focus is lost
+                        ko.utils.registerEventHandler(element, 'blur', applyValidation);
+                    }
+                };
+
+                // Push the new step to the observableArray
+                self.Steps.push(newStep);
             };
+
 
             self.removeStep = function (step) {
                 self.Steps.remove(step);
             };
 
             self.addIngredient = function () {
-                self.RecipeIngredients.push(createIngredient({
+                var newIngredient = createIngredient({
                     Name: '',
                     Qty: { QtyDecimal: null, QtyWhole: null, QtyFraction: null },
                     MeasureId: '',
                     SpecificationId: ''
-                }));
+                });
+                self.RecipeIngredients.push(newIngredient);
+                ko.validation.group(newIngredient);
             };
 
             self.removeIngredient = function (ingredient) {
@@ -843,10 +859,10 @@
             };
 
             self.submitForm = function () {
-                debugger
+                // Validate the entire ViewModel
+                self.errors = ko.validation.group(self);
                 if (self.errors().length === 0) {
                     var jsonData = ko.toJSON(self);
-
                     // Perform AJAX POST request
                     $.ajax({
                         url: '/Recipe/Edit',
@@ -858,29 +874,28 @@
                                 toastr.success('Recipe edited successfully!');
                                 window.location.href = response.redirectUrl; // Redirect to details page
                             } else {
-                                // Replace form content with server-rendered HTML (containing model errors)
-                                $('#edit-recipe-form').html(response);
+                                toastr.error('Recipe has input errors!');
+                                window.location.href = response.redirectUrl; // Redirect to the same page
                             }
                         },
                         error: function (xhr, status, error) {
                             console.error('Error occurred while submitting form:', error);
-                            $('#edit-recipe-form').html(xhr.responseText); // Display server error response
                             alert('Error occurred while submitting form. Please try again later.');
                         }
                     });
                 } else {
                     self.errors.showAllMessages();
-                }                
-
+                }
                 return false; // Prevent the default form submission
             };
 
+            // Initialize validation group
             self.errors = ko.validation.group(self);
         }
 
         // Initialize the ViewModel with the initial data
         var initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
         ko.applyBindings(new RecipeViewModel(initialData));
-       
+
     </script>
 }
