@@ -797,7 +797,7 @@
                     Description: ko.observable('')
                 };
 
-                // Custom binding handler to apply validation rules on first user interaction
+                // Custom binding handler to apply validation rules on user input
                 ko.bindingHandlers.deferValidation = {
                     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                         var observable = valueAccessor();
@@ -823,14 +823,14 @@
                             observable.isValid(); // Ensure validation messages are updated
                         }
 
-                        // Apply validation on keyup
-                        ko.utils.registerEventHandler(element, 'keyup', function () {
-                            applyValidation();
-                            // Trigger validation on each keypress without interfering with typing
-                            observable.valueHasMutated();
+                        // Apply validation on input without interfering with typing
+                        var timeoutId;
+                        ko.utils.registerEventHandler(element, 'input', function () {
+                            clearTimeout(timeoutId);
+                            timeoutId = setTimeout(applyValidation, 300); // Delay validation to avoid performance issues
                         });
 
-                        // Also apply validation on blur to ensure messages are shown when focus is lost
+                        // Apply validation on blur to ensure messages are shown when focus is lost
                         ko.utils.registerEventHandler(element, 'blur', applyValidation);
                     }
                 };
@@ -838,6 +838,8 @@
                 // Push the new step to the observableArray
                 self.Steps.push(newStep);
             };
+
+
 
 
 
@@ -863,7 +865,20 @@
             self.submitForm = function () {
                 // Validate the entire ViewModel
                 self.errors = ko.validation.group(self);
-                if (self.errors().length === 0) {
+
+                // Additional validation for steps and ingredients
+                var stepsValid = self.Steps().length > 0;
+                var ingredientsValid = self.RecipeIngredients().length > 0;
+
+                if (!stepsValid) {
+                    toastr.error('At least one step is required.');
+                }
+
+                if (!ingredientsValid) {
+                    toastr.error('At least one ingredient is required.');
+                }
+
+                if (self.errors().length === 0 && stepsValid && ingredientsValid) {
                     var jsonData = ko.toJSON(self);
                     // Perform AJAX POST request
                     $.ajax({
@@ -888,6 +903,7 @@
                 } else {
                     self.errors.showAllMessages();
                 }
+
                 return false; // Prevent the default form submission
             };
 

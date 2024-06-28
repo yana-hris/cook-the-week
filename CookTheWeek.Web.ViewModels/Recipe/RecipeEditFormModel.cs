@@ -46,16 +46,26 @@
         [Required(ErrorMessage = RecipeCategoryIdRequiredErrorMessage)]
         [Display(Name = "Meal Type")]
         public int RecipeCategoryId { get; set; }
-
-        [Required(ErrorMessage = StepsRequiredErrorMessage)]
+        
         [Display(Name = "Cooking Steps")]
         public List<StepFormModel> Steps { get; set; } = null!;
-
-        [Required(ErrorMessage = IngredientsRequiredErrorMessage)]
         public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
 
         public ICollection<int>? ServingsOptions { get; set; } = null!;
 
         public ICollection<RecipeCategorySelectViewModel>? Categories { get; set; } = null!;
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Steps == null || Steps.Count == 0)
+            {
+                yield return new ValidationResult(StepsRequiredErrorMessage, new[] { nameof(Steps) });
+            }
+
+            if (RecipeIngredients == null || RecipeIngredients.Count == 0)
+            {
+                yield return new ValidationResult(IngredientsRequiredErrorMessage, new[] { nameof(RecipeIngredients) });
+            }
+        }
     }
 }

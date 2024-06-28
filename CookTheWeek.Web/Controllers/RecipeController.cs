@@ -3,17 +3,17 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Common.HelperMethods;
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
     using ViewModels.Recipe.Enums;
     using ViewModels.RecipeIngredient;
+    using ViewModels.Step;
     using Services.Data.Interfaces;
     using Services.Data.Models.Recipe;
-    using Common.HelperMethods;
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using CookTheWeek.Web.ViewModels.Step;
 
     [Authorize]
     public class RecipeController : Controller
