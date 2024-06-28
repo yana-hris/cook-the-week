@@ -173,7 +173,7 @@
                                                 <span class="input-group-text">Step</span>
                                                 <textarea 
                                                     data-val="true"
-                                                          data-bind="value: Description, deferValidation: Description"
+                                                    data-bind="value: Description, deferValidation: Description"
                                                     class="form-control" 
                                                     rows="3" 
                                                     placeholder="Tell us how to cook.."
@@ -218,17 +218,16 @@
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
-                                                <input
-                                                    data-bind="value: Name, validationElement: Name"
-                                                    class="form-control ingredientName" 
-                                                    type="text" 
-                                                    autocomplete="off" 
+                                                <input data-bind="value: Name, deferValidation: Name, validationElement: Name, valueUpdate: 'afterkeydown'"
+                                                       class="form-control ingredientName" 
+                                                       type="text" 
+                                                       autocomplete="off" 
                                                 />
                                                 <div class="suggestionsList invisible">
                                                 </div>
                                             </div>
                                             <span 
-                                                data-bind="text: Name.error"
+                                                data-bind="validationMessage: Name"
                                                 class="small text-danger"
                                             ></span>
                                         </div>
@@ -241,7 +240,7 @@
                                                 <input type="number"                                                      
                                                        data-val="true"
                                                        data-val-validateqty="Invalid decimal quantity"
-                                                       data-bind="value: Qty().QtyDecimal, validationElement: Qty().QtyDecimal, valueUpdate: 'afterkeydown'"
+                                                       data-bind="value: Qty().QtyDecimal, deferValidation: Qty().QtyDecimal, validationElement: Qty().QtyDecimal, valueUpdate: 'afterkeydown'"
                                                        class="form-control qty-decimal"
                                                        placeholder="0.00" />
                                             </div>
@@ -257,11 +256,11 @@
                                                 <span class="input-group-text">Qty</span>
                                                 <input type="number"                                                      
                                                        data-val="true"
-                                                       data-bind="value: Qty().QtyWhole, validationElement: Qty().QtyWhole, valueUpdate: 'afterkeydown'"
+                                                       data-bind="value: Qty().QtyWhole, validationElement: Qty().QtyWhole, deferValidation: Qty().QtyWhole, valueUpdate: 'afterkeydown'"
                                                        class="form-control qty qty-whole"
                                                        placeholder="0" />
                                                 <select data-val="true"
-                                                        data-bind="value: Qty().QtyFraction, validationElement: Qty().QtyFraction, valueUpdate: 'afterkeydown'"
+                                                        data-bind="value: Qty().QtyFraction, validationElement: Qty().QtyFraction, deferValidation: Qty().QtyFraction, valueUpdate: 'afterkeydown'"
                                                         class="form-select qty qty-fraction">
                                                     <option value="">Frac</option>
                                                     @foreach (var option in QtyFractionOptions)
@@ -288,8 +287,7 @@
                                         <div class="col col-5 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Unit</span>
-                                                <select 
-                                                    data-bind="value: MeasureId, valueUpdate: 'afterkeydown'"
+                                                <select data-bind="value: MeasureId, validationElement: MeasureId, deferValidation: MeasureId, valueUpdate: 'afterkeydown'"
                                                     class="form-select"
                                                 >
                                                     <option value="">Unit</option>
@@ -300,14 +298,15 @@
                                                 </select>
                                             </div>
                                             <span 
-                                                data-bind="text: MeasureId.error"
+                                                data-bind="validationMessage: MeasureId"
                                                 class="small text-danger"
                                             ></span>
                                         </div>
                                         <div class="col col-6 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
-                                                <select data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
+                                                <select 
+                                                    data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
                                                     class="form-select" 
                                                 >
                                                     <option value="">Type</option>
@@ -567,7 +566,6 @@
         });
     </script>
     <script>
-        // Reused variables
         var errorMessages = {
             MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
             MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
@@ -581,7 +579,7 @@
         // Extract keys from QtyFractionOptions as valid fractions
         var fractionOptions = Object.keys(qtyFractionOptions);
 
-        // Configure Knockout Validation plugin        
+        // Configure Knockout Validation plugin
         ko.validation.init({
             insertMessages: false,
             decorateElement: true,
@@ -593,34 +591,29 @@
         // Register the QTY validation rule
         ko.validation.rules['validateqty'] = {
             validator: function (val, params) {
-                var fractionOptions = params.fractionoptions;
-                var isUsingFractions = ko.unwrap(params.isUsingFractions);
+
                 debugger
                 var qtyDecimal = ko.unwrap(val.QtyDecimal);
                 var qtyWhole = ko.unwrap(val.QtyWhole);
                 var qtyFraction = ko.unwrap(val.QtyFraction);
 
-                if (isUsingFractions) {
-                    if ((!qtyWhole && !qtyFraction)) {
-                        params.errorMessage = errorMessages.MissingFractionalOrWholeInputMessage;
-                        return false;
-                    } else if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
-                        params.errorMessage = errorMessages.InvalidFractionErrorMessage;
-                        return false;
-                    }
-                    if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
-                        params.errorMessage = errorMessages.InvalidWholeQtyErrorMessage;
-                        return false;
-                    }
-                } else {
-                    if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
-                        params.errorMessage = errorMessages.InvalidDecimalRangeErrorMessage;
-                        return false;
-                    }
-                }
-
                 if (!qtyDecimal && !qtyWhole && !qtyFraction) {
                     params.errorMessage = errorMessages.MissingFormInputErrorMessage;
+                    return false;
+                }
+
+                if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
+                    params.errorMessage = errorMessages.InvalidDecimalRangeErrorMessage;
+                    return false;
+                }
+
+                if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
+                    params.errorMessage = errorMessages.InvalidFractionErrorMessage;
+                    return false;
+                }
+
+                if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
+                    params.errorMessage = errorMessages.InvalidWholeQtyErrorMessage;
                     return false;
                 }
 
@@ -645,7 +638,7 @@
         };
 
         ko.validation.registerExtenders();
-       
+
         //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
         function RecipeViewModel(data) {
             var self = this;
@@ -678,8 +671,6 @@
                     Qty: ko.observable(qtyObservable).extend({
                         validateqty: {
                             params: {
-                                fractionoptions: fractionOptions,
-                                isUsingFractions: isUsingFractionsForIngredient,
                                 errorMessage: ko.observable('')
                             }
                         }
@@ -865,20 +856,7 @@
             self.submitForm = function () {
                 // Validate the entire ViewModel
                 self.errors = ko.validation.group(self);
-
-                // Additional validation for steps and ingredients
-                var stepsValid = self.Steps().length > 0;
-                var ingredientsValid = self.RecipeIngredients().length > 0;
-
-                if (!stepsValid) {
-                    toastr.error('At least one step is required.');
-                }
-
-                if (!ingredientsValid) {
-                    toastr.error('At least one ingredient is required.');
-                }
-
-                if (self.errors().length === 0 && stepsValid && ingredientsValid) {
+                if (self.errors().length === 0) {
                     var jsonData = ko.toJSON(self);
                     // Perform AJAX POST request
                     $.ajax({
@@ -903,7 +881,6 @@
                 } else {
                     self.errors.showAllMessages();
                 }
-
                 return false; // Prevent the default form submission
             };
 
