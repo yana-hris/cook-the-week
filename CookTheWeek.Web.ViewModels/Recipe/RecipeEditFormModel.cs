@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookTheWeek.Web.ViewModels.Category;
-    using CookTheWeek.Web.ViewModels.CustomValidationAttributes;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
 

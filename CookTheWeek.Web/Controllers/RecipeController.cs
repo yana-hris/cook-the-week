@@ -28,8 +28,8 @@
         private readonly ILogger<RecipeController> logger;
         private readonly SanitizerHelper sanitizer;
 
-        public RecipeController(IRecipeService recipeService, 
-            ICategoryService categoryService, 
+        public RecipeController(IRecipeService recipeService,
+            ICategoryService categoryService,
             IRecipeIngredientService recipeIngredientService,
             IIngredientService ingredientService,
             IUserService userService,
@@ -48,8 +48,8 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery]AllRecipesQueryModel queryModel)
-        {            
+        public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
+        {
             try
             {
                 AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
@@ -71,7 +71,7 @@
                 logger.LogError(ex, "An error occurred while processing the All recipes action");
                 return BadRequest();
             }
-            
+
         }
 
         [HttpGet]
@@ -93,7 +93,7 @@
                 },
                 Categories = await this.categoryService.AllRecipeCategoriesAsync(),
                 ServingsOptions = ServingsOptions,
-            };            
+            };
 
             return View(model);
         }
@@ -121,19 +121,19 @@
                 {
                     ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
                 }
-                if(!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
                 {
                     ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid ingredient measure for ingrediet {ingredient.Name}");
                 }
-                if(ingredient.SpecificationId != null)
+                if (ingredient.SpecificationId != null)
                 {
                     if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
                     {
                         ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid ingredient specification for ingrediet {ingredient.Name}");
                     }
-                }                
-            }            
-            
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
@@ -145,7 +145,7 @@
             }
             // Sanitize all string input
             model.Title = sanitizer.SanitizeInput(model.Title);
-            if(model.Description != null)
+            if (model.Description != null)
             {
                 model.Description = sanitizer.SanitizeInput(model.Description);
             }
@@ -162,7 +162,7 @@
                 string ownerId = User.GetId();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId);
                 TempData[SuccessMessage] = "Your recipe was successfully added!";
-                return RedirectToAction("Details", new {id = recipeId});
+                return RedirectToAction("Details", new { id = recipeId });
             }
             catch (Exception)
             {
@@ -186,7 +186,7 @@
             string userId = User.GetId();
             bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
 
-            if(!isOwner && !User.IsAdmin()) 
+            if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
                 logger.LogWarning("The user id of the recipe owner and current user do not match!");
@@ -206,7 +206,7 @@
             catch (Exception)
             {
                 logger.LogError("Recipe model was not successfully loaded for edit!");
-                return BadRequest(); 
+                return BadRequest();
             }
         }
 
@@ -220,6 +220,21 @@
                 return BadRequest();
             }
 
+            if (!model.RecipeIngredients.Any())
+            {
+                ModelState.AddModelError(nameof(model.RecipeIngredients), IngredientsRequiredErrorMessage);
+                TempData[ErrorMessage] = "At least one ingredient is required";
+                return PartialView("Edit", model);
+            }
+
+            if (!model.Steps.Any())
+            {
+                ModelState.AddModelError(nameof(model.Steps), StepsRequiredErrorMessage);
+                TempData[ErrorMessage] = "At least one cooking step is required";
+                return PartialView("Edit", model);
+            }
+
+            model.Id = model.Id.ToLower();
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
             model.ServingsOptions = ServingsOptions;
             model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
@@ -227,12 +242,13 @@
 
             if (!ModelState.IsValid)
             {
-                logger.LogWarning($"Invalid model received!");                
-                return View(model);
+                logger.LogWarning("Invalid model received!");
+
+                // Return the view with the model and validation errors
+                return PartialView("Edit", model);
             }
 
-
-            bool exists = await this.recipeService.ExistsByIdAsync(model.Id.ToLower());
+            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
             if (!exists)
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
@@ -274,8 +290,8 @@
 
             if (!ModelState.IsValid)
             {
-                // Returning validation errors as JSON
-                return View(model);
+                // Return the view with the model and validation errors
+                return PartialView("Edit", model);
             }
 
             // Sanitize all string input
@@ -293,6 +309,7 @@
                 }
             }
 
+
             try
             {
                 await this.recipeService.EditAsync(model);
@@ -308,8 +325,8 @@
                 ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                 logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
 
-                string redirectUrl = Url.Action("Edit", "Recipe", model)!;
-                return BadRequest(new { success = false, redirectUrl });
+                // Return the view with the model and validation errors
+                return PartialView("Edit", model);
             }
         }
 
@@ -337,14 +354,14 @@
             try
             {
                 RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id);
-                
+
                 return View(model);
             }
             catch (Exception)
             {
                 logger.LogError("Recipe Details unsuccessfully loaded!");
                 return BadRequest();
-            }            
+            }
         }
 
         [HttpGet]
@@ -370,7 +387,7 @@
                 logger.LogError("My Recipes unsuccessfully loaded to View Model!");
                 return BadRequest();
             }
-            
+
         }
 
         [HttpGet]
@@ -381,19 +398,19 @@
             string userId = User.GetId();
             bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
 
-            if(!exists)
+            if (!exists)
             {
                 return NotFound();
             }
 
-            if(!isOwner && !User.IsAdmin())
+            if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
                 return RedirectToAction("Details", "Recipe", new { id });
             }
 
             // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
-            if(await this.recipeService.IsIncludedInMealPlans(id))
+            if (await this.recipeService.IsIncludedInMealPlans(id))
             {
                 TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
             }
@@ -408,8 +425,8 @@
             {
                 logger.LogError($"Delete of Recipe with id {id} unsuccessful");
                 return BadRequest();
-            }           
-            
+            }
+
         }
 
         [HttpGet]
