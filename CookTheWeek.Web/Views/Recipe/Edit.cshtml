@@ -220,8 +220,9 @@
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
-                                                <input data-bind="value: Name, deferValidation: Name, 
+                                                <input data-bind="value: Name, 
                                                                   validationElement: Name, 
+                                                                  deferValidation: Name, 
                                                                   valueUpdate: 'afterkeydown', 
                                                                   validationRules: {
                                                                         required: {
@@ -255,24 +256,13 @@
                                             <div class="decimal-qty-input input-group" data-bind="style: { display: isUsingFractionsForIngredient() ? 'none' : 'flex' }">
                                                 <span class="input-group-text">Qty</span>
                                                 <input type="number"  
-                                                       data-bind="value: Qty().QtyDecimal, 
-                                                                  deferValidation: Qty().QtyDecimal, 
-                                                                  validationElement: Qty().QtyDecimal, 
-                                                                  valueUpdate: 'afterkeydown',
-                                                                  validationRules: {
-                                                                        validateqty: {
-                                                                                params: {
-                                                                                    errorMessage: ko.observable('')
-                                                                                }
-                                                                            }
-                                                                        }"
+                                                       data-bind="value: Qty().QtyDecimal,
+                                                                  validationElement: Qty().QtyDecimal,
+                                                                  valueUpdate: 'afterkeydown'"
                                                        class="form-control qty-decimal"
                                                        placeholder="0.00" />
                                             </div>
-                                            <span 
-                                                data-bind="validationMessage: Qty().QtyDecimal" 
-                                                class="text-danger small"
-                                            ></span>
+                                            @* <span data-bind="validationMessage: Qty().QtyDecimal" class="small text-danger"></span> *@
                                             <!-- FRACTIONAL / WHOLE NUMBER INPUT -->
                                             <div 
                                                 data-bind="style: { display: isUsingFractionsForIngredient() ? 'flex' : 'none' }"
@@ -280,31 +270,15 @@
                                             >
                                                 <span class="input-group-text">Qty</span>
                                                 <input type="number"   
-                                                       data-bind="value: Qty().QtyWhole, 
-                                                                  deferValidation: Qty().QtyDecimal,
-                                                                  validationElement: Qty().QtyDecimal,
-                                                                  valueUpdate: 'afterkeydown',
-                                                                  validationRules: {
-                                                                        validateqty: {
-                                                                                params: {
-                                                                                    errorMessage: ko.observable('')
-                                                                                }
-                                                                            }
-                                                                        }"
+                                                       data-bind="value: Qty().QtyWhole,
+                                                                  validationElement: Qty().QtyWhole,
+                                                                  valueUpdate: 'afterkeydown'"
                                                        class="form-control qty qty-whole"
                                                        placeholder="0" />
                                                 <select data-val="true"
-                                                        data-bind="value: Qty().QtyFraction, 
-                                                                  deferValidation: Qty().QtyDecimal,
-                                                                  validationElement: Qty().QtyDecimal,
-                                                                  valueUpdate: 'afterkeydown',
-                                                                  validationRules: {
-                                                                        validateqty: {
-                                                                                params: {
-                                                                                    errorMessage: ko.observable('')
-                                                                                }
-                                                                            }
-                                                                        }"
+                                                        data-bind="value: Qty().QtyFraction,
+                                                                   validationElement: Qty().QtyFraction,
+                                                                   valueUpdate: 'afterkeydown'"
                                                         class="form-select qty qty-fraction">
                                                     <option value="">Frac</option>
                                                     @foreach (var option in QtyFractionOptions)
@@ -312,12 +286,11 @@
                                                         <option value="@option.Key">@option.Key</option>
                                                     }
                                                 </select>
-                                            </div>                                                
-                                            <span 
-                                                data-bind="text: Qty.error || Qty.QtyWhole.error || Qty.QtyFraction.error"
-                                                class="small text-danger"
-                                            ></span>
-                                            
+                                            </div>
+                                            @* <span data-bind="validationMessage: Qty().QtyFraction" class="small text-danger"></span>
+                                            <span data-bind="validationMessage: Qty().QtyWhole" class="small text-danger"></span> *@
+                                            @* <span data-bind="validationMessage: Qty" class="small text-danger"></span> *@
+ 
                                             <!-- INPUT SWITCHER -->
                                             <div class="form-check form-switch">
                                                 <input 
@@ -619,336 +592,406 @@
         });
     </script>
     <script>
-        var errorMessages = {
-            MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
-            MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
-            InvalidDecimalRangeErrorMessage: '@errorMessages["InvalidDecimalRangeErrorMessage"]',
-            InvalidFractionErrorMessage: '@errorMessages["InvalidFractionErrorMessage"]',
-            InvalidWholeQtyErrorMessage: '@errorMessages["InvalidWholeQtyErrorMessage"]'
-        };
-        // Parse the QtyFractionOptions from the JSON string
-        var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
-        var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-        // Extract keys from QtyFractionOptions as valid fractions
-        var fractionOptions = Object.keys(qtyFractionOptions);
+    const errorMessages = {
+        MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
+        MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
+        InvalidDecimalRangeErrorMessage: '@errorMessages["InvalidDecimalRangeErrorMessage"]',
+        InvalidFractionErrorMessage: '@errorMessages["InvalidFractionErrorMessage"]',
+        InvalidWholeQtyErrorMessage: '@errorMessages["InvalidWholeQtyErrorMessage"]'
+    };
+    // Parse the QtyFractionOptions from the JSON string
+    var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
+    var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
+    // Extract keys from QtyFractionOptions as valid fractions
+    const fractionOptions = Object.keys(qtyFractionOptions);
 
-        // Configure Knockout Validation plugin
-        ko.validation.init({
-            insertMessages: false,
-            decorateElement: true,
-            errorElementClass: 'error',
-            parseInputAttributes: true,
-            messagesOnModified: true,
-        });
+    // Configure Knockout Validation plugin
+    ko.validation.init({
+        decorateElement: true,
+        errorElementClass: 'error',
+        parseInputAttributes: true,
+        messagesOnModified: true,
+        errorMessageClass: "small text-danger"
+    });
 
-        // Register the QTY validation rule
-        ko.validation.rules['validateqty'] = {
-            validator: function (val, params) {
+    ko.validation.rules['combinedQtyValidation'] = {
+        validator: function (qtyModel) {
+            return qtyModel.QtyWhole() !== null || qtyModel.QtyFraction() !== null || qtyModel.QtyDecimal() !== null;
+        },
+        message: errorMessages.MissingFormInputErrorMessage
+    };
 
-                debugger
-                var qtyDecimal = ko.unwrap(val.QtyDecimal);
-                var qtyWhole = ko.unwrap(val.QtyWhole);
-                var qtyFraction = ko.unwrap(val.QtyFraction);
+    // Register the custom validation rule
+    ko.validation.registerExtenders();
 
-                if (!qtyDecimal && !qtyWhole && !qtyFraction) {
-                    params.errorMessage = errorMessages.MissingFormInputErrorMessage;
-                    return false;
-                }
+    //Register the QTY validation rule
+    // ko.validation.rules['validateqty'] = {
+    //     validator: function (val, params) {
+    //         debugger;
+    //         const qtyDecimal = ko.unwrap(val.QtyDecimal);
+    //         const qtyWhole = ko.unwrap(val.QtyWhole);
+    //         const qtyFraction = ko.unwrap(val.QtyFraction);
 
-                if (qtyDecimal && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {
-                    params.errorMessage = errorMessages.InvalidDecimalRangeErrorMessage;
-                    return false;
-                }
+    //         if ((!qtyDecimal || qtyDecimal === 0 || qtyDecimal === undefined) && 
+    //         (!qtyWhole || qtyWhole === 0 || qtyWhole === undefined) && 
+    //         (!qtyFraction || qtyFraction == "" || qtyFraction === undefined)) {                
+    //             return false;
+    //         }
 
-                if (qtyFraction && !fractionOptions.includes(qtyFraction)) {
-                    params.errorMessage = errorMessages.InvalidFractionErrorMessage;
-                    return false;
-                }
+    //         if (qtyDecimal && qtyDecimal !== 0 && qtyDecimal !== undefined && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {               
+    //             return false;
+    //         }
 
-                if (qtyWhole && (qtyWhole < 1 || qtyWhole > 9999)) {
-                    params.errorMessage = errorMessages.InvalidWholeQtyErrorMessage;
-                    return false;
-                }
+    //         if (qtyFraction && qtyFraction !== '' && qtyFraction !== undefined && !fractionOptions.includes(qtyFraction)) {                
+    //             return false;
+    //         }
 
-                return true;
-            },
-            message: function (params) {
-                return params.errorMessage;
-            }
-        };
+    //         if (qtyWhole && qtyWhole !== 0 && qtyWhole !== undefined && (qtyWhole < 1 || qtyWhole > 9999)) {                
+    //             return false;
+    //         }
 
-        // Create Regex URL pattern, corresponding to server-side regex
-        const ValidationConstants = {
-            UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
-        };
-        // Register URL validation rule
-        ko.validation.rules['url'] = {
-            validator: function (val, validate) {
-                if (!val || !validate) return true;
-                return ValidationConstants.UrlPattern.test(val);
-            },
-            message: '@ImageInvalidErrorMessage'
-        };
+    //         return true;
+    //     }
+    // };
+    // ko.validation.registerExtenders();        
 
-        ko.validation.registerExtenders();
+    // Create Regex URL pattern, corresponding to server-side regex
+    const ValidationConstants = {
+        UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
+    };
+    // Register URL validation rule
+    ko.validation.rules['url'] = {
+        validator: function (val, validate) {
+            if (!val || !validate) return true;
+            return ValidationConstants.UrlPattern.test(val);
+        },
+        message: '@ImageInvalidErrorMessage'
+    };
 
-        
-        //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
-        function RecipeViewModel(data) {
-            var self = this;
+    ko.validation.registerExtenders();
 
-            function createIngredient(ingredient) {
-                var qtyObservable = {
-                    QtyDecimal: ko.observable(ingredient.Qty.QtyDecimal).extend({ required: false, validatable: true }),
-                    QtyWhole: ko.observable(ingredient.Qty.QtyWhole).extend({ required: false, validatable: true }),
-                    QtyFraction: ko.observable(ingredient.Qty.QtyFraction).extend({ required: false, validatable: true })
-                };
+    //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
+    function RecipeViewModel(data) {
 
-                var isUsingFractionsForIngredient = ko.pureComputed(function () {
-                    return ko.unwrap(qtyObservable.QtyDecimal) === null && (ko.unwrap(qtyObservable.QtyFraction) !== null || ko.unwrap(qtyObservable.QtyWhole) !== null);
-                });
+        function createQtyObservable(qty) {
 
+            let self = this;
 
-                return {
-                    Name: ko.observable(ingredient.Name).extend({
-                        required: {
-                            message: '@RecipeIngredientNameRequiredErrorMessage'
-                        },
-                        validatable: true,
-                        minLength: {
-                            message: '@RecipeIngredientNameRangeErrorMessage',
-                            params: '@RecipeIngredientNameMinLength'
-                        },
-                        maxLength: {
-                            message: '@RecipeIngredientNameRangeErrorMessage',
-                            params: '@RecipeIngredientNameMaxLength'
-                        }
-                    }),
-                    Qty: ko.observable(qtyObservable).extend({
-                        validatable: true,
-                        validateqty: {
-                            params: {
-                                errorMessage: ko.observable('')
-                            }
-                        }
-                    }),
-                    MeasureId: ko.observable(ingredient.MeasureId).extend({
-                        validatable: true,
-                        required: {
-                            message: '@MeasureRequiredErrorMessage'
-                        }
-                    }),
-                    SpecificationId: ko.observable(ingredient.SpecificationId).extend({ validatable: true }),
-                    isUsingFractionsForIngredient: isUsingFractionsForIngredient.extend({ validatable: true })
-                };
-            }
+            self.QtyDecimal = ko.observable(qty.QtyDecimal);
+            self.QtyWhole = ko.observable(qty.QtyWhole);
+            self.QtyFraction = ko.observable(qty.QtyFraction);
 
-            self.Id = ko.observable(data.Id);
-
-            self.Title = ko.observable(data.Title).extend({
+            self.QtyDecimal.extend({
                 required: {
-                    message: '@TitleRequiredErrorMessage'
-                },
-                minLength: {
-                    message: '@TitleMinLengthErrorMessage',
-                    params: '@TitleMinLength'
-                },
-                maxLength: {
-                    message: '@TitleMaxLengthErrorMessage',
-                    params: '@TitleMaxLength'
-                }
-            });
-
-            self.Servings = ko.observable(data.Servings).extend({
-                required: {
-                    message: '@ServingsRequiredErrorMessage'
+                    onlyIf: function () { return !self.QtyWhole() && !self.QtyFraction() },
+                    message: errorMessages.MissingFormInputErrorMessage
                 },
                 min: {
-                    message: '@ServingsRangeErrorMessage',
-                    params: '@ServingsMinValue'
+                    message: errorMessages.InvalidDecimalRangeErrorMessage,
+                    params: 0.001
                 },
                 max: {
-                    message: '@ServingsRangeErrorMessage',
-                    params: '@ServingsMaxValue'
-                }
-            });
-
-            self.Description = ko.observable(data.Description).extend({
-                minLength: {
-                    message: '@DescriptionRangeErrorMessage',
-                    params: '@DescriptionMinLength'
+                    message: errorMessages.InvalidDecimalRangeErrorMessage,
+                    params: 9999.99
                 },
-                maxLength: {
-                    message: '@DescriptionRangeErrorMessage',
-                    params: '@DescriptionMaxLength'
-                }
+                validatable: true
             });
 
-            self.ImageUrl = ko.observable(data.ImageUrl).extend({
+            self.QtyWhole.extend({
                 required: {
-                    message: '@ImageRequiredErrorMessage'
-                },
-                minLength: {
-                    message: '@ImageRangeErrorMessage',
-                    params: '@ImageUlrMinLength'
-                },
-                maxLength: {
-                    message: '@ImageRangeErrorMessage',
-                    params: '@ImageUlrMaxLength'
-                },
-                url: true
-            });
-
-            self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes).extend({
-                required: {
-                    message: '@CookingTimeRequiredErrorMessage'
+                    onlyIf: function () { return !self.QtyDecimal() && !self.QtyFraction() },
+                    message: errorMessages.MissingFormInputErrorMessage
                 },
                 min: {
-                    message: '@CookingTimeRangeErrorMessage',
-                    params: '@CookingTimeMinValue'
+                    message: errorMessages.InvalidWholeQtyErrorMessage,
+                    params: 1
                 },
                 max: {
-                    message: '@CookingTimeRangeErrorMessage',
-                    params: '@CookingTimeMaxValue'
-                }
+                    message: errorMessages.InvalidWholeQtyErrorMessage,
+                    params: 9999
+                },
+                validatable: true
             });
 
-            self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
+            self.QtyFraction.extend({
                 required: {
-                    message: '@RecipeCategoryIdRequiredErrorMessage'
-                }
+                    onlyIf: function () { return !self.QtyWhole() && !self.QtyDecimal() },
+                    message: errorMessages.MissingFormInputErrorMessage
+                },
+                validation: {
+                    validator: function (val) {
+                        return val && fractionOptions.includes(val);
+                    },
+                    message: errorMessages.InvalidFractionErrorMessage
+                },
+                validatable: true
             });
 
-            self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
-                return {
-                    Description: ko.observable(step.Description).extend({
-                        validatable: true,
-                        required: {
-                            message: '@StepRequiredErrorMessage'
-                        },
-                        minLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMinLength'
-                        },
-                        maxLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMaxLength'
-                        }
-                    })
-                };
-            }));
+            self.errors = ko.validation.group(self, { deep: true, observable: true });
 
-            self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
-                return createIngredient(ingredient);
-            }));
+            return self;
+        };
 
-            self.addStep = function () {
-                var newStep = {
-                    Description: ko.observable('').extend({
-                        validatable: true,
-                        required: {
-                            message: '@StepRequiredErrorMessage'
-                        },
-                        minLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMinLength'
-                        },
-                        maxLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMaxLength'
-                        }
-                    })
-                };              
+        function createIngredient(ingredient) {
 
-                // Push the new step to the observableArray
-                self.Steps.push(newStep);
-            };
+            let self = this;
 
-            self.removeStep = function (step) {
-                if (self.Steps().length > 1) {
-                    self.Steps.remove(step);
-                } else {
-                    toastr.error('@StepsRequiredErrorMessage');
-                }
-            };
+            let isUsingFractionsForIngredient = ko.pureComputed(function () {
+                return ko.unwrap(ingredient.Qty.QtyDecimal) === null && (ko.unwrap(ingredient.Qty.QtyFraction) !== null || ko.unwrap(ingredient.Qty.QtyWhole) !== null);
+            });
 
-            self.addIngredient = function () {
-                var newIngredient = createIngredient({
-                    Name: '',
-                    Qty: { QtyDecimal: null, QtyWhole: null, QtyFraction: null },
-                    MeasureId: '',
-                    SpecificationId: ''
-                });
+            
+            self.Name = ko.observable(ingredient.Name).extend({
+                required: {
+                    message: '@RecipeIngredientNameRequiredErrorMessage'
+                },
+                minLength: {
+                    message: '@RecipeIngredientNameRangeErrorMessage',
+                    params: '@RecipeIngredientNameMinLength'
+                },
+                maxLength: {
+                    message: '@RecipeIngredientNameRangeErrorMessage',
+                    params: '@RecipeIngredientNameMaxLength'
+                },
+                validatable: true
+            });
 
-                self.RecipeIngredients.push(newIngredient);
-                ko.validation.group(newIngredient);
-            };
+            self.Qty = ko.observable(new createQtyObservable(ingredient.Qty)).extend({
+                validatable: true
+            });
+            
+            self.MeasureId = ko.observable(ingredient.MeasureId).extend({
+                required: {
+                    message: '@MeasureRequiredErrorMessage'
+                },
+                validatable: true
+            });
 
-            self.removeIngredient = function (ingredient) {
-                if (self.RecipeIngredients().length > 1) {
-                    self.RecipeIngredients.remove(ingredient);
-                } else {
-                    toastr.error('@IngredientsRequiredErrorMessage');
-                }
-            };
+            self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
+            self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true })
 
-            self.submitForm = function () {
-                // Validate the entire ViewModel
-                self.errors = ko.validation.group(self);
+           
+            self.errors = ko.validation.group(self, { deep: true, observable: true });
 
-                // Additional validation for steps and ingredients
-                var stepsValid = self.Steps().length > 0;
-                var ingredientsValid = self.RecipeIngredients().length > 0;
-
-                // if (!stepsValid) {
-                //     toastr.error('At least one step is required.');
-                // }
-
-                // if (!ingredientsValid) {
-                //     toastr.error('At least one ingredient is required.');
-                // }
-
-                if (self.errors().length === 0 && stepsValid && ingredientsValid) {
-                    var jsonData = ko.toJSON(self);
-                    // Perform AJAX POST request
-                    $.ajax({
-                        url: '/Recipe/Edit',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: jsonData,
-                        success: function (response) {
-                            if (response.success && response.redirectUrl) {
-                                toastr.success('Recipe edited successfully!');
-                                window.location.href = response.redirectUrl;
-                            }
-                        },
-                        error: function (xhr) {
-                            debugger
-                            if (xhr.status === 400) {
-                                // Replace the form content with the response HTML
-                                $('#edit-recipe').html(xhr.responseText);
-                                // Reapply bindings since the form content was replaced
-                                ko.applyBindings(viewModel, document.getElementById('edit-recipe'));
-                            } else {
-                                console.error('Error occurred while submitting form:', xhr.statusText);
-                                alert('Error occurred while submitting form. Please try again later.');
-                            }
-                        }
-                    });
-                } else {
-                    self.errors.showAllMessages();
-                }
-
-                return false; // Prevent the default form submission
-            };
-
-            // Initialize validation group
-            self.errors = ko.validation.group(self);
+            return self;
         }
 
-        // Initialize the ViewModel with the initial data
-        var initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-        ko.applyBindings(new RecipeViewModel(initialData));
+        self.Id = ko.observable(data.Id);
 
+        self.Title = ko.observable(data.Title).extend({
+            required: {
+                message: '@TitleRequiredErrorMessage'
+            },
+            minLength: {
+                message: '@TitleMinLengthErrorMessage',
+                params: '@TitleMinLength'
+            },
+            maxLength: {
+                message: '@TitleMaxLengthErrorMessage',
+                params: '@TitleMaxLength'
+            },
+            validatable: true
+        });
+
+        self.Servings = ko.observable(data.Servings).extend({
+            required: {
+                message: '@ServingsRequiredErrorMessage'
+            },
+            min: {
+                message: '@ServingsRangeErrorMessage',
+                params: '@ServingsMinValue'
+            },
+            max: {
+                message: '@ServingsRangeErrorMessage',
+                params: '@ServingsMaxValue'
+            },
+            validatable: true
+        });
+
+        self.Description = ko.observable(data.Description).extend({
+            minLength: {
+                message: '@DescriptionRangeErrorMessage',
+                params: '@DescriptionMinLength'
+            },
+            maxLength: {
+                message: '@DescriptionRangeErrorMessage',
+                params: '@DescriptionMaxLength'
+            },
+            validatable: true
+        });
+
+        self.ImageUrl = ko.observable(data.ImageUrl).extend({
+            required: {
+                message: '@ImageRequiredErrorMessage'
+            },
+            minLength: {
+                message: '@ImageRangeErrorMessage',
+                params: '@ImageUlrMinLength'
+            },
+            maxLength: {
+                message: '@ImageRangeErrorMessage',
+                params: '@ImageUlrMaxLength'
+            },
+            url: true,
+            validatable: true
+        });
+
+        self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes).extend({
+            required: {
+                message: '@CookingTimeRequiredErrorMessage'
+            },
+            min: {
+                message: '@CookingTimeRangeErrorMessage',
+                params: '@CookingTimeMinValue'
+            },
+            max: {
+                message: '@CookingTimeRangeErrorMessage',
+                params: '@CookingTimeMaxValue'
+            },
+            validatable: true
+        });
+
+        self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
+            required: {
+                message: '@RecipeCategoryIdRequiredErrorMessage'
+            },
+            validatable: true
+        });
+
+        self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
+            return {
+                Description: ko.observable(step.Description).extend({
+                    required: {
+                        message: '@StepRequiredErrorMessage'
+                    },
+                    minLength: {
+                        message: '@StepDescriptionRangeErrorMessage',
+                        params: '@StepDescriptionMinLength'
+                    },
+                    maxLength: {
+                        message: '@StepDescriptionRangeErrorMessage',
+                        params: '@StepDescriptionMaxLength'
+                    },
+                    validatable: true,
+                })
+            };
+        }));
+
+        self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
+            return new createIngredient(ingredient);
+        }));
+
+        self.addStep = function () {
+            var newStep = {
+                Description: ko.observable('').extend({
+                    required: {
+                        message: '@StepRequiredErrorMessage'
+                    },
+                    minLength: {
+                        message: '@StepDescriptionRangeErrorMessage',
+                        params: '@StepDescriptionMinLength'
+                    },
+                    maxLength: {
+                        message: '@StepDescriptionRangeErrorMessage',
+                        params: '@StepDescriptionMaxLength'
+                    },
+                    validatable: true,
+                    deferValidation: true
+                })
+            };              
+
+            // Push the new step to the observableArray
+            self.Steps.push(newStep);
+        };
+
+        self.removeStep = function (step) {
+            if (self.Steps().length > 1) {
+                self.Steps.remove(step);
+            } else {
+                toastr.error('@StepsRequiredErrorMessage');
+            }
+        };
+
+        self.addIngredient = function () {
+            let newIngredient = new createIngredient({
+                Name: '',
+                Qty: { QtyDecimal: null, QtyWhole: null, QtyFraction: '' },
+                MeasureId: '',
+                SpecificationId: ''
+            });
+
+            self.RecipeIngredients.push(newIngredient);
+            //ko.validation.group(self, { deep: true, observable: true });
+        };
+
+        self.removeIngredient = function (ingredient) {
+            debugger;
+            if (self.RecipeIngredients().length > 1) {
+                self.RecipeIngredients.remove(ingredient);
+            } else {
+                toastr.error('@IngredientsRequiredErrorMessage');
+            }
+        };
+
+        self.submitForm = function () {
+            // Validate the entire ViewModel
+            self.errors = ko.validation.group(self);
+
+            console.log(self.errors());
+            debugger;
+            // Additional validation for steps and ingredients
+            const stepsValid = self.Steps().length > 0;
+            const ingredientsValid = self.RecipeIngredients().length > 0;
+
+            if (!stepsValid) {
+                toastr.error('At least one step is required.');
+            }
+
+            if (!ingredientsValid) {
+                toastr.error('At least one ingredient is required.');
+            }
+                
+            if (self.errors().length === 0 && stepsValid && ingredientsValid) {
+                const jsonData = ko.toJSON(self);
+                // Perform AJAX POST request
+                $.ajax({
+                    url: '/Recipe/Edit',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: jsonData,
+                    success: function (response) {
+                        if (response.success && response.redirectUrl) {
+                            toastr.success('Recipe edited successfully!');
+                            window.location.href = response.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        debugger
+                        if (xhr.status === 400) {
+                            // Replace the form content with the response HTML
+                            $('#edit-recipe').html(xhr.responseText);
+                            // Reapply bindings since the form content was replaced
+                            ko.applyBindings(viewModel, document.getElementById('edit-recipe'));
+                        } else {
+                            console.error('Error occurred while submitting form:', xhr.statusText);
+                            alert('Error occurred while submitting form. Please try again later.');
+                        }
+                    }
+                });
+            } else {
+                debugger;
+                self.errors.showAllMessages();
+            }
+
+            return false; // Prevent the default form submission
+        }
+
+        // Initialize validation group
+        ko.validation.group(self, { deep: true, observable: true });
+    }
+
+    // Initialize the ViewModel with the initial data
+    const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
+    ko.applyBindings(new RecipeViewModel(initialData));
     </script>
 }
