@@ -15,6 +15,24 @@
   right: 7px;
   z-index: 10000;
 }
+:root body .subheading {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.65px;
+  margin-bottom: 0.2rem;
+}
+:root body .heading-secondary {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  text-transform: capitalize;
+  margin-bottom: 1.4rem;
+}
+:root body .accent-heading {
+  font-family: "Libre Baskerville", serif;
+}
 
 html {
   font-family: "Roboto", sans-serif;
@@ -1197,6 +1215,10 @@ html .not-finished {
   border-top: none;
   max-height: 200px;
   overflow-y: auto;
+}
+#add-recipe #ingredientsContainer .ingredient-row .flex-inside, #edit-recipe #ingredientsContainer .ingredient-row .flex-inside {
+  display: flex;
+  flex-direction: row;
 }
 #add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
   background-color: var(--bs-success);

@@ -10,6 +10,10 @@
   max-height: 200px;
   overflow-y: auto;
 }
+#add-recipe #ingredientsContainer .ingredient-row .flex-inside, #edit-recipe #ingredientsContainer .ingredient-row .flex-inside {
+  display: flex;
+  flex-direction: row;
+}
 #add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
   background-color: var(--bs-success);
   border-color: var(--bs-primary);

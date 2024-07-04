@@ -51,6 +51,15 @@ namespace CookTheWeek.Web
             builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
+            builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .SetIsOriginAllowed((host) => true)
+                       .AllowCredentials();
+            }));
+
             // Register the warm-up service
             builder.Services.AddHostedService<WarmUpService>();
 
@@ -82,17 +91,24 @@ namespace CookTheWeek.Web
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
-
-
-            builder.Services.AddCors(options =>
+            builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
             {
-                options.AddPolicy("DevelopmentCorsPolicy", builder =>
-                {
-                    builder.WithOrigins("https://localhost:7279")
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
-            });
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .SetIsOriginAllowed((host) => true)
+                       .AllowCredentials();
+            }));
+
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("DevelopmentCorsPolicy", builder =>
+            //    {
+            //        builder.WithOrigins("https://localhost:7279")
+            //               .AllowAnyHeader()
+            //               .AllowAnyMethod();
+            //    });
+            //});
 
             WebApplication app = builder.Build();
             
@@ -112,7 +128,8 @@ namespace CookTheWeek.Web
             app.UseStaticFiles();
 
             // CORS middleware should be placed before routing middleware
-            app.UseCors("DevelopmentCorsPolicy");
+            //app.UseCors("DevelopmentCorsPolicy");
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 

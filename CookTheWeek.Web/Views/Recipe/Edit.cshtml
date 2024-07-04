@@ -197,7 +197,7 @@
                                         <!-- Empty column to push the button to the end -->
                                     </div>
                                     <div class="col-6 text-end">
-                                        <a id="add-step" class="btn btn-outline-primary" type="button" data-bind="click: addStep">
+                                        <a id="add-step" class="btn btn-outline-primary" data-bind="click: addStep">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
                                         </a>
                                     </div>
@@ -248,7 +248,7 @@
 
                                             <!--  DECIMAL INPUT -->
                                             <div class="decimal-qty-input" data-bind="style: { display: isUsingFractionsForIngredient() ? 'none' : 'block' }">
-                                                <div class="input-group d-flex">
+                                                <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
                                                            data-bind="value: Qty().QtyDecimal,
@@ -265,7 +265,7 @@
                                             <div 
                                                 data-bind="style: { display: isUsingFractionsForIngredient() ? 'block' : 'none' }"
                                                 class="fraction-qty-inputs">
-                                                <div class="input-group d-flex">
+                                                <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
                                                            data-bind="value: Qty().QtyWhole,
@@ -341,8 +341,7 @@
                                         </div>
                                         <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
                                             <a data-bind="click: $parent.removeIngredient" 
-                                               class="btn remove-btn btn-danger remove-ingredient" 
-                                               type="button">
+                                               class="btn remove-btn btn-danger remove-ingredient">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -387,7 +386,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js" integrity="sha512-vs7+jbztHoMto5Yd/yinM4/y2DOkPLt0fATcN+j+G4ANY2z4faIzZIOMkpBmWdcxt+596FemCh9M18NUJTZwvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/js/custom-validation-methods-and-adapters.js"></script>
@@ -597,6 +596,12 @@
     // Extract keys from QtyFractionOptions as valid fractions
     const fractionOptions = Object.keys(qtyFractionOptions);
 
+
+    // Initialize the ViewModel with the initial data
+    const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
+    var viewModel = new RecipeViewModel(initialData);
+
+
     // Configure Knockout Validation plugin
     ko.validation.init({
         insertMessages: false,
@@ -666,8 +671,11 @@
     //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
     function RecipeViewModel(data) {
 
+        var self = this;
+
         function createQtyObservable(qty) {
 
+            //needed VAR for scope reasons
             let self = this;
 
             self.QtyDecimal = ko.observable(qty.QtyDecimal);
@@ -848,6 +856,7 @@
         });
 
        function createStep(newStep) {
+
            let self = this;
 
            self.Description = ko.observable(newStep.Description).extend({
@@ -919,6 +928,7 @@
             self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             console.log(self.errors());
+            console.log(self);
             debugger;
             // Additional validation for steps and ingredients
             const stepsValid = self.Steps().length > 0;
@@ -933,7 +943,10 @@
             }
                 
             if (self.errors().length === 0 && stepsValid && ingredientsValid) {
-                const jsonData = ko.toJSON(self);
+                console.log(self);
+                var jsonData = ko.toJSON(self);
+                console.log('Submitting data:', jsonData); // Log data being sent
+
                 // Perform AJAX POST request
                 $.ajax({
                     url: '/Recipe/Edit',
@@ -948,11 +961,27 @@
                     },
                     error: function (xhr) {
                         debugger
-                        if (xhr.status === 400) {
+                        if (xhr.status === 400 && xhr.responseJSON && !xhr.responseJSON.success) {
+                            // Display server-side validation errors
+                            var errors = xhr.responseJSON.errors;
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    var errorMessages = errors[key].errors;
+                                    if (errorMessages && errorMessages.length > 0) {
+                                        ko.validation.addValidationMessage({
+                                            message: errorMessages.join(', '),
+                                            observable: self[key]
+                                        });
+                                    }
+                                }
+                            }
+                            self.errors.showAllMessages();
+                        } else if (xhr.status === 400) {
                             // Replace the form content with the response HTML
                             $('#edit-recipe').html(xhr.responseText);
                             // Reapply bindings since the form content was replaced
-                            ko.applyBindings(viewModel, document.getElementById('edit-recipe'));
+                            ko.applyBindings(new RecipeViewModel(initialData), document.getElementById('edit-recipe'));
+
                         } else {
                             console.error('Error occurred while submitting form:', xhr.statusText);
                             alert('Error occurred while submitting form. Please try again later.');
@@ -973,8 +1002,8 @@
         
     }
 
-    // Initialize the ViewModel with the initial data
-    const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-    ko.applyBindings(new RecipeViewModel(initialData));
+    $(document).ready(function () {
+        ko.applyBindings(viewModel);
+    });
     </script>
 }

@@ -15,6 +15,11 @@
                 overflow-y: auto;
             }
 
+            .flex-inside {
+                display: flex;
+                flex-direction: row;
+            }
+
             .form-check-input {
                 background-color: var(--bs-success);
                 border-color: var(--bs-primary);

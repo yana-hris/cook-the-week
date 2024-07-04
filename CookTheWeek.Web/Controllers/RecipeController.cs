@@ -217,21 +217,21 @@
             if (model == null)
             {
                 logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
-                return BadRequest();
+                return BadRequest(new { success = false, message = "Invalid data received." });
             }
 
             if (!model.RecipeIngredients.Any())
             {
                 ModelState.AddModelError(nameof(model.RecipeIngredients), IngredientsRequiredErrorMessage);
                 TempData[ErrorMessage] = "At least one ingredient is required";
-                return PartialView("Edit", model);
+                return BadRequest(new { success = false, errors = ModelState });
             }
 
             if (!model.Steps.Any())
             {
                 ModelState.AddModelError(nameof(model.Steps), StepsRequiredErrorMessage);
                 TempData[ErrorMessage] = "At least one cooking step is required";
-                return PartialView("Edit", model);
+                return BadRequest(new { success = false, errors = ModelState }); 
             }
 
             model.Id = model.Id.ToLower();
@@ -245,7 +245,7 @@
                 logger.LogWarning("Invalid model received!");
 
                 // Return the view with the model and validation errors
-                return PartialView("Edit", model);
+                return BadRequest(new { success = false, errors = ModelState });
             }
 
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
@@ -291,7 +291,7 @@
             if (!ModelState.IsValid)
             {
                 // Return the view with the model and validation errors
-                return PartialView("Edit", model);
+                return BadRequest(new { success = false, errors = ModelState });
             }
 
             // Sanitize all string input
@@ -314,19 +314,19 @@
             {
                 await this.recipeService.EditAsync(model);
                 // Construct the redirect URL
-                string redirectUrl = Url.Action("Details", "Recipe", new { id = model.Id })!;
+                string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id })!;
 
                 // Return JSON response with redirect URL
-                return Ok(new { success = true, redirectUrl });
+                return Ok(new { success = true, redirectUrl = recipeDetailsLink });
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
                 logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
 
                 // Return the view with the model and validation errors
-                return PartialView("Edit", model);
+                return BadRequest(new { success = false, errors = ModelState });
             }
         }
 
