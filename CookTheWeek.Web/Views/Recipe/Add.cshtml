@@ -6,9 +6,9 @@
     int nextIngredientIndex = Model.RecipeIngredients.Count;
     int nextStepIndex = Model.Steps.Count;
 
-    var headingModel = new PageHeadingViewModel
+    PageHeadingViewModel headingModel = new PageHeadingViewModel
     {
-        Subheading = ViewData["Title"]!.ToString(),
+        Subheading = ViewData["Title"]!.ToString()
 
     };
 

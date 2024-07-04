@@ -52,8 +52,7 @@
                 <input 
                     type="hidden" 
                     id="jsonData" 
-                    name="jsonData" 
-                />
+                    name="jsonData" />
                
                 <div id="info-content" class="tab-content g-3">
                     <!-- TAB RECIPE DETAILS -->
@@ -66,19 +65,18 @@
                                         data-bind="value: Title, valueUpdate: 'afterkeydown'"
                                         class="form-control" 
                                         placeholder="Name it.." 
-                                        type="text"
-                                    />
+                                        type="text" />
                                 </div>
                                 <span 
-                                    class="small text-danger"
-                                      data-bind="text: Title.error"></span>
+                                      class="small text-danger"
+                                      data-bind="validationMessage: Title">
+                                </span>
                             </div>
                             <div class="col col-12 col-md-4 col-xl-3 p-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Servs</span>
                                     <select data-bind="value: Servings, valueUpdate: 'afterkeydown'"
-                                        class="form-select" 
-                                    >
+                                        class="form-select">
                                         <option value="">Choose</option>
                                         @foreach (var option in @Model.ServingsOptions!)
                                         {
@@ -87,9 +85,9 @@
                                     </select>
                                 </div>
                                 <span 
-                                    data-bind="text: Servings.error"
-                                    class="small text-danger"
-                                ></span>
+                                    data-bind="validationMessage: Servings"
+                                    class="small text-danger">
+                                </span>
                             </div>
                         </div>
                         <div class="row">
@@ -100,13 +98,12 @@
                                         data-bind="value: Description, valueUpdate: 'afterkeydown'"
                                         rows="3" 
                                         class="form-control" 
-                                        placeholder="Would be great to know more about this recipe.."
-                                    ></textarea>
+                                        placeholder="Would be great to know more about this recipe.."></textarea>
                                 </div>
                                 <span 
                                     class="small text-danger"
-                                    data-bind="text: Description.error"
-                                ></span>
+                                    data-bind="validationMessage: Description">
+                                </span>
                             </div>
                             <div class="col col-12 col-md-5 col-xl-4 p-2">
                                 <div class="input-group">
@@ -115,13 +112,12 @@
                                         data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'" 
                                         class="form-control" 
                                         placeholder="minutes"
-                                        type="number"
-                                    />
+                                        type="number" />
                                 </div>
                                 <span 
-                                    data-bind="text: CookingTimeMinutes.error"
-                                    class="small text-danger"
-                                ></span>
+                                    data-bind="validationMessage: CookingTimeMinutes"
+                                    class="small text-danger">
+                                </span>
                             </div>
                         </div>
                         <div class="row">
@@ -132,13 +128,12 @@
                                         data-bind="value: ImageUrl, valueUpdate: 'afterkeydown'" 
                                         class="form-control" 
                                         placeholder="Your image link here..." 
-                                        type="url"
-                                    />
+                                        type="url"/>
                                 </div>
                                 <span 
-                                    data-bind="text: ImageUrl.error"
-                                    class="small text-danger"
-                                ></span>
+                                    data-bind="validationMessage: ImageUrl"
+                                    class="small text-danger">
+                                </span>
                             </div>
                             <div class="col col-12 col-md-6 col-xl-5 p-2">
                                 <div class="input-group">
@@ -155,9 +150,9 @@
                                     </select>
                                 </div>
                                 <span 
-                                    data-bind="text: RecipeCategoryId.error"
-                                    class="small text-danger"
-                                ></span>
+                                    data-bind="validationMessage: RecipeCategoryId"
+                                    class="small text-danger">
+                                </span>
                             </div>
 
                         </div>
@@ -182,8 +177,8 @@
                                                 ></textarea>
                                             </div>
                                             <span data-bind="validationMessage: Description"
-                                                class="small text-danger"
-                                            ></span> 
+                                                class="small text-danger">
+                                            </span> 
                                         </div>
                                         <div class="col-1 p-2">
                                             <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
@@ -239,15 +234,14 @@
                                                                     }"
                                                        class="form-control ingredientName" 
                                                        type="text" 
-                                                       autocomplete="off" 
-                                                />
+                                                       autocomplete="off" />
                                                 <div class="suggestionsList invisible">
                                                 </div>
                                             </div>
                                             <span 
                                                 data-bind="validationMessage: Name"
-                                                class="small text-danger"
-                                            ></span>
+                                                class="small text-danger">
+                                            </span>
                                         </div>
                                         <!-- COMPLEX QUANTITY INPUT -->
                                         <div class="col col-6 col-lg-3 p-2 qty-row">
@@ -264,7 +258,8 @@
                                                            placeholder="0.00" />
                                                 </div>
                                                 <span data-bind="validationMessage: Qty().QtyDecimal"
-                                                      class="small text-danger"></span>                                                
+                                                      class="small text-danger">
+                                                </span>                                                
                                             </div>
                                             <!-- FRACTIONAL / WHOLE NUMBER INPUT -->
                                             <div 
@@ -293,15 +288,14 @@
                                                 <span data-bind="validationMessage: Qty().QtyFraction" class="small text-danger"></span>
                                                 <span data-bind="validationMessage: Qty().QtyWhole" class="small text-danger"></span>                                                
                                             </div>                                            
-                                            <span data-bind="validationMessage: Qty" class="small text-danger"></span>
+                                            @* <span data-bind="validationMessage: Qty" class="small text-danger"></span> *@
  
                                             <!-- INPUT SWITCHER -->
                                             <div class="form-check form-switch">
                                                 <input 
                                                     data-bind="checked: isUsingFractionsForIngredient"
                                                     class="form-check-input show-fraction-checkbox" 
-                                                    type="checkbox" 
-                                                />
+                                                    type="checkbox" />
                                                 <label class="form-check-label">Use Fractions</label>
                                             </div>                                               
                                         </div>
@@ -318,8 +312,7 @@
                                                                                     message: '@MeasureRequiredErrorMessage'
                                                                                 }
                                                                             }"
-                                                    class="form-select"
-                                                >
+                                                    class="form-select">
                                                     <option value="">Unit</option>
                                                     @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                     {
@@ -329,16 +322,15 @@
                                             </div>
                                             <span 
                                                 data-bind="validationMessage: MeasureId"
-                                                class="small text-danger"
-                                            ></span>
+                                                class="small text-danger">
+                                            </span>
                                         </div>
                                         <div class="col col-6 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
                                                 <select 
                                                     data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
-                                                    class="form-select" 
-                                                >
+                                                    class="form-select">
                                                     <option value="">Type</option>
                                                     @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                     {
@@ -348,11 +340,9 @@
                                             </div>
                                         </div>
                                         <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
-                                            <a 
-                                                data-bind="click: $parent.removeIngredient" 
-                                                class="btn remove-btn btn-danger remove-ingredient" 
-                                                type="button"
-                                            >
+                                            <a data-bind="click: $parent.removeIngredient" 
+                                               class="btn remove-btn btn-danger remove-ingredient" 
+                                               type="button">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -365,12 +355,10 @@
                                         <!-- Empty column to push the button to the end -->
                                     </div>
                                     <div class="col-6 text-end">
-                                        <a 
-                                            data-bind="click: addIngredient" 
-                                            id="add-ingredient" 
-                                            class="btn btn-outline-primary" 
-                                            type="button"
-                                        >
+                                        <a data-bind="click: addIngredient" 
+                                           id="add-ingredient" 
+                                           class="btn btn-outline-primary" 
+                                           type="button">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
                                         </a>
                                     </div>
@@ -389,8 +377,8 @@
                         data-bind="click: submitForm" 
                         class="btn btn-success btn-lg" 
                         form="edit-recipe-form" 
-                        type="submit" 
-                    >Save Changes</button>
+                        type="submit">Save Changes
+                    </button>
                 </div>
             </div>
         </div>
@@ -728,7 +716,7 @@
                 validatable: true
             });
 
-            self.errors = ko.validation.group(self, { deep: true, observable: true });
+            //self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             return self;
         };
@@ -772,7 +760,7 @@
             self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true })
 
            
-            self.errors = ko.validation.group(self, { deep: true, observable: true });
+            //self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             return self;
         }
@@ -859,23 +847,31 @@
             validatable: true
         });
 
+       function createStep(newStep) {
+           let self = this;
+
+           self.Description = ko.observable(newStep.Description).extend({
+               required: {
+                   message: '@StepRequiredErrorMessage'
+               },
+               minLength: {
+                   message: '@StepDescriptionRangeErrorMessage',
+                   params: '@StepDescriptionMinLength'
+               },
+               maxLength: {
+                   message: '@StepDescriptionRangeErrorMessage',
+                   params: '@StepDescriptionMaxLength'
+               },
+               validatable: true,
+           });
+
+            //self.errors = ko.validation.group(self, { deep: true, observable: true });
+
+            return self;
+        };
+
         self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
-            return {
-                Description: ko.observable(step.Description).extend({
-                    required: {
-                        message: '@StepRequiredErrorMessage'
-                    },
-                    minLength: {
-                        message: '@StepDescriptionRangeErrorMessage',
-                        params: '@StepDescriptionMinLength'
-                    },
-                    maxLength: {
-                        message: '@StepDescriptionRangeErrorMessage',
-                        params: '@StepDescriptionMaxLength'
-                    },
-                    validatable: true,
-                })
-            };
+            return new createStep(step);
         }));
 
         self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
@@ -883,25 +879,10 @@
         }));
 
         self.addStep = function () {
-            var newStep = {
-                Description: ko.observable('').extend({
-                    required: {
-                        message: '@StepRequiredErrorMessage'
-                    },
-                    minLength: {
-                        message: '@StepDescriptionRangeErrorMessage',
-                        params: '@StepDescriptionMinLength'
-                    },
-                    maxLength: {
-                        message: '@StepDescriptionRangeErrorMessage',
-                        params: '@StepDescriptionMaxLength'
-                    },
-                    validatable: true,
-                    deferValidation: true
-                })
-            };              
-
-            // Push the new step to the observableArray
+            let newStep = new createStep({
+                Description: '',
+            });
+            
             self.Steps.push(newStep);
         };
 
@@ -935,7 +916,7 @@
 
         self.submitForm = function () {
             // Validate the entire ViewModel
-            self.errors = ko.validation.group(self);
+            self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             console.log(self.errors());
             debugger;

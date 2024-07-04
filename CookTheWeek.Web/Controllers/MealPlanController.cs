@@ -194,7 +194,7 @@ namespace CookTheWeek.Web.Controllers
                 return RedirectToAction("Details", "MealPlan", new { id = id });
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully added to the Database!");
                 return BadRequest();
@@ -387,7 +387,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 await this.mealPlanService.EditAsync(userId, model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully edited!");
                 return BadRequest();
