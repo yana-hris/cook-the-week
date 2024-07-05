@@ -17,7 +17,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
-    using AngleSharp.Css.Dom;
 
     public class RecipeService : IRecipeService
     {
@@ -173,7 +172,7 @@
             this.dbContext.RecipesIngredients.RemoveRange(recipe.RecipesIngredients);
             recipe.RecipesIngredients.Clear();
 
-            // Add the new ingredients, ensuring no duplicates
+            // Add the new ingredients, ensuring no duplicates but ingredients with different measure and specs are new ingredients
             foreach (var ingredient in model.RecipeIngredients)
             {
                 int ingredientId = await this.dbContext.Ingredients
@@ -183,33 +182,27 @@
 
                 if (ingredientId != 0)
                 {
-                    RecipeIngredient?[] addedIngredientsWithCurrentId = recipe.RecipesIngredients
-                        .Where(ri => ri.IngredientId == ingredientId)
-                        .ToArray();
+                    bool isngredientWithMeasureAdded = recipe.RecipesIngredients
+                        .Any(ri => ri.IngredientId == ingredientId && 
+                             ri.MeasureId == ingredient.MeasureId);
 
-                    if (addedIngredientsWithCurrentId.Length > 0) 
+                    if (isngredientWithMeasureAdded)
                     {
-                        // If ingredient already exists, check if its measure is the same and just add Qty
-                        RecipeIngredient?[] addedIngredientsWithSameMeasure = addedIngredientsWithCurrentId
-                            .Where(i => i.MeasureId == ingredient.MeasureId)
-                            .ToArray();
+                        // Check if specs is the same and if yes update qty
+                        var ingredientWithSpecsAdded = recipe.RecipesIngredients
+                        .FirstOrDefault(ri => ri.IngredientId == ingredientId && 
+                                        ri.MeasureId == ingredient.MeasureId && 
+                                        ri.SpecificationId == ingredient.SpecificationId);
 
-                        if (addedIngredientsWithSameMeasure.Length > 0)
+                        if (ingredientWithSpecsAdded != null)
                         {
-                            // Check if specs is the same or null
-                            var existingIngredientSpecificationId = addedIngredientsWithSameMeasure
-                                .Where(i => i.SpecificationId == ingredient.SpecificationId)
-                                .FirstOrDefault();
-
-                            if (existingIngredientSpecificationId != null)
-                            {
-                                decimal newQty = ingredient.Qty.GetDecimalQtyValue() + existingIngredientSpecificationId.Qty;
-                                existingIngredientSpecificationId.Qty = newQty;
-                                continue;
-                            }
+                            decimal newQty = ingredient.Qty.GetDecimalQtyValue() + ingredientWithSpecsAdded.Qty;
+                            ingredientWithSpecsAdded.Qty = newQty;
+                            continue;
                         }
                     }
                     
+                    // Or alternatively create the new ingredient
                     recipe.RecipesIngredients.Add(new RecipeIngredient
                     {
                         IngredientId = ingredientId,
@@ -217,13 +210,10 @@
                         MeasureId = ingredient.MeasureId,
                         SpecificationId = ingredient.SpecificationId
                     });
-                   
                 }
             }
-
             // Save changes to the database
             await this.dbContext.SaveChangesAsync();
-
         }
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {

@@ -58,25 +58,24 @@
                     ProductServiceModel product = new ProductServiceModel()
                     {
                         Name = ri.Ingredient.Name,
+                        CategoryId = ri.Ingredient.CategoryId,
                         MeasureId = ri.MeasureId,
                         Qty = ri.Qty * servingSizeMultiplier,
-                        CategoryId = ri.Ingredient.CategoryId,
                         SpecificationId = ri.SpecificationId,
                     };
 
                     // Check if a product with the same measure is already added to the list, otherwise add it
                     if (products.Any(p => p.Name == product.Name &&
-                                     p.MeasureId == product.MeasureId))
+                                     p.MeasureId == product.MeasureId &&
+                                     p.SpecificationId == product.SpecificationId))
                     {  
-                        var existingProduct = products.First(p => p.Name == product.Name);
+                        var existingProduct = products
+                            .First(p => p.Name == product.Name && 
+                                        p.MeasureId == product.MeasureId && 
+                                        p.SpecificationId == product.SpecificationId);
 
-                        // check if the product has the same specification if any at all
-                        if ((product.SpecificationId.HasValue && existingProduct.SpecificationId.HasValue &&
-                            product.SpecificationId == existingProduct.SpecificationId) ||
-                            !product.SpecificationId.HasValue && !existingProduct.SpecificationId.HasValue)
-                        {
-                            existingProduct.Qty += product.Qty;
-                        }
+                        existingProduct.Qty += product.Qty;
+                       
                     }
                     else
                     {
