@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "20c7606c-18d8-40ad-872c-e85beddde4e4",
+                            ConcurrencyStamp = "8935623e-7e59-4015-aa24-3857ecc41d64",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAR0c6iG1NutYWbyCPiUyvUI8aaj5rHElKkxx72c6Phztwz/9G0isASlaunzmMO+vg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEeApQmo+RNN4w8DicZHcurh6VJ76eMkqv3Jlrtj0f5KlpEAVOoV0F7dRYJFGjpEfg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8951e365-2824-4ff9-8d46-4be8bd53266e",
+                            SecurityStamp = "aa1d2bf8-bfbc-499d-aba7-1c3ab1dfa13a",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "291ae3a1-76a8-40d8-8b07-d186d60942d1",
+                            ConcurrencyStamp = "bc0eacfa-cc82-4c90-9f1b-30af636bf977",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFwICC00u4Wt4dQ2mf58dkb3c2eHoTS/+B9Q6rHtIr0mzx7S+O0wT27IPB4I3HRDeg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ8U30RTzKpEBs2CPpIre7v2Cjpv8kxNufby3Z35sQoRCMTA5VfWBjdYo1Gm4lyp/A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "60e4d1a3-00f1-4365-b31e-44237ccbb3a1",
+                            SecurityStamp = "a93368d7-48ec-4507-9b3a-83c2293b4d3d",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         });
@@ -2244,9 +2244,12 @@ namespace CookTheWeek.Data.Migrations
 
             modelBuilder.Entity("CookTheWeek.Data.Models.RecipeIngredient", b =>
                 {
-                    b.Property<Guid>("RecipeId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Key Identifier for Recipe");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Unique Recipe Ingredient Key identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("IngredientId")
                         .HasColumnType("int")
@@ -2261,17 +2264,29 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("Quantity of Ingredient in Recipe");
 
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Key Identifier for Recipe");
+
                     b.Property<int?>("SpecificationId")
                         .HasColumnType("int")
-                        .HasComment("Specification Key Identifier");
+                        .HasComment("Key identifier for Specification");
 
-                    b.HasKey("RecipeId", "IngredientId");
+                    b.HasKey("Id");
 
                     b.HasIndex("IngredientId");
 
                     b.HasIndex("MeasureId");
 
                     b.HasIndex("SpecificationId");
+
+                    b.HasIndex("RecipeId", "IngredientId", "MeasureId")
+                        .IsUnique()
+                        .HasFilter("[SpecificationId] IS NULL");
+
+                    b.HasIndex("RecipeId", "IngredientId", "MeasureId", "SpecificationId")
+                        .IsUnique()
+                        .HasFilter("[SpecificationId] IS NOT NULL");
 
                     b.ToTable("RecipesIngredients", t =>
                         {
@@ -2281,540 +2296,616 @@ namespace CookTheWeek.Data.Migrations
                     b.HasData(
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 1,
                             IngredientId = 11,
                             MeasureId = 5,
-                            Qty = 500m
+                            Qty = 500m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 2,
                             IngredientId = 113,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 3,
                             IngredientId = 118,
                             MeasureId = 6,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 4,
                             IngredientId = 122,
                             MeasureId = 5,
-                            Qty = 250m
+                            Qty = 250m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 5,
                             IngredientId = 154,
                             MeasureId = 8,
-                            Qty = 3m
+                            Qty = 3m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 6,
                             IngredientId = 54,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 7,
                             IngredientId = 14,
                             MeasureId = 9,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 8,
                             IngredientId = 12,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 9,
                             IngredientId = 52,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
+                            Id = 10,
                             IngredientId = 53,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 11,
                             IngredientId = 1,
                             MeasureId = 5,
-                            Qty = 400m
+                            Qty = 400m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 12,
                             IngredientId = 118,
                             MeasureId = 1,
-                            Qty = 6m
+                            Qty = 6m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 13,
                             IngredientId = 71,
                             MeasureId = 1,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 14,
                             IngredientId = 113,
                             MeasureId = 1,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 15,
                             IngredientId = 114,
                             MeasureId = 1,
-                            Qty = 3m
+                            Qty = 3m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 16,
                             IngredientId = 154,
                             MeasureId = 8,
-                            Qty = 3m
+                            Qty = 3m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 17,
                             IngredientId = 64,
                             MeasureId = 10,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 18,
                             IngredientId = 52,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"),
+                            Id = 19,
                             IngredientId = 53,
                             MeasureId = 1,
-                            Qty = 10m
+                            Qty = 10m,
+                            RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 20,
                             IngredientId = 4,
                             MeasureId = 5,
-                            Qty = 600m
+                            Qty = 600m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 21,
                             IngredientId = 114,
                             MeasureId = 1,
-                            Qty = 3m
+                            Qty = 3m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 22,
                             IngredientId = 113,
                             MeasureId = 1,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 23,
                             IngredientId = 188,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 24,
                             IngredientId = 53,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 25,
                             IngredientId = 57,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 26,
                             IngredientId = 64,
                             MeasureId = 10,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 27,
                             IngredientId = 52,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 28,
                             IngredientId = 56,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 29,
                             IngredientId = 156,
                             MeasureId = 5,
-                            Qty = 150m
+                            Qty = 150m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 30,
                             IngredientId = 163,
                             MeasureId = 5,
-                            Qty = 250m
+                            Qty = 250m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
+                            Id = 31,
                             IngredientId = 154,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 32,
                             IngredientId = 2,
                             MeasureId = 5,
-                            Qty = 500m
+                            Qty = 500m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 33,
                             IngredientId = 127,
                             MeasureId = 1,
-                            Qty = 10m
+                            Qty = 10m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 34,
                             IngredientId = 114,
                             MeasureId = 1,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 35,
                             IngredientId = 122,
                             MeasureId = 1,
                             Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                             SpecificationId = 5
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 36,
                             IngredientId = 154,
                             MeasureId = 8,
-                            Qty = 4m
+                            Qty = 4m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 37,
                             IngredientId = 189,
                             MeasureId = 3,
-                            Qty = 160m
+                            Qty = 160m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 38,
                             IngredientId = 113,
                             MeasureId = 1,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 39,
                             IngredientId = 52,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 40,
                             IngredientId = 53,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 41,
                             IngredientId = 54,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                            Id = 42,
                             IngredientId = 188,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
-                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            Id = 43,
                             IngredientId = 14,
                             MeasureId = 9,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
-                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            Id = 44,
                             IngredientId = 135,
                             MeasureId = 9,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
-                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            Id = 45,
                             IngredientId = 198,
                             MeasureId = 9,
-                            Qty = 0.5m
+                            Qty = 0.5m,
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
-                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
+                            Id = 46,
                             IngredientId = 116,
                             MeasureId = 12,
                             Qty = 1m,
+                            RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
                             SpecificationId = 9
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 47,
                             IngredientId = 196,
                             MeasureId = 9,
-                            Qty = 0.5m
+                            Qty = 0.5m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 48,
                             IngredientId = 198,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 49,
                             IngredientId = 218,
                             MeasureId = 7,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 50,
                             IngredientId = 13,
                             MeasureId = 9,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 51,
                             IngredientId = 228,
                             MeasureId = 8,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
-                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                            Id = 52,
                             IngredientId = 229,
                             MeasureId = 8,
                             Qty = 2m,
+                            RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                             SpecificationId = 8
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 53,
                             IngredientId = 134,
                             MeasureId = 1,
-                            Qty = 0.5m
+                            Qty = 0.5m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 54,
                             IngredientId = 243,
                             MeasureId = 12,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 55,
                             IngredientId = 251,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 56,
                             IngredientId = 252,
                             MeasureId = 13,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 57,
                             IngredientId = 141,
                             MeasureId = 1,
                             Qty = 1m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                             SpecificationId = 10
                         },
                         new
                         {
-                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                            Id = 58,
                             IngredientId = 123,
                             MeasureId = 1,
-                            Qty = 6m
+                            Qty = 6m,
+                            RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 59,
                             IngredientId = 36,
                             MeasureId = 5,
-                            Qty = 500.00m
+                            Qty = 500.00m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 60,
                             IngredientId = 52,
                             MeasureId = 7,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 61,
                             IngredientId = 54,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 62,
                             IngredientId = 59,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 63,
                             IngredientId = 64,
                             MeasureId = 10,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 64,
                             IngredientId = 67,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 65,
                             IngredientId = 112,
                             MeasureId = 2,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 66,
                             IngredientId = 113,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 67,
                             IngredientId = 114,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 68,
                             IngredientId = 122,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 69,
                             IngredientId = 127,
                             MeasureId = 1,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
+                            Id = 70,
                             IngredientId = 188,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 71,
                             IngredientId = 116,
                             MeasureId = 7,
                             Qty = 2m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
                             SpecificationId = 5
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 72,
                             IngredientId = 155,
                             MeasureId = 8,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 73,
                             IngredientId = 165,
                             MeasureId = 3,
-                            Qty = 400.0m
+                            Qty = 400.0m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 74,
                             IngredientId = 222,
                             MeasureId = 9,
-                            Qty = 2m
+                            Qty = 2m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 75,
                             IngredientId = 83,
                             MeasureId = 6,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
-                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
+                            Id = 76,
                             IngredientId = 253,
                             MeasureId = 7,
-                            Qty = 1m
+                            Qty = 1m,
+                            RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         });
                 });
 
@@ -3434,9 +3525,9 @@ namespace CookTheWeek.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CookTheWeek.Data.Models.Measure", "Measure")
-                        .WithMany()
+                        .WithMany("RecipesIngredients")
                         .HasForeignKey("MeasureId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
@@ -3446,8 +3537,9 @@ namespace CookTheWeek.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CookTheWeek.Data.Models.Specification", "Specification")
-                        .WithMany()
-                        .HasForeignKey("SpecificationId");
+                        .WithMany("RecipesIngredients")
+                        .HasForeignKey("SpecificationId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Ingredient");
 
@@ -3544,6 +3636,11 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("Meals");
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.Measure", b =>
+                {
+                    b.Navigation("RecipesIngredients");
+                });
+
             modelBuilder.Entity("CookTheWeek.Data.Models.Recipe", b =>
                 {
                     b.Navigation("FavouriteRecipes");
@@ -3558,6 +3655,11 @@ namespace CookTheWeek.Data.Migrations
             modelBuilder.Entity("CookTheWeek.Data.Models.RecipeCategory", b =>
                 {
                     b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("CookTheWeek.Data.Models.Specification", b =>
+                {
+                    b.Navigation("RecipesIngredients");
                 });
 #pragma warning restore 612, 618
         }

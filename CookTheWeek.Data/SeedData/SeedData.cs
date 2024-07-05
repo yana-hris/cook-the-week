@@ -2260,322 +2260,412 @@
                 // Recipe By Admin (No. 1)
                 new()
                 {
+                    Id = 1,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 11,
                     Qty = 500,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 2,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 113,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 3,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 118,
                     Qty = 1,
-                    MeasureId = 6
+                    MeasureId = 6,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 4,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 122,
                     Qty = 250,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 5,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 154,
                     Qty = 3,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 6,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 54,
                     Qty = 1,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 7,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 14,
                     Qty = 1,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 8,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 12,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 9,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 52,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 10,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     IngredientId = 53,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 }, // Recipe By Admin (No. 2)                    
                 new()
                 {
+                    Id = 11,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 1,
                     Qty = 400,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 12,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 118,
                     Qty = 6,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 13,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 71,
                     Qty = 1,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 14,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 113,
                     Qty = 1,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 15,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 114,
                     Qty = 3,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 16,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 154,
                     Qty = 3,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 17,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 64,
                     Qty = 1,
-                    MeasureId = 10
+                    MeasureId = 10,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 18,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 52,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 19,
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     IngredientId = 53,
                     Qty = 10,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 }, // Recipe By Admin (No. 3)
                 new()
                 {
+                    Id = 20,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 4,
                     Qty = 600,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 21,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 114,
                     Qty = 3,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 22,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 113,
                     Qty = 1,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 23,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 188,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 24,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 53,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 25,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 57,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 26,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 64,
                     Qty = 1,
-                    MeasureId = 10
+                    MeasureId = 10,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 27,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 52,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 28,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 56,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 29,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 156,
                     Qty = 150,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 30,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 163,
                     Qty = 250,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 31,
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     IngredientId = 154,
                     Qty = 1,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },// Recipe By Admin (No. 4)
                 new()
                 {
+                    Id = 32,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 2,
                     Qty = 500,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 33,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 127,
                     Qty = 10,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 34,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 114,
                     Qty = 1,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 35,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 122,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = 5
+                    SpecificationId = 5,
                 },
                 new()
                 {
+                    Id = 36,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 154,
                     Qty = 4,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 37,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 189,
                     Qty = 160,
-                    MeasureId = 3
+                    MeasureId = 3,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 38,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 113,
                     Qty = 1,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 39,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 52,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 40,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 53,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 41,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 54,
                     Qty = 1,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 42,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     IngredientId = 188,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 }, // Recipe By Admin (No. 5)
                 new()
                 {
+                    Id = 43,
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 14,
                     Qty = 1,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 44,
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 135,
                     Qty = 1,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 45,
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 198,
                     Qty = 0.5m,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 46,
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     IngredientId = 116,
                     Qty = 1,
@@ -2584,41 +2674,52 @@
                 }, // Recipe By Admin (No. 6)
                 new()
                 {
+                    Id = 47,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 196,
                     Qty = 0.5m,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 48,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 198,
                     Qty = 1,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 49,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 218,
                     Qty = 2,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 50,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 13,
                     Qty = 1,
-                    MeasureId = 9
+                    MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 51,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 228,
                     Qty = 2,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 52,
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     IngredientId = 229,
                     Qty = 2,
@@ -2627,34 +2728,43 @@
                 }, // Recipe By Admin (No 7)
                 new()
                 {
+                    Id = 53,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 134,
                     Qty = 0.5m,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 54,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 243,
                     Qty = 1,
-                    MeasureId = 12
+                    MeasureId = 12,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 55,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 251,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 56,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 252,
                     Qty = 1,
-                    MeasureId = 13
+                    MeasureId = 13,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 57,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 141,
                     Qty = 1,
@@ -2663,97 +2773,124 @@
                 },
                 new()
                 {
+                    Id = 58,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     IngredientId = 123,
                     Qty = 6,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 }, // Recipe by AppUser (No 8)
                 new()
                 {
+                    Id = 59,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 36,
                     Qty = 500.00m,
-                    MeasureId = 5
+                    MeasureId = 5,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 60,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 52,
                     Qty = 2,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 61,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 54,
                     Qty = 1,
-                    MeasureId = 8
+                    MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 62,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 59,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 63,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 64,
                     Qty = 1,
-                    MeasureId = 10
+                    MeasureId = 10,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 64,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 67,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 65,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 112,
                     Qty = 1,
-                    MeasureId = 2
+                    MeasureId = 2,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 66,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 113,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 67,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 114,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 68,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 122,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 69,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 127,
                     Qty = 2,
-                    MeasureId = 1
+                    MeasureId = 1,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 70,
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     IngredientId = 188,
                     Qty = 1,
-                    MeasureId = 7
+                    MeasureId = 7,
+                    SpecificationId = null,
                 },// Recipe by AppUser (No 8)
                 new()
                 {
+                    Id = 71,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 116,
                     Qty = 2,
@@ -2762,38 +2899,48 @@
                 },
                 new()
                 {
+                    Id = 72,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 155,
                     Qty = 1,
                     MeasureId = 8,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 73,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 165,
                     Qty = 400.0m,
                     MeasureId = 3,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 74,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 222,
                     Qty = 2,
                     MeasureId = 9,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 75,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 83,
                     Qty = 1,
                     MeasureId = 6,
+                    SpecificationId = null,
                 },
                 new()
                 {
+                    Id = 76,
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     IngredientId = 253,
                     Qty = 1,
                     MeasureId = 7,
+                    SpecificationId = null,
                 },
             };
         }

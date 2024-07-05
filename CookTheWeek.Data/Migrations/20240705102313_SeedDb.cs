@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CookTheWeek.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedDatabase : Migration
+    public partial class SeedDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +18,8 @@ namespace CookTheWeek.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "15775793-09cc-4118-8e6c-f9c74171ba27", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAELC8RaayaXqFhRIZFcE7FejuRvGVy3oehrvtnTWaCyHvIhfWm3aMBi4pMy5DxIvEeA==", null, false, "b5a75f2f-22ba-4829-a86d-1d517e429119", false, "adminUser" },
-                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "e654d84b-1ba9-48b3-bc1e-b66d4d399e15", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAENvPJD2sGd0BWOUbRVDfmeUPdcG+kW7BU9OLQlJCb0/FM0krujwq1L5XE9r7G39ltg==", null, false, "d4ec94e0-3b35-4648-8569-fa18ff444bef", false, "appUser" }
+                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "8935623e-7e59-4015-aa24-3857ecc41d64", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAEEeApQmo+RNN4w8DicZHcurh6VJ76eMkqv3Jlrtj0f5KlpEAVOoV0F7dRYJFGjpEfg==", null, false, "aa1d2bf8-bfbc-499d-aba7-1c3ab1dfa13a", false, "adminUser" },
+                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "bc0eacfa-cc82-4c90-9f1b-30af636bf977", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAEJ8U30RTzKpEBs2CPpIre7v2Cjpv8kxNufby3Z35sQoRCMTA5VfWBjdYo1Gm4lyp/A==", null, false, "a93368d7-48ec-4507-9b3a-83c2293b4d3d", false, "appUser" }
                 });
 
             migrationBuilder.InsertData(
@@ -366,98 +366,98 @@ namespace CookTheWeek.Data.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "ImageUrl", "OwnerId", "Servings", "Title", "TotalTime" },
                 values: new object[,]
                 {
-                    { new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 4, "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ", "https://www.supichka.com/files/images/1242/fit_1400_933.jpg", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 8, "Moussaka", new TimeSpan(0, 2, 0, 0, 0) },
-                    { new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 1, "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!", "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 1, "Fruity Strawberry Smoothy", new TimeSpan(0, 0, 10, 0, 0) },
-                    { new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..", "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 1, "Avocado Toast", new TimeSpan(0, 0, 10, 0, 0) },
-                    { new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 2, "Classical easy and delicious chicken soup to keep you warm in the cold winter days.", "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 6, "Homemade Chicken Soup", new TimeSpan(0, 1, 0, 0, 0) },
-                    { new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 4, "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.", "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg", "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403", 8, "Beans stew", new TimeSpan(0, 2, 0, 0, 0) },
-                    { new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 2, "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.", "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg", "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403", 4, "Thai Pumpkin Cream Soup", new TimeSpan(0, 0, 40, 0, 0) },
-                    { new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 4, "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.", "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 4, "Beef Stew", new TimeSpan(0, 1, 30, 0, 0) },
-                    { new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 4, "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.", "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 8, "Stuffed red peppers with ground meat and rice", new TimeSpan(0, 2, 0, 0, 0) },
-                    { new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 1, "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.", "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1", "72ed6dd1-7c97-4af7-ab79-fc72e4a53b16", 2, "Overnight Oats (prepare the night beofre)", new TimeSpan(0, 0, 10, 0, 0) }
+                    { new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 4, "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ", "https://www.supichka.com/files/images/1242/fit_1400_933.jpg", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 8, "Moussaka", new TimeSpan(0, 2, 0, 0, 0) },
+                    { new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 1, "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!", "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 1, "Fruity Strawberry Smoothy", new TimeSpan(0, 0, 10, 0, 0) },
+                    { new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..", "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 1, "Avocado Toast", new TimeSpan(0, 0, 10, 0, 0) },
+                    { new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 2, "Classical easy and delicious chicken soup to keep you warm in the cold winter days.", "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 6, "Homemade Chicken Soup", new TimeSpan(0, 1, 0, 0, 0) },
+                    { new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 4, "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.", "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg", new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 8, "Beans stew", new TimeSpan(0, 2, 0, 0, 0) },
+                    { new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 2, "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.", "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg", new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 4, "Thai Pumpkin Cream Soup", new TimeSpan(0, 0, 40, 0, 0) },
+                    { new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 4, "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.", "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 4, "Beef Stew", new TimeSpan(0, 1, 30, 0, 0) },
+                    { new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 4, "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.", "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 8, "Stuffed red peppers with ground meat and rice", new TimeSpan(0, 2, 0, 0, 0) },
+                    { new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 1, "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.", "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1", new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 2, "Overnight Oats (prepare the night beofre)", new TimeSpan(0, 0, 10, 0, 0) }
                 });
 
             migrationBuilder.InsertData(
                 table: "RecipesIngredients",
-                columns: new[] { "IngredientId", "RecipeId", "MeasureId", "Qty", "SpecificationId" },
+                columns: new[] { "Id", "IngredientId", "MeasureId", "Qty", "RecipeId", "SpecificationId" },
                 values: new object[,]
                 {
-                    { 11, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 5, 500m, null },
-                    { 12, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 1, 2m, null },
-                    { 14, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 9, 1m, null },
-                    { 52, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 7, 1m, null },
-                    { 53, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 7, 1m, null },
-                    { 54, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 8, 1m, null },
-                    { 113, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 1, 2m, null },
-                    { 118, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 6, 1m, null },
-                    { 122, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 5, 250m, null },
-                    { 154, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 8, 3m, null },
-                    { 14, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 9, 1m, null },
-                    { 116, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 12, 1m, 9 },
-                    { 135, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 9, 1m, null },
-                    { 198, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 9, 0.5m, null },
-                    { 123, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, 6m, null },
-                    { 134, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, 0.5m, null },
-                    { 141, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, 1m, 10 },
-                    { 243, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 12, 1m, null },
-                    { 251, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 7, 1m, null },
-                    { 252, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 13, 1m, null },
-                    { 4, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 5, 600m, null },
-                    { 52, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 7, 1m, null },
-                    { 53, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 7, 1m, null },
-                    { 56, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 7, 1m, null },
-                    { 57, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 7, 1m, null },
-                    { 64, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 10, 1m, null },
-                    { 113, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 1, 1m, null },
-                    { 114, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 1, 3m, null },
-                    { 154, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 8, 1m, null },
-                    { 156, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 5, 150m, null },
-                    { 163, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 5, 250m, null },
-                    { 188, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 7, 1m, null },
-                    { 36, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 5, 500.00m, null },
-                    { 52, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 7, 2m, null },
-                    { 54, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 8, 1m, null },
-                    { 59, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 7, 1m, null },
-                    { 64, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 10, 1m, null },
-                    { 67, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 7, 1m, null },
-                    { 112, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 2, 1m, null },
-                    { 113, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 1, 2m, null },
-                    { 114, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 1, 2m, null },
-                    { 122, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 1, 2m, null },
-                    { 127, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 1, 2m, null },
-                    { 188, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 7, 1m, null },
-                    { 83, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 6, 1m, null },
-                    { 116, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 7, 2m, 5 },
-                    { 155, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 8, 1m, null },
-                    { 165, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 3, 400.0m, null },
-                    { 222, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 9, 2m, null },
-                    { 253, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 7, 1m, null },
-                    { 1, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 5, 400m, null },
-                    { 52, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 7, 1m, null },
-                    { 53, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 1, 10m, null },
-                    { 64, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 10, 1m, null },
-                    { 71, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 1, 1m, null },
-                    { 113, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 1, 1m, null },
-                    { 114, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 1, 3m, null },
-                    { 118, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 1, 6m, null },
-                    { 154, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 8, 3m, null },
-                    { 2, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 5, 500m, null },
-                    { 52, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 7, 1m, null },
-                    { 53, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 7, 1m, null },
-                    { 54, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 8, 1m, null },
-                    { 113, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 1, 1m, null },
-                    { 114, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 1, 1m, null },
-                    { 122, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 1, 1m, 5 },
-                    { 127, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 1, 10m, null },
-                    { 154, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 8, 4m, null },
-                    { 188, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 7, 1m, null },
-                    { 189, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 3, 160m, null },
-                    { 13, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 9, 1m, null },
-                    { 196, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 9, 0.5m, null },
-                    { 198, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 8, 1m, null },
-                    { 218, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 7, 2m, null },
-                    { 228, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 8, 2m, null },
-                    { 229, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 8, 2m, 8 }
+                    { 1, 11, 5, 500m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 2, 113, 1, 2m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 3, 118, 6, 1m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 4, 122, 5, 250m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 5, 154, 8, 3m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 6, 54, 8, 1m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 7, 14, 9, 1m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 8, 12, 1, 2m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 9, 52, 7, 1m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 10, 53, 7, 1m, new Guid("11112341-30e4-473f-b93a-d0352b978a84"), null },
+                    { 11, 1, 5, 400m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 12, 118, 1, 6m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 13, 71, 1, 1m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 14, 113, 1, 1m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 15, 114, 1, 3m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 16, 154, 8, 3m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 17, 64, 10, 1m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 18, 52, 7, 1m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 19, 53, 1, 10m, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), null },
+                    { 20, 4, 5, 600m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 21, 114, 1, 3m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 22, 113, 1, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 23, 188, 7, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 24, 53, 7, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 25, 57, 7, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 26, 64, 10, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 27, 52, 7, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 28, 56, 7, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 29, 156, 5, 150m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 30, 163, 5, 250m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 31, 154, 8, 1m, new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), null },
+                    { 32, 2, 5, 500m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 33, 127, 1, 10m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 34, 114, 1, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 35, 122, 1, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 5 },
+                    { 36, 154, 8, 4m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 37, 189, 3, 160m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 38, 113, 1, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 39, 52, 7, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 40, 53, 7, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 41, 54, 8, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 42, 188, 7, 1m, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), null },
+                    { 43, 14, 9, 1m, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), null },
+                    { 44, 135, 9, 1m, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), null },
+                    { 45, 198, 9, 0.5m, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), null },
+                    { 46, 116, 12, 1m, new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 9 },
+                    { 47, 196, 9, 0.5m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), null },
+                    { 48, 198, 8, 1m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), null },
+                    { 49, 218, 7, 2m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), null },
+                    { 50, 13, 9, 1m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), null },
+                    { 51, 228, 8, 2m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), null },
+                    { 52, 229, 8, 2m, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 8 },
+                    { 53, 134, 1, 0.5m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), null },
+                    { 54, 243, 12, 1m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), null },
+                    { 55, 251, 7, 1m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), null },
+                    { 56, 252, 13, 1m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), null },
+                    { 57, 141, 1, 1m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 10 },
+                    { 58, 123, 1, 6m, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), null },
+                    { 59, 36, 5, 500.00m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 60, 52, 7, 2m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 61, 54, 8, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 62, 59, 7, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 63, 64, 10, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 64, 67, 7, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 65, 112, 2, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 66, 113, 1, 2m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 67, 114, 1, 2m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 68, 122, 1, 2m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 69, 127, 1, 2m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 70, 188, 7, 1m, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), null },
+                    { 71, 116, 7, 2m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 5 },
+                    { 72, 155, 8, 1m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), null },
+                    { 73, 165, 3, 400.0m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), null },
+                    { 74, 222, 9, 2m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), null },
+                    { 75, 83, 6, 1m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), null },
+                    { 76, 253, 7, 1m, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), null }
                 });
 
             migrationBuilder.InsertData(
@@ -518,16 +518,6 @@ namespace CookTheWeek.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "AspNetUsers",
-                keyColumn: "Id",
-                keyValue: new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"));
-
-            migrationBuilder.DeleteData(
-                table: "AspNetUsers",
-                keyColumn: "Id",
-                keyValue: new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"));
-
             migrationBuilder.DeleteData(
                 table: "Ingredients",
                 keyColumn: "Id",
@@ -1630,383 +1620,383 @@ namespace CookTheWeek.Data.Migrations
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 11, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 1);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 12, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 2);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 14, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 3);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 52, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 4);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 53, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 5);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 54, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 6);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 113, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 7);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 118, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 8);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 122, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 9);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 154, new Guid("11112341-30e4-473f-b93a-d0352b978a84") });
+                keyColumn: "Id",
+                keyValue: 10);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 14, new Guid("115e248e-3165-425d-aec6-5dda97c99be4") });
+                keyColumn: "Id",
+                keyValue: 11);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 116, new Guid("115e248e-3165-425d-aec6-5dda97c99be4") });
+                keyColumn: "Id",
+                keyValue: 12);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 135, new Guid("115e248e-3165-425d-aec6-5dda97c99be4") });
+                keyColumn: "Id",
+                keyValue: 13);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 198, new Guid("115e248e-3165-425d-aec6-5dda97c99be4") });
+                keyColumn: "Id",
+                keyValue: 14);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 123, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 15);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 134, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 16);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 141, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 17);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 243, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 18);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 251, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 19);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 252, new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b") });
+                keyColumn: "Id",
+                keyValue: 20);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 4, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 21);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 52, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 22);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 53, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 23);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 56, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 24);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 57, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 25);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 64, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 26);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 113, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 27);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 114, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 28);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 154, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 29);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 156, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 30);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 163, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 31);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 188, new Guid("25c6718c-b53b-4092-9454-d6999355f12d") });
+                keyColumn: "Id",
+                keyValue: 32);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 36, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 33);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 52, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 34);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 54, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 35);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 59, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 36);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 64, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 37);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 67, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 38);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 112, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 39);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 113, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 40);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 114, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 41);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 122, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 42);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 127, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 43);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 188, new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531") });
+                keyColumn: "Id",
+                keyValue: 44);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 83, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 45);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 116, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 46);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 155, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 47);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 165, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 48);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 222, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 49);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 253, new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b") });
+                keyColumn: "Id",
+                keyValue: 50);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 1, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 51);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 52, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 52);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 53, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 53);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 64, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 54);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 71, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 55);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 113, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 56);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 114, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 57);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 118, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 58);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 154, new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8") });
+                keyColumn: "Id",
+                keyValue: 59);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 2, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 60);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 52, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 61);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 53, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 62);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 54, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 63);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 113, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 64);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 114, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 65);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 122, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 66);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 127, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 67);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 154, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 68);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 188, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 69);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 189, new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb") });
+                keyColumn: "Id",
+                keyValue: 70);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 13, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 71);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 196, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 72);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 198, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 73);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 218, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 74);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 228, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 75);
 
             migrationBuilder.DeleteData(
                 table: "RecipesIngredients",
-                keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { 229, new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14") });
+                keyColumn: "Id",
+                keyValue: 76);
 
             migrationBuilder.DeleteData(
                 table: "Specifications",
@@ -2642,6 +2632,16 @@ namespace CookTheWeek.Data.Migrations
                 table: "Specifications",
                 keyColumn: "Id",
                 keyValue: 10);
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"));
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"));
 
             migrationBuilder.DeleteData(
                 table: "IngredientCategories",

@@ -9,6 +9,11 @@
     [Comment("Specification of Recipe-Ingredient")]
     public class Specification
     {
+        public Specification()
+        {
+            this.RecipesIngredients = new List<RecipeIngredient>();
+        }
+
         [Comment("Key Identifier")]
         [Key]
         public int Id { get; set; }
@@ -17,5 +22,8 @@
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
+        [Comment("A collection of Recipe Ingredients with Specification")]
+        public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
     }
 }

@@ -261,7 +261,7 @@ namespace CookTheWeek.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Key Indetifier"),
-                    OwnerId = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Recipe Creator"),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Recipe Creator"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Recipe Title"),
                     Description = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: true, comment: "Recipe Description"),
                     Servings = table.Column<int>(type: "int", nullable: false, comment: "Recipe Serving Size"),
@@ -274,6 +274,12 @@ namespace CookTheWeek.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recipes_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Recipes_RecipeCategories_CategoryId",
                         column: x => x.CategoryId,
@@ -342,15 +348,17 @@ namespace CookTheWeek.Data.Migrations
                 name: "RecipesIngredients",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Unique Recipe Ingredient Key identifier")
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Key Identifier for Recipe"),
                     IngredientId = table.Column<int>(type: "int", nullable: false, comment: "Key Identifier for Ingredient"),
                     Qty = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false, comment: "Quantity of Ingredient in Recipe"),
                     MeasureId = table.Column<int>(type: "int", nullable: false, comment: "Measure Key Identifier"),
-                    SpecificationId = table.Column<int>(type: "int", nullable: true, comment: "Specification Key Identifier")
+                    SpecificationId = table.Column<int>(type: "int", nullable: true, comment: "Key identifier for Specification")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipesIngredients", x => new { x.RecipeId, x.IngredientId });
+                    table.PrimaryKey("PK_RecipesIngredients", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RecipesIngredients_Ingredients_IngredientId",
                         column: x => x.IngredientId,
@@ -362,7 +370,7 @@ namespace CookTheWeek.Data.Migrations
                         column: x => x.MeasureId,
                         principalTable: "Measures",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RecipesIngredients_Recipes_RecipeId",
                         column: x => x.RecipeId,
@@ -373,7 +381,8 @@ namespace CookTheWeek.Data.Migrations
                         name: "FK_RecipesIngredients_Specifications_SpecificationId",
                         column: x => x.SpecificationId,
                         principalTable: "Specifications",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 },
                 comment: "Recipe Ingredient");
 
@@ -468,6 +477,11 @@ namespace CookTheWeek.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Recipes_OwnerId",
+                table: "Recipes",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipesIngredients_IngredientId",
                 table: "RecipesIngredients",
                 column: "IngredientId");
@@ -476,6 +490,20 @@ namespace CookTheWeek.Data.Migrations
                 name: "IX_RecipesIngredients_MeasureId",
                 table: "RecipesIngredients",
                 column: "MeasureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipesIngredients_RecipeId_IngredientId_MeasureId",
+                table: "RecipesIngredients",
+                columns: new[] { "RecipeId", "IngredientId", "MeasureId" },
+                unique: true,
+                filter: "[SpecificationId] IS NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipesIngredients_RecipeId_IngredientId_MeasureId_SpecificationId",
+                table: "RecipesIngredients",
+                columns: new[] { "RecipeId", "IngredientId", "MeasureId", "SpecificationId" },
+                unique: true,
+                filter: "[SpecificationId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecipesIngredients_SpecificationId",
@@ -537,10 +565,10 @@ namespace CookTheWeek.Data.Migrations
                 name: "Recipes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "IngredientCategories");
 
             migrationBuilder.DropTable(
-                name: "IngredientCategories");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "RecipeCategories");

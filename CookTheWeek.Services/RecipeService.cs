@@ -17,6 +17,7 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+    using AngleSharp.Css.Dom;
 
     public class RecipeService : IRecipeService
     {
@@ -182,16 +183,41 @@
 
                 if (ingredientId != 0)
                 {
-                    if (!recipe.RecipesIngredients.Any(ri => ri.IngredientId == ingredientId))
+                    RecipeIngredient?[] addedIngredientsWithCurrentId = recipe.RecipesIngredients
+                        .Where(ri => ri.IngredientId == ingredientId)
+                        .ToArray();
+
+                    if (addedIngredientsWithCurrentId.Length > 0) 
                     {
-                        recipe.RecipesIngredients.Add(new RecipeIngredient
+                        // If ingredient already exists, check if its measure is the same and just add Qty
+                        RecipeIngredient?[] addedIngredientsWithSameMeasure = addedIngredientsWithCurrentId
+                            .Where(i => i.MeasureId == ingredient.MeasureId)
+                            .ToArray();
+
+                        if (addedIngredientsWithSameMeasure.Length > 0)
                         {
-                            IngredientId = ingredientId,
-                            Qty = ingredient.Qty.GetDecimalQtyValue(),
-                            MeasureId = ingredient.MeasureId,
-                            SpecificationId = ingredient.SpecificationId
-                        });
+                            // Check if specs is the same or null
+                            var existingIngredientSpecificationId = addedIngredientsWithSameMeasure
+                                .Where(i => i.SpecificationId == ingredient.SpecificationId)
+                                .FirstOrDefault();
+
+                            if (existingIngredientSpecificationId != null)
+                            {
+                                decimal newQty = ingredient.Qty.GetDecimalQtyValue() + existingIngredientSpecificationId.Qty;
+                                existingIngredientSpecificationId.Qty = newQty;
+                                continue;
+                            }
+                        }
                     }
+                    
+                    recipe.RecipesIngredients.Add(new RecipeIngredient
+                    {
+                        IngredientId = ingredientId,
+                        Qty = ingredient.Qty.GetDecimalQtyValue(),
+                        MeasureId = ingredient.MeasureId,
+                        SpecificationId = ingredient.SpecificationId
+                    });
+                   
                 }
             }
 

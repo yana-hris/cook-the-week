@@ -8,6 +8,10 @@
     [Comment("Recipe Ingredient")]
     public class RecipeIngredient
     {
+        [Key]// Surrogate key
+        [Comment("Unique Recipe Ingredient Key identifier")]
+        public int Id { get; set; } 
+
         [Comment("Key Identifier for Recipe")]
         [ForeignKey(nameof(Recipe))]
         [Required]
@@ -37,11 +41,8 @@
         [Comment("Measure")]
         [Required]
         public Measure Measure { get; set; } = null!;
-
-        /// <summary>
-        /// "Special condition for this ingredient in this recipe, e.g. frozen, canned, sliced, etc.")
-        /// </summary>
-        [Comment("Specification Key Identifier")]
+        
+        [Comment("Key identifier for Specification")]
         [ForeignKey(nameof(Specification))]
         public int? SpecificationId { get; set; }
 
