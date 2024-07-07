@@ -1,9 +1,9 @@
-﻿.container {
+﻿.container-xl {
   max-width: 1200px !important;
   margin: 0 auto;
   padding: 0 20px;
 }
-.container #steps-container {
+.container-xl #steps-container {
   display: grid;
   padding: 1rem;
   grid-template-columns: repeat(2, 1fr);
@@ -13,36 +13,36 @@
   margin-top: 2.4rem;
   align-items: center;
 }
-.container #steps-container .step-text-box .step-number {
+.container-xl #steps-container .step-text-box .step-number {
   font-size: 6rem;
   font-weight: 700;
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.container #steps-container .step-text-box .heading-tertiary {
+.container-xl #steps-container .step-text-box .heading-tertiary {
   font-size: 2rem;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.35px;
   margin-bottom: 0.5rem;
 }
-.container #steps-container .step-text-box .step-decsription {
+.container-xl #steps-container .step-text-box .step-decsription {
   font-size: 2rem;
   line-height: 2;
   font-weight: 400;
 }
-.container #steps-container .step-img-box {
+.container-xl #steps-container .step-img-box {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.container #steps-container .step-img-box .step-img {
+.container-xl #steps-container .step-img-box .step-img {
   width: 35%;
   z-index: 10;
 }
-.container #steps-container .step-img-box::before,
-.container #steps-container .step-img-box::after {
+.container-xl #steps-container .step-img-box::before,
+.container-xl #steps-container .step-img-box::after {
   content: "";
   display: block;
   border-radius: 50%;
@@ -51,19 +51,19 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.container #steps-container .step-img-box::before {
+.container-xl #steps-container .step-img-box::before {
   width: 60%;
   padding-bottom: 60%;
   background-color: #fbe2b4;
   z-index: -2;
 }
-.container #steps-container .step-img-box::after {
+.container-xl #steps-container .step-img-box::after {
   width: 45%;
   padding-bottom: 45%;
   background-color: #f7c569;
   z-index: -1;
 }
-.container #steps-container:last-child {
+.container-xl #steps-container:last-child {
   margin-bottom: 0;
 }
 

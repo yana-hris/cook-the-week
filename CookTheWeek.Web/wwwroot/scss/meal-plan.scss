@@ -140,7 +140,7 @@
         .inner-padding.statistics-list {
             padding: 20px 30px !important;
             border-radius: 8px;
-            background-color: var(--bs-light);
+            background-color: var(--bs-success);
             color: var(--bs-primary);
 
             .statistics {
@@ -153,12 +153,7 @@
                 font-weight: 400;
                 font-style: italic;
             }
-        }
-
-        .btn {
-            padding: 0.75rem 1.2rem;
-            font-size: larger;
-        }
+        }        
     }
 }
 

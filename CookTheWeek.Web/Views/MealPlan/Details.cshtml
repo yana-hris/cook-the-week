@@ -107,17 +107,19 @@
     {
         <div class="row">
             <div class="col d-flex justify-content-between align-middle">
-                <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@Model.Id" class="btn btn-primary btn-block">Shopping List</a>
+                <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@Model.Id" class="btn btn-primary card-btn-width">
+                    <i class="fas fa-shopping-basket"></i>&nbsp;List
+                </a>
                 <div class="d-flex gap-2">
                 @if (Model.IsFinished)
                 {
-                    <a class="btn btn-success btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">Build Again</a>
+                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">Build Again</a>
                 }
                 else
                 {
-                    <a class="btn btn-outline-danger btn-block btn-lg" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                 }
-                <a id="removeBtn" class="btn btn-danger btn-block">Remove</a>
+                <a id="removeBtn" class="btn btn-danger card-btn-width">Remove</a>
                 </div>
             </div>
         </div>
