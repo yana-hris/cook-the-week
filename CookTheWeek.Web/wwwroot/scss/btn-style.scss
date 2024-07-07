@@ -1,6 +1,11 @@
 ﻿html {
 
     #main-container {
+        .card-btn-width {
+            display:inline-block;
+            width: 120px;
+        }
+
         .btn-primary {
             color: #fff;
 
@@ -9,6 +14,17 @@
                 color: var(--bs-primary);
             }
         }
+
+        .btn-secondary {
+            color: var(--bs-primary);
+            background-color: var(--bs-success);
+        }
+
+        .btn-secondary:hover {
+            color: var(--bs-white);
+            //background-color: var(--bs-success);
+        }
+
         // Rules for all icon btns
         #build-btn-container, .fixed-size-btn, .back-button, .remove-btn {
             display: flex;
@@ -30,10 +46,10 @@
             width: 42px;
             font-size: 24px;
         }
-        
+
         .back-button:hover {
-            background-color: var(--bs-primary);
-            color: #fff;
+            background-color: var(--bs-success);
+            color: var(--bs-primary);
         }
 
         .remove-btn {

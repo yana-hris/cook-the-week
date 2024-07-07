@@ -285,12 +285,23 @@ html body nav.fixed-bottom {
     top: 60px;
   }
 }
+html #main-container .card-btn-width {
+  display: inline-block;
+  width: 120px;
+}
 html #main-container .btn-primary {
   color: #fff;
 }
 html #main-container .btn-primary:hover {
   background-color: #fff;
   color: var(--bs-primary);
+}
+html #main-container .btn-secondary {
+  color: var(--bs-primary);
+  background-color: var(--bs-success);
+}
+html #main-container .btn-secondary:hover {
+  color: var(--bs-white);
 }
 html #main-container #build-btn-container, html #main-container .fixed-size-btn, html #main-container .back-button, html #main-container .remove-btn {
   display: flex;
@@ -311,8 +322,8 @@ html #main-container .fixed-size-btn {
   font-size: 24px;
 }
 html #main-container .back-button:hover {
-  background-color: var(--bs-primary);
-  color: #fff;
+  background-color: var(--bs-success);
+  color: var(--bs-primary);
 }
 html #main-container .remove-btn {
   height: 32px;
@@ -498,7 +509,7 @@ html .not-finished {
   padding-left: 1.5rem;
   margin-right: auto;
   margin-left: auto;
-  max-width: 1000px;
+  max-width: 1040px;
 }
 
 .card-container {
@@ -507,7 +518,7 @@ html .not-finished {
   padding-left: 1.5rem;
   margin-right: auto;
   margin-left: auto;
-  max-width: 800px;
+  max-width: 860px;
 }
 
 [data-bs-theme=light] {
@@ -964,7 +975,7 @@ html .not-finished {
 #recipe-details-container .card .card-body .img-container, #meal-cook-container .card .card-body .img-container {
   position: relative;
   height: 300px;
-  max-width: 560px;
+  max-width: 592px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -979,7 +990,7 @@ html .not-finished {
   transition: transform 0.3s ease;
 }
 #recipe-details-container .card .card-body .img-container .image:hover, #meal-cook-container .card .card-body .img-container .image:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   position: absolute;
@@ -1006,7 +1017,11 @@ html .not-finished {
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
   margin-bottom: 20px;
-  font-weight: 300;
+  font-weight: 400;
+}
+#recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
+  font-size: 14px;
+  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
@@ -1019,12 +1034,12 @@ html .not-finished {
 #recipe-details-container .card .card-body #instructions .step-number, #meal-cook-container .card .card-body #instructions .step-number {
   width: 35px;
   height: 35px;
-  background-color: var(--bs-primary);
+  background-color: var(--bs-success);
   border-radius: 8px;
   text-align: center;
   line-height: 35px;
   font-size: 18px;
-  color: #fff;
+  color: var(--bs-primary);
 }
 #recipe-details-container .card .card-footer .card-btn, #meal-cook-container .card .card-footer .card-btn {
   font-size: 16px;
@@ -1038,13 +1053,13 @@ html .not-finished {
     font-size: 18px;
   }
 }
-@media (min-width: 576px) {
-  #recipe-details-container, #meal-cook-container {
-    max-width: 940px !important;
-    margin: 0 auto;
-    padding: 0 !important;
-  }
-}
+/*@media (min-width: 576px) {
+    #recipe-details-container, #meal-cook-container {
+        max-width: 940px !important;
+        margin: 0 auto;
+        padding: 0 !important;
+    }
+}*/
 #add-mealplan, #details-mealplan, #edit-mealplan {
   padding-top: 20px !important;
   margin-top: -10px;

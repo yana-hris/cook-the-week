@@ -34,11 +34,9 @@
 
             .img-container {
                 position: relative;
-
                 height: 300px;
-                max-width: 560px;
+                max-width: 592px;
                 border-radius: 10px;
-
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -53,7 +51,7 @@
                 }
 
                 .image:hover {
-                    transform: scale(1.03);
+                    transform: scale(1.02);
                 }
 
                 .add-to-favourites-button {
@@ -89,7 +87,12 @@
             .recipe-description, .meal-description {
                 margin-top: 10px;
                 margin-bottom: 20px;
-                font-weight: 300;
+                font-weight: 400;
+            }
+
+            .list-item-style {
+                font-size: 14px;
+                font-family: "Libre Baskerville", serif;
             }
 
             .ingredient-heading {
@@ -108,12 +111,12 @@
                 .step-number {
                     width: 35px;
                     height: 35px;
-                    background-color: var(--bs-primary);
+                    background-color: var(--bs-success);
                     border-radius: 8px;
                     text-align: center;
                     line-height: 35px;
                     font-size: 18px;
-                    color: #fff;
+                    color: var(--bs-primary);
                 }
             }
         }
@@ -139,13 +142,13 @@
     }
 }
 
-@media (min-width: 576px) {
+/*@media (min-width: 576px) {
     #recipe-details-container, #meal-cook-container {
         max-width: 940px !important;
         margin: 0 auto;
         padding: 0 !important;
     }
-}
+}*/
 
 
 

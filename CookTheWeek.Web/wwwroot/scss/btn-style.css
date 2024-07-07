@@ -1,9 +1,20 @@
-﻿html #main-container .btn-primary {
+﻿html #main-container .card-btn-width {
+  display: inline-block;
+  width: 120px;
+}
+html #main-container .btn-primary {
   color: #fff;
 }
 html #main-container .btn-primary:hover {
   background-color: #fff;
   color: var(--bs-primary);
+}
+html #main-container .btn-secondary {
+  color: var(--bs-primary);
+  background-color: var(--bs-success);
+}
+html #main-container .btn-secondary:hover {
+  color: var(--bs-white);
 }
 html #main-container #build-btn-container, html #main-container .fixed-size-btn, html #main-container .back-button, html #main-container .remove-btn {
   display: flex;
@@ -24,8 +35,8 @@ html #main-container .fixed-size-btn {
   font-size: 24px;
 }
 html #main-container .back-button:hover {
-  background-color: var(--bs-primary);
-  color: #fff;
+  background-color: var(--bs-success);
+  color: var(--bs-primary);
 }
 html #main-container .remove-btn {
   height: 32px;

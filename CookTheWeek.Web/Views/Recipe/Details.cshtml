@@ -18,7 +18,7 @@
     };
 }
 
-<div id="recipe-details-container">    
+<div id="recipe-details-container" class="card-container">    
     <partial name="_HeadingPartial" model="headingModel"/>
     <div class="card">
         <div class="card-header">
@@ -33,13 +33,8 @@
         <div class="card-body p-4 d-md-grid" id="recipe-details">
             <div id="info-content" class="tab-content g-3">
                 <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                    <div class="row">
-                        <div class="col">
-                            <h3 class="recipe-title">@Model.Title</h3>
-                        </div>
-                    </div>
                     <div class="row g-3">
-                        <div class="col col col-sm-8 img-container">
+                        <div class="col col col-md-8 img-container">
                             <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
                             @if(!isOwner){
                                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
@@ -66,29 +61,29 @@
                                 </div>
                             }                           
                         </div>
-                        <div class="col col-12 col-sm-4">
+                        <div class="col col-12 col-md-4">
                             <ul class="list-group">
-                                <li class="list-group-item">
+                                <li class="list-group-item list-item-style">
                                     <i class="fa-solid fa-utensils"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@Model.Servings Serving(s)</span>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item list-item-style">
                                     <i class="fa-solid fa-clock"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")@(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + " min" : "")</span>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item list-item-style">
                                     <i class="fas fa-tag"></i>
                                     <span>&nbsp;&nbsp;&nbsp;@Model.CategoryName</span>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item list-item-style">
                                     <i class="fa fa-archive" aria-hidden="true"></i>
-                                    <span>&nbsp;&nbsp;&nbsp;Created&nbsp;on:&nbsp;@Model.CreatedOn</span>
+                                    <span>&nbsp;&nbsp;&nbsp;Created:&nbsp;@Model.CreatedOn</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="row g-3 pt-2">
-                        <div class="col col-12 col-sm-8">
+                        <div class="col col-12 col-md-8">
                             <p class="recipe-description">@Model.Description</p>
                         </div>                              
                     </div>
@@ -199,9 +194,9 @@
          <div class="card-footer">
             <div class="col text-center pt-3 pb-2">
                 <div class="buttons d-flex gap-2 align-items-center justify-content-center">
-                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-center card-btn" type="button">
+                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary car-btn-width text-center card-btn" type="button">
                         Edit
-                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger text-center card-btn" type="button">
+                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger text-center card-btn-width card-btn" type="button">
                         Delete
                     </a>
                 </div>

@@ -23,7 +23,7 @@
 #recipe-details-container .card .card-body .img-container, #meal-cook-container .card .card-body .img-container {
   position: relative;
   height: 300px;
-  max-width: 560px;
+  max-width: 592px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -38,7 +38,7 @@
   transition: transform 0.3s ease;
 }
 #recipe-details-container .card .card-body .img-container .image:hover, #meal-cook-container .card .card-body .img-container .image:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   position: absolute;
@@ -65,7 +65,11 @@
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
   margin-bottom: 20px;
-  font-weight: 300;
+  font-weight: 400;
+}
+#recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
+  font-size: 14px;
+  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
@@ -78,12 +82,12 @@
 #recipe-details-container .card .card-body #instructions .step-number, #meal-cook-container .card .card-body #instructions .step-number {
   width: 35px;
   height: 35px;
-  background-color: var(--bs-primary);
+  background-color: var(--bs-success);
   border-radius: 8px;
   text-align: center;
   line-height: 35px;
   font-size: 18px;
-  color: #fff;
+  color: var(--bs-primary);
 }
 #recipe-details-container .card .card-footer .card-btn, #meal-cook-container .card .card-footer .card-btn {
   font-size: 16px;
@@ -97,10 +101,10 @@
     font-size: 18px;
   }
 }
-@media (min-width: 576px) {
-  #recipe-details-container, #meal-cook-container {
-    max-width: 940px !important;
-    margin: 0 auto;
-    padding: 0 !important;
-  }
-}
+/*@media (min-width: 576px) {
+    #recipe-details-container, #meal-cook-container {
+        max-width: 940px !important;
+        margin: 0 auto;
+        padding: 0 !important;
+    }
+}*/

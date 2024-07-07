@@ -23,13 +23,13 @@
 .list-container {
     @include make-container();
 
-    max-width: 1000px;
+    max-width: 1040px;
 }
 
 .card-container {
     @include make-container();
 
-    max-width: 800px;
+    max-width: 860px;
 }
 
 [data-bs-theme="light"] {
