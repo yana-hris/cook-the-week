@@ -18,6 +18,7 @@ html #main-container .btn-secondary {
 }
 html #main-container .btn-secondary:hover {
   color: var(--bs-white);
+  border: none;
 }
 html #main-container .btn-danger:hover {
   color: var(--bs-danger);

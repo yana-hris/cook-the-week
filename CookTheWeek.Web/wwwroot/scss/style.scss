@@ -20,6 +20,12 @@
 }
 
 // Custom containers
+.wide-contents-container {
+    @include make-container();
+
+    max-width: 1240px;
+}
+
 .list-container {
     @include make-container();
 

@@ -1,5 +1,4 @@
-﻿.container-xl {
-    max-width: 1200px;
+﻿.wide-contents-container{
 
     .recipe-container {
         display: flex;
@@ -81,7 +80,7 @@
 }
 
 @media (max-width: 573px) {
-    .container-xl {
+    .wide-contents-container {
         padding: 0 40px !important;
     }
 }
