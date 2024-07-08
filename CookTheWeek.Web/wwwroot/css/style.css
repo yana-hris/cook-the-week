@@ -143,6 +143,9 @@ html body nav.fixed-bottom {
 #navigation #nav-container {
   padding: 8px 40px 10px 40px;
   max-width: 100% !important;
+  /* Navigation Btn */
+  /* State when the navbar is collapsed */
+  /* End of Nav Btn */
 }
 #navigation #nav-container .navbar-brand:hover {
   color: var(--bs-navbar-hover-color);
@@ -187,6 +190,67 @@ html body nav.fixed-bottom {
   color: var(--bs-white) !important;
   border-color: var(--bs-dark) !important;
   transition: 0.5s;
+}
+#navigation #nav-container .navbar-toggler {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  transition: 0.5s ease-in-out;
+  /* when navigation is clicked */
+}
+#navigation #nav-container .navbar-toggler span {
+  margin: 0;
+  padding: 0;
+}
+#navigation #nav-container .navbar-toggler .toggler-icon {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: var(--bs-white);
+  border-radius: 1px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+#navigation #nav-container .navbar-toggler .middle-bar {
+  margin-top: 0px;
+}
+#navigation #nav-container .navbar-toggler .top-bar {
+  margin-top: 0px;
+  transform: rotate(135deg);
+}
+#navigation #nav-container .navbar-toggler .middle-bar {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+#navigation #nav-container .navbar-toggler .bottom-bar {
+  margin-top: 0px;
+  transform: rotate(-135deg);
+}
+#navigation #nav-container .navbar-toggler:hover .toggler-icon {
+  background-color: var(--bs-success);
+}
+#navigation #nav-container .navbar-toggler,
+#navigation #nav-container .navbar-toggler:focus,
+#navigation #nav-container .navbar-toggler:active,
+#navigation #nav-container .navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+}
+#navigation #nav-container .collapsed .top-bar {
+  margin-top: -19px;
+  transform: rotate(0deg);
+}
+#navigation #nav-container .collapsed .middle-bar {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+#navigation #nav-container .collapsed .bottom-bar {
+  margin-top: 20px;
+  transform: rotate(0deg);
 }
 
 @media only screen and (max-width: 767px) {
@@ -286,10 +350,10 @@ html body nav.fixed-bottom {
   }
 }
 html #main-container .card-btn-width {
-  font-size: 20px;
+  font-size: 1.4rem;
   display: inline-block;
-  width: 120px;
-  padding: 0.6rem, 1.2rem;
+  width: 9rem;
+  padding: 0.8rem, 1.2rem;
 }
 html #main-container .btn-primary {
   color: #fff;

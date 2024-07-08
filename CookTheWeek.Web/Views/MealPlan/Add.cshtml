@@ -54,7 +54,7 @@
                                     <div class="text-uppercase no-wrap-text">Cook On</div>
                                 </th>
                                 <th scope="col" class="rounded-end bg-primary text-white col-xs-1 col-md-1 col-lg-1">
-                                    <div class="text-uppercase no-wrap-text">Remove</div>
+                                    <div class="text-uppercase no-wrap-text">Delete</div>
                                 </th>
                             </tr>
                         </thead>
@@ -145,8 +145,12 @@
     </div>
     <div class="row">
         <div class="col d-flex justify-content-between align-middle">
-            <button form="add-mealplan-form" class="btn btn-success py-2 btn-block btn-lg" type="submit">Save Meal Plan</button>
-            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary btn-block">Browse Recipes</a>
+            <a form="add-mealplan-form" class="btn btn-primary card-btn-width" method="post" type="submit">
+                <i class="fas fa-th-list"></i>&nbsp;Save
+            </a>
+            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-secondary card-btn-width">
+                <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
+            </a>
         </div>
     </div>
 </div>

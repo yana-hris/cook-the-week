@@ -47,7 +47,13 @@
                     </li>
                     <li id="logout-btn" class="user-btn nav-item text-bg-primary bg-dark border-1 border-primary shadow-sm border rounded"><a id="nav-logout-btn" class="inner-btn nav-link active" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a></li>
                 </ul>
-            </div><button class="navbar-toggler" data-bs-target="#navcol-5" data-bs-toggle="collapse"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" data-bs-target="#navcol-5" data-bs-toggle="collapse">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="toggler-icon top-bar"></span>
+                <span class="toggler-icon middle-bar"></span>
+                <span class="toggler-icon bottom-bar"></span>
+            </button>
         </div>
     </nav>
 </header>

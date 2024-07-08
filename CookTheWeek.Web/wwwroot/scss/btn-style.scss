@@ -3,10 +3,10 @@
     #main-container {
         // card btns style, spacing and size
         .card-btn-width {
-            font-size: 20px;
+            font-size: 1.4rem;
             display: inline-block;
-            width: 120px;
-            padding: 0.6rem, 1.2rem;
+            width: 9rem;
+            padding: 0.8rem, 1.2rem;
         }
         // dark green btn for main site functionality
         .btn-primary {
@@ -22,13 +22,11 @@
             color: var(--bs-primary);
             background-color: var(--bs-success);
             border: 1px solid var(--bs-primary);
-        }
 
-        .btn-secondary:hover {
-            color: var(--bs-white);
-            //background-color: var(--bs-success);
+            &:hover {
+                color: var(--bs-white);
+            }
         }
-
         // remove btns style on hover
         .btn-danger:hover {
             color: var(--bs-danger);
@@ -69,13 +67,14 @@
             background-color: var(--bs-danger);
             color: var(--bs-white);
             border: 1px solid #990404;
-        }
 
-        .remove-btn:hover {
-            color: var(--bs-danger);
-            background-color: var(--bs-white);
-            border: 1px solid #990404;
+            &:hover {
+                color: var(--bs-danger);
+                background-color: var(--bs-white);
+                border: 1px solid #990404;
+            }
         }
+        
     }
 }
 

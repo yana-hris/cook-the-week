@@ -10,7 +10,13 @@
                     <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li class="user-btn nav-item text-bg-primary bg-dark border rounded border-1 border-primary shadow-sm" id="login-btn"><a class="inner-btn nav-link active" id="nav-login-btn" asp-area="" asp-controller="User" asp-action="Login">Log In</a></li>
                 </ul>
-            </div><button data-bs-target="#navcol-5" data-bs-toggle="collapse" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            </div>
+            <button class="navbar-toggler collapsed d-flex d-md-none flex-column justify-content-around" data-bs-target="#navcol-5" data-bs-toggle="collapse">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="toggler-icon top-bar"></span>
+                <span class="toggler-icon middle-bar"></span>
+                <span class="toggler-icon bottom-bar"></span>
+            </button>
         </div>
     </nav>
 </header>
