@@ -99,7 +99,7 @@
                 @if (userId == string.Empty)
                 {
                     <div class="modal-header d-flex justify-content-center">
-                        <h2 class="modal-title subheading" id="welcomeModalLabel">Welcome to Cook-The-Week</h2>
+                        <h2 class="modal-title" id="welcomeModalLabel">Welcome to Cook-The-Week</h2>
                         <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
@@ -116,8 +116,8 @@
                 else
                 {
                     <div class="modal-header d-flex justify-content-center">
-                        <h2 class="modal-title subheading" id="welcomeModalLabel">Tailor Your Meal Plan Now</h2>
-                        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                        <h2 class="modal-title" id="welcomeModalLabel">Tailor Your Meal Plan Now</h2>
+                        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -134,13 +134,17 @@
                 <div class="modal-footer">
                     @if (userId == string.Empty)
                     {
-                        <a asp-area="" asp-action="Register" asp-controller="User" class="btn btn-success">Sign Up Now</a>
-                        <a asp-area="" asp-action="Login" asp-controller="User" class="btn btn-primary">Log In</a>
+                        <a asp-area="" asp-action="Register" asp-controller="User" class="btn btn-danger card-btn-width">Sign Up</a>
+                        <a asp-area="" asp-action="Login" asp-controller="User" class="btn btn-secondary card-btn-width">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Log In
+                        </a>
                     }
                     else
                     {
-                        <a asp-area="" asp-action="All" asp-controller="Recipe" class="btn btn-primary">Browse Recipes</a>
-                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-success">Your Meal Plans</a>
+                        <a asp-area="" asp-action="All" asp-controller="Recipe" class="btn btn-secondary card-btn-width">
+                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
+                        </a>
+                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-primary card-btn-width">Your Plans</a>
                     }
                 </div>
             </div>

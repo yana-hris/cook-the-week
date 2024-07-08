@@ -1,5 +1,7 @@
-﻿@model RecipeAddFormModel
+﻿@using Newtonsoft.Json
+@model RecipeAddFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
+@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Add Recipe";
 
@@ -16,6 +18,17 @@
     {
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
     }  
+
+    var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
+
+    var errorMessages = new Dictionary<string, string>
+    {
+        { "MissingFormInputErrorMessage", MissingFormInputErrorMessage },
+        { "MissingFractionalOrWholeInputMessage", MissingFractionalOrWholeInputMessage },
+        { "InvalidDecimalRangeErrorMessage", InvalidDecimalRangeErrorMessage },
+        { "InvalidFractionErrorMessage", InvalidFractionErrorMessage },
+        { "InvalidWholeQtyErrorMessage", InvalidWholeQtyErrorMessage },
+    };
 }
 
 <div id="add-recipe" class="card-container">

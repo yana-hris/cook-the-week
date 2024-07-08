@@ -411,6 +411,12 @@ html #main-container .remove-btn:hover {
   background-color: var(--bs-white);
   border: 1px solid #990404;
 }
+html #main-container .btn.close {
+  color: var(--bs-success);
+}
+html #main-container .btn.close:hover {
+  color: var(--bs-white);
+}
 
 @media (min-width: 992px) {
   #build-btn-container {
@@ -891,6 +897,13 @@ html .not-finished {
   width: 100%;
   position: relative;
 }
+.wide-contents-container .modal .modal-dialog .modal-content .modal-header {
+  background-color: var(--bs-primary);
+  color: var(--bs-success);
+}
+.wide-contents-container .modal .modal-dialog .modal-content .modal-title {
+  font-size: 1.4rem;
+}
 .wide-contents-container .modal .modal-dialog .modal-content p {
   margin: 1rem 1.6rem;
   line-height: 1.6;
@@ -898,8 +911,7 @@ html .not-finished {
 }
 .wide-contents-container .modal .modal-dialog .modal-content .close.btn {
   position: absolute;
-  top: 11px;
-  right: 5px;
+  right: 0.5rem;
   height: 40px;
   width: 40px;
   display: flex;
@@ -914,7 +926,6 @@ html .not-finished {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 1rem;
 }
 .wide-contents-container .modal.show + .modal-overlay {
   display: block;

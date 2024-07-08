@@ -60,6 +60,12 @@ html #main-container .remove-btn:hover {
   background-color: var(--bs-white);
   border: 1px solid #990404;
 }
+html #main-container .btn.close {
+  color: var(--bs-success);
+}
+html #main-container .btn.close:hover {
+  color: var(--bs-white);
+}
 
 @media (min-width: 992px) {
   #build-btn-container {

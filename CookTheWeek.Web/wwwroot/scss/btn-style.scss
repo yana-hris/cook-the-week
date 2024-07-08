@@ -76,6 +76,14 @@
             }
         }
         
+        .btn.close {
+
+            color: var(--bs-success);
+            
+            &:hover {
+                color: var(--bs-white);
+            }
+        }
     }
 }
 
