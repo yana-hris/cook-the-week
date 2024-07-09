@@ -140,8 +140,7 @@
                                     <span class="input-group-text">Meal Type</span>
                                     <select 
                                         data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'" 
-                                        class="form-select"
-                                    >
+                                        class="form-select">
                                         <option value="">Choose</option>
                                         @foreach (var category in @Model.Categories!)
                                         {
@@ -162,6 +161,7 @@
                         <div id="instructions-content" class="tab-content">
                             <div id="instructionsContainer" class="row g-3">
                                 <div id="instructionsList" data-bind="foreach: Steps">
+
                                     <div class="row instructions-row align-items-center">
                                         <div class="col-11 p-2">
                                             <div class="input-group">
@@ -173,8 +173,8 @@
                                                                valueUpdate: 'afterkeydown'"
                                                     class="form-control" 
                                                     rows="3" 
-                                                    placeholder="Tell us how to cook.."
-                                                ></textarea>
+                                                    placeholder="Tell us how to cook..">
+                                                </textarea>
                                             </div>
                                             <span data-bind="validationMessage: Description"
                                                 class="small text-danger">
@@ -288,8 +288,7 @@
                                                 <span data-bind="validationMessage: Qty().QtyFraction" class="small text-danger"></span>
                                                 <span data-bind="validationMessage: Qty().QtyWhole" class="small text-danger"></span>                                                
                                             </div>                                            
-                                            @* <span data-bind="validationMessage: Qty" class="small text-danger"></span> *@
- 
+                                            
                                             <!-- INPUT SWITCHER -->
                                             <div class="form-check form-switch">
                                                 <input 
@@ -374,7 +373,7 @@
                     <!-- SUBMIT FORM BTN -->
                     <button 
                         data-bind="click: submitForm" 
-                        class="btn btn-success btn-lg" 
+                        class="btn btn-secondary card-btn-width" 
                         form="edit-recipe-form" 
                         type="submit">Save Changes
                     </button>
@@ -926,10 +925,7 @@
         self.submitForm = function () {
             // Validate the entire ViewModel
             self.errors = ko.validation.group(self, { deep: true, observable: true });
-
-            console.log(self.errors());
-            console.log(self);
-            debugger;
+           
             // Additional validation for steps and ingredients
             const stepsValid = self.Steps().length > 0;
             const ingredientsValid = self.RecipeIngredients().length > 0;
@@ -943,9 +939,9 @@
             }
                 
             if (self.errors().length === 0 && stepsValid && ingredientsValid) {
-                console.log(self);
+                
                 var jsonData = ko.toJSON(self);
-                console.log('Submitting data:', jsonData); // Log data being sent
+                //console.log('Submitting data:', jsonData); // Log data being sent
 
                 // Perform AJAX POST request
                 $.ajax({
