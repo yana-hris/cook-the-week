@@ -168,9 +168,9 @@
                                             <div class="input-group">
                                                 <span class="input-group-text">Step</span>
                                                 <textarea data-bind="value: Description,
+                                                                     attr: { name: 'Steps[' + $index() + '].Description' },
                                                                      deferValidation: Description,
                                                                      valueUpdate: 'afterkeydown'"
-                                                          name="Steps[<span data-bind='text: $index()'></span>].Description"
                                                           class="form-control" 
                                                           rows="3" placeholder="Tell us how to cook..">
                                                 </textarea>
@@ -214,9 +214,9 @@
                                         <div class="col col-6 col-lg-4 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
-                                                <input name="RecipeIngredients[<span data-bind='text: $index()'></span>].Name" 
-                                                       data-bind="value: Name,
+                                                <input data-bind="value: Name,
                                                                   validationElement: Name,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Name' },
                                                                   deferValidation: Name,
                                                                   valueUpdate: 'afterkeydown',
                                                                   validationRules: {
@@ -249,9 +249,9 @@
                                                 <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
-                                                           name="RecipeIngredients[<span data-bind='text: $index()'></span>].Qty.QtyDecimal"
                                                            data-bind="value: Qty().QtyDecimal,
                                                                   validationElement: Qty().QtyDecimal,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyDecimal' },
                                                                   valueUpdate: 'afterkeydown'"
                                                            class="form-control qty-decimal"
                                                            placeholder="0.00" />
@@ -266,16 +266,16 @@
                                                 <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
-                                                           name="RecipeIngredients[<span data-bind='text: $index()'></span>].Qty.QtyWhole"
                                                            data-bind="value: Qty().QtyWhole,
                                                                   validationElement: Qty().QtyWhole,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyWhole' },
                                                                   valueUpdate: 'afterkeydown'"
                                                            class="form-control qty qty-whole"
                                                            placeholder="0" />
                                                     <select data-val="true"
-                                                            name="RecipeIngredients[<span data-bind='text: $index()'></span>].Qty.QtyFraction"
                                                             data-bind="value: Qty().QtyFraction,
                                                                    validationElement: Qty().QtyFraction,
+                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyFraction' },
                                                                    valueUpdate: 'afterkeydown'"
                                                             class="form-select qty qty-fraction">
                                                         <option value="">Frac</option>
@@ -302,9 +302,11 @@
                                         <div class="col col-5 col-lg-2 p-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Unit</span>
-                                                    <select name="RecipeIngredients[<span data-bind='text: $index()'></span>].MeasureId"
+                                                    <select 
+                                                        name="RecipeIngredients[<span data-bind='text: $index()'></span>].MeasureId"
                                                         data-bind="value: MeasureId,
                                                                    validationElement: MeasureId,
+                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].MeasureId' },
                                                                    deferValidation: MeasureId,
                                                                    valueUpdate: 'afterkeydown',
                                                                    validationRules: {
@@ -329,8 +331,9 @@
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
                                                 <select 
-                                                    name="RecipeIngredients[<span data-bind='text: $index()'></span>].SpecificationId"
-                                                    data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
+                                                    data-bind="value: SpecificationId, 
+                                                               attr: {name: 'RecipeIngredients[' + $index() + '].SpecificationId' },
+                                                               valueUpdate: 'afterkeydown'"
                                                     class="form-select">
                                                     <option value="">Type</option>
                                                     @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
@@ -393,8 +396,8 @@
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
 
-        function suggestWords() {
-
+        function suggestWords(event) {
+            debugger
             let inputValue = $(this).val();
             let suggestionsContainer = this.parentNode.querySelector("div.suggestionsList");
 
@@ -417,7 +420,7 @@
         function renderSuggestionResults(results, search, container, inputForm) {
             // delete unordered list from previous search result
             $(container).empty();
-            
+            debugger
             // get properties from input field
             let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
             let form_width = inputForm.offsetWidth;
@@ -641,18 +644,23 @@
         ko.validation.registerExtenders();
 
         //Knockout Viewmodel definition, enabling two-way data binding
-        function RecipeViewModel() {
+        function RecipeViewModel(data) {
 
             var self = this;
 
-            function createQtyObservable() {
-
-                //needed VAR for scope reasons
+            function createQtyObservable(qty) {
+                
                 let self = this;
 
-                self.QtyDecimal = ko.observable(null);
-                self.QtyWhole = ko.observable(null);
-                self.QtyFraction = ko.observable('');
+                if (qty) {
+                    self.QtyDecimal = ko.observable(qty.QtyDecimal);
+                    self.QtyWhole = ko.observable(qty.QtyWhole);
+                    self.QtyFraction = ko.observable(qty.QtyFraction);
+                } else {
+                    self.QtyDecimal = ko.observable('');
+                    self.QtyWhole = ko.observable('');
+                    self.QtyFraction = ko.observable('');
+                }
 
                 self.QtyDecimal.extend({
                     required: {
@@ -672,7 +680,15 @@
 
                 self.QtyWhole.extend({
                     required: {
-                        onlyIf: function () { return !self.QtyDecimal() && !self.QtyFraction() },
+                        onlyIf: function () { return (self.QtyDecimal() === '' || 
+                                self.QtyDecimal() === undefined ||
+                                self.QtyDecimal === null ||
+                                self.QtyDecimal === NaN ||
+                                self.QtyDecimal === 0) && 
+                                (self.QtyFraction() === '' ||
+                                self.QtyFraction() === undefined ||
+                                self.QtyFraction() === null)
+                        },
                         message: errorMessages.MissingFormInputErrorMessage
                     },
                     min: {
@@ -699,11 +715,11 @@
                 return self;
             };
 
-            function createIngredient() {
+            function createIngredient(ingredient) {
 
                 let self = this;
-               
-                self.Name = ko.observable('').extend({
+
+                self.Name = ko.observable(ingredient.Name).extend({
                     required: {
                         message: '@RecipeIngredientNameRequiredErrorMessage'
                     },
@@ -718,18 +734,18 @@
                     validatable: true
                 });
 
-                self.Qty = ko.observable(new createQtyObservable()).extend({
+                self.Qty = ko.observable(new createQtyObservable(ingredient.Qty)).extend({
                     validatable: true
                 });
 
-                self.MeasureId = ko.observable('').extend({
+                self.MeasureId = ko.observable(ingredient.MeasureId ? ingredient.MeasureId : '').extend({
                     required: {
                         message: '@MeasureRequiredErrorMessage'
                     },
                     validatable: true
                 });
 
-                self.SpecificationId = ko.observable('').extend({ validatable: true });
+                self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
 
                 self.isUsingFractionsForIngredient = ko.computed(function () {
                     return self.Qty().QtyDecimal() === null &&
@@ -740,7 +756,7 @@
                 return self;
             }
             
-            self.Title = ko.observable('').extend({
+            self.Title = ko.observable(data.Title).extend({
                 required: {
                     message: '@TitleRequiredErrorMessage'
                 },
@@ -755,7 +771,7 @@
                 validatable: true
             });
 
-            self.Description = ko.observable('').extend({
+            self.Description = ko.observable(data.Description).extend({
                 minLength: {
                     message: '@DescriptionRangeErrorMessage',
                     params: '@DescriptionMinLength'
@@ -767,7 +783,7 @@
                 validatable: true
             });
 
-            self.Servings = ko.observable('').extend({
+            self.Servings = ko.observable(data.Servings ? data.Servings : '').extend({
                 required: {
                     message: '@ServingsRequiredErrorMessage'
                 },
@@ -782,7 +798,7 @@
                 validatable: true
             });
 
-            self.CookingTimeMinutes = ko.observable('').extend({
+            self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes).extend({
                 required: {
                     message: '@CookingTimeRequiredErrorMessage'
                 },
@@ -797,7 +813,7 @@
                 validatable: true
             });
 
-            self.ImageUrl = ko.observable('').extend({
+            self.ImageUrl = ko.observable(data.ImageUrl).extend({
                 required: {
                     message: '@ImageRequiredErrorMessage'
                 },
@@ -814,22 +830,26 @@
             });
 
 
-            self.RecipeCategoryId = ko.observable('').extend({
+            self.RecipeCategoryId = ko.observable(data.RecipeCategoryId ? data.RecipeCategoryId : '').extend({
                 required: {
                     message: '@RecipeCategoryIdRequiredErrorMessage'
                 },
                 validatable: true
             });
 
-            self.Steps = ko.observableArray([new createStep()]);
+            self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
+                return new createStep(step);
+            }));
 
-            self.RecipeIngredients = ko.observableArray([new createIngredient()]);
+            self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
+                return new createIngredient(ingredient);
+            }));
 
-            function createStep() {
+            function createStep(newStep) {
 
                 let self = this;
 
-                self.Description = ko.observable('').extend({
+                self.Description = ko.observable(newStep.Description).extend({
                     required: {
                         message: '@StepRequiredErrorMessage'
                     },
@@ -848,8 +868,11 @@
             };
 
             self.addStep = function () {
-                
-                self.Steps.push(new createStep());
+                let newStep = new createStep({
+                    Description: '',
+                });
+
+                self.Steps.push(newStep);
             };
 
             self.removeStep = function (step) {
@@ -861,7 +884,14 @@
             };
 
             self.addIngredient = function () {
-                self.RecipeIngredients.push(new createIngredient());
+                let newIngredient = new createIngredient({
+                    Name: '',
+                    Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
+                    MeasureId: '',
+                    SpecificationId: ''
+                });
+
+                self.RecipeIngredients.push(newIngredient);
             };
 
             self.removeIngredient = function (ingredient) {

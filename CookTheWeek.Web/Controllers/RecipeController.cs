@@ -104,8 +104,24 @@
             model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
             model.ServingsOptions = ServingsOptions;
 
-            model.RecipeIngredients!.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients!.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+            if (!model.RecipeIngredients.Any())
+            {
+                model.RecipeIngredients = new List<RecipeIngredientFormViewModel>()
+                {
+                    new RecipeIngredientFormViewModel()
+                };
+            }
+
+            if (!model.Steps.Any())
+            {
+                model.Steps = new List<StepFormModel>()
+                {
+                    new StepFormModel()
+                };
+            }
+
+            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             bool categoryExists =
                 await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);

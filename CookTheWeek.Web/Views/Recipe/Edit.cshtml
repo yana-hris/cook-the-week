@@ -723,8 +723,6 @@
                 validatable: true
             });
 
-            //self.errors = ko.validation.group(self, { deep: true, observable: true });
-
             return self;
         };
 
@@ -765,9 +763,6 @@
 
             self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
             self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true })
-
-           
-            //self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             return self;
         }
@@ -872,8 +867,6 @@
                },
                validatable: true,
            });
-
-            //self.errors = ko.validation.group(self, { deep: true, observable: true });
 
             return self;
         };
