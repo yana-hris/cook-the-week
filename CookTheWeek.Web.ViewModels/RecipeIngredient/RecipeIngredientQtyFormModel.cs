@@ -13,7 +13,6 @@
 
 
         [Display(Name = "Qty Fraction")]
-
         public string? QtyFraction { get; set; }
 
 

@@ -44,11 +44,13 @@
     --body-emphasis-color: var(--bs-primary);
     --meal-title-color: var(--bs-primary);
 
+
     .subheading {
         color: var(--bs-primary);
     }
 
     .input-group {
+
         select, input, textarea {
             background-color: #fff;
             color: var(--bs-dark);
@@ -57,7 +59,7 @@
 
     span.input-group-text {
         background-color: var(--bs-success) !important;
-        color: #121706 !important;
+        color: var(--btn-secondary-hover-color) !important; 
         border: 1px solid var(--bs-primary) !important;
     }
 
@@ -74,6 +76,7 @@
     }
 
     .contact-form {
+
         .form-control {
             color: #121706 !important;
         }

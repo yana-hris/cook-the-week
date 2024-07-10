@@ -3,6 +3,8 @@
   --meal-title-color: var(--bs-primary);
   --body-color: var(--bs-dark);
   --body-bg: var(--bs-light);
+  --card-label-text-color: #121706;
+  --btn-secondary-hover-color: #2a2e1f;
 }
 :root body {
   position: relative;
@@ -359,7 +361,7 @@ html #main-container .btn-primary {
   color: #fff;
 }
 html #main-container .btn-primary:hover {
-  background-color: #fff;
+  background-color: var(--bs-success);
   color: var(--bs-primary);
 }
 html #main-container .btn-secondary {
@@ -368,13 +370,12 @@ html #main-container .btn-secondary {
   border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary:hover {
-  color: var(--bs-white);
-  border: none;
+  color: var(--btn-secondary-hover-color);
 }
 html #main-container .btn-danger:hover {
   color: var(--bs-danger);
   background-color: var(--bs-light);
-  border: none;
+  border: 1px solid var(--bs-light);
 }
 html #main-container #build-btn-container, html #main-container .fixed-size-btn, html #main-container .back-button, html #main-container .remove-btn {
   display: flex;
@@ -393,6 +394,9 @@ html #main-container .fixed-size-btn {
   height: 42px;
   width: 42px;
   font-size: 24px;
+}
+html #main-container .back-button {
+  color: var(--bs-success);
 }
 html #main-container .back-button:hover {
   background-color: var(--bs-success);
@@ -514,7 +518,7 @@ html .not-finished {
   width: 100%;
   height: auto;
   position: relative;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: all 0.4s;
   border: 1px solid var(--bs-body-bg);
@@ -580,7 +584,7 @@ html .not-finished {
 }
 .recipe-container .card:hover {
   transform: translateY(-0.5rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.3);
 }
 
 .wide-contents-container {
@@ -625,7 +629,7 @@ html .not-finished {
 }
 [data-bs-theme=light] span.input-group-text {
   background-color: var(--bs-success) !important;
-  color: #121706 !important;
+  color: var(--btn-secondary-hover-color) !important;
   border: 1px solid var(--bs-primary) !important;
 }
 [data-bs-theme=light] .recipe-title {

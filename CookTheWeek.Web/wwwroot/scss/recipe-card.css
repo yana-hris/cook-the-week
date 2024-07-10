@@ -5,7 +5,7 @@
   width: 100%;
   height: auto;
   position: relative;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: all 0.4s;
   border: 1px solid var(--bs-body-bg);
@@ -71,5 +71,5 @@
 }
 .recipe-container .card:hover {
   transform: translateY(-0.5rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.3);
 }

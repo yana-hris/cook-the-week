@@ -8,7 +8,7 @@ html #main-container .btn-primary {
   color: #fff;
 }
 html #main-container .btn-primary:hover {
-  background-color: #fff;
+  background-color: var(--bs-success);
   color: var(--bs-primary);
 }
 html #main-container .btn-secondary {
@@ -17,13 +17,12 @@ html #main-container .btn-secondary {
   border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary:hover {
-  color: var(--bs-white);
-  border: none;
+  color: var(--btn-secondary-hover-color);
 }
 html #main-container .btn-danger:hover {
   color: var(--bs-danger);
   background-color: var(--bs-light);
-  border: none;
+  border: 1px solid var(--bs-light);
 }
 html #main-container #build-btn-container, html #main-container .fixed-size-btn, html #main-container .back-button, html #main-container .remove-btn {
   display: flex;
@@ -42,6 +41,9 @@ html #main-container .fixed-size-btn {
   height: 42px;
   width: 42px;
   font-size: 24px;
+}
+html #main-container .back-button {
+  color: var(--bs-success);
 }
 html #main-container .back-button:hover {
   background-color: var(--bs-success);

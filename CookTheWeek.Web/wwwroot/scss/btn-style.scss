@@ -13,7 +13,7 @@
             color: #fff;
 
             &:hover {
-                background-color: #fff;
+                background-color: var(--bs-success);
                 color: var(--bs-primary);
             }
         }
@@ -24,15 +24,14 @@
             border: 1px solid var(--bs-primary);
 
             &:hover {
-                color: var(--bs-white);
-                border: none;
+                color: var(--btn-secondary-hover-color);
             }
         }
         // remove btns style on hover
         .btn-danger:hover {
             color: var(--bs-danger);
             background-color: var(--bs-light);
-            border: none;
+            border: 1px solid var(--bs-light);
         }
         // Rules for all icon btns
         #build-btn-container, .fixed-size-btn, .back-button, .remove-btn {
@@ -56,9 +55,13 @@
             font-size: 24px;
         }
 
-        .back-button:hover {
-            background-color: var(--bs-success);
-            color: var(--bs-primary);
+        .back-button {
+            color: var(--bs-success);
+
+            &:hover{
+                background-color: var(--bs-success);
+                color: var(--bs-primary);
+            }
         }
 
         .remove-btn {
@@ -75,11 +78,10 @@
                 border: 1px solid #990404;
             }
         }
-        
-        .btn.close {
 
+        .btn.close {
             color: var(--bs-success);
-            
+
             &:hover {
                 color: var(--bs-white);
             }

@@ -26,27 +26,34 @@
             var model = (RecipeIngredientQtyFormModel)parentModel.Qty;
 
 
-            if ((model.QtyDecimal.HasValue && (model.QtyWhole.HasValue || !string.IsNullOrEmpty(model.QtyFraction))) ||
-                (!model.QtyDecimal.HasValue && (!model.QtyWhole.HasValue && string.IsNullOrEmpty(model.QtyFraction)))) 
+            if (model.QtyDecimal.HasValue)
             {
-                return new ValidationResult(MissingFormInputErrorMessage);
-            }
+                if (model.QtyWhole.HasValue || !string.IsNullOrEmpty(model.QtyFraction))
+                {
+                    return new ValidationResult(MissingFormInputErrorMessage);
+                }
 
-            if (model.QtyDecimal.HasValue && (model.QtyDecimal.Value < 0.001m ||
-                model.QtyDecimal.Value > 9999.99m))
-            {
-                return new ValidationResult(InvalidDecimalRangeErrorMessage);
+                if (model.QtyDecimal.Value < 0.001m || model.QtyDecimal.Value > 9999.99m)
+                {
+                    return new ValidationResult(InvalidDecimalRangeErrorMessage);
+                }
             }
-
-            if (!string.IsNullOrEmpty(model.QtyFraction) && !fractionOptions.ContainsKey(model.QtyFraction))
+            else
             {
-                return new ValidationResult(InvalidFractionErrorMessage);
-            }
+                if (!model.QtyWhole.HasValue && string.IsNullOrEmpty(model.QtyFraction))
+                {
+                    return new ValidationResult(MissingFormInputErrorMessage);
+                }
 
-            if (model.QtyWhole.HasValue && (model.QtyWhole.Value < 1 ||
-                model.QtyWhole.Value > 9999))
-            {
-                return new ValidationResult(InvalidWholeQtyErrorMessage);
+                if (model.QtyWhole.HasValue && (model.QtyWhole.Value < 1 || model.QtyWhole.Value > 9999))
+                {
+                    return new ValidationResult(InvalidWholeQtyErrorMessage);
+                }
+
+                if (!string.IsNullOrEmpty(model.QtyFraction) && !fractionOptions.ContainsKey(model.QtyFraction))
+                {
+                    return new ValidationResult(InvalidFractionErrorMessage);
+                }
             }
 
             return ValidationResult.Success;

@@ -249,6 +249,7 @@
                                                 <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
+                                                           data-val="true"
                                                            data-bind="value: Qty().QtyDecimal,
                                                                   validationElement: Qty().QtyDecimal,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyDecimal' },
@@ -266,6 +267,7 @@
                                                 <div class="input-group flex-inside">
                                                     <span class="input-group-text">Qty</span>
                                                     <input type="number"
+                                                           data-val="true"
                                                            data-bind="value: Qty().QtyWhole,
                                                                   validationElement: Qty().QtyWhole,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyWhole' },
@@ -397,7 +399,7 @@
         $(document).on('keyup', '.ingredientName', suggestWords);
 
         function suggestWords(event) {
-            debugger
+           
             let inputValue = $(this).val();
             let suggestionsContainer = this.parentNode.querySelector("div.suggestionsList");
 
@@ -420,7 +422,7 @@
         function renderSuggestionResults(results, search, container, inputForm) {
             // delete unordered list from previous search result
             $(container).empty();
-            debugger
+            
             // get properties from input field
             let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
             let form_width = inputForm.offsetWidth;
@@ -563,7 +565,10 @@
 
                     // Update the fraction input fields and add validation rules
                     fractionQtyInputs.show();
-                    fractionQtyInputs.find('.qty-whole').val(whole);
+
+                    if(whole !== 0) {
+                        fractionQtyInputs.find('.qty-whole').val(whole);
+                    }
                     fractionQtyInputs.find('.qty-fraction').val(fraction);
 
 
@@ -575,7 +580,9 @@
 
                     // Update the decimal input field
                     decimalQtyInput.show();
-                    decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    if(decimalValue !== 0.000) {
+                        decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    }
 
                     fractionQtyInputs.find('input, select').val('');
                     fractionQtyInputs.hide();
@@ -657,14 +664,14 @@
                     self.QtyWhole = ko.observable(qty.QtyWhole);
                     self.QtyFraction = ko.observable(qty.QtyFraction);
                 } else {
-                    self.QtyDecimal = ko.observable('');
-                    self.QtyWhole = ko.observable('');
+                    self.QtyDecimal = ko.observable(null);
+                    self.QtyWhole = ko.observable(null);
                     self.QtyFraction = ko.observable('');
                 }
 
                 self.QtyDecimal.extend({
                     required: {
-                        onlyIf: function () { return !self.QtyWhole() && !self.QtyFraction() },
+                        onlyIf: function () { return (!self.QtyWhole() && !self.QtyFraction()) },
                         message: errorMessages.MissingFormInputErrorMessage
                     },
                     min: {
@@ -680,14 +687,14 @@
 
                 self.QtyWhole.extend({
                     required: {
-                        onlyIf: function () { return (self.QtyDecimal() === '' || 
+                        onlyIf: function () { return ((self.QtyDecimal() === '' || 
                                 self.QtyDecimal() === undefined ||
                                 self.QtyDecimal === null ||
                                 self.QtyDecimal === NaN ||
                                 self.QtyDecimal === 0) && 
                                 (self.QtyFraction() === '' ||
                                 self.QtyFraction() === undefined ||
-                                self.QtyFraction() === null)
+                                self.QtyFraction() === null))
                         },
                         message: errorMessages.MissingFormInputErrorMessage
                     },
@@ -748,8 +755,8 @@
                 self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
 
                 self.isUsingFractionsForIngredient = ko.computed(function () {
-                    return self.Qty().QtyDecimal() === null &&
-                        (self.Qty().QtyFraction() !== null || self.Qty().QtyWhole() !== null);
+                    return !self.Qty().QtyDecimal() &&
+                        (self.Qty().QtyFraction() || self.Qty().QtyWhole());
                 })
                 .extend({ validatable: true });
 
@@ -886,7 +893,7 @@
             self.addIngredient = function () {
                 let newIngredient = new createIngredient({
                     Name: '',
-                    Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
+                    Qty: { QtyDecimal: '', QtyWhole: null, QtyFraction: '' },
                     MeasureId: '',
                     SpecificationId: ''
                 });
@@ -910,7 +917,7 @@
 
                 console.log(self.errors());
                 console.log(self);
-                debugger;
+                
                 // Additional validation for steps and ingredients
                 const stepsValid = self.Steps().length > 0;
                 const ingredientsValid = self.RecipeIngredients().length > 0;
@@ -924,6 +931,7 @@
                 }
 
                 if (self.errors().length === 0 && stepsValid && ingredientsValid) {
+                    debugger;
                     return true; // Allow form submission
                 } else {
                     self.errors.showAllMessages();
