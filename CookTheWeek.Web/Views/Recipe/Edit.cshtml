@@ -375,7 +375,7 @@
                         data-bind="click: submitForm" 
                         class="btn btn-secondary card-btn-width" 
                         form="edit-recipe-form" 
-                        type="submit">Save Changes
+                        type="submit">Save
                     </button>
                 </div>
             </div>
@@ -388,7 +388,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="~/js/custom-validation-methods-and-adapters.js"></script>
+    
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
         
@@ -559,7 +559,10 @@
 
                     // Update the fraction input fields and add validation rules
                     fractionQtyInputs.show();
-                    fractionQtyInputs.find('.qty-whole').val(whole);
+                    // Make sure zero values are not inserted in the nput fields during conversion
+                    if (whole !== 0) {
+                        fractionQtyInputs.find('.qty-whole').val(whole);
+                    }
                     fractionQtyInputs.find('.qty-fraction').val(fraction);
                   
                     
@@ -571,7 +574,10 @@
 
                     // Update the decimal input field
                     decimalQtyInput.show();
-                    decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    // Make sure zero values are not inserted into the input fields if no user input
+                    if (decimalValue !== 0.000) {
+                        decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    }
                    
                     fractionQtyInputs.find('input, select').val('');
                     fractionQtyInputs.hide();
@@ -611,15 +617,15 @@
         errorMessageClass: "small text-danger",
     });
 
-    ko.validation.rules['combinedQtyValidation'] = {
-        validator: function (qtyModel) {
-            return qtyModel.QtyWhole() !== null || qtyModel.QtyFraction() !== null || qtyModel.QtyDecimal() !== null;
-        },
-        message: errorMessages.MissingFormInputErrorMessage
-    };
+    // ko.validation.rules['combinedQtyValidation'] = {
+    //     validator: function (qtyModel) {
+    //         return qtyModel.QtyWhole() !== null || qtyModel.QtyFraction() !== null || qtyModel.QtyDecimal() !== null;
+    //     },
+    //     message: errorMessages.MissingFormInputErrorMessage
+    // };
 
-    // Register the custom validation rule
-    ko.validation.registerExtenders();
+    // // Register the custom validation rule
+    // ko.validation.registerExtenders();
 
     //Register the QTY validation rule
     // ko.validation.rules['validateqty'] = {
@@ -673,8 +679,7 @@
         var self = this;
 
         function createQtyObservable(qty) {
-
-            //needed VAR for scope reasons
+            
             let self = this;
 
             self.QtyDecimal = ko.observable(qty.QtyDecimal);
@@ -762,7 +767,8 @@
             });
 
             self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
-            self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true })
+
+            self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true });
 
             return self;
         }

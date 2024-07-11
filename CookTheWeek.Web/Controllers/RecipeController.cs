@@ -14,6 +14,7 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
+    using Newtonsoft.Json;
 
     [Authorize]
     public class RecipeController : Controller
@@ -152,11 +153,17 @@
 
             if (!ModelState.IsValid)
             {
-                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-                var formattedErrors = string.Join(Environment.NewLine, modelErrors);
-                TempData[ErrorMessage] = formattedErrors;
+                // Collect server-side validation errors
+                var serverErrors = ModelState
+                    .Where(ms => ms.Value.Errors.Count > 0)
+                    .ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                // Serialize the errors to JSON and store them in TempData
+                TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
+
                 return View(model);
             }
             // Sanitize all string input

@@ -32,6 +32,10 @@
         { "InvalidFractionErrorMessage", InvalidFractionErrorMessage },
         { "InvalidWholeQtyErrorMessage", InvalidWholeQtyErrorMessage },
     };
+
+    var serverErrorsObject = TempData["ServerErrors"] != null
+        ? JsonConvert.DeserializeObject<Dictionary<string, string[]>>(TempData["ServerErrors"].ToString())
+        : new Dictionary<string, string[]>();
 }
 
 <div id="add-recipe" class="card-container">
@@ -565,7 +569,7 @@
 
                     // Update the fraction input fields and add validation rules
                     fractionQtyInputs.show();
-
+                    // Make sure zero values are not inserted in the nput fields during conversion
                     if(whole !== 0) {
                         fractionQtyInputs.find('.qty-whole').val(whole);
                     }
@@ -580,6 +584,7 @@
 
                     // Update the decimal input field
                     decimalQtyInput.show();
+                    // Make sure zero values are not inserted into the input fields if no user input
                     if(decimalValue !== 0.000) {
                         decimalQtyInput.find('input').val(decimalValue.toFixed(3));
                     }
@@ -611,7 +616,9 @@
 
         // Initialize the ViewModel with the initial data
         const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var viewModel = new RecipeViewModel(initialData);
+        const serverErros = @Html.Raw(JsonConvert.SerializeObject(serverErrorsObject));
+
+        var viewModel = new RecipeViewModel(initialData, serverErros);
 
 
         // Configure Knockout Validation plugin
@@ -623,18 +630,7 @@
             messagesOnModified: true,
             errorMessageClass: "small text-danger",
         });
-
-        ko.validation.rules['combinedQtyValidation'] = {
-            validator: function (qtyModel) {
-                return qtyModel.QtyWhole() !== null || qtyModel.QtyFraction() !== null || qtyModel.QtyDecimal() !== null;
-            },
-            message: errorMessages.MissingFormInputErrorMessage
-        };
-
-        // Register the custom validation rule
-        ko.validation.registerExtenders();
-
-        
+       
         // Create Regex URL pattern, corresponding to server-side regex
         const ValidationConstants = {
             UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
@@ -651,7 +647,7 @@
         ko.validation.registerExtenders();
 
         //Knockout Viewmodel definition, enabling two-way data binding
-        function RecipeViewModel(data) {
+        function RecipeViewModel(data, errors) {
 
             var self = this;
 
@@ -664,8 +660,8 @@
                     self.QtyWhole = ko.observable(qty.QtyWhole);
                     self.QtyFraction = ko.observable(qty.QtyFraction);
                 } else {
-                    self.QtyDecimal = ko.observable(null);
-                    self.QtyWhole = ko.observable(null);
+                    self.QtyDecimal = ko.observable('');
+                    self.QtyWhole = ko.observable('');
                     self.QtyFraction = ko.observable('');
                 }
 
@@ -687,14 +683,8 @@
 
                 self.QtyWhole.extend({
                     required: {
-                        onlyIf: function () { return ((self.QtyDecimal() === '' || 
-                                self.QtyDecimal() === undefined ||
-                                self.QtyDecimal === null ||
-                                self.QtyDecimal === NaN ||
-                                self.QtyDecimal === 0) && 
-                                (self.QtyFraction() === '' ||
-                                self.QtyFraction() === undefined ||
-                                self.QtyFraction() === null))
+                        onlyIf: function () {
+                            return (!self.QtyDecimal() || isNaN(self.QtyDecimal())) && !self.QtyFraction()
                         },
                         message: errorMessages.MissingFormInputErrorMessage
                     },
@@ -726,6 +716,11 @@
 
                 let self = this;
 
+                let isUsingFractionsForIngredient = ko.computed(function () {
+                    
+                    return (ingredient.Qty && (!ingredient.Qty.QtyDecimal && (ingredient.Qty.QtyFraction || ingredient.Qty.QtyWhole))) || false;
+                });
+
                 self.Name = ko.observable(ingredient.Name).extend({
                     required: {
                         message: '@RecipeIngredientNameRequiredErrorMessage'
@@ -754,11 +749,7 @@
 
                 self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
 
-                self.isUsingFractionsForIngredient = ko.computed(function () {
-                    return !self.Qty().QtyDecimal() &&
-                        (self.Qty().QtyFraction() || self.Qty().QtyWhole());
-                })
-                .extend({ validatable: true });
+                self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true })
 
                 return self;
             }
@@ -857,9 +848,9 @@
                 let self = this;
 
                 self.Description = ko.observable(newStep.Description).extend({
-                    required: {
-                        message: '@StepRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@StepRequiredErrorMessage'
+                    // },
                     minLength: {
                         message: '@StepDescriptionRangeErrorMessage',
                         params: '@StepDescriptionMinLength'
@@ -893,7 +884,7 @@
             self.addIngredient = function () {
                 let newIngredient = new createIngredient({
                     Name: '',
-                    Qty: { QtyDecimal: '', QtyWhole: null, QtyFraction: '' },
+                    Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
                     MeasureId: '',
                     SpecificationId: ''
                 });
@@ -939,6 +930,36 @@
                 }
             }
 
+            // Initialize the server errors in the view model
+            self.ServerErrors = errors;
+
+            // Function to apply server-side errors to the client-side model
+            self.applyServerErrors = function () {
+                for (var key in self.ServerErrors) {
+                    if (self.ServerErrors.hasOwnProperty(key)) {
+                        var observable = self;
+                        var path = key.split(/[.\[\]]+/).filter(Boolean);
+
+                        for (var i = 0; i < path.length; i++) {
+                            if (Array.isArray(observable)) {
+                                observable = observable()[parseInt(path[i], 10)];
+                            } else if (observable[path[i]]) {
+                                observable = observable[path[i]];
+                            }
+                        }
+
+                        if (ko.isObservable(observable) && observable.isValid) {
+                            observable.isModified(true);
+                            observable.setError(self.ServerErrors[key].join('. '));
+                        }
+                    }
+                }
+            };
+
+            // Apply the server errors if any
+            if (self.ServerErrors) {
+                self.applyServerErrors();
+            }
             // Initialize validation group
             ko.validation.group(self, { deep: true, observable: true });
             return self;

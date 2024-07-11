@@ -372,6 +372,9 @@ html #main-container .btn-secondary {
 html #main-container .btn-secondary:hover {
   color: var(--btn-secondary-hover-color);
 }
+html #main-container .btn-danger {
+  border: 1px solid var(--input-form-span-bg-dark-green-color);
+}
 html #main-container .btn-danger:hover {
   color: var(--bs-danger);
   background-color: var(--bs-light);

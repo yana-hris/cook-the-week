@@ -28,10 +28,14 @@
             }
         }
         // remove btns style on hover
-        .btn-danger:hover {
-            color: var(--bs-danger);
-            background-color: var(--bs-light);
-            border: 1px solid var(--bs-light);
+        .btn-danger {
+            border: 1px solid var(--input-form-span-bg-dark-green-color);
+            
+            &:hover {
+                color: var(--bs-danger);
+                background-color: var(--bs-light);
+                border: 1px solid var(--bs-light);
+            }
         }
         // Rules for all icon btns
         #build-btn-container, .fixed-size-btn, .back-button, .remove-btn {
@@ -58,7 +62,7 @@
         .back-button {
             color: var(--bs-success);
 
-            &:hover{
+            &:hover {
                 background-color: var(--bs-success);
                 color: var(--bs-primary);
             }
