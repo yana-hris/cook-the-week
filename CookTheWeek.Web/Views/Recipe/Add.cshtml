@@ -679,9 +679,9 @@
                 var self = this;                          
 
                 self.Title = ko.observable(data.Title).extend({
-                    required: {
-                        message: '@TitleRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@TitleRequiredErrorMessage'
+                    // },
                     minLength: {
                         message: '@TitleMinLengthErrorMessage',
                         params: '@TitleMinLength'
@@ -694,10 +694,10 @@
                 }).extend({ setError: true });
 
                 self.Description = ko.observable(data.Description).extend({
-                    minLength: {
-                        message: '@DescriptionRangeErrorMessage',
-                        params: '@DescriptionMinLength'
-                    },
+                    // minLength: {
+                    //     message: '@DescriptionRangeErrorMessage',
+                    //     params: '@DescriptionMinLength'
+                    // },
                     maxLength: {
                         message: '@DescriptionRangeErrorMessage',
                         params: '@DescriptionMaxLength'
@@ -706,9 +706,9 @@
                 }).extend({ setError: true });
 
                 self.Servings = ko.observable(data.Servings ? data.Servings : '').extend({
-                    required: {
-                        message: '@ServingsRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@ServingsRequiredErrorMessage'
+                    // },
                     min: {
                         message: '@ServingsRangeErrorMessage',
                         params: '@ServingsMinValue'
@@ -721,9 +721,9 @@
                 }).extend({ setError: true });
 
                 self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : '').extend({
-                    required: {
-                        message: '@CookingTimeRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@CookingTimeRequiredErrorMessage'
+                    // },
                     min: {
                         message: '@CookingTimeRangeErrorMessage',
                         params: '@CookingTimeMinValue'
@@ -736,9 +736,9 @@
                 }).extend({ setError: true });
 
                 self.ImageUrl = ko.observable(data.ImageUrl).extend({
-                    required: {
-                        message: '@ImageRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@ImageRequiredErrorMessage'
+                    // },
                     minLength: {
                         message: '@ImageRangeErrorMessage',
                         params: '@ImageUlrMinLength'
@@ -752,9 +752,9 @@
                 }).extend({ setError: true });
 
                 self.RecipeCategoryId = ko.observable(data.RecipeCategoryId ? data.RecipeCategoryId : '').extend({
-                    required: {
-                        message: '@RecipeCategoryIdRequiredErrorMessage'
-                    },
+                    // required: {
+                    //     message: '@RecipeCategoryIdRequiredErrorMessage'
+                    // },
                     validatable: true
                 }).extend({ setError: true });
 

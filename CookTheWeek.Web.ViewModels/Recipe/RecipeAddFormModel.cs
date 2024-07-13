@@ -21,7 +21,7 @@
         [Display(Name = "Recipe Title")]
         public string Title { get; set; } = null!;
         
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string? Description { get; set; }        
 
         [Required(ErrorMessage = @"{0} required!")]
