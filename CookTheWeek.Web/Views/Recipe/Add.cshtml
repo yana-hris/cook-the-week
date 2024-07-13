@@ -611,6 +611,7 @@
 
             // Extract keys from QtyFractionOptions as valid fractions
             const fractionOptions = Object.keys(qtyFractionOptions);
+
             
             // Create Regex URL pattern, corresponding to server-side regex
             const ValidationConstants = {
@@ -625,39 +626,36 @@
                 message: '@ImageInvalidErrorMessage'
             };
 
-            // Knockout validation extender to handle server errors
+
             ko.extenders.setError = function (target, options) {
                 target.hasError = ko.observable(false);
-                target.validationMessage = ko.observable();
+                target.validationMessage = ko.observable('');
 
-                target.setError = function (message) {
-                    target.hasError(true);
-                    target.validationMessage(message);
-                };
-
-                target.clearError = function () {
-                    target.hasError(false);
-                    target.validationMessage('');
-                };
-
-                // Automatically update `validationMessage` when Knockout Validation's `error` changes
-                target.subscribe(function () {
-                    var error = target.error;
-                    if (error && error()) {
-                        target.setError(error());
+                function validate(newValue) {
+                    if (!target.isValid()) {
+                        target.hasError(true);
+                        target.validationMessage(target.error());
                     } else {
-                        target.clearError();
+                        target.hasError(false);
+                        target.validationMessage('');
                     }
-                });
+                }
+
+                // Initial validation
+                validate(target());
+
+                // Subscribe to changes to trigger validation
+                target.subscribe(validate);
 
                 return target;
             };
 
             ko.validation.registerExtenders();
 
+           
+
             // Initialize the ViewModel with the initial data
             const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-            console.log(initialData);
             const serverErros = @Html.Raw(JsonConvert.SerializeObject(serverErrorsString));
 
             var viewModel = new RecipeViewModel(initialData, serverErros);
@@ -672,8 +670,8 @@
                 errorMessageClass: "small text-danger",
             });
 
+
             ko.applyBindings(viewModel);
-            console.log(viewModel);
 
             //Knockout Viewmodel definition, enabling two-way data binding
             function RecipeViewModel(data, serverErrors) {
@@ -767,28 +765,7 @@
                 self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
                     return new createIngredient(ingredient);
                 }));
-
-                function createStep(newStep) {
-
-                    let self = this;
-
-                    self.Description = ko.observable(newStep.Description ? newStep.Description : '').extend({
-                        required: {
-                            message: '@StepRequiredErrorMessage'
-                        },
-                        minLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMinLength'
-                        },
-                        maxLength: {
-                            message: '@StepDescriptionRangeErrorMessage',
-                            params: '@StepDescriptionMaxLength'
-                        },
-                        validatable: true,
-                    }).extend({ setError: true });
-
-                    return self;
-                };
+                
 
                 self.addStep = function () {
                     let newStep = new createStep({
@@ -884,7 +861,7 @@
                     debugger;
                     var clientSideErrors = self.errors();
 
-                    console.log(self.errors());
+                    console.log(clientSideErrors);
                     console.log(self);
 
                     // Additional validation for steps and ingredients
@@ -899,7 +876,7 @@
                         toastr.error('At least one ingredient is required.');
                     }
 
-                    if (self.errors().length === 0 && stepsValid && ingredientsValid) {
+                    if (clientSideErrors.length === 0 && stepsValid && ingredientsValid) {
                         debugger;
                         return true; // Allow form submission
                     } else {
@@ -910,54 +887,6 @@
                 };
 
                 return self;
-
-                function createIngredient(ingredient) {
-
-                    let ingredientSelf = this;
-
-                    ingredientSelf.Name = ko.observable(ingredient.Name).extend({
-                        required: {
-                            message: '@RecipeIngredientNameRequiredErrorMessage'
-                        },
-                        minLength: {
-                            message: '@RecipeIngredientNameRangeErrorMessage',
-                            params: '@RecipeIngredientNameMinLength'
-                        },
-                        maxLength: {
-                            message: '@RecipeIngredientNameRangeErrorMessage',
-                            params: '@RecipeIngredientNameMaxLength'
-                        },
-                        validatable: true,
-
-                    }).extend({ setError: true });
-
-                    ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty ? ingredient.Qty : {QtyDecimal: '', QtyFraction: '', QtyWhole: ''}))
-                        .extend({ validatable: true })
-                        .extend({ setError: true });
-
-                    ingredientSelf.MeasureId = ko.observable(ingredient.MeasureId ? ingredient.MeasureId : '').extend({
-                        required: {
-                            message: '@MeasureRequiredErrorMessage'
-                        },
-                        validatable: true
-                    }).extend({ setError: true });
-
-                    ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
-                        .extend({ validatable: true })
-                        .extend({ setError: true });
-
-                    ingredientSelf.isUsingFractionsForIngredient = ko.computed(function () {
-
-                        let qty = ingredientSelf.Qty();
-                        if (qty) {
-                            return (!qty.QtyDecimal() && (qty.QtyFraction() || qty.QtyWhole()));
-                        }
-                        return false;
-                    }).extend({ validatable: true })
-                      .extend({ setError: true });
-
-                    return ingredientSelf;
-                };
 
                 function createQtyObservable(qty) {
 
@@ -1018,7 +947,78 @@
                     });
 
                     return qtySelf;
-                };
+                }
+
+                function createIngredient(ingredient) {
+
+                    let ingredientSelf = this;
+
+                    ingredientSelf.Name = ko.observable(ingredient.Name).extend({
+                        required: {
+                            message: '@RecipeIngredientNameRequiredErrorMessage'
+                        },
+                        minLength: {
+                            message: '@RecipeIngredientNameRangeErrorMessage',
+                            params: '@RecipeIngredientNameMinLength'
+                        },
+                        maxLength: {
+                            message: '@RecipeIngredientNameRangeErrorMessage',
+                            params: '@RecipeIngredientNameMaxLength'
+                        },
+                        validatable: true,
+
+                    }).extend({ setError: true });
+
+                    ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty ? ingredient.Qty : {QtyDecimal: '', QtyFraction: '', QtyWhole: ''}))
+                        .extend({ validatable: true })
+                        .extend({ setError: true });
+
+                    ingredientSelf.MeasureId = ko.observable(ingredient.MeasureId ? ingredient.MeasureId : '').extend({
+                        required: {
+                            message: '@MeasureRequiredErrorMessage'
+                        },
+                        validatable: true
+                    }).extend({ setError: true });
+
+                    ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
+                        .extend({ validatable: true })
+                        .extend({ setError: true });
+
+                    ingredientSelf.isUsingFractionsForIngredient = ko.computed(function () {
+
+                        let qty = ingredientSelf.Qty();
+                        if (qty) {
+                            return (!qty.QtyDecimal() && (qty.QtyFraction() || qty.QtyWhole()));
+                        }
+                        return false;
+                    }).extend({ validatable: true })
+                        .extend({ setError: true });
+
+                    return ingredientSelf;
+                }
+
+                function createStep(newStep) {
+
+                    let stepSelf = this;
+
+                    stepSelf.Description = ko.observable(newStep.Description ? newStep.Description : '').extend({
+                        required: {
+                            message: '@StepRequiredErrorMessage'
+                        },
+                        minLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMinLength'
+                        },
+                        maxLength: {
+                            message: '@StepDescriptionRangeErrorMessage',
+                            params: '@StepDescriptionMaxLength'
+                        },
+                        validatable: true,
+                    }).extend({ setError: true });
+
+                    return stepSelf;
+                }
+
 
             }
 
