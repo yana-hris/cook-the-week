@@ -61,9 +61,9 @@
             {
                 IngredientId = ingredientId,
                 RecipeId = Guid.Parse(recipeId),
-                MeasureId = model.MeasureId,
+                MeasureId = model.MeasureId!.Value,
                 Qty = model.Qty.GetDecimalQtyValue(),
-                SpecificationId = model.SpecificationId
+                SpecificationId = model.SpecificationId!.Value
             };
 
             await this.dbContext.RecipesIngredients

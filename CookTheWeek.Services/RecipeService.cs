@@ -96,10 +96,10 @@
                 Title = model.Title,
                 OwnerId = Guid.Parse(ownerId),
                 Description = model.Description,
-                Servings = model.Servings,
-                TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes),
+                Servings = model.Servings!.Value,
+                TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value),
                 ImageUrl = model.ImageUrl,
-                CategoryId = model.RecipeCategoryId                
+                CategoryId = model.RecipeCategoryId!.Value               
             };
 
             foreach (var step in model.Steps)
@@ -126,7 +126,7 @@
                         {
                             IngredientId = ingredientId,
                             Qty = ingredient.Qty.GetDecimalQtyValue(),
-                            MeasureId = ingredient.MeasureId,
+                            MeasureId = ingredient.MeasureId!.Value,
                             SpecificationId = ingredient.SpecificationId
                         });
                     }
@@ -207,7 +207,7 @@
                     {
                         IngredientId = ingredientId,
                         Qty = ingredient.Qty.GetDecimalQtyValue(),
-                        MeasureId = ingredient.MeasureId,
+                        MeasureId = ingredient.MeasureId!.Value,
                         SpecificationId = ingredient.SpecificationId
                     });
                 }

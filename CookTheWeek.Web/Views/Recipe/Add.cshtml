@@ -113,6 +113,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
                                     <input 
+                                        data-val="true"
                                         asp-for="CookingTimeMinutes"
                                         data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
                                         class="form-control"
@@ -395,7 +396,6 @@
 </div>
 
 @section Scripts{
-    <partial name="_ValidationScriptsPartial" />    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -628,6 +628,7 @@
 
 
             ko.extenders.setError = function (target, options) {
+                debugger
                 target.hasError = ko.observable(false);
                 target.validationMessage = ko.observable('');
 
@@ -833,6 +834,7 @@
                                 } else if (observable[path[i]]) {
 
                                     observable = observable[path[i]];
+                                    console.log(observable());
 
                                 } else {
 
@@ -859,7 +861,7 @@
                 self.submitForm = function () {
                     // Validate the entire ViewModel
                     debugger;
-                    var clientSideErrors = self.errors();
+                    const clientSideErrors = self.errors();
 
                     console.log(clientSideErrors);
                     console.log(self);

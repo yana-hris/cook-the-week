@@ -24,7 +24,7 @@
 
         [Required(ErrorMessage = MeasureRequiredErrorMessage)]
         [Display(Name = "Unit")]
-        public int MeasureId { get; set; }
+        public int? MeasureId { get; set; }
 
         [Display(Name = "Note")]
         public int? SpecificationId { get; set; }

@@ -15,6 +15,7 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using Newtonsoft.Json;
+    using static System.Runtime.InteropServices.JavaScript.JSType;
 
     [Authorize]
     public class RecipeController : Controller
@@ -124,30 +125,28 @@
             model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
             model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
-            bool categoryExists =
-                await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
-
-            if (!categoryExists)
+            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId != default)
             {
-                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
+                if (!categoryExists)
+                {
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                }
             }
 
             foreach (var ingredient in model.RecipeIngredients)
             {
-                if (!await IsIngredientValid(ingredient.Name))
+                if (ingredient.Name != default && !await IsIngredientValid(ingredient.Name))
                 {
                     ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
                 }
-                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
                 {
                     ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid ingredient measure for ingrediet {ingredient.Name}");
                 }
-                if (ingredient.SpecificationId != null)
+                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
                 {
-                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                    {
-                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid ingredient specification for ingrediet {ingredient.Name}");
-                    }
+                    ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid ingredient specification for ingrediet {ingredient.Name}");
                 }
             }
 
@@ -286,10 +285,13 @@
                 return RedirectToAction("Details", "Recipe", new { id = model.Id });
             }
 
-            bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
-            if (!categoryExists)
+            if (model.RecipeCategoryId != default(int))
             {
-                ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+                if (!categoryExists)
+                {
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                }
             }
 
             foreach (var ingredient in model.RecipeIngredients)
@@ -298,16 +300,13 @@
                 {
                     ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingredient!");
                 }
-                if (!await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId))
+                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
                 {
                     ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingredient {ingredient.Name}");
                 }
-                if (ingredient.SpecificationId != null)
+                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
                 {
-                    if (!await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                    {
-                        ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingredient {ingredient.Name}");
-                    }
+                    ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingredient {ingredient.Name}");
                 }
             }
 
