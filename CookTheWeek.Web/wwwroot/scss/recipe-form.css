@@ -25,6 +25,9 @@
 #add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
   margin-top: 4px;
 }
+#add-recipe #ingredientsContainer .ingredient-row .input-validation-error, #edit-recipe #ingredientsContainer .ingredient-row .input-validation-error {
+  border-color: red;
+}
 #add-recipe #ingredientsContainer hr, #edit-recipe #ingredientsContainer hr {
   margin-top: 0;
   margin-bottom: 8px;

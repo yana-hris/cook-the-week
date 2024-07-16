@@ -66,7 +66,9 @@
                                     <span class="input-group-text">Title</span>
                                     <input 
                                         asp-for="Title"
-                                        data-bind="value: Title, valueUpdate: 'afterkeydown'"
+                                        data-bind="value: Title, 
+                                        valueUpdate: 'afterkeydown',
+                                        css: { 'input-validation-error': Title.hasError }"
                                         class="form-control"
                                         placeholder="Name it.."
                                         type="text" />
@@ -113,11 +115,11 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Ready For</span>
                                     <input 
-                                        data-val="true"
                                         asp-for="CookingTimeMinutes"
                                         data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
                                         class="form-control"
                                         placeholder="minutes"
+                                        type="number"
                                         />
                                 </div>
                                 <span data-bind="validationMessage: CookingTimeMinutes"
@@ -597,6 +599,7 @@
     </script>
     <script>
         $(document).ready(function () {
+            debugger
             const errorMessages = {
                 MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
                 MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
@@ -625,41 +628,14 @@
                 },
                 message: '@ImageInvalidErrorMessage'
             };
-
-
-            ko.extenders.setError = function (target, options) {
-                debugger
-                target.hasError = ko.observable(false);
-                target.validationMessage = ko.observable('');
-
-                function validate(newValue) {
-                    if (!target.isValid()) {
-                        target.hasError(true);
-                        target.validationMessage(target.error());
-                    } else {
-                        target.hasError(false);
-                        target.validationMessage('');
-                    }
-                }
-
-                // Initial validation
-                validate(target());
-
-                // Subscribe to changes to trigger validation
-                target.subscribe(validate);
-
-                return target;
-            };
-
-            ko.validation.registerExtenders();
-
            
+            ko.validation.registerExtenders();           
 
             // Initialize the ViewModel with the initial data
             const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
             const serverErros = @Html.Raw(JsonConvert.SerializeObject(serverErrorsString));
 
-            var viewModel = new RecipeViewModel(initialData, serverErros);
+            var viewModel = new RecipeViewModel(initialData, serverErros);            
 
             // // Configure Knockout Validation plugin
             ko.validation.init({
@@ -671,8 +647,12 @@
                 errorMessageClass: "small text-danger",
             });
 
-
             ko.applyBindings(viewModel);
+
+            if (Object.keys(viewModel.ServerErrors).length > 0) {
+                debugger
+                viewModel.applyServerErrors();
+            }
 
             //Knockout Viewmodel definition, enabling two-way data binding
             function RecipeViewModel(data, serverErrors) {
@@ -680,9 +660,9 @@
                 var self = this;                          
 
                 self.Title = ko.observable(data.Title).extend({
-                    // required: {
-                    //     message: '@TitleRequiredErrorMessage'
-                    // },
+                    required: {
+                        message: '@TitleRequiredErrorMessage'
+                    },
                     minLength: {
                         message: '@TitleMinLengthErrorMessage',
                         params: '@TitleMinLength'
@@ -692,24 +672,25 @@
                         params: '@TitleMaxLength'
                     },
                     validatable: true
-                }).extend({ setError: true });
+                });
 
+               
                 self.Description = ko.observable(data.Description).extend({
-                    // minLength: {
-                    //     message: '@DescriptionRangeErrorMessage',
-                    //     params: '@DescriptionMinLength'
-                    // },
+                    minLength: {
+                        message: '@DescriptionRangeErrorMessage',
+                        params: '@DescriptionMinLength'
+                    },
                     maxLength: {
                         message: '@DescriptionRangeErrorMessage',
                         params: '@DescriptionMaxLength'
                     },
                     validatable: true
-                }).extend({ setError: true });
-
+                });
+                                
                 self.Servings = ko.observable(data.Servings ? data.Servings : '').extend({
-                    // required: {
-                    //     message: '@ServingsRequiredErrorMessage'
-                    // },
+                    required: {
+                        message: '@ServingsRequiredErrorMessage'
+                    },
                     min: {
                         message: '@ServingsRangeErrorMessage',
                         params: '@ServingsMinValue'
@@ -719,8 +700,8 @@
                         params: '@ServingsMaxValue'
                     },
                     validatable: true
-                }).extend({ setError: true });
-
+                });
+                               
                 self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : '').extend({
                     // required: {
                     //     message: '@CookingTimeRequiredErrorMessage'
@@ -734,12 +715,12 @@
                         params: '@CookingTimeMaxValue'
                     },
                     validatable: true
-                }).extend({ setError: true });
-
+                });
+               
                 self.ImageUrl = ko.observable(data.ImageUrl).extend({
-                    // required: {
-                    //     message: '@ImageRequiredErrorMessage'
-                    // },
+                    required: {
+                        message: '@ImageRequiredErrorMessage'
+                    },
                     minLength: {
                         message: '@ImageRangeErrorMessage',
                         params: '@ImageUlrMinLength'
@@ -750,23 +731,22 @@
                     },
                     url: true,
                     validatable: true
-                }).extend({ setError: true });
-
+                });
+                
                 self.RecipeCategoryId = ko.observable(data.RecipeCategoryId ? data.RecipeCategoryId : '').extend({
-                    // required: {
-                    //     message: '@RecipeCategoryIdRequiredErrorMessage'
-                    // },
+                    required: {
+                        message: '@RecipeCategoryIdRequiredErrorMessage'
+                    },
                     validatable: true
-                }).extend({ setError: true });
-
+                });
+               
                 self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
                     return new createStep(step);
                 }));
 
                 self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
                     return new createIngredient(ingredient);
-                }));
-                
+                }));                
 
                 self.addStep = function () {
                     let newStep = new createStep({
@@ -809,7 +789,7 @@
 
                 // Function to apply server-side errors to the client-side model
                 self.applyServerErrors = function () {
-                    debugger;
+
                     for (const propertyName in self.ServerErrors) {
 
                         const errorsArr = self.ServerErrors[propertyName];
@@ -818,7 +798,7 @@
                         if (self.ServerErrors.hasOwnProperty(propertyName)) {
                             var observable = self;
                             var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
-
+                            debugger;
                             for (var i = 0; i < path.length; i++) {
 
                                 // retrieve the value of the observable wanted if it exists
@@ -834,7 +814,6 @@
                                 } else if (observable[path[i]]) {
 
                                     observable = observable[path[i]];
-                                    console.log(observable());
 
                                 } else {
 
@@ -842,19 +821,19 @@
                                     observable = null;
                                     break;
                                 }
+                               
                             }
+                            if (observable && ko.isObservable(observable)) {
 
-                            if (observable && ko.isObservable(observable) && observable.setError) {
-                                observable.setError(errorsArr.join("\r\n"));
-                            }
+                                //Manually set observable`s error
+                                observable.setError(errorsArr.join("\r\n")); 
+                            }                            
                         }
                     }
+
+                    self.errors.showAllMessages();
                 };
 
-                // Apply the server errors if any
-                if (self.ServerErrors) {
-                    self.applyServerErrors();
-                };
                 // Initialize validation group
                 self.errors = ko.validation.group(self, { deep: true, observable: true });
 
@@ -969,22 +948,22 @@
                         },
                         validatable: true,
 
-                    }).extend({ setError: true });
+                    });
 
                     ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty ? ingredient.Qty : {QtyDecimal: '', QtyFraction: '', QtyWhole: ''}))
                         .extend({ validatable: true })
-                        .extend({ setError: true });
+                        ;
 
                     ingredientSelf.MeasureId = ko.observable(ingredient.MeasureId ? ingredient.MeasureId : '').extend({
                         required: {
                             message: '@MeasureRequiredErrorMessage'
                         },
                         validatable: true
-                    }).extend({ setError: true });
+                    });
 
                     ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
                         .extend({ validatable: true })
-                        .extend({ setError: true });
+                        ;
 
                     ingredientSelf.isUsingFractionsForIngredient = ko.computed(function () {
 
@@ -994,7 +973,7 @@
                         }
                         return false;
                     }).extend({ validatable: true })
-                        .extend({ setError: true });
+                        ;
 
                     return ingredientSelf;
                 }
@@ -1016,7 +995,7 @@
                             params: '@StepDescriptionMaxLength'
                         },
                         validatable: true,
-                    }).extend({ setError: true });
+                    });
 
                     return stepSelf;
                 }

@@ -617,47 +617,6 @@
         errorMessageClass: "small text-danger",
     });
 
-    // ko.validation.rules['combinedQtyValidation'] = {
-    //     validator: function (qtyModel) {
-    //         return qtyModel.QtyWhole() !== null || qtyModel.QtyFraction() !== null || qtyModel.QtyDecimal() !== null;
-    //     },
-    //     message: errorMessages.MissingFormInputErrorMessage
-    // };
-
-    // // Register the custom validation rule
-    // ko.validation.registerExtenders();
-
-    //Register the QTY validation rule
-    // ko.validation.rules['validateqty'] = {
-    //     validator: function (val, params) {
-    //         debugger;
-    //         const qtyDecimal = ko.unwrap(val.QtyDecimal);
-    //         const qtyWhole = ko.unwrap(val.QtyWhole);
-    //         const qtyFraction = ko.unwrap(val.QtyFraction);
-
-    //         if ((!qtyDecimal || qtyDecimal === 0 || qtyDecimal === undefined) && 
-    //         (!qtyWhole || qtyWhole === 0 || qtyWhole === undefined) && 
-    //         (!qtyFraction || qtyFraction == "" || qtyFraction === undefined)) {                
-    //             return false;
-    //         }
-
-    //         if (qtyDecimal && qtyDecimal !== 0 && qtyDecimal !== undefined && (qtyDecimal < 0.001 || qtyDecimal > 9999.99)) {               
-    //             return false;
-    //         }
-
-    //         if (qtyFraction && qtyFraction !== '' && qtyFraction !== undefined && !fractionOptions.includes(qtyFraction)) {                
-    //             return false;
-    //         }
-
-    //         if (qtyWhole && qtyWhole !== 0 && qtyWhole !== undefined && (qtyWhole < 1 || qtyWhole > 9999)) {                
-    //             return false;
-    //         }
-
-    //         return true;
-    //     }
-    // };
-    // ko.validation.registerExtenders();        
-
     // Create Regex URL pattern, corresponding to server-side regex
     const ValidationConstants = {
         UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
