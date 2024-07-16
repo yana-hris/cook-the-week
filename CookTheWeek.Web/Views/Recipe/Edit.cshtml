@@ -21,14 +21,6 @@
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
 
-    var errorMessages = new Dictionary<string, string>
-    {
-        { "MissingFormInputErrorMessage", MissingFormInputErrorMessage },
-        { "MissingFractionalOrWholeInputMessage", MissingFractionalOrWholeInputMessage },
-        { "InvalidDecimalRangeErrorMessage", InvalidDecimalRangeErrorMessage },
-        { "InvalidFractionErrorMessage", InvalidFractionErrorMessage },
-        { "InvalidWholeQtyErrorMessage", InvalidWholeQtyErrorMessage },
-    };
 }
 <div id="edit-recipe" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
@@ -384,11 +376,10 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+    <script src="~/js/knockout-recipe-viewModel.js"> </script>
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
         
@@ -544,420 +535,134 @@
            
             // Update fraction and decimal input fields upon "change input units" request
             form.on('change', '.show-fraction-checkbox', function (event) {
-               
-                var ingredientLine = $(event.target).closest('.ingredient-row');
-                var decimalQtyInput = ingredientLine.find('.decimal-qty-input');
-                var fractionQtyInputs = ingredientLine.find('.fraction-qty-inputs');
+               debugger
+                const ingredientLine = $(event.target).closest('.ingredient-row');
+                const decimalQtyInputDiv = ingredientLine.find('.decimal-qty-input');
+                const fractionQtyInputsDiv = ingredientLine.find('.fraction-qty-inputs');
+
+                const decimalInput = decimalQtyInputDiv.find('input');
+                const wholeInput = fractionQtyInputsDiv.find('input');
+                const fractionsInput = fractionQtyInputsDiv.find('select');
 
                 if ($(event.target).is(':checked')) {
                     // Convert decimal to whole and fraction and update the inputs
-                    let decimalValue = parseFloat(decimalQtyInput.find('input').val()) || 0;
+                    let decimalValue = parseFloat(decimalInput.val()) || 0;
                     let { whole, fraction } = decimalToFraction(decimalValue);
-                    //decimalQtyInput.find('input').rules('remove');
-                    decimalQtyInput.find('input').val('');
-                    decimalQtyInput.hide();
+
+                    decimalInput.val('');
+                    decimalQtyInputDiv.hide();
 
                     // Update the fraction input fields and add validation rules
-                    fractionQtyInputs.show();
+                    fractionQtyInputsDiv.show();
                     // Make sure zero values are not inserted in the nput fields during conversion
-                    if (whole !== 0) {
-                        fractionQtyInputs.find('.qty-whole').val(whole);
+                    if (whole && whole > 0) {
+                        wholeInput.val(whole);
                     }
-                    fractionQtyInputs.find('.qty-fraction').val(fraction);
-                  
+                    fractionsInput.val(fraction);                  
                     
                 } else {
                     // Convert whole and fraction to decimal and update the input
-                    let wholeValue = parseInt(fractionQtyInputs.find('.qty-whole').val()) || 0;
-                    let fractionValue = fractionQtyInputs.find('.qty-fraction').val();
+                    let wholeValue = parseInt(wholeInput.val()) || 0;
+                    let fractionValue = fractionsInput.val() || '';
                     let decimalValue = fractionToDecimal(wholeValue, fractionValue);
 
                     // Update the decimal input field
-                    decimalQtyInput.show();
+                    decimalQtyInputDiv.show();
                     // Make sure zero values are not inserted into the input fields if no user input
-                    if (decimalValue !== 0.000) {
-                        decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    if (decimalValue) {
+                        decimalInput.val(decimalValue.toFixed(3));
                     }
-                   
-                    fractionQtyInputs.find('input, select').val('');
-                    fractionQtyInputs.hide();
+
+                    wholeInput.val('');
+                    fractionsInput.val('');
+                    fractionQtyInputsDiv.hide();
                 }
 
-                form.valid();
             });
         });
     </script>
-    <script>
-    const errorMessages = {
-        MissingFormInputErrorMessage: '@errorMessages["MissingFormInputErrorMessage"]',
-        MissingFractionalOrWholeInputMessage: '@errorMessages["MissingFractionalOrWholeInputMessage"]',
-        InvalidDecimalRangeErrorMessage: '@errorMessages["InvalidDecimalRangeErrorMessage"]',
-        InvalidFractionErrorMessage: '@errorMessages["InvalidFractionErrorMessage"]',
-        InvalidWholeQtyErrorMessage: '@errorMessages["InvalidWholeQtyErrorMessage"]'
-    };
-    // Parse the QtyFractionOptions from the JSON string
-    var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
-    var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-    // Extract keys from QtyFractionOptions as valid fractions
-    const fractionOptions = Object.keys(qtyFractionOptions);
-
-
-    // Initialize the ViewModel with the initial data
-    const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-    var viewModel = new RecipeViewModel(initialData);
-
-
-    // Configure Knockout Validation plugin
-    ko.validation.init({
-        insertMessages: false,
-        decorateElement: false,
-        errorElementClass: 'error',
-        parseInputAttributes: true,
-        messagesOnModified: true,
-        errorMessageClass: "small text-danger",
-    });
-
-    // Create Regex URL pattern, corresponding to server-side regex
-    const ValidationConstants = {
-        UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
-    };
-    // Register URL validation rule
-    ko.validation.rules['url'] = {
-        validator: function (val, validate) {
-            if (!val || !validate) return true;
-            return ValidationConstants.UrlPattern.test(val);
-        },
-        message: '@ImageInvalidErrorMessage'
-    };
-
-    ko.validation.registerExtenders();
-
-    //Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
-    function RecipeViewModel(data) {
-
-        var self = this;
-
-        function createQtyObservable(qty) {
-            
-            let self = this;
-
-            self.QtyDecimal = ko.observable(qty.QtyDecimal);
-            self.QtyWhole = ko.observable(qty.QtyWhole);
-            self.QtyFraction = ko.observable(qty.QtyFraction);
-
-            self.QtyDecimal.extend({
-                required: {
-                    onlyIf: function () { return !self.QtyWhole() && !self.QtyFraction() },
-                    message: errorMessages.MissingFormInputErrorMessage
-                },
-                min: {
-                    message: errorMessages.InvalidDecimalRangeErrorMessage,
-                    params: 0.001
-                },
-                max: {
-                    message: errorMessages.InvalidDecimalRangeErrorMessage,
-                    params: 9999.99
-                },
-                validatable: true
-            });
-
-            self.QtyWhole.extend({
-                required: {
-                    onlyIf: function () { return !self.QtyDecimal() && !self.QtyFraction() },
-                    message: errorMessages.MissingFormInputErrorMessage
-                },
-                min: {
-                    message: errorMessages.InvalidWholeQtyErrorMessage,
-                    params: 1
-                },
-                max: {
-                    message: errorMessages.InvalidWholeQtyErrorMessage,
-                    params: 9999
-                },
-                validatable: true
-            });
-
-            self.QtyFraction.extend({
-                validation: {
-                    validator: function (val) {
-                        return val ? fractionOptions.includes(val) : true;
-                    },
-                    message: errorMessages.InvalidFractionErrorMessage
-                },
-                validatable: true
-            });
-
-            return self;
-        };
-
-        function createIngredient(ingredient) {
-
-            let self = this;
-
-            let isUsingFractionsForIngredient = ko.pureComputed(function () {
-                return ko.unwrap(ingredient.Qty.QtyDecimal) === null && (ko.unwrap(ingredient.Qty.QtyFraction) !== null || ko.unwrap(ingredient.Qty.QtyWhole) !== null);
-            });
-
-            
-            self.Name = ko.observable(ingredient.Name).extend({
-                required: {
-                    message: '@RecipeIngredientNameRequiredErrorMessage'
-                },
-                minLength: {
-                    message: '@RecipeIngredientNameRangeErrorMessage',
-                    params: '@RecipeIngredientNameMinLength'
-                },
-                maxLength: {
-                    message: '@RecipeIngredientNameRangeErrorMessage',
-                    params: '@RecipeIngredientNameMaxLength'
-                },
-                validatable: true
-            });
-
-            self.Qty = ko.observable(new createQtyObservable(ingredient.Qty)).extend({
-                validatable: true
-            });
-            
-            self.MeasureId = ko.observable(ingredient.MeasureId).extend({
-                required: {
-                    message: '@MeasureRequiredErrorMessage'
-                },
-                validatable: true
-            });
-
-            self.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
-
-            self.isUsingFractionsForIngredient = isUsingFractionsForIngredient.extend({ validatable: true });
-
-            return self;
-        }
-
-        self.Id = ko.observable(data.Id);
-
-        self.Title = ko.observable(data.Title).extend({
-            required: {
-                message: '@TitleRequiredErrorMessage'
-            },
-            minLength: {
-                message: '@TitleMinLengthErrorMessage',
-                params: '@TitleMinLength'
-            },
-            maxLength: {
-                message: '@TitleMaxLengthErrorMessage',
-                params: '@TitleMaxLength'
-            },
-            validatable: true
-        });
-
-        self.Servings = ko.observable(data.Servings).extend({
-            required: {
-                message: '@ServingsRequiredErrorMessage'
-            },
-            min: {
-                message: '@ServingsRangeErrorMessage',
-                params: '@ServingsMinValue'
-            },
-            max: {
-                message: '@ServingsRangeErrorMessage',
-                params: '@ServingsMaxValue'
-            },
-            validatable: true
-        });
-
-        self.Description = ko.observable(data.Description).extend({
-            minLength: {
-                message: '@DescriptionRangeErrorMessage',
-                params: '@DescriptionMinLength'
-            },
-            maxLength: {
-                message: '@DescriptionRangeErrorMessage',
-                params: '@DescriptionMaxLength'
-            },
-            validatable: true
-        });
-
-        self.ImageUrl = ko.observable(data.ImageUrl).extend({
-            required: {
-                message: '@ImageRequiredErrorMessage'
-            },
-            minLength: {
-                message: '@ImageRangeErrorMessage',
-                params: '@ImageUlrMinLength'
-            },
-            maxLength: {
-                message: '@ImageRangeErrorMessage',
-                params: '@ImageUlrMaxLength'
-            },
-            url: true,
-            validatable: true
-        });
-
-        self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes).extend({
-            required: {
-                message: '@CookingTimeRequiredErrorMessage'
-            },
-            min: {
-                message: '@CookingTimeRangeErrorMessage',
-                params: '@CookingTimeMinValue'
-            },
-            max: {
-                message: '@CookingTimeRangeErrorMessage',
-                params: '@CookingTimeMaxValue'
-            },
-            validatable: true
-        });
-
-        self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
-            required: {
-                message: '@RecipeCategoryIdRequiredErrorMessage'
-            },
-            validatable: true
-        });
-
-       function createStep(newStep) {
-
-           let self = this;
-
-           self.Description = ko.observable(newStep.Description).extend({
-               required: {
-                   message: '@StepRequiredErrorMessage'
-               },
-               minLength: {
-                   message: '@StepDescriptionRangeErrorMessage',
-                   params: '@StepDescriptionMinLength'
-               },
-               maxLength: {
-                   message: '@StepDescriptionRangeErrorMessage',
-                   params: '@StepDescriptionMaxLength'
-               },
-               validatable: true,
-           });
-
-            return self;
-        };
-
-        self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
-            return new createStep(step);
-        }));
-
-        self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
-            return new createIngredient(ingredient);
-        }));
-
-        self.addStep = function () {
-            let newStep = new createStep({
-                Description: '',
-            });
-            
-            self.Steps.push(newStep);
-        };
-
-        self.removeStep = function (step) {
-            if (self.Steps().length > 1) {
-                self.Steps.remove(step);
-            } else {
-                toastr.error('@StepsRequiredErrorMessage');
-            }
-        };
-
-        self.addIngredient = function () {
-            let newIngredient = new createIngredient({
-                Name: '',
-                Qty: { QtyDecimal: null, QtyWhole: null, QtyFraction: '' },
-                MeasureId: '',
-                SpecificationId: ''
-            });
-
-            self.RecipeIngredients.push(newIngredient);
-        };
-
-        self.removeIngredient = function (ingredient) {
-            
-            if (self.RecipeIngredients().length > 1) {
-                self.RecipeIngredients.remove(ingredient);
-            } else {
-                toastr.error('@IngredientsRequiredErrorMessage');
-            }
-        };
-
-        self.submitForm = function () {
-            // Validate the entire ViewModel
-            self.errors = ko.validation.group(self, { deep: true, observable: true });
-           
-            // Additional validation for steps and ingredients
-            const stepsValid = self.Steps().length > 0;
-            const ingredientsValid = self.RecipeIngredients().length > 0;
-
-            if (!stepsValid) {
-                toastr.error('At least one step is required.');
-            }
-
-            if (!ingredientsValid) {
-                toastr.error('At least one ingredient is required.');
-            }
-                
-            if (self.errors().length === 0 && stepsValid && ingredientsValid) {
-                
-                var jsonData = ko.toJSON(self);
-                //console.log('Submitting data:', jsonData); // Log data being sent
-
-                // Perform AJAX POST request
-                $.ajax({
-                    url: '/Recipe/Edit',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: jsonData,
-                    success: function (response) {
-                        if (response.success && response.redirectUrl) {
-                            toastr.success('Recipe edited successfully!');
-                            window.location.href = response.redirectUrl;
-                        }
-                    },
-                    error: function (xhr) {
-                        debugger
-                        if (xhr.status === 400 && xhr.responseJSON && !xhr.responseJSON.success) {
-                            // Display server-side validation errors
-                            var errors = xhr.responseJSON.errors;
-                            for (var key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    var errorMessages = errors[key].errors;
-                                    if (errorMessages && errorMessages.length > 0) {
-                                        ko.validation.addValidationMessage({
-                                            message: errorMessages.join(', '),
-                                            observable: self[key]
-                                        });
-                                    }
-                                }
-                            }
-                            self.errors.showAllMessages();
-                        } else if (xhr.status === 400) {
-                            // Replace the form content with the response HTML
-                            $('#edit-recipe').html(xhr.responseText);
-                            // Reapply bindings since the form content was replaced
-                            ko.applyBindings(new RecipeViewModel(initialData), document.getElementById('edit-recipe'));
-
-                        } else {
-                            console.error('Error occurred while submitting form:', xhr.statusText);
-                            alert('Error occurred while submitting form. Please try again later.');
-                        }
-                    }
-                });
-            } else {
-                debugger;
-                self.errors.showAllMessages();
-            }
-
-            return false; // Prevent the default form submission
-        }
-
-        // Initialize validation group
-        ko.validation.group(self, { deep: true, observable: true });
-        return self;
-        
-    }
-
+    <script>    
     $(document).ready(function () {
-        ko.applyBindings(viewModel);
+        const errorMessages = {
+            TitleRequiredErrorMessage: '@TitleRequiredErrorMessage',
+            TitleMinLengthErrorMessage: '@TitleMinLengthErrorMessage',
+            TitleMaxLengthErrorMessage: '@TitleMaxLengthErrorMessage',
+            DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
+            DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
+            ServingsRequiredErrorMessage: '@ServingsRequiredErrorMessage',
+            ServingsRangeErrorMessage: '@ServingsRangeErrorMessage',
+            ImageRequiredErrorMessage: '@ImageRequiredErrorMessage',
+            ImageRangeErrorMessage: '@ImageRangeErrorMessage',
+            CookingTimeRequiredErrorMessage: '@CookingTimeRequiredErrorMessage',
+            CookingTimeRangeErrorMessage: '@CookingTimeRangeErrorMessage',
+            RecipeCategoryIdRequiredErrorMessage: '@RecipeCategoryIdRequiredErrorMessage',
+            StepRequiredErrorMessage: '@StepRequiredErrorMessage',
+            StepDescriptionRangeErrorMessage: '@StepDescriptionRangeErrorMessage',
+            IngredientsRequiredErrorMessage: '@IngredientsRequiredErrorMessage',
+            RecipeIngredientNameRequiredErrorMessage: '@RecipeIngredientNameRequiredErrorMessage',
+            RecipeIngredientNameRangeErrorMessage: '@RecipeIngredientNameRangeErrorMessage',
+            MeasureRequiredErrorMessage: '@MeasureRequiredErrorMessage',
+            MissingFormInputErrorMessage: '@MissingFormInputErrorMessage',
+            MissingFractionalOrWholeInputMessage: '@MissingFractionalOrWholeInputMessage',
+            InvalidDecimalRangeErrorMessage: '@InvalidDecimalRangeErrorMessage',
+            InvalidFractionErrorMessage: '@InvalidFractionErrorMessage',
+            InvalidWholeQtyErrorMessage: '@InvalidWholeQtyErrorMessage'
+        };
+
+        const validationConstants = {
+            TitleMinLength: '@TitleMinLength',
+            TitleMaxLength: '@TitleMaxLength',
+            DescriptionMinLength: '@DescriptionMinLength',
+            DescriptionMaxLength: '@DescriptionMaxLength',
+            ServingsMinValue: '@ServingsMinValue',
+            ServingsMaxValue: '@ServingsMaxValue',
+            ImageUlrMinLength: '@ImageUlrMinLength',
+            ImageUlrMaxLength: '@ImageUlrMaxLength',
+            CookingTimeMinValue: '@CookingTimeMinValue',
+            CookingTimeMaxValue: '@CookingTimeMaxValue',
+            StepDescriptionMinLength: '@StepDescriptionMinLength',
+            StepDescriptionMaxLength: '@StepDescriptionMaxLength',
+            RecipeIngredientNameMinLength: '@RecipeIngredientNameMinLength',
+            RecipeIngredientNameMaxLength: '@RecipeIngredientNameMaxLength',
+        };
+
+        // Parse the QtyFractionOptions from the JSON string
+        var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
+        var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
+        // Extract keys from QtyFractionOptions as valid fractions
+        const fractionOptions = Object.keys(qtyFractionOptions);
+
+        // Create Regex URL pattern, corresponding to server-side regex
+        const ValidationConstants = {
+            UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
+        };
+        // Register URL validation rule
+        ko.validation.rules['url'] = {
+            validator: function (val, validate) {
+                if (!val || !validate) return true;
+                return ValidationConstants.UrlPattern.test(val);
+            },
+            message: '@ImageInvalidErrorMessage'
+        };
+
+        ko.validation.registerExtenders();
+
+        // Initialize the ViewModel with the initial data
+        const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
+        var viewModel = new RecipeViewModel(initialData, errorMessages, fractionOptions, validationConstants);
+
+        // Configure Knockout Validation plugin
+        ko.validation.init({
+            insertMessages: false,
+            decorateElement: true,
+            errorElementClass: 'error',
+            parseInputAttributes: true,
+            messagesOnModified: true,
+            errorMessageClass: "small text-danger",
+        });
+
+        ko.applyBindings(viewModel);        
+        
     });
     </script>
 }

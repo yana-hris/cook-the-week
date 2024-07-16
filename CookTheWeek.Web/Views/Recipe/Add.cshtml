@@ -67,8 +67,7 @@
                                     <input 
                                         asp-for="Title"
                                         data-bind="value: Title, 
-                                        valueUpdate: 'afterkeydown',
-                                        css: { 'input-validation-error': Title.hasError }"
+                                        valueUpdate: 'afterkeydown'"
                                         class="form-control"
                                         placeholder="Name it.."
                                         type="text" />
@@ -241,6 +240,7 @@
                                                                     }"
                                                        class="form-control ingredientName"
                                                        type="text"
+                                                       placeholder="Start typing.."
                                                        autocomplete="off" />
                                                 <div class="suggestionsList invisible">
                                                 </div>
@@ -566,13 +566,13 @@
                     let decimalValue = parseFloat(decimalQtyInput.find('input').val()) || 0;
                     let { whole, fraction } = decimalToFraction(decimalValue);
 
-                    decimalQtyInput.find('input').val('');
+                    decimalQtyInput.val('');
                     decimalQtyInput.hide();
 
                     // Update the fraction input fields and add validation rules
                     fractionQtyInputs.show();
                     // Make sure zero values are not inserted in the nput fields during conversion
-                    if(whole !== 0) {
+                    if(whole !== 0 & whole > 0) {
                         fractionQtyInputs.find('.qty-whole').val(whole);
                     }
                     fractionQtyInputs.find('.qty-fraction').val(fraction);
@@ -587,8 +587,8 @@
                     // Update the decimal input field
                     decimalQtyInput.show();
                     // Make sure zero values are not inserted into the input fields if no user input
-                    if(decimalValue !== 0.000) {
-                        decimalQtyInput.find('input').val(decimalValue.toFixed(3));
+                    if(decimalValue !== 0.000 && decimalValue > 0.000) {
+                        decimalQtyInput.val(decimalValue.toFixed(3));
                     }
 
                     fractionQtyInputs.find('input, select').val('');
@@ -675,7 +675,7 @@
                 });
 
                
-                self.Description = ko.observable(data.Description).extend({
+                self.Description = ko.observable(data.Description ? data.Description : '').extend({
                     minLength: {
                         message: '@DescriptionRangeErrorMessage',
                         params: '@DescriptionMinLength'
@@ -702,10 +702,10 @@
                     validatable: true
                 });
                                
-                self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : '').extend({
-                    // required: {
-                    //     message: '@CookingTimeRequiredErrorMessage'
-                    // },
+                self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : 0).extend({
+                    required: {
+                        message: '@CookingTimeRequiredErrorMessage'
+                    },
                     min: {
                         message: '@CookingTimeRangeErrorMessage',
                         params: '@CookingTimeMinValue'
@@ -749,9 +749,8 @@
                 }));                
 
                 self.addStep = function () {
-                    let newStep = new createStep({
-                        Description: '',
-                    });
+                    let newStep = new createStep(
+                        { Descrption: ''});
 
                     self.Steps.push(newStep);
                 };
@@ -762,6 +761,7 @@
                     } else {
                         toastr.error('@StepsRequiredErrorMessage');
                     }
+                    self.errors();
                 };
 
                 self.addIngredient = function () {
@@ -814,6 +814,7 @@
                                 } else if (observable[path[i]]) {
 
                                     observable = observable[path[i]];
+                                    console.log(observable.toString());
 
                                 } else {
 
@@ -824,7 +825,6 @@
                                
                             }
                             if (observable && ko.isObservable(observable)) {
-
                                 //Manually set observable`s error
                                 observable.setError(errorsArr.join("\r\n")); 
                             }                            
@@ -841,12 +841,15 @@
                     // Validate the entire ViewModel
                     debugger;
                     const clientSideErrors = self.errors();
+                    self.errors.showAllMessages();
 
                     console.log(clientSideErrors);
                     console.log(self);
 
                     // Additional validation for steps and ingredients
+                   
                     const stepsValid = self.Steps().length > 0;
+
                     const ingredientsValid = self.RecipeIngredients().length > 0;
 
                     if (!stepsValid) {
@@ -962,8 +965,7 @@
                     });
 
                     ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
-                        .extend({ validatable: true })
-                        ;
+                        .extend({ validatable: true });
 
                     ingredientSelf.isUsingFractionsForIngredient = ko.computed(function () {
 
@@ -972,8 +974,7 @@
                             return (!qty.QtyDecimal() && (qty.QtyFraction() || qty.QtyWhole()));
                         }
                         return false;
-                    }).extend({ validatable: true })
-                        ;
+                    }).extend({ validatable: true });
 
                     return ingredientSelf;
                 }
@@ -993,16 +994,12 @@
                         maxLength: {
                             message: '@StepDescriptionRangeErrorMessage',
                             params: '@StepDescriptionMaxLength'
-                        },
-                        validatable: true,
-                    });
+                        }
+                    }).extend({ validatable: true });
 
                     return stepSelf;
                 }
-
-
             }
-
         });
     </script>
     
