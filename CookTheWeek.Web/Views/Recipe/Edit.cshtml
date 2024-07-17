@@ -54,7 +54,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Title</span>
                                     <input 
-                                        data-bind="value: Title, valueUpdate: 'afterkeydown'"
+                                        data-bind="value: Title"
                                         class="form-control" 
                                         placeholder="Name it.." 
                                         type="text" />
@@ -87,7 +87,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Description</span>
                                     <textarea 
-                                        data-bind="value: Description, valueUpdate: 'afterkeydown'"
+                                        data-bind="value: Description"
                                         rows="3" 
                                         class="form-control" 
                                         placeholder="Would be great to know more about this recipe.."></textarea>
@@ -117,7 +117,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text">Image URL</span>
                                     <input 
-                                        data-bind="value: ImageUrl, valueUpdate: 'afterkeydown'" 
+                                        data-bind="value: ImageUrl" 
                                         class="form-control" 
                                         placeholder="Your image link here..." 
                                         type="url"/>
@@ -161,8 +161,7 @@
                                                 <textarea 
                                                     data-val="true"
                                                     data-bind="value: Description, 
-                                                               deferValidation: Description,
-                                                               valueUpdate: 'afterkeydown'"
+                                                               deferValidation: Description"
                                                     class="form-control" 
                                                     rows="3" 
                                                     placeholder="Tell us how to cook..">
@@ -210,7 +209,6 @@
                                                 <input data-bind="value: Name, 
                                                                   validationElement: Name, 
                                                                   deferValidation: Name, 
-                                                                  valueUpdate: 'afterkeydown', 
                                                                   validationRules: {
                                                                         required: {
                                                                             message: '@RecipeIngredientNameRequiredErrorMessage'
@@ -283,8 +281,7 @@
                                             
                                             <!-- INPUT SWITCHER -->
                                             <div class="form-check form-switch">
-                                                <input 
-                                                    data-bind="checked: isUsingFractionsForIngredient"
+                                                <input data-bind="checked: isUsingFractionsForIngredient(), click: switchQtyUnit"
                                                     class="form-check-input show-fraction-checkbox" 
                                                     type="checkbox" />
                                                 <label class="form-check-label">Use Fractions</label>
@@ -488,99 +485,7 @@
         }
 
     </script>
-    <script>
-        $(document).ready(function () {            
-            
-            var form = $("#edit-recipe-form");
-
-            // Parse the QtyFractionOptions from the JSON string
-            var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
-            var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-
-            // Extract keys from QtyFractionOptions as valid fractions
-            var fractionOptions = Object.keys(qtyFractionOptions);
-           
-            
-            // Helper function to convert decimal to whole and fraction
-            function decimalToFraction(decimal) {
-                let whole = Math.floor(decimal);
-                let fraction = decimal - whole;
-
-                if (fraction > 0) {
-                    let closestFraction = '';
-                    let minDifference = Number.MAX_VALUE;
-
-                    for (const [key, value] of Object.entries(qtyFractionOptions)) {
-                        const difference = Math.abs(value - fraction);
-                        if (difference < minDifference) {
-                            minDifference = difference;
-                            closestFraction = key;
-                        }
-                    }
-
-                    fraction = closestFraction;
-                }
-                else {
-                    fraction = '';
-                }
-
-                return { whole, fraction };
-            }
-
-            // Helper function to convert whole and fraction to decimal
-            function fractionToDecimal(whole, fraction) {
-                let fractionValue = qtyFractionOptions[fraction] || 0;
-                return parseFloat(whole) + fractionValue;
-            }    
-           
-            // Update fraction and decimal input fields upon "change input units" request
-            form.on('change', '.show-fraction-checkbox', function (event) {
-               debugger
-                const ingredientLine = $(event.target).closest('.ingredient-row');
-                const decimalQtyInputDiv = ingredientLine.find('.decimal-qty-input');
-                const fractionQtyInputsDiv = ingredientLine.find('.fraction-qty-inputs');
-
-                const decimalInput = decimalQtyInputDiv.find('input');
-                const wholeInput = fractionQtyInputsDiv.find('input');
-                const fractionsInput = fractionQtyInputsDiv.find('select');
-
-                if ($(event.target).is(':checked')) {
-                    // Convert decimal to whole and fraction and update the inputs
-                    let decimalValue = parseFloat(decimalInput.val()) || 0;
-                    let { whole, fraction } = decimalToFraction(decimalValue);
-
-                    decimalInput.val('');
-                    decimalQtyInputDiv.hide();
-
-                    // Update the fraction input fields and add validation rules
-                    fractionQtyInputsDiv.show();
-                    // Make sure zero values are not inserted in the nput fields during conversion
-                    if (whole && whole > 0) {
-                        wholeInput.val(whole);
-                    }
-                    fractionsInput.val(fraction);                  
-                    
-                } else {
-                    // Convert whole and fraction to decimal and update the input
-                    let wholeValue = parseInt(wholeInput.val()) || 0;
-                    let fractionValue = fractionsInput.val() || '';
-                    let decimalValue = fractionToDecimal(wholeValue, fractionValue);
-
-                    // Update the decimal input field
-                    decimalQtyInputDiv.show();
-                    // Make sure zero values are not inserted into the input fields if no user input
-                    if (decimalValue) {
-                        decimalInput.val(decimalValue.toFixed(3));
-                    }
-
-                    wholeInput.val('');
-                    fractionsInput.val('');
-                    fractionQtyInputsDiv.hide();
-                }
-
-            });
-        });
-    </script>
+    
     <script>    
     $(document).ready(function () {
         const errorMessages = {
@@ -626,12 +531,11 @@
             RecipeIngredientNameMaxLength: '@RecipeIngredientNameMaxLength',
         };
 
+        debugger;
         // Parse the QtyFractionOptions from the JSON string
         var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
         var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-        // Extract keys from QtyFractionOptions as valid fractions
-        const fractionOptions = Object.keys(qtyFractionOptions);
-
+        
         // Create Regex URL pattern, corresponding to server-side regex
         const ValidationConstants = {
             UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
@@ -649,7 +553,8 @@
 
         // Initialize the ViewModel with the initial data
         const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var viewModel = new RecipeViewModel(initialData, errorMessages, fractionOptions, validationConstants);
+        var viewModel = new RecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants);
+        
 
         // Configure Knockout Validation plugin
         ko.validation.init({
@@ -661,7 +566,8 @@
             errorMessageClass: "small text-danger",
         });
 
-        ko.applyBindings(viewModel);        
+        ko.applyBindings(viewModel);    
+
         
     });
     </script>

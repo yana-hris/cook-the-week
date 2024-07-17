@@ -99,17 +99,7 @@ namespace CookTheWeek.Web
                        .SetIsOriginAllowed((host) => true)
                        .AllowCredentials();
             }));
-
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy("DevelopmentCorsPolicy", builder =>
-            //    {
-            //        builder.WithOrigins("https://localhost:7279")
-            //               .AllowAnyHeader()
-            //               .AllowAnyMethod();
-            //    });
-            //});
-
+           
             WebApplication app = builder.Build();
             
             if (app.Environment.IsDevelopment())
