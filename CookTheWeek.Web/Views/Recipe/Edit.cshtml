@@ -530,8 +530,6 @@
             RecipeIngredientNameMinLength: '@RecipeIngredientNameMinLength',
             RecipeIngredientNameMaxLength: '@RecipeIngredientNameMaxLength',
         };
-
-        debugger;
         // Parse the QtyFractionOptions from the JSON string
         var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
         var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
@@ -566,9 +564,7 @@
             errorMessageClass: "small text-danger",
         });
 
-        ko.applyBindings(viewModel);    
-
-        
+        ko.applyBindings(viewModel);   
     });
     </script>
 }

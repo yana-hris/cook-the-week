@@ -4,20 +4,39 @@
     position: relative;
 
     .card {
-
+        border: 2px solid var(--bs-primary);
+        
         .card-header {
-            li.nav-item span {
-                color: var(--bs-success-text-emphasis);
-            }
 
-            li.nav-item span:hover {
-                color: var(--bs-primary);
+            
+            .nav-item {
+
+                .nav-link {
+                    color: var(--bs-success);
+
+                    &:hover {
+                        
+                        background-color: var(--bs-success);
+                        color: var(--bs-primary);
+                        
+                    }
+                }
+
+                .nav-link.active {
+                    font-weight: bolder;
+                    color: var(--bs-body-color) !important;
+
+                    &:hover {
+                        background-color: var(--bs-body-bg) !important;
+                        color: var(--bs-primary) !important;
+                    }
+                }
             }
 
             .back-button {
                 position: absolute;
-                top: 4px;
-                right: 8px;
+                top: 5px;
+                right: 7px;
                 z-index: 15;
             }
         }
@@ -136,13 +155,6 @@
     }
 }
 
-/*@media (min-width: 576px) {
-    #recipe-details-container, #meal-cook-container {
-        max-width: 940px !important;
-        margin: 0 auto;
-        padding: 0 !important;
-    }
-}*/
 
 
 

@@ -46,28 +46,28 @@
     .plus::before {
         background-color: var(--bs-primary);
         color: #fff;
-        border: 1px solid #204a22;
-        box-shadow: 0px 0px 1px 0px black;
+        border: 2px solid var(--bs-primary);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
 
     .minus::before {
         background-color: var(--bs-danger);
         color: #fff;
-        border: 1px solid #990404;
-        box-shadow: 0px 0px 1px 0px black;
+        border: 2px solid var(--bs-danger);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
     .plus:hover::before {
         background-color: #fff;
-        border: 1px solid var(--bs-primary);
-        //box-shadow: 0px 0px 1px 0px black;
+        border: 2px solid var(--bs-primary);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
     .minus:hover::before {
         background-color: #fff;
-        border: 1px solid var(--bs-danger);
-        //box-shadow: 0px 0px 1px 0px black;
+        border: 2px solid var(--bs-danger);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
     .add-to-mealplan-button.plus:hover {

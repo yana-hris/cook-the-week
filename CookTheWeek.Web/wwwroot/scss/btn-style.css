@@ -17,7 +17,9 @@ html #main-container .btn-secondary {
   border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary:hover {
-  color: var(--btn-secondary-hover-color);
+  background-color: var(--bs-primary);
+  color: var(--bs-success);
+  border: 1px solid var(--bs-success);
 }
 html #main-container .btn-danger {
   border: 1px solid var(--input-form-span-bg-dark-green-color);
@@ -36,21 +38,32 @@ html #main-container #build-btn-container, html #main-container .fixed-size-btn,
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+html #main-container #build-btn-container .btn-build, html #main-container .fixed-size-btn .btn-build, html #main-container .back-button .btn-build, html #main-container .remove-btn .btn-build {
+  color: var(--bs-primary);
+  background-color: #fff;
+  border: 2px solid var(--bs-primary);
+}
+html #main-container #build-btn-container .btn-build:hover, html #main-container .fixed-size-btn .btn-build:hover, html #main-container .back-button .btn-build:hover, html #main-container .remove-btn .btn-build:hover {
+  color: #fff;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-body-bg);
+}
 html #main-container #build-btn-container {
   width: 50px;
   height: 50px;
 }
 html #main-container .fixed-size-btn {
-  height: 42px;
-  width: 42px;
-  font-size: 24px;
+  height: 40px;
+  width: 44px;
+  font-size: 23px;
 }
 html #main-container .back-button {
   color: var(--bs-success);
 }
 html #main-container .back-button:hover {
-  background-color: var(--bs-success);
-  color: var(--bs-primary);
+  background-color: var(--bs-primary);
+  border: none;
+  color: var(--bs-body-bg);
 }
 html #main-container .remove-btn {
   height: 32px;
@@ -58,12 +71,11 @@ html #main-container .remove-btn {
   font-size: 24px;
   background-color: var(--bs-danger);
   color: var(--bs-white);
-  border: 1px solid #990404;
+  border: 1px solid var(--bs-primary);
 }
 html #main-container .remove-btn:hover {
   color: var(--bs-danger);
   background-color: var(--bs-white);
-  border: 1px solid #990404;
 }
 html #main-container .btn.close {
   color: var(--bs-success);

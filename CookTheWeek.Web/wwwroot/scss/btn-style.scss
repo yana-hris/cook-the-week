@@ -7,7 +7,7 @@
             display: inline-block;
             width: 9rem;
             padding: 0.8rem, 1.2rem;
-        }
+        }        
         // dark green btn for main site functionality
         .btn-primary {
             color: #fff;
@@ -24,13 +24,15 @@
             border: 1px solid var(--bs-primary);
 
             &:hover {
-                color: var(--btn-secondary-hover-color);
+                background-color: var(--bs-primary);
+                color: var(--bs-success);
+                border: 1px solid var(--bs-success);
             }
         }
         // remove btns style on hover
         .btn-danger {
             border: 1px solid var(--input-form-span-bg-dark-green-color);
-            
+
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-light);
@@ -46,6 +48,18 @@
             cursor: pointer;
             opacity: 1;
             transition: opacity 0.3s ease;
+
+            .btn-build {
+                color: var(--bs-primary);
+                background-color: #fff;
+                border: 2px solid var(--bs-primary);
+
+                &:hover {
+                    color: #fff;
+                    background-color: var(--bs-primary);
+                    border: 2px solid var(--bs-body-bg);
+                }
+            }
         }
 
         #build-btn-container {
@@ -54,17 +68,18 @@
         }
 
         .fixed-size-btn {
-            height: 42px;
-            width: 42px;
-            font-size: 24px;
+            height: 40px;
+            width: 44px;
+            font-size: 23px;
         }
 
         .back-button {
             color: var(--bs-success);
 
             &:hover {
-                background-color: var(--bs-success);
-                color: var(--bs-primary);
+               background-color: var(--bs-primary);
+               border: none;
+               color: var(--bs-body-bg);
             }
         }
 
@@ -74,12 +89,12 @@
             font-size: 24px;
             background-color: var(--bs-danger);
             color: var(--bs-white);
-            border: 1px solid #990404;
+            border: 1px solid var(--bs-primary);
 
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-white);
-                border: 1px solid #990404;
+                
             }
         }
 

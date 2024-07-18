@@ -116,11 +116,11 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     };
 
     self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
-        return new createStep(step);
+        return createStep(step);
     }));
 
     self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
-        return new createIngredient(ingredient);
+        return createIngredient(ingredient);
     }));
 
     self.addStep = function () {
@@ -197,10 +197,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
 
         if (errorsArr.length === 0 && stepsValid && ingredientsValid) {
 
-            console.log(self);
-
-            console.log(self.toJSON());
-           
             var jsonData = JSON.stringify(self.toJSON());
             console.log('Submitting data:', jsonData); // Log data being sent
 
@@ -257,16 +253,10 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     function createQtyObservable(qty) {
 
         let qtyObservable = this;
-
-        if (qty) {
-            qtyObservable.QtyDecimal = ko.observable(qty.QtyDecimal);
-            qtyObservable.QtyWhole = ko.observable(qty.QtyWhole);
-            qtyObservable.QtyFraction = ko.observable(qty.QtyFraction);
-        } else {
-            qtyObservable.QtyDecimal = ko.observable('');
-            qtyObservable.QtyWhole = ko.observable('');
-            qtyObservable.QtyFraction = ko.observable('');
-        }
+        
+        qtyObservable.QtyDecimal = ko.observable(qty.QtyDecimal);
+        qtyObservable.QtyWhole = ko.observable(qty.QtyWhole);
+        qtyObservable.QtyFraction = ko.observable(qty.QtyFraction);
 
         qtyObservable.QtyDecimal.extend({
             required: {
@@ -314,7 +304,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             return {
                 QtyDecimal: qtyObservable.QtyDecimal(),
                 QtyWhole: qtyObservable.QtyWhole(),
-                qtyFraction: qtyObservable.QtyFraction()
+                QtyFraction: qtyObservable.QtyFraction()
             };
         };
 
