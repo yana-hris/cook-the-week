@@ -80,7 +80,7 @@
             var testRecipeId = TestRecipe.Id.ToString();
             int recipeIngredientsCountBeforeAdd = TestRecipe.RecipesIngredients.Count;
            
-            var testRecipeIngredientModel = new RecipeIngredientFormViewModel()
+            var testRecipeIngredientModel = new RecipeIngredientFormModel()
             {
                 Name = TestIngredient.Name,
                 Qty = new RecipeIngredientQtyFormModel() { QtyDecimal = 10},

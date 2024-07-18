@@ -201,7 +201,7 @@
                 CookingTimeMinutes = NewRecipe.TotalTime.Minutes,
                 ImageUrl = NewRecipe.ImageUrl,
                 RecipeCategoryId = NewRecipe.CategoryId,
-                RecipeIngredients = new List<RecipeIngredientFormViewModel>()
+                RecipeIngredients = new List<RecipeIngredientFormModel>()
                 {
                     new()
                     {
@@ -273,7 +273,7 @@
                 CookingTimeMinutes = editedCookingTime,
                 ImageUrl = editedUrl,
                 RecipeCategoryId = editedRecipeCategory,
-                RecipeIngredients = new List<RecipeIngredientFormViewModel>()
+                RecipeIngredients = new List<RecipeIngredientFormModel>()
                 { 
                     new()
                     {
@@ -306,7 +306,7 @@
                 Assert.That(recipeToEdit.RecipesIngredients.Count, Is.EqualTo(recipeModelToEdit.RecipeIngredients.Count));
                 Assert.That(recipeToEdit.RecipesIngredients, Is.InstanceOf<ICollection<RecipeIngredient>>());
 
-                IEnumerator<RecipeIngredientFormViewModel> expectedEnumerator = recipeModelToEdit.RecipeIngredients.GetEnumerator();
+                IEnumerator<RecipeIngredientFormModel> expectedEnumerator = recipeModelToEdit.RecipeIngredients.GetEnumerator();
                 IEnumerator<RecipeIngredient> actualEnumerator = recipeToEdit.RecipesIngredients.GetEnumerator();
 
                 while (expectedEnumerator.MoveNext() && actualEnumerator.MoveNext())

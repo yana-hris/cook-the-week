@@ -373,7 +373,7 @@
                     CookingTimeMinutes = (int)r.TotalTime.TotalMinutes,
                     ImageUrl = r.ImageUrl,
                     RecipeCategoryId = r.CategoryId,
-                    RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormViewModel()
+                    RecipeIngredients = r.RecipesIngredients.Select(ri => new RecipeIngredientFormModel()
                     {
                         Name = ri.Ingredient.Name,
                         Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty, ri.Measure.Name),

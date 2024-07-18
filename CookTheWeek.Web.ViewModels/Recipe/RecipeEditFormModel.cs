@@ -13,7 +13,7 @@
         public RecipeEditFormModel()
         {
             this.Steps = new List<StepFormModel>();
-            this.RecipeIngredients = new List<RecipeIngredientFormViewModel>();
+            this.RecipeIngredients = new List<RecipeIngredientFormModel>();
         }
         [Required]
         public string Id { get; set; } = null!;
@@ -48,7 +48,7 @@
         
         [Display(Name = "Cooking Steps")]
         public List<StepFormModel> Steps { get; set; } = null!;
-        public List<RecipeIngredientFormViewModel> RecipeIngredients { get; set; } = null!;
+        public List<RecipeIngredientFormModel> RecipeIngredients { get; set; } = null!;
 
         public ICollection<int>? ServingsOptions { get; set; } = null!;
 

@@ -4,10 +4,10 @@
     
     using CustomValidationAttributes;
     using static Common.EntityValidationConstants.RecipeIngredient;
-    public class RecipeIngredientFormViewModel
+    public class RecipeIngredientFormModel
     {
         
-        public RecipeIngredientFormViewModel()
+        public RecipeIngredientFormModel()
         {
             this.Measures = new HashSet<RecipeIngredientSelectMeasureViewModel>();
             this.Specifications = new HashSet<RecipeIngredientSelectSpecificationViewModel>();

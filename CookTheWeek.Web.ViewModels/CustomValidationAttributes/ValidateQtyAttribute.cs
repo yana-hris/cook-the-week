@@ -22,7 +22,7 @@
         protected override ValidationResult? IsValid(object? value, 
             ValidationContext validationContext)
         {
-            var parentModel = (RecipeIngredientFormViewModel)validationContext.ObjectInstance;
+            var parentModel = (RecipeIngredientFormModel)validationContext.ObjectInstance;
             var model = (RecipeIngredientQtyFormModel)parentModel.Qty;
 
 

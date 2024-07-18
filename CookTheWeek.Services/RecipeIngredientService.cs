@@ -48,7 +48,7 @@
             return allSpecs;
         }
 
-        public async Task<int> AddAsync(RecipeIngredientFormViewModel model, string recipeId)
+        public async Task<int> AddAsync(RecipeIngredientFormModel model, string recipeId)
         {
             int ingredientId = await this.dbContext.Ingredients
                 .AsNoTracking()

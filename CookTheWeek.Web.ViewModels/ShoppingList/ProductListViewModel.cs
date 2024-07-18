@@ -3,8 +3,12 @@
     
     public class ProductListViewModel
     {
-        public string Title { get; set; }
+        public ProductListViewModel()
+        {
+            this.Products = new List<ProductViewModel>();
+        }
+        public string Title { get; set; } = null!;
 
-        public ICollection<ProductViewModel> Products { get; set; }
+        public ICollection<ProductViewModel> Products { get; set; } = null!;
     }
 }

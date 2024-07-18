@@ -81,9 +81,9 @@
         {
             RecipeAddFormModel model = new RecipeAddFormModel()
             {
-                RecipeIngredients = new List<RecipeIngredientFormViewModel>()
+                RecipeIngredients = new List<RecipeIngredientFormModel>()
                 {
-                    new RecipeIngredientFormViewModel()
+                    new RecipeIngredientFormModel()
                     {
                         Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
                         Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
@@ -108,9 +108,9 @@
 
             if (!model.RecipeIngredients.Any())
             {
-                model.RecipeIngredients = new List<RecipeIngredientFormViewModel>()
+                model.RecipeIngredients = new List<RecipeIngredientFormModel>()
                 {
-                    new RecipeIngredientFormViewModel()
+                    new RecipeIngredientFormModel()
                 };
             }
 
