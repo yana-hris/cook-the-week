@@ -86,54 +86,35 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
         },
         validatable: true
     });
-
-    function createStep(newStep) {
-
-        let stepSelf = this;
-
-        stepSelf.Description = ko.observable(newStep.Description).extend({
-            required: {
-                message: errorMessages.StepRequiredErrorMessage
-            },
-            minLength: {
-                message: errorMessages.StepDescriptionRangeErrorMessage,
-                params: validationConstants.StepDescriptionMinLength
-            },
-            maxLength: {
-                message: errorMessages.StepDescriptionRangeErrorMessage,
-                params: validationConstants.StepDescriptionMaxLength
-            },
-            validatable: true,
-        });
-
-        stepSelf.toJSON = function () {
-            return {
-                Description: stepSelf.Description()
-            };
-        };
-
-        return stepSelf;
-    };
-
     self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
-        return createStep(step);
+        return new createStep(step);
     }));
 
     self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
         return new createIngredient(ingredient);
     }));
 
-    self.addStep = function () {
-        let newStep = new createStep({
-            Description: '',
-        });
+    self.StepsErrors = ko.validation.group(self.Steps, {
+        deep: true,
+        live: true
+    });
 
-        applyValidation(newIngredient);
+    self.RecipeIngredientErrors = ko.validation.group(self.RecipeIngredients, {
+        deep: true,
+        live: true
+    });
+
+    self.addStep = function () {
+        
+        let newStep = new createStep({
+            Description: ''
+        });
 
         self.Steps.push(newStep);
     };
 
     self.removeStep = function (step) {
+        debugger
         if (self.Steps().length > 1) {
             self.Steps.remove(step);
         } else {
@@ -148,9 +129,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             MeasureId: '',
             SpecificationId: ''
         });
-
-        applyValidation(newIngredient);
-
+        
         self.RecipeIngredients.push(newIngredient);
     };
 
@@ -194,8 +173,31 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     };
     self.submitForm = function () {
         debugger
+        var isValid = true;
+
+        if (self.StepsErrors().length !== 0) {
+            self.StepsErrors.showAllMessages();
+            isValid = false;
+        }
+
+        if (!self.Steps.isValid()) {
+            self.Steps.notifySubscribers();
+            isValid = false;
+        }
+
+
+        if (self.RecipeIngredientErrors().length !== 0) {
+            self.RecipeIngredientErrors.showAllMessages();
+            isValid = false;
+        }
+
+        if (!self.RecipeIngredients.isValid()) {
+            self.RecipeIngredients.notifySubscribers();
+            isValid = false;
+        }
         // Validate the entire ViewModel
-        const errorsArr = self.errors();
+       
+        const otherModelErrors = self.errors();
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;
@@ -209,7 +211,11 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             toastr.error(errorMessages.IngredientsRequiredErrorMessage);
         }
 
-        if (errorsArr.length === 0 && stepsValid && ingredientsValid) {
+        if (otherModelErrors.length !== 0 || !stepsValid || !ingredientsValid) {
+            isValid = false;
+        }
+
+        if (isValid) {
 
             var jsonData = JSON.stringify(self.toJSON());
             console.log('Submitting data:', jsonData); // Log data being sent
@@ -363,9 +369,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
 
         ingredientSelf.showFractionsDiv = ko.observable(switchChecked);
         ingredientSelf.switchQtyUnit = function () {
-            debugger;
-            console.log("Now the btn is checked/unchecked and the values must be changed!");
-            console.log(ingredientSelf.isUsingFractionsForIngredient());
 
             const isFractional = ingredientSelf.isUsingFractionsForIngredient();
 
@@ -447,10 +450,31 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
         return ingredientSelf;
     }   
 
-    // Apply validation to newly added items
-    function applyValidation(item) {
-        ko.validation.group(item, { deep: true });
-    }
+    function createStep(newStep) {
+        
+        this.Description = ko.observable(newStep.Description).extend({
+            required: {
+                message: errorMessages.StepRequiredErrorMessage
+            },
+            minLength: {
+                message: errorMessages.StepDescriptionRangeErrorMessage,
+                params: validationConstants.StepDescriptionMinLength
+            },
+            maxLength: {
+                message: errorMessages.StepDescriptionRangeErrorMessage,
+                params: validationConstants.StepDescriptionMaxLength
+            },
+            validatable: true,
+        });
+
+        this.toJSON = function () {
+            return {
+                Description: this.Description()
+            };
+        };
+       
+    };
+    
 }
 
 
