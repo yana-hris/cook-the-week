@@ -7,10 +7,10 @@
             display: inline-block;
             width: 9rem;
             padding: 0.8rem, 1.2rem;
-        }        
+        }
         // dark green btn for main site functionality
         .btn-primary {
-            color: #fff;
+            color: var(--bs-white);
 
             &:hover {
                 background-color: var(--bs-success);
@@ -36,7 +36,7 @@
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-light);
-                border: 1px solid var(--bs-light);
+                border: 1px solid var(--bs-body-color);
             }
         }
         // Rules for all icon btns
@@ -51,11 +51,11 @@
 
             .btn-build {
                 color: var(--bs-primary);
-                background-color: #fff;
+                background-color: var(--bs-white);
                 border: 2px solid var(--bs-primary);
 
                 &:hover {
-                    color: #fff;
+                    color: var(--bs-white);;
                     background-color: var(--bs-primary);
                     border: 2px solid var(--bs-body-bg);
                 }
@@ -77,24 +77,24 @@
             color: var(--bs-success);
 
             &:hover {
-               background-color: var(--bs-primary);
-               border: none;
-               color: var(--bs-body-bg);
+                background-color: var(--bs-primary);
+                border: none;
+                color: var(--bs-body-bg);
             }
         }
 
         .remove-btn {
-            height: 32px;
-            width: 32px;
+            height: 36px;
+            width: 36px;
             font-size: 24px;
             background-color: var(--bs-danger);
             color: var(--bs-white);
-            border: 1px solid var(--bs-primary);
+            border: 2px solid var(--bs-danger);
 
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-white);
-                
+                border: 2px solid var(--bs-danger);
             }
         }
 

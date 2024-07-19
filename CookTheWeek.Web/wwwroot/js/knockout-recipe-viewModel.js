@@ -120,13 +120,15 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     }));
 
     self.RecipeIngredients = ko.observableArray(ko.utils.arrayMap(data.RecipeIngredients, function (ingredient) {
-        return createIngredient(ingredient);
+        return new createIngredient(ingredient);
     }));
 
     self.addStep = function () {
         let newStep = new createStep({
             Description: '',
         });
+
+        applyValidation(newIngredient);
 
         self.Steps.push(newStep);
     };
@@ -146,6 +148,8 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             MeasureId: '',
             SpecificationId: ''
         });
+
+        applyValidation(newIngredient);
 
         self.RecipeIngredients.push(newIngredient);
     };
@@ -169,11 +173,22 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             ImageUrl: self.ImageUrl(),
             CookingTimeMinutes: self.CookingTimeMinutes(),
             RecipeCategoryId: self.RecipeCategoryId(),
-            Steps: self.Steps().map(function (step) {
-                return step.toJSON();
+            Steps: ko.utils.arrayMap(self.Steps(), function (step) {
+                return {
+                    Description: step.Description()
+                };
             }),
-            RecipeIngredients: self.RecipeIngredients().map(function (ingredient) {
-                return ingredient.toJSON();
+            RecipeIngredients: ko.utils.arrayMap(self.RecipeIngredients(), function (ingredient) {
+                return {
+                    Name: ingredient.Name(),
+                    Qty: {
+                        QtyDecimal: ingredient.Qty().QtyDecimal(),
+                        QtyWhole: ingredient.Qty().QtyWhole(),
+                        QtyFraction: ingredient.Qty().QtyFraction()
+                    },
+                    MeasureId: ingredient.MeasureId(),
+                    SpecificationId: ingredient.SpecificationId()
+                };
             })
         };
     };
@@ -181,7 +196,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
         debugger
         // Validate the entire ViewModel
         const errorsArr = self.errors();
-        self.errors.showAllMessages();
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;
@@ -247,7 +261,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
 
         return false; // Prevent the default form submission
     };
-
+    
     return self;
 
     function createQtyObservable(qty) {
@@ -300,13 +314,13 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             validatable: true
         });
 
-        qtyObservable.toJSON = function () {
-            return {
-                QtyDecimal: qtyObservable.QtyDecimal(),
-                QtyWhole: qtyObservable.QtyWhole(),
-                QtyFraction: qtyObservable.QtyFraction()
-            };
-        };
+        //qtyObservable.toJSON = function () {
+        //    return {
+        //        QtyDecimal: qtyObservable.QtyDecimal(),
+        //        QtyWhole: qtyObservable.QtyWhole(),
+        //        QtyFraction: qtyObservable.QtyFraction()
+        //    };
+        //};
 
         return qtyObservable;
     };
@@ -330,7 +344,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             validatable: true
         });
 
-        ingredientSelf.Qty = ko.observable(createQtyObservable(ingredient.Qty));
+        ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty));
 
         ingredientSelf.MeasureId = ko.observable(ingredient.MeasureId).extend({
             required: {
@@ -341,17 +355,26 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
 
         ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
 
-        let initialSwitchPosition = ingredientSelf.Qty() ? (!ingredientSelf.Qty().QtyDecimal() && (ingredientSelf.Qty().QtyFraction() || ingredientSelf.Qty().QtyWhole())) : false;
+        let switchChecked = Boolean(ingredientSelf.Qty() ? (!ingredientSelf.Qty().QtyDecimal() && (ingredientSelf.Qty().QtyFraction() || ingredientSelf.Qty().QtyWhole()) ? true : false) : false);
         
-        ingredientSelf.isUsingFractionsForIngredient = ko.observable(initialSwitchPosition);
+        ingredientSelf.isUsingFractionsForIngredient = ko.observable(switchChecked);
+
+        ingredientSelf.isChecked = ko.observable(switchChecked);
+
+        ingredientSelf.showFractionsDiv = ko.observable(switchChecked);
         ingredientSelf.switchQtyUnit = function () {
             debugger;
-            const isDecimal = !ingredientSelf.isUsingFractionsForIngredient();
+            console.log("Now the btn is checked/unchecked and the values must be changed!");
+            console.log(ingredientSelf.isUsingFractionsForIngredient());
 
-            if (isDecimal) {
+            const isFractional = ingredientSelf.isUsingFractionsForIngredient();
+
+            if (!isFractional) {
                 let decimalValue = parseFloat(ingredientSelf.Qty().QtyDecimal()) || 0;
                 let { whole, fraction } = decimalToFraction(decimalValue);
-                
+
+                ingredientSelf.Qty().QtyDecimal('');
+                ingredientSelf.showFractionsDiv(true);
                 
                 if (whole) {
                     ingredientSelf.Qty().QtyWhole(whole);
@@ -359,9 +382,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                     ingredientSelf.Qty().QtyWhole('');
                 }                
                 ingredientSelf.Qty().QtyFraction(fraction);
-                ingredientSelf.Qty().QtyDecimal('');
-
-                ingredientSelf.isUsingFractionsForIngredient(true);
                 
             } else {
                 
@@ -369,18 +389,19 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                 let fractionValue = ingredientSelf.Qty().QtyFraction() || '';
                 let decimalValue = fractionToDecimal(wholeValue, fractionValue);
 
+                ingredientSelf.Qty().QtyWhole('');
+                ingredientSelf.Qty().QtyFraction('');
+                ingredientSelf.showFractionsDiv(false);
 
                 if (decimalValue) {
                     ingredientSelf.Qty().QtyDecimal(decimalValue.toFixed(3));
                 } else {
                     ingredientSelf.Qty().QtyDecimal('');
                 }
-
-                ingredientSelf.Qty().QtyWhole(''); 
-                ingredientSelf.Qty().QtyFraction(''); 
-
-                ingredientSelf.isUsingFractionsForIngredient(false);
+                
             }
+            ingredientSelf.isUsingFractionsForIngredient(!isFractional);
+            return true;
 
             // Helper function to convert decimal to whole and fraction
             function decimalToFraction(decimal) {
@@ -414,17 +435,22 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                 return parseFloat(whole) + fractionValue;
             }  
         };     
-        ingredientSelf.toJSON = function () {
-            return {
-                Name: ingredientSelf.Name(),
-                Qty: ingredientSelf.Qty().toJSON(),
-                MeasureId: ingredientSelf.MeasureId(),
-                SpecificationId: ingredientSelf.SpecificationId()
-            };
-        };
+        //ingredientSelf.toJSON = function () {
+        //    return {
+        //        Name: ingredientSelf.Name(),
+        //        Qty: ingredientSelf.Qty().toJSON(),
+        //        MeasureId: ingredientSelf.MeasureId(),
+        //        SpecificationId: ingredientSelf.SpecificationId()
+        //    };
+        //};
 
         return ingredientSelf;
     }   
+
+    // Apply validation to newly added items
+    function applyValidation(item) {
+        ko.validation.group(item, { deep: true });
+    }
 }
 
 

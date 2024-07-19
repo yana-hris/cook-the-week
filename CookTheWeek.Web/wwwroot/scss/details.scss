@@ -7,7 +7,6 @@
         border: 2px solid var(--bs-primary);
         
         .card-header {
-
             
             .nav-item {
 
@@ -16,9 +15,9 @@
 
                     &:hover {
                         
-                        background-color: var(--bs-success);
-                        color: var(--bs-primary);
-                        
+                        //background-color: var(--bs-success);
+                        color: #fff;//var(--bs-primary);
+                        //border: 1px solid var(--bs-success);
                     }
                 }
 
@@ -29,6 +28,7 @@
                     &:hover {
                         background-color: var(--bs-body-bg) !important;
                         color: var(--bs-primary) !important;
+                        border: 1px solid var(--bs-body-bg) !important;
                     }
                 }
             }
@@ -107,6 +107,10 @@
                 margin-top: 10px;
                 margin-bottom: 20px;
                 font-weight: 400;
+            }
+
+            .list-group-item {
+                border: none;
             }
 
             .list-item-style {

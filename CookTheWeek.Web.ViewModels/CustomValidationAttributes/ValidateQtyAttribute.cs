@@ -23,40 +23,54 @@
             ValidationContext validationContext)
         {
             var parentModel = (RecipeIngredientFormModel)validationContext.ObjectInstance;
-            var model = (RecipeIngredientQtyFormModel)parentModel.Qty;
 
-
-            if (model.QtyDecimal.HasValue)
+            if (parentModel != null)
             {
-                if (model.QtyWhole.HasValue || !string.IsNullOrEmpty(model.QtyFraction))
+                var model = (RecipeIngredientQtyFormModel)parentModel.Qty;
+
+                if (model != null)
+                {
+                    if (model.QtyDecimal.HasValue)
+                    {
+                        if (model.QtyWhole.HasValue || !string.IsNullOrEmpty(model.QtyFraction))
+                        {
+                            return new ValidationResult(MissingFormInputErrorMessage);
+                        }
+
+                        if (model.QtyDecimal.Value < 0.001m || model.QtyDecimal.Value > 9999.99m)
+                        {
+                            return new ValidationResult(InvalidDecimalRangeErrorMessage);
+                        }
+                    }
+                    else
+                    {
+                        if (!model.QtyWhole.HasValue && string.IsNullOrEmpty(model.QtyFraction))
+                        {
+                            return new ValidationResult(MissingFormInputErrorMessage);
+                        }
+
+                        if (model.QtyWhole.HasValue && (model.QtyWhole.Value < 1 || model.QtyWhole.Value > 9999))
+                        {
+                            return new ValidationResult(InvalidWholeQtyErrorMessage);
+                        }
+
+                        if (!string.IsNullOrEmpty(model.QtyFraction) && !fractionOptions.ContainsKey(model.QtyFraction))
+                        {
+                            return new ValidationResult(InvalidFractionErrorMessage);
+                        }
+                    }
+                }
+                else
                 {
                     return new ValidationResult(MissingFormInputErrorMessage);
                 }
 
-                if (model.QtyDecimal.Value < 0.001m || model.QtyDecimal.Value > 9999.99m)
-                {
-                    return new ValidationResult(InvalidDecimalRangeErrorMessage);
-                }
-            }
-            else
-            {
-                if (!model.QtyWhole.HasValue && string.IsNullOrEmpty(model.QtyFraction))
-                {
-                    return new ValidationResult(MissingFormInputErrorMessage);
-                }
 
-                if (model.QtyWhole.HasValue && (model.QtyWhole.Value < 1 || model.QtyWhole.Value > 9999))
-                {
-                    return new ValidationResult(InvalidWholeQtyErrorMessage);
-                }
-
-                if (!string.IsNullOrEmpty(model.QtyFraction) && !fractionOptions.ContainsKey(model.QtyFraction))
-                {
-                    return new ValidationResult(InvalidFractionErrorMessage);
-                }
+                return ValidationResult.Success;
             }
 
-            return ValidationResult.Success;
+            return new ValidationResult(MissingFormInputErrorMessage);
+
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, 

@@ -358,7 +358,7 @@ html #main-container .card-btn-width {
   padding: 0.8rem, 1.2rem;
 }
 html #main-container .btn-primary {
-  color: #fff;
+  color: var(--bs-white);
 }
 html #main-container .btn-primary:hover {
   background-color: var(--bs-success);
@@ -380,7 +380,7 @@ html #main-container .btn-danger {
 html #main-container .btn-danger:hover {
   color: var(--bs-danger);
   background-color: var(--bs-light);
-  border: 1px solid var(--bs-light);
+  border: 1px solid var(--bs-body-color);
 }
 html #main-container #build-btn-container, html #main-container .fixed-size-btn, html #main-container .back-button, html #main-container .remove-btn {
   display: flex;
@@ -393,11 +393,11 @@ html #main-container #build-btn-container, html #main-container .fixed-size-btn,
 }
 html #main-container #build-btn-container .btn-build, html #main-container .fixed-size-btn .btn-build, html #main-container .back-button .btn-build, html #main-container .remove-btn .btn-build {
   color: var(--bs-primary);
-  background-color: #fff;
+  background-color: var(--bs-white);
   border: 2px solid var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build:hover, html #main-container .fixed-size-btn .btn-build:hover, html #main-container .back-button .btn-build:hover, html #main-container .remove-btn .btn-build:hover {
-  color: #fff;
+  color: var(--bs-white);
   background-color: var(--bs-primary);
   border: 2px solid var(--bs-body-bg);
 }
@@ -419,16 +419,17 @@ html #main-container .back-button:hover {
   color: var(--bs-body-bg);
 }
 html #main-container .remove-btn {
-  height: 32px;
-  width: 32px;
+  height: 36px;
+  width: 36px;
   font-size: 24px;
   background-color: var(--bs-danger);
   color: var(--bs-white);
-  border: 1px solid var(--bs-primary);
+  border: 2px solid var(--bs-danger);
 }
 html #main-container .remove-btn:hover {
   color: var(--bs-danger);
   background-color: var(--bs-white);
+  border: 2px solid var(--bs-danger);
 }
 html #main-container .btn.close {
   color: var(--bs-success);
@@ -1070,8 +1071,7 @@ html .not-finished {
   color: var(--bs-success);
 }
 #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
-  background-color: var(--bs-success);
-  color: var(--bs-primary);
+  color: #fff;
 }
 #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
   font-weight: bolder;
@@ -1080,6 +1080,7 @@ html .not-finished {
 #recipe-details-container .card .card-header .nav-item .nav-link.active:hover, #meal-cook-container .card .card-header .nav-item .nav-link.active:hover {
   background-color: var(--bs-body-bg) !important;
   color: var(--bs-primary) !important;
+  border: 1px solid var(--bs-body-bg) !important;
 }
 #recipe-details-container .card .card-header .back-button, #meal-cook-container .card .card-header .back-button {
   position: absolute;
@@ -1139,6 +1140,9 @@ html .not-finished {
   margin-top: 10px;
   margin-bottom: 20px;
   font-weight: 400;
+}
+#recipe-details-container .card .card-body .list-group-item, #meal-cook-container .card .card-body .list-group-item {
+  border: none;
 }
 #recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
   font-size: 14px;
@@ -1351,7 +1355,7 @@ html .not-finished {
   border-color: var(--bs-primary-success);
 }
 #add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
-  margin-top: 4px;
+  margin-top: 1px;
 }
 #add-recipe #ingredientsContainer .ingredient-row .input-validation-error, #edit-recipe #ingredientsContainer .ingredient-row .input-validation-error {
   border-color: red;
