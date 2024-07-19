@@ -35,9 +35,9 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     });
 
     self.Servings = ko.observable(data.Servings).extend({
-        required: {
-            message: errorMessages.ServingsRequiredErrorMessage
-        },
+        //required: {
+        //    message: errorMessages.ServingsRequiredErrorMessage
+        //},
         min: {
             message: errorMessages.ServingsRangeErrorMessage,
             params: validationConstants.ServingsMinValue
@@ -142,7 +142,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
         }
     };
 
-    self.errors = ko.validation.group(self, { deep: true, observable: true });
+    self.errors = ko.validation.group(self, { deep: true, live: true });
     self.toJSON = function () {
         return {
             Id: self.Id(),
@@ -172,7 +172,7 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
         };
     };
     self.submitForm = function () {
-        debugger
+        
         var isValid = true;
 
         if (self.StepsErrors().length !== 0) {
@@ -232,23 +232,38 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                         window.location.href = response.redirectUrl;
                     }
                 },
-                error: function (xhr) {
+                error: (response) => {
                     debugger
-                    if (xhr.status === 400 && xhr.responseJSON && !xhr.responseJSON.success) {
+                    if (response.status === 400 && response.responseJSON && !response.responseJSON.success) {
                         // Display server-side validation errors
-                        var errors = xhr.responseJSON.errors;
+                        var errors = response.responseJSON.errors;
                         for (var key in errors) {
                             if (errors.hasOwnProperty(key)) {
                                 var errorMessages = errors[key].errors;
+                                var firstErrorMessage = errorMessages[0].errorMessage;
                                 if (errorMessages && errorMessages.length > 0) {
-                                    ko.validation.addValidationMessage({
-                                        message: errorMessages.join(', '),
-                                        observable: self[key]
-                                    });
+                                    console.log(this);
+
+                                    var lowerCaseKey = key.toLowerCase();
+
+                                    // Check if any observable matches the lowercase key
+                                    for (var prop in this) {
+                                        if (this.hasOwnProperty(prop)) {
+                                            // Convert observable name to lowercase
+                                            var lowerCaseProp = prop.toLowerCase();
+                                            if (lowerCaseProp === lowerCaseKey) {
+                                                if (this[prop] && typeof this[prop].setError === 'function') {
+                                                    this[prop].setError(firstErrorMessage);
+                                                }
+                                                break; // Break the loop once a match is found
+                                            }
+                                        }
+                                    }
+                                                                  
                                 }
                             }
                         }
-                        self.errors.showAllMessages();
+                        this.errors.showAllMessages();
                     } else if (xhr.status === 400) {
                         // Replace the form content with the response HTML
                         $('#edit-recipe').html(xhr.responseText);

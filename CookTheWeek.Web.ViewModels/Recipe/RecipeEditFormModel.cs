@@ -29,12 +29,12 @@
         [Required(ErrorMessage = ServingsRequiredErrorMessage)]
         [Range(ServingsMinValue, ServingsMaxValue, ErrorMessage = ServingsRangeErrorMessage)]
         [Display(Name = "Serves")]
-        public int Servings { get; set; }
+        public int? Servings { get; set; }
 
         [Required(ErrorMessage = CookingTimeRequiredErrorMessage)]
         [Display(Name = "Ready for")]
         [Range(CookingTimeMinValue, CookingTimeMaxValue, ErrorMessage = CookingTimeRangeErrorMessage)]
-        public int CookingTimeMinutes { get; set; }
+        public int? CookingTimeMinutes { get; set; }
 
         [Required(ErrorMessage = ImageRequiredErrorMessage)]
         [RegularExpression(UrlPattern, ErrorMessage = ImageInvalidErrorMessage)]
@@ -44,7 +44,7 @@
 
         [Required(ErrorMessage = RecipeCategoryIdRequiredErrorMessage)]
         [Display(Name = "Meal Type")]
-        public int RecipeCategoryId { get; set; }
+        public int? RecipeCategoryId { get; set; }
         
         [Display(Name = "Cooking Steps")]
         public List<StepFormModel> Steps { get; set; } = null!;

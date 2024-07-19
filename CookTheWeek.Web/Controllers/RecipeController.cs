@@ -285,9 +285,9 @@
                 return RedirectToAction("Details", "Recipe", new { id = model.Id });
             }
 
-            if (model.RecipeCategoryId != default(int))
+            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId.Value != default)
             {
-                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId);
+                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
                 if (!categoryExists)
                 {
                     ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");

@@ -150,10 +150,10 @@
             // Update the recipe details
             recipe.Title = model.Title;
             recipe.Description = model.Description;
-            recipe.Servings = model.Servings;
-            recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes);
+            recipe.Servings = model.Servings!.Value;
+            recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
             recipe.ImageUrl = model.ImageUrl;
-            recipe.CategoryId = model.RecipeCategoryId;
+            recipe.CategoryId = model.RecipeCategoryId!.Value;
 
             // Remove the old steps from the context and clear the collection
             this.dbContext.Steps.RemoveRange(recipe.Steps);
