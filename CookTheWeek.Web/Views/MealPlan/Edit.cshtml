@@ -10,7 +10,7 @@
     };
 
 }
-<div id="edit-mealplan" class="list-container p-1 p-md-3">
+<div id="edit-mealplan" class="card-container p-1 p-md-3">
     <partial name="_HeadingPartial" model="headingModel" />
 
     <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">
@@ -152,7 +152,7 @@
 
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_JQueryValidationPartial.cshtml" />
     <script>
         $(document).ready(function () {
             var mealsIndex = @initialCount;
