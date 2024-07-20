@@ -25,7 +25,8 @@
     @if (User.Identity.IsAuthenticated)
     {
         <script>
-            var currentUserId = "@User.GetId()"; // Needed for the JS function for rendering Build Btn in some views
+            @* Needed for the JS function for rendering Build Btn in some views *@
+            var currentUserId = "@User.GetId()"; 
         </script>
     }
     else

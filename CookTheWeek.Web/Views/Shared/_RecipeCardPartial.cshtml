@@ -66,20 +66,20 @@
     {
         switch (mealCategoryName)
         {
-            case "Breakfast":
-                return "bg-primary";
-            case "Soup":
-                return "bg-warning text-dark";
+            case "Breakfast": //#FFEB3B
+                return "bg-breakfast-yellow text-dark";
+            case "Soup": //#FFA500
+                return "bg-soup-orange";
             case "Salad":
-                return "bg-success";
-            case "Main Dish":
-                return "bg-warning text-dark";
+                return "bg-salad-green";
+            case "Main Dish": //#B22222
+                return "bg-main-dish-red";
             case "Appetizer":
-                return "bg-danger";
-            case "Dessert":
-                return "bg-secondary text-dark";
+                return "bg-appetizer-green text-dark";
+            case "Dessert": //#FF69B4
+                return "bg-dessert-pink text-dark";
             default:
-                return "bg-primary";
+                return "bg-white text-dark";
         }
     }
 }

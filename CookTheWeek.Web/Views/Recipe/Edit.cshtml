@@ -184,9 +184,8 @@
                                 <hr />
                                 <!-- Add Step Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
-                                    <div class="col-6">
-                                        <!-- Empty column to push the button to the end -->
-                                    </div>
+                                    <!-- Empty column to push the button to the end -->
+                                    <div class="col-6"></div>
                                     <div class="col-6 text-end">
                                         <a id="add-step" class="btn btn-outline-primary" data-bind="click: addStep">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
@@ -224,6 +223,7 @@
                                                                     }"
                                                        class="form-control ingredientName" 
                                                        type="text" 
+                                                       placeholder="Start typing.."
                                                        autocomplete="off" />
                                                 <div class="suggestionsList invisible">
                                                 </div>
@@ -374,9 +374,7 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <partial name="_KnockoutPartial.cshtml" />
     <script src="~/js/knockout-recipe-viewModel.js"> </script>
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);

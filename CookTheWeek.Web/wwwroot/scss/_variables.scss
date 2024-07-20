@@ -8,6 +8,14 @@ $danger: #DA0505;
 $light: #FBE2B4;
 $dark: #373b3e;
 
+$breakfast-yellow: #FFEB3B;
+$soup-orange: #FFA500;
+/*$appetizer-green: #B4E33D; //success*/
+/*$salad-green: #2e6930; //primary*/
+$dessert-pink: #FF69B4;
+$main-dish-red: #B22222;
+
+
 // Custom color variables
 $very-dark-green-text-color: #121706;
 
@@ -27,6 +35,12 @@ $theme-colors: (
     "danger": $danger, 
     "light": $light, 
     "dark": $dark, 
+    "breakfast-yellow": $breakfast-yellow, 
+    "soup-orange": $soup-orange, 
+    "appetizer-green": $success, 
+    "salad-green": $primary, 
+    "dessert-pink": $dessert-pink, 
+    "main-dish-red": $main-dish-red
 );
 
 // Change predefined BS colors:

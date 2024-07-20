@@ -66,5 +66,9 @@
   {
     "outputFile": "wwwroot/scss/admin-form-styles.css",
     "inputFile": "wwwroot/scss/admin-form-styles.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/_variables.css",
+    "inputFile": "wwwroot/scss/_variables.scss"
   }
 ]

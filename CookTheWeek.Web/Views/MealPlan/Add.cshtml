@@ -125,37 +125,38 @@
                            
             </div>
         </div>
-    </form>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="info-pill bg-light text-primary pill">Tips</div>
-            <div class="">
-                <ul class="list-unstyled inner-padding">
-                    <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
-                    <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
-                    <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
-                </ul>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="info-pill bg-light text-primary pill">Tips</div>
+                <div class="">
+                    <ul class="list-unstyled inner-padding">
+                        <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
+                        <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
+                        <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="info-pill bg-primary text-light  pill ">Summary</div>
+                <p>Your statistics will be ready once you save the Plan.</p>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="info-pill bg-primary text-light  pill ">Summary</div>
-            <p>Your statistics will be ready once you save the Plan.</p>
+        <div class="row">
+            <div class="col d-flex justify-content-between align-middle">
+                <a form="add-mealplan-form" class="btn btn-primary card-btn-width" method="post" type="submit">
+                    <i class="fas fa-th-list"></i>&nbsp;Save
+                </a>
+                <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-secondary card-btn-width">
+                    <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col d-flex justify-content-between align-middle">
-            <a form="add-mealplan-form" class="btn btn-primary card-btn-width" method="post" type="submit">
-                <i class="fas fa-th-list"></i>&nbsp;Save
-            </a>
-            <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-secondary card-btn-width">
-                <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
-            </a>
-        </div>
-    </div>
+    </form>
+
+   
 </div>
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_JQueryValidationPartial.cshtml" />
     <script>
         $(document).ready(function () {
             var mealsIndex = @initialCount;

@@ -1,5 +1,5 @@
-﻿@using Newtonsoft.Json
-@model RecipeAddFormModel
+﻿@model RecipeAddFormModel
+@using Newtonsoft.Json
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
@@ -7,10 +7,7 @@
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
 @{
     ViewData["Title"] = "Add Recipe";
-
-    // int nextIngredientIndex = Model.RecipeIngredients.Count;
-    // int nextStepIndex = Model.Steps.Count;
-
+    
     PageHeadingViewModel headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString()
@@ -58,7 +55,7 @@
         <div class="card-body">
             <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add">
                 <div id="info-content" class="tab-content g-3">
-                    @* TAB RECIPE DETAILS *@
+                    <!-- TAB RECIPE DETAILS -->
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row">
                             <div class="col col-12 col-md-8 col-xl-9 p-2">
@@ -66,8 +63,7 @@
                                     <span class="input-group-text">Title</span>
                                     <input 
                                         asp-for="Title"
-                                        data-bind="value: Title, 
-                                        valueUpdate: 'afterkeydown'"
+                                        data-bind="value: Title"
                                         class="form-control"
                                         placeholder="Name it.."
                                         type="text" />
@@ -101,10 +97,10 @@
                                     <span class="input-group-text">Description</span>
                                     <textarea 
                                         asp-for="Description"
-                                        data-bind="value: Description, valueUpdate: 'afterkeydown'"
+                                        data-bind="value: Description"
                                         rows="3" 
-                                        class="form-control" 
-                                        placeholder="What it is.."></textarea>
+                                        class="form-control"
+                                        placeholder="Would be great to know more about this recipe.."></textarea>
                                 </div>
                                 <span class="small text-danger"
                                       data-bind="validationMessage: Description">
@@ -132,7 +128,7 @@
                                     <span class="input-group-text">Image URL</span>
                                     <input 
                                         asp-for="ImageUrl"
-                                        data-bind="value: ImageUrl, valueUpdate: 'afterkeydown'"
+                                        data-bind="value: ImageUrl"
                                         class="form-control"
                                         placeholder="Your image link here..."
                                         type="url" />
@@ -163,7 +159,7 @@
 
                         </div>
                     </div>
-                   @*  TAB INSTRUCTIONS *@                    
+                    <!-- TAB INSTRUCTIONS -->
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
                         <div id="instructions-content" class="tab-content">
                             <div id="instructionsContainer" class="row g-3">
@@ -175,8 +171,7 @@
                                                 <span class="input-group-text">Step</span>
                                                 <textarea data-bind="value: Description,
                                                                      attr: { name: 'Steps[' + $index() + '].Description' },
-                                                                     deferValidation: Description,
-                                                                     valueUpdate: 'afterkeydown'"
+                                                                     deferValidation: Description"
                                                           class="form-control" 
                                                           rows="3" placeholder="Tell us how to cook..">
                                                 </textarea>
@@ -196,11 +191,10 @@
                                     
                                 </div>
                                 <hr />
-                                @* Add Step Btn *@
+                                <!-- Add Step Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
-                                    <div class="col-6">
-                                        <!-- Empty column to push the button to the end -->
-                                    </div>
+                                    <!-- Empty column to push the button to the end -->
+                                    <div class="col-6"></div>
                                     <div class="col-6 text-end">
                                         <a id="add-step" class="btn btn-outline-primary" data-bind="click: addStep">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
@@ -210,7 +204,7 @@
                             </div>
                         </div>
                     </div>
-                    @* TAB INGREDIENTS *@                    
+                    <!-- TAB INGREDIENTS -->
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <div id="ingredients-content" class="tab-content">
                             <div id="ingredientsContainer" class="row g-3">
@@ -224,7 +218,6 @@
                                                                   validationElement: Name,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Name' },
                                                                   deferValidation: Name,
-                                                                  valueUpdate: 'afterkeydown',
                                                                   validationRules: {
                                                                         required: {
                                                                             message: '@RecipeIngredientNameRequiredErrorMessage'
@@ -362,7 +355,7 @@
                                     
                                 </div>
                                 <hr />
-                                @* Add Ingredient Btn *@
+                                <!-- Add Ingredient Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
                                     <div class="col-6">
                                         <!-- Empty column to push the button to the end -->
@@ -385,7 +378,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col text-center pt-3 pb-2">
-                    @* SUBMIT FORM BTN *@
+                    <!-- SUBMIT FORM BTN -->
                     <button 
                         form="add-recipe-form" 
                         class="btn btn-secondary card-btn-width" 
@@ -397,10 +390,8 @@
     </div>
 </div>
 
-@section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js" integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js" integrity="sha512-1LyBPWtezbX0LO4X4QzhfZd9jSetVu5W0IFpMV9ecq4lJUQBR6hx8uiNfUI2Aoe7LCF4rK1NV3rY+uil4VJ3QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js" integrity="sha512-b99MDNv5TqiZtPKH2UeHzDAVydmgrOJEPtaPPEF8AgV86eYyqINFI/K7/7f0+R4WNTAVv8KvvpjwfOYHv5rd5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@section Scripts {
+    <partial name="_KnockoutPartial.cshtml" />
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
 
