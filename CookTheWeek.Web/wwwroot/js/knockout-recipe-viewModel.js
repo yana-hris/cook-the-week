@@ -35,9 +35,9 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
     });
 
     self.Servings = ko.observable(data.Servings).extend({
-        //required: {
-        //    message: errorMessages.ServingsRequiredErrorMessage
-        //},
+        required: {
+            message: errorMessages.ServingsRequiredErrorMessage
+        },
         min: {
             message: errorMessages.ServingsRangeErrorMessage,
             params: validationConstants.ServingsMinValue
@@ -233,7 +233,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                     }
                 },
                 error: (response) => {
-                    debugger
                     if (response.status === 400 && response.responseJSON && !response.responseJSON.success) {
                         // Display server-side validation errors
                         var errors = response.responseJSON.errors;
@@ -241,38 +240,51 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                             if (errors.hasOwnProperty(key)) {
                                 var errorMessages = errors[key].errors;
                                 var firstErrorMessage = errorMessages[0].errorMessage;
+
                                 if (errorMessages && errorMessages.length > 0) {
-                                    console.log(this);
+                                    // Make the property in the same format as the ko viewModel)
+                                    const propertyName = key.charAt(0).toUpperCase() + key.slice(1);
 
-                                    var lowerCaseKey = key.toLowerCase();
+                                    // Check if the property is not a collection member
+                                    var observable = this;
+                                    var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
 
-                                    // Check if any observable matches the lowercase key
-                                    for (var prop in this) {
-                                        if (this.hasOwnProperty(prop)) {
-                                            // Convert observable name to lowercase
-                                            var lowerCaseProp = prop.toLowerCase();
-                                            if (lowerCaseProp === lowerCaseKey) {
-                                                if (this[prop] && typeof this[prop].setError === 'function') {
-                                                    this[prop].setError(firstErrorMessage);
-                                                }
-                                                break; // Break the loop once a match is found
-                                            }
+                                    for (var i = 0; i < path.length; i++) {
+
+                                        // retrieve the value of the observable wanted if it exists
+                                        if (ko.isObservable(observable)) {
+                                            observable = observable();
                                         }
+
+                                        // check if the value is a number and the observable - an array
+                                        if (!isNaN(parseInt(path[i], 10)) && Array.isArray(observable)) {
+
+                                            observable = observable[parseInt(path[i], 10)];
+
+                                        } else if (observable[path[i]]) {
+
+                                            observable = observable[path[i]];
+                                            console.log(observable.toString());
+
+                                        } else {
+
+                                            console.warn(`Path ${path[i]} not found in ViewModel`);
+                                            observable = null;
+                                            break;
+                                        }
+
                                     }
-                                                                  
+                                    if (observable && ko.isObservable(observable)) {
+                                        //Manually set observable`s error
+                                        observable.setError(firstErrorMessage);
+                                    }                           
                                 }
                             }
                         }
                         this.errors.showAllMessages();
-                    } else if (xhr.status === 400) {
-                        // Replace the form content with the response HTML
-                        $('#edit-recipe').html(xhr.responseText);
-                        // Reapply bindings since the form content was replaced
-                        ko.applyBindings(new RecipeViewModel(initialData), document.getElementById('edit-recipe'));
-
                     } else {
-                        console.error('Error occurred while submitting form:', xhr.statusText);
-                        alert('Error occurred while submitting form. Please try again later.');
+                        console.error('Error occurred while submitting form:', response.statusText);
+                        toastr.error('Error occurred while submitting form. Please try again later.');
                     }
                 }
             });
@@ -334,14 +346,6 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             },
             validatable: true
         });
-
-        //qtyObservable.toJSON = function () {
-        //    return {
-        //        QtyDecimal: qtyObservable.QtyDecimal(),
-        //        QtyWhole: qtyObservable.QtyWhole(),
-        //        QtyFraction: qtyObservable.QtyFraction()
-        //    };
-        //};
 
         return qtyObservable;
     };
@@ -453,21 +457,15 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
                 return parseFloat(whole) + fractionValue;
             }  
         };     
-        //ingredientSelf.toJSON = function () {
-        //    return {
-        //        Name: ingredientSelf.Name(),
-        //        Qty: ingredientSelf.Qty().toJSON(),
-        //        MeasureId: ingredientSelf.MeasureId(),
-        //        SpecificationId: ingredientSelf.SpecificationId()
-        //    };
-        //};
-
+        
         return ingredientSelf;
     }   
 
     function createStep(newStep) {
+
+        let stepSelf = this;
         
-        this.Description = ko.observable(newStep.Description).extend({
+        stepSelf.Description = ko.observable(newStep.Description).extend({
             required: {
                 message: errorMessages.StepRequiredErrorMessage
             },
@@ -482,11 +480,13 @@ function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationCons
             validatable: true,
         });
 
-        this.toJSON = function () {
+        stepSelf.toJSON = function () {
             return {
-                Description: this.Description()
+                Description: stepSelf.Description()
             };
         };
+
+        return stepSelf;
        
     };
     
