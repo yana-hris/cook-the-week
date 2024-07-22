@@ -1,13 +1,14 @@
 ﻿@using Newtonsoft.Json
 @model RecipeEditFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
-@using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages;
+@* @using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 @using static CookTheWeek.Common.EntityValidationConstants.Step;
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
-@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
+@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty; *@
 @{
     ViewData["Title"] = "Edit Recipe";
-    
+
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
@@ -20,6 +21,7 @@
     }
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
+    var errorMessagesString = JsonConvert.SerializeObject(RecipeValidationErrorMessages);
 
 }
 <div id="edit-recipe" class="card-container">
@@ -375,7 +377,7 @@
 
 @section Scripts {
     <partial name="_KnockoutPartial.cshtml" />
-    <script src="~/js/knockout-recipe-viewModel.js"> </script>
+    <script src="~/js/ko-editRecipe-viewModel.js"> </script>
     <script>
         $(document).on('keyup', '.ingredientName', suggestWords);
         
@@ -487,31 +489,32 @@
     
     <script>    
     $(document).ready(function () {
-        const errorMessages = {
-            TitleRequiredErrorMessage: '@TitleRequiredErrorMessage',
-            TitleMinLengthErrorMessage: '@TitleMinLengthErrorMessage',
-            TitleMaxLengthErrorMessage: '@TitleMaxLengthErrorMessage',
-            DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
-            DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
-            ServingsRequiredErrorMessage: '@ServingsRequiredErrorMessage',
-            ServingsRangeErrorMessage: '@ServingsRangeErrorMessage',
-            ImageRequiredErrorMessage: '@ImageRequiredErrorMessage',
-            ImageRangeErrorMessage: '@ImageRangeErrorMessage',
-            CookingTimeRequiredErrorMessage: '@CookingTimeRequiredErrorMessage',
-            CookingTimeRangeErrorMessage: '@CookingTimeRangeErrorMessage',
-            RecipeCategoryIdRequiredErrorMessage: '@RecipeCategoryIdRequiredErrorMessage',
-            StepRequiredErrorMessage: '@StepRequiredErrorMessage',
-            StepDescriptionRangeErrorMessage: '@StepDescriptionRangeErrorMessage',
-            IngredientsRequiredErrorMessage: '@IngredientsRequiredErrorMessage',
-            RecipeIngredientNameRequiredErrorMessage: '@RecipeIngredientNameRequiredErrorMessage',
-            RecipeIngredientNameRangeErrorMessage: '@RecipeIngredientNameRangeErrorMessage',
-            MeasureRequiredErrorMessage: '@MeasureRequiredErrorMessage',
-            MissingFormInputErrorMessage: '@MissingFormInputErrorMessage',
-            MissingFractionalOrWholeInputMessage: '@MissingFractionalOrWholeInputMessage',
-            InvalidDecimalRangeErrorMessage: '@InvalidDecimalRangeErrorMessage',
-            InvalidFractionErrorMessage: '@InvalidFractionErrorMessage',
-            InvalidWholeQtyErrorMessage: '@InvalidWholeQtyErrorMessage'
-        };
+        // const errorMessages = {
+        //     TitleRequiredErrorMessage: '@TitleRequiredErrorMessage',
+        //     TitleMinLengthErrorMessage: '@TitleMinLengthErrorMessage',
+        //     TitleMaxLengthErrorMessage: '@TitleMaxLengthErrorMessage',
+        //     DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
+        //     ServingsRequiredErrorMessage: '@ServingsRequiredErrorMessage',
+        //     ServingsRangeErrorMessage: '@ServingsRangeErrorMessage',
+        //     ImageRequiredErrorMessage: '@ImageRequiredErrorMessage',
+        //     ImageRangeErrorMessage: '@ImageRangeErrorMessage',
+        //     CookingTimeRequiredErrorMessage: '@CookingTimeRequiredErrorMessage',
+        //     CookingTimeRangeErrorMessage: '@CookingTimeRangeErrorMessage',
+        //     RecipeCategoryIdRequiredErrorMessage: '@RecipeCategoryIdRequiredErrorMessage',
+        //     StepRequiredErrorMessage: '@StepsRequiredErrorMessage',
+        //     StepDescriptionRangeErrorMessage: '@StepDescriptionRangeErrorMessage',
+        //     IngredientsRequiredErrorMessage: '@IngredientsRequiredErrorMessage',
+        //     RecipeIngredientNameRequiredErrorMessage: '@RecipeIngredientNameRequiredErrorMessage',
+        //     RecipeIngredientNameRangeErrorMessage: '@RecipeIngredientNameRangeErrorMessage',
+        //     MeasureRequiredErrorMessage: '@MeasureRequiredErrorMessage',
+        //     MissingFormInputErrorMessage: '@MissingFormInputErrorMessage',
+        //     MissingFractionalOrWholeInputMessage: '@MissingFractionalOrWholeInputMessage',
+        //     InvalidDecimalRangeErrorMessage: '@InvalidDecimalRangeErrorMessage',
+        //     InvalidFractionErrorMessage: '@InvalidFractionErrorMessage',
+        //     InvalidWholeQtyErrorMessage: '@InvalidWholeQtyErrorMessage'
+        // };
+
+        const errorMessages = @Html.Raw(errorMessagesString);
 
         const validationConstants = {
             TitleMinLength: '@TitleMinLength',
@@ -543,14 +546,14 @@
                 if (!val || !validate) return true;
                 return ValidationConstants.UrlPattern.test(val);
             },
-            message: '@ImageInvalidErrorMessage'
+            message: errorMessages.ImageInvalidErrorMessage
         };
 
         ko.validation.registerExtenders();
 
         // Initialize the ViewModel with the initial data
         const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var viewModel = new RecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants);
+        var viewModel = new EditRecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants);
         
 
         // Configure Knockout Validation plugin

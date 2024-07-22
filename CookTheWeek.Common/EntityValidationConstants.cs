@@ -166,5 +166,38 @@
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
         }
+
+        public static class ErrorMessages
+        {
+            public static readonly Dictionary<string, string> RecipeValidationErrorMessages =
+                new Dictionary<string, string>()
+                {
+                    { "TitleRequiredErrorMessage", Recipe.TitleRequiredErrorMessage },
+                    { "TitleMinLengthErrorMessage", Recipe.TitleMinLengthErrorMessage },
+                    { "TitleMaxLengthErrorMessage", Recipe.TitleMaxLengthErrorMessage },
+                    { "DescriptionRangeErrorMessage", Recipe.DescriptionRangeErrorMessage },
+                    { "ServingsRequiredErrorMessage", Recipe.ServingsRequiredErrorMessage },
+                    { "ServingsRangeErrorMessage", Recipe.ServingsRangeErrorMessage },
+                    { "ImageRequiredErrorMessage", Recipe.ImageRequiredErrorMessage },
+                    { "ImageInvalidErrorMessage", Recipe.ImageInvalidErrorMessage },
+                    { "ImageRangeErrorMessage", Recipe.ImageRangeErrorMessage },
+                    { "CookingTimeRequiredErrorMessage", Recipe.CookingTimeRequiredErrorMessage },
+                    { "CookingTimeRangeErrorMessage", Recipe.CookingTimeRangeErrorMessage },
+                    { "RecipeCategoryIdRequiredErrorMessage", Recipe.RecipeCategoryIdRequiredErrorMessage },
+                    { "StepsRequiredErrorMessage", Recipe.StepsRequiredErrorMessage },
+                    { "StepDescriptionRangeErrorMessage", Step.StepDescriptionRangeErrorMessage },
+                    { "IngredientsRequiredErrorMessage", Recipe.IngredientsRequiredErrorMessage },
+                    { "RecipeIngredientNameRequiredErrorMessage", RecipeIngredient.RecipeIngredientNameRequiredErrorMessage },
+                    { "RecipeIngredientNameRangeErrorMessage", RecipeIngredient.RecipeIngredientNameRangeErrorMessage },
+                    { "MeasureRequiredErrorMessage", RecipeIngredient.MeasureRequiredErrorMessage },
+                    { "MissingFormInputErrorMessage", RecipeIngredientQty.MissingFormInputErrorMessage },
+                    { "MissingFractionalOrWholeInputMessage", RecipeIngredientQty.MissingFractionalOrWholeInputMessage },
+                    { "InvalidDecimalRangeErrorMessage", RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
+                    { "InvalidFractionErrorMessage", RecipeIngredientQty.InvalidFractionErrorMessage },
+                    { "InvalidWholeQtyErrorMessage", RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+                };
+        };
+
+        }
     }
 }

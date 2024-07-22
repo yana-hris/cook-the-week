@@ -5,10 +5,10 @@
   width: 100%;
   height: auto;
   position: relative;
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.4rem 0.8rem rgba(46, 105, 48, 0.15);
   overflow: hidden;
   transition: all 0.4s;
-  border: 2px solid var(--bs-success);
+  border: 1px solid var(--bs-success);
 }
 .recipe-container .card .card-body {
   background-color: var(--bs-body-bg) !important;
@@ -38,15 +38,16 @@
   transition: background-color 0.3s ease;
 }
 .recipe-container .card .material-icons.card-icon {
-  font-size: 13px;
+  font-size: 16px;
 }
 .recipe-container .card .icon-text {
-  font-size: 13px;
+  font-size: 15px;
+  font-family: "Libre Baskerville", serif;
 }
 .recipe-container .card span.badge {
   display: inline-block;
-  font-size: 12px;
-  padding: 2px 6px 3px 6px;
+  font-size: 14px;
+  padding: 3px 10px 5px 10px;
   width: auto;
 }
 .recipe-container .card .recipe-title {
@@ -70,6 +71,6 @@
   padding-bottom: 1.2rem;
 }
 .recipe-container .card:hover {
-  transform: translateY(-0.5rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.3);
+  transform: translateY(-0.3rem);
+  box-shadow: 0 0.6rem 1.6rem rgba(46, 105, 48, 0.6);
 }

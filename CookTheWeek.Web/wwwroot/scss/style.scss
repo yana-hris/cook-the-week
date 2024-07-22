@@ -23,7 +23,7 @@
 .wide-contents-container {
     @include make-container();
 
-    max-width: 1240px;
+    max-width: 1296px;
 }
 
 .list-container {
@@ -85,6 +85,10 @@
             color: #c3e964 !important;
         }
     }
+
+    .card {
+        border: 1px solid var(--bs-primary) !important;
+    }
 }
 
 
@@ -100,7 +104,7 @@
     }
 
     .recipe-title {
-        color: var(--bs-light);
+        color: var(--bs-success);
     }
 
     .heading-tertiary {

@@ -3,7 +3,7 @@
   position: relative;
 }
 #recipe-details-container .card, #meal-cook-container .card {
-  border: 2px solid var(--bs-primary);
+  border: 1px solid var(--bs-card-border-color);
 }
 #recipe-details-container .card .card-header .nav-item .nav-link, #meal-cook-container .card .card-header .nav-item .nav-link {
   color: var(--bs-success);

@@ -5,18 +5,16 @@
         width: 100%;
         height: auto;
         position: relative;
-
-        box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0.4rem 0.8rem rgba(46,105,48, 0.15);
         overflow: hidden;
         transition: all 0.4s;
-
-        border: 2px solid var(--bs-success);
+        border: 1px solid var(--bs-success);
 
         .card-body {
             background-color: var(--bs-body-bg) !important;
             padding: 0.65rem !important;
         }
-        
+
         .card-img-top {
             display: block;
             height: 12rem;
@@ -45,17 +43,18 @@
         }
 
         .material-icons.card-icon {
-            font-size: 13px;
+            font-size: 16px;
         }
 
         .icon-text {
-            font-size: 13px;
+            font-size: 15px;
+            font-family: "Libre Baskerville", serif;
         }
 
         span.badge {
             display: inline-block;
-            font-size: 12px;
-            padding: 2px 6px 3px 6px;
+            font-size: 14px;
+            padding: 3px 10px 5px 10px;
             width: auto;
         }
 
@@ -67,7 +66,7 @@
             margin-bottom: 2px;
         }
 
-        .recipe-title:hover {            
+        .recipe-title:hover {
             text-decoration: underline;
         }
 
@@ -85,7 +84,7 @@
     }
 
     .card:hover {
-        transform: translateY(-0.5rem);
-        box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.3);
+        transform: translateY(-0.3rem);
+        box-shadow: 0 0.6rem 1.6rem rgba(46,105,48,0.6);
     }
 }

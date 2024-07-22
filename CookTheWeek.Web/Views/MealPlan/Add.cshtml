@@ -175,8 +175,7 @@
                 $(this).closest('.meal-row').remove();
                 mealsIndex--;
                 reindexRows();
-
-                // TODO: remove recipe from meal plan local storage
+                
                 removeFromLocalStorage(recipeId);
             });
 

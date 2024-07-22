@@ -1,5 +1,5 @@
-﻿//Knockout Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
-function RecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants) {
+﻿//Knockout Edit Recipe Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
+function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants) {
 
     var self = this;
 
