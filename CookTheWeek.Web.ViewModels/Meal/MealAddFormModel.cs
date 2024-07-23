@@ -12,7 +12,6 @@
         {
             this.SelectDates = DateGenerator.GenerateNext7Days();
             this.SelectServingOptions = ServingsOptions;
-            this.Date = SelectDates[0];
         }
 
         public string? Id { get; set; }
@@ -23,9 +22,9 @@
         [Required]
         public string Title { get; set; } = null!;
 
-        [Required]
-        [Range(MinServingSize, MaxServingSize)]
-        public int Servings { get; set; }
+        [Required(ErrorMessage = MealServingsRequiredErrorMessage)]
+        [Range(MinServingSize, MaxServingSize, ErrorMessage = MealServingsRangeErrorMessage)]
+        public int? Servings { get; set; }
 
         [Required]
         [Url]
@@ -34,7 +33,7 @@
         [Required]
         public string CategoryName { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = DateRequiredErrorMessage)]
         public string Date { get; set; } = null!;
 
         public int[] SelectServingOptions { get; set; }

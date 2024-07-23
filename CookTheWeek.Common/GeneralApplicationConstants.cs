@@ -28,6 +28,9 @@
         public const string MealDateFormat = "dd-MM-yyyy";
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
+        public const string StatusCode400BadRequestErrorMessage = "Bad Request! Try again submitting different data";
+        public const string StatusCode500InternalServerErrorMessage = "An unexpected internal error occurred. Please try again later or contact administrator";
+
         public const int MealPlanTrimmedNameLnegth = 30;
 
         // Ingredients by categories FOR Shopping List View

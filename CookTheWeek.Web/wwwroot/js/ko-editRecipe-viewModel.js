@@ -228,7 +228,9 @@ function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validation
                 data: jsonData,
                 success: function (response) {
                     if (response.success && response.redirectUrl) {
-                        toastr.success('Recipe edited successfully!');
+                        setTimeout(function () {
+                            toastr.success('Recipe edited successfully!');
+                        }, 2000);
                         window.location.href = response.redirectUrl;
                     }
                 },

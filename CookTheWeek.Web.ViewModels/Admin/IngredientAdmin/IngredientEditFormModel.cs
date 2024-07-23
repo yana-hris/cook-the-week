@@ -2,14 +2,14 @@
 {
     using System.ComponentModel.DataAnnotations;
     using CookTheWeek.Web.ViewModels.Category;
-    using static Common.EntityValidationConstants.Ingredient;
+    using static Common.EntityValidationConstants.RecipeIngredient;
 
     public class IngredientEditFormModel
     {
         [Required]
         public int Id { get; set; }
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
+        [StringLength(RecipeIngredientNameMaxLength, MinimumLength = RecipeIngredientNameMinLength)]
         public string Name { get; set; } = null!;
 
         [Required]

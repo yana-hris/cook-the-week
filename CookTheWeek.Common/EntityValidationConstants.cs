@@ -4,6 +4,10 @@
     {
         public static class Recipe
         {
+            public const string RecipeNotFoundErrorMessage = "Recipe not found";
+            public const string RecipeSuccessfullySavedMessage = "Your recipe was successfully added!";
+            public const string RecipeOwnerErrorMessage = "You must be the owner of this recipe to edit or delete it";
+
             // Title
             public const int TitleMinLength = 3;
             public const int TitleMaxLength = 100;
@@ -72,12 +76,7 @@
             public const string StepRequiredErrorMessage = "Step Description is required";
             public const string StepDescriptionRangeErrorMessage = "The cooking step description can be between 5 and 1000 characters long";
         }
-        public static class Ingredient
-        {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 50;
-        }
-
+        
         public static class RecipeIngredient
         {
             // Name
@@ -86,6 +85,7 @@
 
             public const string RecipeIngredientNameRequiredErrorMessage = "Ingredient name is required";
             public const string RecipeIngredientNameRangeErrorMessage = "Ingredient name cannot be shorter than 2 and longer than 50 characters";
+            public const string RecipeIngredientInvalidErrorMessage = "Invalid ingredient";
 
 
             // Qty
@@ -159,12 +159,30 @@
         {
             public const int MinServingSize = 1;
             public const int MaxServingSize = 12;
+
+            public const string MealServingsRequiredErrorMessage = "Please enter serving size";
+            public const string MealServingsRangeErrorMessage = "Please enter a valid serving size [1 - 12]";
+
+            public const string DateRequiredErrorMessage = "Please select date";
+            public const string DateRangeErrorMessage = "Please choose a valid cooking date";
         }
 
         public static class MealPlan
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
+
+            public const string MealPlanNotFoundErrorMessage = "Meal plan not found";
+            public const string MealPlanOwnerErrorMessage = "You must be the owner of this meal plan to edit or delete it";
+
+            public const string MealPlanSuccessfulDeleteMessage = "Meal Plan deleted!";
+            public const string MealPlanSuccessfulSaveMessage = "Meal plan saved!";
+
+            public const string NameRequiredErrorMessage = "Meal plan name is required";
+            public const string NameLengthErrorMessage = "Meal plan name cannot be shorter than 2, and longer than 50 characters";
+
+            public const string MealsRequiredErrorMessage = "Please add at least one meal";
+            
         }
 
         public static class ErrorMessages

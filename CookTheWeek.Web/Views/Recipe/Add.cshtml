@@ -1,10 +1,8 @@
 ﻿@model RecipeAddFormModel
 @using Newtonsoft.Json
 @using static CookTheWeek.Common.GeneralApplicationConstants;
-@using static CookTheWeek.Common.EntityValidationConstants.Recipe;
-@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
-@using static CookTheWeek.Common.EntityValidationConstants.Step;
-@using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredientQty;
+@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages;
+@using static CookTheWeek.Common.EntityValidationConstants.ValidationConstants;
 @{
     ViewData["Title"] = "Add Recipe";
     
@@ -19,16 +17,9 @@
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
     }  
 
-    var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
-
-    var errorMessages = new Dictionary<string, string>
-    {
-        { "MissingFormInputErrorMessage", MissingFormInputErrorMessage },
-        { "MissingFractionalOrWholeInputMessage", MissingFractionalOrWholeInputMessage },
-        { "InvalidDecimalRangeErrorMessage", InvalidDecimalRangeErrorMessage },
-        { "InvalidFractionErrorMessage", InvalidFractionErrorMessage },
-        { "InvalidWholeQtyErrorMessage", InvalidWholeQtyErrorMessage },
-    };
+    var qtyFractionOptionsString = JsonConvert.SerializeObject(QtyFractionOptions);
+    var errorMessagesString = JsonConvert.SerializeObject(RecipeValidationErrorMessages);
+    var validationConstantsString = JsonConvert.SerializeObject(RecipeValidationConstants);
 
     var serverErrorsString = TempData["ServerErrors"] != null
         ? JsonConvert.DeserializeObject<Dictionary<string, string[]>>(TempData["ServerErrors"].ToString())
@@ -217,20 +208,7 @@
                                                 <input data-bind="value: Name,
                                                                   validationElement: Name,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Name' },
-                                                                  deferValidation: Name,
-                                                                  validationRules: {
-                                                                        required: {
-                                                                            message: '@RecipeIngredientNameRequiredErrorMessage'
-                                                                        },
-                                                                        minLength: {
-                                                                            message: '@RecipeIngredientNameRangeErrorMessage',
-                                                                            params: parseInt('@RecipeIngredientNameMinLength', 10)
-                                                                        },
-                                                                        maxLength: {
-                                                                            message: '@RecipeIngredientNameRangeErrorMessage',
-                                                                            params: parseInt('@RecipeIngredientNameMaxLength', 10)
-                                                                        }
-                                                                    }"
+                                                                  deferValidation: Name"
                                                        class="form-control ingredientName"
                                                        type="text"
                                                        placeholder="Start typing.."
@@ -310,12 +288,7 @@
                                                                    validationElement: MeasureId,
                                                                    attr: { name: 'RecipeIngredients[' + $index() + '].MeasureId' },
                                                                    deferValidation: MeasureId,
-                                                                   valueUpdate: 'afterkeydown',
-                                                                   validationRules: {
-                                                                                required: {
-                                                                                    message: '@MeasureRequiredErrorMessage'
-                                                                                }
-                                                                            }"
+                                                                   valueUpdate: 'afterkeydown'"
                                                         class="form-select">
                                                         <option value="">Unit</option>
                                                         @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
@@ -369,9 +342,9 @@
                                         </a>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </form>
         </div>
@@ -392,126 +365,20 @@
 
 @section Scripts {
     <partial name="_KnockoutPartial.cshtml" />
-    <script>
-        $(document).on('keyup', '.ingredientName', suggestWords);
-
-        function suggestWords(event) {
-           
-            let inputValue = $(this).val();
-            let suggestionsContainer = this.parentNode.querySelector("div.suggestionsList");
-
-            if (inputValue.length > 1) {
-                $.ajax({
-                    url: 'https://localhost:7279/api/recipeingredient/suggestions',
-                    type: "get",
-                    data: {
-                        input: inputValue
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        renderSuggestionResults(response, inputValue, suggestionsContainer, event.target);
-                    }
-                });
-            } else {
-                $(suggestionsContainer).empty();
-            }
-        }
-        function renderSuggestionResults(results, search, container, inputForm) {
-            // delete unordered list from previous search result
-            $(container).empty();
-            
-            // get properties from input field
-            let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
-            let form_width = inputForm.offsetWidth;
-
-            //set result list to same width less borders
-            container.style.width = form_width.toString() + 'px';
-
-            if (results.length > 0) {
-                // create ul and set classes
-                let ul = document.createElement('UL');
-                ul.classList.add('list-group', 'mt-2');
-
-                // create list of results and append to ul
-                results.map(function (item) {
-
-                    let a = document.createElement('A');
-                    a.classList.add('autocomplete-result', 'list-group-item', 'p-1'); // autocomplete used for init click event, other classes are from bootstrap
-                    a.style.fontSize = form_font;
-                    a.href = "#";
-                    a.setAttribute("id", item.id); // used for click-Event to fill the form
-
-                    // see function below - marked search string in results
-                    a.innerHTML = colorResults(item.name, search);
-
-                    // add Eventlistener for chosen renderResults
-                    a.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        // get text from list item and set it into reffered form field
-                        let ingredientName = a.innerText;
-
-                        $(inputForm).val(ingredientName).trigger('change');
-
-                        // after a result is chose, make the div with results invisible -> or after changing input content again,
-                        // all of childs of current div will be deleted [line 48,49]
-                        $(container).empty(); // NOT SURE!
-                        container.classList.add('invisible');
-
-                    });
-                    ul.append(a);
-                });
-
-                // append ul to container and make container visible
-                container.append(ul);
-                container.classList.remove('invisible');
-
-            }
-            else {
-                container.classList.add('invisible');
-
-            }
-        }
-        // create span's with colored marked search strings
-        function colorResults(string, search) {
-            let splitted = string.toLowerCase().split(search.toLowerCase());
-
-            let sp = []; // array of all spans, created in folling loop
-            let start = 0; //start for slicing
-
-            splitted.map(function (element, index) {
-                // empty string at the beginning
-                if (element == false) {
-                    sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
-                    start = start + search.length;
-                }
-                else if (index + 1 == splitted.length) {
-                    sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
-                }
-                else {
-                    sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
-                    start = start + element.length;
-                    sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
-                    start = start + search.length;
-                }
-            });
-            return sp.join('')
-        }
-    
-    </script>
-    
+    <script src="~/js/ko-addRecipe-viewModel.js"></script>
+    <script src="~/js/suggestions.js"></script>
     <script>
         $(document).ready(function () {
 
             var form = $("#add-recipe-form");
 
             // Parse the QtyFractionOptions from the JSON string
-            var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
-            var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
+            var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
+            const errorMessages = @Html.Raw(errorMessagesString);
+            const validationConstants = @Html.Raw(validationConstantsString);
 
             // Extract keys from QtyFractionOptions as valid fractions
             var fractionOptions = Object.keys(qtyFractionOptions);
-
 
             // Helper function to convert decimal to whole and fraction
             function decimalToFraction(decimal) {
@@ -586,58 +453,7 @@
                     fractionQtyInputs.hide();
                 }
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            debugger
-            const errorMessages = {
-                TitleRequiredErrorMessage: '@TitleRequiredErrorMessage',
-                TitleMinLengthErrorMessage: '@TitleMinLengthErrorMessage',
-                TitleMaxLengthErrorMessage: '@TitleMaxLengthErrorMessage',
-                DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
-                DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
-                ServingsRequiredErrorMessage: '@ServingsRequiredErrorMessage',
-                ServingsRangeErrorMessage: '@ServingsRangeErrorMessage',
-                ImageRequiredErrorMessage: '@ImageRequiredErrorMessage',
-                ImageRangeErrorMessage: '@ImageRangeErrorMessage',
-                CookingTimeRequiredErrorMessage: '@CookingTimeRequiredErrorMessage',
-                CookingTimeRangeErrorMessage: '@CookingTimeRangeErrorMessage',
-                RecipeCategoryIdRequiredErrorMessage: '@RecipeCategoryIdRequiredErrorMessage',
-                StepRequiredErrorMessage: '@StepRequiredErrorMessage',
-                StepDescriptionRangeErrorMessage: '@StepDescriptionRangeErrorMessage',
-                IngredientsRequiredErrorMessage: '@IngredientsRequiredErrorMessage',
-                RecipeIngredientNameRequiredErrorMessage: '@RecipeIngredientNameRequiredErrorMessage',
-                RecipeIngredientNameRangeErrorMessage: '@RecipeIngredientNameRangeErrorMessage',
-                MeasureRequiredErrorMessage: '@MeasureRequiredErrorMessage',
-                MissingFormInputErrorMessage: '@MissingFormInputErrorMessage',
-                MissingFractionalOrWholeInputMessage: '@MissingFractionalOrWholeInputMessage',
-                InvalidDecimalRangeErrorMessage: '@InvalidDecimalRangeErrorMessage',
-                InvalidFractionErrorMessage: '@InvalidFractionErrorMessage',
-                InvalidWholeQtyErrorMessage: '@InvalidWholeQtyErrorMessage'
-            };
 
-            const validationConstants = {
-                TitleMinLength: '@TitleMinLength',
-                TitleMaxLength: '@TitleMaxLength',
-                DescriptionMinLength: '@DescriptionMinLength',
-                DescriptionMaxLength: '@DescriptionMaxLength',
-                ServingsMinValue: '@ServingsMinValue',
-                ServingsMaxValue: '@ServingsMaxValue',
-                ImageUlrMinLength: '@ImageUlrMinLength',
-                ImageUlrMaxLength: '@ImageUlrMaxLength',
-                CookingTimeMinValue: '@CookingTimeMinValue',
-                CookingTimeMaxValue: '@CookingTimeMaxValue',
-                StepDescriptionMinLength: '@StepDescriptionMinLength',
-                StepDescriptionMaxLength: '@StepDescriptionMaxLength',
-                RecipeIngredientNameMinLength: '@RecipeIngredientNameMinLength',
-                RecipeIngredientNameMaxLength: '@RecipeIngredientNameMaxLength',
-            };
-
-            // Parse the QtyFractionOptions from the JSON string
-            var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
-            var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));
-            
             // Create Regex URL pattern, corresponding to server-side regex
             const ValidationConstants = {
                 UrlPattern: /^(http(s)?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?$/
@@ -648,7 +464,7 @@
                     if (!val || !validate) return true;
                     return ValidationConstants.UrlPattern.test(val);
                 },
-                message: '@ImageInvalidErrorMessage'
+                message: errorMessages.ImageInvalidErrorMessage
             };
 
             ko.validation.registerExtenders();
@@ -676,5 +492,4 @@
             }
         });
     </script>
-    
  }

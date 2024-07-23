@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     using Common.HelperMethods;
     using Infrastructure.Extensions;
@@ -12,10 +13,10 @@
     using Services.Data.Interfaces;
     using Services.Data.Models.Recipe;
 
+    using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using Newtonsoft.Json;
-    using static System.Runtime.InteropServices.JavaScript.JSType;
+    using static Common.EntityValidationConstants.RecipeIngredient;
 
     [Authorize]
     public class RecipeController : Controller
@@ -130,7 +131,7 @@
                 bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
                 if (!categoryExists)
                 {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
                 }
             }
 
@@ -142,11 +143,11 @@
                 }
                 if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
                 {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid ingredient measure for ingrediet {ingredient.Name}");
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
                 }
                 if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
                 {
-                    ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid ingredient specification for ingrediet {ingredient.Name}");
+                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
                 }
             }
 
@@ -183,7 +184,7 @@
             {
                 string ownerId = User.GetId();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId);
-                TempData[SuccessMessage] = "Your recipe was successfully added!";
+                TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
                 return RedirectToAction("Details", new { id = recipeId });
             }
             catch (Exception)
@@ -273,7 +274,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
             if (!exists)
             {
-                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
+                TempData[ErrorMessage] = RecipeNotFoundErrorMessage;
                 return RedirectToAction("All", "Recipe");
             }
 
@@ -281,7 +282,7 @@
             bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
             if (!isOwner && !User.IsAdmin())
             {
-                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
+                TempData[ErrorMessage] = RecipeOwnerErrorMessage;
                 return RedirectToAction("Details", "Recipe", new { id = model.Id });
             }
 
@@ -290,7 +291,7 @@
                 bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
                 if (!categoryExists)
                 {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), "Selected category does not exist!");
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
                 }
             }
 
@@ -298,15 +299,15 @@
             {
                 if (!await IsIngredientValid(ingredient.Name))
                 {
-                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingredient!");
+                    ModelState.AddModelError(nameof(ingredient.Name), RecipeIngredientInvalidErrorMessage);
                 }
                 if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
                 {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), $"Invalid measure for ingredient {ingredient.Name}");
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
                 }
                 if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
                 {
-                    ModelState.AddModelError(nameof(ingredient.SpecificationId), $"Invalid specification for ingredient {ingredient.Name}");
+                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
                 }
             }
 
@@ -331,11 +332,9 @@
                 }
             }
 
-
             try
             {
                 await this.recipeService.EditAsync(model);
-                // Construct the redirect URL
                 string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id })!;
 
                 // Return JSON response with redirect URL
@@ -344,7 +343,7 @@
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
+                ModelState.AddModelError(string.Empty, StatusCode500InternalServerErrorMessage);
                 logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
 
                 // Return the view with the model and validation errors

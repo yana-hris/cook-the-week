@@ -5,15 +5,14 @@
     
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.Ingredient;
+    using static Common.EntityValidationConstants.RecipeIngredient;
 
     [Comment("Ingredient")]
     public class Ingredient
     {
-        private string name;
         public Ingredient()
         {
-            RecipesIngredients = new HashSet<RecipeIngredient>();
+            this.RecipesIngredients = new HashSet<RecipeIngredient>();
         }
         [Comment("Key Identifier")]
         [Key]
@@ -21,7 +20,7 @@
 
         [Comment("Ingredient Name")]
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(RecipeIngredientNameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Comment("Ingredient Category Key Identifier")]
@@ -31,6 +30,6 @@
         public IngredientCategory Category { get; set; } = null!;
 
         [Comment("A collection Recipe-Ingredients with an Ingredient")]
-        public ICollection<RecipeIngredient> RecipesIngredients { get; set; }
+        public ICollection<RecipeIngredient> RecipesIngredients { get; set; } = null!;
     }
 }

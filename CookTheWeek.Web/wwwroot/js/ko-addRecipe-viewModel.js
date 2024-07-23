@@ -1,6 +1,4 @@
 ﻿// Knockout external library Recipe Add ViewModel Definition for data-binding
-
-//Knockout Viewmodel definition, enabling two-way data binding
 function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOptions, validationConstants) {
 
     var self = this;
@@ -186,16 +184,14 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
     self.errors = ko.validation.group(self, { deep: true, observable: true });
 
     self.submitForm = function () {
-        // Validate the entire ViewModel
-        debugger;
+        
         const clientSideErrors = self.errors();
         self.errors.showAllMessages();
 
-        console.log(clientSideErrors);
-        console.log(self);
+        //console.log(clientSideErrors);
+        //console.log(self);
 
         // Additional validation for steps and ingredients
-
         const stepsValid = self.Steps().length > 0;
 
         const ingredientsValid = self.RecipeIngredients().length > 0;
@@ -209,10 +205,10 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         }
 
         if (clientSideErrors.length === 0 && stepsValid && ingredientsValid) {
-            debugger;
+            
             return true; // Allow form submission
         } else {
-            debugger;
+            
             self.errors.showAllMessages();
             return false; // Prevent form submission
         }

@@ -17,6 +17,9 @@ namespace CookTheWeek.Web.Controllers
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using static Common.EntityValidationConstants.Meal;
+    using static Common.EntityValidationConstants.MealPlan;
+    using static Common.EntityValidationConstants.Recipe;
 
     [Authorize]
     public class MealPlanController : Controller
@@ -65,7 +68,7 @@ namespace CookTheWeek.Web.Controllers
             ICollection<MealServiceModel> recipes = serviceModel.Meals;
             MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel()
             {
-                Name = "[Your Meal Plan Name]",
+                Name = "",
                 Meals = new List<MealAddFormModel>()
             };
 
@@ -82,7 +85,7 @@ namespace CookTheWeek.Web.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(nameof(recipe.RecipeId), "Ivalid Recipe Id");
+                        ModelState.AddModelError(nameof(recipe.RecipeId), RecipeNotFoundErrorMessage);
                         logger.LogWarning($"Recipe ID {recipe.RecipeId} does not exist.");
                         return BadRequest(ModelState);
                     }
@@ -90,7 +93,7 @@ namespace CookTheWeek.Web.Controllers
                 catch (Exception ex)
                 {
                     logger.LogError(ex, $"An error occurred while processing recipe ID {recipe.RecipeId}.");
-                    return StatusCode(500, "An unexpected error occurred.");
+                    return StatusCode(500, StatusCode500InternalServerErrorMessage);
                 }
             }
 
@@ -125,17 +128,16 @@ namespace CookTheWeek.Web.Controllers
                 }
                 else
                 {
-                    logger.LogError($"Retriveved value for Meal Plan for user with ID {userId} is null");
-                    TempData[InformationMessage] = "Add Recipes to Build Your Meal Plan";
-                    return RedirectToAction("All", "Recipe");
+                    logger.LogError($"Retriveved Meal Plan for user with ID {userId} is null");
+                    
                 }
             }
             else
             {
-                logger.LogError($"Cannot retrieve value for the Meal Plan for user with id {userId}");
-                TempData[InformationMessage] = "Add Recipes to Build Your Meal Plan";
-                return RedirectToAction("All", "Recipe");
+                logger.LogError($"Cannot retrieve the Meal Plan for user with id {userId} from Memory Cache");
             }
+
+            return RedirectToAction("All", "Recipe");
 
         }
 
@@ -144,14 +146,14 @@ namespace CookTheWeek.Web.Controllers
         {
             string userId = User.GetId();
 
-            if (model.Name == DefaultMealPlanName)
+            if (string.IsNullOrEmpty(model.Name) || model.Name == DefaultMealPlanName)
             {
-                ModelState.AddModelError(nameof(model.Name), "Give your Meal Plan a fancy Name");
+                ModelState.AddModelError(nameof(model.Name), NameRequiredErrorMessage);
             }
 
             if (!model.Meals.Any())
             {
-                ModelState.AddModelError(nameof(model.Meals), "Meals are required!");
+                ModelState.AddModelError(nameof(model.Meals), MealsRequiredErrorMessage);
             }
             else
             {
@@ -161,12 +163,17 @@ namespace CookTheWeek.Web.Controllers
 
                     if (!exists)
                     {
-                        ModelState.AddModelError(nameof(meal.RecipeId), $"No such recipe found: {meal.RecipeId}");
+                        ModelState.AddModelError(nameof(meal.RecipeId), RecipeNotFoundErrorMessage);
+                    }
+
+                    if(!meal.SelectDates.Contains(meal.Date))
+                    {
+                        ModelState.AddModelError(meal.Date.ToString(), DateRangeErrorMessage);
                     }
 
                     if (!DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
                     {
-                        ModelState.AddModelError(nameof(meal.Date), $"Incorrect Cooking Date Format for recipe with id {meal.RecipeId}");
+                        ModelState.AddModelError(nameof(meal.Date), DateRangeErrorMessage);
                     }
                 }
             }
@@ -183,21 +190,21 @@ namespace CookTheWeek.Web.Controllers
                 return View(model);
             }
 
-            model.Name = sanitizer.SanitizeInput(model.Name);
+            model.Name = sanitizer.SanitizeInput(model.Name!);
 
             try
             {
                 string id = await this.mealPlanService.AddAsync(userId, model);
                 TempData["SubmissionSuccess"] = true;
                 DeleteMealPlanFromMemmoryCache();
-                TempData[SuccessMessage] = $"Your Meal Plan \"{model.Name}\" was successfully Created!";
-                return RedirectToAction("Details", "MealPlan", new { id = id });
+                TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
+                return RedirectToAction("Details", "MealPlan", new { id });
 
             }
             catch (Exception)
             {
                 logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully added to the Database!");
-                return BadRequest();
+                return RedirectToAction("Error500", "Home");
             }
 
             
@@ -227,7 +234,7 @@ namespace CookTheWeek.Web.Controllers
 
             if (!exists)
             {
-                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
 
                 return RedirectToAction("Mine", "MealPlan");
             }
@@ -268,8 +275,10 @@ namespace CookTheWeek.Web.Controllers
             }
 
             MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
+            model.Id = null;
+            model.Name = "";
             model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
-            model.Name = DefaultMealPlanName;
+            model.StartDate = DateTime.Today;
 
             try
             {
@@ -290,7 +299,7 @@ namespace CookTheWeek.Web.Controllers
 
             if(!exists)
             {
-                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
                 logger.LogWarning($"Meal Plan with id {id} does not exist in database!");
                 return RedirectToAction("Mine", "MealPlan");
             }
@@ -300,7 +309,7 @@ namespace CookTheWeek.Web.Controllers
 
             if (!isOwner)
             {
-                TempData[ErrorMessage] = "You must be the owner of the Meal Plan to edit it!";
+                TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
                 logger.LogWarning("The user id of the meal plan owner and current user do not match!");
                 return RedirectToAction("Mine", "MealPlan");
             }
@@ -323,33 +332,33 @@ namespace CookTheWeek.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(MealPlanAddFormModel model)
         {
-            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id);
+            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id!);
 
             if (!exists)
             {
-                TempData[ErrorMessage] = "Meal Plan with the provided id does not exist!";
+                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
                 logger.LogWarning($"Meal Plan with id {model.Id} does not exist in database!");
                 return RedirectToAction("Mine", "MealPlan");
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByMealPlanIdAsync(model.Id, userId);
+            bool isOwner = await this.userService.IsOwnerByMealPlanIdAsync(model.Id!, userId);
 
             if (!isOwner)
             {
-                TempData[ErrorMessage] = "You must be the owner of the Meal Plan to edit it!";
+                TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
                 logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
                 return RedirectToAction("Mine", "MealPlan");
             }
 
             if (model.Name == DefaultMealPlanName)
             {
-                ModelState.AddModelError(nameof(model.Name), "Give your Meal Plan a fancy Name");
+                ModelState.AddModelError(nameof(model.Name), NameRequiredErrorMessage);
             }
 
             if (!model.Meals.Any())
             {
-                ModelState.AddModelError(nameof(model.Meals), "Meals are required!");
+                ModelState.AddModelError(nameof(model.Meals), MealsRequiredErrorMessage);
             }
             else
             {
@@ -359,12 +368,17 @@ namespace CookTheWeek.Web.Controllers
 
                     if (!recipeExists)
                     {
-                        ModelState.AddModelError(nameof(meal.RecipeId), $"No such recipe found: {meal.RecipeId}");
+                        ModelState.AddModelError(nameof(meal.RecipeId), RecipeNotFoundErrorMessage);
+                    }
+
+                    if (!meal.SelectDates.Contains(meal.Date))
+                    {
+                        ModelState.AddModelError(meal.Date.ToString(), DateRangeErrorMessage);
                     }
 
                     if (!DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
                     {
-                        ModelState.AddModelError(nameof(meal.Date), $"Incorrect Cooking Date Format for recipe with id {meal.RecipeId}");
+                        ModelState.AddModelError(nameof(meal.Date), DateRangeErrorMessage);
                     }
                 }
             }
@@ -381,7 +395,7 @@ namespace CookTheWeek.Web.Controllers
                 return View(model);
             }
 
-            model.Name = sanitizer.SanitizeInput(model.Name);
+            model.Name = sanitizer.SanitizeInput(model.Name!);
 
             try
             {
@@ -390,10 +404,11 @@ namespace CookTheWeek.Web.Controllers
             catch (Exception)
             {
                 logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully edited!");
-                return BadRequest();
+                TempData[ErrorMessage] = StatusCode500InternalServerErrorMessage;
+                return RedirectToAction("Error500", "Home");
             }
 
-            TempData[SuccessMessage] = $"Meal Plan \"{model.Name}\" successfully Edited!";
+            TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
             return RedirectToAction("Mine", "MealPlan");
         }
 
@@ -412,14 +427,14 @@ namespace CookTheWeek.Web.Controllers
 
             if (!isOwner && !User.IsAdmin())
             {
-                TempData[ErrorMessage] = "You must be the owner of this meal plan to delete it!";
+                TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
                 return RedirectToAction("Details", "MealPlan", new { id });
             }
 
             try
             {
                 await this.mealPlanService.DeleteById(id);
-                TempData[SuccessMessage] = "Meal Plan successfully deleted!";
+                TempData[SuccessMessage] = MealPlanSuccessfulDeleteMessage;
             }
             catch (Exception)
             {

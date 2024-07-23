@@ -8,15 +8,19 @@ using static Common.EntityValidationConstants.MealPlan;
 
 public class MealPlanAddFormModel
 {
+    public MealPlanAddFormModel()
+    {
+        this.Meals = new List<MealAddFormModel>();
+    }
     public string? Id { get; set; }
     
     public DateTime? StartDate { get; set; } 
 
-    [Required]
-    [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Invalid Meal Plan Name")]
-    public string Name { get; set; } = null!;
+    [Required(ErrorMessage = NameRequiredErrorMessage)]
+    [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthErrorMessage)]
+    public string? Name { get; set; } 
 
     [Required]
-    public IList<MealAddFormModel> Meals { get; set; } = new List<MealAddFormModel>();
+    public IList<MealAddFormModel> Meals { get; set; } = null!;
     
 }

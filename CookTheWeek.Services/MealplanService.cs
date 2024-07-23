@@ -72,7 +72,7 @@
                 Meals = model.Meals.Select(m => new Meal()
                 {
                     RecipeId = Guid.Parse(m.RecipeId),
-                    ServingSize = m.Servings,
+                    ServingSize = m.Servings!.Value,
                     CookDate = DateTime.ParseExact(m.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 }).ToList()
             };
@@ -101,7 +101,7 @@
                         .Meals
                         .FirstAsync(m => m.MealPlanId.ToString() == model.Id && m.RecipeId.ToString() == modelMeal.RecipeId);
 
-                    currentMeal.ServingSize = modelMeal.Servings;
+                    currentMeal.ServingSize = modelMeal.Servings!.Value;
                     currentMeal.CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture);
                 }
                 else
@@ -109,7 +109,7 @@
                     Meal newMeal = new Meal()
                     {
                         RecipeId = Guid.Parse(modelMeal.RecipeId),
-                        ServingSize = modelMeal.Servings,
+                        ServingSize = modelMeal.Servings!.Value,
                         CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture),
                     };
                     mealPlanToEdit.Meals.Add(newMeal);
