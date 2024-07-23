@@ -2,6 +2,7 @@
 @model RecipeEditFormModel
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages;
+@using static CookTheWeek.Common.EntityValidationConstants.ValidationConstants;
 @* @using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 @using static CookTheWeek.Common.EntityValidationConstants.Step;
 @using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
@@ -22,6 +23,7 @@
 
     var qtyFractionOptions = JsonConvert.SerializeObject(QtyFractionOptions);
     var errorMessagesString = JsonConvert.SerializeObject(RecipeValidationErrorMessages);
+    var validationConstantsString = JsonConvert.SerializeObject(RecipeValidationConstants);
 
 }
 <div id="edit-recipe" class="card-container">
@@ -209,20 +211,7 @@
                                                 <span class="input-group-text">Ingredient</span>
                                                 <input data-bind="value: Name, 
                                                                   validationElement: Name, 
-                                                                  deferValidation: Name, 
-                                                                  validationRules: {
-                                                                        required: {
-                                                                            message: '@RecipeIngredientNameRequiredErrorMessage'
-                                                                        },
-                                                                        minLength: {
-                                                                            message: '@RecipeIngredientNameRangeErrorMessage',
-                                                                            params: parseInt('@RecipeIngredientNameMinLength', 10)
-                                                                        },
-                                                                        maxLength: {
-                                                                            message: '@RecipeIngredientNameRangeErrorMessage',
-                                                                            params: parseInt('@RecipeIngredientNameMaxLength', 10)
-                                                                        }
-                                                                    }"
+                                                                  deferValidation: Name"
                                                        class="form-control ingredientName" 
                                                        type="text" 
                                                        placeholder="Start typing.."
@@ -297,12 +286,7 @@
                                                 <select data-bind="value: MeasureId, 
                                                                    validationElement: MeasureId, 
                                                                    deferValidation: MeasureId, 
-                                                                   valueUpdate: 'afterkeydown',
-                                                                   validationRules: {
-                                                                                required: {
-                                                                                    message: '@MeasureRequiredErrorMessage'
-                                                                                }
-                                                                            }"
+                                                                   valueUpdate: 'afterkeydown'"
                                                     class="form-select">
                                                     <option value="">Unit</option>
                                                     @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
@@ -489,49 +473,11 @@
     
     <script>    
     $(document).ready(function () {
-        // const errorMessages = {
-        //     TitleRequiredErrorMessage: '@TitleRequiredErrorMessage',
-        //     TitleMinLengthErrorMessage: '@TitleMinLengthErrorMessage',
-        //     TitleMaxLengthErrorMessage: '@TitleMaxLengthErrorMessage',
-        //     DescriptionRangeErrorMessage: '@DescriptionRangeErrorMessage',
-        //     ServingsRequiredErrorMessage: '@ServingsRequiredErrorMessage',
-        //     ServingsRangeErrorMessage: '@ServingsRangeErrorMessage',
-        //     ImageRequiredErrorMessage: '@ImageRequiredErrorMessage',
-        //     ImageRangeErrorMessage: '@ImageRangeErrorMessage',
-        //     CookingTimeRequiredErrorMessage: '@CookingTimeRequiredErrorMessage',
-        //     CookingTimeRangeErrorMessage: '@CookingTimeRangeErrorMessage',
-        //     RecipeCategoryIdRequiredErrorMessage: '@RecipeCategoryIdRequiredErrorMessage',
-        //     StepRequiredErrorMessage: '@StepsRequiredErrorMessage',
-        //     StepDescriptionRangeErrorMessage: '@StepDescriptionRangeErrorMessage',
-        //     IngredientsRequiredErrorMessage: '@IngredientsRequiredErrorMessage',
-        //     RecipeIngredientNameRequiredErrorMessage: '@RecipeIngredientNameRequiredErrorMessage',
-        //     RecipeIngredientNameRangeErrorMessage: '@RecipeIngredientNameRangeErrorMessage',
-        //     MeasureRequiredErrorMessage: '@MeasureRequiredErrorMessage',
-        //     MissingFormInputErrorMessage: '@MissingFormInputErrorMessage',
-        //     MissingFractionalOrWholeInputMessage: '@MissingFractionalOrWholeInputMessage',
-        //     InvalidDecimalRangeErrorMessage: '@InvalidDecimalRangeErrorMessage',
-        //     InvalidFractionErrorMessage: '@InvalidFractionErrorMessage',
-        //     InvalidWholeQtyErrorMessage: '@InvalidWholeQtyErrorMessage'
-        // };
-
+       
         const errorMessages = @Html.Raw(errorMessagesString);
 
-        const validationConstants = {
-            TitleMinLength: '@TitleMinLength',
-            TitleMaxLength: '@TitleMaxLength',
-            DescriptionMinLength: '@DescriptionMinLength',
-            DescriptionMaxLength: '@DescriptionMaxLength',
-            ServingsMinValue: '@ServingsMinValue',
-            ServingsMaxValue: '@ServingsMaxValue',
-            ImageUlrMinLength: '@ImageUlrMinLength',
-            ImageUlrMaxLength: '@ImageUlrMaxLength',
-            CookingTimeMinValue: '@CookingTimeMinValue',
-            CookingTimeMaxValue: '@CookingTimeMaxValue',
-            StepDescriptionMinLength: '@StepDescriptionMinLength',
-            StepDescriptionMaxLength: '@StepDescriptionMaxLength',
-            RecipeIngredientNameMinLength: '@RecipeIngredientNameMinLength',
-            RecipeIngredientNameMaxLength: '@RecipeIngredientNameMaxLength',
-        };
+        const validationConstants = @Html.Raw(validationConstantsString);
+
         // Parse the QtyFractionOptions from the JSON string
         var qtyFractionOptionsString = @Html.Raw(qtyFractionOptions);
         var qtyFractionOptions = JSON.parse(JSON.stringify(qtyFractionOptionsString));

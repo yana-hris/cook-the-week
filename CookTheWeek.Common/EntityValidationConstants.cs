@@ -198,6 +198,29 @@
                 };
         };
 
+        public static class ValidationConstants
+        {
+            public static readonly Dictionary<string, int> RecipeValidationConstants =
+                new Dictionary<string, int>()
+                {
+                    {"TitleMinLength", Recipe.TitleMinLength },
+                    {"TitleMaxLength", Recipe.TitleMaxLength },
+                    {"DescriptionMinLength", Recipe.DescriptionMinLength },
+                    {"DescriptionMaxLength", Recipe.DescriptionMaxLength },
+                    {"ServingsMinValue", Recipe.ServingsMinValue },
+                    {"ServingsMaxValue", Recipe.ServingsMaxValue },
+                    {"ImageUlrMinLength", Recipe.ImageUlrMinLength },
+                    {"ImageUlrMaxLength", Recipe.ImageUlrMaxLength },
+                    {"CookingTimeMinValue", Recipe.CookingTimeMinValue },
+                    {"CookingTimeMaxValue", Recipe.CookingTimeMaxValue },
+                    {"StepDescriptionMinLength", Step.StepDescriptionMinLength },
+                    {"StepDescriptionMaxLength", Step.StepDescriptionMaxLength },
+                    {"RecipeIngredientNameMinLength", RecipeIngredient.RecipeIngredientNameMinLength },
+                    {"RecipeIngredientNameMaxLength", RecipeIngredient.RecipeIngredientNameMaxLength },
+
+                };
         }
+
+        
     }
 }
