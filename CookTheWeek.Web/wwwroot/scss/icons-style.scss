@@ -24,7 +24,7 @@
     // add to meal plan btn styling
 
     .add-to-mealplan-button::before {
-        content: ""; /* A pseudo-element for the circular background */
+        content: ""; /* A pseudo-element for the background */
         position: absolute;
         top: 0;
         left: 0;
@@ -36,18 +36,22 @@
     }
 
     .add-to-mealplan-button .fa {
-        position: absolute;
-        top: 50%; /* Position the icon vertically */
-        left: 50%; /* Position the icon horizontally */
-        transform: translate(-50%, -50%); /* Center the icon */
+        
         color: white; /* Icon color */
+    }
+
+    .plus, .minus {
+        box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            box-shadow: none;
+        }
     }
 
     .plus::before {
         background-color: var(--bs-primary);
         color: #fff;
         border: 2px solid var(--bs-primary);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
 
@@ -55,28 +59,25 @@
         background-color: var(--bs-danger);
         color: #fff;
         border: 2px solid var(--bs-danger);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
     .plus:hover::before {
         background-color: #fff;
         border: 2px solid var(--bs-primary);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
     .minus:hover::before {
         background-color: #fff;
         border: 2px solid var(--bs-danger);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     }
 
-    .add-to-mealplan-button.plus:hover {
+    .plus:hover {
         .fa {
             color: var(--bs-primary);
         }
     }
 
-    .add-to-mealplan-button.minus:hover {
+    .minus:hover {
         .fa {
             color: var(--bs-danger);
         }

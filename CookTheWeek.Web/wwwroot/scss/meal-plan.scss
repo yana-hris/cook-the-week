@@ -91,13 +91,14 @@
             }
 
             .remove-btn-container {
-                display: block;
+                display: flex;
+                justify-content: center;
 
                 .minus {
                     position: relative;
                     display: inline-block;
-                    width: 38px;
-                    height: 38px;
+                    width: 2rem;
+                    height: 2rem;
                 }
 
                 .minus::before {
@@ -118,7 +119,7 @@
                     left: 50%;
                     transform: translate(-50%, -50%);
                     color: white;
-                    font-size: 30px;
+                    font-size: 1.6rem;
                 }
             }
         }

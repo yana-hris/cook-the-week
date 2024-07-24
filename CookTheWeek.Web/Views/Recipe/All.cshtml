@@ -23,7 +23,7 @@
         
     <div class="row">
         <form id="all-recipes-form" method="get" class="pb-3">
-            <div class="row justify-content-center justify-content-sm-between align-items-center gy-2">
+            <div class="row justify-content-center justify-content-sm-between align-items-center gy-2 gx-2 gx-md-0">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2 order-md-first">
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
@@ -50,8 +50,8 @@
                 <div class="col-12 col-sm-6 col-md-12 col-lg-5 order-4 order-md-2">
                     <div class="input-group">
                         <span class="input-group-text">Filter</span>
-                        <input asp-for="SearchString" class="form-control search" placeholder="..." />
-                        <button type="submit" value="Search" class="btn btn-primary" form="all-recipes-form">Search</button>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
+                        <button type="submit" value="Search" class="btn btn-primary search-btn" form="all-recipes-form">Search</button>
                     </div>
                 </div>
                 <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">

@@ -1,6 +1,38 @@
 ﻿html {
 
+    .btn {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+
+        i.fa {
+            position: absolute;
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+
+        &:hover {
+            border: none;
+        }
+    }
+
     #main-container {
+        .search-btn {
+            border: 1px solid var(--bs-primary) !important;
+
+            &:hover {
+                border: 1px solid var(--bs-primary) !important;
+                color: var(--bs-secondary-hover-color) !important;
+            }
+        }
         // card btns style, spacing and size
         .card-btn-width {
             font-size: 1.4rem;
@@ -15,18 +47,17 @@
             &:hover {
                 background-color: var(--bs-success);
                 color: var(--bs-primary);
+                border: none;
             }
         }
         // light-green btn for secondary site functionality
         .btn-secondary {
             color: var(--bs-primary);
             background-color: var(--bs-success);
-            border: 1px solid var(--bs-primary);
 
             &:hover {
                 background-color: var(--bs-primary);
                 color: var(--bs-success);
-                border: 1px solid var(--bs-success);
             }
         }
         // remove btns style on hover
@@ -36,18 +67,11 @@
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-light);
-                border: 1px solid var(--bs-body-color);
             }
         }
         // Rules for all icon btns
         #build-btn-container, .fixed-size-btn, .back-button, .remove-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+
 
             .btn-build {
                 color: var(--bs-primary);
@@ -55,7 +79,8 @@
                 border: 2px solid var(--bs-primary);
 
                 &:hover {
-                    color: var(--bs-white);;
+                    color: var(--bs-white);
+                    ;
                     background-color: var(--bs-primary);
                     border: 2px solid var(--bs-body-bg);
                 }
@@ -89,12 +114,10 @@
             font-size: 24px;
             background-color: var(--bs-danger);
             color: var(--bs-white);
-            border: 2px solid var(--bs-danger);
 
             &:hover {
                 color: var(--bs-danger);
                 background-color: var(--bs-white);
-                border: 2px solid var(--bs-danger);
             }
         }
 
