@@ -1,7 +1,67 @@
-﻿#add-recipe, #edit-recipe {
-  max-width: 1000px;
+﻿.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card {
+  border: 1px solid var(--bs-primary);
+  border-radius: 8px;
+  box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
-#add-recipe #ingredientsContainer .ingredient-row .suggestionsList, #edit-recipe #ingredientsContainer .ingredient-row .suggestionsList {
+
+.card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card {
+  margin-top: -10px !important;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link, #add-recipe .card .card-header .nav-item .nav-link, #edit-recipe .card .card-header .nav-item .nav-link {
+  color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover {
+  color: var(--bs-primary);
+  background-color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active {
+  font-weight: bolder;
+  color: var(--bs-body-color) !important;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active:hover, #add-recipe .card .card-header .nav-item .nav-link.active:hover, #edit-recipe .card .card-header .nav-item .nav-link.active:hover {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+  border: 1px solid var(--bs-body-bg) !important;
+}
+.card-custom-style-with-back-btn .card-header .back-button, #add-recipe .card .card-header .back-button, #edit-recipe .card .card-header .back-button {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  z-index: 15;
+}
+.card-custom-style-with-back-btn .card-body .tab-pane, #add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane {
+  min-height: 50vh;
+}
+.card-custom-style-with-back-btn .card-footer .buttons, #add-recipe .card .card-footer .buttons, #edit-recipe .card .card-footer .buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary {
+  border: 1px solid var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover {
+  border: 1px solid var(--bs-success) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .card-custom-style-with-back-btn .back-button, #add-recipe .card .back-button, #edit-recipe .card .back-button {
+    height: 34px !important;
+    width: 42px !important;
+    top: 2px;
+    font-size: 18px;
+  }
+}
+#add-recipe .heading-secondary, #edit-recipe .heading-secondary {
+  font-size: 1.9rem !important;
+}
+#add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane {
+  min-height: 30vh;
+}
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList {
   position: absolute;
   z-index: 1000;
   top: 29px;
@@ -10,25 +70,25 @@
   max-height: 200px;
   overflow-y: auto;
 }
-#add-recipe #ingredientsContainer .ingredient-row .flex-inside, #edit-recipe #ingredientsContainer .ingredient-row .flex-inside {
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .flex-inside, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .flex-inside {
   display: flex;
   flex-direction: row;
 }
-#add-recipe #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input {
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .form-check-input, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .form-check-input {
   background-color: var(--bs-success);
   border-color: var(--bs-primary);
 }
-#add-recipe #ingredientsContainer .ingredient-row .form-check-input:checked, #edit-recipe #ingredientsContainer .ingredient-row .form-check-input:checked {
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .form-check-input:checked, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .form-check-input:checked {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary-success);
 }
-#add-recipe #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe #ingredientsContainer .ingredient-row .adjust-btn-position {
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .adjust-btn-position, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .adjust-btn-position {
   margin-top: 1px;
 }
-#add-recipe #ingredientsContainer .ingredient-row .input-validation-error, #edit-recipe #ingredientsContainer .ingredient-row .input-validation-error {
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .input-validation-error, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .input-validation-error {
   border-color: red;
 }
-#add-recipe #ingredientsContainer hr, #edit-recipe #ingredientsContainer hr {
+#add-recipe .card .card-body #ingredientsContainer hr, #edit-recipe .card .card-body #ingredientsContainer hr {
   margin-top: 0;
   margin-bottom: 8px;
   padding: 0;

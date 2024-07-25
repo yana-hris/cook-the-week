@@ -1,48 +1,13 @@
-﻿
+﻿@import 'shared-styles';
 #recipe-details-container, #meal-cook-container {
-    margin: 0 auto;
     position: relative;
 
     .card {
-        border: 1px solid var(--bs-card-border-color);
-        
-        .card-header {
-            
-            .nav-item {
-
-                .nav-link {
-                    color: var(--bs-success);
-
-                    &:hover {
-                        
-                        //background-color: var(--bs-success);
-                        color: #fff;//var(--bs-primary);
-                        //border: 1px solid var(--bs-success);
-                    }
-                }
-
-                .nav-link.active {
-                    font-weight: bolder;
-                    color: var(--bs-body-color) !important;
-
-                    &:hover {
-                        background-color: var(--bs-body-bg) !important;
-                        color: var(--bs-primary) !important;
-                        border: 1px solid var(--bs-body-bg) !important;
-                    }
-                }
-            }
-
-            .back-button {
-                position: absolute;
-                top: 5px;
-                right: 7px;
-                z-index: 15;
-            }
-        }
+        // reuse card tabs style, padding, border back-btn and footer btns
+        @extend .card-custom-style-with-back-btn;
 
         .card-body {
-
+            
             .recipe-title, .meal-title {
                 font-family: "Libre Baskerville", serif;
 
@@ -53,7 +18,7 @@
 
             .img-container {
                 position: relative;
-                height: 300px;
+                height: 280px;
                 max-width: 592px;
                 border-radius: 10px;
                 display: flex;
@@ -93,10 +58,10 @@
                 .add-to-mealplan-container {
                     display: inline-block; /* Ensure the container wraps around its contents */
                     position: absolute;
-                    bottom: 5px;
-                    right: 20px;
+                    bottom: 11px;
+                    right: 21px;
 
-                    .add-to-mealplan-button {
+                    .btn-icon-only {
                         position: relative;
                         display: inline-block;
                     }
@@ -143,9 +108,9 @@
                 }
             }
         }
+        
     }
 }
-
 
 @media screen and (max-width: 768px) {
     #recipe-details-container, #meal-cook-container {

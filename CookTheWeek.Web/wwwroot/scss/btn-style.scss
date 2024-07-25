@@ -1,26 +1,30 @@
 ﻿html {
 
     .btn {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         border: none;
         border-radius: 8px;
         cursor: pointer;
         opacity: 1;
         transition: opacity 0.3s ease;
 
-        i.fa {
-            position: absolute;
-            top: 50%; 
-            left: 50%;
-            transform: translate(-50%, -50%); 
-        }
+
 
         &:hover {
             border: none;
+        }
+    }
+
+    .btn-icon-only {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i.fa {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 
@@ -69,9 +73,10 @@
                 background-color: var(--bs-light);
             }
         }
-        // Rules for all icon btns
-        #build-btn-container, .fixed-size-btn, .back-button, .remove-btn {
 
+        #build-btn-container {
+            width: 50px;
+            height: 50px;
 
             .btn-build {
                 color: var(--bs-primary);
@@ -80,22 +85,22 @@
 
                 &:hover {
                     color: var(--bs-white);
-                    ;
                     background-color: var(--bs-primary);
                     border: 2px solid var(--bs-body-bg);
                 }
             }
         }
 
-        #build-btn-container {
-            width: 50px;
-            height: 50px;
-        }
-
         .fixed-size-btn {
             height: 40px;
             width: 44px;
             font-size: 23px;
+        }
+
+        .remove-btn-size {
+            height: 36px;
+            width: 36px;
+            font-size: 24px;
         }
 
         .back-button {
@@ -108,18 +113,7 @@
             }
         }
 
-        .remove-btn {
-            height: 36px;
-            width: 36px;
-            font-size: 24px;
-            background-color: var(--bs-danger);
-            color: var(--bs-white);
 
-            &:hover {
-                color: var(--bs-danger);
-                background-color: var(--bs-white);
-            }
-        }
 
         .btn.close {
             color: var(--bs-success);

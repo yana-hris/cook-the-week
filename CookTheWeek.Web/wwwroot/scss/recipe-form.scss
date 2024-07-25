@@ -1,48 +1,61 @@
-﻿#add-recipe, #edit-recipe {
-    max-width: 1000px;
+﻿@import 'shared-styles';
 
-    #ingredientsContainer {
+#add-recipe, #edit-recipe {
+    .heading-secondary {
+        font-size: 1.9rem !important;
+    }
+    .card {
+        @extend .card-custom-style-with-back-btn;
 
-        .ingredient-row {
+        .card-body {
 
-            .suggestionsList {
-                position: absolute;
-                z-index: 1000;
-                top: 29px;
-                left: 98px;
-                border-top: none;
-                max-height: 200px;
-                overflow-y: auto;
+            .tab-pane {
+                min-height: 30vh;
             }
+            #ingredientsContainer {
 
-            .flex-inside {
-                display: flex;
-                flex-direction: row;
+                .ingredient-row {
+
+                    .suggestionsList {
+                        position: absolute;
+                        z-index: 1000;
+                        top: 29px;
+                        left: 98px;
+                        border-top: none;
+                        max-height: 200px;
+                        overflow-y: auto;
+                    }
+
+                    .flex-inside {
+                        display: flex;
+                        flex-direction: row;
+                    }
+
+                    .form-check-input {
+                        background-color: var(--bs-success);
+                        border-color: var(--bs-primary);
+                    }
+
+                    .form-check-input:checked {
+                        background-color: var(--bs-primary);
+                        border-color: var(--bs-primary-success);
+                    }
+
+                    .adjust-btn-position {
+                        margin-top: 1px;
+                    }
+
+                    .input-validation-error {
+                        border-color: red;
+                    }
+                }
+
+                hr {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    padding: 0;
+                }
             }
-
-            .form-check-input {
-                background-color: var(--bs-success);
-                border-color: var(--bs-primary);
-            }
-
-            .form-check-input:checked {
-                background-color: var(--bs-primary);
-                border-color: var(--bs-primary-success);
-            }
-
-            .adjust-btn-position {
-                margin-top: 1px;
-            }
-
-            .input-validation-error {
-                border-color: red;
-            }
-        }
-
-        hr {
-            margin-top: 0;
-            margin-bottom: 8px;
-            padding: 0;
         }
     }
 }

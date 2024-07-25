@@ -16,12 +16,14 @@
     <Content Remove="compilerconfig.json" />
     <Content Remove="wwwroot\js\suggestions.js" />
     <Content Remove="wwwroot\scss\admin-form-styles.scss" />
+    <Content Remove="wwwroot\scss\_shared-styles.scss" />
     <Content Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\js\suggestions.js" />
     <_ContentIncludedByDefault Remove="wwwroot\scss\admin-form-styles.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\scss\_shared-styles.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
@@ -154,6 +156,7 @@
     <None Include="wwwroot\lib\bootstrap\scss\_variables-dark.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_variables.scss" />
     <None Include="wwwroot\scss\admin-form-styles.scss" />
+    <None Include="wwwroot\scss\_shared-styles.scss" />
     <None Include="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 

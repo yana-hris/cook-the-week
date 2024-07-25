@@ -23,7 +23,7 @@
     }
     // add to meal plan btn styling
 
-    .add-to-mealplan-button::before {
+    .btn-icon-only::before {
         content: ""; /* A pseudo-element for the background */
         position: absolute;
         top: 0;
@@ -35,7 +35,7 @@
         transition: background-color 0.3s ease;
     }
 
-    .add-to-mealplan-button .fa {
+    .btn-icon-only .fa {
         
         color: white; /* Icon color */
     }

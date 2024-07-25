@@ -16,7 +16,7 @@ html .not-liked-icon {
 html .not-liked-icon:hover {
   color: red;
 }
-html .add-to-mealplan-button::before {
+html .btn-icon-only::before {
   content: ""; /* A pseudo-element for the background */
   position: absolute;
   top: 0;
@@ -27,11 +27,7 @@ html .add-to-mealplan-button::before {
   z-index: 0;
   transition: background-color 0.3s ease;
 }
-html .add-to-mealplan-button .fa {
-  position: absolute;
-  top: 50%; /* Position the icon vertically */
-  left: 50%; /* Position the icon horizontally */
-  transform: translate(-50%, -50%); /* Center the icon */
+html .btn-icon-only .fa {
   color: white; /* Icon color */
 }
 html .plus, html .minus {

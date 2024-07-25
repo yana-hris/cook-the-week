@@ -6,6 +6,7 @@
 @import 'typography';
 @import 'navigation';
 @import 'theme-switcher';
+@import 'shared-styles';
 @import 'btn-style';
 @import 'icons-style';
 @import 'recipe-card';
@@ -31,13 +32,38 @@
 
     max-width: 1040px;
 }
-
-.card-container {
+.card-outer-container {
     @include make-container();
 
-    max-width: 860px;
+    max-width: 900px;
+    margin-top: -25px;
 }
 
+// container for meal-details, add-meal, edit-meal
+.card-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 860px;
+    padding: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+   
+}
+// Media queries for custom containers
+@media (max-width: 768px) {
+    .card-outer-container {
+        margin-top: -30px !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .card-container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+
+// Custom Light Theme settings
 [data-bs-theme="light"] {
     --body-bg: #fff;
     --body-color: var(--bs-dark);
@@ -55,12 +81,6 @@
             background-color: #fff;
             color: var(--bs-dark);
         }
-    }
-
-    span.input-group-text {
-        background-color: var(--bs-success) !important;
-        color: var(--btn-secondary-hover-color) !important; 
-        border: 1px solid var(--bs-primary) !important;
     }
 
     .recipe-title {
@@ -85,13 +105,9 @@
             color: #c3e964 !important;
         }
     }
-
-    .card {
-        border: 1px solid var(--bs-primary) !important;
-    }
 }
 
-
+// Custom Light Theme settings
 [data-bs-theme="dark"] {
     --body-bg: var(--bs-body-bg);
     --body-color: var(--bs-white);
@@ -127,6 +143,12 @@
 
         .form-control::placeholder {
             color: #6c8825 !important;
+        }
+    }
+
+    .recipe-container {
+        .card {
+            border: 1px solid var(--bs-primary)!important;
         }
     }
 }

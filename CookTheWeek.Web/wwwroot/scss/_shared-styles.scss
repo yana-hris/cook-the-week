@@ -1,0 +1,85 @@
+﻿// style for adding border and border radius to card elements
+.card-border-style {
+    border: 1px solid var(--bs-primary);
+    border-radius: 8px;
+    box-shadow: 10px 15px 20px 0.5rem rgba(46,105,48, 0.15);
+}
+
+// style for adding custom card tab colors, custom border, shade, btn and footer settings
+.card-custom-style-with-back-btn {
+
+    @extend .card-border-style;
+    margin-top: -10px !important;
+
+    .card-header {
+
+        .nav-item {
+
+            .nav-link {
+                color: var(--bs-success);
+
+                &:hover {
+                    color: var(--bs-primary);
+                    background-color: var(--bs-success);
+                }
+            }
+
+            .nav-link.active {
+                font-weight: bolder;
+                color: var(--bs-body-color) !important;
+
+                &:hover {
+                    background-color: var(--bs-body-bg) !important;
+                    color: var(--bs-body-color) !important;
+                    border: 1px solid var(--bs-body-bg) !important;
+                }
+            }
+        }
+
+        .back-button {
+            position: absolute;
+            top: 5px;
+            right: 7px;
+            z-index: 15;
+        }
+    }
+
+    .card-body {
+
+        .tab-pane {
+            min-height: 50vh;
+        }
+    }
+
+    .card-footer {
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+
+            .btn-secondary {
+                border: 1px solid var(--bs-success);
+
+                &:hover {
+                    border: 1px solid var(--bs-success) !important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .card-custom-style-with-back-btn {
+
+        .back-button {
+            height: 34px !important;
+            width: 42px !important;
+            top: 2px;
+            font-size: 18px;
+        }
+    }
+}

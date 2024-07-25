@@ -25,8 +25,7 @@
         ? JsonConvert.DeserializeObject<Dictionary<string, string[]>>(TempData["ServerErrors"].ToString())
         : new Dictionary<string, string[]>();
 }
-
-<div id="add-recipe" class="card-container">
+<div class="card-outer-container" id="add-recipe">
     <partial name="_HeadingPartial" model="headingModel" />
     <div class="card">
         <div class="card-header">
@@ -173,7 +172,7 @@
                                         </div>
                                         <div class="col-1 p-2">
                                             <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
-                                                <button class="btn remove-btn btn-danger remove-step" type="button" data-bind="click: $parent.removeStep">
+                                                <button class="btn remove-btn-size btn-icon-only minus" type="button" data-bind="click: $parent.removeStep">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </button>
                                             </div>
@@ -187,7 +186,7 @@
                                     <!-- Empty column to push the button to the end -->
                                     <div class="col-6"></div>
                                     <div class="col-6 text-end">
-                                        <a id="add-step" class="btn btn-outline-primary" data-bind="click: addStep">
+                                        <a id="add-step" class="btn btn-secondary" data-bind="click: addStep">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
                                         </a>
                                     </div>
@@ -320,7 +319,7 @@
                                         </div>
                                         <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
                                             <a data-bind="click: $parent.removeIngredient"
-                                               class="btn remove-btn btn-danger remove-ingredient">
+                                               class="btn btn-icon-only minus remove-ingredient remove-btn-size">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -336,7 +335,7 @@
                                     <div class="col-6 text-end">
                                         <a data-bind="click: addIngredient"
                                            id="add-ingredient"
-                                           class="btn btn-outline-primary"
+                                           class="btn btn-secondary"
                                            type="button">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
                                         </a>
@@ -350,7 +349,7 @@
         </div>
         <div class="card-footer">
             <div class="row">
-                <div class="col text-center pt-3 pb-2">
+                <div class="col buttons">
                     <!-- SUBMIT FORM BTN -->
                     <button 
                         form="add-recipe-form" 
@@ -360,7 +359,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 </div>
 
 @section Scripts {

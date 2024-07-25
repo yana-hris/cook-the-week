@@ -18,7 +18,7 @@
     };
 }
 
-<div id="recipe-details-container" class="card-container">    
+<div id="recipe-details-container" class="card-outer-container">    
     <partial name="_HeadingPartial" model="headingModel"/>
     <div class="card">
         <div class="card-header">
@@ -55,7 +55,7 @@
                             @if(userId != String.Empty)
                             {
                                 <div class="add-to-mealplan-container">
-                                    <a data-recipeId="@Model.Id" class="add-to-mealplan-button plus fixed-size-btn">
+                                    <a data-recipeId="@Model.Id" class="plus fixed-size-btn btn btn-icon-only">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -192,7 +192,7 @@
         @if (isAdmin || isOwner)
         {
          <div class="card-footer">
-            <div class="col text-center pt-3 pb-2">
+            <div class="col text-center">
                 <div class="buttons d-flex gap-2 align-items-center justify-content-center">
                     <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary card-btn-width text-center" type="button">
                         Edit
