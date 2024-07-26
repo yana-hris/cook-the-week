@@ -45,8 +45,6 @@
     @extend .card-border-style;
     max-width: 860px;
     padding: 2rem;
-    padding-top: 3rem;
-    padding-bottom: 4rem;
    
 }
 // Media queries for custom containers
@@ -79,8 +77,26 @@
 
         select, input, textarea {
             background-color: #fff;
-            color: var(--bs-dark);
+            color: var(--bs-primary) !important;
+
+            &::placeholder {
+                font-size: 16px;
+                color: var(--bs-primary) !important;
+                opacity: 0.7;
+            }
         }
+
+
+
+        .search {
+            &::placeholder {
+                font-size: 14px !important;
+            }
+        }
+    }
+
+    .form-check-label {
+        color: var(--bs-primary) !important;
     }
 
     .recipe-title {
@@ -113,10 +129,25 @@
     --body-color: var(--bs-white);
     --body-emphasis-color: var(--bs-success);
     --meal-title-color: var(--bs-light);
-    
+
 
     .subheading {
         color: var(--bs-success);
+    }
+
+    .form-check-label {
+        color: var(--bs-success) !important;
+    }
+
+    .form-check-input {
+        background-color: var(--bs-primary) !important;
+        color: var(--bs-success) !important;
+
+        &:checked {
+            color: var(--bs-primary) !important;
+            background-color: var(--bs-success) !important;
+            border: 1px solid var(--bs-light);
+        }
     }
 
     .recipe-title {
@@ -148,7 +179,7 @@
 
     .recipe-container {
         .card {
-            border: 1px solid var(--bs-primary)!important;
+            border: 1px solid var(--bs-primary) !important;
         }
     }
 }

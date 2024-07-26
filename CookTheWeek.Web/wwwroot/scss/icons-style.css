@@ -52,7 +52,7 @@ html .plus:hover::before {
 }
 html .minus:hover::before {
   background-color: #fff;
-  border: 2px solid var(--bs-danger);
+  border: 2px solid var(--bs-danger) !important;
 }
 html .plus:hover .fa {
   color: var(--bs-primary);

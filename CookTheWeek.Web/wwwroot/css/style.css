@@ -55,6 +55,11 @@ html body input.form-control, html body textarea.form-control, html body select.
 html body input.form-control:focus, html body textarea.form-control:focus, html body select.form-select:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
 }
+html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body select.form-select::placeholder {
+  font-size: 14px;
+  color: var(--bs-success);
+  opacity: 0.6;
+}
 html body .form-check-input {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
@@ -447,10 +452,11 @@ html .btn-icon-only i.fa {
 }
 html #main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
+  font-size: 14px;
 }
 html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
-  color: var(--bs-secondary-hover-color) !important;
+  color: var(--bs-primary) !important;
 }
 html #main-container .card-btn-width {
   font-size: 1.4rem;
@@ -586,7 +592,7 @@ html .plus:hover::before {
 }
 html .minus:hover::before {
   background-color: #fff;
-  border: 2px solid var(--bs-danger);
+  border: 2px solid var(--bs-danger) !important;
 }
 html .plus:hover .fa {
   color: var(--bs-primary);
@@ -722,8 +728,6 @@ html .not-finished {
   margin-left: auto;
   max-width: 860px;
   padding: 2rem;
-  padding-top: 3rem;
-  padding-bottom: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -748,7 +752,18 @@ html .not-finished {
 }
 [data-bs-theme=light] .input-group select, [data-bs-theme=light] .input-group input, [data-bs-theme=light] .input-group textarea {
   background-color: #fff;
-  color: var(--bs-dark);
+  color: var(--bs-primary) !important;
+}
+[data-bs-theme=light] .input-group select::placeholder, [data-bs-theme=light] .input-group input::placeholder, [data-bs-theme=light] .input-group textarea::placeholder {
+  font-size: 16px;
+  color: var(--bs-primary) !important;
+  opacity: 0.7;
+}
+[data-bs-theme=light] .input-group .search::placeholder {
+  font-size: 14px !important;
+}
+[data-bs-theme=light] .form-check-label {
+  color: var(--bs-primary) !important;
 }
 [data-bs-theme=light] .recipe-title {
   color: var(--bs-primary);
@@ -774,6 +789,18 @@ html .not-finished {
 }
 [data-bs-theme=dark] .subheading {
   color: var(--bs-success);
+}
+[data-bs-theme=dark] .form-check-label {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .form-check-input {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .form-check-input:checked {
+  color: var(--bs-primary) !important;
+  background-color: var(--bs-success) !important;
+  border: 1px solid var(--bs-light);
 }
 [data-bs-theme=dark] .recipe-title {
   color: var(--bs-success);
@@ -1388,31 +1415,6 @@ html .not-finished {
 #add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
   display: flex;
   justify-content: center;
-}
-#add-mealplan .row .meal-row .remove-btn-container .minus, #details-mealplan .row .meal-row .remove-btn-container .minus, #edit-mealplan .row .meal-row .remove-btn-container .minus {
-  position: relative;
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-}
-#add-mealplan .row .meal-row .remove-btn-container .minus::before, #details-mealplan .row .meal-row .remove-btn-container .minus::before, #edit-mealplan .row .meal-row .remove-btn-container .minus::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  z-index: 0;
-  background-color: var(--bs-danger);
-}
-#add-mealplan .row .meal-row .remove-btn-container .minus .fa-minus, #details-mealplan .row .meal-row .remove-btn-container .minus .fa-minus, #edit-mealplan .row .meal-row .remove-btn-container .minus .fa-minus {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1.6rem;
 }
 #add-mealplan .row .inner-padding, #details-mealplan .row .inner-padding, #edit-mealplan .row .inner-padding {
   padding: 8px;

@@ -13,6 +13,7 @@
         Task<string> AddAsync(string userId, MealPlanAddFormModel model);
         Task EditAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
+        Task<int> MineCountAsync(string userId);
         Task<MealPlanViewModel> GetByIdAsync(string id);
         Task<MealPlanAddFormModel> GetForEditByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);

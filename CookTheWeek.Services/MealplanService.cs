@@ -62,7 +62,7 @@
         {
             MealPlan newMealPlan = new MealPlan()
             {
-                Name = model.Name,
+                Name = model.Name!,
                 OwnerId = Guid.Parse(userId),
                 StartDate = DateTime.ParseExact(model
                                                  .Meals
@@ -90,7 +90,7 @@
                 .Include(mp => mp.Meals)
                 .FirstAsync(mp => mp.Id.ToString() == model.Id);
 
-            mealPlanToEdit.Name = model.Name;
+            mealPlanToEdit.Name = model.Name!;
 
             // Add or update existing Meals
             foreach (var modelMeal in model.Meals)
@@ -145,6 +145,16 @@
                     MealsCount = mp.Meals.Count,
                     IsFinished = mp.IsFinished
                 }).ToListAsync();
+        }
+
+        public async Task<int> MineCountAsync(string userId)
+        {
+            var userMealPlans = await this.dbContext
+                .MealPlans.Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
+                .Select(mp => mp.Id)
+                .ToListAsync();
+
+            return userMealPlans.Count;
         }
         public async Task<MealPlanViewModel> GetByIdAsync(string id)
         {

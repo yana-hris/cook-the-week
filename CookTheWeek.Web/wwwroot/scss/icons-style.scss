@@ -21,7 +21,7 @@
     .not-liked-icon:hover {
         color: red;
     }
-    // add to meal plan btn styling
+    
 
     .btn-icon-only::before {
         content: ""; /* A pseudo-element for the background */
@@ -68,7 +68,7 @@
 
     .minus:hover::before {
         background-color: #fff;
-        border: 2px solid var(--bs-danger);
+        border: 2px solid var(--bs-danger) !important;
     }
 
     .plus:hover {

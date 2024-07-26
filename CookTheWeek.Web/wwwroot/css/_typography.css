@@ -54,6 +54,11 @@ html body input.form-control, html body textarea.form-control, html body select.
 html body input.form-control:focus, html body textarea.form-control:focus, html body select.form-select:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
 }
+html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body select.form-select::placeholder {
+  font-size: 14px;
+  color: var(--bs-success);
+  opacity: 0.6;
+}
 html body .form-check-input {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
