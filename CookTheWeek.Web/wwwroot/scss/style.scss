@@ -48,17 +48,20 @@
    
 }
 // Media queries for custom containers
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .card-outer-container {
         margin-top: -30px !important;
         padding-left: 0;
         padding-right: 0;
     }
+
     .card-container {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
 }
+
+
 
 
 // Custom Light Theme settings
@@ -86,21 +89,10 @@
             }
         }
 
-
-
-        .search {
-            &::placeholder {
-                font-size: 14px !important;
-            }
-        }
     }
 
     .form-check-label {
         color: var(--bs-primary) !important;
-    }
-
-    .recipe-title {
-        color: var(--bs-primary);
     }
 
     .heading-tertiary {
@@ -130,6 +122,11 @@
     --body-emphasis-color: var(--bs-success);
     --meal-title-color: var(--bs-light);
 
+    #main-container {
+        a:not(.btn) {
+            color: var(--bs-success) !important;
+        }
+    }
 
     .subheading {
         color: var(--bs-success);
@@ -150,10 +147,6 @@
         }
     }
 
-    .recipe-title {
-        color: var(--bs-success);
-    }
-
     .heading-tertiary {
         color: var(--bs-light);
     }
@@ -167,20 +160,17 @@
         color: #ffffff !important;
     }
 
-    .contact-form {
-        .form-control {
-            color: #f8fcec !important;
-        }
 
-        .form-control::placeholder {
-            color: #6c8825 !important;
-        }
+    .form-control, .form-select {
+        color: var(--bs-success) !important;
+    }
+    .card {
+        border: 1px solid var(--bs-primary) !important;
     }
 
-    .recipe-container {
-        .card {
-            border: 1px solid var(--bs-primary) !important;
-        }
+    .left-pill {
+        border-color: var(--bs-success) !important;
+        color: var(--bs-success) !important;
     }
 }
 

@@ -52,12 +52,13 @@ html {
             text-decoration: none;
             color: var(--bs-primary);
         }
-
+       
         input.form-control, textarea.form-control, select.form-select {
             border-radius: 8px !important;
             border-top-left-radius: 0 !important;
             border-bottom-left-radius: 0 !important;
             border: 1px solid var(--bs-primary);
+            color: var(--bs-primary);
 
             &:focus {
                 box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
@@ -100,11 +101,10 @@ html {
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                     background-color: var(--bs-primary);
-                    color: var(--bs-success);
+                    color: var(--bs-body-bg);
                     border: 1px solid var(--bs-primary) !important;
+                    font-weight: bold;
                 }
-
-
 
                 input.qty-whole {
                     border-top-right-radius: 0 !important;
@@ -179,6 +179,10 @@ html {
         body {
             #main-container {
                 padding: 98px 20px !important;
+
+                span.input-group-text {
+                    font-size: 16px!important;
+                }
             }
         }
     }

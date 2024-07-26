@@ -2,6 +2,7 @@
 
 #about-container {
     .row {
+        margin-bottom: 3rem;
 
         .text-container {
 
@@ -33,7 +34,7 @@
             border-radius: 8px;
             background-image: linear-gradient(to right bottom, $yellowish-gradient-left-color, $greenish-gradient-right-color);
             overflow: hidden;
-            
+
             .heading-secondary {
                 margin-bottom: 1rem;
             }
@@ -63,20 +64,28 @@
         margin-bottom: 3rem;
         margin-top: 2rem;
 
-        .quote {
-            font-size: 1.5em;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
+        .message-container {
+            padding: 2rem 3rem;
+            border: 1px solid var(--bs-primary);
+            border-radius: 8px;
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
 
-        .author {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+            .quote {
+                font-size: 1.5em;
+                font-style: italic;
+                margin-bottom: 10px;
+            }
 
-        .thank-message {
-            font-size: 1em;
+            .author {
+                font-size: 1.1em;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .thank-message {
+                font-size: 1em;
+            }
         }
     }
 

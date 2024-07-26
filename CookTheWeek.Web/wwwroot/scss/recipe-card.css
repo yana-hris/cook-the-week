@@ -54,6 +54,7 @@
   font-family: "Libre Baskerville", serif;
   font-size: 16px;
   font-weight: 500;
+  color: var(--bs-body-color);
   margin-top: 5px;
   margin-bottom: 2px;
 }

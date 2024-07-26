@@ -1,4 +1,7 @@
-﻿#about-container .row .text-container p {
+﻿#about-container .row {
+  margin-bottom: 3rem;
+}
+#about-container .row .text-container p {
   margin-bottom: 1.5rem;
   line-height: 1.8;
   font-weight: 400;
@@ -44,17 +47,24 @@
   margin-bottom: 3rem;
   margin-top: 2rem;
 }
-#about-container .thank-message-row .quote {
+#about-container .thank-message-row .message-container {
+  padding: 2rem 3rem;
+  border: 1px solid var(--bs-primary);
+  border-radius: 8px;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+#about-container .thank-message-row .message-container .quote {
   font-size: 1.5em;
   font-style: italic;
   margin-bottom: 10px;
 }
-#about-container .thank-message-row .author {
+#about-container .thank-message-row .message-container .author {
   font-size: 1.1em;
   font-weight: bold;
   margin-bottom: 20px;
 }
-#about-container .thank-message-row .thank-message {
+#about-container .thank-message-row .message-container .thank-message {
   font-size: 1em;
 }
 #about-container .spacer {

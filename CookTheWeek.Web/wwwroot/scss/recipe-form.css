@@ -34,9 +34,8 @@
 }
 .card-custom-style-with-back-btn .card-footer .buttons, #add-recipe .card .card-footer .buttons, #edit-recipe .card .card-footer .buttons {
   display: flex;
-  gap: 1rem;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }

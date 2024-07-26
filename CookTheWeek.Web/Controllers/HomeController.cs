@@ -42,13 +42,7 @@ namespace CookTheWeek.Web.Controllers
 
         public IActionResult About()
         {
-            string userId = User.GetId();
-            if (string.IsNullOrEmpty(userId))
-            {
-                return View();
-            }
-
-            return RedirectToAction("All", "Recipe");
+            return View();
         }
 
         public IActionResult HowItWorks()

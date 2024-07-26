@@ -50,6 +50,7 @@ html body input.form-control, html body textarea.form-control, html body select.
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border: 1px solid var(--bs-primary);
+  color: var(--bs-primary);
 }
 html body input.form-control:focus, html body textarea.form-control:focus, html body select.form-select:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
@@ -83,8 +84,9 @@ html body #main-container .input-group span.input-group-text {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   background-color: var(--bs-primary);
-  color: var(--bs-success);
+  color: var(--bs-body-bg);
   border: 1px solid var(--bs-primary) !important;
+  font-weight: bold;
 }
 html body #main-container .input-group input.qty-whole {
   border-top-right-radius: 0 !important;
@@ -142,6 +144,9 @@ html body nav.fixed-bottom {
   }
   html body #main-container {
     padding: 98px 20px !important;
+  }
+  html body #main-container span.input-group-text {
+    font-size: 16px !important;
   }
 }
 @media (min-width: 1200px) {

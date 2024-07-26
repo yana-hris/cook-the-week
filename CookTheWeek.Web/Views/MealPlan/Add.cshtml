@@ -11,14 +11,7 @@
         HeadingSecondary = "Adjust servings, plan cooking dates and name it"
 
     };
-
-    int allPlans = await this.MealPlanService.MineCountAsync(User.GetId());
-    string plansCountString;
-
-    if(allPlans > 0)
-    {
-        plansCountString = allPlans.ToStringWithSuffix();
-    }
+    int userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());    
 }
 <div id="add-mealplan" class="card-outer-container">
     <partial name="_HeadingPartial" model="headingModel" />
@@ -26,19 +19,18 @@
         <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
         <div class="row pt-2">
             <div class="col-12">
-                @if(allPlans == 0)
-                {
-                    <p class="accent-heading">This is your first meal plan!</p>
-                    <p>Let’s name it properly as providing a distinct name will make it easy to find in the future. </p>
-                }
-                else
-                {
-                    <p class="accent-heading">This is your @(allPlans)-th plan!</p> 
-                    <p>You already know how to do it :)</p>
-                }
-                <p>
-                    It is so convenient that meal plans can be reused, so, let’s give it a descriptive and memorable name:
-                </p>
+                <div class="row">
+                    @if (userPlansCount == 0)
+                    {
+                        <p>It`s your <srtong>first</srtong> meal plan!</p>
+                        <p>Let’s name it properly as providing a distinct name will make it easy to find in the future. Meal plans can be reused with just one click! </p>
+                    }
+                    else
+                    {
+                        <p>This is your <strong>@Html.Raw(userPlansCount.ToStringWithSuffix()) plan</strong> and you already know how to do it!</p>
+                        <p>Meal plans can be reused, so giving it a distinctive name is a plus:</p>
+                    }
+                </div>
                 
                 <div class="col-lg-6 pb-2">
                     <div class="input-group">
@@ -48,19 +40,30 @@
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
                 <div class="name-suggestions">
-                    <p>Being short on names? Here are some examples: </p>
-                    <ul class="list-unstyled inner-padding">                        
-                    <li>
-                        <span class="tip-start">Veggie Vibes Weekly:</span> Perfect for a week without any meat.
-                    </li>
-                    <li>
-                        <span class="tip-start">Winter Warmth Week:</span> Ideal for a series of warming, spicy, and winter-appropriate meals.
-                    </li>
-                    <li>
-                        <span class="tip-start">Summer Fresh Plan:</span> Great for light, fresh, and summery dishes.
-                    </li>
-                </ul>
-                    <p>Choose a name that lights up your culinary creativity!</p>
+                    <p>
+                        <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
+                            Being short on names? Click <strong>here</strong> for some examples
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapseNames">
+                        <div class="card card-body">
+                            <ul class="list-unstyled inner-padding">
+                                <li>
+                                    <span class="tip-start">Veggie Vibes Weekly:</span> Perfect for a week without any meat.
+                                </li>
+                                <li>
+                                    <span class="tip-start">Winter Warmth Week:</span> Ideal for a series of warming, spicy, and winter-appropriate meals.
+                                </li>
+                                <li>
+                                    <span class="tip-start">Summer Fresh Plan:</span> Great for light, fresh, and summery dishes.
+                                </li>
+                                <li>
+                                    Choose a name that lights up your culinary creativity!
+                                </li>
+                            </ul>
+                                
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,16 +75,16 @@
                         <thead>
                             <tr class="table">
                                 <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
-                                    <div class="text-uppercase no-wrap-text">Meal</div>
+                                    <div class="no-wrap-text">Meal</div>
                                 </th>
                                 <th scope="col" class="bg-primary text-white col-xs-2 col-md-2 col-lg-2">
-                                    <div class="text-uppercase no-wrap-text">Servings</div>
+                                    <div class="no-wrap-text">Servings</div>
                                 </th>
                                 <th scope="col" class="bg-primary text-white col-xs-4 col-md-3 col-lg-3">
-                                    <div class="text-uppercase no-wrap-text">Cook On</div>
+                                    <div class="no-wrap-text">Cook On</div>
                                 </th>
                                 <th scope="col" class="rounded-end bg-primary text-white col-xs-1 col-md-1 col-lg-1">
-                                    <div class="text-uppercase no-wrap-text">Delete</div>
+                                    <div class="no-wrap-text">Delete</div>
                                 </th>
                             </tr>
                         </thead>
@@ -152,29 +155,44 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-lg-6">
-                <div class="info-pill text-primary pill">Tips</div>
-                <div class="">
-                    <ul class="list-unstyled inner-padding">
-                        <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
-                        <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
-                        <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
-                    </ul>
+                <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
+                    <div class="info-pill left-pill pill">
+                            Tips
+                    </div>
+                </a>
+                <div class="collapse" id="collapseTips">
+                    <div class="card card-body">
+                        <ul class="list-unstyled inner-padding">
+                            <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
+                            <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
+                            <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
             <div class="col-lg-6">
-                <div class="info-pill bg-primary text-white pill">Summary</div>
-                <p>Your statistics will be ready once you save the Plan.</p>
+                <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
+                    <div class="info-pill right-pill pill">Summary</div>
+                </a>
+                <div class="collapse" id="collapseSummary">
+                    <div class="card card-body">
+                        <p>Your statistics will be ready once you save the Plan.</p>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div class="row">
-            <div class="col d-flex justify-content-between align-middle">
-                <button form="add-mealplan-form" class="btn btn-primary card-btn-width" method="post" type="submit">
-                    <i class="fas fa-th-list"></i>&nbsp;Save
-                </button>
-                <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-secondary card-btn-width">
+                <div class="col buttons">@*  d-flex justify-content-between align-middle *@
+                <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary card-btn-width">
                     <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
                 </a>
+                <button form="add-mealplan-form" class="btn btn-secondary card-btn-width" method="post" type="submit">
+                    <i class="fas fa-th-list"></i>&nbsp;Save
+                </button>
             </div>
         </div>
     </form>
@@ -249,6 +267,7 @@
 
         });
     </script>
+    
 }
 
 
