@@ -2,9 +2,16 @@
 @using static CookTheWeek.Common.HelperMethods.IngredientHelper;
 @{
     ViewData["Title"] = "Meal Details";
+
+    var headingModel = new PageHeadingViewModel
+            {
+                Subheading = "Meal Details",
+                HeadingSecondary = Model.Title
+            };
 }
 
-<div id="meal-cook-container">
+<div id="meal-cook-container" class="card-outer-container">
+    <partial name="_HeadingPartial" model="headingModel" />
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
