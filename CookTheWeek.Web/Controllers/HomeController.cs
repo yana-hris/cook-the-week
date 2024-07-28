@@ -24,6 +24,8 @@ namespace CookTheWeek.Web.Controllers
             this.configuration = configuration;
             this.logger = logger;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
             if(this.User.IsAdmin())
@@ -40,11 +42,19 @@ namespace CookTheWeek.Web.Controllers
             return RedirectToAction("All", "Recipe");
         }
 
+        [HttpGet]
         public IActionResult About()
         {
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult HowItWorks()
         {
             return View();
