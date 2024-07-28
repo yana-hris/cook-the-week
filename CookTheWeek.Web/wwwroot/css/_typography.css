@@ -85,7 +85,7 @@ html body #main-container .input-group span.input-group-text {
   border-bottom-right-radius: 0;
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
-  border: 1px solid var(--bs-primary) !important;
+  border: 1px solid var(--bs-primary);
   font-weight: bold;
 }
 html body #main-container .input-group input.qty-whole {

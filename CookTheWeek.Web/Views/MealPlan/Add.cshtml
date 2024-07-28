@@ -34,9 +34,9 @@
                 
                 <div class="col-lg-6 pb-2">
                     <div class="input-group">
-                    <span class="input-group-text">Name</span>
-                    <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
-                </div>
+                        <span class="input-group-text">Name</span>
+                        <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
+                    </div>
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
                 <div class="name-suggestions">
@@ -141,8 +141,8 @@
                                             <div class="remove-btn-container">
                                                 <input type="hidden" asp-for="Meals[i].RecipeId" />
                                                     <a data-recipeId="@Model.Meals[i].RecipeId" class="btn btn-icon-only remove-btn-size minus">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </a>
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -186,7 +186,7 @@
 
         </div>
         <div class="row">
-                <div class="col buttons">@*  d-flex justify-content-between align-middle *@
+                <div class="col buttons">
                 <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary card-btn-width">
                     <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
                 </a>

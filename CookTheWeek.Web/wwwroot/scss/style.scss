@@ -85,10 +85,9 @@
             &::placeholder {
                 font-size: 16px;
                 color: var(--bs-primary) !important;
-                opacity: 0.7;
+                opacity: 0.6;
             }
         }
-
     }
 
     .form-check-label {
@@ -104,13 +103,9 @@
     }
 
     .contact-form {
-
-        .form-control {
-            color: #121706 !important;
-        }
-
-        .form-control::placeholder {
-            color: #c3e964 !important;
+        .input-group-text {
+            background-color: $input-form-span-bg-dark-green-color !important;
+            color: $very-light-green-text-color !important;
         }
     }
 }
@@ -164,6 +159,7 @@
     .form-control, .form-select {
         color: var(--bs-success) !important;
     }
+
     .card {
         border: 1px solid var(--bs-primary) !important;
     }
@@ -171,6 +167,20 @@
     .left-pill {
         border-color: var(--bs-success) !important;
         color: var(--bs-success) !important;
+    }
+
+    .contact-form {
+        .input-group-text {
+            background-color: var(--bs-success) !important;
+            color: var(--bs-body-bg) !important;
+            border: none !important;
+        }
+    }
+
+    #collapseSummary .card {
+        //background-color: var(--bs-success) !important;
+        color: var(--bs-primary) !important;
+        border: none !important;
     }
 }
 

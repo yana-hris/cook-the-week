@@ -86,7 +86,7 @@ html body #main-container .input-group span.input-group-text {
   border-bottom-right-radius: 0;
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
-  border: 1px solid var(--bs-primary) !important;
+  border: 1px solid var(--bs-primary);
   font-weight: bold;
 }
 html body #main-container .input-group input.qty-whole {
@@ -762,7 +762,7 @@ html .not-finished {
 [data-bs-theme=light] .input-group select::placeholder, [data-bs-theme=light] .input-group input::placeholder, [data-bs-theme=light] .input-group textarea::placeholder {
   font-size: 16px;
   color: var(--bs-primary) !important;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 [data-bs-theme=light] .form-check-label {
   color: var(--bs-primary) !important;
@@ -773,11 +773,9 @@ html .not-finished {
 [data-bs-theme=light] .step-number {
   color: var(--bs-success);
 }
-[data-bs-theme=light] .contact-form .form-control {
-  color: #121706 !important;
-}
-[data-bs-theme=light] .contact-form .form-control::placeholder {
-  color: #c3e964 !important;
+[data-bs-theme=light] .contact-form .input-group-text {
+  background-color: #485b18 !important;
+  color: #f8fcec !important;
 }
 
 [data-bs-theme=dark] {
@@ -823,6 +821,15 @@ html .not-finished {
 [data-bs-theme=dark] .left-pill {
   border-color: var(--bs-success) !important;
   color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .contact-form .input-group-text {
+  background-color: var(--bs-success) !important;
+  color: var(--bs-body-bg) !important;
+  border: none !important;
+}
+[data-bs-theme=dark] #collapseSummary .card {
+  color: var(--bs-primary) !important;
+  border: none !important;
 }
 
 #admin-container {
@@ -1137,10 +1144,6 @@ html .not-finished {
 #about-container .row .contact-form .contact-form-text {
   padding-bottom: 0.8rem;
 }
-#about-container .row .contact-form .input-group-text {
-  background-color: #485b18 !important;
-  color: #f8fcec !important;
-}
 #about-container .row .contact-form .btn-row {
   padding-top: 1.2rem;
 }
@@ -1381,6 +1384,9 @@ html .not-finished {
 #add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 1rem;
 }
+#add-mealplan .row .card, #details-mealplan .row .card, #edit-mealplan .row .card {
+  border-color: var(--bs-primary);
+}
 #add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
   border: 1px solid var(--bs-primary);
   border-radius: 8px;
@@ -1389,8 +1395,9 @@ html .not-finished {
   padding: 0.8rem 1.25rem;
   margin-bottom: 8px;
 }
-#add-mealplan .row .info-pill.bg-success, #details-mealplan .row .info-pill.bg-success, #edit-mealplan .row .info-pill.bg-success {
-  color: #485b18;
+#add-mealplan .row #collapseSummary .card, #details-mealplan .row #collapseSummary .card, #edit-mealplan .row #collapseSummary .card {
+  background-color: var(--bs-success) !important;
+  border: none !important;
 }
 #add-mealplan .row .no-wrap-text, #details-mealplan .row .no-wrap-text, #edit-mealplan .row .no-wrap-text {
   white-space: nowrap;
@@ -1447,16 +1454,14 @@ html .not-finished {
   font-style: italic;
 }
 #add-mealplan .row .meal-row .cook-btn, #details-mealplan .row .meal-row .cook-btn, #edit-mealplan .row .meal-row .cook-btn {
-  padding: 4px 10px;
+  height: 2.1rem;
+  font-size: 1.4rem;
 }
 #add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
   display: flex;
   justify-content: center;
 }
-#add-mealplan .row .inner-padding, #details-mealplan .row .inner-padding, #edit-mealplan .row .inner-padding {
-  padding: 8px;
-}
-#add-mealplan .row .inner-padding .tip-start, #details-mealplan .row .inner-padding .tip-start, #edit-mealplan .row .inner-padding .tip-start {
+#add-mealplan .row .tip-start, #details-mealplan .row .tip-start, #edit-mealplan .row .tip-start {
   text-decoration: underline;
   font-weight: 600;
 }
