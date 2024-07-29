@@ -209,6 +209,7 @@ function isRecipeAddedToMealPlan(userId, recipeId) {
 const addRecipeToMealPlan = function(event) {
     // Check if local storage has meal plans for this user
     event.preventDefault();
+    event.stopPropagation();
     var recipeId = event.currentTarget.dataset.recipeid;
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId);
@@ -242,6 +243,8 @@ const addRecipeToMealPlan = function(event) {
 // Remove recipe from Meal Plan
 const removeRecipeFromMealPlan = function(event) {
     // Get the user's meal plans from local storage
+    event.preventDefault();
+    event.stopPropagation();
     var recipeId = event.currentTarget.dataset.recipeid;
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId);

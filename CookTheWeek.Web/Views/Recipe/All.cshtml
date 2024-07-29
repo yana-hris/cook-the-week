@@ -193,6 +193,7 @@
         // Like btn functionality
         function toggleFavourites(event, recipeId, userId) {
             event.preventDefault();
+            event.stopPropagation();
             var $button = $(event.currentTarget);
             let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
 

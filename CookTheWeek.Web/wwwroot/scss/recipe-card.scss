@@ -2,6 +2,18 @@
 .recipe-container {
     flex-grow: 0;
 
+    .recipe-details-link {
+        display: block;
+        text-decoration: none; /* Remove underline from links */
+        color: inherit; /* Inherit color to maintain text color */
+
+
+
+        &:hover {
+            text-decoration: none; /* Keep links without underline on hover */
+        }
+    }
+
     .recipe-card {
         position: relative;
         width: 100%;
@@ -11,93 +23,102 @@
         box-shadow: 0 0.4rem 0.8rem rgba(46,105,48, 0.15);
         transition: all 0.4s;
 
+        .image-container {
+            .card-img-top {
+                display: block;
+                height: 13rem;
+                object-fit: cover;
+                width: 100%;
+            }
+
+            .liked-icon, .not-liked-icon, .fa-user-circle {
+                position: absolute;
+                top: 8px;
+                left: 10px;
+                font-size: 24px;
+                z-index: 2;
+            }
+
+            .add-to-mealplan-container {
+                display: inline-block;
+                position: absolute;
+                bottom: 8px;
+                right: 10px;
+                z-index: 2;
+
+                .btn-icon-only {
+                    position: relative;
+                    display: inline-block;
+                    transition: background-color 0.3s ease;
+                }
+            }
+        }
+
         .card-body {
             background-color: var(--bs-body-bg) !important;
             padding: 0.65rem !important;
             padding-top: 0.3rem !important;
-        }
 
-        .card-img-top {
-            display: block;
-            height: 13rem;
-            object-fit: cover;
-            width: 100%;
-        }
+            .recipe-details-link {
 
-        .liked-icon, .not-liked-icon, .fa-user-circle {
-            position: absolute;
-            top: 8px;
-            left: 10px;
-            font-size: 24px;
-        }
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    bottom: 0px;
+                    left: 0px;
+                    z-index:1;
+                }
 
-        .add-to-mealplan-container {
-            display: inline-block;
-            position: absolute;
-            bottom: 8px;
-            right: 10px;
+                .recipe-title {
+                    font-family: 'Libre Baskerville', serif;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: var(--bs-body-color);
+                    margin-top: 0.25rem;
+                    margin-bottom: 0.125rem;
+                    text-decoration: underline;
+                    transition: color 0.4s ease, background-color 0.4s ease;
 
-            .btn-icon-only {
-                position: relative;
-                display: inline-block;
-                transition: background-color 0.3s ease;
+                }
+            }
+
+
+
+            .recipe-info {
+                margin-top: 0.125rem;
+                margin-bottom: 0.4rem;
+
+                .material-icons.card-icon {
+                    font-size: 16px;
+                    margin-bottom: 2px;
+                }
+
+                .icon-text {
+                    font-size: 14px;
+                    font-family: "Libre Baskerville", serif;
+                }
+
+                span.badge {
+                    display: inline-block;
+                    font-size: 13px;
+                    padding: 4px 8px;
+                    width: auto;
+                }
+            }
+
+            .recipe-description {
+                font-weight: 400;
+                font-size: 15px;
+                padding-bottom: 1.2rem;
             }
         }
 
 
-
-        .recipe-title {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--bs-body-color);
-            margin-top: 0.25rem;
-            margin-bottom: 0.125rem;
-            text-decoration: underline;
-            transition: color 0.4s ease, background-color 0.4s ease; /* Smooth transition */
-
-            &:hover {
-                color: $very-dark-green-text-color; 
-                background-color: var(--bs-success);
-            }
+        &:hover {
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.6rem 1.6rem rgba(46,105,48,0.6);
         }
-
-        .recipe-info {
-            margin-top: 0.125rem;
-            margin-bottom: 0.4rem;
-
-            .material-icons.card-icon {
-                font-size: 16px;
-                margin-bottom: 2px;
-            }
-
-            .icon-text {
-                font-size: 14px;
-                font-family: "Libre Baskerville", serif;
-            }
-
-            span.badge {
-                display: inline-block;
-                font-size: 13px;
-                padding: 4px 8px;
-                width: auto;
-            }
-        }
-
-        hr {
-            padding: 0;
-            margin: 0;
-        }
-
-        .recipe-description {
-            font-weight: 400;
-            font-size: 15px;
-            padding-bottom: 1.2rem;
-        }
-    }
-
-    .card:hover {
-        transform: translateY(-0.3rem);
-        box-shadow: 0 0.6rem 1.6rem rgba(46,105,48,0.6);
     }
 }

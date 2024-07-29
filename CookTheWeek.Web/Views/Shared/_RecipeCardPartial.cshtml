@@ -11,7 +11,7 @@
     bool isAdmin = User.IsAdmin();
 }
 
-<div class="col recipe-container">
+<div class="col recipe-container">    
     <div class="card recipe-card">
         <div class="position-relative image-container">
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
@@ -28,7 +28,7 @@
                     {
                         <i class="fas fa-heart not-liked-icon" data-toggle="tooltip" title="Add to Favorites"></i>
                     }
-            </a>
+                </a>
             } else if(isOwner && !isAdmin)
             {
                 <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
@@ -41,27 +41,26 @@
                     </a>
                 </div>
             }            
-        </div>
+    </div>
         <div class="card-body p-2">
-            <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">
+            <a class="recipe-details-link" href="@Url.Action("Details", "Recipe", new {Model.Id})">
                 <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
             </a>
-            
             <div class="d-flex align-items-center justify-content-between recipe-info">
-                <span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>
-                @* <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div> *@
-                <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">timer</i><span class="icon-text">&nbsp;@Model.CookingTime</span></div>
-            </div>
-            
-                @if (Model.Description != null)
-                {
-               
-                <div class="recipe-description">
-                    <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
+                    <span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>
+                    @* <div class="d-flex align-items-center justify-content-center g-1"><i class="material-icons card-icon">restaurant_menu</i><span class="icon-text">&nbsp; @Model.Servings</span></div> *@
+                    <div class="d-flex align-items-center justify-content-center g-1">
+                        <i class="material-icons card-icon">timer</i>
+                        <span class="icon-text">&nbsp;@Model.CookingTime</span>
+                    </div>
                 </div>
-                }
             
-
+            @if (Model.Description != null)
+            {
+            <div class="recipe-description">
+                <p class="card-text text-overflow-clamp">@Model.Description.TrimToChar(RecipeCardDescriptionMaxLength)</p>
+            </div>
+            }
         </div>
     </div>
 </div>
