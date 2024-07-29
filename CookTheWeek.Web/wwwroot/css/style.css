@@ -456,11 +456,10 @@ html .btn-icon-only i.fa {
 }
 html #main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
-  font-size: 14px;
+  font-weight: bolder;
 }
 html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
-  color: var(--bs-primary) !important;
 }
 html #main-container .card-btn-width {
   font-size: 1.4rem;
@@ -622,72 +621,80 @@ html .not-finished {
 .recipe-container {
   flex-grow: 0;
 }
-.recipe-container .card {
+.recipe-container .recipe-card {
   position: relative;
   width: 100%;
   height: auto;
   overflow: hidden;
-  border: 1px solid var(--bs-success);
+  border: 1px solid var(--bs-primary);
   box-shadow: 0 0.4rem 0.8rem rgba(46, 105, 48, 0.15);
   transition: all 0.4s;
 }
-.recipe-container .card .card-body {
+.recipe-container .recipe-card .card-body {
   background-color: var(--bs-body-bg) !important;
   padding: 0.65rem !important;
+  padding-top: 0.3rem !important;
 }
-.recipe-container .card .card-img-top {
+.recipe-container .recipe-card .card-img-top {
   display: block;
-  height: 12rem;
+  height: 13rem;
   object-fit: cover;
   width: 100%;
 }
-.recipe-container .card .liked-icon, .recipe-container .card .not-liked-icon, .recipe-container .card .fa-user-circle {
+.recipe-container .recipe-card .liked-icon, .recipe-container .recipe-card .not-liked-icon, .recipe-container .recipe-card .fa-user-circle {
   position: absolute;
   top: 8px;
   left: 10px;
   font-size: 24px;
 }
-.recipe-container .card .add-to-mealplan-container {
+.recipe-container .recipe-card .add-to-mealplan-container {
   display: inline-block;
   position: absolute;
   bottom: 8px;
   right: 10px;
 }
-.recipe-container .card .add-to-mealplan-container .btn-icon-only {
+.recipe-container .recipe-card .add-to-mealplan-container .btn-icon-only {
   position: relative;
   display: inline-block;
   transition: background-color 0.3s ease;
 }
-.recipe-container .card .material-icons.card-icon {
-  font-size: 16px;
-}
-.recipe-container .card .icon-text {
-  font-size: 15px;
+.recipe-container .recipe-card .recipe-title {
   font-family: "Libre Baskerville", serif;
-}
-.recipe-container .card span.badge {
-  display: inline-block;
-  font-size: 14px;
-  padding: 3px 10px;
-  width: auto;
-}
-.recipe-container .card .recipe-title {
-  font-family: "Libre Baskerville", serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   color: var(--bs-body-color);
-  margin-top: 5px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.125rem;
+  text-decoration: underline;
+  transition: color 0.4s ease, background-color 0.4s ease; /* Smooth transition */
+}
+.recipe-container .recipe-card .recipe-title:hover {
+  color: #121706;
+  background-color: var(--bs-success);
+}
+.recipe-container .recipe-card .recipe-info {
+  margin-top: 0.125rem;
+  margin-bottom: 0.4rem;
+}
+.recipe-container .recipe-card .recipe-info .material-icons.card-icon {
+  font-size: 16px;
   margin-bottom: 2px;
 }
-.recipe-container .card .recipe-title:hover {
-  text-decoration: underline;
+.recipe-container .recipe-card .recipe-info .icon-text {
+  font-size: 14px;
+  font-family: "Libre Baskerville", serif;
 }
-.recipe-container .card hr {
+.recipe-container .recipe-card .recipe-info span.badge {
+  display: inline-block;
+  font-size: 13px;
+  padding: 4px 8px;
+  width: auto;
+}
+.recipe-container .recipe-card hr {
   padding: 0;
   margin: 0;
-  margin-bottom: 3px;
 }
-.recipe-container .card .recipe-description {
+.recipe-container .recipe-card .recipe-description {
   font-weight: 400;
   font-size: 15px;
   padding-bottom: 1.2rem;
@@ -1313,14 +1320,13 @@ html .not-finished {
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
   margin-bottom: 20px;
-  font-weight: 400;
+  font-weight: 300;
 }
 #recipe-details-container .card .card-body .list-group-item, #meal-cook-container .card .card-body .list-group-item {
   border: none;
 }
 #recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
   font-size: 14px;
-  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;

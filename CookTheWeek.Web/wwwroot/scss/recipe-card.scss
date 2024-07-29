@@ -1,24 +1,25 @@
-﻿
+﻿@import 'variables';
 .recipe-container {
     flex-grow: 0;
 
-    .card {
+    .recipe-card {
         position: relative;
         width: 100%;
         height: auto;
         overflow: hidden;
-        border: 1px solid var(--bs-success);
+        border: 1px solid var(--bs-primary);
         box-shadow: 0 0.4rem 0.8rem rgba(46,105,48, 0.15);
         transition: all 0.4s;
 
         .card-body {
             background-color: var(--bs-body-bg) !important;
             padding: 0.65rem !important;
+            padding-top: 0.3rem !important;
         }
 
         .card-img-top {
             display: block;
-            height: 12rem;
+            height: 13rem;
             object-fit: cover;
             width: 100%;
         }
@@ -43,39 +44,49 @@
             }
         }
 
-        .material-icons.card-icon {
-            font-size: 16px;
-        }
 
-        .icon-text {
-            font-size: 15px;
-            font-family: "Libre Baskerville", serif;
-        }
-
-        span.badge {
-            display: inline-block;
-            font-size: 14px;
-            padding: 3px 10px;
-            width: auto;
-        }
 
         .recipe-title {
-            font-family: "Libre Baskerville", serif;
-            font-size: 16px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
             font-weight: 500;
             color: var(--bs-body-color);
-            margin-top: 5px;
-            margin-bottom: 2px;
+            margin-top: 0.25rem;
+            margin-bottom: 0.125rem;
+            text-decoration: underline;
+            transition: color 0.4s ease, background-color 0.4s ease; /* Smooth transition */
 
             &:hover {
-                text-decoration: underline;
+                color: $very-dark-green-text-color; 
+                background-color: var(--bs-success);
             }
         }
-        
+
+        .recipe-info {
+            margin-top: 0.125rem;
+            margin-bottom: 0.4rem;
+
+            .material-icons.card-icon {
+                font-size: 16px;
+                margin-bottom: 2px;
+            }
+
+            .icon-text {
+                font-size: 14px;
+                font-family: "Libre Baskerville", serif;
+            }
+
+            span.badge {
+                display: inline-block;
+                font-size: 13px;
+                padding: 4px 8px;
+                width: auto;
+            }
+        }
+
         hr {
             padding: 0;
             margin: 0;
-            margin-bottom: 3px;
         }
 
         .recipe-description {

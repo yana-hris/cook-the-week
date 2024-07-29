@@ -108,14 +108,13 @@
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
   margin-bottom: 20px;
-  font-weight: 400;
+  font-weight: 300;
 }
 #recipe-details-container .card .card-body .list-group-item, #meal-cook-container .card .card-body .list-group-item {
   border: none;
 }
 #recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
   font-size: 14px;
-  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
