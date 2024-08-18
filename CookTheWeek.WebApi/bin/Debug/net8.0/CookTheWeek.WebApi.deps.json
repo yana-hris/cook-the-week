@@ -1260,7 +1260,10 @@
           "HtmlSanitizer": "8.0.843"
         },
         "runtime": {
-          "CookTheWeek.Common.dll": {}
+          "CookTheWeek.Common.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Data/1.0.0": {
@@ -1270,7 +1273,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.3"
         },
         "runtime": {
-          "CookTheWeek.Data.dll": {}
+          "CookTheWeek.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Data.Models/1.0.0": {
@@ -1279,7 +1285,10 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.3"
         },
         "runtime": {
-          "CookTheWeek.Data.Models.dll": {}
+          "CookTheWeek.Data.Models.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Services.Data/1.0.0": {
@@ -1291,7 +1300,10 @@
           "Microsoft.Extensions.Configuration.Binder": "8.0.1"
         },
         "runtime": {
-          "CookTheWeek.Services.Data.dll": {}
+          "CookTheWeek.Services.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Services.Data.Models/1.0.0": {
@@ -1299,7 +1311,10 @@
           "CookTheWeek.Web.ViewModels": "1.0.0"
         },
         "runtime": {
-          "CookTheWeek.Services.Data.Models.dll": {}
+          "CookTheWeek.Services.Data.Models.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Web.Infrastructure/1.0.0": {
@@ -1310,7 +1325,10 @@
           "Microsoft.Extensions.Http": "8.0.0"
         },
         "runtime": {
-          "CookTheWeek.Web.Infrastructure.dll": {}
+          "CookTheWeek.Web.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Web.ViewModels/1.0.0": {
@@ -1319,7 +1337,10 @@
           "Microsoft.AspNet.Mvc": "5.3.0"
         },
         "runtime": {
-          "CookTheWeek.Web.ViewModels.dll": {}
+          "CookTheWeek.Web.ViewModels.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

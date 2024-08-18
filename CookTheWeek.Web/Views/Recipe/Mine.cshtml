@@ -96,37 +96,7 @@
                         }
                     </div>
                 }
-            
                 <partial name="_BuildBtnPartial" />
-    
-
-                    // TODO: Implement horizontal scroll with hidden scrollbars and an arrow btn for each collection of recipes
-                    @* <div class="container d-flex flex-column gap-2" id="recipe-container">
-                    @if (!isAdmin)
-                    {
-                        <h2 class="collection-heading">Your Favourite Recipes</h2>
-                        <div id="favourite-recipes">
-                            <div class="row d-flex g-3 align-items-start p-1 flex-row flex-nowrap">
-                                @{
-                                    foreach (var recipe in Model.FavouriteRecipes)
-                                    {
-                                        <partial name="_RecipeCardPartial" model="recipe"/>
-                                    }
-                                }
-                            </div>
-                        </div>
-                    }
-
-                    <h2 class="collection-heading">@ownedRecipeHeading</h2>
-                    <div id="owned-recipes">
-                        <div class="row d-flex g-3 align-items-start p-1 no-wrap flex-row flex-nowrap">
-                            @foreach (var recipe in Model.OwnedRecipes)
-                            {
-                               <partial name="_RecipeCardPartial" model="recipe"/>
-                            }
-                        </div>
-                    </div>
-                </div> *@
             }
         </div>
     </div>
@@ -136,7 +106,8 @@
 <script>
     // Like btn functionality
     function toggleFavourites(event, recipeId, userId) {
-        event.preventDefault();
+        event.preventDefault(); 
+        event.stopPropagation();
         var $button = $(event.currentTarget);
         let url = 'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
 

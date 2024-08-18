@@ -5,25 +5,25 @@
 
     using Models;
 
-    public class MealEntityConfiguration : IEntityTypeConfiguration<Meal>
-    {
-        public void Configure(EntityTypeBuilder<Meal> builder)
+        public class MealEntityConfiguration : IEntityTypeConfiguration<Meal>
         {
-            builder
-                .Property(m => m.IsCooked)
-                .HasDefaultValue(false);
+            public void Configure(EntityTypeBuilder<Meal> builder)
+            {
+                builder
+                    .Property(m => m.IsCooked)
+                    .HasDefaultValue(false);
 
-            builder
-                .HasOne(m => m.Recipe)
-                .WithMany(r => r.Meals)
-                .HasForeignKey(m => m.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                builder
+                    .HasOne(m => m.Recipe)
+                    .WithMany(r => r.Meals)
+                    .HasForeignKey(m => m.RecipeId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder
-                .HasOne(m => m.MealPlan)
-                .WithMany(mp => mp.Meals)
-                .HasForeignKey(m => m.MealPlanId)
-                .OnDelete(DeleteBehavior.Cascade);
+                builder
+                    .HasOne(m => m.MealPlan)
+                    .WithMany(mp => mp.Meals)
+                    .HasForeignKey(m => m.MealPlanId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            }
         }
-    }
 }

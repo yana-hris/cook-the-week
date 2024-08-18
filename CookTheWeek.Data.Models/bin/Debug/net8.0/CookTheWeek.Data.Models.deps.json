@@ -256,7 +256,10 @@
           "HtmlSanitizer": "8.0.843"
         },
         "runtime": {
-          "CookTheWeek.Common.dll": {}
+          "CookTheWeek.Common.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

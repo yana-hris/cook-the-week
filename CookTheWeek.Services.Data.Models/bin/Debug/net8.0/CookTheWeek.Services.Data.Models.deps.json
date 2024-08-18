@@ -115,7 +115,10 @@
           "HtmlSanitizer": "8.0.843"
         },
         "runtime": {
-          "CookTheWeek.Common.dll": {}
+          "CookTheWeek.Common.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Web.ViewModels/1.0.0": {
@@ -124,7 +127,10 @@
           "Microsoft.AspNet.Mvc": "5.3.0"
         },
         "runtime": {
-          "CookTheWeek.Web.ViewModels.dll": {}
+          "CookTheWeek.Web.ViewModels.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

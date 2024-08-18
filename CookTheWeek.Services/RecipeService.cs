@@ -312,7 +312,7 @@
             return await this.dbContext
                 .Recipes
                 .AsNoTracking()
-                .Where(r => r.Id.ToString() == id)
+                .Where(r => r.Id.ToString().ToLower() == id.ToLower())
                 .AnyAsync();
         }
         public async Task DeleteByIdAsync(string id)

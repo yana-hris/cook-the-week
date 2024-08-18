@@ -1016,7 +1016,10 @@
           "HtmlSanitizer": "8.0.843"
         },
         "runtime": {
-          "CookTheWeek.Common.dll": {}
+          "CookTheWeek.Common.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CookTheWeek.Data.Models/1.0.0": {
@@ -1025,7 +1028,10 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.3"
         },
         "runtime": {
-          "CookTheWeek.Data.Models.dll": {}
+          "CookTheWeek.Data.Models.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

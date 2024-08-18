@@ -301,7 +301,7 @@ function toggleAddRemoveBtn(btn) {
 
 function buildMealPlan(event) {
     event.preventDefault();
-
+    debugger;
     const userId = currentUserId;
     var userMealPlanList = JSON.parse(getUserLocalStorage(userId)) || [];
 

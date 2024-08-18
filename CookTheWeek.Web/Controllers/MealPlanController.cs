@@ -78,17 +78,13 @@ namespace CookTheWeek.Web.Controllers
                 {
                     bool exists = await this.recipeService.ExistsByIdAsync(recipe.RecipeId);
 
+                    // there might be a case where recipe, previously added to local storage has been deleted, but still exists in local storage array
                     if (exists)
                     {
                         MealAddFormModel mealModel = await this.recipeService.GetForMealByIdAsync(recipe.RecipeId);
                         mealPlanModel.Meals.Add(mealModel);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(nameof(recipe.RecipeId), RecipeNotFoundErrorMessage);
-                        logger.LogWarning($"Recipe ID {recipe.RecipeId} does not exist.");
-                        return BadRequest(ModelState);
-                    }
+                    }                    
+                   
                 }
                 catch (Exception ex)
                 {
