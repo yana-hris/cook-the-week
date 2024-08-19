@@ -90,10 +90,19 @@ git clone https://github.com/yana-hris/cook-the-week.git
 
 4. **Set up the database**: update the connection strings in **Program.cs** of both ***CookTheWeek.Web*** & ***CookTheWeek.WebApi***
 
-5. **Run migrations** to create the database schema:  
+5. **Run 2 migrations - 1 to create the schemas (Initial) and 1 to seed the database**:  
 ```bash
-dotnet ef database update
+Add-Migration Initial
 ```
+
+```bash
+Add-Migration SeedDatabase
+```
+
+```bash
+Update-Database
+```
+
 6. **Build** the project
 
 7. **Run** the project - Configure multiple StartUp Projects and *run both* **CookTheWeek.Web** & **CookTheWeek.WebApi**. The application should now be running locally. Two browsers must open - one for Swagger and one for the Web app.
