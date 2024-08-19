@@ -1866,6 +1866,7 @@
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
                     CategoryId = 4,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1877,7 +1878,8 @@
                     Servings = 4,
                     TotalTime = TimeSpan.FromMinutes(90.0),
                     ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
-                    CategoryId = 4
+                    CategoryId = 4,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1889,7 +1891,8 @@
                     Servings = 6,
                     TotalTime = TimeSpan.FromMinutes(60.0),
                     ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
-                    CategoryId = 2
+                    CategoryId = 2,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1901,7 +1904,8 @@
                     Servings = 8,
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
-                    CategoryId = 4
+                    CategoryId = 4,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1913,7 +1917,8 @@
                     Servings = 1,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1925,7 +1930,8 @@
                     Servings = 2,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1937,7 +1943,8 @@
                     Servings = 1,
                     TotalTime = TimeSpan.FromMinutes(10.0),
                     ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1950,6 +1957,7 @@
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
                     CategoryId = 4,
+                    IsSiteRecipe = true,
                 },
                 new()
                 {
@@ -1962,6 +1970,7 @@
                     TotalTime = TimeSpan.FromMinutes(40.0),
                     ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
                     CategoryId = 2,
+                    IsSiteRecipe = true,
                 },
             };
         }

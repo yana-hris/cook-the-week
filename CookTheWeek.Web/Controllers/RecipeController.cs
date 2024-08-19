@@ -53,9 +53,12 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
+            string userId = User.GetId();
+            bool isAdmin = User.IsAdmin();
+
             try
             {
-                AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel);
+                AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel, userId, isAdmin);
 
                 queryModel.SearchString = sanitizer.SanitizeInput(queryModel.SearchString);
                 queryModel.Recipes = serviceModel.Recipes;
@@ -183,7 +186,8 @@
             try
             {
                 string ownerId = User.GetId();
-                string recipeId = await this.recipeService.AddAsync(model, ownerId);
+                bool isAdmin = User.IsAdmin();
+                string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
                 return RedirectToAction("Details", new { id = recipeId });
             }

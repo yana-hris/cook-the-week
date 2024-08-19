@@ -76,6 +76,10 @@
         [Required]
         public bool IsDeleted { get; set; }
 
+        [Comment("Indicator for Recipe Ownership")]
+        [Required]
+        public bool IsSiteRecipe { get; set; }
+
 
         [Comment("Recipe Cooking Instructions")]
         public ICollection<Step> Steps { get; set; }

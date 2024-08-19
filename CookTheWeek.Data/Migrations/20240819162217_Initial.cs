@@ -269,7 +269,8 @@ namespace CookTheWeek.Data.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false, comment: "Recipe Image Link"),
                     CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Recipe Category Key Identifier"),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()", comment: "Date and Time of a Recipe Creation"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the Recipe")
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the Recipe"),
+                    IsSiteRecipe = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicator for Recipe Ownership")
                 },
                 constraints: table =>
                 {

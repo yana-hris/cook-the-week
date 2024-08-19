@@ -9,8 +9,8 @@
 
     public interface IRecipeService
     {
-        Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel);
-        Task<string> AddAsync(RecipeAddFormModel model, string ownerId);
+        Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel, string userId, bool isAdmin);
+        Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin);
         Task<RecipeDetailsViewModel> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id);

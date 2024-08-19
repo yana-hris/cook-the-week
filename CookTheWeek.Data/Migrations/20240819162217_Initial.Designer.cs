@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20240705100627_Initial")]
+    [Migration("20240819162217_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -304,6 +304,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasComment("Soft Delete the Recipe");
+
+                    b.Property<bool>("IsSiteRecipe")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Indicator for Recipe Ownership");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier")

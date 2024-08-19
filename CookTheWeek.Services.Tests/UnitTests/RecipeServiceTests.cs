@@ -154,7 +154,7 @@
             };
 
             // Act
-            var actualResult = await this.recipeService.AllAsync(testModel);
+            var actualResult = await this.recipeService.AllAsync(testModel, TestUser.Id.ToString(), false);
 
             // Assert
             Assert.Multiple(() =>
@@ -215,7 +215,7 @@
 
             // Act
             string recipeOwner = TestUser.Id.ToString();
-            string newRecipeId = await this.recipeService.AddAsync(newRecipeTestModel, recipeOwner);
+            string newRecipeId = await this.recipeService.AddAsync(newRecipeTestModel, recipeOwner, false);
             
             // Assert
             int recipesInDbAfter = data.Recipes.Count();

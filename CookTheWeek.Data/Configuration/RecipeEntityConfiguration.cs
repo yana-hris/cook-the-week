@@ -15,11 +15,15 @@
             
             builder
                .Property(r => r.CreatedOn)
-               .HasDefaultValueSql("GETDATE()");
+               .HasDefaultValueSql("GETDATE()");           
            
             builder
                 .Property(r => r.IsDeleted)
                 .HasDefaultValue(false);
+
+            builder
+               .Property(r => r.IsSiteRecipe)
+               .HasDefaultValue(false);
 
             builder
                 .HasOne(r => r.Category)

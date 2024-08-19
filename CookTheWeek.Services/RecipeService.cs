@@ -26,13 +26,26 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel)
+        public async Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel, string userId, bool isAdmin)
         {
 
             IQueryable<Recipe> recipesQuery = this.dbContext
                 .Recipes
                 .AsNoTracking()
                 .AsQueryable();
+
+            if(userId != String.Empty && !isAdmin)
+            {
+                Guid userIdGuid = Guid.Parse(userId);
+                recipesQuery = recipesQuery
+                    .Where(r => r.OwnerId == userIdGuid || r.IsSiteRecipe);
+            }
+            else
+            {
+                recipesQuery = recipesQuery
+                    .Where(r => r.IsSiteRecipe);
+            }
+
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
             {
@@ -90,7 +103,7 @@
                 Recipes = allRecipes
             };
         }
-        public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId)
+        public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
             Recipe recipe = new Recipe()
             {
@@ -100,7 +113,8 @@
                 Servings = model.Servings!.Value,
                 TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value),
                 ImageUrl = model.ImageUrl,
-                CategoryId = model.RecipeCategoryId!.Value               
+                CategoryId = model.RecipeCategoryId!.Value,       
+                IsSiteRecipe = isAdmin
             };
 
             foreach (var step in model.Steps)
