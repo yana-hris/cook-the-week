@@ -103,9 +103,6 @@ Add-Migration SeedDatabase
 Update-Database
 ```
 
-
-Add-Migration SeedDatabase
-Update-Database
 6. **Build** the project
 
 7. **Run** the project - Configure multiple StartUp Projects and *run both* **CookTheWeek.Web** & **CookTheWeek.WebApi**. The application should now be running locally. Two browsers must open - one for Swagger and one for the Web app.
