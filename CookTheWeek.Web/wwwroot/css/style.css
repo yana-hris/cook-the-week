@@ -845,7 +845,7 @@ html .not-finished {
   color: var(--bs-body-bg) !important;
   border: none !important;
 }
-[data-bs-theme=dark] #collapseSummary .card {
+[data-bs-theme=dark] #collapseSummary .card-body {
   color: var(--bs-primary) !important;
   border: none !important;
 }
@@ -1484,6 +1484,10 @@ html .not-finished {
 }
 #add-mealplan .row .statistics-message, #details-mealplan .row .statistics-message, #edit-mealplan .row .statistics-message {
   padding: 40px 10px;
+}
+#add-mealplan .row #collapseSummary .card-body, #details-mealplan .row #collapseSummary .card-body, #edit-mealplan .row #collapseSummary .card-body {
+  color: #121706;
+  border: 1px solid var(--bs-primary) !important;
 }
 #add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
   padding: 20px 30px !important;

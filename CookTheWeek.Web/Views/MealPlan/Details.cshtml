@@ -130,13 +130,16 @@
                     <div class="d-flex gap-2">
                     @if (Model.IsFinished)
                     {
-                        <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">Build Again</a>
+                        <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">
+                            <i class="fa-solid fa-copy"></i>&nbsp;Repeat
+                        </a>
                     }
                     else
                     {
-                        <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <partial name="_EditBtnPartial" />
+                        <partial name="_RemoveBtnPartial" />
                     }
-                    <a id="removeBtn" class="btn btn-danger card-btn-width">Remove</a>
+                        
                     </div>
                 </div>
             </div>

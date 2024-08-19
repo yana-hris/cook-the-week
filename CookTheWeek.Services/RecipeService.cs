@@ -28,6 +28,7 @@
 
         public async Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel)
         {
+
             IQueryable<Recipe> recipesQuery = this.dbContext
                 .Recipes
                 .AsNoTracking()

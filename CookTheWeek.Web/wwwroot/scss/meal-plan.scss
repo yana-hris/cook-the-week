@@ -52,7 +52,7 @@
             padding: 0.8rem 1.25rem;
             margin-bottom: 8px;
         }
-        
+
         #collapseSummary .card {
             background-color: var(--bs-success) !important;
             border: none !important;
@@ -143,6 +143,11 @@
 
         .statistics-message {
             padding: 40px 10px;
+        }
+
+        #collapseSummary .card-body {
+            color: $very-dark-green-text-color;
+            border: 1px solid var(--bs-primary) !important;
         }
 
         .inner-padding.statistics-list {

@@ -22,13 +22,13 @@
                 <div class="row">
                     @if (userPlansCount == 0)
                     {
-                        <p>It`s your <srtong>first</srtong> meal plan!</p>
-                        <p>Let’s name it properly as providing a distinct name will make it easy to find in the future. Meal plans can be reused with just one click! </p>
+                        <h3>It`s your <srtong>first</srtong> meal plan!</h3>
+                        <p>Let’s name it properly as providing a distinct name will make it easy to find in the future. Meal plans can be reused with just one click. </p>
                     }
                     else
                     {
-                        <p>This is your <strong>@Html.Raw(userPlansCount.ToStringWithSuffix()) plan</strong> and you already know how to do it!</p>
-                        <p>Meal plans can be reused, so giving it a distinctive name is a plus:</p>
+                        <h3>This is your <strong>@Html.Raw(userPlansCount.ToStringWithSuffix()) plan</strong>!</h3>
+                        <p>To reuse your meal plan in the future, give it a distinctive name:</p>
                     }
                 </div>
                 
@@ -58,7 +58,7 @@
                                     <span class="tip-start">Summer Fresh Plan:</span> Great for light, fresh, and summery dishes.
                                 </li>
                                 <li>
-                                    Choose a name that lights up your culinary creativity!
+                                    Choose a name that lights up your culinary imagination!
                                 </li>
                             </ul>
                                 
@@ -187,12 +187,8 @@
         </div>
         <div class="row">
                 <div class="col buttons">
-                <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary card-btn-width">
-                    <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
-                </a>
-                <button form="add-mealplan-form" class="btn btn-secondary card-btn-width" method="post" type="submit">
-                    <i class="fas fa-th-list"></i>&nbsp;Save
-                </button>
+                <partial name="_BrowseBtnPartial" />
+                <partial name="_SaveBtnPartial" />
             </div>
         </div>
     </form>
