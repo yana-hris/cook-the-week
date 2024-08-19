@@ -90,9 +90,13 @@ git clone https://github.com/yana-hris/cook-the-week.git
 
 4. **Set up the database**: update the connection strings in **Program.cs** of both ***CookTheWeek.Web*** & ***CookTheWeek.WebApi***
 
-5. **Run migrations** to create the database schema:  
+5. **Run migrations 2 migrations - 1 to create the schemas and 1 to seed the database**:  
 ```bash
-dotnet ef database update
+Add-Migration Initial
+Update-Database
+
+Add-Migration SeedDatabase
+Update-Database
 ```
 6. **Build** the project
 
