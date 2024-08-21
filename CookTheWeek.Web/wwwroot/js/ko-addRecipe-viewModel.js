@@ -48,21 +48,6 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         validatable: true
     });
 
-    self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : 0).extend({
-        required: {
-            message: errorMessages.CookingTimeRequiredErrorMessage
-        },
-        min: {
-            message: errorMessages.CookingTimeRangeErrorMessage,
-            params: validationConstants.CookingTimeMinValue
-        },
-        max: {
-            message: errorMessages.CookingTimeRangeErrorMessage,
-            params: validationConstants.CookingTimeMaxValue
-        },
-        validatable: true
-    });
-
     self.ImageUrl = ko.observable(data.ImageUrl).extend({
         required: {
             message: errorMessages.ImageRequiredErrorMessage
@@ -78,6 +63,22 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         url: true,
         validatable: true
     });
+
+    self.CookingTimeMinutes = ko.observable(data.CookingTimeMinutes ? data.CookingTimeMinutes : 0).extend({
+        required: {
+            message: errorMessages.CookingTimeRequiredErrorMessage
+        },
+        min: {
+            message: errorMessages.CookingTimeRangeErrorMessage,
+            params: validationConstants.CookingTimeMinValue
+        },
+        max: {
+            message: errorMessages.CookingTimeRangeErrorMessage,
+            params: validationConstants.CookingTimeMaxValue
+        },
+        validatable: true
+    });
+        
 
     self.RecipeCategoryId = ko.observable(data.RecipeCategoryId ? data.RecipeCategoryId : '').extend({
         required: {
@@ -181,15 +182,15 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
     };
 
     // Initialize validation group
-    self.errors = ko.validation.group(self, { deep: true, observable: true });
+    self.errors = ko.validation.group(self, { deep: true, live: true });
 
     self.submitForm = function () {
         
         const clientSideErrors = self.errors();
         self.errors.showAllMessages();
 
-        //console.log(clientSideErrors);
-        //console.log(self);
+        console.log(clientSideErrors);
+        console.log(self);
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;
@@ -218,21 +219,15 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
 
     function createQtyObservable(qty) {
 
-        let qtySelf = this;
+        let qtyObservable = this;
 
-        if (qty) {
-            qtySelf.QtyDecimal = ko.observable(qty.QtyDecimal);
-            qtySelf.QtyWhole = ko.observable(qty.QtyWhole);
-            qtySelf.QtyFraction = ko.observable(qty.QtyFraction);
-        } else {
-            qtySelf.QtyDecimal = ko.observable('');
-            qtySelf.QtyWhole = ko.observable('');
-            qtySelf.QtyFraction = ko.observable('');
-        }
+        qtyObservable.QtyDecimal = ko.observable(qty.QtyDecimal);
+        qtyObservable.QtyWhole = ko.observable(qty.QtyWhole);
+        qtyObservable.QtyFraction = ko.observable(qty.QtyFraction);
 
-        qtySelf.QtyDecimal.extend({
+        qtyObservable.QtyDecimal.extend({
             required: {
-                onlyIf: function () { return (!qtySelf.QtyWhole() && !qtySelf.QtyFraction()) },
+                onlyIf: function () { return !qtyObservable.QtyWhole() && !qtyObservable.QtyFraction() },
                 message: errorMessages.MissingFormInputErrorMessage
             },
             min: {
@@ -246,10 +241,10 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
             validatable: true
         });
 
-        qtySelf.QtyWhole.extend({
+        qtyObservable.QtyWhole.extend({
             required: {
                 onlyIf: function () {
-                    return (!qtySelf.QtyDecimal() || isNaN(qtySelf.QtyDecimal())) && !qtySelf.QtyFraction();
+                    return !qtyObservable.QtyDecimal() && !qtyObservable.QtyFraction();
                 },
                 message: errorMessages.MissingFormInputErrorMessage
             },
@@ -264,7 +259,7 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
             validatable: true
         });
 
-        qtySelf.QtyFraction.extend({
+        qtyObservable.QtyFraction.extend({
             validation: {
                 validator: function (val) {
                     return val ? fractionOptions.includes(val) : true;
@@ -274,7 +269,7 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
             validatable: true
         });
 
-        return qtySelf;
+        return qtyObservable;
     }
 
     function createIngredient(ingredient) {
@@ -297,9 +292,7 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
 
         });
 
-        ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty ? ingredient.Qty : { QtyDecimal: '', QtyFraction: '', QtyWhole: '' }))
-            .extend({ validatable: true })
-            ;
+        ingredientSelf.Qty = ko.observable(new createQtyObservable(ingredient.Qty ? ingredient.Qty : { QtyDecimal: '', QtyFraction: '', QtyWhole: '' }));
 
         ingredientSelf.MeasureId = ko.observable(ingredient.MeasureId ? ingredient.MeasureId : '').extend({
             required: {
@@ -311,15 +304,84 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
             .extend({ validatable: true });
 
-        ingredientSelf.isUsingFractionsForIngredient = ko.computed(function () {
+        let switchChecked = Boolean(ingredientSelf.Qty() ? (!ingredientSelf.Qty().QtyDecimal() && (ingredientSelf.Qty().QtyFraction() || ingredientSelf.Qty().QtyWhole()) ? true : false) : false);
 
-            let qty = ingredientSelf.Qty();
-            if (qty) {
-                return (!qty.QtyDecimal() && (qty.QtyFraction() || qty.QtyWhole()));
+        ingredientSelf.isUsingFractionsForIngredient = ko.observable(switchChecked);
+
+        ingredientSelf.isChecked = ko.observable(switchChecked);
+
+        ingredientSelf.showFractionsDiv = ko.observable(switchChecked);
+        ingredientSelf.switchQtyUnit = function () {
+
+            const isFractional = ingredientSelf.isUsingFractionsForIngredient();
+
+            if (!isFractional) {
+                let decimalValue = parseFloat(ingredientSelf.Qty().QtyDecimal()) || 0;
+                let { whole, fraction } = decimalToFraction(decimalValue);
+
+                ingredientSelf.Qty().QtyDecimal('');
+                ingredientSelf.showFractionsDiv(true);
+
+                if (whole) {
+                    ingredientSelf.Qty().QtyWhole(whole);
+                } else {
+                    ingredientSelf.Qty().QtyWhole('');
+                }
+                ingredientSelf.Qty().QtyFraction(fraction);
+
+            } else {
+
+                let wholeValue = parseInt(ingredientSelf.Qty().QtyWhole()) || 0;
+                let fractionValue = ingredientSelf.Qty().QtyFraction() || '';
+                let decimalValue = fractionToDecimal(wholeValue, fractionValue);
+
+                ingredientSelf.Qty().QtyWhole('');
+                ingredientSelf.Qty().QtyFraction('');
+                ingredientSelf.showFractionsDiv(false);
+
+                if (decimalValue) {
+                    ingredientSelf.Qty().QtyDecimal(decimalValue.toFixed(3));
+                } else {
+                    ingredientSelf.Qty().QtyDecimal('');
+                }
+
             }
-            return false;
-        }).extend({ validatable: true });
+            ingredientSelf.isUsingFractionsForIngredient(!isFractional);
+            return true;
 
+            // Helper function to convert decimal to whole and fraction
+            function decimalToFraction(decimal) {
+                let whole = Math.floor(decimal);
+                let fraction = decimal - whole;
+
+                if (fraction > 0) {
+                    let closestFraction = '';
+                    let minDifference = Number.MAX_VALUE;
+
+                    for (const [key, value] of Object.entries(qtyFractionOptions)) {
+                        const difference = Math.abs(value - fraction);
+                        if (difference < minDifference) {
+                            minDifference = difference;
+                            closestFraction = key;
+                        }
+                    }
+
+                    fraction = closestFraction;
+                }
+                else {
+                    fraction = '';
+                }
+
+                return { whole, fraction };
+            }
+
+            // Helper function to convert whole and fraction to decimal
+            function fractionToDecimal(whole, fraction) {
+                let fractionValue = qtyFractionOptions[fraction] || 0;
+                return parseFloat(whole) + fractionValue;
+            }
+        };     
+        
         return ingredientSelf;
     }
 
@@ -338,8 +400,9 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
             maxLength: {
                 message: errorMessages.StepDescriptionRangeErrorMessage,
                 params: validationConstants.StepDescriptionMaxLength
-            }
-        }).extend({ validatable: true });
+            },
+            validatable: true
+        });
 
         return stepSelf;
     }

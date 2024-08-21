@@ -113,8 +113,7 @@ function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validation
         self.Steps.push(newStep);
     };
 
-    self.removeStep = function (step) {
-        debugger
+    self.removeStep = function (step) {        
         if (self.Steps().length > 1) {
             self.Steps.remove(step);
         } else {

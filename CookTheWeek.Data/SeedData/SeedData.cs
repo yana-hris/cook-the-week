@@ -1957,7 +1957,7 @@
                     TotalTime = TimeSpan.FromMinutes(120.0),
                     ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
                     CategoryId = 4,
-                    IsSiteRecipe = true,
+                    IsSiteRecipe = false,
                 },
                 new()
                 {
@@ -1970,7 +1970,7 @@
                     TotalTime = TimeSpan.FromMinutes(40.0),
                     ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
                     CategoryId = 2,
-                    IsSiteRecipe = true,
+                    IsSiteRecipe = false,
                 },
             };
         }
