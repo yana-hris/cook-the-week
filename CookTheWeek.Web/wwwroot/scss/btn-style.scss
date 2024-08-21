@@ -3,7 +3,6 @@
     // reset all btns
     .btn {
         border: none;
-        border-radius: 8px;
         cursor: pointer;
         opacity: 1;
         transition: opacity 0.3s ease;
@@ -34,7 +33,6 @@
         .search-btn {
             border: 1px solid var(--bs-primary) !important;
             font-weight: bolder;
-            //color: var(--bs-body-bg) !important;
 
             &:hover {
                 border: 1px solid var(--bs-primary) !important;

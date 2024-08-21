@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="sassconfig.json" />
     <Content Remove="wwwroot\js\suggestions.js" />
     <Content Remove="wwwroot\scss\admin-form-styles.scss" />
     <Content Remove="wwwroot\scss\_shared-styles.scss" />
@@ -62,6 +63,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="sassconfig.json" />
     <None Include="wwwroot\js\suggestions.js" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-grid.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-reboot.scss" />

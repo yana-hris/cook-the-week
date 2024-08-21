@@ -1,7 +1,7 @@
 ﻿// style for adding border and border radius to card elements
 .card-border-style {
     border: 1px solid var(--bs-primary);
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     box-shadow: 10px 15px 20px 0.5rem rgba(46,105,48, 0.15);
 }
 
@@ -54,9 +54,7 @@
     .card-footer {
         .buttons {
             display: flex;
-            //gap: 1rem;
             align-items: center;
-            //justify-content: center;
             justify-content: space-between;
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;

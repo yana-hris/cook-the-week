@@ -47,9 +47,6 @@ html body a {
   color: var(--bs-primary);
 }
 html body input.form-control, html body textarea.form-control, html body select.form-select {
-  border-radius: 8px !important;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
 }
@@ -80,22 +77,10 @@ html body #main-container .pagination {
   gap: 5px;
 }
 html body #main-container .input-group span.input-group-text {
-  font-size: 14px;
-  border-radius: 8px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  background-color: var(--bs-primary);
-  color: var(--bs-body-bg);
+  font-size: 15px !important;
+  background-color: var(--bs-success);
+  color: var(--bs-dark);
   border: 1px solid var(--bs-primary);
-  font-weight: bold;
-}
-html body #main-container .input-group input.qty-whole {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-}
-html body #main-container .input-group input.form-control.search {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
 }
 html body #main-container span.text-danger {
   display: block;
@@ -378,7 +363,7 @@ html body nav.fixed-bottom {
 }
 .card-border-style, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
+  /*border-radius: 8px;*/
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
 
@@ -434,7 +419,6 @@ html body nav.fixed-bottom {
 }
 html .btn {
   border: none;
-  border-radius: 8px;
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -566,7 +550,6 @@ html .btn-icon-only::before {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
   z-index: 0;
   transition: background-color 0.3s ease;
 }
@@ -1177,7 +1160,6 @@ html .not-finished {
 #about-container .thank-message-row .message-container {
   padding: 2rem 3rem;
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
@@ -1223,7 +1205,7 @@ html .not-finished {
 }
 .card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container {
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
+  /*border-radius: 8px;*/
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
 
@@ -1290,7 +1272,6 @@ html .not-finished {
   position: relative;
   height: 280px;
   max-width: 592px;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1300,7 +1281,6 @@ html .not-finished {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
   transition: transform 0.3s ease;
 }
 #recipe-details-container .card .card-body .img-container .image:hover, #meal-cook-container .card .card-body .img-container .image:hover {
@@ -1331,13 +1311,14 @@ html .not-finished {
 #recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
   margin-top: 10px;
   margin-bottom: 20px;
-  font-weight: 300;
+  font-weight: 400;
 }
 #recipe-details-container .card .card-body .list-group-item, #meal-cook-container .card .card-body .list-group-item {
   border: none;
 }
 #recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
-  font-size: 14px;
+  font-size: 16px;
+  padding-bottom: 0;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
@@ -1366,10 +1347,6 @@ html .not-finished {
     font-size: 18px;
   }
 }
-#add-mealplan, #details-mealplan, #edit-mealplan {
-  /*padding-top: 20px !important;
-  margin-top: -10px;*/
-}
 #add-mealplan p, #details-mealplan p, #edit-mealplan p {
   margin-top: 0;
   margin-bottom: 0.25rem;
@@ -1391,7 +1368,6 @@ html .not-finished {
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
 }
 #add-mealplan .right-pill, #details-mealplan .right-pill, #edit-mealplan .right-pill {
   color: var(--bs-body-bg);
@@ -1406,7 +1382,6 @@ html .not-finished {
 }
 #add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.8rem 1.25rem;
@@ -1491,7 +1466,6 @@ html .not-finished {
 }
 #add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
   padding: 20px 30px !important;
-  border-radius: 8px;
   background-color: var(--bs-success);
   color: var(--bs-primary);
 }
@@ -1542,7 +1516,7 @@ html .not-finished {
 }
 .card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, #recipe-details-container .card, #meal-cook-container .card {
   border: 1px solid var(--bs-primary);
-  border-radius: 8px;
+  /*border-radius: 8px;*/
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
 
@@ -1636,15 +1610,10 @@ html .not-finished {
 }
 
 div#shopping-list {
-  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   position: relative;
-  border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-div#shopping-list section#shopping-list-section {
-  max-width: 800px;
 }
 div#shopping-list section#shopping-list-section #heading-container {
   margin-bottom: 12px;
@@ -1824,7 +1793,7 @@ div#shopping-list #backBtn {
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
   --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0.375rem;
+  --bs-border-radius: 0;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
   --bs-border-radius-xl: 1rem;
@@ -7326,7 +7295,7 @@ textarea.form-control-lg {
   color: var(--bs-btn-close-color);
   background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
   border: 0;
-  border-radius: 0.375rem;
+  border-radius: 0;
   opacity: var(--bs-btn-close-opacity);
 }
 .btn-close:hover {
