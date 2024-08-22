@@ -1,5 +1,6 @@
-﻿// Knockout external library Recipe Add ViewModel Definition for data-binding
-function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOptions, validationConstants) {
+﻿import { activateTabWithError } from './site.js';
+// Knockout external library Recipe Add ViewModel Definition for data-binding
+export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOptions, validationConstants) {
 
     var self = this;
 
@@ -140,12 +141,12 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         for (const propertyName in self.ServerErrors) {
 
             const errorsArr = self.ServerErrors[propertyName];
-            console.log(propertyName, errorsArr.join("\r\n"));
+            //console.log(propertyName, errorsArr.join("\r\n"));
 
             if (self.ServerErrors.hasOwnProperty(propertyName)) {
                 var observable = self;
                 var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
-                debugger;
+                
                 for (var i = 0; i < path.length; i++) {
 
                     // retrieve the value of the observable wanted if it exists
@@ -179,6 +180,7 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
         }
 
         self.errors.showAllMessages();
+        activateTabWithError("#add-recipe");
     };
 
     // Initialize validation group
@@ -194,7 +196,6 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;
-
         const ingredientsValid = self.RecipeIngredients().length > 0;
 
         if (!stepsValid) {
@@ -205,13 +206,12 @@ function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractionOption
             toastr.error(errorMessages.IngredientsRequiredErrorMessage);
         }
 
-        if (clientSideErrors.length === 0 && stepsValid && ingredientsValid) {
-            
-            return true; // Allow form submission
-        } else {
-            
-            self.errors.showAllMessages();
+        // If there are errors, find the first one and activate the corresponding tab
+        if (clientSideErrors.length > 0 || !stepsValid || !ingredientsValid) {
+            activateTabWithError("#add-recipe");
             return false; // Prevent form submission
+        } else {
+            return true; // Allow form submission
         }
     };
 

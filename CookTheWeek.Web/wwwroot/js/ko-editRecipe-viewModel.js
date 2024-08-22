@@ -1,5 +1,6 @@
-﻿//Knockout Edit Recipe Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
-function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants) {
+﻿import { activateTabWithError } from './site.js';
+//Knockout Edit Recipe Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
+export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants) {
 
     var self = this;
 
@@ -291,6 +292,7 @@ function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validation
             });
         } else {
             self.errors.showAllMessages();
+            activateTabWithError("#edit-recipe");
         }
 
         return false; // Prevent the default form submission

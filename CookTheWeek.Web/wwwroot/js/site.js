@@ -336,4 +336,27 @@ function buildMealPlan(event) {
     });
 }
 
+// Make Active Tab the tab with the first Error in Recipe Views
+export function activateTabWithError(context) {
+    // Find the first visible error element
+    var firstErrorElement = $(context).find("span.text-danger").filter(function () {
+        return $(this).is(":not(:empty)");
+    }).first();
+
+    if (firstErrorElement.length > 0) {
+        // Get the tab pane that contains the first error
+        var tabPane = firstErrorElement.closest(".tab-pane");
+
+        if (tabPane.length > 0) {
+            // Get the ID of the tab pane
+            var tabPaneId = '#' + tabPane.attr("id");
+            var buttonElement = `#recipe button[data-bs-target="${tabPaneId}"]`;
+
+            const triggerEl = document.querySelector(`${buttonElement}`);
+            var $buttonElement = $(triggerEl);
+            $buttonElement.tab('show'); // Activate the tab                    
+        }
+    } 
+}
+
   

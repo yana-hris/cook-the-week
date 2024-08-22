@@ -357,9 +357,10 @@
 
 @section Scripts {
     <partial name="_KnockoutPartial.cshtml" />
-    <script src="~/js/ko-editRecipe-viewModel.js"> </script>
     <script src="~/js/suggestions.js"> </script>
-    <script>    
+    <script type="module">
+    import { EditRecipeViewModel } from '/js/ko-editRecipe-viewModel.js';
+
     $(document).ready(function () {
        
         var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
