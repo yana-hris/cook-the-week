@@ -345,12 +345,18 @@ html body nav.fixed-bottom {
 
 #theme-container {
   position: absolute;
-  top: 54px;
-  right: 5px;
+  top: 60px;
+  right: 10px;
   z-index: 100;
 }
 #theme-container .theme-switcher {
   position: relative;
+}
+#theme-container .theme-switcher .btn-link {
+  background-color: var(--bs-body-bg);
+  color: white;
+  border-radius: 10px;
+  padding: 0 5px;
 }
 #theme-container .theme-switcher .dropdown-toggle {
   text-decoration: none;
@@ -358,8 +364,8 @@ html body nav.fixed-bottom {
 
 @media (min-width: 768px) {
   #theme-container {
-    right: 30px;
-    top: 60px;
+    right: 40px;
+    top: 68px;
   }
 }
 .card-border-style, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
@@ -696,7 +702,8 @@ html .not-finished {
 .recipe-container .recipe-card .card-body .recipe-info span.badge {
   display: inline-block;
   font-size: 13px;
-  padding: 4px 8px;
+  padding: 3px 6px;
+  border-radius: 2px;
   width: auto;
 }
 .recipe-container .recipe-card .card-body .recipe-description {

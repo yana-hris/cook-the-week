@@ -1,11 +1,17 @@
 ﻿#theme-container {
   position: absolute;
-  top: 54px;
-  right: 5px;
+  top: 60px;
+  right: 10px;
   z-index: 100;
 }
 #theme-container .theme-switcher {
   position: relative;
+}
+#theme-container .theme-switcher .btn-link {
+  background-color: var(--bs-body-bg);
+  color: white;
+  border-radius: 10px;
+  padding: 0 5px;
 }
 #theme-container .theme-switcher .dropdown-toggle {
   text-decoration: none;
@@ -13,7 +19,7 @@
 
 @media (min-width: 768px) {
   #theme-container {
-    right: 30px;
-    top: 60px;
+    right: 40px;
+    top: 68px;
   }
 }
