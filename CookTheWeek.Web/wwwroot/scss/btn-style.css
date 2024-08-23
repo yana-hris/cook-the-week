@@ -19,6 +19,17 @@ html .btn-icon-only i.fa {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+html .nav-btn, html .nav-dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html .nav-btn:hover {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-white) !important;
+  border-color: var(--bs-dark) !important;
+  transition: 0.5s;
+}
 html #main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
   font-weight: bolder;

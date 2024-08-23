@@ -96,7 +96,7 @@ window.onload = function () {
 function updateRecipeBtns() {
     var userId = currentUserId;
     let userMealPlans = getUserLocalStorage(userId) || [];
-    debugger
+
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .btn');
 
     if (userHasMealPlans(userId)) {
@@ -305,7 +305,7 @@ function toggleAddRemoveBtn(btn) {
 
 function buildMealPlan(event) {
     event.preventDefault();
-    debugger;
+
     const userId = currentUserId;
     var userMealPlanList = JSON.parse(getUserLocalStorage(userId)) || [];
 

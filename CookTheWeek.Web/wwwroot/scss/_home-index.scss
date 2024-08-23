@@ -3,21 +3,20 @@
     background: url('/img/pexels-dana-tentis-691114.jpg') no-repeat center center;
     background-size: cover;
     position: fixed;
-    top: 50px;
+    top: 50px; // because of navigation
     left: 0;
     height: 100vh;
     width: 100vw;
 
-    #hero-text-background {
-        
-        top: 20%;
+    #hero-text-background {        
         position: fixed;
+        top: 20%;
         padding: 10px;
-        border-radius: 8px;
         max-width: 1000px;
+        border-radius: 8px;
 
         .text-container {
-            padding: 60px 0;
+            padding: 60px 10px;
 
             p {
                 font-size: 18px;

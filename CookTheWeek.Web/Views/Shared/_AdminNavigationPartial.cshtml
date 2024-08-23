@@ -5,7 +5,7 @@
             <div id="navcol-5" class="collapse navbar-collapse">
                 <ul id="nav-list" class="navbar-nav ms-auto admin" > 
                     <li class="nav-item drop-down">
-                        <div class="nav-item dropdown">
+                        <div class="nav-item dropdown nav-dropdown-btn">
                             <a id="recipeDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Recipes </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="recipeDropDown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a>
@@ -15,7 +15,7 @@
                         </div>
                     </li>
                     <li class="nav-item drop-down">
-                        <div class="nav-item dropdown">
+                        <div class="nav-item dropdown nav-dropdown-btn">
                             <a id="ingredientDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Ingredients </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="ingredientDropDown">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Add">Add Ingredient</a>
@@ -24,7 +24,7 @@
                         </div>
                     </li>
                     <li class="nav-item drop-down">
-                        <div class="nav-item dropdown" >
+                        <div class="nav-item dropdown nav-dropdown-btn" >
                             <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Categories </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddRecipeCategory">Add Recipe Category</a>
@@ -37,7 +37,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="UserAdmin" asp-action="All">Users</a></li>
                     <li class="nav-item drop-down">
-                        <div class="nav-item dropdown">
+                        <div class="nav-item dropdown nav-dropdown-btn">
                             <a id="mealPlanDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Meal Plans </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="mealPlanDropdown">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllActive">All Active</a>
@@ -45,7 +45,9 @@
                             </div>
                         </div>
                     </li>
-                    <li id="logout-btn" class="user-btn nav-item text-bg-primary bg-dark border-1 border-primary shadow-sm border rounded"><a id="nav-logout-btn" class="inner-btn nav-link active" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a></li>
+                    <li id="logout-btn" class="user-btn nav-item text-bg-primary bg-dark border-1 border-primary shadow-sm border rounded">
+                        <a id="nav-logout-btn" class="nav-btn nav-link active" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a>
+                    </li>
                 </ul>
             </div>
             <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" data-bs-target="#navcol-5" data-bs-toggle="collapse">

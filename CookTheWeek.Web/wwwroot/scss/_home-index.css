@@ -9,14 +9,14 @@
   width: 100vw;
 }
 #hero #hero-text-background {
-  top: 20%;
   position: fixed;
+  top: 20%;
   padding: 10px;
-  border-radius: 8px;
   max-width: 1000px;
+  border-radius: 8px;
 }
 #hero #hero-text-background .text-container {
-  padding: 60px 0;
+  padding: 60px 10px;
 }
 #hero #hero-text-background .text-container p {
   font-size: 18px;

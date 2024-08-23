@@ -18,15 +18,18 @@
 
             #nav-list {
                 color: rgba(255,255,255,0.65);
+
+                .nav-item.drop-down {
+                    display: flex;
+                }
             }
 
-            .nav-item {
+            li.nav-item {
                 padding-top: 0;
+                border: 1px solid var(--bs-dark);
 
-                .nav-link {
-                    padding-top: 9px;
-                    padding-left: 20px;
-                    padding-right: 20px;
+                .nav-link, .nav-item {
+                    padding: 6px 16px;
                 }
 
                 .drop-down-item {
@@ -41,27 +44,13 @@
                 .dropdown-item:active {
                     background-color: var(--bs-primary) !important;
                 }
-            }
 
-            li.user-btn, .nav-item.dropdown {
-                padding: 8px 16px 10px 16px;
-                margin: 0;
-
-                .inner-btn {
-                    padding: 0;
-                    margin: 0;
+                &:hover {
+                    border: 1px solid var(--bs-primary);
                 }
             }
-
-            .nav-item.user-btn:hover {
-                background-color: var(--bs-primary) !important;
-                color: var(--bs-white) !important;
-                border-color: var(--bs-dark) !important;
-                transition: 0.5s;
-            }
         }
-
-        /* Navigation Btn */
+        /* Navigation Btn on small screens*/
         .navbar-toggler {
             width: 24px;
             height: 24px;
@@ -134,14 +123,14 @@
             }
 
             .bottom-bar {
-                margin-top: 20px;
+                margin-top: 19px;
                 transform: rotate(0deg);
             }
         }
         /* End of Nav Btn */
     }
 }
-// Guest Navigation, has login-btn and media queries
+// Guest Navigation
 .navbar-expand-md {
     @media only screen and (max-width: 767px) {
         #nav-container {
@@ -163,6 +152,10 @@
 
                 #nav-list {
                     gap: 16px;
+
+                    li.nav-item {
+                        border: 1px solid var(--bs-dark-bg-subtle);
+                    }                    
                 }
             }
         }
@@ -181,7 +174,7 @@
     }
 }
 
-// User Navigation, has logout btn
+// User Navigation + Admin Navigation
 .navbar-expand-lg {
 
     @media (min-width: 830px) {
@@ -211,8 +204,16 @@
                 #nav-list {
                     gap: 16px;
 
-                    #logout-btn {
-                        margin-top: 12px;
+                    li.nav-item {
+                        border: 1px solid var(--bs-dark-bg-subtle);
+
+                        &:hover {
+                            border: 1px solid var(--bs-success) !important;
+                        }
+                    }
+
+                    .nav-item.drop-down {
+                        display: block !important;
                     }
                 }
             }

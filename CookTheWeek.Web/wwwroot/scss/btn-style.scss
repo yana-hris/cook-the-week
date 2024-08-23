@@ -1,5 +1,4 @@
 ﻿html {
-
     // reset all btns
     .btn {
         border: none;
@@ -11,7 +10,6 @@
             border: none;
         }
     }
-
     // align single icon centrally in a btn
     .btn-icon-only {
         position: relative;
@@ -27,8 +25,21 @@
         }
     }
 
-    #main-container {
+    
+    .nav-btn, .nav-dropdown-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .nav-btn:hover {
+        background-color: var(--bs-primary) !important;
+        color: var(--bs-white) !important;
+        border-color: var(--bs-dark) !important;
+        transition: 0.5s;
+    }
+
+    #main-container {
         // all recipes view: search btn
         .search-btn {
             border: 1px solid var(--bs-primary) !important;
@@ -55,7 +66,7 @@
                 border: none;
             }
         }
-        // light-green btn 
+        // light-green btn
         .btn-secondary {
             color: var(--bs-primary);
             background-color: var(--bs-success);
@@ -113,7 +124,6 @@
                 color: var(--bs-body-bg);
             }
         }
-
         // modal window close (X) btn
         .btn.close {
             color: var(--bs-success);
