@@ -71,6 +71,7 @@ html body .form-check-input:focus {
 html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
+  position: relative;
 }
 html body #main-container .pagination {
   gap: 5px;

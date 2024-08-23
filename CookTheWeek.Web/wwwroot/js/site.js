@@ -80,7 +80,7 @@
 window.onload = function () {    
     var userId = currentUserId;
     var buildBtnShouldBeRendered = isSpecificView(currentView);
-
+    
     if (buildBtnShouldBeRendered) {
         if (userId) {
             showOrHideBuildMealPlanBtn(userId); 
@@ -152,6 +152,10 @@ function isSpecificView(view) {
     const specificViews = ["All Recipes", "Recipe Details", "My Recipes"];
     return specificViews.includes(view);
 };
+
+function isIndexView(view) {
+    return view === "Home Page";
+}
 
 function userHasMealPlans(userId) {
     const userMealPlans = getUserLocalStorage(userId);

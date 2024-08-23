@@ -21,7 +21,6 @@
   padding: 2rem 3.2rem;
   color: #121706;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
   background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
   overflow: hidden;
 }

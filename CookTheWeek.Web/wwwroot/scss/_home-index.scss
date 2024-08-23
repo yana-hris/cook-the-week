@@ -1,59 +1,42 @@
-﻿[data-bs-theme="light"] {
-    
-    nav .fixed-bottom {
-        a.btn.btn-primary {
-            background-color: var(--bs-primary);
-            color: #ffffff;
-            bottom: 10px;
-        }
-    }
+﻿#hero {
+    margin: 0 auto;
+    background: url('/img/pexels-dana-tentis-691114.jpg') no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
 
-    #image-container {
-        margin: 0 auto;
-        background-image: url('/img/pexels-dana-tentis-691114.jpg');
-        height: 550px;
-        background-size: cover;
+    #hero-text-background {
+        
+        top: 20%;
+        position: fixed;
+        padding: 10px;
+        border-radius: 8px;
+        max-width: 1000px;
 
-        #hero-text-background {
-            background: linear-gradient(to bottom, rgba(255,255,255, 0.65), rgba(255,255,255, 0.65));
-            padding: 10px;
-            border-radius: 8px;
-            max-width: 1000px;
+        .text-container {
+            padding: 60px 0;
 
-            .text-container {
-                padding: 60px 0;
-
-                p {
-                    font-size: 18px;
-                    font-weight: 400;
-                }
+            p {
+                font-size: 18px;
+                font-weight: 400;
             }
         }
     }
 }
 
+[data-bs-theme="light"] {
+    #hero-text-background {
+        background: linear-gradient(to bottom, rgba(255,255,255, 0.65), rgba(255,255,255, 0.7));
+    }
+}
+
 [data-bs-theme="dark"] {
-    
-    #image-container {
-        margin: 0 auto;
-        background-image: url('/img/pexels-dana-tentis-691114.jpg');
-        height: 550px;
-        background-size: cover;
 
-        #hero-text-background {
-            background: linear-gradient(to bottom, rgba(0,0,0, 0.65), rgba(0,0,0, 0.65));
-            padding: 10px;
-            border-radius: 8px;
-            max-width: 1000px;
-
-            .text-container {
-                padding: 60px 0;
-
-                p {
-                    font-size: 18px;
-                    font-weight: 400;
-                }
-            }
-        }
+    #hero-text-background {
+        background: linear-gradient(to bottom, rgba(0,0,0, 0.65), rgba(0,0,0, 0.7));
+        
     }
 }
