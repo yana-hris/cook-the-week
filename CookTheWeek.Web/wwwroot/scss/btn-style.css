@@ -113,7 +113,7 @@ html #main-container .btn.close:hover {
 
 @media (min-width: 992px) {
   #build-btn-container {
-    bottom: 33px !important;
+    bottom: 26px !important;
     right: 43px !important;
   }
 }

@@ -12,8 +12,8 @@
 }
 :root body #build-btn-container {
   position: fixed;
-  bottom: 39px;
-  right: 7px;
+  bottom: 25px;
+  right: 10px;
   z-index: 10000;
 }
 :root body .subheading {
@@ -122,7 +122,7 @@ html body footer {
   font-weight: 300;
 }
 html body nav.fixed-bottom {
-  padding-bottom: 25px;
+  padding-bottom: 18px;
 }
 
 @media (min-width: 768px) {
