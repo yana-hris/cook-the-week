@@ -89,12 +89,12 @@
 
         select, input, textarea {
             background-color: #fff;
-            color: var(--bs-primary) !important;
+            color: var(--bs-body-color) !important;
 
             &::placeholder {
                 font-size: 16px;
-                color: var(--bs-primary) !important;
-                opacity: 0.6;
+                color: var(--bs-body-color) !important;
+                opacity: 0.7;
             }
         }
     }
@@ -162,11 +162,6 @@
 
     button.nav-link.active {
         color: #ffffff !important;
-    }
-
-
-    .form-control, .form-select {
-        color: var(--bs-success) !important;
     }
 
     .card {

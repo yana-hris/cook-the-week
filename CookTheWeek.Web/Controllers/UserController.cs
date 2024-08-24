@@ -126,6 +126,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -134,6 +135,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             string userId = User.GetId();
@@ -143,6 +145,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> DeleteAccount()
         {
             var userId = userManager.GetUserId(User);

@@ -46,17 +46,17 @@ html body a {
   text-decoration: none;
   color: var(--bs-primary);
 }
-html body input.form-control, html body textarea.form-control, html body select.form-select {
+html body input.form-control, html body textarea.form-control, html body .form-select {
   border: 1px solid var(--bs-primary);
-  color: var(--bs-primary);
+  color: var(--bs-body-color);
 }
-html body input.form-control:focus, html body textarea.form-control:focus, html body select.form-select:focus {
+html body input.form-control:focus, html body textarea.form-control:focus, html body .form-select:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
 }
-html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body select.form-select::placeholder {
-  font-size: 14px;
-  color: var(--bs-success);
-  opacity: 0.6;
+html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body .form-select::placeholder {
+  font-size: 15px;
+  color: var(--bs-body-color);
+  opacity: 0.7;
 }
 html body .form-check-input {
   background-color: var(--bs-body-bg);
@@ -79,9 +79,9 @@ html body #main-container .pagination {
 }
 html body #main-container .input-group span.input-group-text {
   font-size: 15px !important;
-  font-weight: 600;
-  background-color: var(--bs-success);
-  color: var(--bs-primary);
+  font-weight: 500;
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
   border: 1px solid var(--bs-primary);
 }
 html body #main-container span.text-danger {
@@ -94,7 +94,7 @@ html body #main-container .custom-link {
   text-decoration: none;
 }
 html body #main-container .custom-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-success);
   text-decoration: underline;
 }
 html body #main-container .heading-container {
@@ -123,7 +123,7 @@ html body footer {
   font-weight: 300;
 }
 html body nav.fixed-bottom {
-  padding-bottom: 30px;
+  padding-bottom: 25px;
 }
 
 @media (min-width: 768px) {
@@ -460,6 +460,7 @@ html .nav-btn:hover {
 html #main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
   font-weight: bolder;
+  color: var(--bs-success) !important;
 }
 html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
@@ -472,12 +473,12 @@ html #main-container .card-btn-width {
 }
 html #main-container .btn-primary {
   color: var(--bs-white);
-  border: var(--bs-primary);
+  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-primary:hover {
   background-color: var(--bs-white);
   color: var(--bs-primary);
-  border: var(--bs-primary);
+  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary {
   color: var(--bs-primary);
@@ -500,25 +501,21 @@ html #main-container .btn-outline-danger {
 html #main-container .btn-outline-danger:hover {
   border: 1px solid var(--bs-danger);
 }
-html #main-container #build-btn-container {
-  width: 50px;
-  height: 50px;
-}
 html #main-container #build-btn-container .btn-build {
-  color: var(--bs-white);
   background-color: var(--bs-primary);
   border: 2px solid var(--bs-primary);
-  border-radius: 2px;
 }
 html #main-container #build-btn-container .btn-build:hover {
-  color: var(--bs-success);
   background-color: var(--bs-body-bg);
   border: 2px solid var(--bs-primary);
+}
+html #main-container #build-btn-container .btn-build:hover .fa {
+  color: var(--bs-success) !important;
 }
 html #main-container .fixed-size-btn {
   height: 40px;
   width: 44px;
-  font-size: 23px;
+  font-size: 22px;
 }
 html #main-container .remove-btn-size {
   height: 36px;
@@ -542,8 +539,8 @@ html #main-container .btn.close:hover {
 
 @media (min-width: 992px) {
   #build-btn-container {
-    bottom: 45px !important;
-    right: 42px !important;
+    bottom: 33px !important;
+    right: 43px !important;
   }
 }
 @media (min-width: 769px) {
@@ -796,12 +793,12 @@ html .not-finished {
 }
 [data-bs-theme=light] .input-group select, [data-bs-theme=light] .input-group input, [data-bs-theme=light] .input-group textarea {
   background-color: #fff;
-  color: var(--bs-primary) !important;
+  color: var(--bs-body-color) !important;
 }
 [data-bs-theme=light] .input-group select::placeholder, [data-bs-theme=light] .input-group input::placeholder, [data-bs-theme=light] .input-group textarea::placeholder {
   font-size: 16px;
-  color: var(--bs-primary) !important;
-  opacity: 0.6;
+  color: var(--bs-body-color) !important;
+  opacity: 0.7;
 }
 [data-bs-theme=light] .form-check-label {
   color: var(--bs-primary) !important;
@@ -850,9 +847,6 @@ html .not-finished {
 }
 [data-bs-theme=dark] button.nav-link.active {
   color: #ffffff !important;
-}
-[data-bs-theme=dark] .form-control, [data-bs-theme=dark] .form-select {
-  color: var(--bs-success) !important;
 }
 [data-bs-theme=dark] .card {
   border: 1px solid var(--bs-primary) !important;
