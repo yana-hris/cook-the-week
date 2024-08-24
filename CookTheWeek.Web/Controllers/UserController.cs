@@ -15,6 +15,7 @@
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Data;
 
     [AllowAnonymous]
     public class UserController : Controller
@@ -144,13 +145,49 @@
             return View(model);
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)
+        {
+            string userId = User.GetId();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (userId != String.Empty)
+            {
+                var result = await userService.ChangePasswordAsync(userId, model);
+
+                if (result.Succeeded)
+                {
+                    TempData[SuccessMessage] = "Your password has been changed successfully.";
+                    return RedirectToAction("Profile");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteAccount()
         {
             var userId = userManager.GetUserId(User);
 
-            if(string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(userId))
             {
                 return NotFound("User not found.");
             }
@@ -166,6 +203,6 @@
         {
             return sanitizer.Sanitize(input);
         }
-
     }
+    
 }

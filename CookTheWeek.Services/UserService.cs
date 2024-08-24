@@ -100,6 +100,11 @@
 
         }
 
-        
+        public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
+        {            
+            var user = await userManager.FindByIdAsync(userId);
+
+            return await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+        }
     }
 }
