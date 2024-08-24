@@ -1,6 +1,4 @@
-﻿div#shopping-list {
-    margin: 0 auto;
-    padding: 20px;
+﻿#shopping-list {
     position: relative;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 
@@ -47,24 +45,23 @@
         .fa-download {
             font-size: 24px;
             color: white;
+
+            &:hover {
+                font-size: 25px;
+                color: var(--bs-primary);
+                background-color: #fff;
+            }
         }
-    }
 
-    #generatePdfBtn:hover {
-        color: var(--bs-primary);
-        background-color: #fff;
-
-        .fa-download {
-            font-size: 25px;
+        &:hover {
             color: var(--bs-primary);
             background-color: #fff;
         }
     }
-
+    
     #backBtn {
-        position: absolute;
         bottom: 33px;
         right: 33px;
+        border-radius: 2px;
     }
-    
 }

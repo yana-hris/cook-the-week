@@ -1,0 +1,64 @@
+﻿@model UserProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+
+    PageHeadingViewModel headingModel = new PageHeadingViewModel
+    {
+        Subheading = "User Profile",
+        HeadingSecondary = "Manage Your Account"
+    };
+}
+<div class="card-outer-container" id="user-profile">
+    <partial name="_HeadingPartial" model="headingModel" />
+    <div class="card-container d-flex gap-0 p-0 align-items-center h-100">
+        
+        <img src="~/img/micheile-henderson-3YHXTs1CxFI-unsplash-resize-smaller.jpg"
+                alt="Prepared Meal Image"
+                class="card-img img-fluid" />
+        <div class="container profile-container d-block mb-4">
+            <div class="container info-container py-3 mb-4">                
+                <h5>
+                    Manage User data
+                </h5>
+                <hr class="mb-3" />
+                <div class="row">
+                    <div class="col-md-6 my-2">                        
+                        <h5 class="text-transform">
+                            <i class="fas fa-user text-primary"></i> Username:
+                        </h5>
+                        <p>@Model.UserName</p>                        
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <h5 class="text-transform">
+                            <i class="fas fa-envelope text-primary"></i> Email:
+                        </h5>
+                        <p>@Model.Email</p>                       
+                    </div>
+                    <div class="col-6 my-2">
+                        <a href="@Url.Action("ChangePassword", "User")" class="btn btn-primary w-100 text-center">Change Password</a>
+                    </div>
+                    <div class="col-6 my-2">
+                        <a href="@Url.Action("DeleteAccount", "User")" class="btn btn-danger w-100 text-center">Delete Account</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container actions-container py-3">                
+                <h5>
+                    Explore User collections
+                </h5>
+                <hr class="mb-3"/>
+                <div class="row py-2">                    
+                    <div class="col-6 mb-4 d-block">
+                        <a href="@Url.Action("Mine", "Recipe")" class="btn btn-primary w-100 text-center">Your Recipes</a>
+                    </div>
+                    <div class="col-6 mb-4">
+                        <a href="@Url.Action("Mine", "MealPlan")" class="btn btn-outline-danger w-100 text-center">Your Meal Plans</a>
+                    </div>
+                </div>                
+
+            </div>
+        </div>
+         
+    </div>
+</div>

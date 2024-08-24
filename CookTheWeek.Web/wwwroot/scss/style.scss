@@ -55,6 +55,7 @@
     max-width: 793px;
     padding: 2.4rem;
 }
+
 // Media queries for custom containers
 @media (max-width: 900px) {
     .card-outer-container {
@@ -204,6 +205,7 @@
 @import 'recipe-form';
 @import 'shopping-list';
 @import 'meal-plans-mine';
+@import 'user-profile';
 @import '../lib/bootstrap/scss/bootstrap';
 
 

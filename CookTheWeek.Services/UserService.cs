@@ -9,6 +9,7 @@
     using CookTheWeek.Data.Models;
     using Interfaces;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.ViewModels.User;
 
     public class UserService : IUserService
     {
@@ -48,7 +49,18 @@
                 .AnyAsync(mp => mp.Id.ToString() == id &&
                           mp.OwnerId.ToString() == userId);
         }
-               
+
+        public async Task<UserProfileViewModel> GetProfile(string userId)
+        {
+            return await this.dbContext
+                .Users
+                .Where(u => u.Id.ToString().ToLower() == userId.ToLower())
+                .Select(u => new UserProfileViewModel()
+                {
+                    UserName = u.UserName!,
+                    Email = u.Email!
+                }).FirstAsync();
+        }
         public async Task DeleteUserAsync(string userId)
         {
             // Delete related data first
@@ -87,5 +99,7 @@
             await this.dbContext.SaveChangesAsync();
 
         }
+
+        
     }
 }

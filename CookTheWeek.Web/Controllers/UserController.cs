@@ -133,6 +133,16 @@
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            string userId = User.GetId();
+            var model = await this.userService.GetProfile(userId);
+
+            return View(model);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteAccount()
         {
             var userId = userManager.GetUserId(User);
