@@ -12,6 +12,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
         private IUserService userService;
         private IRecipeService recipeService;
         private IUserAdminService userAdminService;
+        private IMealPlanService mealPlanService;
         private UserManager<ApplicationUser> userManager;
 
         [SetUp]
@@ -20,8 +21,9 @@ namespace CookTheWeek.Services.Tests.UnitTests
             
             this.recipeService = new RecipeService(data);
             this.userManager = userManager;
+            this.mealPlanService = new MealPlanService(data);
             this.userAdminService = new UserAdminService(data, recipeService, userManager);
-            this.userService = new UserService(data);
+            this.userService = new UserService(userManager, data, recipeService, mealPlanService);
         }
 
         [Test]

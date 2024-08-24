@@ -178,12 +178,16 @@ function userHasMealPlans(userId) {
 
 // Show or Hide Build Meal Plan Btn
 function showOrHideBuildMealPlanBtn(userId) {
-    var buildBtn = document.getElementById("build-btn-container");
+    var buildBtnContainer = document.getElementById('build-btn-container');    
 
     if (userId !== null && userHasMealPlans(userId)) {
-        buildBtn.removeAttribute("hidden");
+        // Show the btn and attach event-listener for creating mealplan
+        buildBtnContainer.removeAttribute("hidden");
+        buildBtnContainer.addEventListener('click', (event) => buildMealPlan(event));
     } else {
-        buildBtn.setAttribute('hidden', '');
+        // Remove event listener and toggle visibility
+        buildBtnContainer.removeEventListener('click', )
+        buildBtnContainer.setAttribute('hidden', (event) => buildMealPlan(event));
     }
 }
 // Check if user has Local Storage Meal Plan:

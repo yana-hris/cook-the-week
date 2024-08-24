@@ -369,7 +369,7 @@ html body nav.fixed-bottom {
     top: 68px;
   }
 }
-.card-border-style, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
+.card-border-style, .shopping-list-container, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   border: 1px solid var(--bs-primary);
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
@@ -753,6 +753,16 @@ html .not-finished {
   margin-left: auto;
   max-width: 860px;
   padding: 2rem;
+}
+
+.shopping-list-container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 793px;
+  padding: 2.4rem;
 }
 
 @media (max-width: 900px) {
@@ -1211,7 +1221,7 @@ html .not-finished {
     margin-bottom: 2.5rem;
   }
 }
-.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container {
+.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container, .shopping-list-container {
   border: 1px solid var(--bs-primary);
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }
@@ -1521,7 +1531,7 @@ html .not-finished {
     font-size: 11px !important;
   }
 }
-.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, #recipe-details-container .card, #meal-cook-container .card {
+.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, .shopping-list-container, #recipe-details-container .card, #meal-cook-container .card {
   border: 1px solid var(--bs-primary);
   box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
 }

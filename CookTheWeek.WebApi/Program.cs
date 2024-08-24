@@ -1,17 +1,19 @@
 
 namespace CookTheWeek.WebApi
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using Data;
     using Services.Data.Interfaces;
     using CookTheWeek.Services.Data;
+    using CookTheWeek.Data.Models;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add logging configuration
             builder.Logging.AddConsole();
@@ -21,11 +23,25 @@ namespace CookTheWeek.WebApi
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                options.Password.RequireLowercase = builder.Configuration.GetValue<bool>("Password:RequireLowercase");
+                options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Password:RequireUppercase");
+                options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Password:RequireNonAlphanumeric");
+                options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Password:RequireDigit");
+                options.Password.RequiredLength = builder.Configuration.GetValue<int>("Password:RequiredLength");
+            })
+                .AddRoles<IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<CookTheWeekDbContext>()
+                .AddDefaultTokenProviders(); 
+
             // Add services to the container.
-            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRecipeService, RecipeService>();
             builder.Services.AddScoped<IFavouriteRecipeService, FavouriteRecipeService>();
+            builder.Services.AddScoped<IMealPlanService, MealPlanService>();
             builder.Services.AddScoped<IIngredientService, IngredientService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
