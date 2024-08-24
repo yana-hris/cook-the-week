@@ -42,8 +42,23 @@
 
             AdminUser.PasswordHash = hasher.HashPassword(AdminUser, AdminUserPassword);
 
+            ApplicationUser DeletedUser = new()
+            {
+                Id = Guid.Parse(DeletedUserId),
+                UserName = DeletedUserUsername,
+                NormalizedUserName = DeletedUserUsername.ToUpper(),
+                Email = DeletedUserEmail,
+                NormalizedEmail = DeletedUserEmail.ToUpper(),
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+            };
+
+            DeletedUser.PasswordHash = hasher.HashPassword(DeletedUser, DeletedUserPassword);
+
             users.Add(AdminUser);
             users.Add(AppUser);
+            users.Add(DeletedUser);
 
             return users;
         }

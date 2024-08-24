@@ -78,8 +78,9 @@ html body #main-container .pagination {
 }
 html body #main-container .input-group span.input-group-text {
   font-size: 15px !important;
+  font-weight: 600;
   background-color: var(--bs-success);
-  color: var(--bs-dark);
+  color: var(--bs-primary);
   border: 1px solid var(--bs-primary);
 }
 html body #main-container span.text-danger {

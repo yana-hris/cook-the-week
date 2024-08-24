@@ -7,5 +7,6 @@
         Task<bool> ExistsByIdAsync(string id);
         Task<bool> IsOwnerByMealPlanIdAsync(string id, string userId);
         Task<bool> IsOwnerByRecipeIdAsync(string recipeId, string userId);
+        Task DeleteUserAsync(string userId);
     }
 }

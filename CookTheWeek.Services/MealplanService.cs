@@ -261,7 +261,7 @@
                 this.dbContext.Meals.RemoveRange(mealPlanToDelete.Meals);
             }
 
-            this.dbContext.MealPlans.Remove(mealPlanToDelete);
+            this.dbContext.MealPlans.Remove(mealPlanToDelete!);
             await this.dbContext.SaveChangesAsync();
         }
     }

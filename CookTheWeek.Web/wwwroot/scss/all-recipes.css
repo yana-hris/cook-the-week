@@ -32,10 +32,12 @@
 .wide-contents-container .modal .modal-dialog .modal-content {
   width: 100%;
   position: relative;
+  border-radius: 0;
 }
 .wide-contents-container .modal .modal-dialog .modal-content .modal-header {
   background-color: var(--bs-primary);
   color: var(--bs-success);
+  border-radius: 0;
 }
 .wide-contents-container .modal .modal-dialog .modal-content .modal-title {
   font-size: 1.4rem;

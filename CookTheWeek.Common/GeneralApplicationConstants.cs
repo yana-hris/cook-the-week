@@ -71,6 +71,11 @@
         public const string AdminUserEmail = "admin@gmail.com";
         public const string AdminUserPassword = "admin1";
 
+        public const string DeletedUserId = "DDBAEAB3-10D6-4993-BE38-59CD03967107";
+        public const string DeletedUserUsername = "deletedUser";
+        public const string DeletedUserEmail = "deletedUser@gmail.com";
+        public const string DeletedUserPassword = "deletedUser1";
+
         public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Administrator";
 
