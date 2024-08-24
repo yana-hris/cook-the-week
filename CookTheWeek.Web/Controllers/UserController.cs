@@ -14,21 +14,25 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Services.Data.Interfaces;
 
     [AllowAnonymous]
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly HtmlSanitizer sanitizer;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
+                              IUserService userService,
                               IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.userService = userService;
             this.memoryCache = memoryCache;
             sanitizer = new HtmlSanitizer();
         }
@@ -126,6 +130,22 @@
         {
             await signInManager.SignOutAsync();
             this.memoryCache.Remove(UsersCacheKey);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> DeleteAccount()
+        {
+            var userId = userManager.GetUserId(User);
+
+            if(string.IsNullOrEmpty(userId))
+            {
+                return NotFound("User not found.");
+            }
+
+            await this.userService.DeleteUserAsync(userId);
+            await this.signInManager.SignOutAsync();
+
+            // TODO: add AccountDeletedView and redirect the user to it
             return RedirectToAction("Index", "Home");
         }
 
