@@ -89,12 +89,13 @@ html body #main-container span.text-danger {
   margin-left: 3px;
 }
 html body #main-container .custom-link {
-  color: var(--bs-primary);
-  text-decoration: none;
+  color: var(--bs-primary) !important;
+  text-decoration: underline;
 }
 html body #main-container .custom-link:hover {
-  color: var(--bs-success);
-  text-decoration: underline;
+  color: var(--bs-success) !important;
+  cursor: pointer;
+  text-decoration: none;
 }
 html body #main-container .heading-container {
   margin-left: 2px;

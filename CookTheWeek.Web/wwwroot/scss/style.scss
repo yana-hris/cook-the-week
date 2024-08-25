@@ -56,6 +56,13 @@
     padding: 2.4rem;
 }
 
+.form-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 500px;
+    padding: 2rem;
+}
+
 // Media queries for custom containers
 @media (max-width: 900px) {
     .card-outer-container {

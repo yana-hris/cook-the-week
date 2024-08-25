@@ -4,6 +4,8 @@ namespace CookTheWeek.Web
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.Google; 
 
     using Data;
     using Data.Models;
@@ -16,6 +18,8 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using Newtonsoft.Json.Serialization;
+    using System.Security.Claims;
+    using Microsoft.Extensions.Options;
 
     public class Program
     {
@@ -24,6 +28,7 @@ namespace CookTheWeek.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             builder.Configuration.AddUserSecrets<Program>();
+            var config = builder.Configuration;
 
             string? connectionString = builder.Configuration["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
@@ -47,6 +52,24 @@ namespace CookTheWeek.Web
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
 
+            // Add Authentication services with Google OAuth
+            builder.Services.AddAuthentication()
+               .AddGoogle(options =>
+               {
+                   IConfigurationSection googleAuthNSection =
+                   config.GetSection("Authentication:Google");
+                   options.ClientId = googleAuthNSection["ClientId"];
+                   options.ClientSecret = googleAuthNSection["ClientSecret"];
+                   options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
+               })
+               .AddFacebook(options =>
+               {
+                   IConfigurationSection facebookAuthNSection =
+                   config.GetSection("Authentication:Facebook");
+                   options.ClientId = facebookAuthNSection["AppId"];
+                   options.ClientSecret = facebookAuthNSection["AppSecret"];
+                   options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
+               });
 
             builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
@@ -70,13 +93,14 @@ namespace CookTheWeek.Web
             builder.Services.AddResponseCaching();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
-            {
+            {                
                 cfg.LoginPath = "/User/Login";
                 cfg.AccessDeniedPath = "/Home/Error/401";
             });
 
             builder.Services.AddLogging(options =>
             {
+
                 options.AddConsole();
                 options.AddDebug();
             });

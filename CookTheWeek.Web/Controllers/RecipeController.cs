@@ -53,6 +53,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
+
             string userId = User.GetId();
             bool isAdmin = User.IsAdmin();
 

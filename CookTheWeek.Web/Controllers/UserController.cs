@@ -15,7 +15,8 @@
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Services.Data;
+    using Microsoft.AspNetCore.Authentication.Google;
+    using System.Security.Claims;
 
     [AllowAnonymous]
     public class UserController : Controller
@@ -127,6 +128,86 @@
         }
 
         [HttpGet]
+        public IActionResult ExternalLogin(string schemeProvider, string? returnUrl = null)
+        {
+            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User");
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(schemeProvider, redirectUrl);
+            return new ChallengeResult(schemeProvider, properties);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                // Handle external provider error
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+                return RedirectToAction("Login");
+            }
+
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                // Handle error
+                return RedirectToAction("Login");
+            }
+            
+            // Extract the username, email, and user ID from the external login info
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            // Check if the user already exists
+            var user = await userManager.FindByEmailAsync(email);
+
+            if(user == null)
+            {
+                user = new ApplicationUser // If the user does not exist, create a new one
+                {
+                    UserName = email,
+                    Email = email,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    // Handle failure to create user
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View("Error");
+                }
+
+                // Add the external login (Google, etc.) to the user
+                result = await userManager.AddLoginAsync(user, info);
+                if (!result.Succeeded)
+                {
+                    // Handle failure to add login
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View("Error");
+                }
+            }
+
+
+            // Sign in the user
+            await signInManager.SignInAsync(user, isPersistent: false);
+
+            TempData["JustLoggedIn"] = true;
+            this.memoryCache.Remove(UsersCacheKey);
+            return Redirect(returnUrl ?? Url.Action("Index", "Home"));            
+        }
+
+        [HttpGet]
+        public IActionResult AccessDeniedPathInfo()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
@@ -204,5 +285,4 @@
             return sanitizer.Sanitize(input);
         }
     }
-    
 }
