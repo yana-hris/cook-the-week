@@ -192,6 +192,14 @@
         color: var(--bs-primary) !important;
         border: none !important;
     }
+
+    .image-overlay {
+        .external-login-button {
+            color: var(--bs-body-color) !important;
+            background-color: var(--bs-body-bg) !important;
+            
+        }
+    }
 }
 
 

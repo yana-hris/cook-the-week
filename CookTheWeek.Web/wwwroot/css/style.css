@@ -970,6 +970,10 @@ html .not-finished {
   color: var(--bs-primary) !important;
   border: none !important;
 }
+[data-bs-theme=dark] .image-overlay .external-login-button {
+  color: var(--bs-body-color) !important;
+  background-color: var(--bs-body-bg) !important;
+}
 
 #admin-container {
   max-width: 1200px;
@@ -1858,7 +1862,6 @@ html .not-finished {
   font-size: 14px;
   padding: 8px;
   background-color: #f8f9fa; /* Light background for the button */
-  /*border-radius: 5px;*/
   border: 1px solid #ddd;
   text-align: center;
   text-decoration: none;
