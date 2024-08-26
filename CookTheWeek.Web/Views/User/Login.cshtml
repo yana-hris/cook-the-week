@@ -8,7 +8,7 @@
 
 <div id="user-login" class="image-overlay">
     <div class="form-container">
-        <h2 class="text-center text-uppercase">@ViewData["Title"]</h2>        
+        <h2 class="text-center text-uppercase">Login / Sign Up</h2>        
         <form method="post" asp-controller="User" asp-action="Login">
             <h5 class="text-center">Use a local account</h5>
             <hr />
@@ -35,8 +35,8 @@
                 <button type="submit" class="btn btn-primary w-100 text-center">Log in</button>
             </div>
             <div>
-                <p class="fs-6">Don`t have an account? 
-                    <a class="custom-link fs-6" asp-controller="User" asp-action="Register">Sign up here</a>
+                <p class="fs-6">Don`t have a local account? 
+                    <a class="custom-link fs-6" asp-controller="User" asp-action="Register">Create one here</a>
                 </p>
             </div>
             <h3 class="text-uppercase text-center">Or</h3>
@@ -60,9 +60,7 @@
             </div>
             <p class="text-center"><span class="small-text">By continuing, you agree to our <span class="custom-link">Terms of Use</span> and acknowledge that you have read our <span class="custom-link">Privacy Policy</span></span>.</p>
         </form>
-                
     </div>
-    
 </div>
 
 

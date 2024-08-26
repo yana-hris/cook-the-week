@@ -3,41 +3,56 @@
     ViewData["Title"] = "Register";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4 offset-md-4">
+<div id="user-register" class="image-overlay">
+    <div class="form-container">
+        <h2 class="text-center text-uppercase">@ViewData["Title"]</h2>
         <form method="post" asp-action="Register" asp-controller="User">
-            <h2>Create a new account.</h2>
+            <h5 class="text-center text-uppercase">Create a new account</h5>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating mb-2">
-                <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Username"></label>
-                <span asp-validation-for="Username" class="text-danger"></span>
+            <div class="pb-2">
+                <div class="input-group">
+                    <span class="input-group-text">Username</span>
+                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
+                </div>
+                <span asp-validation-for="Username" class="small text-danger"></span>
             </div>
-            <div class="form-floating mb-2">
-                <input asp-for="Email" class="form-control" autocomplete="email" aria-required="true" />
-                <label asp-for="Email"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="pb-2">
+                <div class="input-group">
+                    <span class="input-group-text">Email</span>            
+                    <input asp-for="Email" class="form-control" autocomplete="email" aria-required="true" />                
+                </div>
+                <span asp-validation-for="Email" class="small text-danger"></span>
             </div>
-            <div class="form-floating mb-2">
-                <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Password"></label>
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="pb-2">
+                <div class="input-group">
+                    <span class="input-group-text">Password</span>
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />                
+                </div>
+                <span asp-validation-for="Password" class="small text-danger"></span>
             </div>
-            <div class="form-floating mb-2">
-                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="ConfirmPassword"></label>
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>            
-
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div class="pb-2">
+                <div class="input-group">
+                    <span class="input-group-text">Confirm Password</span>
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />                
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="small text-danger"></span>
+                <p class="small">
+                    Already have an accountor or want to sign up with Facebook or Google?
+                    <a class="custom-link small" asp-controller="User" asp-action="Login">Login/Sign up here</a>
+                </p>
+            </div>
+            
+            <div class="pb-4">
+                <button type="submit" class="btn btn-danger w-100 text-center">Register</button>
+            </div>
+            
+            <p class="text-center pb-3"><span class="small">By continuing, you agree to our <span class="custom-link">Terms of Use</span> and acknowledge that you have read our <span class="custom-link">Privacy Policy</span></span>.</p>
         </form>
     </div>
 </div>
 
+
 @section Scripts {
-    <recaptcha-script />
     <partial name="_JQueryValidationPartial.cshtml" />
 }
