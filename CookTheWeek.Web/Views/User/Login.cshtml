@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Authentication.Facebook
 @using Microsoft.AspNetCore.Authentication.Google
-
 @model LoginFormModel
 @{
     ViewData["Title"] = "Log in";
@@ -8,22 +7,30 @@
 
 <div id="user-login" class="image-overlay">
     <div class="form-container">
-        <h2 class="text-center text-uppercase">Login / Sign Up</h2>        
+        <h2 class="text-center text-capitalize mb-1">Login / Sign Up</h2>        
         <form method="post" asp-controller="User" asp-action="Login">
-            <h5 class="text-center">Use a local account</h5>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating mb-2">
-                <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Username" class="form-label"></label>
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                <label asp-for="Password" class="form-label"></label>
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <h6 class="text-center text-uppercase mb-4">Use a local account</h6>
+            @* <hr /> *@
+            <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
+            <div class="pb-2">
+                <div class="input-group">
+                    <span class="input-group-text">Username</span>
+                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
+                </div>
+                 <span asp-validation-for="Username" class="small text-danger"></span>
             </div>
             <div>
+                <div class="input-group">
+                    <span class="input-group-text">Password</span>
+                    <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                </div>
+                <span asp-validation-for="Password" class="small text-danger"></span>
+                <p class="small">
+                    Don`t have a local account?
+                    <a class="custom-link" asp-controller="User" asp-action="Register">Create one here</a>
+                </p>
+            </div>
+            <div class="py-1">
                 <div class="checkbox">
                     <label asp-for="RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="RememberMe" />
@@ -31,17 +38,13 @@
                     </label>
                 </div>
             </div>
-            <div>
+            <div class="pb-4">
                 <button type="submit" class="btn btn-primary w-100 text-center">Log in</button>
-            </div>
-            <div>
-                <p class="fs-6">Don`t have a local account? 
-                    <a class="custom-link fs-6" asp-controller="User" asp-action="Register">Create one here</a>
-                </p>
-            </div>
-            <h3 class="text-uppercase text-center">Or</h3>
-            <hr />
-            <div class="row my-2 mb-3">
+            </div> 
+            
+            <h3 class="text-uppercase text-center pb-4">Or</h3>
+            @* <hr /> *@
+            <div class="row my-2 pb-4">
                 <!-- Google btn -->
                 <div class="col-6">
                     <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
@@ -56,9 +59,8 @@
                         Continue with Facebook
                     </a>
                 </div>
-                
             </div>
-            <p class="text-center"><span class="small-text">By continuing, you agree to our <span class="custom-link">Terms of Use</span> and acknowledge that you have read our <span class="custom-link">Privacy Policy</span></span>.</p>
+            <p class="text-center small py-3">By continuing, you agree to our <a href="/Home/TermsAndConditions" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>

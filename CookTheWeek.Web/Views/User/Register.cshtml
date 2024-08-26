@@ -5,11 +5,11 @@
 
 <div id="user-register" class="image-overlay">
     <div class="form-container">
-        <h2 class="text-center text-uppercase">@ViewData["Title"]</h2>
+        <h2 class="text-center text-capitalize mb-1">@ViewData["Title"]</h2>
         <form method="post" asp-action="Register" asp-controller="User">
-            <h5 class="text-center text-uppercase">Create a new account</h5>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h6 class="text-center text-uppercase mb-4">Create a new account</h6>
+            @* <hr /> *@
+            <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
             <div class="pb-2">
                 <div class="input-group">
                     <span class="input-group-text">Username</span>
@@ -39,7 +39,7 @@
                 <span asp-validation-for="ConfirmPassword" class="small text-danger"></span>
                 <p class="small">
                     Already have an accountor or want to sign up with Facebook or Google?
-                    <a class="custom-link small" asp-controller="User" asp-action="Login">Login/Sign up here</a>
+                    <a class="custom-link" asp-controller="User" asp-action="Login">Login/Sign up here</a>
                 </p>
             </div>
             
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-danger w-100 text-center">Register</button>
             </div>
             
-            <p class="text-center pb-3"><span class="small">By continuing, you agree to our <span class="custom-link">Terms of Use</span> and acknowledge that you have read our <span class="custom-link">Privacy Policy</span></span>.</p>
+            <p class="text-center small py-3">By continuing, you agree to our <a href="/Home/TermsAndConditions" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>
