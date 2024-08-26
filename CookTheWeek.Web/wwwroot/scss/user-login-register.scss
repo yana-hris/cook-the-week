@@ -24,13 +24,17 @@
 
     .form-container {
         position: absolute;
-        z-index: 100;
-        top: 4%;
+        z-index: 1;
+        top: 6%;
         left: 50%;
         transform: translateX(-50%);
         background-color: var(--bs-body-bg);
         border: none;
         border-radius: 2px;
+    }
+
+    .change-pass {
+        top: 10% !important;
     }
 
     .external-login-button {
@@ -40,7 +44,7 @@
         font-size: 14px;
         padding: 8px;
         background-color: #f8f9fa; /* Light background for the button */
-        
+
         border: 1px solid #ddd;
         text-align: center;
         text-decoration: none;
@@ -60,5 +64,11 @@
     .external-login-button:active {
         background-color: #d6d8db;
     }
+}
 
+@media (min-width: 768px) {
+    .image-overlay {
+        top: 4% !important;
+    }
+    
 }

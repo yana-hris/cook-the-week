@@ -10,9 +10,9 @@
         <h2 class="text-center text-capitalize mb-1">Login / Sign Up</h2>        
         <form method="post" asp-controller="User" asp-action="Login">
             <h6 class="text-center text-uppercase mb-4">Use a local account</h6>
-            @* <hr /> *@
+            
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
-            <div class="pb-2">
+            <div class="mb-2">
                 <div class="input-group">
                     <span class="input-group-text">Username</span>
                     <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
@@ -30,7 +30,7 @@
                     <a class="custom-link" asp-controller="User" asp-action="Register">Create one here</a>
                 </p>
             </div>
-            <div class="py-1">
+            <div class="my-1">
                 <div class="checkbox">
                     <label asp-for="RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="RememberMe" />
@@ -38,13 +38,13 @@
                     </label>
                 </div>
             </div>
-            <div class="pb-4">
+            <div class="mb-4">
                 <button type="submit" class="btn btn-primary w-100 text-center">Log in</button>
             </div> 
             
             <h3 class="text-uppercase text-center pb-4">Or</h3>
-            @* <hr /> *@
-            <div class="row my-2 pb-4">
+            <!-- External Login Options -->
+            <div class="row mt-2 mb-4">
                 <!-- Google btn -->
                 <div class="col-6">
                     <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
@@ -60,7 +60,7 @@
                     </a>
                 </div>
             </div>
-            <p class="text-center small py-3">By continuing, you agree to our <a href="/Home/TermsAndConditions" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
+            <p class="text-center small my-3">By continuing, you agree to our <a href="/Home/TermsAndConditions" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>

@@ -226,15 +226,15 @@
             return View(model);
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)
         {
             string userId = User.GetId();
