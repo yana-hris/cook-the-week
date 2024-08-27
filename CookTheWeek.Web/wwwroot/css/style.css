@@ -1597,7 +1597,6 @@ html .not-finished {
 }
 #add-mealplan .row #collapseSummary .card-body, #details-mealplan .row #collapseSummary .card-body, #edit-mealplan .row #collapseSummary .card-body {
   color: #121706;
-  border: 1px solid var(--bs-primary) !important;
 }
 #add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
   padding: 20px 30px !important;

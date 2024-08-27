@@ -55,6 +55,12 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult TermsOfUse()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult HowItWorks()
         {
             return View();

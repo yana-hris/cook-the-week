@@ -1,0 +1,179 @@
+﻿@using static CookTheWeek.Common.GeneralApplicationConstants
+@{
+    ViewData["Title"] = "Terms of Use";
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = $"Last updated: [{TermsOfUseLastUpdateDateString}]"
+    };
+}
+
+<div class="pb-5 list-container">
+    <partial name="_HeadingPartial" model="headingModel" />
+
+    <h4 class="text-uppercase">Table of Contents</h4>
+    <ul class="list-unstyled">
+        <li><a href="#terms-acceptance">1. Acceptance of Terms</a></li>
+        <li><a href="#terms-eligibility">2. Eligibility</a></li>
+        <li><a href="#terms-account-security">3. Account Security</a></li>
+        <li><a href="#terms-content-use">4. Use of Content</a></li>
+        <li><a href="#terms-web-sourced-images">5. Use of Web-Sourced Images</a></li>
+        <li><a href="#terms-user-generated-content">6. User-Generated Content</a></li>
+        <li><a href="#third-party-login">7. Third-Party Login Services</a></li>
+        <li><a href="#terms-health">8. Health and Nutritional Information</a></li>
+        <li><a href="#terms-disclaimer">9. Disclaimer of Warranties</a></li>
+        <li><a href="#terms-liability">10. Limitation of Liability</a></li>
+        <li><a href="#terms-indemnification">11. Indemnification</a></li>
+        <li><a href="#terms-third-party-links">12. Third-Party Links</a></li>
+        <li><a href="#terms-termination">13. Termination</a></li>
+        <li><a href="#terms-governing-law">14. Governing Law</a></li>
+        <li><a href="#terms-privacy-policy">15. Privacy Policy</a></li>
+        <li><a href="#terms-contact-information">16. Contact Information</a></li>
+        <li><a href="#terms-miscellaneous">17. Miscellaneous</a></li>
+    </ul>
+
+    <section id="terms-acceptance">        
+        <h3 class="text-uppercase">1. Acceptance of Terms</h3>
+        <p>
+            By accessing or using our website, www.cooktheweek.com (the "Site"), you agree to be bound by these Terms of Use ("Terms").
+            If you do not agree to these Terms, you may not use the Site. We reserve the right to modify these Terms at any time.
+            Your continued use of the Site following any changes signifies your acceptance of the new Terms.
+        </p>    
+    </section>
+
+    <section id="terms-eligibility">
+        <h3 class="text-uppercase">2. Eligibility</h3>
+        <p>
+            You must be at least 13 years of age or have the permission of a legal guardian to use this Site. 
+            By using the Site, you represent and warrant that you have the right, authority, and capacity to enter into these Terms.
+        </p>
+    </section>
+
+    <section id="terms-account-security">
+        <h3 class="text-uppercase">3. Account Security</h3>
+        <p>
+            If you create an account on CookTheWeek, you are responsible for maintaining the confidentiality of your account details, including your password. 
+            You agree to accept responsibility for all activities that occur under your account. 
+            CookTheWeek is not liable for any loss or damage arising from your failure to protect your account information.
+        </p>
+    </section>
+
+    <section id="terms-content-use">
+        <h3 class="text-uppercase">4. Use of Content</h3>
+        <p>
+            All content on CookTheWeek, including but not limited to recipes, meal plans, text, images, or videos (collectively, "Content"), is the property of CookTheWeek or its content providers and is protected by copyright and other intellectual property laws. 
+            You may access, download, and print the Content for your personal and non-commercial use only. Any other use, including the reproduction, distribution, display, or transmission of the Content, is strictly prohibited without the prior written consent of CookTheWeek.
+        </p>
+    </section>
+
+    <section id="terms-web-sourced-images">
+        <h3 class="text-uppercase">5. Use of Web-Sourced Images</h3>
+        <p>
+            CookTheWeek may use images sourced from the web for illustrative and exemplary purposes. 
+            These images are intended to enhance the user experience and provide visual context for recipes and meal plans. 
+            All such images are believed to be used in accordance with applicable copyright laws, under fair use, or with appropriate permissions. 
+            If you believe that any image used on the Site infringes on your intellectual property rights, please contact us at support@cooktheweek.com so that we can address the issue promptly.
+        </p>
+    </section>
+
+    <section id="terms-user-generated-content">
+        <h3 class="text-uppercase">6. User-Generated Content</h3>
+        <p>CookTheWeek allows users to submit content such as recipes and meal plans ("User Content"). We respect your privacy, and any User Content you submit is considered private and will not be shared publicly.</p>
+        <p>By submitting User Content to CookTheWeek, you grant us the right to store and use this content solely for the purpose of providing and improving our services to you. We will not disclose, distribute, or share your private User Content with third parties without your explicit consent, except as required by law or as necessary to provide the services you have requested.
+        <p>You retain all ownership rights to your User Content. However, you acknowledge and agree that CookTheWeek may access, review, and use this content internally to ensure compliance with our Terms of Use, improve our services, and enhance your user experience.</p>
+        <p>Please note that if you choose to make any User Content public, such as by posting it in a public forum or sharing it with other users, you assume all responsibility for the content and any potential consequences of making it public. CookTheWeek is not responsible for any actions taken by other users or third parties with respect to publicly shared content.</p>
+        <p>If you wish to delete or modify any User Content you have submitted, you can do so through your account settings or by contacting us at support@cooktheweek.com.</p>
+        
+    </section>
+
+    <section id="terms-third-party-login">
+        <h3 class="text-uppercase">7. Third-Party Login Services</h3>
+        <ol>
+            CookTheWeek allows users to log in to the Site using third-party services such as Facebook and Google ("Third-Party Login Services"). By using these Third-Party Login Services, you agree to the following:
+            <li><strong>Integration with Third-Party Services:</strong> When you choose to log in using a Third-Party Login Service, you are permitting CookTheWeek to access certain information from your third-party account, specifically your username (or name) and email address. This information is used to facilitate your login and enhance your user experience on the Site.</li>
+            <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your login credentials associated with the Third-Party Login Service and for all activities that occur under your account. CookTheWeek is not responsible for any issues that arise from your use of Third-Party Login Services, including any unauthorized access to your account due to your failure to protect your login information.</li>
+            <li><strong>Data Sharing and Privacy:</strong> By using a Third-Party Login Service, you agree that CookTheWeek may collect and store your username (or name) and email address provided by the third-party service in accordance with our <a asp-controller="Home" asp-action="Privacy" class="custom-link">Privacy Policy</a>. We do not share this information with unauthorized third parties and only use it to provide and improve our services.</li>
+            <li><strong>Limitations and Disclaimers:</strong> CookTheWeek is not responsible for the operation, security, or privacy practices of the Third-Party Login Services. Any issues or disputes arising from your use of these services should be directed to the respective third-party provider. We recommend that you review the terms and privacy policies of Facebook, Google, or any other third-party service you use to log in to CookTheWeek.</li>
+            <li><strong>Termination of Access:</strong> CookTheWeek reserves the right to disable the integration with any Third-Party Login Service at any time and without notice, which may affect your ability to log in to the Site using these services. If this occurs, you may need to create an account directly on CookTheWeek to continue using our services.</li>
+        </ol>
+    </section>
+
+    <section id="terms-health">
+        <h3 class="text-uppercase">8. Health and Nutritional Information</h3>
+        <p>
+            The recipes and meal plans provided on CookTheWeek are intended for informational purposes only and are not intended to serve as medical or nutritional advice. You should consult with a qualified healthcare provider before making any changes to your diet or lifestyle. CookTheWeek does not guarantee the accuracy, completeness, or usefulness of any nutritional information provided on the Site.
+        </p>
+    </section>
+
+    <section id="terms-disclaimer">
+        <h3 class="text-uppercase">9. Disclaimer of Warranties</h3>
+        <p>
+            CookTheWeek provides the Site and Content on an "as is" and "as available" basis. 
+            We make no representations or warranties of any kind, express or implied, about the operation of the Site or the Content, including but not limited to the accuracy, completeness, or suitability of the recipes or meal plans for any purpose. 
+            Your use of the Site is at your own risk.
+        </p>
+    </section>
+
+    <section id="terms-liability">
+        <h3 class="text-uppercase">10. Limitation of Liability</h3>
+        <p>
+            To the fullest extent permitted by law, CookTheWeek and its affiliates, creator and associates shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with your use of the Site or inability to use the Site, even if CookTheWeek has been advised of the possibility of such damages.
+        </p>
+    </section>
+
+    <section id="terms-indemnification">
+        <h3 class="text-uppercase">11. Indemnification</h3>
+        <p>
+            You agree to indemnify, defend, and hold harmless CookTheWeek, its affiliates, creator and associates from and against any claims, liabilities, damages, losses, and expenses, including legal fees, arising out of or in any way connected with your access to or use of the Site or your violation of these Terms.
+        </p>
+    </section>
+
+    <section id="terms-third-party-links">
+        <h3 class="text-uppercase">12. Third-Party Links</h3>
+        <p>
+            The Site may at some point contain links to third-party websites that are not owned or controlled by CookTheWeek. 
+            We are not responsible for the content, privacy policies, or practices of any third-party websites. 
+            Your use of third-party websites is at your own risk, and we encourage you to review the terms and conditions of any third-party website that you visit.
+        </p>
+    </section>
+
+    <section id="terms-termination">
+        <h3 class="text-uppercase">13. Termination</h3>
+        <p>
+            CookTheWeek reserves the right, in its sole discretion, to terminate your access to all or part of the Site, with or without notice, for any reason, including, without limitation, your violation of these Terms. 
+            Upon termination, your right to use the Site will immediately cease, and any data or content you have submitted may be deleted or retained at our discretion.
+        </p>
+    </section>
+
+    <section id="terms-governing-law">
+        <h3 class="text-uppercase">14. Governing Law</h3>
+        <p>
+            These Terms shall be governed by and construed in accordance with the laws of the Republic of Bulgaria, without regard to its conflict of law principles. You agree that any disputes arising out of or in connection with these Terms or your use of the Site will be subject to the exclusive jurisdiction of the courts of Bulgaria.
+        </p>
+    </section>
+
+    <section id="terms-privacy-policy">
+        <h3 class="text-uppercase">15. Privacy Policy</h3>
+        <p>
+            Your use of the Site is also governed by our Privacy Policy, which describes how we collect, use, and protect your personal information. 
+            Please review our <a asp-controller="Home" asp-action="Privacy" class="custom-link">Privacy Policy</a> for more information.
+        </p>
+    </section>
+
+    <section id="terms-contact-information">
+        <h3 class="text-uppercase">16. Contact Information</h3>
+        <p>
+            If you have any questions or concerns about these Terms, please contact us at support@cooktheweek.com.
+        </p>
+    </section>
+
+    <section id="terms-miscellaneous">
+        <h3 class="text-uppercase">17. Miscellaneous</h3>
+        <p>
+            If any provision of these Terms is found to be invalid or unenforceable by a court of competent jurisdiction, the remaining provisions shall remain in full force and effect. These Terms, along with the Privacy Policy, constitute the entire agreement between you and CookTheWeek regarding the use of the Site and supersede any prior agreements or understandings, whether written or oral.
+        </p>
+    </section>
+</div>
+
+

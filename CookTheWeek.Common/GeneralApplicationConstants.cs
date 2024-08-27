@@ -4,6 +4,7 @@
     {
         public const int ReleaseYear = 2024;
         public const string PrivacyPolicyLastUpdateDateString = "28/07/2024";
+        public const string TermsOfUseLastUpdateDateString = "27/08/2024";
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
