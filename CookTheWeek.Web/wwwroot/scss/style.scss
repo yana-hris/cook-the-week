@@ -25,6 +25,7 @@
     @include make-container();
 
     max-width: 1296px;
+    margin-top: -1rem;
 }
 
 .list-container {
@@ -36,7 +37,7 @@
     @include make-container();
 
     max-width: 900px;
-    margin-top: -25px;
+    margin-top: -1rem;
 }
 
 // container for meal-details, add-meal, edit-meal

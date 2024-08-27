@@ -827,6 +827,7 @@ html .not-finished {
   margin-right: auto;
   margin-left: auto;
   max-width: 1296px;
+  margin-top: -1rem;
 }
 
 .list-container {
@@ -845,7 +846,7 @@ html .not-finished {
   margin-right: auto;
   margin-left: auto;
   max-width: 900px;
-  margin-top: -25px;
+  margin-top: -1rem;
 }
 
 .card-container {
