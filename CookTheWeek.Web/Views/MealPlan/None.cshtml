@@ -13,7 +13,11 @@
 
         <p>
             Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="flex-nowrap custom-link">All Recipes</a> section to find a variety of dishes.
-            With just a few clicks of the <strong class="flex-nowrap">'Add to Meal Plan'</strong> button, you can start building your personalized meal plan.
+            With just a few clicks of the <span class="add-to-mealplan-container d-inline-block">
+                <a class="plus fixed-size-btn btn btn-icon-only" style="height: 1.4rem; width: 1rem; font-size: 1rem;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+            </span> button, you can start building your personalized meal plan.
             You can even add <strong>your own recipes</strong> to make your meal plan truly unique and tailored to your taste.
         </p>       
         <p class="fw-bold mb-0">Start now by browsing our Recipes section or add your first recipe now!</p>
