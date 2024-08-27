@@ -1860,7 +1860,7 @@ html .not-finished {
   border: none;
   border-radius: 2px;
 }
-.image-overlay .change-pass {
+.image-overlay .change-pass, .image-overlay .info-message {
   top: 10% !important;
 }
 .image-overlay .external-login-button {

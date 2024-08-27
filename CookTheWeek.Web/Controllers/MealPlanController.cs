@@ -213,8 +213,15 @@ namespace CookTheWeek.Web.Controllers
 
             try
             {
-                ICollection<MealPlanAllViewModel> allMine = await this.mealPlanService.MineAsync(userId);
-                return View(allMine);
+                ICollection<MealPlanAllViewModel> model = await this.mealPlanService.MineAsync(userId);
+                if (model.Count > 0)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    return View("None");
+                }                
             }
             catch (Exception)
             {
