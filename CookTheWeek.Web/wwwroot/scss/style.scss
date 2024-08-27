@@ -175,6 +175,10 @@
         border: 1px solid var(--bs-primary) !important;
     }
 
+    .card.recipe-card {
+        border: none !important;
+    }
+
     .left-pill {
         border-color: var(--bs-success) !important;
         color: var(--bs-success) !important;

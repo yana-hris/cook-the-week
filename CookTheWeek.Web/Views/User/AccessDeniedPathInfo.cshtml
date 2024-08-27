@@ -1,28 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Access Denied";
 }
-<div id="access-denied" class="form-container">   
-    <div class="text-center mb-5">
-        <h1 class="fw-bold fs-1 text-danger">Oops..</h1>
-        <h5 class="fw-bold">Sorry, you do not have the required permission to continue.</h5>
-        <hr />
+<div id="access-denied" class="image-overlay">   
+    <div class="form-container change-pass">
+        <h1 class="text-center text-capitalize text-danger mb-1">Oops..</h1>
+        <h3 class="text-center text-uppercase mb-4">Access denied</h3>
+        
         <p>For some reason your Login/Register attempt was unsuccessful! You can try again later or <a href="@Url.Action("Login", "User")" class="custom-link">change the login provider</a>.</p>
         <p>Alternatively, you can <a href="@Url.Action("Register", "User")" class="custom-link">create a local account</a> instead of using Facebook and Google.</p>
         <p>However, if you believe there is something wrong with our website, use our <a href="/Home/About" class="custom-link">Contact Form</a> and let us know!</p>
-    </div>
-    <h5 class="text-center mb-0">To go back, choose one of the following:</h5>
-    <hr />
-    <div class="row g-2 my-2 mb-4">
-        <div class="col-4">
-        <a href="@Url.Action("Login", "User")" class="btn btn-primary w-100 text-center">Back to Login</a>
 
+        <h5 class="text-center mb-0">To go back, choose one of the following:</h5>
+
+        <div class="row g-2 my-2 mb-4">
+            <div class="col-4">
+                <a href="@Url.Action("Login", "User")" class="btn btn-primary w-100 text-center">Back to Login</a>
+
+            </div>
+            <div class="col-4">
+                <a href="@Url.Action("Register", "User")" class="btn btn-danger w-100 text-center">Register</a>
+            </div>
+            <div class="col-4">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-secondary w-100 text-center">Back to Home</a>
+            </div>
         </div>
-        <div class="col-4">
-        <a href="@Url.Action("Register", "User")" class="btn btn-danger w-100 text-center">Register</a>
-        </div>
-        <div class="col-4">
-        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary w-100 text-center">Back to Home</a>
-        </div>
-    </div>
+    </div>    
 </div>
 

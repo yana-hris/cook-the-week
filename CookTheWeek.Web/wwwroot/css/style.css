@@ -737,7 +737,8 @@ html .not-finished {
   width: 100%;
   height: auto;
   overflow: hidden;
-  border: 1px solid var(--bs-primary);
+  /*border: 1px solid var(--bs-primary);*/
+  border: none;
   box-shadow: 0 0.3rem 0.6rem rgba(46, 105, 48, 0.03);
   transition: all 0.4s;
 }
@@ -956,6 +957,9 @@ html .not-finished {
 }
 [data-bs-theme=dark] .card {
   border: 1px solid var(--bs-primary) !important;
+}
+[data-bs-theme=dark] .card.recipe-card {
+  border: none !important;
 }
 [data-bs-theme=dark] .left-pill {
   border-color: var(--bs-success) !important;

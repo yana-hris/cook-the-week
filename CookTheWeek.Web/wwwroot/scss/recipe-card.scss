@@ -16,7 +16,8 @@
         width: 100%;
         height: auto;
         overflow: hidden;
-        border: 1px solid var(--bs-primary);
+        /*border: 1px solid var(--bs-primary);*/
+        border: none;
         box-shadow: 0 0.3rem 0.6rem rgba(46,105,48, 0.03);
         transition: all 0.4s;
 
