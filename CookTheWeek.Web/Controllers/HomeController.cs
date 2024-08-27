@@ -60,6 +60,11 @@ namespace CookTheWeek.Web.Controllers
             return View();
         }
 
+        public IActionResult CookiePolicy()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult HowItWorks()
         {

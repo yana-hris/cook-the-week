@@ -1,0 +1,51 @@
+﻿@model RegisterFormModel
+
+@{
+    ViewData["Title"] = "Cookies Policy";
+
+    var headingModel = new PageHeadingViewModel
+    {
+        Subheading = ViewData["Title"]!.ToString(),
+    };
+}
+
+<div class="pb-5 list-container">
+    <partial name="_HeadingPartial" model="headingModel" />
+
+    <section>
+        <h3 class="text-uppercase">What Are Cookies?</h3>
+        <p>
+            Cookies are small text files that are stored on your device when you visit our website. They are widely used to make websites work more efficiently, as well as to provide information to the site owners. At CookTheWeek, we use cookies for various essential functions, including security, user authentication, and tracking user activity on our site.
+        </p>
+    </section>
+
+    <section>
+        <h3 class="text-uppercase">Types of Cookies We Use</h3>
+        <h5>1. Essential Security Cookies</h5>
+        <p>We use cookies that are essential for the security and integrity of our website. These cookies are used by our ASP.NET Identity system to ensure that your sessions remain secure. They help protect your account from unauthorized access by verifying your identity when you log in and ensuring that your session is not hijacked during your visit.</p>
+        <h5>2. Authentication Cookies</h5>
+        <p>Our website uses cookies to manage user sessions. When you log in to CookTheWeek, either directly or through external services like Facebook or Google, cookies are used to remember your login session, so you don’t have to re-enter your credentials each time you navigate through our site. These cookies only store necessary information such as your username (or name) and email address obtained during the login process.</p>
+        <h5>3. Tracking and Analytics Cookies</h5>
+        <p>To improve our services and enhance your user experience, we use cookies to track how users interact with our site. These cookies allow us to monitor the number of active users on the site, analyze traffic patterns, and understand user behavior. The data collected is used solely for internal purposes, helping us to optimize the functionality and content of our website.</p>
+
+    </section>
+
+    <section>
+        <h3 class="text-uppercase">Managing Cookies</h3>
+        <p>You can manage or delete cookies through your browser settings. Each browser provides different ways to configure your settings. If you disable cookies, please be aware that some parts of our website may not function correctly, especially those requiring authentication or maintaining secure sessions.</p>
+    </section>
+
+    <section>
+        <h3 class="text-uppercase">Consent</h3>
+        <p>By using our website, you consent to the placement of these cookies on your device. If you prefer not to accept cookies, you can adjust your browser settings accordingly, but this may affect your ability to use some features of our site.</p>
+    </section>
+
+    <section>
+        <h3 class="text-uppercase">Contact Us</h3>
+        <p>
+            If you have any questions or concerns about our use of cookies, please contact us at support@cooktheweek.com.
+
+        </p>
+    </section>
+
+</div>
