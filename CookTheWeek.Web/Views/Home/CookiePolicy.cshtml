@@ -1,11 +1,11 @@
-﻿@model RegisterFormModel
-
+﻿@using static CookTheWeek.Common.GeneralApplicationConstants
 @{
     ViewData["Title"] = "Cookies Policy";
 
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
+        HeadingSecondary = $"Last updated: [{CookiePolicyLastUpdateDateString}]"
     };
 }
 
@@ -21,12 +21,15 @@
 
     <section>
         <h3 class="text-uppercase">Types of Cookies We Use</h3>
-        <h5>1. Essential Security Cookies</h5>
+        <h4>1. Essential Security Cookies</h4>
         <p>We use cookies that are essential for the security and integrity of our website. These cookies are used by our ASP.NET Identity system to ensure that your sessions remain secure. They help protect your account from unauthorized access by verifying your identity when you log in and ensuring that your session is not hijacked during your visit.</p>
-        <h5>2. Authentication Cookies</h5>
+        <h4>2. Authentication Cookies</h4>
         <p>Our website uses cookies to manage user sessions. When you log in to CookTheWeek, either directly or through external services like Facebook or Google, cookies are used to remember your login session, so you don’t have to re-enter your credentials each time you navigate through our site. These cookies only store necessary information such as your username (or name) and email address obtained during the login process.</p>
-        <h5>3. Tracking and Analytics Cookies</h5>
-        <p>To improve our services and enhance your user experience, we use cookies to track how users interact with our site. These cookies allow us to monitor the number of active users on the site, analyze traffic patterns, and understand user behavior. The data collected is used solely for internal purposes, helping us to optimize the functionality and content of our website.</p>
+        <h4>3. Tracking and Analytics Cookies</h4>
+        <p>To improve our services and enhance your user experience, we use cookies to track how users interact with our site. These cookies allow us to monitor the number of active users on the site, analyze traffic patterns, and understand user behavior.</p>
+        <p>
+            One of the cookies we use is called "IsOnline"". This cookie is used exclusively by administrators to monitor the activity status of users on the website. The data collected is used solely for internal purposes by our administrative team, helping us to optimize the functionality and content of our website. This information is not shared with any third parties and is used strictly for maintaining and improving the website's performance.
+        </p>
 
     </section>
 

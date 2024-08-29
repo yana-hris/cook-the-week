@@ -4,8 +4,6 @@ namespace CookTheWeek.Web
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Authentication.Google; 
 
     using Data;
     using Data.Models;
@@ -18,8 +16,6 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using Newtonsoft.Json.Serialization;
-    using System.Security.Claims;
-    using Microsoft.Extensions.Options;
 
     public class Program
     {
@@ -96,7 +92,16 @@ namespace CookTheWeek.Web
             {                
                 cfg.LoginPath = "/User/Login";
                 cfg.AccessDeniedPath = "/Home/Error/401";
+
             });
+           
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.Lax;
+                options.ConsentCookieValue = "true";
+            });
+
 
             builder.Services.AddLogging(options =>
             {
@@ -140,6 +145,7 @@ namespace CookTheWeek.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             // CORS middleware should be placed before routing middleware
             //app.UseCors("DevelopmentCorsPolicy");

@@ -37,11 +37,12 @@
         </script>
     }
 </head>
-<body>
+<body>    
     <partial name="_NotificationsPartial" />
     <partial name="_LoginPartial" />
     <partial name="_ThemeSwitcherPartial" />
-    <div id="main-container">
+    <partial name="_CookieConsentPartial" />
+    <div id="main-container">       
             @RenderBody()
     </div>
     <footer class="text-center bg-dark fixed-bottom p-1 no-print">

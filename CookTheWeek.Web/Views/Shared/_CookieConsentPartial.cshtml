@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = !consentFeature?.CanTrack ?? false;
+    //var cookieString = consentFeature?.CreateConsentCookie();
+    var cookieStringForAll = consentFeature?.CreateConsentCookie(); // Cookie string for "Accept All"
+}
+
+
+@if (showBanner)
+{
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        <div class="d-flex flex-column gap-3 align-items-center justify-content-between">
+            <h3><span><i class="fa-solid fa-cookie-bite"></i></span>
+                We use cookies
+            </h3>
+            <p>
+                Many are necessary to operate the website and its functions. Others are for statistical purposes. 
+            </p>
+            <p>
+                With the decision <strong>"Only accept essential cookies"</strong> we will respect your privacy and will not set cookies that aren`t necessary for the operation of the site. <a asp-page="/Home/CookiePolicy">Learn More</a>.
+            </p>
+
+            <button id="acceptAll" type="button" class="btn btn-primary w-100 text-center" >
+                <span aria-hidden="true">Accept All</span>
+            </button>
+            <button id="acceptEssential" type="button" class="btn btn-outline-primary w-100 text-center">
+                <span aria-hidden="true">Only accept essential cookies</span>
+            </button>
+
+        </div>
+        
+    </div>
+    <script>
+        (function () {
+            debugger;
+            var acceptAllButton = document.getElementById("acceptAll");
+            var acceptEssentialButton = document.getElementById("acceptEssential");
+
+            acceptAllButton.addEventListener("click", function () {
+                document.cookie = "@cookieStringForAll";               
+                
+            });
+
+            document.getElementById("cookieConsent").style.display = "none";
+            
+        })();
+    </script>
+}
