@@ -336,6 +336,9 @@
             Recipe recipeToDelete = await this.dbContext
                 .Recipes
                 .Include(r => r.RecipesIngredients)
+                .Include(r => r.Steps)
+                .Include(r => r.FavouriteRecipes)
+                .Include(r => r.Meals)
                 .Where(r => r.Id.ToString() == id)
                 .FirstAsync();
             

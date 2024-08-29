@@ -196,15 +196,38 @@
                 <div class="buttons">
                     <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary card-btn-width text-center" type="button">
                         Edit
-                    </a><a asp-area="" asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger text-center card-btn-width" type="button">
-                        Delete
                     </a>
+                    <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-recipe-id="@Model.Id" class="btn btn-danger text-center card-btn-width" type="button">
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
         }       
     </div>
     <partial name="_BuildBtnPartial" />
+    <!-- Modal HTML -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                @* <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div> *@
+                <div class="modal-body d-flex flex-column aling-items-center justify-content-center gap-2">
+                    <span><i class="fa-solid fa-triangle-exclamation"></i></span>
+                    <h2>Are you sure?</h2>
+                    <p>This action cannot be undone. </p>       
+                    <div class="buttons d-flex flex-column gap-2">
+                        <a asp-area="" asp-controller="Recipe" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" class="btn btn-danger w-100 text-center">
+                            Delete
+                        </a>
+                        <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>                        
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
 </div>
 @section Scripts {
     <script>

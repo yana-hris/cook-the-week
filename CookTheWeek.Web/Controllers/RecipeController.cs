@@ -422,44 +422,44 @@
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(string id)
-        {
-            bool exists = await this.recipeService.ExistsByIdAsync(id);
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    bool exists = await this.recipeService.ExistsByIdAsync(id);
 
-            string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
+        //    string userId = User.GetId();
+        //    bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
 
-            if (!exists)
-            {
-                return NotFound();
-            }
+        //    if (!exists)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (!isOwner && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
-                return RedirectToAction("Details", "Recipe", new { id });
-            }
+        //    if (!isOwner && !User.IsAdmin())
+        //    {
+        //        TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
+        //        return RedirectToAction("Details", "Recipe", new { id });
+        //    }
 
-            // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
-            if (await this.recipeService.IsIncludedInMealPlans(id))
-            {
-                TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
-            }
+        //    // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
+        //    if (await this.recipeService.IsIncludedInMealPlans(id))
+        //    {
+        //        TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
+        //    }
 
-            try
-            {
-                RecipeDeleteViewModel model = await this.recipeService.GetForDeleteByIdAsync(id);
+        //    try
+        //    {
+        //        RecipeDeleteViewModel model = await this.recipeService.GetForDeleteByIdAsync(id);
 
-                return View(model);
-            }
-            catch (Exception)
-            {
-                logger.LogError($"Delete of Recipe with id {id} unsuccessful");
-                return BadRequest();
-            }
+        //        return View(model);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        logger.LogError($"Delete of Recipe with id {id} unsuccessful");
+        //        return BadRequest();
+        //    }
 
-        }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -479,6 +479,12 @@
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
                 return RedirectToAction("Details", "Recipe", new { id });
+            }
+
+            // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
+            if (await this.recipeService.IsIncludedInMealPlans(id))
+            {
+                TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
             }
 
             try
