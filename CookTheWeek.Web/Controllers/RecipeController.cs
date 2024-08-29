@@ -406,6 +406,12 @@
                 RecipeMineViewModel model = new RecipeMineViewModel();
                 model.FavouriteRecipes = await this.favouriteRecipeService.AllByUserIdAsync(userId);
                 model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
+
+                if(!model.OwnedRecipes.Any() && !model.FavouriteRecipes.Any())
+                {
+                    return View("None");
+                }
+
                 return View(model);
             }
             catch (Exception)

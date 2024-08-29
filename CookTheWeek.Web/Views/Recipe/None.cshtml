@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "No Recipes";
+}
+
+<div id="recipes-mine-none" class="image-overlay">
+    <div class="form-container info-message text-center">
+
+        <h2 class="mb-1">It's a Shame!</h2>
+        <h5 class="text-uppercase mb-4">You have no Recipes yet</h5>
+        <p class="fw-bold mb-1">
+            We are thrilled to have you here! Ready to embark on your culinary journey?
+        </p>
+
+        <p>
+            Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="flex-nowrap custom-link">All Recipes</a> section and add the ones you like to your favourites
+            or even add <strong>your own recipes</strong> to make your future meal plans truly unique and tailored to your taste.
+        </p>
+        <p class="fw-bold mb-0">Start now by browsing our Recipes section or add your first recipe now!</p>
+        <div class="row g-2 my-2 mb-4">
+            <div class="col-6">
+                <a class="btn btn-secondary w-100 text-center" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a>
+            </div>
+            <div class="col-6">
+                <a class="btn btn-primary w-100 text-center" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a>
+            </div>
+        </div>
+
+    </div>
+</div>

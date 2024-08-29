@@ -37,19 +37,19 @@
     </div>
     <script>
         (function () {
-            debugger;
+            
             var acceptAllButton = document.getElementById("acceptAll");
             var declineButton = document.getElementById("declineAnaliticalCookies");
 
             acceptAllButton.addEventListener("click", function () {
-                debugger;
+                
                 document.cookie = "@cookieName";
                 document.getElementById("cookieConsent").style.display = "none";
                 
             });            
 
             declineButton.addEventListener("click", function () {
-                debugger;                
+                             
                 const days = 30; // set expiration of the cookie to 30 days;
                 
                 let date = new Date();
