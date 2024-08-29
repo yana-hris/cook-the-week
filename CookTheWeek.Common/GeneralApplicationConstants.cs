@@ -7,6 +7,8 @@
         public const string TermsOfUseLastUpdateDateString = "27/08/2024";
         public const string CookiePolicyLastUpdateDateString = "27/08/2024";
 
+        public const string CookieConsentName = ".AspNet.Consent";
+
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
         public const int DefaultIngredientsPerPage = 20;

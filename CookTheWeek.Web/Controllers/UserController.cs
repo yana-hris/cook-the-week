@@ -212,7 +212,13 @@
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+
+            // Delete IsOnline cookie from memoryCache 
             this.memoryCache.Remove(UsersCacheKey);
+
+            // Delete the .AspNet.Consent cookie
+            HttpContext.Response.Cookies.Delete(CookieConsentName);
+
             return RedirectToAction("Index", "Home");
         }
 

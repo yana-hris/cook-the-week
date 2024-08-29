@@ -1,14 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Http.Features
-
+@using static CookTheWeek.Common.GeneralApplicationConstants
 @{
     var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
-    var showBanner = !consentFeature?.CanTrack ?? false;
-    //var cookieString = consentFeature?.CreateConsentCookie();
-    var cookieStringForAll = consentFeature?.CreateConsentCookie(); // Cookie string for "Accept All"
+    var consentCookie = Context.Request.Cookies[CookieConsentName];
+    bool cookieExists = !string.IsNullOrEmpty(consentCookie);
+    var cookieName = "";
+
+    if (!cookieExists)
+    {
+        cookieName = consentFeature?.CreateConsentCookie(); // Cookie string for "Accept All"
+    }   
 }
 
 
-@if (showBanner)
+@if (!cookieExists)
 {
     <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
         <div class="d-flex flex-column gap-3 align-items-center justify-content-between">
@@ -25,26 +30,37 @@
             <button id="acceptAll" type="button" class="btn btn-primary w-100 text-center" >
                 <span aria-hidden="true">Accept All</span>
             </button>
-            <button id="acceptEssential" type="button" class="btn btn-outline-primary w-100 text-center">
+            <button id="declineAnaliticalCookies" type="button" class="btn btn-outline-primary w-100 text-center">
                 <span aria-hidden="true">Only accept essential cookies</span>
             </button>
-
-        </div>
-        
+        </div>        
     </div>
     <script>
         (function () {
             debugger;
             var acceptAllButton = document.getElementById("acceptAll");
-            var acceptEssentialButton = document.getElementById("acceptEssential");
+            var declineButton = document.getElementById("declineAnaliticalCookies");
 
             acceptAllButton.addEventListener("click", function () {
-                document.cookie = "@cookieStringForAll";               
+                debugger;
+                document.cookie = "@cookieName";
+                document.getElementById("cookieConsent").style.display = "none";
                 
+            });            
+
+            declineButton.addEventListener("click", function () {
+                debugger;                
+                const days = 30; // set expiration of the cookie to 30 days;
+                
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Calculate the expiration time
+                var expires = date.toUTCString(); // Format the expiration date
+
+                document.cookie = `${"@CookieConsentName"}=false; expires=${expires}; path=/`;
+                
+                document.getElementById("cookieConsent").style.display = "none";
             });
 
-            document.getElementById("cookieConsent").style.display = "none";
-            
         })();
     </script>
 }
