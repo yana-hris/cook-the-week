@@ -17,6 +17,7 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
+    using CookTheWeek.Services.Data;
 
     [Authorize]
     public class RecipeController : Controller
@@ -84,23 +85,8 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            RecipeAddFormModel model = new RecipeAddFormModel()
-            {
-                RecipeIngredients = new List<RecipeIngredientFormModel>()
-                {
-                    new RecipeIngredientFormModel()
-                    {
-                        Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
-                        Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync()
-                    }
-                },
-                Steps = new List<StepFormModel>()
-                {
-                    new StepFormModel()
-                },
-                Categories = await this.categoryService.AllRecipeCategoriesAsync(),
-                ServingsOptions = ServingsOptions,
-            };
+            RecipeAddFormModel model = new RecipeAddFormModel();
+            await PopulateModelDataAsync(model);            
 
             return View(model);
         }
@@ -108,81 +94,16 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model)
         {
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-
-            if (!model.RecipeIngredients.Any())
-            {
-                model.RecipeIngredients = new List<RecipeIngredientFormModel>()
-                {
-                    new RecipeIngredientFormModel()
-                };
-            }
-
-            if (!model.Steps.Any())
-            {
-                model.Steps = new List<StepFormModel>()
-                {
-                    new StepFormModel()
-                };
-            }
-
-            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
-            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId != default)
-            {
-                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
-                if (!categoryExists)
-                {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
-                }
-            }
-
-            foreach (var ingredient in model.RecipeIngredients)
-            {
-                if (ingredient.Name != default && !await IsIngredientValid(ingredient.Name))
-                {
-                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
-                }
-                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
-                }
-                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
-                }
-            }
+            await PopulateModelDataAsync(model);
+            await ValidateCategoryAsync(model);
+            await ValidateIngredientsAsync(model);
 
             if (!ModelState.IsValid)
             {
-                // Collect server-side validation errors
-                var serverErrors = ModelState
-                    .Where(ms => ms.Value.Errors.Count > 0)
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                    );
-
-                // Serialize the errors to JSON and store them in TempData
-                TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
-
+                StoreServerErrorsInTempData();
                 return View(model);
             }
-            // Sanitize all string input
-            model.Title = sanitizer.SanitizeInput(model.Title);
-            if (model.Description != null)
-            {
-                model.Description = sanitizer.SanitizeInput(model.Description);
-            }
-            if (model.Steps.Any())
-            {
-                foreach (var step in model.Steps)
-                {
-                    step.Description = sanitizer.SanitizeInput(step.Description);
-                }
-            }
+            SanitizeModelInputFields(model);
 
             try
             {
@@ -192,12 +113,14 @@
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
                 return RedirectToAction("Details", new { id = recipeId });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.LogError("Reicpe was not added!");
+                logger.LogError(ex, "Reicpe was not added!");
                 return BadRequest();
             }
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
@@ -422,45 +345,6 @@
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    bool exists = await this.recipeService.ExistsByIdAsync(id);
-
-        //    string userId = User.GetId();
-        //    bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
-
-        //    if (!exists)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (!isOwner && !User.IsAdmin())
-        //    {
-        //        TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
-        //        return RedirectToAction("Details", "Recipe", new { id });
-        //    }
-
-        //    // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
-        //    if (await this.recipeService.IsIncludedInMealPlans(id))
-        //    {
-        //        TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
-        //    }
-
-        //    try
-        //    {
-        //        RecipeDeleteViewModel model = await this.recipeService.GetForDeleteByIdAsync(id);
-
-        //        return View(model);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        logger.LogError($"Delete of Recipe with id {id} unsuccessful");
-        //        return BadRequest();
-        //    }
-
-        //}
-
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -511,5 +395,95 @@
             return false;
         }
 
+        private async Task PopulateModelDataAsync(RecipeAddFormModel model)
+        {
+            model.Categories = await categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+
+            await EnsureIngredientsAndStepsExist(model);
+
+            var firstIngredient = model.RecipeIngredients.First();
+            firstIngredient.Measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            firstIngredient.Specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+                       
+        }
+        private async Task EnsureIngredientsAndStepsExist(RecipeAddFormModel model)
+        {
+            if (!model.RecipeIngredients.Any())
+            {
+                model.RecipeIngredients = new List<RecipeIngredientFormModel>()
+                {
+                    new RecipeIngredientFormModel()
+                };
+            }
+
+            if (!model.Steps.Any())
+            {
+                model.Steps = new List<StepFormModel>()
+                {
+                    new StepFormModel()
+                };
+            }
+        }
+
+        private async Task ValidateCategoryAsync(RecipeAddFormModel model)
+        {
+            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId != default)
+            {
+                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
+                if (!categoryExists)
+                {
+                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
+                }
+            }
+        }
+
+        private async Task ValidateIngredientsAsync(RecipeAddFormModel model)
+        {
+            foreach (var ingredient in model.RecipeIngredients)
+            {
+                if (ingredient.Name != default && !await IsIngredientValid(ingredient.Name))
+                {
+                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
+                }
+                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
+                {
+                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
+                }
+                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
+                {
+                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
+                }
+            }
+        }
+
+        private void StoreServerErrorsInTempData()
+        {
+            // Collect server-side validation errors
+            var serverErrors = ModelState
+                .Where(ms => ms.Value.Errors.Any())
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+
+            // Serialize the errors to JSON and store them in TempData
+            TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
+        }
+
+        private void SanitizeModelInputFields(RecipeAddFormModel model)
+        {
+            model.Title = sanitizer.SanitizeInput(model.Title);
+            if (!string.IsNullOrEmpty(model.Description))
+            {
+                model.Description = sanitizer.SanitizeInput(model.Description);
+            }
+
+            foreach (var step in model.Steps)
+            {
+                step.Description = sanitizer.SanitizeInput(step.Description);
+            }
+
+        }
     }
 }

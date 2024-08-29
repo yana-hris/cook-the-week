@@ -15,7 +15,6 @@
         Task<bool> ExistsByIdAsync(string id);
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
         Task EditAsync(RecipeEditFormModel model);
-        Task<RecipeDeleteViewModel> GetForDeleteByIdAsync(string id);
         Task DeleteByIdAsync(string id);
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserAsync(string userId);
         Task<int> MineCountAsync(string userId);         
