@@ -1,0 +1,31 @@
+﻿@using static CookTheWeek.Common.GeneralApplicationConstants
+
+<footer class="text-center bg-dark p-1 no-print">
+    <div class="d-flex flex-row gap-3 align-items-center justify-content-center mb-4">
+        <div class="text-center footer-item-style"><a href="/Home/TermsOfUse">Terms Of Use</a></div>
+        <div class="text-center footer-item-style"><a href="/Home/Privacy">Privacy Policy</a></div>
+        <div class="text-center footer-item-style"><a href="/Home/CookiePolicy">Cookie Policy</a></div>
+        <div class="text-center footer-item-style"><a href="/Home/About">About</a></div>
+        <div class="text-center footer-item-style"><a href="/Home/HowItWorks">How It Works</a></div>
+        @{
+            if(!string.IsNullOrEmpty(User.GetId()))
+            {
+                <div class="text-center"><a href="/User/Profile">Profile</a></div>
+            }
+            else
+            {
+                <div class="text-center"><a href="/User/Register">Register</a></div>
+            }
+        }
+        
+    </div>
+    <div class="text-center">
+        <p class="small text-white mb-0">
+            CookTheWeek &copy; Meal Planning App @ReleaseYear
+            @if (DateTime.UtcNow.Year != ReleaseYear)
+            {
+                <span> - @DateTime.UtcNow.Year</span>
+            }
+        </p>
+    </div>
+</footer>   

@@ -45,17 +45,7 @@
     <div id="main-container">       
             @RenderBody()
     </div>
-    <footer class="text-center bg-dark fixed-bottom p-1 no-print">
-        <div class="container text-white">
-            <p class="text-light mb-0">
-                CookTheWeek &copy; Meal Planning App @ReleaseYear
-                @if (DateTime.UtcNow.Year != ReleaseYear)
-                {
-                    <span> - @DateTime.UtcNow.Year</span>
-                }
-            </p>
-        </div>
-    </footer>   
+    <partial name="_FooterPartial" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
