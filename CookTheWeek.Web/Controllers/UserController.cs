@@ -15,7 +15,6 @@
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Services.Data.Interfaces;
-    using Microsoft.AspNetCore.Authentication.Google;
     using System.Security.Claims;
 
     [AllowAnonymous]
@@ -227,7 +226,12 @@
         public async Task<IActionResult> Profile()
         {
             string userId = User.GetId();
-            var model = await this.userService.GetProfile(userId);
+            UserProfileViewModel? model = await this.userService.GetProfile(userId);
+
+            if (model == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
 
             return View(model);
         }
@@ -239,13 +243,7 @@
             return View();
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult SetPassword()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)
@@ -256,27 +254,77 @@
             {
                 return View(model);
             }
-            if (userId != String.Empty)
+            
+            var result = await userService.ChangePasswordAsync(userId, model);
+
+            if (result.Succeeded)
             {
-                var result = await userService.ChangePasswordAsync(userId, model);
-
-                if (result.Succeeded)
-                {
-                    TempData[SuccessMessage] = "Your password has been changed successfully.";
-                    return RedirectToAction("Profile");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                TempData[SuccessMessage] = "Your password has been changed successfully.";
+                return RedirectToAction("Profile");
             }
 
-            return View(model);
+            // Check if the error indicates that the user was not found
+            var userNotFoundError = result.Errors.FirstOrDefault(e => e.Description == UserNotFoundErrorMessage);
+            if (userNotFoundError != null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+
+            // Handle other errors, such as password change failure
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            // Return BadRequest if there are errors in setting the password
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult SetPassword()
+        {
+            return View();
         }
 
         [HttpPost]
         [Authorize]
+        public async Task<IActionResult> SetPassword(SetPasswordFormModel model)
+        {
+            string userId = User.GetId();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await userService.SetPasswordAsync(userId, model);
+
+            if (result.Succeeded)
+            {
+                TempData[SuccessMessage] = "Your password has been set successfully.";
+                return RedirectToAction("Profile");
+            }
+
+            // Check if the error indicates that the user was not found
+            var userNotFoundError = result.Errors.FirstOrDefault(e => e.Description == UserNotFoundErrorMessage);
+            if (userNotFoundError != null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+
+            // Handle other errors, such as password change failure
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            // Return BadRequest if there are errors in setting the password
+            return BadRequest(ModelState);
+        }
+        
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> DeleteAccount()
         {
             var userId = userManager.GetUserId(User);

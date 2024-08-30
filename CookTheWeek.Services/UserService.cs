@@ -50,16 +50,26 @@
                           mp.OwnerId.ToString() == userId);
         }
 
-        public async Task<UserProfileViewModel> GetProfile(string userId)
+        public async Task<UserProfileViewModel?> GetProfile(string userId)
         {
-            return await this.dbContext
+            var user = await this.dbContext
                 .Users
                 .Where(u => u.Id.ToString().ToLower() == userId.ToLower())
-                .Select(u => new UserProfileViewModel()
-                {
-                    UserName = u.UserName!,
-                    Email = u.Email!
-                }).FirstAsync();
+                .FirstOrDefaultAsync();            
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            bool hasPassword = hasPassword = await userManager.HasPasswordAsync(user);
+
+            return new UserProfileViewModel
+            {
+                UserName = user.UserName!,
+                Email = user.Email!,
+                HasPassword = hasPassword
+            };
         }
         public async Task DeleteUserAsync(string userId)
         {
@@ -104,7 +114,31 @@
         {            
             var user = await userManager.FindByIdAsync(userId);
 
-            return await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (user == null)
+            {
+                // Returning an error result if the user is not found
+                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
+            }
+
+
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                // Returning an error result if the user is not found
+                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
+            }
+
+            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
+
+            return result;
         }
     }
 }

@@ -15,12 +15,19 @@
         <img src="~/img/micheile-henderson-3YHXTs1CxFI-unsplash-resize-smaller.jpg"
                 alt="Prepared Meal Image"
                 class="card-img img-fluid" />
-        <div class="container profile-container d-block mb-4">
-            <div class="container info-container py-3 mb-4">                
-                <h5>
+        <div class="container profile-container d-block mb-3">
+            <div class="container info-container pt-2 pb-2">                
+                <h5 class="text-uppercase">
                     Manage User data
                 </h5>
-                <hr class="mb-3" />
+                @if(!Model.HasPassword)
+                {
+                    <p class="small text-danger">You don't have a password set up for your account. Click the button below to create one.</p>
+                }
+                else
+                {
+                    <p class="small">You have a password set up for your account.</p>
+                }
                 <div class="row">
                     <div class="col-md-6 my-2">                        
                         <h5 class="text-transform">
@@ -35,30 +42,56 @@
                         <p>@Model.Email</p>                       
                     </div>
                     <div class="col-6 my-2">
-                        <a href="@Url.Action("ChangePassword", "User")" class="btn btn-primary w-100 text-center">Change Password</a>
+                        @if(Model.HasPassword)
+                        {
+                            <a href="@Url.Action("ChangePassword", "User")" class="btn btn-primary w-100 text-center">Change Password</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("SetPassword", "User")" class="btn btn-primary w-100 text-center">Set Password</a>
+                        }
+
                     </div>
                     <div class="col-6 my-2">
-                        <a href="@Url.Action("DeleteAccount", "User")" class="btn btn-outline-danger w-100 text-center">Delete Account</a>
+                        <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-outline-danger text-center w-100 text-center" type="button">
+                            Delete Account
+                        </button>
+                       @*  <a href="@Url.Action("DeleteAccount", "User")" class="btn btn-outline-danger w-100 text-center">Delete Account</a> *@
                     </div>
                 </div>
 
             </div>
-            <div class="container actions-container py-3">                
+            <div class="container actions-container py-2">                
                 <h5>
                     Explore User collections
                 </h5>
-                <hr class="mb-3"/>
                 <div class="row py-2">                    
                     <div class="col-6 mb-4 d-block">
                         <a href="@Url.Action("Mine", "Recipe")" class="btn btn-primary w-100 text-center">Your Recipes</a>
                     </div>
                     <div class="col-6 mb-4">
-                        <a href="@Url.Action("Mine", "MealPlan")" class="btn btn-secondary w-100 text-center">Your Meal Plans</a>
+                        <a href="@Url.Action("Mine", "MealPlan")" class="btn btn-light w-100 text-center">Your Meal Plans</a>
                     </div>
                 </div>                
 
             </div>
         </div>
          
+    </div>
+    <!-- Modal HTML -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body d-flex flex-column aling-items-center justify-content-center gap-2">
+                    <span><i class="fa-solid fa-triangle-exclamation"></i></span>
+                    <h2>Are you sure you want to delete your account?</h2>
+                    <p>This action is permanent and cannot be undone. Deleting your account will remove all your data and any associated content. </p>
+                    <div class="buttons d-flex flex-column gap-2">
+                        <a asp-area="" asp-controller="User" asp-action="DeleteAccount" class="btn btn-outline-danger w-100 text-center">Delete</a>
+                        <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
