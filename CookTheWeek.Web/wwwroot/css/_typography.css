@@ -119,29 +119,50 @@ html body #main-container .heading-secondary {
 html body #main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
+html body nav.fixed-bottom {
+  padding-bottom: 18px;
+}
 html body footer {
   position: relative;
   z-index: 5000;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 13px;
 }
-html body footer .footer-item-style {
-  border-right: 1px solid var(--bs-white);
-  padding-right: 1rem;
+html body footer #links-container {
+  flex-direction: column;
 }
-html body footer a {
+html body footer #links-container .footer-padding {
+  padding: 1rem;
+}
+html body footer #links-container .footer-border {
+  border: none;
+}
+html body footer #links-container a {
   text-decoration: none;
   color: var(--bs-white);
   cursor: pointer;
 }
-html body footer a:hover {
+html body footer #links-container a:hover {
   color: var(--bs-light) !important;
   text-decoration: underline;
 }
-html body nav.fixed-bottom {
-  padding-bottom: 18px;
-}
 
+@media (min-width: 560px) {
+  footer #links-container {
+    flex-direction: row !important;
+  }
+  footer #links-container .footer-border {
+    border-right: 1px solid var(--bs-white) !important;
+  }
+  footer #links-container .footer-padding {
+    padding: 0 1rem !important;
+  }
+  .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+  }
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px !important;
@@ -151,6 +172,17 @@ html body nav.fixed-bottom {
   }
   html body #main-container span.input-group-text {
     font-size: 16px !important;
+  }
+}
+@media (min-width: 811px) {
+  footer {
+    font-size: 14px;
+  }
+  footer #links-container {
+    flex-direction: row !important;
+  }
+  footer #links-container .footer-padding {
+    padding: 0 2rem !important;
   }
 }
 @media (min-width: 1200px) {

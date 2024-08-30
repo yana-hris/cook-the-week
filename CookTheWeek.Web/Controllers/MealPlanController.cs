@@ -220,7 +220,7 @@ namespace CookTheWeek.Web.Controllers
                 }
                 else
                 {
-                    return View("None");
+                    return RedirectToAction("None");
                 }                
             }
             catch (Exception)
@@ -228,6 +228,12 @@ namespace CookTheWeek.Web.Controllers
                 logger.LogError("Mine Meal Plans unsuccessfully loaded to View Model");
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> None()
+        {
+            return View();
         }
 
         [HttpGet]

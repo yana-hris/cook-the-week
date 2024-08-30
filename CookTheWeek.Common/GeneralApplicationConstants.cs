@@ -13,6 +13,22 @@
         public const int DefaultRecipesPerPage = 8;
         public const int DefaultIngredientsPerPage = 20;
 
+        public static string[] FixedFooterActions =
+            [
+                "Index",
+                "Error",
+                "None",
+                "Details",
+                "Add",
+                "Edit",
+                "Login",
+                "Registert",
+                "Profile",
+                "ChangePassword",
+                "AccessDeniedPathInfo",
+            ];
+
+
         public const int RecipeCardTitleMaxLength = 50;
         public const int RecipeCardDescriptionMaxLength = 113;
 

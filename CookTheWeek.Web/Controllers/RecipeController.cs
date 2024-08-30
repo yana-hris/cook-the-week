@@ -332,7 +332,7 @@
 
                 if(!model.OwnedRecipes.Any() && !model.FavouriteRecipes.Any())
                 {
-                    return View("None");
+                    return RedirectToAction("None");
                 }
 
                 return View(model);
@@ -343,6 +343,12 @@
                 return BadRequest();
             }
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> None()
+        {
+            return View();
         }
 
         [HttpGet]
