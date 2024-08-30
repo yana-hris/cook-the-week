@@ -239,6 +239,13 @@
             return View();
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult SetPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)

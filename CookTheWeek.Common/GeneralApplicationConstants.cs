@@ -25,6 +25,7 @@
                 "Registert",
                 "Profile",
                 "ChangePassword",
+                "SetPassword",
                 "AccessDeniedPathInfo",
             ];
 
