@@ -15,11 +15,11 @@
         <img src="~/img/micheile-henderson-3YHXTs1CxFI-unsplash-resize-smaller.jpg"
                 alt="Prepared Meal Image"
                 class="card-img img-fluid" />
-        <div class="container profile-container d-block mb-3">
-            <div class="container info-container pt-2 pb-2">                
-                <h5 class="text-uppercase">
+        <div class="container profile-container d-flex flex-column align-items-center justify-content-between">
+            <div class="container info-container pb-2">                
+                <h4 class="form-heading text-uppercase">
                     Manage User data
-                </h5>
+                </h4>
                 @if(!Model.HasPassword)
                 {
                     <p class="small text-danger">You don't have a password set up for your account. Click the button below to create one.</p>

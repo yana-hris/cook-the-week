@@ -29,7 +29,7 @@
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 :root body .accent-heading {
   font-family: "Libre Baskerville", serif;
@@ -107,14 +107,14 @@ html body #main-container .subheading {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.65px;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 html body #main-container .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 html body #main-container .accent-heading {
   font-family: "Libre Baskerville", serif;

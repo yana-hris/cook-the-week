@@ -1,6 +1,5 @@
 ﻿.card-border-style, .card-custom-style-with-back-btn, #recipe-details-container .card, #meal-cook-container .card {
-  border: 1px solid var(--bs-primary);
-  box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
 .card-custom-style-with-back-btn, #recipe-details-container .card, #meal-cook-container .card {

@@ -30,7 +30,7 @@
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 :root body .accent-heading {
   font-family: "Libre Baskerville", serif;
@@ -108,14 +108,14 @@ html body #main-container .subheading {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.65px;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 html body #main-container .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 html body #main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
@@ -428,8 +428,7 @@ html body footer #links-container a:hover {
   }
 }
 .card-border-style, .form-container, .shopping-list-container, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
-  border: 1px solid var(--bs-primary);
-  box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
@@ -1397,8 +1396,7 @@ html .not-finished {
   }
 }
 .card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container, .shopping-list-container, .form-container {
-  border: 1px solid var(--bs-primary);
-  box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
@@ -1706,8 +1704,7 @@ html .not-finished {
   }
 }
 .card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, .shopping-list-container, .form-container, #recipe-details-container .card, #meal-cook-container .card {
-  border: 1px solid var(--bs-primary);
-  box-shadow: 10px 15px 20px 0.5rem rgba(46, 105, 48, 0.15);
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
@@ -1863,6 +1860,9 @@ html .not-finished {
     margin-top: 50px !important;
   }
 }
+#user-profile .card-container {
+  border: none !important;
+}
 #user-profile .card-img {
   width: 300px;
 }
@@ -1882,6 +1882,9 @@ html .not-finished {
     padding: 10px !important;
     margin-left: 0;
     align-self: flex-start;
+  }
+  #user-profile .card-container .profile-container .form-heading {
+    display: none;
   }
 }
 .image-overlay {
