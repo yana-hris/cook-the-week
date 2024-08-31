@@ -78,12 +78,10 @@
 
 
 window.onload = function () {    
-    var userId = currentUserId;
-    var buildBtnShouldBeRendered = isSpecificView(currentView);
-    
+    var buildBtnShouldBeRendered = isSpecificView(currentView);    
     if (buildBtnShouldBeRendered) {
-        if (userId) {
-            showOrHideBuildMealPlanBtn(userId); 
+        if (currentUserId) {
+            showOrHideBuildMealPlanBtn(); 
         }
         else {
             showOrHideBuildMealPlanBtn(null);
@@ -94,12 +92,11 @@ window.onload = function () {
 };
 
 function updateRecipeBtns() {
-    var userId = currentUserId;
-    let userMealPlans = getUserLocalStorage(userId) || [];
+    let userMealPlans = getUserLocalStorage() || [];
 
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .btn');
 
-    if (userHasMealPlans(userId)) {
+    if (userHasMealPlans()) {
         userMealPlans = JSON.parse(userMealPlans);
     }
 
@@ -157,8 +154,8 @@ function isIndexView(view) {
     return view === "Home Page";
 }
 
-function userHasMealPlans(userId) {
-    const userMealPlans = getUserLocalStorage(userId);
+function userHasMealPlans() {
+    const userMealPlans = getUserLocalStorage(currentUserId);
 
     // Check if user meal plans exist
     if (userMealPlans) {
@@ -177,10 +174,10 @@ function userHasMealPlans(userId) {
 }
 
 // Show or Hide Build Meal Plan Btn
-function showOrHideBuildMealPlanBtn(userId) {
+function showOrHideBuildMealPlanBtn() {
     var buildBtnContainer = document.getElementById('build-btn-container');    
 
-    if (userId !== null && userHasMealPlans(userId)) {
+    if (currentUserId !== null && userHasMealPlans()) {
         // Show the btn and attach event-listener for creating mealplan
         buildBtnContainer.style.display = "block";
         buildBtnContainer.addEventListener('click', (event) => buildMealPlan(event));
@@ -191,17 +188,17 @@ function showOrHideBuildMealPlanBtn(userId) {
     }
 }
 // Check if user has Local Storage Meal Plan:
-function getUserLocalStorage(userId) {
-    return localStorage.getItem(userId);
+function getUserLocalStorage() {
+    return localStorage.getItem(currentUserId);
 }
 
-function eraseUserLocalStorage(userId) {
-    localStorage.removeItem(userId);
+function eraseUserLocalStorage() {
+    localStorage.removeItem(currentUserId);
 }
 
 // Check if a Recipe is already added to User`s Meal Plan
-function isRecipeAddedToMealPlan(userId, recipeId) {
-    var userMealPlans = getUserLocalStorage(userId);
+function isRecipeAddedToMealPlan(recipeId) {
+    var userMealPlans = getUserLocalStorage();
 
     if (!userMealPlans) {
         return false;
@@ -219,8 +216,7 @@ const addRecipeToMealPlan = function(event) {
     event.preventDefault();
     event.stopPropagation();
     var recipeId = event.currentTarget.dataset.recipeid;
-    var userId = currentUserId;
-    let userMealPlans = getUserLocalStorage(userId);
+    let userMealPlans = getUserLocalStorage();
 
     // If the user doesn't have any meal plans yet, create an empty array
     if (!userMealPlans) {
@@ -243,9 +239,9 @@ const addRecipeToMealPlan = function(event) {
         return;
     }
     // Save the updated meal plans back to local storage
-    localStorage.setItem(userId, JSON.stringify(userMealPlans));
+    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
     toggleAddRemoveBtn(event.currentTarget);
-    showOrHideBuildMealPlanBtn(userId);
+    showOrHideBuildMealPlanBtn(currentUserId);
 }
 
 // Remove recipe from Meal Plan
@@ -254,8 +250,7 @@ const removeRecipeFromMealPlan = function(event) {
     event.preventDefault();
     event.stopPropagation();
     var recipeId = event.currentTarget.dataset.recipeid;
-    var userId = currentUserId;
-    let userMealPlans = getUserLocalStorage(userId);
+    let userMealPlans = getUserLocalStorage();
 
     // If the user doesn't have any meal plans yet, return
     if (!userMealPlans) {
@@ -277,9 +272,9 @@ const removeRecipeFromMealPlan = function(event) {
         toastr.error(`This Recipe has not been added to your meal plan and cannot be removed`);
         return;
     }
-    localStorage.setItem(userId, JSON.stringify(userMealPlans));
+    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
     toggleAddRemoveBtn(event.currentTarget);
-    showOrHideBuildMealPlanBtn(userId);
+    showOrHideBuildMealPlanBtn();
 }
 
 function toggleAddRemoveBtn(btn) {
@@ -309,9 +304,8 @@ function toggleAddRemoveBtn(btn) {
 
 function buildMealPlan(event) {
     event.preventDefault();
-
-    const userId = currentUserId;
-    var userMealPlanList = JSON.parse(getUserLocalStorage(userId)) || [];
+    
+    var userMealPlanList = JSON.parse(getUserLocalStorage()) || [];
 
     if (userMealPlanList.length === 0) {
         toastr.error("Error Building Meal Plan!");
@@ -319,7 +313,7 @@ function buildMealPlan(event) {
     }
 
     var model = {
-        UserId: userId,
+        UserId: currentUserId,
         Meals: userMealPlanList.map(recipeId => ({ RecipeId: recipeId }))
     };
     
@@ -332,6 +326,7 @@ function buildMealPlan(event) {
         success: function (response, status, xhr) {
             // Check if a redirect is happening
             if (xhr.getResponseHeader('X-Redirect') != null) {
+                eraseUserLocalStorage();
                 window.location.href = xhr.getResponseHeader('X-Redirect');
             } else {
                 console.log('Success:', response);
