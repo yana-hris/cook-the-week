@@ -262,22 +262,26 @@
                 TempData[SuccessMessage] = "Your password has been changed successfully.";
                 return RedirectToAction("Profile");
             }
-
-            // Check if the error indicates that the user was not found
-            var userNotFoundError = result.Errors.FirstOrDefault(e => e.Description == UserNotFoundErrorMessage);
-            if (userNotFoundError != null)
-            {
-                return RedirectToAction("Error404", "Home");
-            }
-
-            // Handle other errors, such as password change failure
+           
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                if(error.Description == UserNotFoundErrorMessage)
+                {
+                    return RedirectToAction("Error404", "Home");
+                } 
+                else if(error.Description == IncorrectPasswordErrorMessage)
+                {
+                    ModelState.AddModelError(nameof(model.CurrentPassword), IncorrectPasswordErrorMessage);
+                    return View(model);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                    return BadRequest(ModelState);
+                }
             }
 
-            // Return BadRequest if there are errors in setting the password
-            return BadRequest(ModelState);
+            return View(model);
         }
 
         [HttpGet]
@@ -337,7 +341,7 @@
             await this.userService.DeleteUserAsync(userId);
             await this.signInManager.SignOutAsync();
 
-            // TODO: add AccountDeletedView and redirect the user to it
+            TempData[SuccessMessage] = "Your account has been deleted.";
             return RedirectToAction("Index", "Home");
         }
 

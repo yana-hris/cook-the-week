@@ -120,6 +120,13 @@
                 return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
             }
 
+            // Check if the current password matches
+            bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
+
+            if(!oldPasswordMatches)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = IncorrectPasswordErrorMessage });
+            }
 
             var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 

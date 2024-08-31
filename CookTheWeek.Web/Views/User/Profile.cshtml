@@ -87,7 +87,9 @@
                     <h2>Are you sure you want to delete your account?</h2>
                     <p>This action is permanent and cannot be undone. Deleting your account will remove all your data and any associated content. </p>
                     <div class="buttons d-flex flex-column gap-2">
-                        <a asp-area="" asp-controller="User" asp-action="DeleteAccount" class="btn btn-outline-danger w-100 text-center">Delete</a>
+                        <form asp-area="" asp-controller="User" asp-action="DeleteAccount" method="post" class="w-100">
+                            <button type="submit" class="btn btn-outline-danger w-100 text-center">Delete</button>
+                        </form>
                         <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>

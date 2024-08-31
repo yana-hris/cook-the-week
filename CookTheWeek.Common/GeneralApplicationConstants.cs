@@ -51,6 +51,7 @@
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
         public const string UserNotFoundErrorMessage = "User not found.";
+        public const string IncorrectPasswordErrorMessage = "Incorrect current password.";
         public const string StatusCode400BadRequestErrorMessage = "Bad Request! Try again submitting different data";
         public const string StatusCode500InternalServerErrorMessage = "An unexpected internal error occurred. Please try again later or contact administrator";
 
