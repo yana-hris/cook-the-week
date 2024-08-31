@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20240819162309_SeedDatabase")]
-    partial class SeedDatabase
+    [Migration("20240831054036_SeedDB")]
+    partial class SeedDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,15 +98,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dfa50e88-6543-4e93-8d7b-6014f597fcb0",
+                            ConcurrencyStamp = "999e2e41-1570-46d9-b4ba-1da29c190551",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBXQLC4/VSLNQxzuD9+DeJ7IFwy3QxUVgrszHXHnenNlSjjm06wNeIEie8vO//6fYg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEnVfLHDyP105Fd7fvH5uYNeCLcFNEUIcGAUyNQbsBx9QlpKtyAmBgEVJTezig6JWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d198897-923c-470c-8b6a-1e53187b21f9",
+                            SecurityStamp = "9559bba5-a6b8-4a28-84a9-66cb103fdbb8",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -114,17 +114,33 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ea289326-45ce-407f-87f3-f3a727ee8480",
+                            ConcurrencyStamp = "f96c398c-eee3-44e4-ae62-378a33b30c06",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAECcABIkWNHM/Szz/Paz4bZnVbh712ynSaXcAyOzoWkSfbf0CSiGuBa6AdnaTOOg5NA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGh6RHM/YL3vI52p4iD8tZuPlwkb2MQ+dN9SE8j/uw6/N8uovgGTVrLPkTUvYmi5bQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "903d29fd-385b-417b-b6d5-6ba0915e73a1",
+                            SecurityStamp = "b085410c-5950-490a-8183-1bbc667b80cb",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
+                        },
+                        new
+                        {
+                            Id = new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "69feb5cf-0b2f-4d31-ba6b-ee77b2c3043e",
+                            Email = "deletedUser@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DELETEDUSER@GMAIL.COM",
+                            NormalizedUserName = "DELETEDUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG1Xz0DR1KIUTCJnUmtGrEhNFfgIXmYmskmbYHkczMwx0AX/nfUjPfUAsL87GTwjqQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e3d319d6-bc1f-40ee-846e-2e053577945d",
+                            TwoFactorEnabled = false,
+                            UserName = "deletedUser"
                         });
                 });
 
@@ -2183,7 +2199,7 @@ namespace CookTheWeek.Data.Migrations
                             Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
                             ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
                             IsDeleted = false,
-                            IsSiteRecipe = true,
+                            IsSiteRecipe = false,
                             OwnerId = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             Servings = 8,
                             Title = "Beans stew",
@@ -2197,7 +2213,7 @@ namespace CookTheWeek.Data.Migrations
                             Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
                             ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
                             IsDeleted = false,
-                            IsSiteRecipe = true,
+                            IsSiteRecipe = false,
                             OwnerId = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             Servings = 4,
                             Title = "Thai Pumpkin Cream Soup",

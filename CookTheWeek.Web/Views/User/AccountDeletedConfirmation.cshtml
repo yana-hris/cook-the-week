@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Account Deleted";
+}
+<div id="user-account-deleted" class="image-overlay">
+    <div class="form-container info-message">
+        <h5 class="text-center text-uppercase mb-4 text-danger">Your account has been successfully deleted</h5>        
+
+        <p class="text-center mb-1">We're sorry to see you go, but we respect your decision. All your data has been permanently removed from our system. If you ever decide to return, you'll need to create a new account.</p>
+        <p class="text-center mb-4">If this was a mistake you can create a new account or signup using external logins by using some of the options below:</p>
+
+        <h6 class="text-center text-uppercase mb-0">To go back, choose one of the following</h6>
+
+        <div class="row g-2 my-2 mb-3">
+            <div class="col-4">
+                <a href="@Url.Action("Login", "User")" class="btn btn-primary w-100 text-center">SignIn</a>
+            </div>
+            <div class="col-4">
+                <a href="@Url.Action("Register", "User")" class="btn btn-danger w-100 text-center">Create Account</a>
+            </div>
+            <div class="col-4">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-secondary w-100 text-center">Back to Home</a>
+            </div>
+        </div>
+
+        <p class="small text-center mb-0 pt-1">You will be redirected to the homepage in <span class="text-danger small d-inline-block" id="countdown">30</span> seconds.</p>
+        <p class="small text-center">If the page doesn't redirect, <a href="/Home/Index">click here</a>.</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        let countdown = 30;
+        debugger;
+
+        updateCountdown();
+        // Function to update the countdown and redirect
+        function updateCountdown() {  
+            debugger;
+            document.getElementById('countdown').textContent = countdown;           
+            countdown--;
+            
+            if (countdown < 0) {
+                window.location.href = '/Home/Index';
+            } else {                
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+        
+    </script>
+}
+

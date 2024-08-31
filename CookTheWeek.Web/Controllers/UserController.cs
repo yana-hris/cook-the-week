@@ -326,7 +326,13 @@
             // Return BadRequest if there are errors in setting the password
             return BadRequest(ModelState);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> AccountDeletedConfirmation()
+        {
+            return View();
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> DeleteAccount()
@@ -341,8 +347,7 @@
             await this.userService.DeleteUserAsync(userId);
             await this.signInManager.SignOutAsync();
 
-            TempData[SuccessMessage] = "Your account has been deleted.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AccountDeletedConfirmation");
         }
 
         private string SanitizeInput(string input)

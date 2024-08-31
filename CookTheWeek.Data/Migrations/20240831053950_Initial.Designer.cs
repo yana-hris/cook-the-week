@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20240819162217_Initial")]
+    [Migration("20240831053950_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

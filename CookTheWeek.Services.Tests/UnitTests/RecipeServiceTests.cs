@@ -82,42 +82,7 @@
             });
         }
 
-        [Test]
-        public async Task GetForDeleteByIdAsync_ShouldReturn_CorrectData()
-        {
-            // Arrange
-            RecipeDeleteViewModel expctedResult = new()
-            {
-                Id = TestRecipe.Id.ToString(),
-                Title = TestRecipe.Title,
-                ImageUrl = TestRecipe.ImageUrl,
-                Servings = TestRecipe.Servings,
-                TotalTime = (int)TestRecipe.TotalTime.TotalMinutes,
-                CreatedOn = TestRecipe.CreatedOn.ToString("dd-MM-yyyy"),
-                CategoryName = TestRecipe.Category.Name
-            };
-
-            // Act
-            var actualResult = await this.recipeService.GetForDeleteByIdAsync(TestRecipe.Id.ToString());
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(actualResult, Is.Not.Null);
-                Assert.That(actualResult, Is.InstanceOf<RecipeDeleteViewModel>());
-
-                if (actualResult != null)
-                {
-                    Assert.That(expctedResult.Id, Is.EqualTo(actualResult.Id));
-                    Assert.That(expctedResult.Title, Is.EqualTo(actualResult.Title));
-                    Assert.That(expctedResult.ImageUrl, Is.EqualTo(actualResult.ImageUrl));
-                    Assert.That(expctedResult.Servings, Is.EqualTo(actualResult.Servings));
-                    Assert.That(expctedResult.TotalTime, Is.EqualTo(actualResult.TotalTime));
-                    Assert.That(expctedResult.CreatedOn, Is.EqualTo(actualResult.CreatedOn));
-                    Assert.That(expctedResult.CategoryName, Is.EqualTo(actualResult.CategoryName));
-                }
-            });
-        }
+        
 
         [Test]
         public async Task AllAsync_ShouldReturn_CorrectModel()

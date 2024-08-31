@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CookTheWeek.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedDatabase : Migration
+    public partial class SeedDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +18,9 @@ namespace CookTheWeek.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "dfa50e88-6543-4e93-8d7b-6014f597fcb0", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAEBXQLC4/VSLNQxzuD9+DeJ7IFwy3QxUVgrszHXHnenNlSjjm06wNeIEie8vO//6fYg==", null, false, "2d198897-923c-470c-8b6a-1e53187b21f9", false, "adminUser" },
-                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "ea289326-45ce-407f-87f3-f3a727ee8480", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAECcABIkWNHM/Szz/Paz4bZnVbh712ynSaXcAyOzoWkSfbf0CSiGuBa6AdnaTOOg5NA==", null, false, "903d29fd-385b-417b-b6d5-6ba0915e73a1", false, "appUser" }
+                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "999e2e41-1570-46d9-b4ba-1da29c190551", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAEEnVfLHDyP105Fd7fvH5uYNeCLcFNEUIcGAUyNQbsBx9QlpKtyAmBgEVJTezig6JWw==", null, false, "9559bba5-a6b8-4a28-84a9-66cb103fdbb8", false, "adminUser" },
+                    { new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"), 0, "69feb5cf-0b2f-4d31-ba6b-ee77b2c3043e", "deletedUser@gmail.com", true, false, null, "DELETEDUSER@GMAIL.COM", "DELETEDUSER", "AQAAAAIAAYagAAAAEG1Xz0DR1KIUTCJnUmtGrEhNFfgIXmYmskmbYHkczMwx0AX/nfUjPfUAsL87GTwjqQ==", null, false, "e3d319d6-bc1f-40ee-846e-2e053577945d", false, "deletedUser" },
+                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "f96c398c-eee3-44e4-ae62-378a33b30c06", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAEGh6RHM/YL3vI52p4iD8tZuPlwkb2MQ+dN9SE8j/uw6/N8uovgGTVrLPkTUvYmi5bQ==", null, false, "b085410c-5950-490a-8183-1bbc667b80cb", false, "appUser" }
                 });
 
             migrationBuilder.InsertData(
@@ -369,9 +370,23 @@ namespace CookTheWeek.Data.Migrations
                     { new Guid("11112341-30e4-473f-b93a-d0352b978a84"), 4, "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ", "https://www.supichka.com/files/images/1242/fit_1400_933.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 8, "Moussaka", new TimeSpan(0, 2, 0, 0, 0) },
                     { new Guid("115e248e-3165-425d-aec6-5dda97c99be4"), 1, "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!", "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 1, "Fruity Strawberry Smoothy", new TimeSpan(0, 0, 10, 0, 0) },
                     { new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"), 1, "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..", "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 1, "Avocado Toast", new TimeSpan(0, 0, 10, 0, 0) },
-                    { new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 2, "Classical easy and delicious chicken soup to keep you warm in the cold winter days.", "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 6, "Homemade Chicken Soup", new TimeSpan(0, 1, 0, 0, 0) },
-                    { new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 4, "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.", "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg", true, new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 8, "Beans stew", new TimeSpan(0, 2, 0, 0, 0) },
-                    { new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 2, "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.", "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg", true, new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 4, "Thai Pumpkin Cream Soup", new TimeSpan(0, 0, 40, 0, 0) },
+                    { new Guid("25c6718c-b53b-4092-9454-d6999355f12d"), 2, "Classical easy and delicious chicken soup to keep you warm in the cold winter days.", "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 6, "Homemade Chicken Soup", new TimeSpan(0, 1, 0, 0, 0) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "CategoryId", "Description", "ImageUrl", "OwnerId", "Servings", "Title", "TotalTime" },
+                values: new object[,]
+                {
+                    { new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"), 4, "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.", "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg", new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 8, "Beans stew", new TimeSpan(0, 2, 0, 0, 0) },
+                    { new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"), 2, "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.", "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg", new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 4, "Thai Pumpkin Cream Soup", new TimeSpan(0, 0, 40, 0, 0) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "CategoryId", "Description", "ImageUrl", "IsSiteRecipe", "OwnerId", "Servings", "Title", "TotalTime" },
+                values: new object[,]
+                {
                     { new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8"), 4, "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.", "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 4, "Beef Stew", new TimeSpan(0, 1, 30, 0, 0) },
                     { new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"), 4, "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.", "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 8, "Stuffed red peppers with ground meat and rice", new TimeSpan(0, 2, 0, 0, 0) },
                     { new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"), 1, "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.", "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1", true, new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 2, "Overnight Oats (prepare the night beofre)", new TimeSpan(0, 0, 10, 0, 0) }
@@ -518,6 +533,11 @@ namespace CookTheWeek.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"));
+
             migrationBuilder.DeleteData(
                 table: "Ingredients",
                 keyColumn: "Id",
