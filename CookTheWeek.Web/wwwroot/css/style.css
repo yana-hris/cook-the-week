@@ -35,6 +35,33 @@
 :root body .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
+:root body .contact-form {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 3rem 4rem;
+  color: #121706;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
+  overflow: hidden;
+}
+:root body .contact-form .heading-secondary {
+  margin-bottom: 1rem;
+}
+:root body .contact-form .contact-form-text {
+  padding-bottom: 0.8rem;
+}
+:root body .contact-form .input-group-text {
+  background-color: #485b18 !important;
+  color: #f8fcec !important;
+}
+:root body .contact-form .btn-row {
+  padding-top: 1.2rem;
+}
+:root body .contact-form .btn-row button {
+  color: #121706;
+  padding: 0.6rem 3.2rem;
+  font-size: 18px;
+}
 
 html {
   font-family: "Roboto", sans-serif;
@@ -973,10 +1000,6 @@ html .not-finished {
 [data-bs-theme=light] .step-number {
   color: var(--bs-success);
 }
-[data-bs-theme=light] .contact-form .input-group-text {
-  background-color: #485b18 !important;
-  color: #f8fcec !important;
-}
 
 [data-bs-theme=dark] {
   --body-bg: var(--bs-body-bg);
@@ -1321,29 +1344,6 @@ html .not-finished {
 }
 #about-container .row div.row {
   margin-bottom: 1rem;
-}
-#about-container .row .contact-form {
-  max-width: 120rem;
-  margin: 0 auto;
-  padding: 2rem 3.2rem;
-  color: #121706;
-  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
-  background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
-  overflow: hidden;
-}
-#about-container .row .contact-form .heading-secondary {
-  margin-bottom: 1rem;
-}
-#about-container .row .contact-form .contact-form-text {
-  padding-bottom: 0.8rem;
-}
-#about-container .row .contact-form .btn-row {
-  padding-top: 1.2rem;
-}
-#about-container .row .contact-form .btn-row button {
-  color: #121706;
-  padding: 0.6rem 3.2rem;
-  font-size: 18px;
 }
 #about-container .thank-message-row {
   margin-bottom: 3rem;

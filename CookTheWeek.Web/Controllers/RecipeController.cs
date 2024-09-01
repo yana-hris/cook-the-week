@@ -17,10 +17,9 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
-    using CookTheWeek.Services.Data;
 
-    [Authorize]
-    public class RecipeController : Controller
+    
+    public class RecipeController : BaseController
     {
 
         private readonly IRecipeService recipeService;
@@ -30,7 +29,6 @@
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly ILogger<RecipeController> logger;
-        private readonly SanitizerHelper sanitizer;
 
         public RecipeController(IRecipeService recipeService,
             ICategoryService categoryService,
@@ -46,8 +44,7 @@
             this.ingredientService = ingredientService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
-            this.logger = logger;
-            this.sanitizer = new SanitizerHelper();
+            this.logger = logger;            
         }
 
         [HttpGet]
@@ -62,7 +59,7 @@
             {
                 AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel, userId, isAdmin);
 
-                queryModel.SearchString = sanitizer.SanitizeInput(queryModel.SearchString);
+                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
                 queryModel.Recipes = serviceModel.Recipes;
                 queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
                 queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
@@ -246,17 +243,17 @@
             }
 
             // Sanitize all string input
-            model.Title = sanitizer.SanitizeInput(model.Title);
+            model.Title = SanitizeInput(model.Title);
             if (model.Description != null)
             {
-                model.Description = sanitizer.SanitizeInput(model.Description);
+                model.Description = SanitizeInput(model.Description);
             }
 
             if (model.Steps.Any())
             {
                 foreach (var step in model.Steps)
                 {
-                    step.Description = sanitizer.SanitizeInput(step.Description);
+                    step.Description = SanitizeInput(step.Description);
                 }
             }
 
@@ -479,15 +476,15 @@
 
         private void SanitizeModelInputFields(RecipeAddFormModel model)
         {
-            model.Title = sanitizer.SanitizeInput(model.Title);
+            model.Title = SanitizeInput(model.Title);
             if (!string.IsNullOrEmpty(model.Description))
             {
-                model.Description = sanitizer.SanitizeInput(model.Description);
+                model.Description = SanitizeInput(model.Description);
             }
 
             foreach (var step in model.Steps)
             {
-                step.Description = sanitizer.SanitizeInput(step.Description);
+                step.Description = SanitizeInput(step.Description);
             }
 
         }

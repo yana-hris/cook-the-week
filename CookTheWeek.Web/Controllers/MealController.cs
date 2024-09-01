@@ -5,8 +5,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
-    public class MealController : Controller
+    
+    public class MealController : BaseController
     {
         private readonly IMealPlanService mealplanService;
         private readonly IMealService mealService;

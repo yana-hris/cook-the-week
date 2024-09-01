@@ -8,6 +8,8 @@
         public const string CookiePolicyLastUpdateDateString = "27/08/2024";
 
         public const string CookieConsentName = ".AspNet.Consent";
+        public const string ReturnUrl = "ReturnUrl";
+        public const string Model = "Model";
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
@@ -17,6 +19,7 @@
             [
                 "Index",
                 "Error",
+                "Contact",
                 "None",
                 "Details",
                 "Add",

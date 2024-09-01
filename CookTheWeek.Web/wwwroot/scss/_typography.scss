@@ -1,10 +1,11 @@
-﻿:root {
+﻿@import '_variables';
+:root {
     --meal-title-color: var(--bs-primary);
     --body-color: var(--bs-dark);
     --body-bg: var(--bs-light);
     --card-label-text-color: #121706;
     --btn-secondary-hover-color: #2a2e1f;
-    
+
     body {
         position: relative;
         margin: 0 auto;
@@ -36,6 +37,39 @@
 
         .accent-heading {
             font-family: "Libre Baskerville", serif;
+        }
+
+        .contact-form {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 3rem 4rem;
+            color: $very-dark-green-text-color;
+            box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.1);
+            background-image: linear-gradient(to right bottom, $yellowish-gradient-left-color, $greenish-gradient-right-color);
+            overflow: hidden;
+
+            .heading-secondary {
+                margin-bottom: 1rem;
+            }
+
+            .contact-form-text {
+                padding-bottom: 0.8rem;
+            }
+
+            .input-group-text {
+                background-color: $input-form-span-bg-dark-green-color !important;
+                color: $very-light-green-text-color !important;
+            }
+
+            .btn-row {
+                padding-top: 1.2rem;
+
+                button {
+                    color: $very-dark-green-text-color;
+                    padding: 0.6rem 3.2rem;
+                    font-size: 18px;
+                }
+            }
         }
     }
 }
@@ -246,23 +280,23 @@ html {
     }
 }
 
-    @media (min-width: 1200px) {
-        html {
-            font-size: 16px !important;
+@media (min-width: 1200px) {
+    html {
+        font-size: 16px !important;
 
-            body {
-                #main-container {
-                    padding: 98px 40px !important;
-                }
+        body {
+            #main-container {
+                padding: 98px 40px !important;
             }
         }
     }
+}
 
-    @media print {
-        .no-print, .no-print * {
-            display: none !important;
-        }
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
     }
+}
 
     
 

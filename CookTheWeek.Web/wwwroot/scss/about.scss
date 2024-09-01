@@ -23,35 +23,7 @@
 
         div.row {
             margin-bottom: 1rem;
-        }
-
-        .contact-form {
-            max-width: 120rem;
-            margin: 0 auto;
-            padding: 2rem 3.2rem;
-            color: $very-dark-green-text-color;
-            box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
-            background-image: linear-gradient(to right bottom, $yellowish-gradient-left-color, $greenish-gradient-right-color);
-            overflow: hidden;
-
-            .heading-secondary {
-                margin-bottom: 1rem;
-            }
-
-            .contact-form-text {
-                padding-bottom: 0.8rem;
-            }
-
-            .btn-row {
-                padding-top: 1.2rem;
-
-                button {
-                    color: $very-dark-green-text-color;
-                    padding: 0.6rem 3.2rem;
-                    font-size: 18px;
-                }
-            }
-        }
+        }        
     }
 
     .thank-message-row {

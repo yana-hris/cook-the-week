@@ -21,14 +21,13 @@ namespace CookTheWeek.Web.Controllers
     using static Common.EntityValidationConstants.MealPlan;
     using static Common.EntityValidationConstants.Recipe;
 
-    [Authorize]
-    public class MealPlanController : Controller
+    
+    public class MealPlanController : BaseController
     {
         private readonly IMealPlanService mealPlanService;
         private readonly IUserService userService;
         private readonly IRecipeService recipeService;
         private readonly ILogger<MealPlanController> logger;
-        private readonly SanitizerHelper sanitizer;
         private readonly IMemoryCache memoryCache;
 
         public MealPlanController(IMealPlanService mealPlanService,
@@ -41,7 +40,6 @@ namespace CookTheWeek.Web.Controllers
             this.recipeService = recipeService;
             this.userService = userService;
             this.logger = logger;
-            this.sanitizer = new SanitizerHelper();
             this.memoryCache = memoryCache;
         }
 
@@ -186,7 +184,7 @@ namespace CookTheWeek.Web.Controllers
                 return View(model);
             }
 
-            model.Name = sanitizer.SanitizeInput(model.Name!);
+            model.Name = SanitizeInput(model.Name!);
 
             try
             {
@@ -404,7 +402,7 @@ namespace CookTheWeek.Web.Controllers
                 return View(model);
             }
 
-            model.Name = sanitizer.SanitizeInput(model.Name!);
+            model.Name = SanitizeInput(model.Name!);  
 
             try
             {

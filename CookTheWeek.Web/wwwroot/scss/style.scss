@@ -79,9 +79,6 @@
     }
 }
 
-
-
-
 // Custom Light Theme settings
 [data-bs-theme="light"] {
     --body-bg: #fff;
@@ -120,12 +117,7 @@
         color: var(--bs-success);
     }
 
-    .contact-form {
-        .input-group-text {
-            background-color: $input-form-span-bg-dark-green-color !important;
-            color: $very-light-green-text-color !important;
-        }
-    }
+    
 }
 
 // Custom Light Theme settings

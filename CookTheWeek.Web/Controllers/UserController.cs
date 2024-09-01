@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Ganss.Xss;
+    
 
     
     using CookTheWeek.Web.Infrastructure.Extensions;
@@ -18,13 +18,13 @@
     using System.Security.Claims;
 
     [AllowAnonymous]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
-        private readonly HtmlSanitizer sanitizer;
+        
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
@@ -35,7 +35,7 @@
             this.userManager = userManager;
             this.userService = userService;
             this.memoryCache = memoryCache;
-            sanitizer = new HtmlSanitizer();
+            
         }
 
         [HttpGet]
@@ -350,9 +350,6 @@
             return RedirectToAction("AccountDeletedConfirmation");
         }
 
-        private string SanitizeInput(string input)
-        {
-            return sanitizer.Sanitize(input);
-        }
+        
     }
 }

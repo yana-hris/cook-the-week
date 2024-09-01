@@ -10,19 +10,24 @@ namespace CookTheWeek.Web.Controllers
 
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Services.Data.Interfaces;
+    using Newtonsoft.Json;
 
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     { 
         
         private readonly ILogger<HomeController> logger;
+        private readonly IEmailSender emailSender;
         private readonly IConfiguration configuration;
 
         public HomeController(IConfiguration configuration,
+            IEmailSender emailSender,
             ILogger<HomeController> logger) 
         {
             this.configuration = configuration;
             this.logger = logger;
+            this.emailSender = emailSender;
         }
 
         [HttpGet]
@@ -44,6 +49,12 @@ namespace CookTheWeek.Web.Controllers
 
         [HttpGet]
         public IActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Contact()
         {
             return View();
         }
@@ -77,31 +88,59 @@ namespace CookTheWeek.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var apiKey = configuration["SendGrid:CookTheWeek_API_Key"];
-                var client = new SendGridClient(apiKey);
-                var from = new EmailAddress(configuration["EmailSettings:FromEmail"], "Cook The Week Support");
-                var subject = model.Subject;
                 var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");
                 var plainTextContent = $"Name: {model.FullName}\nEmail: {model.EmailAddress}\nMessage: {model.Message}";
                 var htmlContent = $"<strong>Name:</strong> {model.FullName}<br><strong>Email:</strong> {model.EmailAddress}<br><strong>Message:</strong> {model.Message}";
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                
-                var response = await client.SendEmailAsync(msg);
+                                
+                var response = await emailSender.SendEmailAsync(model.EmailAddress, model.Subject, plainTextContent, htmlContent);
 
-                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                if (response != null && response.StatusCode == System.Net.HttpStatusCode.Accepted)
                 {
+                    // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
                 }
                 else
                 {
-                    logger.LogError($"Failed to send contact form message for user {User.GetId()}");
+                    logger.LogError($"Failed to send contact form message from user with e-mail {model.EmailAddress}");
+                    // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[ErrorMessage] = "Error sending email. Please try again later.";
-                }
-
-                return View("About");
+                }                
             }
 
-            return View("About", model);
+            if (TempData[ReturnUrl] != null)
+            {
+                return RedirectToReturnUrl(model);
+
+            }
+        }
+
+        private RedirectToActionResult RedirectToReturnUrl(object? model)
+        {
+            string returnUrl = TempData[ReturnUrl]!.ToString()!;
+            string action = "";
+            string controller = "";
+
+            // Parse the returnUrl
+            var uri = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
+            var segments = uri.Segments.Select(s => s.Trim('/')).ToArray();
+
+            if (segments.Length > 0)
+            {
+                action = segments[segments.Length - 1];
+
+                if(segments.Length > 1 )
+                {
+                    controller = segments[segments.Length - 2];
+                }
+                
+            }
+
+            if (model != null)
+            {
+                TempData[Model] = JsonConvert.SerializeObject(model);
+            }
+
+            return RedirectToAction(action, controller);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

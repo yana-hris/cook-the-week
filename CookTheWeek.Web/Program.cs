@@ -16,6 +16,7 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using Newtonsoft.Json.Serialization;
+    using SendGrid;
 
     public class Program
     {
@@ -26,11 +27,11 @@ namespace CookTheWeek.Web
             builder.Configuration.AddUserSecrets<Program>();
             var config = builder.Configuration;
 
-            string? connectionString = builder.Configuration["ConnectionStrings:CookTheWeekDbContextConnection"];
+            string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.EnableSensitiveDataLogging();
+                options.EnableSensitiveDataLogging();                
             });
                 
 
@@ -66,6 +67,8 @@ namespace CookTheWeek.Web
                    options.ClientSecret = facebookAuthNSection["AppSecret"];
                    options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
                });
+
+            builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
 
             builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
@@ -127,8 +130,9 @@ namespace CookTheWeek.Web
                        .AllowAnyMethod()
                        .SetIsOriginAllowed((host) => true)
                        .AllowCredentials();
-            }));
-           
+            }));          
+
+
             WebApplication app = builder.Build();
             
             if (app.Environment.IsDevelopment())
