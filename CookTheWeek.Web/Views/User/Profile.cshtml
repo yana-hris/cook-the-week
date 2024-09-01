@@ -10,15 +10,15 @@
 }
 <div class="card-outer-container" id="user-profile">
     <partial name="_HeadingPartial" model="headingModel" />
-    <div class="card-container d-flex gap-0 p-0 align-items-center h-100">
+    <div class="card-container d-flex gap-0 p-0 align-items-stretch justify-content-center h-100">
         
         <img src="~/img/micheile-henderson-3YHXTs1CxFI-unsplash-resize-smaller.jpg"
                 alt="Prepared Meal Image"
                 class="card-img img-fluid" />
-        <div class="container profile-container d-flex flex-column align-items-center justify-content-between">
+        <div class="container profile-container d-flex flex-column align-items-center justify-content-around">
             <div class="container info-container pb-2">                
                 <h4 class="form-heading text-uppercase">
-                    Manage User data
+                    User data
                 </h4>
                 @if(!Model.HasPassword)
                 {

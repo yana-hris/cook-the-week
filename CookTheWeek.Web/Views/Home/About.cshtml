@@ -42,74 +42,7 @@
         </div>
     </div>
     <div class="row spacer">
-        <div class="contact-form">
-            <h2 class="heading-secondary">Have something to say?</h2>
-            <p class="contact-form-text">
-                Have questions or feedback? Your input matters! Please reach out to share any thoughts, suggestions, or issues you encounter to help make CookTheWeek even better. Contact me anytime!
-            </p>
-
-            <form id="feedback-form" method="post" asp-area="" asp-controller="Home" asp-action="SubmitContactForm">
-                <div class="rows-container">
-                    <div class="row contact-form-row">
-                        <div class="col col-12 col-md-6 first-row">
-                            <div class="input-group">
-                                <span class="input-group-text">Your Name</span>
-                                <input asp-for="FullName"
-                                        type="text"
-                                        placeholder="John Smith"
-                                        class="form-control"
-                                        />
-                            </div>
-                            <span asp-validation-for="FullName" class="small text-danger"></span>
-                        </div>
-                        <div class="col col-12 col-md-6">
-                            <div class="input-group">
-                                <span class="input-group-text">Email address</span>
-                                <input asp-for="EmailAddress"
-                                        type="email"
-                                        class="form-control"
-                                        placeholder="me@example.com"
-                                        />
-                            </div>
-                            <span asp-validation-for="EmailAddress" class="small text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row contact-form-row">
-                        <div class="col col-12">
-                            <div class="input-group">
-                                <span class="input-group-text">Subject</span>
-                                <select class="form-select" asp-for="Subject">
-                                    <option value="">Please choose one option:</option>
-                                    <option value="User Experience">User Experience</option>
-                                    <option value="Features">Features</option>
-                                    <option value="Recipes">Recipes</option>
-                                    <option value="Performance">Performance</option>
-                                    <option value="Design">Design</option>
-                                    <option value="Content">Content</option>
-                                    <option value="Customer Support">Customer Support</option>
-                                    <option value="Overall Satisfaction">Overall Satisfaction</option>
-                                </select>
-                            </div>
-                            <span asp-validation-for="Subject" class="small text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row contact-form-row">
-                        <div class="col col-12">
-                            <div class="input-group">
-                                <span class="input-group-text">Message</span>
-                                <textarea asp-for="Message" rows="5" class="form-control" placeholder="Tell me all about it.."></textarea>
-                            </div>
-                            <span asp-validation-for="Message" class="small text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row btn-row">
-                        <div class="col col-12 text-center">
-                            <button form="feedback-form" class="btn btn-success" type="submit">Send Message</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+        <partial name="_ContactFormPartial", model="@Model"/>
     </div>
 </div>
 

@@ -150,10 +150,6 @@ function isSpecificView(view) {
     return specificViews.includes(view);
 };
 
-function isIndexView(view) {
-    return view === "Home Page";
-}
-
 function userHasMealPlans() {
     const userMealPlans = getUserLocalStorage(currentUserId);
 
