@@ -18,7 +18,7 @@
 
         protected RedirectToActionResult RedirectToReturnUrl(object? model)
         {
-            string returnUrl = TempData[ReturnUrl]!.ToString()!;
+            string returnUrl = TempData[ReturnUrl] as string;
             string action = "";
             string controller = "";
 
@@ -39,7 +39,7 @@
 
             if (model != null)
             {
-                TempData[Model] = JsonConvert.SerializeObject(model);
+                TempData[ContactFormModelWithErrors] = JsonConvert.SerializeObject(model);
             }
 
             return RedirectToAction(action, controller);

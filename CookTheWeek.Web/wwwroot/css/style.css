@@ -175,7 +175,7 @@ html body footer #links-container a:hover {
   text-decoration: underline;
 }
 
-@media (min-width: 560px) {
+@media (min-width: 631px) {
   footer #links-container {
     flex-direction: row !important;
   }

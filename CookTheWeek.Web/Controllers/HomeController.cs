@@ -50,6 +50,14 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public IActionResult About()
         {
+            if (TempData.Peek(ContactFormModelWithErrors) != null)
+            {
+                var model = JsonConvert.DeserializeObject<ContactFormModel>(TempData[ContactFormModelWithErrors]!.ToString()!);
+                return View(model);
+            }
+
+            TempData[ReturnUrl] = "/Home/About";
+
             return View();
         }
 
@@ -85,6 +93,10 @@ namespace CookTheWeek.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitContactForm(ContactFormModel model)
         {
+            if(TempData.Peek(ReturnUrl) != null)
+            {
+                TempData.Keep(ReturnUrl);
+            }
 
             if (ModelState.IsValid)
             {
@@ -98,20 +110,32 @@ namespace CookTheWeek.Web.Controllers
                 {
                     // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
+
+                    if (TempData.Peek(ReturnUrl) != null)
+                    {
+                        return RedirectToReturnUrl(null);
+                    }
                 }
                 else
                 {
                     logger.LogError($"Failed to send contact form message from user with e-mail {model.EmailAddress}");
                     // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[ErrorMessage] = "Error sending email. Please try again later.";
-                }                
+
+                    return RedirectToAction("Error");
+                }
+                
             }
 
-            if (TempData[ReturnUrl] != null)
+            // In case of model errors
+            if (TempData.Peek(ReturnUrl) != null)
             {
                 return RedirectToReturnUrl(model);
-
             }
+
+            // TODO: Change
+            return RedirectToAction("Index", "Home");
+            
         }
 
         private RedirectToActionResult RedirectToReturnUrl(object? model)
@@ -119,10 +143,8 @@ namespace CookTheWeek.Web.Controllers
             string returnUrl = TempData[ReturnUrl]!.ToString()!;
             string action = "";
             string controller = "";
-
-            // Parse the returnUrl
-            var uri = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
-            var segments = uri.Segments.Select(s => s.Trim('/')).ToArray();
+                 
+            var segments = returnUrl.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (segments.Length > 0)
             {
@@ -137,7 +159,7 @@ namespace CookTheWeek.Web.Controllers
 
             if (model != null)
             {
-                TempData[Model] = JsonConvert.SerializeObject(model);
+                TempData[ContactFormModelWithErrors] = JsonConvert.SerializeObject(model);
             }
 
             return RedirectToAction(action, controller);

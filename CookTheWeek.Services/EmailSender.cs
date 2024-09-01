@@ -1,12 +1,13 @@
 ﻿namespace CookTheWeek.Services.Data
 {
-    using CookTheWeek.Services.Data.Interfaces;
     using System.Threading.Tasks;
-    using SendGrid;
-    using Microsoft.Extensions.Options;
-    using SendGrid.Helpers.Mail;
+
     using Microsoft.Extensions.Configuration;
-    using System.Web.Mvc;
+    using Microsoft.Extensions.Options;
+    using SendGrid;
+    using SendGrid.Helpers.Mail;
+    
+    using CookTheWeek.Services.Data.Interfaces;
 
     public class EmailSender : IEmailSender
     {

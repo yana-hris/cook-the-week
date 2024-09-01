@@ -4,6 +4,8 @@ namespace CookTheWeek.Web
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json.Serialization;
+    using SendGrid;
 
     using Data;
     using Data.Models;
@@ -15,8 +17,7 @@ namespace CookTheWeek.Web
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
-    using Newtonsoft.Json.Serialization;
-    using SendGrid;
+    using CookTheWeek.Services.Data;
 
     public class Program
     {
@@ -66,13 +67,12 @@ namespace CookTheWeek.Web
                    options.ClientId = facebookAuthNSection["AppId"];
                    options.ClientSecret = facebookAuthNSection["AppSecret"];
                    options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
-               });
-
-            builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
+               });  
 
             builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
 
+            
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
@@ -100,9 +100,9 @@ namespace CookTheWeek.Web
            
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                options.ConsentCookieValue = "true";
+                //options.ConsentCookieValue = "true";
             });
 
 
@@ -130,9 +130,13 @@ namespace CookTheWeek.Web
                        .AllowAnyMethod()
                        .SetIsOriginAllowed((host) => true)
                        .AllowCredentials();
-            }));          
+            }));
 
+            // Register the SendGrid EmailSender service
+            builder.Services.Configure<SendGridClientOptions>(builder.Configuration.GetSection("SendGrid"));
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
+            
             WebApplication app = builder.Build();
             
             if (app.Environment.IsDevelopment())
@@ -163,7 +167,7 @@ namespace CookTheWeek.Web
 
             app.UseAuthorization();
 
-            app.EnableOnlineUsersCheck();
+            //app.EnableOnlineUsersCheck();
            
             if(app.Environment.IsDevelopment())
             {
