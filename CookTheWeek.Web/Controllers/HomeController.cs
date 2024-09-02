@@ -50,21 +50,14 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public IActionResult About()
         {
-            if (TempData.Peek(ContactFormModelWithErrors) != null)
-            {
-                var model = JsonConvert.DeserializeObject<ContactFormModel>(TempData[ContactFormModelWithErrors]!.ToString()!);
-                return View(model);
-            }
-
-            TempData[ReturnUrl] = "/Home/About";
-
             return View();
         }
 
         [HttpGet]
         public IActionResult Contact()
         {
-            return View();
+            ContactFormModel model = new ContactFormModel();
+            return View(model);
         }
 
         [HttpGet]
@@ -91,13 +84,9 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SubmitContactForm(ContactFormModel model)
+        public async Task<IActionResult> Contact(ContactFormModel model)
         {
-            if(TempData.Peek(ReturnUrl) != null)
-            {
-                TempData.Keep(ReturnUrl);
-            }
-
+            
             if (ModelState.IsValid)
             {
                 var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");
@@ -110,11 +99,6 @@ namespace CookTheWeek.Web.Controllers
                 {
                     // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
-
-                    if (TempData.Peek(ReturnUrl) != null)
-                    {
-                        return RedirectToReturnUrl(null);
-                    }
                 }
                 else
                 {
@@ -127,14 +111,8 @@ namespace CookTheWeek.Web.Controllers
                 
             }
 
-            // In case of model errors
-            if (TempData.Peek(ReturnUrl) != null)
-            {
-                return RedirectToReturnUrl(model);
-            }
 
-            // TODO: Change
-            return RedirectToAction("Index", "Home");
+            return View(model);
             
         }
 

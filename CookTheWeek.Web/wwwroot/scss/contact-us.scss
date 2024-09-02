@@ -1,0 +1,44 @@
+﻿#contact-us {
+    color: #070D05 !important;
+
+    form {
+
+
+        .form-control,
+        .form-group label {
+            background-color: transparent;
+            color: #070D05;
+            //border: none; /* Remove border to ensure full transparency */
+            //box-shadow: none; /* Remove any shadow that might be present */
+        }
+
+        .form-select {
+            background-color: transparent;
+            color: #070D05;
+            
+            appearance: none; /* Remove default styling in some browsers */
+        }
+
+        .form-select option {
+            background-color: transparent;
+            color: #070D05;
+
+            &:hover {
+                background-color: var(--bs-success);
+            }
+        }
+
+        .form-select:focus {
+            border-color: rgba(255, 255, 255, 0.5); /* Focus border color */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Focus shadow */
+        }
+
+        .form-control::placeholder {
+            color: #070D05;
+        }
+
+        .form-select::placeholder {
+            color: #070D05;
+        }
+    }
+}

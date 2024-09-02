@@ -1,16 +1,9 @@
 ﻿@model ContactFormModel
 @{
-    ViewData["Title"] = "Contact us";
-
-    var headingModel = new PageHeadingViewModel
-        {
-            Subheading = ViewData["Title"]!.ToString(),
-        };
+    ViewData["Title"] = "Contact us";   
 }
-<div id="contact-us" class="list-container">
-    <partial name="_HeadingPartial" model="headingModel" />
-
-    <partial name="_ContactFormPartial" model="@Model"/>
+<div id="contact-us" class="container">   
+    <partial name="_ContactFormPartial" model="Model" />
 </div>
 
 @section Scripts

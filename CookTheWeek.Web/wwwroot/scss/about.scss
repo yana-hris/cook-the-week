@@ -59,16 +59,6 @@
     }
 }
 
-@media (max-width: 768px) {
-    #about-container {
-        
-        .contact-form {
-            .first-row {
-                margin-bottom: 1rem !important;
-            }
-        }
-    }
-}
 
 @media (max-width: 568px) {
     #about-container {
@@ -78,25 +68,11 @@
             .image-row {
                 margin-bottom: 1rem !important;
             }
-
-
-            .contact-form {
-                padding: 2.4rem 1.2rem !important;
-
-                .heading-secondary {
-                    font-size: 1.8rem;
-                }
-            }
         }
 
         .spacer {
             margin-bottom: 2.2rem;
-        }
-
-        button {
-            width: 100%;
-            margin-bottom: 2.5rem;
-        }
+        }        
     }
 }
 

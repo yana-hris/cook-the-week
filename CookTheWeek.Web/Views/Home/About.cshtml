@@ -1,5 +1,4 @@
-﻿@model ContactFormModel
-@{
+﻿@{
     ViewData["Title"] = "About";
 
     var headingModel = new PageHeadingViewModel
@@ -41,7 +40,9 @@
             </p>
         </div>
     </div>
-    <partial name="_ContactFormPartial", model="@Model"/>
+    <div class="row">
+        <p>For any questions or feedback, do not hesitate to contact me, using the site <a href="/Home/Contact">Contact Form</a>!</p>
+    </div>
     
 </div>
 

@@ -34,32 +34,9 @@
 :root body .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-:root body .contact-form {
-  max-width: 120rem;
-  margin: 0 auto;
-  padding: 3rem 4rem;
-  color: #121706;
-  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.1);
-  background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
-  overflow: hidden;
-}
-:root body .contact-form .heading-secondary {
-  margin-bottom: 1rem;
-}
-:root body .contact-form .contact-form-text {
-  padding-bottom: 0.8rem;
-}
-:root body .contact-form .input-group-text {
-  background-color: #485b18 !important;
-  color: #f8fcec !important;
-}
-:root body .contact-form .btn-row {
-  padding-top: 1.2rem;
-}
-:root body .contact-form .btn-row button {
-  color: #121706;
-  padding: 0.6rem 3.2rem;
-  font-size: 18px;
+:root body #pagination-buttons {
+  bottom: 17px;
+  right: 57px;
 }
 
 html {
@@ -146,9 +123,6 @@ html body #main-container .heading-secondary {
 html body #main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-html body nav.fixed-bottom {
-  padding-bottom: 18px;
-}
 html body footer {
   position: relative;
   z-index: 5000;
@@ -210,6 +184,12 @@ html body footer #links-container a:hover {
   }
   footer #links-container .footer-padding {
     padding: 0 2rem !important;
+  }
+}
+@media (min-width: 992px) {
+  #pagination-buttons {
+    bottom: 18px !important;
+    right: 93px !important;
   }
 }
 @media (min-width: 1200px) {

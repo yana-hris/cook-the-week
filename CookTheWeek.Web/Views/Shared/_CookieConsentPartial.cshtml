@@ -21,26 +21,23 @@
                 We use cookies
             </h3>
             <p>
-                Many are necessary to operate the website and its functions. Others are for statistical purposes. 
+                By using this website, you automatically accept that we use cookies. 
             </p>
-            <p>
-                With the decision <strong>"Only accept essential cookies"</strong> we will respect your privacy and will not set cookies that aren`t necessary for the operation of the site. <a asp-page="/Home/CookiePolicy">Learn More</a>.
-            </p>
-
+            <a id="hideCookieBanner" href="/Home/CookiePolicy" class="btn btn-outline-primary w-100 text-center">
+                <span aria-hidden="true">What for?</span>
+            </a>
             <button id="acceptAll" type="button" class="btn btn-primary w-100 text-center" >
-                <span aria-hidden="true">Accept All</span>
+                <span aria-hidden="true">Ok, I understand</span>
             </button>
-            <button id="declineAnaliticalCookies" type="button" class="btn btn-outline-primary w-100 text-center">
-                <span aria-hidden="true">Only accept essential cookies</span>
-            </button>
+            
         </div>        
     </div>
     <script>
         (function () {
             
             var acceptAllButton = document.getElementById("acceptAll");
-            var declineButton = document.getElementById("declineAnaliticalCookies");
-
+            var readMoreButton = document.getElementById("hideCookieBanner");
+            
             acceptAllButton.addEventListener("click", function () {
                 
                 document.cookie = "@cookieName";
@@ -48,18 +45,10 @@
                 
             });            
 
-            declineButton.addEventListener("click", function () {
-                             
-                const days = 30; // set expiration of the cookie to 30 days;
-                
-                let date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Calculate the expiration time
-                var expires = date.toUTCString(); // Format the expiration date
-
-                document.cookie = `${"@CookieConsentName"}=false; expires=${expires}; path=/`;
+            @* readMoreButton.addEventListener("click", function () {                            
                 
                 document.getElementById("cookieConsent").style.display = "none";
-            });
+            }); *@
 
         })();
     </script>

@@ -57,6 +57,15 @@
     max-width: 793px;
     padding: 2.4rem;
 }
+.contact-form-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 620px;
+    margin-top: 1.2rem;
+    padding: 2rem 3rem;
+    background: rgb(180,227,61);
+    background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
+}
 
 .form-container {
     @include make-container();
@@ -178,13 +187,7 @@
         color: var(--bs-success) !important;
     }
 
-    .contact-form {
-        .input-group-text {
-            background-color: var(--bs-success) !important;
-            color: var(--bs-body-bg) !important;
-            border: none !important;
-        }
-    }
+   
 
     #collapseSummary .card-body {
         color: var(--bs-primary) !important;
@@ -215,6 +218,7 @@
 @import 'meal-plans-mine';
 @import 'user-profile';
 @import 'user-login-register';
+@import 'contact-us';
 @import '../lib/bootstrap/scss/bootstrap';
 
 

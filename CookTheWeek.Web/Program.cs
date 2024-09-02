@@ -94,15 +94,15 @@ namespace CookTheWeek.Web
             builder.Services.ConfigureApplicationCookie(cfg =>
             {                
                 cfg.LoginPath = "/User/Login";
-                cfg.AccessDeniedPath = "/Home/Error/401";
+                cfg.AccessDeniedPath = "/User/AccessDeniedPathInfo";
 
             });
            
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => false;
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                //options.ConsentCookieValue = "true";
+                options.ConsentCookieValue = "true";
             });
 
 

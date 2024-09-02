@@ -35,32 +35,9 @@
 :root body .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-:root body .contact-form {
-  max-width: 120rem;
-  margin: 0 auto;
-  padding: 3rem 4rem;
-  color: #121706;
-  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.1);
-  background-image: linear-gradient(to right bottom, #bce650, #7e9f2b);
-  overflow: hidden;
-}
-:root body .contact-form .heading-secondary {
-  margin-bottom: 1rem;
-}
-:root body .contact-form .contact-form-text {
-  padding-bottom: 0.8rem;
-}
-:root body .contact-form .input-group-text {
-  background-color: #485b18 !important;
-  color: #f8fcec !important;
-}
-:root body .contact-form .btn-row {
-  padding-top: 1.2rem;
-}
-:root body .contact-form .btn-row button {
-  color: #121706;
-  padding: 0.6rem 3.2rem;
-  font-size: 18px;
+:root body #pagination-buttons {
+  bottom: 17px;
+  right: 57px;
 }
 
 html {
@@ -147,9 +124,6 @@ html body #main-container .heading-secondary {
 html body #main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-html body nav.fixed-bottom {
-  padding-bottom: 18px;
-}
 html body footer {
   position: relative;
   z-index: 5000;
@@ -211,6 +185,12 @@ html body footer #links-container a:hover {
   }
   footer #links-container .footer-padding {
     padding: 0 2rem !important;
+  }
+}
+@media (min-width: 992px) {
+  #pagination-buttons {
+    bottom: 18px !important;
+    right: 93px !important;
   }
 }
 @media (min-width: 1200px) {
@@ -454,7 +434,7 @@ html body footer #links-container a:hover {
     top: 68px;
   }
 }
-.card-border-style, .form-container, .shopping-list-container, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
+.card-border-style, .form-container, .contact-form-container, .shopping-list-container, .card-container, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
@@ -952,6 +932,19 @@ html .not-finished {
   padding: 2.4rem;
 }
 
+.contact-form-container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 620px;
+  margin-top: 1.2rem;
+  padding: 2rem 3rem;
+  background: rgb(180, 227, 61);
+  background: linear-gradient(180deg, rgb(180, 227, 61) 0%, rgb(46, 105, 48) 100%);
+}
+
 .form-container {
   width: 100%;
   padding-right: 1.5rem;
@@ -1044,11 +1037,6 @@ html .not-finished {
 [data-bs-theme=dark] .left-pill {
   border-color: var(--bs-success) !important;
   color: var(--bs-success) !important;
-}
-[data-bs-theme=dark] .contact-form .input-group-text {
-  background-color: var(--bs-success) !important;
-  color: var(--bs-body-bg) !important;
-  border: none !important;
 }
 [data-bs-theme=dark] #collapseSummary .card-body {
   color: var(--bs-primary) !important;
@@ -1372,30 +1360,15 @@ html .not-finished {
   margin-bottom: 4.2rem;
 }
 
-@media (max-width: 768px) {
-  #about-container .contact-form .first-row {
-    margin-bottom: 1rem !important;
-  }
-}
 @media (max-width: 568px) {
   #about-container .row .image-row {
     margin-bottom: 1rem !important;
   }
-  #about-container .row .contact-form {
-    padding: 2.4rem 1.2rem !important;
-  }
-  #about-container .row .contact-form .heading-secondary {
-    font-size: 1.8rem;
-  }
   #about-container .spacer {
     margin-bottom: 2.2rem;
   }
-  #about-container button {
-    width: 100%;
-    margin-bottom: 2.5rem;
-  }
 }
-.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container, .shopping-list-container, .form-container {
+.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card, .card-container, .shopping-list-container, .contact-form-container, .form-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
@@ -1703,7 +1676,7 @@ html .not-finished {
     font-size: 11px !important;
   }
 }
-.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, .shopping-list-container, .form-container, #recipe-details-container .card, #meal-cook-container .card {
+.card-border-style, .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, .card-container, .shopping-list-container, .contact-form-container, .form-container, #recipe-details-container .card, #meal-cook-container .card {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
@@ -1950,6 +1923,37 @@ html .not-finished {
     top: 4% !important;
   }
 }
+#contact-us {
+  color: #070D05 !important;
+}
+#contact-us form .form-control,
+#contact-us form .form-group label {
+  background-color: transparent;
+  color: #070D05;
+}
+#contact-us form .form-select {
+  background-color: transparent;
+  color: #070D05;
+  appearance: none; /* Remove default styling in some browsers */
+}
+#contact-us form .form-select option {
+  background-color: transparent;
+  color: #070D05;
+}
+#contact-us form .form-select option:hover {
+  background-color: var(--bs-success);
+}
+#contact-us form .form-select:focus {
+  border-color: rgba(255, 255, 255, 0.5); /* Focus border color */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Focus shadow */
+}
+#contact-us form .form-control::placeholder {
+  color: #070D05;
+}
+#contact-us form .form-select::placeholder {
+  color: #070D05;
+}
+
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

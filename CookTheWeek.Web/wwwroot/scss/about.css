@@ -42,26 +42,11 @@
   margin-bottom: 4.2rem;
 }
 
-@media (max-width: 768px) {
-  #about-container .contact-form .first-row {
-    margin-bottom: 1rem !important;
-  }
-}
 @media (max-width: 568px) {
   #about-container .row .image-row {
     margin-bottom: 1rem !important;
   }
-  #about-container .row .contact-form {
-    padding: 2.4rem 1.2rem !important;
-  }
-  #about-container .row .contact-form .heading-secondary {
-    font-size: 1.8rem;
-  }
   #about-container .spacer {
     margin-bottom: 2.2rem;
-  }
-  #about-container button {
-    width: 100%;
-    margin-bottom: 2.5rem;
   }
 }
