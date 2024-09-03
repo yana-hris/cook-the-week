@@ -75,7 +75,7 @@
             }
 
             await signInManager.SignInAsync(user, isPersistent: false);
-            TempData["JustLoggedIn"] = true;
+            TempData[JustLoggedIn] = true;
             this.memoryCache.Remove(UsersCacheKey);
 
             return RedirectToAction("Index", "Home");
@@ -122,7 +122,7 @@
             {
                 return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
             }
-            TempData["JustLoggedIn"] = true;
+            TempData[JustLoggedIn] = true;
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
 
@@ -195,7 +195,7 @@
             // Sign in the user
             await signInManager.SignInAsync(user, isPersistent: false);
 
-            TempData["JustLoggedIn"] = true;
+            TempData[JustLoggedIn] = true;
             this.memoryCache.Remove(UsersCacheKey);
             return Redirect(returnUrl ?? Url.Action("Index", "Home"));            
         }

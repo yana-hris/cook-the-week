@@ -42,6 +42,7 @@
         #pagination-buttons {
             bottom: 17px;
             right: 57px;
+            z-index: 10000;
         }
         
     }
@@ -234,7 +235,7 @@ html {
     }
 }
 
-@media (min-width: 811px) {
+@media (min-width: 887px) {
     footer {
         font-size: 14px;
 

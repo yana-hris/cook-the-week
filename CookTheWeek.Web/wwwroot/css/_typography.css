@@ -37,6 +37,7 @@
 :root body #pagination-buttons {
   bottom: 17px;
   right: 57px;
+  z-index: 10000;
 }
 
 html {
@@ -175,7 +176,7 @@ html body footer #links-container a:hover {
     font-size: 16px !important;
   }
 }
-@media (min-width: 811px) {
+@media (min-width: 887px) {
   footer {
     font-size: 14px;
   }

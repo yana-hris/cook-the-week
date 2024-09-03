@@ -1,9 +1,16 @@
 ﻿#cookieConsent {
     position: fixed;
     bottom: 0;
+    margin-bottom: -2px;
     left: 0;
-    width: 30%;
-    min-width: 500px;
+    width: 100%;    
     z-index: 9999;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border: 2px solid var(--bs-primary);
+
     
+    button.btn, a.btn {        
+        min-width: 360px !important;
+    }
 }

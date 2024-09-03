@@ -52,14 +52,7 @@ namespace CookTheWeek.Web.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public IActionResult Contact()
-        {
-            ContactFormModel model = new ContactFormModel();
-            return View(model);
-        }
-
+                
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -83,6 +76,13 @@ namespace CookTheWeek.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            ContactFormModel model = new ContactFormModel();
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Contact(ContactFormModel model)
         {
@@ -99,49 +99,19 @@ namespace CookTheWeek.Web.Controllers
                 {
                     // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     logger.LogError($"Failed to send contact form message from user with e-mail {model.EmailAddress}");
                     // TODO: Create a ContactFormSubmitConfimrationView (success or not)
                     TempData[ErrorMessage] = "Error sending email. Please try again later.";
-
                     return RedirectToAction("Error");
-                }
-                
+                }                
             }
 
-
-            return View(model);
-            
-        }
-
-        private RedirectToActionResult RedirectToReturnUrl(object? model)
-        {
-            string returnUrl = TempData[ReturnUrl]!.ToString()!;
-            string action = "";
-            string controller = "";
-                 
-            var segments = returnUrl.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (segments.Length > 0)
-            {
-                action = segments[segments.Length - 1];
-
-                if(segments.Length > 1 )
-                {
-                    controller = segments[segments.Length - 2];
-                }
-                
-            }
-
-            if (model != null)
-            {
-                TempData[ContactFormModelWithErrors] = JsonConvert.SerializeObject(model);
-            }
-
-            return RedirectToAction(action, controller);
-        }
+            return View(model);            
+        }        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode = null)

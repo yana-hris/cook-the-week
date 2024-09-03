@@ -38,6 +38,7 @@
 :root body #pagination-buttons {
   bottom: 17px;
   right: 57px;
+  z-index: 10000;
 }
 
 html {
@@ -176,7 +177,7 @@ html body footer #links-container a:hover {
     font-size: 16px !important;
   }
 }
-@media (min-width: 811px) {
+@media (min-width: 887px) {
   footer {
     font-size: 14px;
   }
@@ -403,10 +404,16 @@ html body footer #links-container a:hover {
 #cookieConsent {
   position: fixed;
   bottom: 0;
+  margin-bottom: -2px;
   left: 0;
-  width: 30%;
-  min-width: 500px;
+  width: 100%;
   z-index: 9999;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 2px solid var(--bs-primary);
+}
+#cookieConsent button.btn, #cookieConsent a.btn {
+  min-width: 360px !important;
 }
 
 #theme-container {
@@ -1924,34 +1931,29 @@ html .not-finished {
   }
 }
 #contact-us {
-  color: #070D05 !important;
+  color: #170d03 !important;
 }
 #contact-us form .form-control,
 #contact-us form .form-group label {
   background-color: transparent;
-  color: #070D05;
 }
 #contact-us form .form-select {
   background-color: transparent;
-  color: #070D05;
   appearance: none; /* Remove default styling in some browsers */
+}
+#contact-us form .form-control, #contact-us form .form-select {
+  color: #170d03;
+  border: 2px solid var(--bs-success);
+}
+#contact-us form .form-control::placeholder, #contact-us form .form-select::placeholder {
+  color: #070D05;
 }
 #contact-us form .form-select option {
   background-color: transparent;
-  color: #070D05;
+  color: #170d03;
 }
 #contact-us form .form-select option:hover {
   background-color: var(--bs-success);
-}
-#contact-us form .form-select:focus {
-  border-color: rgba(255, 255, 255, 0.5); /* Focus border color */
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Focus shadow */
-}
-#contact-us form .form-control::placeholder {
-  color: #070D05;
-}
-#contact-us form .form-select::placeholder {
-  color: #070D05;
 }
 
 /*!

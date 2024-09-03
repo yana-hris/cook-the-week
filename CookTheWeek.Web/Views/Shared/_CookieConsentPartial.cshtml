@@ -20,15 +20,15 @@
             <h3><span><i class="fa-solid fa-cookie-bite"></i></span>
                 We use cookies
             </h3>
-            <p>
+            <p class="text-center">
                 By using this website, you automatically accept that we use cookies. 
             </p>
-            <a id="hideCookieBanner" href="/Home/CookiePolicy" class="btn btn-outline-primary w-100 text-center">
-                <span aria-hidden="true">What for?</span>
-            </a>
-            <button id="acceptAll" type="button" class="btn btn-primary w-100 text-center" >
+            <button id="acceptAll" type="button" class="btn btn-primary w-25 text-center">
                 <span aria-hidden="true">Ok, I understand</span>
             </button>
+            <a id="hideCookieBanner" href="/Home/CookiePolicy" class="btn btn-light w-25 text-center">
+                <span aria-hidden="true">What for?</span>
+            </a>          
             
         </div>        
     </div>
@@ -43,12 +43,7 @@
                 document.cookie = "@cookieName";
                 document.getElementById("cookieConsent").style.display = "none";
                 
-            });            
-
-            @* readMoreButton.addEventListener("click", function () {                            
-                
-                document.getElementById("cookieConsent").style.display = "none";
-            }); *@
+            });           
 
         })();
     </script>

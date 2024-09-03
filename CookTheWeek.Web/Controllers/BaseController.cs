@@ -16,15 +16,25 @@
             sanitizer = new HtmlSanitizer();
         }        
 
+        // For redirecting to a previously saved in TempData[ReturnUrl] link
         protected RedirectToActionResult RedirectToReturnUrl(object? model)
         {
-            string returnUrl = TempData[ReturnUrl] as string;
+            string returnUrl = "";
             string action = "";
             string controller = "";
 
-            // Parse the returnUrl
-            var uri = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
-            var segments = uri.Segments.Select(s => s.Trim('/')).ToArray();
+            if (TempData.Peek(ReturnUrl) != null)
+            {
+                returnUrl = TempData[ReturnUrl] as string;
+            }
+
+            if(string.IsNullOrEmpty(returnUrl))
+            {
+                return RedirectToAction("Error");
+            }
+
+            // Parse the returnUrl            
+            var segments = returnUrl!.Split("/", StringSplitOptions.RemoveEmptyEntries).ToArray();
 
             if (segments.Length > 0)
             {
@@ -37,6 +47,7 @@
 
             }
 
+            // Pass the model in the TempData if any
             if (model != null)
             {
                 TempData[ContactFormModelWithErrors] = JsonConvert.SerializeObject(model);

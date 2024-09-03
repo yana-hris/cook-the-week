@@ -10,6 +10,7 @@
         public const string CookieConsentName = ".AspNet.Consent";
         public const string ReturnUrl = "ReturnUrl";
         public const string ContactFormModelWithErrors = "ContactFormModelWithErrors";
+        public const string JustLoggedIn = "JustLoggedIn";
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
