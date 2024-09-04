@@ -33,6 +33,7 @@
                 "AccessDeniedPathInfo",
                 "EmailConfirmationInfo",
                 "ConfirmedEmail",
+                "ForgotPassword",
             ];
 
 

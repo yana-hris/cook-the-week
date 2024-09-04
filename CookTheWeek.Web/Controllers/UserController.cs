@@ -285,6 +285,13 @@
         }
 
         [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            ForgotPasswordFormModel model = new ForgotPasswordFormModel();
+            return View(model);
+        }
+
+        [HttpGet]
         [Authorize]
         public IActionResult ChangePassword()
         {

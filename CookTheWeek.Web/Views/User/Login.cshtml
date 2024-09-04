@@ -12,7 +12,7 @@
             <h6 class="text-center text-uppercase mb-4">Use a local account</h6>
             
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
-            <div class="mb-2">
+            <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text">Username</span>
                     <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
@@ -30,13 +30,20 @@
                     <a class="custom-link" asp-controller="User" asp-action="Register">Create one here</a>
                 </p>
             </div>
-            <div class="my-1">
-                <div class="checkbox">
-                    <label asp-for="RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="RememberMe" />
-                        @Html.DisplayNameFor(m => m.RememberMe)
+            <div class="my-1 d-flex flex-grow-0 align-items-center justify-content-between">
+                
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="RememberMe" type="checkbox" id="flexCheckDefault" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Remember me?
+                       @*  <input class="form-check-input" asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe) *@
                     </label>
-                </div>
+                </div>                
+                <div class="form-check-label">
+                    <a class="custom-link" href="/User/ForgotPassword">Forgot password?</a>
+                </div>                
+                
             </div>
             <div class="mb-4">
                 <button type="submit" class="btn btn-primary w-100 text-center">Log in</button>
@@ -46,14 +53,14 @@
             <!-- External Login Options -->
             <div class="row mt-2 mb-4">
                 <!-- Google btn -->
-                <div class="col-6">
+                <div class="col-sm-6 mb-2">
                     <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
                         <img class="external-login-icon" src="~/img/google.png" />
                         Sign up with Google
                     </a>
                 </div>                             
                 <!-- Facebook btn-->
-                <div class="col-6">
+                <div class="col-sm-6">
                     <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = FacebookDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
                         <img class="external-login-icon" src="~/img/facebook.png" />
                         Continue with Facebook
