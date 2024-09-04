@@ -291,6 +291,38 @@
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.Email = SanitizeInput(model.Email);
+
+            ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
+            bool isEmailConfirmed = user != null ? await userManager.IsEmailConfirmedAsync(user) : false;
+
+            // Redirect the non-existent user without generating a token or sending any email
+            if(user == null || !isEmailConfirmed)
+            {
+                return RedirectToAction("ForgotPasswordConfirmation");
+            }
+
+            // Generate the token only if the user exists
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("ResetPassword", "User", new { token, email = model.Email }, protocol: Request.Scheme);
+
+            var result = await emailSender.SendEmailAsync(
+                model.Email,
+                "Reset Password",
+                "Please reset your password by clicking here",
+                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>.");
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult ChangePassword()
