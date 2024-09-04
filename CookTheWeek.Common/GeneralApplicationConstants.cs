@@ -31,6 +31,8 @@
                 "ChangePassword",
                 "SetPassword",
                 "AccessDeniedPathInfo",
+                "EmailConfirmationInfo",
+                "ConfirmedEmail",
             ];
 
 

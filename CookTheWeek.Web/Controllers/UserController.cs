@@ -1,21 +1,21 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
     
-
-    
     using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Services.Data.Interfaces;
     using Data.Models;
     using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Services.Data.Interfaces;
-    using System.Security.Claims;
+    using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -24,18 +24,20 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
+        private readonly IEmailSender emailSender;
         
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
                               IUserService userService,
-                              IMemoryCache memoryCache)
+                              IMemoryCache memoryCache,
+                              IEmailSender emailSender)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.userService = userService;
             this.memoryCache = memoryCache;
-            
+            this.emailSender = emailSender;
         }
 
         [HttpGet]
@@ -52,21 +54,19 @@
                 return View(model); 
             }
 
-            ApplicationUser user = new ApplicationUser();
+            model.Email = SanitizeInput(model.Email);
 
-            // Sanitizing User Input
-            model.Username = SanitizeInput(model.Username);
-            model.Password = SanitizeInput(model.Password);
-            model.ConfirmPassword = SanitizeInput(model.ConfirmPassword);
-
-            await userManager.SetUserNameAsync(user, model.Username);
-            await userManager.SetEmailAsync(user, user.Email);
-
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
-
-            if(!result.Succeeded) 
+            ApplicationUser user = new ApplicationUser()
             {
-                foreach (IdentityError Error in result.Errors)
+                UserName = SanitizeInput(model.Username),
+                Email = model.Email
+            };
+
+            IdentityResult identityResult = await userManager.CreateAsync(user, SanitizeInput(model.Password));
+
+            if (!identityResult.Succeeded)
+            {
+                foreach (IdentityError Error in identityResult.Errors)
                 {
                     ModelState.AddModelError(string.Empty, Error.Description);
                 }
@@ -74,11 +74,59 @@
                 return View(model);
             }
 
-            await signInManager.SignInAsync(user, isPersistent: false);
-            TempData[JustLoggedIn] = true;
-            this.memoryCache.Remove(UsersCacheKey);
+            // Generate the email confirmation token
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(nameof(ConfirmedEmail), "User", new { userId = user.Id, code = token }, Request.Scheme);
 
-            return RedirectToAction("Index", "Home");
+            // Send email
+            var responseResult = await emailSender.SendEmailAsync(
+                model.Email, 
+                "Confirm your email", 
+                $"Please confirm your account by clicking this link: {callbackUrl}",
+                $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+
+            if (responseResult != null && !responseResult.IsSuccessStatusCode)
+            {
+                // Optionally delete the user if email failed to send
+                await userManager.DeleteAsync(user);
+                return RedirectToAction("Error", "Home"); // Return an error view if the email sending failed
+            }           
+            
+            return RedirectToAction("EmailConfirmationInfo", "User", new {email = model.Email});
+        }
+
+        [HttpGet]
+        public IActionResult EmailConfirmationInfo(string email)
+        {
+            ViewBag.Email = email;
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmedEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            var result = await userManager.ConfirmEmailAsync(user, code);
+            if(result.Succeeded)
+            {
+                // if confirmation goes well, log in the user
+                await signInManager.SignInAsync(user, isPersistent: false);
+                TempData[JustLoggedIn] = true;
+                this.memoryCache.Remove(UsersCacheKey);
+
+                return View();
+            }
+
+            return RedirectToAction("Error", "Home");
         }
 
         [HttpGet]

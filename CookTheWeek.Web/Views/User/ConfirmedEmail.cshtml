@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Confirmed Email";
+}
+<div id="user-email-confirmation" class="image-overlay">
+    <div class="form-container info-message">
+        <h5 class="text-center text-uppercase mb-4 text-success">Successful Email Confirmation</h5>
+
+        <p class="text-center mb-4">            
+            Thank you for your email confirmation! You can now explore the full site functionality.            
+        </p>
+        
+        <h6 class="text-center mb-0">To continue, you can choose one of the following</h6>
+
+        <div class="row g-2 my-2 mb-3">
+            <div class="col-6">
+                <a href="@Url.Action("Profile", "User")" class="btn btn-light w-100 text-center">Your Profile</a>
+            </div>
+            <div class="col-6">
+                <a href="@Url.Action("All", "Recipe")" class="btn btn-primary w-100 text-center">Browse Recipes</a>
+            </div>            
+        </div>
+
+        <p class="small text-center mb-0 pt-1">You will be redirected to the homepage in <span class="text-danger small d-inline-block" id="countdown">30</span> seconds.</p>
+        <p class="small text-center">If the page doesn't redirect, <a href="/Home/Index">click here</a>.</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        let countdown = 30;
+
+        updateCountdown();
+        // Function to update the countdown and redirect
+        function updateCountdown() {
+            debugger;
+            document.getElementById('countdown').textContent = countdown;
+            countdown--;
+
+            if (countdown < 0) {
+                window.location.href = '/Home/Index';
+            } else {
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+    </script>
+}
+
