@@ -15,7 +15,6 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -154,16 +153,35 @@
             model.Username = SanitizeInput(model.Username);
             model.Password = SanitizeInput(model.Password);
 
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+            ApplicationUser? user = await userManager.FindByNameAsync(model.Username);
+
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Login failed: Invalid username or password.");
+                return View(model);
+            }
+
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
+            
+            if(result.IsLockedOut)
+            {
+                await userManager.AccessFailedAsync(user);
+                ModelState.AddModelError(string.Empty, 
+                    "Your account is locked out. Kindly wait for 5 minutes and try again");
+
+                return View(model);
+            }
 
             if (!result.Succeeded)
             {
-                TempData[ErrorMessage] = 
-                    "There was an error while logging you in! Please try again later or contact an administrator.";
-                
+                ModelState.AddModelError(string.Empty,
+                    "Login failed: Invalid email or password.");
+
                 return View(model);
             }
-            
+
+
             this.memoryCache.Remove(UsersCacheKey);
 
             if (this.User.IsAdmin())
