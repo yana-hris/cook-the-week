@@ -101,6 +101,24 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
+          "DockedWidth": 172,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
           "DockedWidth": 100,
           "SelectedChildIndex": 0,
           "Children": [
@@ -209,7 +227,7 @@
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\UserController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\UserController.cs",
               "RelativeToolTip": "CookTheWeek.Web\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAwwKgAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAJgAAAAAAAAAAAAwwKYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-24T07:33:02.623Z",
               "EditorCaption": ""

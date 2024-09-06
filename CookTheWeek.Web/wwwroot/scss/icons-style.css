@@ -3,11 +3,6 @@
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: darkred;
 }
-html .liked-icon:hover {
-  color: #fff;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #222222;
-}
 html .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
