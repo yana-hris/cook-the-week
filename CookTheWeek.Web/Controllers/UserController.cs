@@ -307,20 +307,28 @@
             // Redirect the non-existent user without generating a token or sending any email
             if(user == null || !isEmailConfirmed)
             {
-                return RedirectToAction("ForgotPasswordConfirmation");
+                return RedirectToAction("ForgotPasswordConfirmation", "User");
             }
 
             // Generate the token only if the user exists
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
             var callbackUrl = Url.Action("ResetPassword", "User", new { token, email = model.Email }, protocol: Request.Scheme);
+            string tokenExpirationTime = DateTime.Now.AddHours(24).ToString();
 
             var result = await emailSender.SendEmailAsync(
                 model.Email,
                 "Reset Password",
-                "Please reset your password by clicking here",
-                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>.");
+                $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}",
+                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>. The link will be active until {tokenExpirationTime}");
 
             return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+
+            return View();
         }
 
         [HttpGet]
@@ -362,6 +370,13 @@
                 return RedirectToAction("ResetPasswordConfirmation");
             }
 
+            // Handle token expiration
+            if (result.Errors.Any(e => e.Code == "InvalidToken"))
+            {
+                ModelState.AddModelError(string.Empty, "The token is invalid or has expired. Please request a new password reset link.");
+                return View(model); // You could redirect to another view here, depending on your UX flow.
+            }
+
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
@@ -369,6 +384,12 @@
 
             return View(model);
 
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -463,7 +484,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> AccountDeletedConfirmation()
+        public IActionResult AccountDeletedConfirmation()
         {
             return View();
         }

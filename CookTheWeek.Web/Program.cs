@@ -26,7 +26,7 @@ namespace CookTheWeek.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             builder.Configuration.AddUserSecrets<Program>();
-            var config = builder.Configuration;
+            ConfigurationManager config = builder.Configuration;
 
             string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
@@ -40,16 +40,33 @@ namespace CookTheWeek.Web
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
-                options.Password.RequireLowercase = builder.Configuration.GetValue<bool>("Password:RequireLowercase");
-                options.Password.RequireUppercase = builder.Configuration.GetValue<bool>("Password:RequireUppercase");
-                options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Password:RequireNonAlphanumeric");
-                options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Password:RequireDigit");
-                options.Password.RequiredLength = builder.Configuration.GetValue<int>("Password:RequiredLength");
+                IConfigurationSection passwordSection =
+                   config.GetSection("Identity:Password");                
+                options.SignIn.RequireConfirmedAccount = builder.Configuration
+                    .GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                options.Password.RequireLowercase = passwordSection
+                    .GetValue<bool>("RequireLowercase");
+                options.Password.RequireUppercase = passwordSection
+                    .GetValue<bool>("RequireUppercase");
+                options.Password.RequireNonAlphanumeric = passwordSection
+                    .GetValue<bool>("RequireNonAlphanumeric");
+                options.Password.RequireDigit = passwordSection
+                    .GetValue<bool>("RequireDigit");
+                options.Password.RequiredLength = passwordSection
+                    .GetValue<int>("RequiredLength");
+
+                IConfigurationSection lockoutSection =
+                   config.GetSection("Identity:Lockout");
+                options.Lockout.AllowedForNewUsers = lockoutSection
+                    .GetValue<bool>("AllowedForNewUsers");
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan
+                    .FromMinutes(lockoutSection.GetValue<double>("DefaultLockoutTimeSpan"));
+                options.Lockout.MaxFailedAccessAttempts = lockoutSection.
+                    GetValue<int>("MaxFailedAccessAttempts");
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
-
+           
             // Add Authentication services with Google OAuth
             builder.Services.AddAuthentication()
                .AddGoogle(options =>
