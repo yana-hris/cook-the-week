@@ -194,7 +194,7 @@
          <div class="card-footer">
             <div class="col text-center">
                 <div class="buttons">
-                    <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary card-btn-width text-center" type="button">
+                        <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-secondary card-btn-width text-center" type="button">
                         Edit
                     </a>
                     <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-recipe-id="@Model.Id" class="btn btn-danger text-center card-btn-width" type="button">
@@ -269,33 +269,5 @@
             });
         }
     </script>  
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-            $('#backBtn').click(function (event) {
-                event.preventDefault(); // Prevent the default action
-
-                // Check if the referrer is the edit view page with an ID in the URL
-                var referrer = document.referrer;
-                var editViewPattern = /^https:\/\/localhost:7170\/Recipe\/Edit\/[0-9a-fA-F-]+$/;
-                var addViewPattern = /^https:\/\/localhost:7170\/Recipe\/Add$/;
-
-                if (referrer) {
-                    if (editViewPattern.test(referrer)) {
-                        // If the referrer matches the edit view pattern, go back three steps (to TargetView(-3) <-Details(-2) <-Edit(-1) <-Details(current view))
-                        window.history.go(-3);
-                    } else if (addViewPattern.test(referrer)) {
-                        // If the referrer matches the add view pattern, go back two steps (to TargetView(-2) <-Add(-1) <-Details(current view))
-                        window.history.go(-2);
-                    } else {
-                        // Otherwise, just go back one step
-                        window.history.back();
-                    }
-                } else {
-                    // If there's no referrer, just go back one step
-                    window.history.back();
-                }
-            });
-        });
-    </script>
+    
 }

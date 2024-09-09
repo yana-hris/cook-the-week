@@ -3,8 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-
-    using Common.HelperMethods;
+    
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
     using ViewModels.Recipe.Enums;
@@ -68,6 +67,7 @@
                     .ToDictionary(rs => (int)rs, rs => rs.ToString());
 
                 ViewData["Title"] = "All Recipes";
+                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 
                 return View(queryModel);
             }
@@ -80,16 +80,17 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(string returnUrl)
         {
             RecipeAddFormModel model = new RecipeAddFormModel();
-            await PopulateModelDataAsync(model);            
+            await PopulateModelDataAsync(model);
 
+            ViewBag.ReturnUrl = returnUrl; 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RecipeAddFormModel model)
+        public async Task<IActionResult> Add(RecipeAddFormModel model, string returnUrl = null)
         {
             await PopulateModelDataAsync(model);
             await ValidateCategoryAsync(model);
@@ -98,6 +99,8 @@
             if (!ModelState.IsValid)
             {
                 StoreServerErrorsInTempData();
+                ViewBag.ReturnUrl = returnUrl;
+                // For the back btn to work
                 return View(model);
             }
             SanitizeModelInputFields(model);
@@ -108,7 +111,7 @@
                 bool isAdmin = User.IsAdmin();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
-                return RedirectToAction("Details", new { id = recipeId });
+                return RedirectToAction("Details", new { id = recipeId, returnUrl });
             }
             catch (Exception ex)
             {
@@ -120,7 +123,7 @@
         
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
@@ -128,7 +131,7 @@
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
                 logger.LogWarning($"Recipe with id {id} does not exist in database!");
-                return RedirectToAction("All", "Recipe");
+                return Redirect(returnUrl ?? "/Recipe/All");
             }
 
             string userId = User.GetId();
@@ -138,7 +141,7 @@
             {
                 TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
                 logger.LogWarning("The user id of the recipe owner and current user do not match!");
-                return RedirectToAction("Details", "Recipe", new { id });
+                return RedirectToAction("Details", "Recipe", new { id, returnUrl });
             }
 
             try
@@ -148,7 +151,7 @@
                 model.ServingsOptions = ServingsOptions;
                 model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
                 model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
+                ViewBag.ReturnUrl = returnUrl; 
                 return View(model);
             }
             catch (Exception)
@@ -160,7 +163,7 @@
 
         [HttpPost]
         [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model)
+        public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model, [FromQuery] string returnUrl)
         {
             if (model == null)
             {
@@ -200,7 +203,7 @@
             if (!exists)
             {
                 TempData[ErrorMessage] = RecipeNotFoundErrorMessage;
-                return RedirectToAction("All", "Recipe");
+                return Redirect(returnUrl ?? "/Recipe/All");
             }
 
             string userId = User.GetId();
@@ -208,7 +211,7 @@
             if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = RecipeOwnerErrorMessage;
-                return RedirectToAction("Details", "Recipe", new { id = model.Id });
+                return RedirectToAction("Details", "Recipe", new { id = model.Id, returnUrl });
             }
 
             if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId.Value != default)
@@ -260,7 +263,7 @@
             try
             {
                 await this.recipeService.EditAsync(model);
-                string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id })!;
+                string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl })!;
 
                 // Return JSON response with redirect URL
                 return Ok(new { success = true, redirectUrl = recipeDetailsLink });
@@ -278,7 +281,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
             if (this.User.GetId() == string.Empty)
             {
@@ -286,21 +289,19 @@
                 return RedirectToAction("Login", "User");
             }
 
-
             bool exists = await this.recipeService.ExistsByIdAsync(id);
-            ViewData["Title"] = "Recipe Details";
+            ViewData["Title"] = "Recipe Details";           
 
             if (!exists)
             {
                 TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
-
-                return RedirectToAction("All", "Recipe");
+                return Redirect(returnUrl ?? "/Recipe/All");
             }
 
             try
             {
                 RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id);
-
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
             catch (Exception)
@@ -331,7 +332,7 @@
                 {
                     return RedirectToAction("None");
                 }
-
+                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
                 return View(model);
             }
             catch (Exception)

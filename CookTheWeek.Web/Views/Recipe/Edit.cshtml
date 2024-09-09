@@ -362,7 +362,9 @@
     import { EditRecipeViewModel } from '/js/ko-editRecipe-viewModel.js';
 
     $(document).ready(function () {
-       
+        debugger;
+        const returnUrl = '@ViewBag.ReturnUrl';
+
         var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
         const errorMessages = @Html.Raw(errorMessagesString);
         const validationConstants = @Html.Raw(validationConstantsString);
@@ -384,7 +386,7 @@
 
         // Initialize the ViewModel with the initial data
         const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
-        var viewModel = new EditRecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants);
+        var viewModel = new EditRecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants, returnUrl);
         
 
         // Configure Knockout Validation plugin

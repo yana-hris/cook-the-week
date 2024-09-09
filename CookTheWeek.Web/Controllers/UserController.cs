@@ -195,13 +195,13 @@
         [HttpGet]
         public IActionResult ExternalLogin(string schemeProvider, string? returnUrl = null)
         {
-            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User");
+            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User", new {returnUrl});
             var properties = signInManager.ConfigureExternalAuthenticationProperties(schemeProvider, redirectUrl);
             return new ChallengeResult(schemeProvider, properties);
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
         {
             if (remoteError != null)
             {

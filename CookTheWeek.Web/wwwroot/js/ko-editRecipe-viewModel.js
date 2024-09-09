@@ -1,6 +1,6 @@
 ﻿import { activateTabWithError } from './site.js';
 //Knockout Edit Recipe Viewmodel definition, enabling two-way data binding (client-server side and vise-versa)
-export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants) {
+export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, validationConstants, returnUrl) {
 
     var self = this;
 
@@ -218,19 +218,21 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         if (isValid) {
 
             var jsonData = JSON.stringify(self.toJSON());
-            console.log('Submitting data:', jsonData); // Log data being sent
-
-            // Perform AJAX POST request
+            
+            console.log('Submitting data:', jsonData);
+            
             $.ajax({
-                url: '/Recipe/Edit',
+                url: '/Recipe/Edit?returnUrl=' + encodeURIComponent(returnUrl), //'/Recipe/Edit',
                 type: 'POST',
                 contentType: 'application/json',
-                data: jsonData,
+                data: jsonData, // Send the updated JSON with returnUrl
                 success: function (response) {
                     if (response.success && response.redirectUrl) {
                         setTimeout(function () {
                             toastr.success('Recipe edited successfully!');
                         }, 2000);
+                        // Replace the current history state with the recipe details view
+                        history.replaceState(null, null, returnUrl);
                         window.location.href = response.redirectUrl;
                     }
                 },
