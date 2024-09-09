@@ -11,8 +11,8 @@
 
     public class EmailSender : IEmailSender
     {
-        private readonly SendGridClientOptions options;
         private readonly IConfiguration configuration;
+        private readonly SendGridClientOptions options;
 
         public EmailSender(IOptions<SendGridClientOptions> options,
             IConfiguration configuration)

@@ -1765,12 +1765,16 @@ html .not-finished {
 #add-recipe .card .card-body #ingredientsContainer .ingredient-row .input-validation-error, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .input-validation-error {
   border-color: red;
 }
-#add-recipe .card .card-body #ingredientsContainer hr, #edit-recipe .card .card-body #ingredientsContainer hr {
-  margin-top: 0;
-  margin-bottom: 8px;
-  padding: 0;
+#add-recipe .card .card-body hr, #edit-recipe .card .card-body hr {
+  border-top: 3px dashed var(--bs-body-color);
+  margin: 10px 0;
 }
 
+@media (min-width: 768px) {
+  hr {
+    margin: 1rem 0 !important;
+  }
+}
 #shopping-list {
   position: relative;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

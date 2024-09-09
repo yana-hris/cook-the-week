@@ -148,14 +148,14 @@
 
                         </div>
                     </div>
-                    <!-- TAB INSTRUCTIONS - ICOLLECTION OF STEPS -->
+                    <!-- TAB INSTRUCTIONS -->
                     <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
                         <div id="instructions-content" class="tab-content">
-                            <div id="instructionsContainer" class="row g-3">
-                                <div id="instructionsList" data-bind="foreach: Steps">
+                            <div id="instructionsContainer">
+                                <div class="row-gap-sm-2 " id="instructionsList" data-bind="foreach: Steps">
 
-                                    <div class="row instructions-row align-items-center">
-                                        <div class="col-11 p-2">
+                                    <div class="row instructions-row pt-2 pb-2 pb-lg-3">
+                                        <div class="col">
                                             <div class="input-group">
                                                 <span class="input-group-text">Step</span>
                                                 <textarea 
@@ -171,7 +171,7 @@
                                                 class="small text-danger">
                                             </span> 
                                         </div>
-                                        <div class="col-1 p-2">
+                                        <div class="col-auto">
                                             <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
                                                 <button class="btn btn-icon-only remove-btn-size minus" type="button" data-bind="click: $parent.removeStep">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
@@ -181,7 +181,6 @@
                                     </div>
                                    
                                 </div>
-                                <hr />
                                 <!-- Add Step Btn -->
                                 <div class="row justify-content-end pt-3 pb-2">
                                     <!-- Empty column to push the button to the end -->
@@ -198,11 +197,11 @@
                     <!-- TAB RECIPE INGREDIENTS -->
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <div id="ingredients-content" class="tab-content">
-                            <div id="ingredientsContainer" class="row g-3">
+                            <div id="ingredientsContainer" class="row">
                                 <div id="ingredientList" data-bind="foreach: RecipeIngredients">
                                     <!-- USING KNOCKOUTJS DATA BINDING -->
-                                    <div class="row ingredient-row">
-                                        <div class="col col-6 col-lg-4 p-2">
+                                    <div class="row ingredient-row pt-2 pb-2 pb-lg-3">
+                                        <div class="col col-6 col-lg-4">
                                             <div class="input-group">
                                                 <span class="input-group-text">Ingredient</span>
                                                 <input data-bind="value: Name, 
@@ -221,7 +220,7 @@
                                             </span>
                                         </div>
                                         <!-- COMPLEX QUANTITY INPUT -->
-                                        <div class="col col-6 col-lg-3 p-2 qty-row">
+                                        <div class="col col-6 col-lg-3 qty-row">
 
                                             <!--  DECIMAL INPUT -->
                                             <div class="decimal-qty-input" data-bind="style: { display: showFractionsDiv() ? 'none' : 'block' }">
@@ -275,8 +274,7 @@
                                                 <label class="form-check-label">Use Fractions</label>
                                             </div>                                               
                                         </div>
-
-                                        <div class="col col-5 col-lg-2 p-2">
+                                        <div class="col col-5 col-lg-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Unit</span>
                                                 <select data-bind="value: MeasureId, 
@@ -296,7 +294,7 @@
                                                 class="small text-danger">
                                             </span>
                                         </div>
-                                        <div class="col col-6 col-lg-2 p-2">
+                                        <div class="col col-5 col-lg-2">
                                             <div class="input-group">
                                                 <span class="input-group-text">Note</span>
                                                 <select 
@@ -310,7 +308,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col col-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
+                                        <div class="col col-2 col-lg-1 d-flex justify-content-center align-items-top adjust-btn-position">
                                             <a data-bind="click: $parent.removeIngredient" 
                                                class="btn remove-btn-size btn-icon-only minus">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>

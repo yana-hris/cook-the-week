@@ -4,6 +4,7 @@
     .heading-secondary {
         font-size: 1.9rem !important;
     }
+
     .card {
         @extend .card-custom-style-with-back-btn;
 
@@ -12,6 +13,7 @@
             .tab-pane {
                 min-height: 30vh;
             }
+
             #ingredientsContainer {
 
                 .ingredient-row {
@@ -49,13 +51,18 @@
                         border-color: red;
                     }
                 }
+            }
 
-                hr {
-                    margin-top: 0;
-                    margin-bottom: 8px;
-                    padding: 0;
-                }
+            hr {
+                border-top: 3px dashed var(--bs-body-color);
+                margin: 10px 0;
             }
         }
+    }
+}
+
+@media (min-width:768px) {
+    hr {
+        margin: 1rem 0 !important;
     }
 }

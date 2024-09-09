@@ -211,6 +211,9 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
             activateTabWithError("#add-recipe");
             return false; // Prevent form submission
         } else {
+            
+            // Update the history state without reloading the page
+            history.replaceState("", "", "/Recipe/All");
             return true; // Allow form submission
         }
     };
