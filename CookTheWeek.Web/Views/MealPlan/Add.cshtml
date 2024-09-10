@@ -196,28 +196,45 @@
 </div>
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
-    <script>
-        $(document).ready(function () {
-            var mealsIndex = @initialCount;
-            $(document).on('click', '.minus', function (event) {
-                
+    <script type="module">
+        import { removeRecipeFromLocalStorage, eraseUserLocalStorage } from '/js/site.js';
 
+        $(document).ready(function () {
+
+            var mealsIndex = '@initialCount';
+            $(document).on('click', '.minus', function (event) {
                 var recipeId = this.dataset.recipeid;
                 var mealsCount = $('.meal-row').length;
 
                 if (mealsCount === 1) {
                     event.preventDefault();
-                    toastr.error('To build a Meal Plan, at least one Meal is required.');
+                    toastr.error('You need at least one meal to buld a plan');
                     return false;
                 }
                 $(this).closest('.meal-row').remove();
                 mealsIndex--;
-                reindexRows();
-                
-                removeFromLocalStorage(recipeId);
+                reindexMealRows();
+
+                removeRecipeFromLocalStorage(recipeId);
+            });
+            
+            // Erase user local storage before successful form submit
+            $('#add-mealplan-form').on('submit', function (event) {
+                event.preventDefault();                 
+                var form = $(this);
+
+                if (form.valid()) { 
+                    
+                    eraseUserLocalStorage();
+                    
+                    form.off('submit');  // Remove the 'preventDefault' handler
+                    form.submit();       // Submit the form again
+                } else {
+                    toastr.error('Missing or incorrect data');
+                }
             });
 
-            function reindexRows() {
+            function reindexMealRows() {
                 $('.meal-row').each(function (rowIndex) {
                     $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
                         var idParts = element.id.split('__');
@@ -237,31 +254,8 @@
 
                 $('form').validate().form();
             }
-
-            function removeFromLocalStorage(recipeId) {
-                // get user local storage
-                var userMealPlans = localStorage.getItem(currentUserId);
-                console.log(userMealPlans);
-                if (userMealPlans) {
-                    userMealPlans = JSON.parse(userMealPlans);
-                    const recipeIndex = userMealPlans.indexOf(recipeId);
-
-                    if (recipeIndex !== -1) {
-                        userMealPlans.splice(recipeIndex, 1);
-
-                        try {
-                            localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
-                            toastr.success(`Recipe successfully removed from the meal plan`);
-                        } catch (error) {
-                            console.error('Local storage not saved!');
-                            toastr.error("Something went wrong!");
-                        }
-                        
-                    }
-                }
-            }
-
         });
+
     </script>
     
 }

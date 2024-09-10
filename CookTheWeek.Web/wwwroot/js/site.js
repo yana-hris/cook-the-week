@@ -78,7 +78,7 @@
 
 
 window.onload = function () {    
-    var buildBtnShouldBeRendered = isSpecificView(currentView);    
+    var buildBtnShouldBeRendered = isSpecificView();    
     if (buildBtnShouldBeRendered) {
         if (currentUserId) {
             showOrHideBuildMealPlanBtn(); 
@@ -144,32 +144,24 @@ function updateRecipeBtns() {
         })
     }
 }
-function isSpecificView(view) {
+function isSpecificView() {
     // Check if the current View is any of these   
     const specificViews = ["All Recipes", "Recipe Details", "My Recipes"];
-    return specificViews.includes(view);
+    return specificViews.includes(currentView);
 };
 
 function userHasMealPlans() {
     const userMealPlans = getUserLocalStorage(currentUserId);
-
-    // Check if user meal plans exist
-    if (userMealPlans) {
-        // Parse the existing meal plans
-        const mealPlans = JSON.parse(userMealPlans);
-
-        // Check if the meal plans array is not empty
-        if (mealPlans.length > 0) {
-            // User has meal plans stored in local storage
+    
+    if (userMealPlans) {        
+        
+        if (userMealPlans.length > 0) {            
             return true;
         }
-    }
-
-    // User does not have any meal plans stored in local storage
+    }    
     return false;
 }
 
-// Show or Hide Build Meal Plan Btn
 function showOrHideBuildMealPlanBtn() {
     var buildBtnContainer = document.getElementById('build-btn-container');    
 
@@ -183,30 +175,13 @@ function showOrHideBuildMealPlanBtn() {
         buildBtnContainer.style.display = "none";
     }
 }
-// Check if user has Local Storage Meal Plan:
+
 function getUserLocalStorage() {
     return localStorage.getItem(currentUserId);
 }
 
-function eraseUserLocalStorage() {
-    localStorage.removeItem(currentUserId);
-}
 
-// Check if a Recipe is already added to User`s Meal Plan
-function isRecipeAddedToMealPlan(recipeId) {
-    var userMealPlans = getUserLocalStorage();
 
-    if (!userMealPlans) {
-        return false;
-    }
-    // Parse the user's meal plans
-    const mealPlans = JSON.parse(userMealPlans);
-
-    // Check if the recipe ID exists in the user's meal plans
-    return mealPlans.includes(recipeId);
-}
-
-// Create or Add To MealPlan
 const addRecipeToMealPlan = function(event) {
     // Check if local storage has meal plans for this user
     event.preventDefault();
@@ -222,10 +197,7 @@ const addRecipeToMealPlan = function(event) {
         userMealPlans = JSON.parse(userMealPlans);
     }
 
-    // Check if the recipe is already in the meal plan
-    const existingRecipeIndex = userMealPlans.findIndex(item => item === recipeId);
-
-    if (existingRecipeIndex === -1) {
+    if (userMealPlans.indexOf(recipeId) === -1) {
         // If the recipe doesn't exist, add it to the meal plan
         userMealPlans.push(recipeId);        
         toastr.success(`Recipe successfully added to meal plan`);
@@ -240,35 +212,15 @@ const addRecipeToMealPlan = function(event) {
     showOrHideBuildMealPlanBtn(currentUserId);
 }
 
-// Remove recipe from Meal Plan
-const removeRecipeFromMealPlan = function(event) {
-    // Get the user's meal plans from local storage
+// Remove recipe from saved for meal plan (all, mine, details views) or from meal plan (view)
+
+
+const removeRecipeFromMealPlan = function (event) {
+
     event.preventDefault();
     event.stopPropagation();
-    var recipeId = event.currentTarget.dataset.recipeid;
-    let userMealPlans = getUserLocalStorage();
-
-    // If the user doesn't have any meal plans yet, return
-    if (!userMealPlans) {
-        toastr.error(`No meal plan yet`);
-        return;
-    }
-    // Parse the user's meal plans
-    userMealPlans = JSON.parse(userMealPlans);
-
-    // Check if the recipe ID exists in the user's meal plans
-    const recipeIndex = userMealPlans.indexOf(recipeId);
-
-    if (recipeIndex !== -1) {
-        // Remove the recipe from the user's meal plans
-        userMealPlans.splice(recipeIndex, 1);        
-        toastr.success(`Recipe successfully removed from the meal plan`);
-        
-    } else {
-        toastr.error(`This Recipe has not been added to your meal plan and cannot be removed`);
-        return;
-    }
-    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
+    recipeId = event.currentTarget.dataset.recipeid;
+    removeRecipeFromLocalStorage(recipeId); 
     toggleAddRemoveBtn(event.currentTarget);
     showOrHideBuildMealPlanBtn();
 }
@@ -301,16 +253,16 @@ function toggleAddRemoveBtn(btn) {
 function buildMealPlan(event) {
     event.preventDefault();
     
-    var userMealPlanList = JSON.parse(getUserLocalStorage()) || [];
+    const userMealPlans = JSON.parse(getUserLocalStorage()) || [];
 
-    if (userMealPlanList.length === 0) {
+    if (userMealPlans.length === 0) {
         toastr.error("Error Building Meal Plan!");
         return;
     }
 
     var model = {
         UserId: currentUserId,
-        Meals: userMealPlanList.map(recipeId => ({ RecipeId: recipeId }))
+        Meals: userMealPlans.map(recipeId => ({ RecipeId: recipeId }))
     };
     
     
@@ -322,7 +274,7 @@ function buildMealPlan(event) {
         success: function (response, status, xhr) {
             // Check if a redirect is happening
             if (xhr.getResponseHeader('X-Redirect') != null) {
-                eraseUserLocalStorage();
+                //eraseUserLocalStorage(); --> local storage should be erased only after the meal plan is created later in the POST Add view
                 window.location.href = xhr.getResponseHeader('X-Redirect');
             } else {
                 console.log('Success:', response);
@@ -356,6 +308,32 @@ export function activateTabWithError(context) {
             $buttonElement.tab('show'); // Activate the tab                    
         }
     } 
+}
+
+export function removeRecipeFromLocalStorage(recipeId) {
+    debugger;
+    if (!userHasMealPlans()) {
+        console.log('Error: User has no meal plans to remove recipes from');
+        return;
+    }
+
+    let userMealPlans = JSON.parse(getUserLocalStorage());
+    const recipeIndex = userMealPlans.indexOf(recipeId);
+
+    if (recipeIndex !== -1) {
+        userMealPlans.splice(recipeIndex, 1);
+        toastr.success(`Recipe successfully removed from the meal plan`);
+
+    } else {
+        toastr.error(`Error: Recipe not found in meal plan`);
+        return;
+    }
+
+    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
+}
+
+export function eraseUserLocalStorage() {
+    localStorage.removeItem(currentUserId);
 }
 
   
