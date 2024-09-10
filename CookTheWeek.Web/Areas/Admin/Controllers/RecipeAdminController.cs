@@ -31,27 +31,14 @@
             try
             {
                 RecipeMineAdminViewModel model = new RecipeMineAdminViewModel();
-                
-                string[] allAdminIds = await userAdminService.AllUsersInRoleIdsAsync(AdminRoleName);
-                string[] allNonAdminUserIds = await this.userAdminService.AllUsersNotInRoleIdsAsync(AdminRoleName);
+                model.SiteRecipes = await this.recipeService.AllSiteAsync();
+                model.UserRecipes = await this.recipeService.AllUserRecipesAsync();
 
-                if (allAdminIds != null && allAdminIds.Length > 0)
+                if (!model.SiteRecipes.Any() && !model.UserRecipes.Any())
                 {
-                    model.SiteRecipes = await this.recipeService.AllSite(allAdminIds);
+                    return View("None");
                 }
 
-                if (allNonAdminUserIds != null && allNonAdminUserIds.Length > 0)
-                {
-                    foreach (var userId in allNonAdminUserIds)
-                    {
-                        ICollection<RecipeAllViewModel> userRecipes = await this.recipeService.AllAddedByUserAsync(userId);
-
-                        if (userRecipes.Count > 0)
-                        {
-                            model.UserRecipes.AddRange(userRecipes);
-                        }
-                    }
-                }
                 return View(model);
             }
             catch (Exception)
@@ -59,6 +46,12 @@
                 logger.LogError("Site Recipes unsuccessfully loaded to View Model!");
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        public IActionResult None()
+        {
+            return View();
         }
     }
 }

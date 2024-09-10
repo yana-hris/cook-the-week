@@ -7,8 +7,8 @@
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
+    using Data.Interfaces;
 
     public class UserAdminService : IUserAdminService
     {
@@ -49,42 +49,7 @@
             return await this.dbContext
                 .Users
                 .CountAsync();
-        }
-        public async Task<string[]> AllUsersInRoleIdsAsync(string roleName)
-        {
-            var allUsers = await this.userManager.Users
-                .ToListAsync();
-
-            var usersInRoleStringIds = new List<string>();
-
-            foreach (var user in allUsers)
-            {
-                if (await userManager.IsInRoleAsync(user, roleName))
-                {
-                    usersInRoleStringIds.Add(user.Id.ToString());
-                }
-            }
-
-            return usersInRoleStringIds.ToArray();
-
-        }
-
-        public async Task<string[]> AllUsersNotInRoleIdsAsync(string roleName)
-        {
-            var allUsers = await this.userManager.Users
-                .ToListAsync();
-
-            var usersNotInRoleStringIds = new List<string>();
-
-            foreach (var user in allUsers)
-            {
-                if (!await userManager.IsInRoleAsync(user, roleName))
-                {
-                    usersNotInRoleStringIds.Add(user.Id.ToString());
-                }
-            }
-
-            return usersNotInRoleStringIds.ToArray();
-        }
+        }        
+        
     }
 }

@@ -5,8 +5,6 @@
     public interface IUserAdminService
     {
         Task<ICollection<UserAllViewModel>> AllAsync();
-        Task<int> AllCountAsync();
-        Task<string[]> AllUsersInRoleIdsAsync(string roleName);
-        Task<string[]> AllUsersNotInRoleIdsAsync(string roleName);
+        Task<int> AllCountAsync();        
     }
 }

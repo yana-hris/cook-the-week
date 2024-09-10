@@ -172,15 +172,15 @@
                            @for (int i = 0; i < Model.Steps.Count; i++)
                             {
                                 string currentStepText = Model.Steps[i].Description;
-                                <div class="row mb-4 align-items-start">
+                                <div class="row mb-2 d-flex align-items-start">
                                     @if (i > 0)
                                     {
                                         <hr class="steps-delimeter" />
                                     }
-                                    <div class="col-auto align-self-start">
+                                    <div class="col-auto">
                                         <div class="step-number">@(i + 1)</div>
                                     </div>
-                                    <div class="col align-self-start">@currentStepText</div>
+                                    <div class="col">@currentStepText</div>
                                 </div>
                             }
                         </div>

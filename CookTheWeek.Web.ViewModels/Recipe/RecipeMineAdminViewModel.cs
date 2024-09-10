@@ -10,7 +10,7 @@
 
         public ICollection<RecipeAllViewModel> SiteRecipes { get; set; }
 
-        public List<RecipeAllViewModel> UserRecipes { get; set; }
+        public ICollection<RecipeAllViewModel> UserRecipes { get; set; }
     }
 
 }
