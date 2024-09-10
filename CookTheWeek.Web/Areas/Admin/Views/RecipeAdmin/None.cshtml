@@ -5,17 +5,17 @@
     <div class="form-container info-message">
         <h1 class="text-center text-capitalize text-danger mb-1">No Recipes yet</h1>
         
-        <p>There are no recipes added by an Admin or by users yet!</p>
+        <p class="mb-4">There are no recipes added by an Admin or by users yet!</p>
 
-        <h5 class="text-center mb-0">Start adding now..</h5>
+        <h5 class="text-center mb-3">Start adding now..</h5>
 
         <div class="row g-2 my-2 mb-4">
             <div class="col-6">
-                <a href="@Url.Action("Add", "Recipe")" class="btn btn-primary w-100 text-center">Add Recipe</a>
+                <a href="/Recipe/Add" class="btn btn-primary w-100 text-center">Add Recipe</a>
             </div>
            
             <div class="col-6">
-                <a href="@Url.Action("Index", "Home")" class="btn btn-secondary w-100 text-center">Back to Home</a>
+                <a href="@Url.Action("Index", "HomeAdmin")" class="btn btn-secondary w-100 text-center">Back to Home</a>
             </div>
         </div>
     </div>

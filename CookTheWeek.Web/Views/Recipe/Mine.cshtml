@@ -5,99 +5,57 @@
 @{
     ViewData["Title"] = "My Recipes";
     string ownedRecipeHeading = "Added By You";
-    bool isAdmin = User.IsAdmin();
     string userId = User.GetId();
 
-    var headingModel = new PageHeadingViewModel
+
+    var likedByYouHeading = new PageHeadingViewModel
         {
             Subheading = "My Recipes",
+            HeadingSecondary = "Liked by you"
         };
 
-    if (Model.FavouriteRecipes.Any())
-    {
-        headingModel.HeadingSecondary = "Liked by you";
-    } else if (Model.OwnedRecipes.Any())
-    {
-        headingModel.HeadingSecondary = ownedRecipeHeading;
-    }
+    var addedByYouHeading = new PageHeadingViewModel();
 
-    if(isAdmin)
+
+    if (!Model.FavouriteRecipes.Any())
     {
-        headingModel.Subheading = "All Recipes";
-        headingModel.HeadingSecondary = "Site Recipes";
-    }
+        addedByYouHeading.Subheading = "My Recipes";
+
+    } 
+    addedByYouHeading.HeadingSecondary = ownedRecipeHeading;
+       
 }
 
 <div class="wide-contents-container">
     <div class="row">
-        <div class="container pb-2">
-            <div class="row">
-                <partial name="_HeadingPartial" model="headingModel" />
-            </div>
-            @* // TODO: change apparance of "No recipes view" *@
-            @if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any() && !isAdmin)
+        <div class="container">                    
+            @if (Model.FavouriteRecipes.Any())
             {
-                <div class="text-center">
-                    <h2 class="text-center">You have no recipes yet!</h2>
-                    <p>Ready to embark on your culinary journey? Start building your personalized meal plan now by exploring our All Recipes section and adding your favorite dishes with a simple click of 'Add to Meal Plan'. Let's create a week of unforgettable flavors together!</p>
-                    <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a></div>
+                <div class="row">
+                    <partial name="_HeadingPartial" model="likedByYouHeading" />
                 </div>
-            }
-            else if (!Model.FavouriteRecipes.Any() && !Model.OwnedRecipes.Any() && isAdmin)
-            {
-                <div class="text-center">
-                    <h2 class="text-center">No Recipes Yet!</h2>
-                    <p>There are no added recipes, neither by an Admin, nor by users on the site!</p>
-                    <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a></div>
-                </div>
-            }
-            else
-            {
-                @if (!isAdmin)
-                {               
-                    @if (Model.FavouriteRecipes.Any())
-                    {
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-                            @foreach (var recipe in Model.FavouriteRecipes)
-                            {
-                                <partial name="_RecipeCardPartial" model="recipe" />
-                            }
-                        </div>
-                        @if (Model.OwnedRecipes.Any())
-                        {
-                            <div class="row">
-                                <h2 class="heading-secondary">@ownedRecipeHeading</h2>
-                            </div>
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                                @foreach (var recipe in Model.OwnedRecipes)
-                                {
-                                    <partial name="_RecipeCardPartial" model="recipe" />
-                                }
-                            </div>
-                        }
-                    }
-                    else if (Model.OwnedRecipes.Any())
-                    {
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                            @foreach (var recipe in Model.OwnedRecipes)
-                            {
-                                <partial name="_RecipeCardPartial" model="recipe" />
-                            }
-                        </div>
-                    }
 
-                }
-                else
-                {
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                        @foreach (var recipe in Model.OwnedRecipes)
-                        {
-                            <partial name="_RecipeCardPartial" model="recipe" />
-                        }
-                    </div>
-                }
-                <partial name="_BuildBtnPartial" />
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+                    @foreach (var recipe in Model.FavouriteRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+                       
             }
+            @if (Model.OwnedRecipes.Any())
+            {
+                <div class="row">
+                    <partial name="_HeadingPartial" model="addedByYouHeading" />
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    @foreach (var recipe in Model.OwnedRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+            }                
+            <partial name="_BuildBtnPartial" />            
         </div>
     </div>
 </div>

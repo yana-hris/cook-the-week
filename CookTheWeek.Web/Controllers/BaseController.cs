@@ -3,9 +3,7 @@
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using Newtonsoft.Json;
 
-    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     [Authorize]
     public abstract class BaseController : Controller

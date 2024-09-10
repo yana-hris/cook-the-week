@@ -3,62 +3,55 @@
     ViewData["Title"] = "Site Recipes";
 
 
-    var headingModel = new PageHeadingViewModel
-        {
-            Subheading = "All Recipes",
-            HeadingSecondary = ViewData["Title"].ToString()
-        };
+    var siteHeading = new PageHeadingViewModel();
+    var userHeading = new PageHeadingViewModel();
 
-    var userRecipesHeading = new PageHeadingViewModel
-        {
-            HeadingSecondary = "User Recipes"
-        };
+
+    if(Model.SiteRecipes.Any() && Model.UserRecipes.Any())
+    {
+        siteHeading.Subheading = "All Recipes";
+        siteHeading.HeadingSecondary = ViewData["Title"].ToString();
+        userHeading.HeadingSecondary = "User Recipes";
+    } else if (!Model.SiteRecipes.Any())
+    {
+        userHeading.Subheading = "All Recipes";
+        userHeading.HeadingSecondary = "User Recipes";
+    } else
+    {
+        siteHeading.Subheading = "All Recipes";
+        siteHeading.HeadingSecondary = ViewData["Title"].ToString();
+    }
+
 }
 
 <div class="wide-contents-container">
-    <div class="row">
-        <div class="container pb-2">    
-            <div class="row">
-                <partial name="_HeadingPartial" model="headingModel" />
-            </div>
-            @* // TODO: change apparance of "No recipes view" *@
-            @if (!Model.SiteRecipes.Any() && !Model.UserRecipes.Any())
-            {
-                <div class="text-center">
-                    <h2 class="text-center">No Recipes Yet!</h2>
-                    <p>There are no added recipes, neither by an Admin, nor by users on the site!</p>
-                    <div class="button"><a class="btn btn-primary" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a></div>
-                </div>
-            }           
-            else
-            {
-                @if (Model.SiteRecipes.Any())
-                {
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-                        @foreach (var recipe in Model.SiteRecipes)
-                        {
-                            <partial name="_RecipeCardPartial" model="recipe" />
-                        }
-                    </div>  
-                }
-
-                
-            }
-            
-            @if (Model.UserRecipes.Any())
-            {
-            <div class="row">
-                <partial name="_HeadingPartial" model="userRecipesHeading" />
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    @foreach (var recipe in Model.UserRecipes)
-                    {
-                        <partial name="_RecipeCardPartial" model="recipe" />
-                    }
-                </div>
-            </div>
-            }
+    
+    @if (Model.SiteRecipes.Any())
+    {
+        <div class="row">
+            <partial name="_HeadingPartial" model="siteHeading" />
         </div>
-    </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+            @foreach (var recipe in Model.SiteRecipes)
+            {
+                <partial name="_RecipeCardPartial" model="recipe" />
+            }
+        </div>  
+    }    
+            
+    @if (Model.UserRecipes.Any())
+    {
+        <div class="row">
+            <partial name="_HeadingPartial" model="userHeading" />
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            @foreach (var recipe in Model.UserRecipes)
+            {
+                <partial name="_RecipeCardPartial" model="recipe" />
+            }
+        </div>        
+    }
+        
 </div>
 
 

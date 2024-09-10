@@ -60,7 +60,7 @@
 .contact-form-container {
     @include make-container();
     @extend .card-border-style;
-    max-width: 620px;
+    max-width: 520px;
     margin-top: 1.2rem;
     padding: 2rem 3rem;
     background: rgb(180,227,61);

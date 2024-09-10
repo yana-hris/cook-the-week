@@ -5,8 +5,6 @@
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Services.Data.Interfaces;
 
-    using static CookTheWeek.Common.GeneralApplicationConstants;
-
     public class RecipeAdminController : BaseAdminController
     {
         private readonly IRecipeService recipeService;
@@ -34,9 +32,11 @@
                 model.SiteRecipes = await this.recipeService.AllSiteAsync();
                 model.UserRecipes = await this.recipeService.AllUserRecipesAsync();
 
+                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
+
                 if (!model.SiteRecipes.Any() && !model.UserRecipes.Any())
                 {
-                    return View("None");
+                    return RedirectToAction("None");
                 }
 
                 return View(model);

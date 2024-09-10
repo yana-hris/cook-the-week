@@ -54,6 +54,11 @@
             string userId = User.GetId();
             bool isAdmin = User.IsAdmin();
 
+            if (isAdmin)
+            {
+                Redirect("/Admin/RecipeAdmin/Site");
+            }
+
             try
             {
                 AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel, userId, isAdmin);
@@ -344,7 +349,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> None()
+        public IActionResult None()
         {
             return View();
         }
