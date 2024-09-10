@@ -336,27 +336,7 @@
             return myRecipes;
         }
 
-        public async Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync()
-        {
-            ICollection<RecipeAllViewModel> allUserRecipes = await this.dbContext
-                .Recipes
-                .Select(r => new RecipeAllViewModel()
-                {
-                    Id = r.Id.ToString(),
-                    ImageUrl = r.ImageUrl,
-                    Title = r.Title,
-                    Description = r.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = r.CategoryId,
-                        Name = r.Category.Name
-                    },
-                    Servings = r.Servings,
-                    CookingTime = FormatCookingTime(r.TotalTime)
-                }).ToListAsync();
-
-            return allUserRecipes;
-        }
+        
         public async Task<bool> IsIncludedInMealPlans(string id)
         {
             return await this.dbContext
@@ -416,6 +396,28 @@
                     }).ToListAsync();
 
             return siteRecipes;
+        }
+        public async Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync()
+        {
+            ICollection<RecipeAllViewModel> allUserRecipes = await this.dbContext
+                .Recipes
+                .Where(r => !r.IsSiteRecipe)
+                .Select(r => new RecipeAllViewModel()
+                {
+                    Id = r.Id.ToString(),
+                    ImageUrl = r.ImageUrl,
+                    Title = r.Title,
+                    Description = r.Description,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = r.CategoryId,
+                        Name = r.Category.Name
+                    },
+                    Servings = r.Servings,
+                    CookingTime = FormatCookingTime(r.TotalTime)
+                }).ToListAsync();
+
+            return allUserRecipes;
         }
 
         // Helper methods for improved code reusability
