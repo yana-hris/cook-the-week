@@ -31,9 +31,15 @@
                 "ChangePassword",
                 "SetPassword",
                 "AccessDeniedPathInfo",
+                "AccountDeletedConfirmation",
                 "EmailConfirmationInfo",
                 "ConfirmedEmail",
                 "ForgotPassword",
+                "ForgotPasswordConfirmation",
+                "ResetPassword",
+                "ResetPasswordConfirmation",
+                "NotFound",
+                "InternalServerError",
             ];
 
 

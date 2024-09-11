@@ -17,26 +17,33 @@
 {
     <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
         <div class="d-flex flex-column gap-3 align-items-center justify-content-between">
-            <h3><span><i class="fa-solid fa-cookie-bite"></i></span>
+            <h2><span><i class="fa-solid fa-cookie-bite"></i></span>
                 We use cookies
-            </h3>
+            </h2>
             <p class="text-center">
                 By using this website, you automatically accept that we use cookies. 
             </p>
-            <button id="acceptAll" type="button" class="btn btn-primary w-25 text-center">
-                <span aria-hidden="true">Ok, I understand</span>
-            </button>
-            <a id="hideCookieBanner" href="/Home/CookiePolicy" class="btn btn-light w-25 text-center">
-                <span aria-hidden="true">What for?</span>
-            </a>          
+            <div class="row g-2">
+                <div class="col col-12">
+                    <button id="acceptAll" type="button" class="btn btn-primary w-100 text-center">
+                        <span aria-hidden="true">Ok, I understand</span>
+                    </button>
+                </div>
+                <div class="col col-12">
+                    <a id="hideCookieBanner" href="/Home/CookiePolicy" class="btn btn-light w-100 text-center">
+                        <span aria-hidden="true">Learn more</span>
+                    </a>
+                </div>                
+                
+            </div>
+                
             
         </div>        
     </div>
     <script>
         (function () {
             
-            var acceptAllButton = document.getElementById("acceptAll");
-            var readMoreButton = document.getElementById("hideCookieBanner");
+            var acceptAllButton = document.getElementById("acceptAll");            
             
             acceptAllButton.addEventListener("click", function () {
                 

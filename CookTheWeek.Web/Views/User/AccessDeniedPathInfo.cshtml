@@ -1,21 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Access Denied";
 }
-<div id="access-denied" class="image-overlay">   
+<div id="access-denied" class="image-overlay food-background">   
     <div class="form-container info-message">
-        <h1 class="text-center text-capitalize text-danger mb-1">Oops..</h1>
-        <h3 class="text-center text-uppercase mb-4">Access denied</h3>
+        <h1 class="text-capitalize text-danger mb-1">Oops..</h1>
+        <h3 class="text-uppercase mb-4">Access denied</h3>
         
         <p>For some reason your Login/Register attempt was unsuccessful! You can try again later or <a href="@Url.Action("Login", "User")" class="custom-link">change the login provider</a>.</p>
         <p>Alternatively, you can <a href="@Url.Action("Register", "User")" class="custom-link">create a local account</a> instead of using Facebook and Google.</p>
         <p>However, if you believe there is something wrong with our website, use our <a href="/Home/Contact" class="custom-link">Contact Form</a> and let us know!</p>
 
-        <h5 class="text-center mb-0">To go back, choose one of the following:</h5>
+        <p class="fw-bold mb-2">To go back, choose one of the following:</p>
 
         <div class="row g-2 my-2 mb-4">
             <div class="col-4">
                 <a href="@Url.Action("Login", "User")" class="btn btn-primary w-100 text-center">Back to Login</a>
-
             </div>
             <div class="col-4">
                 <a href="@Url.Action("Register", "User")" class="btn btn-danger w-100 text-center">Register</a>

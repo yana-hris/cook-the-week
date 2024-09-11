@@ -5,11 +5,11 @@
     ViewData["Title"] = "Log in";
 }
 
-<div id="user-login" class="image-overlay">
+<div id="user-login" class="image-overlay food-background">
     <div class="form-container">
-        <h2 class="text-center text-capitalize mb-1">Login / Sign Up</h2>        
+        <h2 class="text-capitalize mb-1">Login / Sign Up</h2>        
         <form method="post" asp-controller="User" asp-action="Login">
-            <h6 class="text-center text-uppercase mb-4">Use a local account</h6>
+            <h6 class="text-uppercase mb-4">Use a local account</h6>
             
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
             <div class="mb-3">
@@ -25,7 +25,7 @@
                     <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
                 </div>
                 <span asp-validation-for="Password" class="small text-danger"></span>
-                <p class="small">
+                <p class="small text-start">
                     Don`t have a local account?
                     <a class="custom-link" asp-controller="User" asp-action="Register">Create one here</a>
                 </p>
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-primary w-100 text-center">Log in</button>
             </div> 
             
-            <h3 class="text-uppercase text-center pb-4">Or</h3>
+            <h3 class="text-uppercase pb-4">Or</h3>
             <!-- External Login Options -->
             <div class="row mt-2 mb-4">
                 <!-- Google btn -->
@@ -65,7 +65,7 @@
                     </a>
                 </div>
             </div>
-            <p class="text-center small my-3">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
+            <p class="small my-3">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>

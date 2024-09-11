@@ -113,23 +113,20 @@ namespace CookTheWeek.Web.Controllers
             return View(model);            
         }        
 
+        [Route("Home/NotFound")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error(int? statusCode = null)
+        public IActionResult NotFound(int code)
         {
-            if(statusCode != null) 
-            {
-                if(statusCode.Value == 404 || statusCode.Value == 401)
-                {
-                    return View("Error404");
-                }
-                else
-                {
-                    return View("Error500");
-                }
-                
-            } 
-            
-            return View("Error");
+            Response.StatusCode = 404;
+            ViewBag.ErrorCode = code;
+            return View();
+        }
+
+        [Route("Home/InternalServerError")]
+        public IActionResult InternalServerError()
+        {
+            Response.StatusCode = 500;
+            return View();
         }
     }
 }

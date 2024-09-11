@@ -156,17 +156,17 @@ namespace CookTheWeek.Web
             
             WebApplication app = builder.Build();
             
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error/500");
-                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseMigrationsEndPoint();
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+                app.UseExceptionHandler("/Home/InternalServerError");
+                app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?code={0}");
                 app.UseHsts();
-            }
+            //}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -184,7 +184,7 @@ namespace CookTheWeek.Web
 
             app.UseAuthorization();
 
-            //app.EnableOnlineUsersCheck();
+            app.EnableOnlineUsersCheck();
            
             if(app.Environment.IsDevelopment())
             {

@@ -70,8 +70,20 @@
 .form-container {
     @include make-container();
     @extend .card-border-style;
+
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+
     max-width: 500px;
     padding: 2rem;
+    background-color: var(--bs-body-bg);
+    border: none;
+    border-radius: 2px;
+
+    text-align: center;
 }
 
 // Media queries for custom containers
@@ -199,6 +211,9 @@
             color: var(--bs-body-color) !important;
             background-color: var(--bs-body-bg) !important;
             
+            &:hover {
+                border: 1px solid var(--bs-body-bg) !important;
+            }
         }
     }
 }
@@ -217,8 +232,8 @@
 @import 'shopping-list';
 @import 'meal-plans-mine';
 @import 'user-profile';
-@import 'user-login-register';
 @import 'contact-us';
+@import 'error';
 @import '../lib/bootstrap/scss/bootstrap';
 
 
