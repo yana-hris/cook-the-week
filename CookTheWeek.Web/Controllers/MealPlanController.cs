@@ -20,8 +20,8 @@ namespace CookTheWeek.Web.Controllers
     using static Common.EntityValidationConstants.Meal;
     using static Common.EntityValidationConstants.MealPlan;
     using static Common.EntityValidationConstants.Recipe;
+    using Ganss.Xss;
 
-    
     public class MealPlanController : BaseController
     {
         private readonly IMealPlanService mealPlanService;
@@ -29,6 +29,7 @@ namespace CookTheWeek.Web.Controllers
         private readonly IRecipeService recipeService;
         private readonly ILogger<MealPlanController> logger;
         private readonly IMemoryCache memoryCache;
+        private readonly HtmlSanitizer sanitizer;
 
         public MealPlanController(IMealPlanService mealPlanService,
             IRecipeService recipeService,
@@ -41,6 +42,7 @@ namespace CookTheWeek.Web.Controllers
             this.userService = userService;
             this.logger = logger;
             this.memoryCache = memoryCache;
+            this.sanitizer = new HtmlSanitizer();
         }
 
         [HttpPost]
@@ -472,6 +474,11 @@ namespace CookTheWeek.Web.Controllers
             string cacheKey = User.GetId() + "mealPlan";
 
             memoryCache.Remove(cacheKey);
+        }
+
+        private string SanitizeInput(string input)
+        {
+            return sanitizer.Sanitize(input);
         }
     }
 }

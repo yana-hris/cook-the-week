@@ -128,5 +128,11 @@ namespace CookTheWeek.Web.Controllers
             Response.StatusCode = 500;
             return View();
         }
+
+        public IActionResult CauseError()
+        {
+            // Intentionally throw an exception to simulate an internal server error
+            throw new Exception("This is a test exception to trigger the 500 error page.");
+        }
     }
 }

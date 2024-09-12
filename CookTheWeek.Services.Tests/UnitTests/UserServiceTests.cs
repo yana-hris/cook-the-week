@@ -13,12 +13,12 @@ namespace CookTheWeek.Services.Tests.UnitTests
         private IRecipeService recipeService;
         private IUserAdminService userAdminService;
         private IMealPlanService mealPlanService;
+        private ICategoryService categoryService;
         private UserManager<ApplicationUser> userManager;
 
         [SetUp]
         public void SetUp(UserManager<ApplicationUser> userManager)
         {
-            
             this.recipeService = new RecipeService(data);
             this.userManager = userManager;
             this.mealPlanService = new MealPlanService(data);

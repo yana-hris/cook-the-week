@@ -6,18 +6,16 @@
     
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
-    using ViewModels.Recipe.Enums;
     using ViewModels.RecipeIngredient;
     using ViewModels.Step;
     using Services.Data.Interfaces;
-    using Services.Data.Models.Recipe;
 
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
+    using CookTheWeek.Services.Data.Factories.Interfaces;
 
-    
     public class RecipeController : BaseController
     {
 
@@ -28,6 +26,7 @@
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly ILogger<RecipeController> logger;
+        private readonly IRecipeViewModelFactory recipeViewModelFactory;
 
         public RecipeController(IRecipeService recipeService,
             ICategoryService categoryService,
@@ -35,6 +34,7 @@
             IIngredientService ingredientService,
             IUserService userService,
             IFavouriteRecipeService favouriteRecipeService,
+            IRecipeViewModelFactory recipeViewModelFactory,
             ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;
@@ -43,6 +43,7 @@
             this.ingredientService = ingredientService;
             this.userService = userService;
             this.favouriteRecipeService = favouriteRecipeService;
+            this.recipeViewModelFactory = recipeViewModelFactory;
             this.logger = logger;            
         }
 
@@ -56,30 +57,22 @@
 
             if (isAdmin)
             {
-                Redirect("/Admin/RecipeAdmin/Site");
+                return Redirect("/Admin/RecipeAdmin/Site");
             }
 
             try
             {
-                AllRecipesFilteredAndPagedServiceModel serviceModel = await this.recipeService.AllAsync(queryModel, userId, isAdmin);
-
-                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
-                queryModel.Recipes = serviceModel.Recipes;
-                queryModel.TotalRecipes = serviceModel.TotalRecipesCount;
-                queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
-                queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
-                    .Cast<RecipeSorting>()
-                    .ToDictionary(rs => (int)rs, rs => rs.ToString());
+                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, userId);                
 
                 ViewData["Title"] = "All Recipes";
                 ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 
-                return View(queryModel);
+                return View(model);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while processing the All recipes action");
-                return BadRequest();
+                logger.LogError(ex, "An error occurred while processing the All Recipes query");
+                return NotFound();
             }
 
         }
@@ -251,17 +244,17 @@
             }
 
             // Sanitize all string input
-            model.Title = SanitizeInput(model.Title);
+            //model.Title = SanitizeInput(model.Title);
             if (model.Description != null)
             {
-                model.Description = SanitizeInput(model.Description);
+                //model.Description = SanitizeInput(model.Description);
             }
 
             if (model.Steps.Any())
             {
                 foreach (var step in model.Steps)
                 {
-                    step.Description = SanitizeInput(step.Description);
+                    //step.Description = SanitizeInput(step.Description);
                 }
             }
 
@@ -482,15 +475,15 @@
 
         private void SanitizeModelInputFields(RecipeAddFormModel model)
         {
-            model.Title = SanitizeInput(model.Title);
+            //model.Title = SanitizeInput(model.Title);
             if (!string.IsNullOrEmpty(model.Description))
             {
-                model.Description = SanitizeInput(model.Description);
+               // model.Description = SanitizeInput(model.Description);
             }
 
             foreach (var step in model.Steps)
             {
-                step.Description = SanitizeInput(step.Description);
+                //step.Description = SanitizeInput(step.Description);
             }
 
         }

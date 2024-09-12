@@ -45,6 +45,32 @@
             }            
         }
 
+        public static void AddApplicationFactories(this IServiceCollection services, Type serviceType)
+        {
+            Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
+
+            if (serviceAssembly == null)
+            {
+                throw new InvalidOperationException("Invalid service type provided!");
+            }
+            Type[] implementationTypes = serviceAssembly
+                .GetTypes()
+                .Where(t => t.Name.EndsWith("Factory") && !t.IsInterface)
+                .ToArray();
+
+            foreach (Type implementationType in implementationTypes)
+            {
+                Type? interfaceType = implementationType.GetInterface($"I{implementationType.Name}");
+                if (interfaceType == null)
+                {
+                    throw new InvalidOperationException(
+                        $"No interface is provided for the service with name: {implementationType.Name}");
+                }
+
+                services.AddScoped(interfaceType, implementationType);
+            }
+        }
+
         /// <summary>
         /// This method seeds the first role of administrator upon database creation if environment is development and 
         /// if it does not exist

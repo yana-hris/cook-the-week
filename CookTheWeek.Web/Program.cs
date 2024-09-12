@@ -18,6 +18,8 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Services.Data;
+    using CookTheWeek.Services.Data.Factories.Interfaces;
+    using CookTheWeek.Services.Data.Factories;
 
     public class Program
     {
@@ -88,8 +90,9 @@ namespace CookTheWeek.Web
 
             builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices(typeof(IRecipeService));
+            builder.Services.AddApplicationFactories(typeof(IRecipeViewModelFactory));
 
-            
+
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
@@ -155,18 +158,18 @@ namespace CookTheWeek.Web
 
             
             WebApplication app = builder.Build();
-            
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseMigrationsEndPoint();
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseMigrationsEndPoint();
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
                 app.UseExceptionHandler("/Home/InternalServerError");
                 app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?code={0}");
                 app.UseHsts();
-            //}
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

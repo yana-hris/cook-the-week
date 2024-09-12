@@ -15,6 +15,8 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using Ganss.Xss;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -24,6 +26,7 @@
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly IEmailSender emailSender;
+        private readonly HtmlSanitizer sanitizer;
         
 
         public UserController(SignInManager<ApplicationUser> signInManager,
@@ -37,6 +40,7 @@
             this.userService = userService;
             this.memoryCache = memoryCache;
             this.emailSender = emailSender;
+            this.sanitizer = new HtmlSanitizer();
         }
 
         [HttpGet]
@@ -524,6 +528,11 @@
             return RedirectToAction("AccountDeletedConfirmation");
         }
 
-        
+        private string SanitizeInput(string input)
+        {
+            return sanitizer.Sanitize(input);
+        }
+
+
     }
 }

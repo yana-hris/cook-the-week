@@ -6,7 +6,6 @@
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using Data.Models.Recipe;
     using Interfaces;
     using Web.ViewModels.Category;
     using Web.ViewModels.Meal;
@@ -17,24 +16,28 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+    using Ganss.Xss;
 
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
+        private readonly HtmlSanitizer sanitizer;
         public RecipeService(CookTheWeekDbContext dbContext)
         {
             this.dbContext = dbContext;
+            this.sanitizer = new HtmlSanitizer();
         }
 
-        public async Task<AllRecipesFilteredAndPagedServiceModel> AllAsync(AllRecipesQueryModel queryModel, string userId, bool isAdmin)
+        public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
         {
-
+            
+            // TODO: move to repository
             IQueryable<Recipe> recipesQuery = this.dbContext
                 .Recipes
                 .AsNoTracking()
                 .AsQueryable();
-
-            if(userId != String.Empty && !isAdmin)
+                        
+            if(userId != String.Empty)
             {
                 Guid userIdGuid = Guid.Parse(userId);
                 recipesQuery = recipesQuery
@@ -46,15 +49,16 @@
                     .Where(r => r.IsSiteRecipe);
             }
 
-
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
             {
+                queryModel.Category = SanitizeInput(queryModel.Category);
                 recipesQuery = recipesQuery
                     .Where(r => r.Category.Name == queryModel.Category);
             }
 
             if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
+                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
                 string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
                 recipesQuery = recipesQuery
@@ -62,6 +66,14 @@
                             EF.Functions.Like(r.Description, wildCard) ||
                             r.RecipesIngredients!.Any(ri => EF.Functions.Like(ri.Ingredient.Name, wildCard)));                                                      
             }
+
+            // Check if sorting is applied and if it exists in sorting enum
+            string recipeSorting = queryModel.RecipeSorting.ToString("G");
+
+            if (string.IsNullOrEmpty(recipeSorting) || Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
+            {
+                queryModel.RecipeSorting = RecipeSorting.Newest;
+            }           
 
             recipesQuery = queryModel.RecipeSorting switch
             {
@@ -95,13 +107,21 @@
                 })
                 .ToListAsync();
 
-            int totalRecipes = recipesQuery.Count();
+           
+            //queryModel.TotalRecipes = recipesQuery.Count();
+            //queryModel.Recipes = allRecipes;
+            //queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
+            //queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
+            //    .Cast<RecipeSorting>()
+            //    .ToDictionary(rs => (int)rs, rs => rs.ToString("G"));
 
-            return new AllRecipesFilteredAndPagedServiceModel()
-            {
-                TotalRecipesCount = totalRecipes,
-                Recipes = allRecipes
-            };
+            return allRecipes;
+
+            //return new AllRecipesFilteredAndPagedServiceModel()
+            //{
+            //    TotalRecipesCount = totalRecipes,
+            //    Recipes = allRecipes
+            //};
         }
         public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
@@ -505,6 +525,11 @@
                 .Where(i => i.Name.ToLower() == name.ToLower())
                 .Select(i => i.Id)
                 .FirstOrDefaultAsync();
+        }
+
+        private string SanitizeInput(string input)
+        {
+            return sanitizer.Sanitize(input);
         }
     }
 }

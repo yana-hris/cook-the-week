@@ -8,14 +8,11 @@
     [Authorize]
     public abstract class BaseController : Controller
     {
-        private readonly HtmlSanitizer sanitizer;
+        
         public BaseController()
         {
-            sanitizer = new HtmlSanitizer();
+            
         }    
-        protected string SanitizeInput(string input)
-        {
-            return sanitizer.Sanitize(input);
-        }
+       
     }
 }
