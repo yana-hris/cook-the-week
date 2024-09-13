@@ -361,7 +361,12 @@
 
     $(document).ready(function () {
         
-        let returnUrl = '@(ViewBag.ReturnUrl ?? "/Home/Error")';
+        // Reset the form if the page is loaded from cache (e.g., when pressing back/forward buttons)
+            window.onpageshow = function (event) {
+                if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+                    $('form')[0].reset();  
+                }
+            };
 
         var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
         const errorMessages = @Html.Raw(errorMessagesString);

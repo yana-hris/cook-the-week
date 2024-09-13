@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     
+    using CookTheWeek.Services.Data.Factories.Interfaces;
     using Infrastructure.Extensions;
     using ViewModels.Recipe;
     using ViewModels.RecipeIngredient;
@@ -14,19 +15,20 @@
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
 
     public class RecipeController : BaseController
     {
 
+        private readonly IRecipeViewModelFactory recipeViewModelFactory;
+        private readonly ILogger<RecipeController> logger;
+
+        // TODO: use factories instead
         private readonly IRecipeService recipeService;
         private readonly IIngredientService ingredientService;
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserService userService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
-        private readonly ILogger<RecipeController> logger;
-        private readonly IRecipeViewModelFactory recipeViewModelFactory;
 
         public RecipeController(IRecipeService recipeService,
             ICategoryService categoryService,
@@ -57,15 +59,14 @@
 
             if (isAdmin)
             {
-                return Redirect("/Admin/RecipeAdmin/Site");
+                return RedirectToAction("Site", "RecipeAdmin", new { area = "Admin" });
             }
 
             try
             {
-                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, userId);                
+                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, userId);
 
-                ViewData["Title"] = "All Recipes";
-                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
+                SetViewData("All Recipes", Request.Path + Request.QueryString);
 
                 return View(model);
             }
@@ -498,6 +499,13 @@
                 //step.Description = SanitizeInput(step.Description);
             }
 
+        }
+
+        // Helper method for setting up ViewData/ViewBag
+        private void SetViewData(string title, string returnUrl)
+        {
+            ViewData["Title"] = title;
+            ViewBag.ReturnUrl = returnUrl;
         }
     }
 }
