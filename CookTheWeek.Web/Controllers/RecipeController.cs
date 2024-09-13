@@ -83,6 +83,18 @@
             RecipeAddFormModel model = new RecipeAddFormModel();
             await PopulateModelDataAsync(model);
 
+            if (returnUrl == null)
+            {
+                if (User.IsAdmin())
+                {
+                    returnUrl = "/Admin/HomeAdmin/Index";
+                }
+                else
+                {
+                    returnUrl = "/Recipe/All";
+                }
+            }
+
             ViewBag.ReturnUrl = returnUrl; 
             return View(model);
         }
@@ -109,7 +121,7 @@
                 bool isAdmin = User.IsAdmin();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
-                return RedirectToAction("Details", "Recipe", new { recipeId, returnUrl });
+                return RedirectToAction("Details", "Recipe", new { id = recipeId, returnUrl });
             }
             catch (Exception ex)
             {
@@ -348,7 +360,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
@@ -384,7 +396,7 @@
                 return BadRequest();
             }
 
-            return RedirectToAction("All");
+            return Redirect(returnUrl ?? "/Recipe/Mine");
         }
 
         // private method for ingredient input validation

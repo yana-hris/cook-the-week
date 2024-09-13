@@ -15,21 +15,8 @@
     if (User.GetId() != string.Empty && !User.IsAdmin())
     {
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
-    }  
-
-    if(ViewBag.ReturnUrl == null)
-    {
-        if (User.IsAdmin())
-        {
-            ViewBag.ReturnUrl = "/RecipeAdmin/Site";
-        }
-        else
-        {
-            ViewBag.ReturnUrl = "/Recipe/All";
-        }
-        
-    }
-
+    } 
+    
     var qtyFractionOptionsString = JsonConvert.SerializeObject(QtyFractionOptions);
     var errorMessagesString = JsonConvert.SerializeObject(RecipeValidationErrorMessages);
     var validationConstantsString = JsonConvert.SerializeObject(RecipeValidationConstants);
@@ -40,6 +27,7 @@
 }
 <div class="card-outer-container" id="add-recipe">
     <partial name="_HeadingPartial" model="headingModel" />
+    
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="recipe" role="tablist">
@@ -53,10 +41,11 @@
                     <button class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</button>
                 </li>
             </ul>
+            <partial name="_BackBtnPartial" />
         </div>
         
         <div class="card-body">
-            <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add">
+            <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
                 <div id="info-content" class="tab-content g-3">
                     <!-- TAB RECIPE DETAILS -->
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
@@ -371,6 +360,7 @@
             </div>
         </div>
     </div>    
+    
 </div>
 
 @section Scripts {
@@ -380,6 +370,12 @@
         import { AddRecipeViewModel } from '/js/ko-addRecipe-viewModel.js';
 
         $(document).ready(function () {
+            window.onpageshow = function (event) {
+                if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+                    // Reset the form if the page is loaded from cache (e.g., when pressing back/forward buttons)
+                    $('form')[0].reset();  // jQuery version to reset the first form on the page
+                }
+            };
 
             // Parse the QtyFractionOptions from the JSON string
             var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);

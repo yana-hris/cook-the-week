@@ -215,7 +215,7 @@
                     <h2>Are you sure?</h2>
                     <p>This action cannot be undone. </p>       
                     <div class="buttons d-flex flex-column gap-2">
-                        <a asp-area="" asp-controller="Recipe" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" class="btn btn-danger w-100 text-center">
+                        <a asp-area="" asp-controller="Recipe" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-danger w-100 text-center">
                             Delete
                         </a>
                         <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>                        

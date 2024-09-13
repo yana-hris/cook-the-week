@@ -11,11 +11,11 @@
 
         <div class="row g-2 my-2 mb-4">
             <div class="col-6">
-                <a href="/Recipe/Add" class="btn btn-primary w-100 text-center">Add Recipe</a>
+                <a asp-area="" asp-controller="Recipe" asp-action="Add" asp-route-returnUrl="/Admin/RecipeAdmin/Site" class="btn btn-primary w-100 text-center">Add Recipe</a>
             </div>
            
             <div class="col-6">
-                <a href="@Url.Action("Index", "HomeAdmin")" class="btn btn-secondary w-100 text-center">Back to Home</a>
+                <a asp-area="" asp-controller="HomeAdmin" asp-action="Index" class="btn btn-secondary w-100 text-center">Back to Home</a>
             </div>
         </div>
     </div>
