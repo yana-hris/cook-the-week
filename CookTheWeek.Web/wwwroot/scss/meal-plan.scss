@@ -1,6 +1,12 @@
 ﻿@import 'variables';
 #add-mealplan, #details-mealplan, #edit-mealplan {
 
+    #backBtn {
+        position: absolute;
+        top: 33px;
+        right: 33px;
+    }
+
     p {
         margin-top: 0;
         margin-bottom: 0.25rem;

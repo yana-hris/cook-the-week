@@ -151,20 +151,22 @@ function isSpecificView() {
 };
 
 function userHasMealPlans() {
-    const userMealPlans = getUserLocalStorage(currentUserId);
     
-    if (userMealPlans) {        
-        
-        if (userMealPlans.length > 0) {            
-            return true;
-        }
-    }    
+    const userMealPlans = JSON.parse(getUserLocalStorage());
+    
+    if (userMealPlans && userMealPlans.length > 0) {
+        return true;
+    } else if (userMealPlans && userMealPlans.length === 0) {
+        eraseUserLocalStorage();
+    }
+
     return false;
+    
 }
 
 function showOrHideBuildMealPlanBtn() {
     var buildBtnContainer = document.getElementById('build-btn-container');    
-
+    
     if (currentUserId !== null && userHasMealPlans()) {
         // Show the btn and attach event-listener for creating mealplan
         buildBtnContainer.style.display = "block";
@@ -179,8 +181,6 @@ function showOrHideBuildMealPlanBtn() {
 function getUserLocalStorage() {
     return localStorage.getItem(currentUserId);
 }
-
-
 
 const addRecipeToMealPlan = function(event) {
     // Check if local storage has meal plans for this user
@@ -200,10 +200,10 @@ const addRecipeToMealPlan = function(event) {
     if (userMealPlans.indexOf(recipeId) === -1) {
         // If the recipe doesn't exist, add it to the meal plan
         userMealPlans.push(recipeId);        
-        toastr.success(`Recipe successfully added to meal plan`);
+        toastr.success(`Recipe successfully added to you meal plan`);
         
     } else {
-        toastr.error(`Recipe is already added to your plan`);
+        toastr.error(`Recipe is already added to your meal plan`);
         return;
     }
     // Save the updated meal plans back to local storage
@@ -215,11 +215,12 @@ const addRecipeToMealPlan = function(event) {
 // Remove recipe from saved for meal plan (all, mine, details views) or from meal plan (view)
 
 
-const removeRecipeFromMealPlan = function (event) {
-
+const removeRecipeFromMealPlan = function (event) {    
     event.preventDefault();
     event.stopPropagation();
-    recipeId = event.currentTarget.dataset.recipeid;
+    
+    const recipeId = event.currentTarget.dataset.recipeid;
+
     removeRecipeFromLocalStorage(recipeId); 
     toggleAddRemoveBtn(event.currentTarget);
     showOrHideBuildMealPlanBtn();
@@ -256,7 +257,7 @@ function buildMealPlan(event) {
     const userMealPlans = JSON.parse(getUserLocalStorage()) || [];
 
     if (userMealPlans.length === 0) {
-        toastr.error("Error Building Meal Plan!");
+        toastr.error("Error Building Meal Plan");
         return;
     }
 
@@ -311,7 +312,7 @@ export function activateTabWithError(context) {
 }
 
 export function removeRecipeFromLocalStorage(recipeId) {
-    debugger;
+    
     if (!userHasMealPlans()) {
         console.log('Error: User has no meal plans to remove recipes from');
         return;
@@ -322,7 +323,12 @@ export function removeRecipeFromLocalStorage(recipeId) {
 
     if (recipeIndex !== -1) {
         userMealPlans.splice(recipeIndex, 1);
-        toastr.success(`Recipe successfully removed from the meal plan`);
+        toastr.warning(`Recipe successfully removed from your meal plan`);
+
+        if (userMealPlans.length === 0) {
+            eraseUserLocalStorage();
+            return;
+        }
 
     } else {
         toastr.error(`Error: Recipe not found in meal plan`);
@@ -334,6 +340,34 @@ export function removeRecipeFromLocalStorage(recipeId) {
 
 export function eraseUserLocalStorage() {
     localStorage.removeItem(currentUserId);
+}
+
+export function reindexMealRows() {
+    
+    $('.meal-row').each(function (rowIndex) {
+        
+        $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
+            debugger
+            let idParts = element.id.split('__');
+            console.log("Old id: " + idParts);
+            let newId = 'Meals_' + rowIndex + '__' + idParts[1];
+            console.log("New id: " + newId);
+            $(element).attr('id', newId);
+
+            let nameParts = element.name.split('.');
+            console.log("Old name: " + nameParts);
+            let newName = 'Meals[' + rowIndex + '].' + nameParts[1];
+            console.log("New name: " + newName);
+            $(element).attr('name', newName);
+        });
+    });
+
+    $('span[data-valmsg-for^="Meals["]').each(function (index, element) {
+        let $element = $(element);
+        $element.attr('data-valmsg-for', $element.attr('data-valmsg-for').replace(/\[\d+\]/g, '[' + index + ']'));
+    });
+
+    $('form').validate().form();
 }
 
   

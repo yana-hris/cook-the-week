@@ -1,48 +1,45 @@
 ﻿@model MealPlanAddFormModel
-@inject IMealPlanService MealPlanService;
-@using static CookTheWeek.Common.Extensions.NumberExtensions;
+@inject IMealPlanService MealPlanService
+@using static CookTheWeek.Common.Extensions.NumberExtensions
+@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages
 @{
     ViewData["Title"] = "Add Meal Plan";
     int initialCount = Model.Meals.Count;
+    int userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());
 
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = "Adjust servings, plan cooking dates and name it"
-
+        HeadingSecondary = $"It's your <strong>{userPlansCount.ToStringWithSuffix()}</strong> plan",
     };
-    int userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());    
+    
+    if (ViewBag.ReturnUrl == null)
+    {
+        ViewBag.ReturnUrl = "/Recipe/All";
+
+    }
 }
-<div id="add-mealplan" class="card-outer-container">
+<div id="add-mealplan" class="card-container">
+    
     <partial name="_HeadingPartial" model="headingModel" />
-    <div class="card-container">
-        <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add">
-        <div class="row pt-2">
+    <partial name="_BackBtnPartial" />
+    <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
+        <div class="row">
             <div class="col-12">
-                <div class="row">
-                    @if (userPlansCount == 0)
-                    {
-                        <h3>It`s your <srtong>first</srtong> meal plan!</h3>
-                        <p>Let’s name it properly as providing a distinct name will make it easy to find in the future. Meal plans can be reused with just one click. </p>
-                    }
-                    else
-                    {
-                        <h3>This is your <strong>@Html.Raw(userPlansCount.ToStringWithSuffix()) plan</strong>!</h3>
-                        <p>To reuse your meal plan in the future, give it a distinctive name:</p>
-                    }
-                </div>
-                
-                <div class="col-lg-6 pb-2">
+                <p class="mb-2">To reuse your meal plan in the future, give it a distinctive name:</p>
+            </div>
+            <div class="col-12"> 
+                <div class="col-lg-6 mb-0">                    
                     <div class="input-group">
                         <span class="input-group-text">Name</span>
                         <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
                     </div>
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
-                <div class="name-suggestions">
-                    <p>
+                <div class="name-suggestions mt-0">
+                    <p class="small ms-1">
                         <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
-                            Being short on names? Click <strong>here</strong> for some examples
+                            Being short on names? Click <strong class="custom-link">here</strong> for some examples
                         </a>
                     </p>
                     <div class="collapse" id="collapseNames">
@@ -192,23 +189,23 @@
             </div>
         </div>
     </form>
-    </div>
 </div>
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
     <script type="module">
-        import { removeRecipeFromLocalStorage, eraseUserLocalStorage } from '/js/site.js';
+        import { reindexMealRows, removeRecipeFromLocalStorage, eraseUserLocalStorage } from '/js/site.js';
 
         $(document).ready(function () {
 
-            var mealsIndex = '@initialCount';
+            let mealsIndex = '@initialCount';
+
             $(document).on('click', '.minus', function (event) {
-                var recipeId = this.dataset.recipeid;
-                var mealsCount = $('.meal-row').length;
+                const recipeId = this.dataset.recipeid;
+                let mealsCount = $('.meal-row').length;
 
                 if (mealsCount === 1) {
                     event.preventDefault();
-                    toastr.error('You need at least one meal to buld a plan');
+                    toastr.error('@ToastrMessages["MealsRequiredErrorMessage"]');
                     return false;
                 }
                 $(this).closest('.meal-row').remove();
@@ -233,27 +230,7 @@
                     toastr.error('Missing or incorrect data');
                 }
             });
-
-            function reindexMealRows() {
-                $('.meal-row').each(function (rowIndex) {
-                    $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
-                        var idParts = element.id.split('__');
-                        var newId = 'Meals_' + rowIndex + '__' + idParts[1];
-                        $(element).attr('id', newId);
-
-                        var nameParts = element.name.split('.');
-                        var newName = 'Meals[' + rowIndex + '].' + nameParts[1];
-                        $(element).attr('name', newName);
-                    });
-                });
-
-                $('span[data-valmsg-for^="Meals["]').each(function (index, element) {
-                    var $element = $(element);
-                    $element.attr('data-valmsg-for', $element.attr('data-valmsg-for').replace(/\[\d+\]/g, '[' + index + ']'));
-                });
-
-                $('form').validate().form();
-            }
+            
         });
 
     </script>

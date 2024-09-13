@@ -1,4 +1,5 @@
 ﻿@model MealPlanAddFormModel
+@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages
 @{
     ViewData["Title"] = "Edit Meal Plan";
     int initialCount = Model.Meals.Count;
@@ -9,219 +10,209 @@
         HeadingSecondary = Model.Name,
     };
 
+    if (ViewBag.ReturnUrl == null)
+    {
+        ViewBag.ReturnUrl = "/MealPlan/Mine";
+
+    }
+
 }
-<div id="edit-mealplan" class="card-outer-container">
+<div id="edit-mealplan" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
-
-    <div class="card-container">
-        <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id">
-            <div class="row pt-2">
-                <div class="col-12">
-                    <div class="col-lg-6 pb-2">
-                        <div class="input-group">
-                            <span class="input-group-text">Name</span>
-                            <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
-                        </div>
-                        <span asp-validation-for="Name" class="small text-danger"></span>
+    <partial name="_BackBtnPartial" />
+    
+    <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
+        <div class="row pt-2">
+            <div class="col-12">
+                <div class="col-lg-6 pb-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Name</span>
+                        <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
                     </div>
-                    <div class="name-suggestions">
-                        <p>
-                            <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
-                                Being short on names? Click <strong>here</strong> for some examples
-                            </a>
-                        </p>
-                        <div class="collapse" id="collapseNames">
-                            <div class="card card-body">
-                                <ul class="list-unstyled inner-padding">
-                                    <li>
-                                        <span class="tip-start">Veggie Vibes Weekly:</span> Perfect for a week without any meat.
-                                    </li>
-                                    <li>
-                                        <span class="tip-start">Winter Warmth Week:</span> Ideal for a series of warming, spicy, and winter-appropriate meals.
-                                    </li>
-                                    <li>
-                                        <span class="tip-start">Summer Fresh Plan:</span> Great for light, fresh, and summery dishes.
-                                    </li>
-                                    <li>
-                                        Choose a name that lights up your culinary imagination!
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
+                    <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Meal Plan table -->
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr class="table">
-                                    <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
-                                        <div class="no-wrap-text">Meal</div>
-                                    </th>
-                                    <th scope="col" class="bg-primary text-white col-xs-2 col-md-2 col-lg-2">
-                                        <div class="no-wrap-text">Servings</div>
-                                    </th>
-                                    <th scope="col" class="bg-primary text-white col-xs-4 col-md-3 col-lg-3">
-                                        <div class="no-wrap-text">Cook On</div>
-                                    </th>
-                                    <th scope="col" class="rounded-end bg-primary text-white col-xs-1 col-md-1 col-lg-1">
-                                        <div class="no-wrap-text">Remove</div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- For each -->
-                                @if (Model.Meals.Any())
-                                {
-                                    @for (int i = 0; i < Model.Meals.Count; i++)
-                                    {
-                                        <tr class="meal-row">
-                                            <th scope="row" class="border-0">
-                                                <div class="meal-info">
-                                                    <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
-                                                    <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                    <div class="ml-3 d-inline-block align-middle">
-                                                        <input type="hidden" asp-for="Meals[i].Title" />
-                                                        <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
-                                                        <input type="hidden" asp-for="Meals[i].CategoryName" />
-                                                        <span class="category-text">Category: @Model.Meals[i].CategoryName</span>
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <td class="border-0 align-middle">
-                                               
-                                                <div class="input-group">
-                                                    <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
-                                                    <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
-                                                        <option value="">-</option>
-                                                        @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
-                                                        {
-                                                            <option value="@option">@option</option>
-                                                        }
-                                                    </select>
-                                                    <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
-                                                </div>
-                                                
-                                            </td>
-                                            <td class="border-0 align-middle">
-                                                
-                                                <div class="input-group">
-                                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                    <select class="form-select text-style" asp-for="Meals[i].Date" data-val="true">
-                                                        <option value="">-</option>
-                                                        @foreach (var option in @Model.Meals.First().SelectDates)
-                                                        {
-                                                            <option value="@option">@option</option>
-                                                        }
-                                                    </select>
-                                                    <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
-                                                </div>
-                                                
-                                            </td>
-                                            <td class="border-0 align-middle text-end">
-                                                <div class="remove-btn-container">
-                                                    <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="btn btn-icon-only remove-btn-size minus">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-lg-6">
-                    <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
-                        <div class="info-pill left-pill pill">
-                            Tips
-                        </div>
-                    </a>
-                    <div class="collapse" id="collapseTips">
+                <div class="name-suggestions">
+                    <p>
+                        <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
+                            Being short on names? Click <strong>here</strong> for some examples
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapseNames">
                         <div class="card card-body">
                             <ul class="list-unstyled inner-padding">
-                                <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
-                                <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
-                                <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
+                                <li>
+                                    <span class="tip-start">Veggie Vibes Weekly:</span> Perfect for a week without any meat.
+                                </li>
+                                <li>
+                                    <span class="tip-start">Winter Warmth Week:</span> Ideal for a series of warming, spicy, and winter-appropriate meals.
+                                </li>
+                                <li>
+                                    <span class="tip-start">Summer Fresh Plan:</span> Great for light, fresh, and summery dishes.
+                                </li>
+                                <li>
+                                    Choose a name that lights up your culinary imagination!
+                                </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
-                        <div class="info-pill right-pill pill">Summary</div>
-                    </a>
-                    <div class="collapse" id="collapseSummary">
-                        <div class="card card-body">
-                            <p>Your statistics will be ready once you save the Plan.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col buttons">
-                    <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary card-btn-width">
-                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
-                    </a>
-                    <button form="edit-mealplan-form" class="btn btn-secondary card-btn-width" type="submit">
-                        <i class="fas fa-th-list"></i>&nbsp;Save
-                    </button>
-                </div>
-            </div>
 
-        </form>
-    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Meal Plan table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="table">
+                                <th scope="col" class="rounded-start bg-primary text-white col-xs-5 col-md-6">
+                                    <div class="no-wrap-text">Meal</div>
+                                </th>
+                                <th scope="col" class="bg-primary text-white col-xs-2 col-md-2 col-lg-2">
+                                    <div class="no-wrap-text">Servings</div>
+                                </th>
+                                <th scope="col" class="bg-primary text-white col-xs-4 col-md-3 col-lg-3">
+                                    <div class="no-wrap-text">Cook On</div>
+                                </th>
+                                <th scope="col" class="rounded-end bg-primary text-white col-xs-1 col-md-1 col-lg-1">
+                                    <div class="no-wrap-text">Remove</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- For each -->
+                            @if (Model.Meals.Any())
+                            {
+                                @for (int i = 0; i < Model.Meals.Count; i++)
+                                {
+                                    <tr class="meal-row">
+                                        <th scope="row" class="border-0">
+                                            <div class="meal-info">
+                                                <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                                <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                <div class="ml-3 d-inline-block align-middle">
+                                                    <input type="hidden" asp-for="Meals[i].Title" />
+                                                    <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
+                                                    <input type="hidden" asp-for="Meals[i].CategoryName" />
+                                                    <span class="category-text">Category: @Model.Meals[i].CategoryName</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="border-0 align-middle">
+                                               
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                                                <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
+                                                    <option value="">-</option>
+                                                    @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
+                                                    {
+                                                        <option value="@option">@option</option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
+                                            </div>
+                                                
+                                        </td>
+                                        <td class="border-0 align-middle">
+                                                
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                <select class="form-select text-style" asp-for="Meals[i].Date" data-val="true">
+                                                    <option value="">-</option>
+                                                    @foreach (var option in @Model.Meals.First().SelectDates)
+                                                    {
+                                                        <option value="@option">@option</option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                            </div>
+                                                
+                                        </td>
+                                        <td class="border-0 align-middle text-end">
+                                            <div class="remove-btn-container">
+                                                <input type="hidden" asp-for="Meals[i].RecipeId" />
+                                                <a data-recipeId="@Model.Meals[i].RecipeId" class="btn btn-icon-only remove-btn-size minus">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6">
+                <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
+                    <div class="info-pill left-pill pill">
+                        Tips
+                    </div>
+                </a>
+                <div class="collapse" id="collapseTips">
+                    <div class="card card-body">
+                        <ul class="list-unstyled inner-padding">
+                            <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
+                            <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
+                            <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
+                    <div class="info-pill right-pill pill">Summary</div>
+                </a>
+                <div class="collapse" id="collapseSummary">
+                    <div class="card card-body">
+                        <p>Your statistics will be ready once you save the Plan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col buttons">
+                <a asp-area="" asp-controller="Recipe" asp-action="All" class="btn btn-primary card-btn-width">
+                    <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
+                </a>
+                <button form="edit-mealplan-form" class="btn btn-secondary card-btn-width" type="submit">
+                    <i class="fas fa-th-list"></i>&nbsp;Save
+                </button>
+            </div>
+        </div>
+
+    </form>
 </div>
+
 
 
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
-    <script>
+    <script type="module">
+        import { reindexMealRows } from '/js/site.js';
+
+        let mealsIndex = '@initialCount';
+
         $(document).ready(function () {
-            var mealsIndex = @initialCount;
             $(document).on('click', '.minus', function (event) {
                 
-                var mealsCount = $('.meal-row').length;
+                let mealsCount = $('.meal-row').length;
+
                 if (mealsCount === 1) {
                     event.preventDefault();
-                    toastr.error('To build a Meal Plan, at least one Meal is required.');
+                    toastr.error('@ToastrMessages["MealsRequiredErrorMessage"]');
                     return false;
                 }
                 $(this).closest('.meal-row').remove();
                 mealsIndex--;
-                reindexRows();
-            });
+                reindexMealRows();
 
-            function reindexRows() {
-                $('.meal-row').each(function (rowIndex) {
-                    $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
-                        var idParts = element.id.split('__');
-                        var newId = 'Meals_' + rowIndex + '__' + idParts[1];
-                        $(element).attr('id', newId);
-
-                        var nameParts = element.name.split('.');
-                        var newName = 'Meals[' + rowIndex + '].' + nameParts[1];
-                        $(element).attr('name', newName);
-                    });
-                });
-
-                $('span[data-valmsg-for^="Meals["]').each(function (index, element) {
-                    var $element = $(element);
-                    $element.attr('data-valmsg-for', $element.attr('data-valmsg-for').replace(/\[\d+\]/g, '[' + index + ']'));
-                });
-
-                $('form').validate().form();
-            }
+            });            
 
         });
     </script>

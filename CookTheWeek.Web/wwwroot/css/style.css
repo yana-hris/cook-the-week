@@ -891,6 +891,7 @@ html .not-finished {
   margin-left: auto;
   max-width: 860px;
   padding: 2rem;
+  position: relative;
 }
 
 .shopping-list-container {
@@ -1527,6 +1528,11 @@ html .not-finished {
     font-size: 18px;
   }
 }
+#add-mealplan #backBtn, #details-mealplan #backBtn, #edit-mealplan #backBtn {
+  position: absolute;
+  top: 33px;
+  right: 33px;
+}
 #add-mealplan p, #details-mealplan p, #edit-mealplan p {
   margin-top: 0;
   margin-bottom: 0.25rem;
@@ -1853,23 +1859,26 @@ html .not-finished {
 #shopping-list #generatePdfBtn {
   position: absolute;
   top: 33px;
-  right: 33px;
-}
-#shopping-list #generatePdfBtn .fa-download {
-  font-size: 24px;
-  color: white;
-}
-#shopping-list #generatePdfBtn .fa-download:hover {
-  font-size: 25px;
-  color: var(--bs-primary);
-  background-color: #fff;
-}
-#shopping-list #generatePdfBtn:hover {
-  color: var(--bs-primary);
-  background-color: #fff;
+  right: 84px;
+  /*.fa-download {
+      font-size: 24px;
+      color: white;
+
+      &:hover {
+          font-size: 25px;
+          color: var(--bs-primary);
+          background-color: #fff;
+      }
+  }
+
+  &:hover {
+      color: var(--bs-primary);
+      background-color: #fff;
+  }*/
 }
 #shopping-list #backBtn {
-  bottom: 33px;
+  position: absolute;
+  top: 33px;
   right: 33px;
   border-radius: 2px;
 }

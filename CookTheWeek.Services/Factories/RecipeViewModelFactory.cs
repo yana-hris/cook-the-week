@@ -28,12 +28,12 @@
             
             var viewModel = new AllRecipesFilteredAndPagedViewModel
             {
-                SearchString = queryModel.SearchString,
-                TotalRecipes = allRecipes.Count,
-                RecipeSorting = queryModel.RecipeSorting,
                 Category = queryModel.Category,
+                SearchString = queryModel.SearchString,
+                RecipeSorting = queryModel.RecipeSorting,
                 RecipesPerPage = queryModel.RecipesPerPage,
                 CurrentPage = queryModel.CurrentPage,
+                TotalRecipes = queryModel.TotalRecipes,
                 Recipes = allRecipes,
                 Categories = categories,
                 RecipeSortings = GetEnumValuesDictionary<RecipeSorting>()

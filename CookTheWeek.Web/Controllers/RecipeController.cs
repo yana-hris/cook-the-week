@@ -109,7 +109,7 @@
                 bool isAdmin = User.IsAdmin();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
-                return RedirectToAction("Details", new { id = recipeId, returnUrl });
+                return RedirectToAction("Details", "Recipe", new { recipeId, returnUrl });
             }
             catch (Exception ex)
             {

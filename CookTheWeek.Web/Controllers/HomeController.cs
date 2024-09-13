@@ -2,16 +2,14 @@ namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using SendGrid;
     using SendGrid.Helpers.Mail;
 
+    using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
     using Infrastructure.Extensions;
 
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Interfaces;
-    using Newtonsoft.Json;
 
     [AllowAnonymous]
     public class HomeController : BaseController
@@ -33,7 +31,7 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if(this.User.IsAdmin())
+            if(User.IsAdmin())
             {
                 return this.RedirectToAction("Index", "HomeAdmin", new { Area = AdminAreaName });
             }
@@ -127,12 +125,6 @@ namespace CookTheWeek.Web.Controllers
         {
             Response.StatusCode = 500;
             return View();
-        }
-
-        public IActionResult CauseError()
-        {
-            // Intentionally throw an exception to simulate an internal server error
-            throw new Exception("This is a test exception to trigger the 500 error page.");
         }
     }
 }

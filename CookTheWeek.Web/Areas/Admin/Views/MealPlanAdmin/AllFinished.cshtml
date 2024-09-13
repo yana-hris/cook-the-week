@@ -32,14 +32,14 @@
                         <td class="align-baseline">@mealPlan.MealsCount</td>
                         <td class="align-baseline">
                             <label>
-                                <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-primary">
+                                <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-primary">
                                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 </a>
                             </label>
                         </td>
                         <td class="align-baseline">
                             <label>
-                                <a href="/ShoppingList/Generate/@mealPlan.Id" class="btn btn-danger">
+                                <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-danger">
                                     <i class="fas fa-shopping-basket"></i>
                                 </a>
                             </label>

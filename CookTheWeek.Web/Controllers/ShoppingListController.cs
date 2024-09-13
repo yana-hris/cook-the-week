@@ -29,9 +29,10 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Generate(string id)
+        public async Task<IActionResult> Generate(string id, string returnUrl = null)
         {
             ShoppingListViewModel model = await this.shoppingListService.GetByMealPlanIdAsync(id);
+            ViewBag.ReturnUrl = returnUrl;
 
             return View(model);
         }

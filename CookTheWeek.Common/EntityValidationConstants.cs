@@ -181,7 +181,7 @@
             public const string NameRequiredErrorMessage = "Meal plan name is required";
             public const string NameLengthErrorMessage = "Meal plan name cannot be shorter than 2, and longer than 50 characters";
 
-            public const string MealsRequiredErrorMessage = "Please add at least one meal";
+            public const string MealsRequiredErrorMessage = "At lease one meal is required";
             
         }
 
@@ -213,6 +213,12 @@
                     { "InvalidDecimalRangeErrorMessage", RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
                     { "InvalidFractionErrorMessage", RecipeIngredientQty.InvalidFractionErrorMessage },
                     { "InvalidWholeQtyErrorMessage", RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+                };
+
+            public static readonly Dictionary<string, string> ToastrMessages =
+                new Dictionary<string, string>()
+                {
+                    {"MealsRequiredErrorMessage", MealPlan.MealsRequiredErrorMessage},
                 };
         };
 

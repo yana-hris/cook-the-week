@@ -39,9 +39,8 @@
                         
             if(userId != String.Empty)
             {
-                Guid userIdGuid = Guid.Parse(userId);
                 recipesQuery = recipesQuery
-                    .Where(r => r.OwnerId == userIdGuid || r.IsSiteRecipe);
+                    .Where(r => r.OwnerId.ToString() == userId || r.IsSiteRecipe);
             }
             else
             {
@@ -70,7 +69,7 @@
             // Check if sorting is applied and if it exists in sorting enum
             string recipeSorting = queryModel.RecipeSorting.ToString("G");
 
-            if (string.IsNullOrEmpty(recipeSorting) || Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
+            if (string.IsNullOrEmpty(recipeSorting) || !Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
             {
                 queryModel.RecipeSorting = RecipeSorting.Newest;
             }           
@@ -87,6 +86,18 @@
                     .OrderByDescending(r => r.TotalTime),
                 _ => recipesQuery.OrderByDescending(r => r.CreatedOn)
             };
+
+            if (queryModel.CurrentPage == (int)default)
+            {
+                queryModel.CurrentPage = DefaultPage;
+            }
+
+            if (queryModel.RecipesPerPage == (int)default)
+            {
+                queryModel.RecipesPerPage = DefaultRecipesPerPage;
+            }
+
+            queryModel.TotalRecipes = await recipesQuery.CountAsync();
 
             ICollection<RecipeAllViewModel> allRecipes = await recipesQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
@@ -107,21 +118,7 @@
                 })
                 .ToListAsync();
 
-           
-            //queryModel.TotalRecipes = recipesQuery.Count();
-            //queryModel.Recipes = allRecipes;
-            //queryModel.Categories = await this.categoryService.AllRecipeCategoryNamesAsync();
-            //queryModel.RecipeSortings = Enum.GetValues(typeof(RecipeSorting))
-            //    .Cast<RecipeSorting>()
-            //    .ToDictionary(rs => (int)rs, rs => rs.ToString("G"));
-
             return allRecipes;
-
-            //return new AllRecipesFilteredAndPagedServiceModel()
-            //{
-            //    TotalRecipesCount = totalRecipes,
-            //    Recipes = allRecipes
-            //};
         }
         public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {

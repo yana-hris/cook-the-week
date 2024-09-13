@@ -6,13 +6,7 @@
     using static Common.GeneralApplicationConstants;
 
     public class AllRecipesQueryModel
-    {
-        public AllRecipesQueryModel()
-        {
-            this.CurrentPage = DefaultPage;
-            this.RecipesPerPage = DefaultRecipesPerPage;
-            
-        }
+    {        
         public string? Category { get; set; }
         
         public string? SearchString { get; set; }

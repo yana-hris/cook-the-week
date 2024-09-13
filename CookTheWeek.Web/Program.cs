@@ -19,7 +19,6 @@ namespace CookTheWeek.Web
     using static Common.GeneralApplicationConstants;
     using CookTheWeek.Services.Data;
     using CookTheWeek.Services.Data.Factories.Interfaces;
-    using CookTheWeek.Services.Data.Factories;
 
     public class Program
     {

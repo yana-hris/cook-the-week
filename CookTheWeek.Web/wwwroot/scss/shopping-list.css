@@ -27,23 +27,26 @@
 #shopping-list #generatePdfBtn {
   position: absolute;
   top: 33px;
-  right: 33px;
-}
-#shopping-list #generatePdfBtn .fa-download {
-  font-size: 24px;
-  color: white;
-}
-#shopping-list #generatePdfBtn .fa-download:hover {
-  font-size: 25px;
-  color: var(--bs-primary);
-  background-color: #fff;
-}
-#shopping-list #generatePdfBtn:hover {
-  color: var(--bs-primary);
-  background-color: #fff;
+  right: 84px;
+  /*.fa-download {
+      font-size: 24px;
+      color: white;
+
+      &:hover {
+          font-size: 25px;
+          color: var(--bs-primary);
+          background-color: #fff;
+      }
+  }
+
+  &:hover {
+      color: var(--bs-primary);
+      background-color: #fff;
+  }*/
 }
 #shopping-list #backBtn {
-  bottom: 33px;
+  position: absolute;
+  top: 33px;
   right: 33px;
   border-radius: 2px;
 }

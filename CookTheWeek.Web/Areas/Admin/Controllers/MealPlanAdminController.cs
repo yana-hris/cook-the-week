@@ -18,6 +18,8 @@
             ICollection<MealPlanAllAdminViewModel> allActive = await
                 this.mealPlanService.AllActiveAsync();
 
+            ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllActive";
+
             return View(allActive);
         }
 
@@ -25,6 +27,8 @@
         {
             ICollection<MealPlanAllAdminViewModel> allFinished = await
                 this.mealPlanService.AllFinishedAsync();
+
+            ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllFinished";
 
             return View(allFinished);
         }

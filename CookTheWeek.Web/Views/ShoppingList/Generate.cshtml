@@ -5,7 +5,7 @@
 
 <div id="shopping-list" class="shopping-list-container">
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
-    <a id="generatePdfBtn" class="btn btn-primary btn-icon-only fixed-size-btn">
+    <a id="generatePdfBtn" class="btn btn-primary plus btn-icon-only fixed-size-btn">
         <i class="fa fa-download"></i>
     </a>
     <partial name="_BackBtnPartial"/>
@@ -18,11 +18,6 @@
             e.preventDefault();
             // Navigate to the controller action URL to trigger download
             window.location.href = '/ShoppingList/GeneratePdf?id=@Model.Id';
-        });
-
-        $('#backBtn').click(function () {
-            window.history.back();
-            return false; // Prevents any server-side postback
         });
     });
 </script>

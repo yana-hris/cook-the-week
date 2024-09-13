@@ -40,9 +40,9 @@
     #generatePdfBtn {
         position: absolute;
         top: 33px;
-        right: 33px;
+        right: 84px;
 
-        .fa-download {
+        /*.fa-download {
             font-size: 24px;
             color: white;
 
@@ -56,11 +56,12 @@
         &:hover {
             color: var(--bs-primary);
             background-color: #fff;
-        }
+        }*/
     }
     
     #backBtn {
-        bottom: 33px;
+        position: absolute;
+        top: 33px;
         right: 33px;
         border-radius: 2px;
     }

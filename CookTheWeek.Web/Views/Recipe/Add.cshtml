@@ -5,7 +5,7 @@
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationConstants;
 @{
     ViewData["Title"] = "Add Recipe";
-    
+
     PageHeadingViewModel headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString()
@@ -16,6 +16,19 @@
     {
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
     }  
+
+    if(ViewBag.ReturnUrl == null)
+    {
+        if (User.IsAdmin())
+        {
+            ViewBag.ReturnUrl = "/RecipeAdmin/Site";
+        }
+        else
+        {
+            ViewBag.ReturnUrl = "/Recipe/All";
+        }
+        
+    }
 
     var qtyFractionOptionsString = JsonConvert.SerializeObject(QtyFractionOptions);
     var errorMessagesString = JsonConvert.SerializeObject(RecipeValidationErrorMessages);

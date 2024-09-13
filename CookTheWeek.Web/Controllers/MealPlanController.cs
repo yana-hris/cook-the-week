@@ -110,7 +110,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add(string? returnUrl = null)
         {
 
             string userId = User.GetId();
@@ -120,6 +120,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 if (model != null)
                 {
+                    ViewBag.ReturnUrl = returnUrl;
                     return View(model);
                 }
                 else
@@ -138,7 +139,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] MealPlanAddFormModel model)
+        public async Task<IActionResult> Add([FromForm] MealPlanAddFormModel model, string? returnUrl = null)
         {
             string userId = User.GetId();
 
@@ -182,6 +183,7 @@ namespace CookTheWeek.Web.Controllers
                 string formattedMessage = string.Join(Environment.NewLine, modelErrors);
                 TempData[ErrorMessage] = formattedMessage;
                 logger.LogError($"Mode State is Invalid: {formattedMessage}");
+                ViewBag.ReturnUrl = returnUrl;
 
                 return View(model);
             }
@@ -190,17 +192,17 @@ namespace CookTheWeek.Web.Controllers
 
             try
             {
-                string id = await this.mealPlanService.AddAsync(userId, model);
+                string mealPlanId = await this.mealPlanService.AddAsync(userId, model);
                 TempData["SubmissionSuccess"] = true;
                 DeleteMealPlanFromMemmoryCache();
                 TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
-                return RedirectToAction("Details", "MealPlan", new { id });
+                return RedirectToAction("Details", "MealPlan", new { mealPlanId, returnUrl });
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully added to the Database!");
-                return RedirectToAction("Error500", "Home");
+                logger.LogError(ex, "Meal plan was not added!");
+                return BadRequest();
             }
 
             
@@ -231,13 +233,13 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> None()
+        public IActionResult None()
         {
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string? returnUrl = null)
         {
             bool exists = await this.mealPlanService.ExistsByIdAsync(id);
 
@@ -254,6 +256,7 @@ namespace CookTheWeek.Web.Controllers
                 model.TotalIngredients = await this.mealPlanService.GetIMealPlanIngredientsCountForDetailsAsync(id);
                 model.TotalCookingTimeMinutes = await this.mealPlanService.GetMealPlanTotalMinutesForDetailsAsync(id);
 
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
             catch (Exception)
@@ -302,7 +305,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string id, string? returnUrl)
         {
             bool exists = await this.mealPlanService.ExistsByIdAsync(id);
 
@@ -310,7 +313,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
                 logger.LogWarning($"Meal Plan with id {id} does not exist in database!");
-                return RedirectToAction("Mine", "MealPlan");
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
             string userId = User.GetId();
@@ -320,7 +323,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
                 logger.LogWarning("The user id of the meal plan owner and current user do not match!");
-                return RedirectToAction("Mine", "MealPlan");
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
             try
@@ -328,7 +331,7 @@ namespace CookTheWeek.Web.Controllers
                 MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
                 model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate); // ensure the plan start date stays the same
                 model.Id = id;
-
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
             catch (Exception)
@@ -339,15 +342,21 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MealPlanAddFormModel model)
+        public async Task<IActionResult> Edit(MealPlanAddFormModel model, string? returnUrl)
         {
             bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id!);
+
+            if (returnUrl == null)
+            {
+                returnUrl = "/MealPlan/Mine";
+            }
+            ViewBag.ReturnUrl = returnUrl;
 
             if (!exists)
             {
                 TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
                 logger.LogWarning($"Meal Plan with id {model.Id} does not exist in database!");
-                return RedirectToAction("Mine", "MealPlan");
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
             string userId = User.GetId();
@@ -357,7 +366,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
                 logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
-                return RedirectToAction("Mine", "MealPlan");
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
             if (model.Name == DefaultMealPlanName)
@@ -410,11 +419,11 @@ namespace CookTheWeek.Web.Controllers
             {
                 await this.mealPlanService.EditAsync(userId, model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.LogError($"Meal plan with name: \"{model.Name}\" of userId \"{userId}\" unsuccessfully edited!");
+                logger.LogError(ex, "MealPlan not edited.", model);
                 TempData[ErrorMessage] = StatusCode500InternalServerErrorMessage;
-                return RedirectToAction("Error500", "Home");
+                return BadRequest();
             }
 
             TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
