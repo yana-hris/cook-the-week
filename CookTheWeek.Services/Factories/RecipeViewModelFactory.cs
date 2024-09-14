@@ -13,13 +13,23 @@
     {
         private readonly IRecipeService recipeService;
         private readonly ICategoryService categoryService;
+        private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IFavouriteRecipeService favouriteRecipeService;
 
         public RecipeViewModelFactory(IRecipeService recipeService, 
-                                      ICategoryService categoryService)
+                                      ICategoryService categoryService,
+                                      IRecipeIngredientService recipeIngredientService,
+                                      IFavouriteRecipeService favouriteRecipeService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
+            this.recipeIngredientService = recipeIngredientService;
+            this.favouriteRecipeService = favouriteRecipeService;
         }
+
+        /// <summary>
+        /// Generates a view model for displaying all recipes with filtering and sorting.
+        /// </summary>
         public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, string userId)
         {
             
@@ -40,6 +50,38 @@
             };
 
             return viewModel;
+        }
+
+        /// <summary>
+        /// Generates a form model for adding a new recipe with populated categories and ingredient options.
+        /// </summary>
+        public Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Generates a form model for editing an existing recipe, including categories and ingredient options.
+        /// </summary>
+        public Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Generates a detailed view model for a recipe.
+        /// </summary>
+        public Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Generates a view model for a user's recipes, including owned and favorite recipes.
+        /// </summary>
+        public Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
