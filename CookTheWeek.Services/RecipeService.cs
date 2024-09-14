@@ -21,11 +21,10 @@
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
-        private readonly HtmlSanitizer sanitizer;
+        
         public RecipeService(CookTheWeekDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.sanitizer = new HtmlSanitizer();
         }
 
         public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
@@ -50,14 +49,12 @@
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
             {
-                queryModel.Category = SanitizeInput(queryModel.Category);
                 recipesQuery = recipesQuery
                     .Where(r => r.Category.Name == queryModel.Category);
             }
 
             if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
-                queryModel.SearchString = SanitizeInput(queryModel.SearchString);
                 string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
                 recipesQuery = recipesQuery
@@ -524,9 +521,6 @@
                 .FirstOrDefaultAsync();
         }
 
-        private string SanitizeInput(string input)
-        {
-            return sanitizer.Sanitize(input);
-        }
+       
     }
 }

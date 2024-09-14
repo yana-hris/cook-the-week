@@ -114,7 +114,7 @@
                 // For the back btn to work
                 return View(model);
             }
-            SanitizeModelInputFields(model);
+            
 
             try
             {
@@ -255,21 +255,7 @@
                 // Return the view with the model and validation errors
                 return BadRequest(new { success = false, errors = ModelState });
             }
-
-            // Sanitize all string input
-            //model.Title = SanitizeInput(model.Title);
-            if (model.Description != null)
-            {
-                //model.Description = SanitizeInput(model.Description);
-            }
-
-            if (model.Steps.Any())
-            {
-                foreach (var step in model.Steps)
-                {
-                    //step.Description = SanitizeInput(step.Description);
-                }
-            }
+            
 
             try
             {
@@ -484,21 +470,6 @@
 
             // Serialize the errors to JSON and store them in TempData
             TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
-        }
-
-        private void SanitizeModelInputFields(RecipeAddFormModel model)
-        {
-            //model.Title = SanitizeInput(model.Title);
-            if (!string.IsNullOrEmpty(model.Description))
-            {
-               // model.Description = SanitizeInput(model.Description);
-            }
-
-            foreach (var step in model.Steps)
-            {
-                //step.Description = SanitizeInput(step.Description);
-            }
-
         }
 
         // Helper method for setting up ViewData/ViewBag

@@ -7,6 +7,8 @@ namespace CookTheWeek.Web
     using Newtonsoft.Json.Serialization;
     using SendGrid;
 
+    using CookTheWeek.Services.Data;
+    using CookTheWeek.Services.Data.Factories.Interfaces;
     using Data;
     using Data.Models;
     using Infrastructure.ModelBinders;
@@ -17,8 +19,6 @@ namespace CookTheWeek.Web
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Services.Data;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
 
     public class Program
     {
@@ -136,6 +136,7 @@ namespace CookTheWeek.Web
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.ModelBinderProviders.Insert(1, new SanitizingModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 }).AddNewtonsoftJson(options =>
                 {
