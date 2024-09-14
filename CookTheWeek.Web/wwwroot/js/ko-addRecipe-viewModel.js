@@ -175,7 +175,7 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
                 }
                 if (observable && ko.isObservable(observable)) {
                     //Manually set observable`s error
-                    observable.setError(errorsArr.join("\r\n"));
+                    observable.setError(errorsArr[0]);
                 }
             }
         }

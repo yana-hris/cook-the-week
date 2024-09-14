@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\wwwroot\\js\\ko-addrecipe-viewmodel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\wwwroot\\js\\ko-addrecipe-viewmodel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\controllers\\recipecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\controllers\\recipecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web\\wwwroot\\js\\ko-addrecipe-viewmodel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{8BBC8618-CAB0-45A0-B53B-7D177A74D7AB}|CookTheWeek.Web\\CookTheWeek.Web.csproj|solutionrelative:cooktheweek.web\\wwwroot\\js\\ko-addrecipe-viewmodel.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8737D6C0-8A43-4637-91DC-2E05AE97A69B}|CookTheWeek.Web.Infrastructure\\CookTheWeek.Web.Infrastructure.csproj|d:\\coding\\softuni\\all courses\\web\\cooktheweek\\cooktheweek.web.infrastructure\\modelbinders\\sanitizingmodelbinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -105,7 +105,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 121,
+          "DockedWidth": 129,
           "SelectedChildIndex": 5,
           "Children": [
             {
@@ -162,8 +162,8 @@
           ]
         },
         {
-          "DockedWidth": 151,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 143,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
@@ -180,13 +180,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ko-addRecipe-viewModel.js",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\wwwroot\\js\\ko-addRecipe-viewModel.js",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\wwwroot\\js\\ko-addRecipe-viewModel.js",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\wwwroot\\js\\ko-addRecipe-viewModel.js",
               "RelativeToolTip": "CookTheWeek.Web\\wwwroot\\js\\ko-addRecipe-viewModel.js",
-              "ViewState": "AgIAALgAAAAAAAAAAAAwwMAAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAwwLEAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-09-14T06:46:21.123Z",
               "EditorCaption": ""
@@ -284,13 +284,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "RecipeController.cs",
               "DocumentMoniker": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\RecipeController.cs",
               "RelativeDocumentMoniker": "CookTheWeek.Web\\Controllers\\RecipeController.cs",
               "ToolTip": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Web\\Controllers\\RecipeController.cs",
               "RelativeToolTip": "CookTheWeek.Web\\Controllers\\RecipeController.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAiwGkAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAewGYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-11T12:23:25.751Z",
               "EditorCaption": ""
