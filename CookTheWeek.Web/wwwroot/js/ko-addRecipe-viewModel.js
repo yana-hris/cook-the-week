@@ -22,7 +22,8 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
     });
 
 
-    self.Description = ko.observable(data.Description ? data.Description : '').extend({
+    self.Description = ko.observable(data.Description === undefined || data.Description === null || data.Description === '' ? null : data.Description).extend({
+        required: false,
         minLength: {
             message: errorMessages.DescriptionRangeErrorMessage,
             params: validationConstants.DescriptionMinLength
@@ -137,11 +138,11 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
 
     // Function to apply server-side errors to the client-side model
     self.applyServerErrors = function () {
-
+        debugger;
         for (const propertyName in self.ServerErrors) {
 
             const errorsArr = self.ServerErrors[propertyName];
-            //console.log(propertyName, errorsArr.join("\r\n"));
+            console.log(propertyName, errorsArr.join("\r\n"));
 
             if (self.ServerErrors.hasOwnProperty(propertyName)) {
                 var observable = self;
@@ -162,7 +163,7 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
                     } else if (observable[path[i]]) {
 
                         observable = observable[path[i]];
-                        console.log(observable.toString());
+                        console.log(observable);
 
                     } else {
 
@@ -190,9 +191,10 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
         
         const clientSideErrors = self.errors();
         self.errors.showAllMessages();
+       
 
-        console.log(clientSideErrors);
-        console.log(self);
+        //console.log(clientSideErrors);
+        //console.log(self);
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;

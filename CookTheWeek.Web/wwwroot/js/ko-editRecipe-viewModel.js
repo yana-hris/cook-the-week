@@ -487,7 +487,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
 
         stepSelf.toJSON = function () {
             return {
-                Description: stepSelf.Description()
+                Description: stepSelf.Description() || null
             };
         };
 

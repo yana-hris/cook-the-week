@@ -42,8 +42,6 @@
                 // Check if the string is null or empty before sanitizing
                 if (string.IsNullOrEmpty(value))
                 {
-                    // If null or empty, no need to sanitize, just pass it through
-                    bindingContext.Result = ModelBindingResult.Success(value);
                     return;
                 }
 
