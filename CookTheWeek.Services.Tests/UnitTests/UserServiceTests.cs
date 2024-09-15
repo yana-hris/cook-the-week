@@ -121,7 +121,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             string recipeId = TestRecipe.Id.ToString();
 
             // Act
-            bool result = await userService.IsOwnerByRecipeIdAsync(recipeId, userId);
+            bool result = await userService.IsRecipeOwnerByIdAsync(recipeId, userId);
 
             // Assert
             Assert.IsTrue(result);
@@ -135,7 +135,7 @@ namespace CookTheWeek.Services.Tests.UnitTests
             string recipeId = TestRecipe.Id.ToString();
 
             // Act
-            bool result = await userService.IsOwnerByRecipeIdAsync(recipeId, userId);
+            bool result = await userService.IsRecipeOwnerByIdAsync(recipeId, userId);
 
             // Assert
             Assert.IsFalse(result);

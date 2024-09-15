@@ -146,7 +146,7 @@
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, userId);
+            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(id, userId);
 
             if (!isOwner && !User.IsAdmin())
             {
@@ -218,7 +218,7 @@
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(model.Id, userId);
+            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(model.Id, userId);
             if (!isOwner && !User.IsAdmin())
             {
                 TempData[ErrorMessage] = RecipeOwnerErrorMessage;
@@ -353,7 +353,7 @@
             bool exists = await this.recipeService.ExistsByIdAsync(id);
 
             string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByRecipeIdAsync(id, currentUserId);
+            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(id, currentUserId);
 
             if (!exists)
             {

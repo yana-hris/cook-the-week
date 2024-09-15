@@ -168,9 +168,11 @@
                         Description = s.Description
                     }).ToList(),
                     Servings = r.Servings,
+                    IsSiteRecipe = r.IsSiteRecipe,
                     TotalTime = r.TotalTime, //String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
                     ImageUrl = r.ImageUrl,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
+                    CreatedBy = r.Owner.UserName,
                     CategoryName = r.Category.Name,
                     DiaryMeatSeafood = r.RecipesIngredients
                         .OrderBy(ri => ri.Ingredient.CategoryId)
@@ -240,6 +242,10 @@
                         }).ToList(),
                 })
                 .FirstAsync();
+
+            // TODO: create separate service methods and delegate model assembling to recipe-view-model-factory
+            model.LikedBy = await this.dbContext.FavoriteRecipes.Where(fr => fr.RecipeId.ToString().ToLower() == id).CountAsync();
+            model.CookedBy = await this.dbContext.Meals.Where(m => m.RecipeId.ToString().ToLower() == id).CountAsync();
 
             return model;
         }

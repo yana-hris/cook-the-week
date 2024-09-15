@@ -267,7 +267,7 @@ namespace CookTheWeek.Web.Controllers
             string userId = User.GetId();
 
             bool mealPlanExists = await this.mealPlanService.ExistsByIdAsync(id);
-            bool isMealPlanOwner = await this.userService.IsOwnerByMealPlanIdAsync(id, userId);
+            bool isMealPlanOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
             if (!mealPlanExists)
             {
@@ -312,7 +312,7 @@ namespace CookTheWeek.Web.Controllers
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByMealPlanIdAsync(id, userId);
+            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
             if (!isOwner)
             {
@@ -355,7 +355,7 @@ namespace CookTheWeek.Web.Controllers
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByMealPlanIdAsync(model.Id!, userId);
+            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(model.Id!, userId);
 
             if (!isOwner)
             {
@@ -428,7 +428,7 @@ namespace CookTheWeek.Web.Controllers
         {
             bool exists = await this.mealPlanService.ExistsByIdAsync(id);
             string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsOwnerByMealPlanIdAsync(id, currentUserId);
+            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, currentUserId);
 
             if (!exists)
             {

@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Meal Plan Details";
     string userId = User.GetId();
-    bool isOwner = await this.UserService.IsOwnerByMealPlanIdAsync(Model.Id, userId);
+    bool isOwner = await this.UserService.IsMealplanOwnerByIdAsync(Model.Id, userId);
     bool isAdmin = User.IsAdmin();
 
     var headingModel = new PageHeadingViewModel

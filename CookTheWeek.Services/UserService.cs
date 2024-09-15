@@ -29,34 +29,18 @@
             this.recipeService = recipeService;
             this.mealPlanService = mealPlanService;
         }
+
         public async Task<bool> ExistsByIdAsync(string id)
         {
             return await this.dbContext.Users
                 .AnyAsync(u => u.Id.ToString() == id);
         }
-
-        public async Task<bool> IsOwnerByRecipeIdAsync(string recipeId, string userId)
-        {
-            return await this.dbContext
-                .Recipes
-                .Where(r => r.Id.ToString() == recipeId && r.OwnerId.ToString() == userId)
-                .AnyAsync();
-        }
-
-        public async Task<bool> IsOwnerByMealPlanIdAsync(string id, string userId)
-        {
-            return await this.dbContext
-                .MealPlans
-                .AnyAsync(mp => mp.Id.ToString() == id &&
-                          mp.OwnerId.ToString() == userId);
-        }
-
-        public async Task<UserProfileViewModel?> GetProfile(string userId)
+        public async Task<UserProfileViewModel?> GetProfileDetailsAync(string userId)
         {
             var user = await this.dbContext
                 .Users
                 .Where(u => u.Id.ToString().ToLower() == userId.ToLower())
-                .FirstOrDefaultAsync();            
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -72,6 +56,44 @@
                 HasPassword = hasPassword
             };
         }
+        public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
+        {            
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                // Returning an error result if the user is not found
+                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
+            }
+
+            // Check if the current password matches
+            bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
+
+            if(!oldPasswordMatches)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = IncorrectPasswordErrorMessage });
+            }
+
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                // Returning an error result if the user is not found
+                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
+            }
+
+            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
+
+            return result;
+        }
+
         public async Task DeleteUserAsync(string userId)
         {
             // Delete related data first
@@ -111,42 +133,23 @@
 
         }
 
-        public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
-        {            
-            var user = await userManager.FindByIdAsync(userId);
-
-            if (user == null)
-            {
-                // Returning an error result if the user is not found
-                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
-            }
-
-            // Check if the current password matches
-            bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
-
-            if(!oldPasswordMatches)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = IncorrectPasswordErrorMessage });
-            }
-
-            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
-            return result;
-        }
-
-        public async Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model)
+        public async Task<bool> IsRecipeOwnerByIdAsync(string recipeId, string userId)
         {
-            var user = await userManager.FindByIdAsync(userId);
-
-            if (user == null)
-            {
-                // Returning an error result if the user is not found
-                return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
-            }
-
-            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
-
-            return result;
+            return await this.dbContext
+                .Recipes
+                .Where(r => r.Id.ToString() == recipeId && r.OwnerId.ToString() == userId)
+                .AnyAsync();
         }
+
+        public async Task<bool> IsMealplanOwnerByIdAsync(string id, string userId)
+        {
+            return await this.dbContext
+                .MealPlans
+                .AnyAsync(mp => mp.Id.ToString() == id &&
+                          mp.OwnerId.ToString() == userId);
+        }
+
+        
+        
     }
 }

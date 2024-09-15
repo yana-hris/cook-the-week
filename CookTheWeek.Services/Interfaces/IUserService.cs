@@ -8,10 +8,10 @@
     public interface IUserService
     {
         Task<bool> ExistsByIdAsync(string id);
-        Task<bool> IsOwnerByMealPlanIdAsync(string id, string userId);
-        Task<bool> IsOwnerByRecipeIdAsync(string recipeId, string userId);
+        Task<bool> IsMealplanOwnerByIdAsync(string id, string userId);
+        Task<bool> IsRecipeOwnerByIdAsync(string recipeId, string userId);
         Task DeleteUserAsync(string userId);
-        Task<UserProfileViewModel?> GetProfile(string userId);
+        Task<UserProfileViewModel?> GetProfileDetailsAync(string userId);
         Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model);
         Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model);
     }

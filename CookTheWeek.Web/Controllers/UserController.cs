@@ -315,7 +315,7 @@
         public async Task<IActionResult> Profile()
         {
             string userId = User.GetId();
-            UserProfileViewModel? model = await this.userService.GetProfile(userId);
+            UserProfileViewModel? model = await this.userService.GetProfileDetailsAync(userId);
 
             if (model == null)
             {
