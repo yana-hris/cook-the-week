@@ -9,6 +9,7 @@
     <div class="form-container">
         <h2 class="text-capitalize mb-1">Login / Sign Up</h2>        
         <form method="post" asp-controller="User" asp-action="Login">
+            <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnUrl" />
             <h6 class="text-uppercase mb-4">Use a local account</h6>
             
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>

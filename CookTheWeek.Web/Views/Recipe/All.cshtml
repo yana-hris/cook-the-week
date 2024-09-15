@@ -17,6 +17,7 @@
     {
         headingModel.HeadingSecondary = "Find delicious recipes to cook this week";
     }
+   
 }
 
 <div class="wide-contents-container">
@@ -142,7 +143,7 @@
                     }
                     else
                     {
-                        <a asp-area="" asp-action="All" asp-controller="Recipe" class="btn btn-primary card-btn-width">
+                        <a asp-area="" asp-action="All" asp-controller="Recipe" asp-route-returnUrl="ViewBag.ReturnUrl" class="btn btn-primary card-btn-width">
                             <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
                         </a>
                         <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-outline-danger card-btn-width">Your Plans</a>

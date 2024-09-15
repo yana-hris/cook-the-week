@@ -283,7 +283,8 @@
             if (this.User.GetId() == string.Empty)
             {
                 TempData[ErrorMessage] = "You need to be logged in to view Details";
-                return RedirectToAction("Login", "User");
+                returnUrl = Url.Action("Details", "Recipe", new { id = id });
+                return RedirectToAction("Login", "User", new {returnUrl});
             }
 
             bool exists = await this.recipeService.ExistsByIdAsync(id);

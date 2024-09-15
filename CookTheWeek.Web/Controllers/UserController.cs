@@ -15,6 +15,7 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using static Common.EntityValidationConstants.ApplicationUser;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -48,11 +49,28 @@
         [HttpPost]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
-            if(!ModelState.IsValid)
+            var userWithEmailExists = await this.userManager.FindByEmailAsync(model.Email);
+            var userWithUserNameExists = await this.userManager.FindByNameAsync(model.Username);
+
+            if (userWithEmailExists != null || userWithUserNameExists != null)
             {
-                return View(model); 
+                ModelState.AddModelError(String.Empty, AlreadyHaveAccountErrorMessage);
             }
 
+            if (userWithUserNameExists != null)
+            {
+                ModelState.AddModelError(nameof(model.Username), UsernameAlreadyExistsErrorMessage);
+            }
+
+            if (userWithEmailExists != null)
+            {
+                ModelState.AddModelError(nameof(model.Email), EmailAlreadyExistsErrorMessage);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -79,7 +97,7 @@
             // Send email
             var responseResult = await emailSender.SendEmailAsync(
                 model.Email, 
-                "Confirm your email", 
+                "Confirm your email with CookTheWeek", 
                 $"Please confirm your account by clicking this link: {callbackUrl}",
                 $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
 
@@ -87,7 +105,7 @@
             {
                 // Optionally delete the user if email failed to send
                 await userManager.DeleteAsync(user);
-                return RedirectToAction("Error", "Home"); // Return an error view if the email sending failed
+                return BadRequest();
             }           
             
             return RedirectToAction("EmailConfirmationInfo", "User", new {email = model.Email});
@@ -105,26 +123,35 @@
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction("Error", "Home");
+                return BadRequest();
             }
             var user = await userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
             var result = await userManager.ConfirmEmailAsync(user, code);
             if(result.Succeeded)
             {
-                // if confirmation goes well, log in the user
-                await signInManager.SignInAsync(user, isPersistent: false);
-                TempData[JustLoggedIn] = true;
-                this.memoryCache.Remove(UsersCacheKey);
+                try
+                {
+                    // if confirmation goes well, log in the user
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    TempData[JustLoggedIn] = true;
+                    this.memoryCache.Remove(UsersCacheKey);
+                }
+                catch (Exception ex)
+                {
+                    // throw exception and return Internal Server Error
+                    return BadRequest(ex);
+                }
 
                 return View();
             }
 
-            return RedirectToAction("Error", "Home");
+            return BadRequest();
         }
 
         [HttpGet]
@@ -132,7 +159,7 @@
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
+            
             LoginFormModel model = new LoginFormModel()
             {
                 ReturnUrl = returnUrl
@@ -148,16 +175,12 @@
             {
                 return View(model);
             }
-            // Sanitizing User Input
-            model.Username = model.Username;
-            model.Password = model.Password;
 
             ApplicationUser? user = await userManager.FindByNameAsync(model.Username);
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Login failed: Invalid username or password.");
+                ModelState.AddModelError(string.Empty, LoginFailedErrorMessage);
                 return View(model);
             }
 
@@ -166,16 +189,14 @@
             if(result.IsLockedOut)
             {
                 await userManager.AccessFailedAsync(user);
-                ModelState.AddModelError(string.Empty, 
-                    "Your account is locked out. Kindly wait for 5 minutes and try again");
+                ModelState.AddModelError(string.Empty, AccountLockedErrorMessage);
 
                 return View(model);
             }
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Login failed: Invalid email or password.");
+                ModelState.AddModelError(string.Empty, LoginFailedErrorMessage);
 
                 return View(model);
             }
@@ -183,12 +204,15 @@
 
             this.memoryCache.Remove(UsersCacheKey);
 
+            // Redirect Admin User to Admin Area
             if (this.User.IsAdmin())
             {
                 return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
             }
+
+            // Redirect User to return url or Home
             TempData[JustLoggedIn] = true;
-            return Redirect(model.ReturnUrl ?? "/Home/Index");
+            return Redirect(model.ReturnUrl ?? "/Recipe/All");
         }
 
         [HttpGet]
@@ -206,14 +230,14 @@
             {
                 // Handle external provider error
                 ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", new { returnUrl});
             }
 
             var info = await signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
                 // Handle error
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", new {returnUrl});
             }
             
             // Extract the username, email, and user ID from the external login info

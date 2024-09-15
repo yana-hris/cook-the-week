@@ -7,9 +7,10 @@
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using Interfaces;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
     using CookTheWeek.Web.ViewModels.User;
+    using Interfaces;
+
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class UserService : IUserService
     {

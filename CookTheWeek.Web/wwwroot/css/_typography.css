@@ -89,7 +89,7 @@ html body #main-container .input-group span.input-group-text {
   color: var(--bs-white);
   border: 1px solid var(--bs-primary);
 }
-html body #main-container span.text-danger {
+html body #main-container span.small.text-danger {
   display: block;
   text-align: start;
   font-size: 14px;

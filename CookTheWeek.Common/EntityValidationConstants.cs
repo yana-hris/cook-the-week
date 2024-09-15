@@ -152,7 +152,14 @@
             public const int UsernameMaxLength = 50;
 
             public const int PasswordMinLength = 6;
-            public const int PasswordMaxLength = 100;    
+            public const int PasswordMaxLength = 100;
+
+            public const string LoginFailedErrorMessage = "Login failed: Invalid username or password.";
+            public const string AccountLockedErrorMessage = "Your account is locked out. Kindly wait for 5 minutes and try again";
+
+            public const string UsernameAlreadyExistsErrorMessage = "User with such username already exists";
+            public const string EmailAlreadyExistsErrorMessage = "User with such email already exists";
+            public const string AlreadyHaveAccountErrorMessage = "Are you sure you don`t already have an account? Go to <a href=\"/User/Login\">Login</a>";
         }
 
         public static class Meal
