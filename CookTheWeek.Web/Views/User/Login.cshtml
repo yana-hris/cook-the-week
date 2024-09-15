@@ -53,14 +53,14 @@
             <div class="row mt-2 mb-4">
                 <!-- Google btn -->
                 <div class="col-sm-6 mb-2">
-                    <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
+                    <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme, Model.ReturnUrl })" class="btn external-login-button w-100 text-center">
                         <img class="external-login-icon" src="~/img/google.png" />
                         Sign up with Google
                     </a>
                 </div>                             
                 <!-- Facebook btn-->
                 <div class="col-sm-6">
-                    <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = FacebookDefaults.AuthenticationScheme })" class="btn external-login-button w-100 text-center">
+                    <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = FacebookDefaults.AuthenticationScheme, Model.ReturnUrl })" class="btn external-login-button w-100 text-center">
                         <img class="external-login-icon" src="~/img/facebook.png" />
                         Continue with Facebook
                     </a>
