@@ -91,6 +91,7 @@ html body #main-container .input-group span.input-group-text {
 }
 html body #main-container span.text-danger {
   display: block;
+  text-align: start;
   font-size: 14px;
   margin-left: 3px;
 }

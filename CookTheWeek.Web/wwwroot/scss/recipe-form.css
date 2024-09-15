@@ -43,7 +43,7 @@
   color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
   background-color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active {

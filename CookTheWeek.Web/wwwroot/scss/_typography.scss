@@ -44,7 +44,6 @@
             right: 57px;
             z-index: 10000;
         }
-        
     }
 }
 html {
@@ -113,6 +112,7 @@ html {
 
             span.text-danger {
                 display: block;
+                text-align: start;
                 font-size: 14px;
                 margin-left: 3px;
             }

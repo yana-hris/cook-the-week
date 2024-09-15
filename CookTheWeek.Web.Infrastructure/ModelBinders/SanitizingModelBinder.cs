@@ -1,12 +1,12 @@
 ﻿namespace CookTheWeek.Web.Infrastructure.ModelBinders
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+    using static Common.EntityValidationConstants.ErrorMessages;
 
     public class SanitizingModelBinder : IModelBinder
     {
@@ -37,7 +37,7 @@
             // Handle both string and string? (nullable string) types
             if (bindingContext.ModelType == typeof(string) || Nullable.GetUnderlyingType(bindingContext.ModelType) == typeof(string))
             {
-                var value = valueProviderResult.FirstValue;
+                string? value = valueProviderResult.FirstValue;
 
                 // Check if the string is null or empty before sanitizing
                 if (string.IsNullOrEmpty(value))
@@ -46,7 +46,14 @@
                 }
 
                 // Sanitize non-empty strings
-                var sanitizedValue = sanitizer.Sanitize(value);
+                string sanitizedValue = sanitizer.Sanitize(value);
+
+                // Check if the sanitized result is empty and set a custom error message
+                if (string.IsNullOrWhiteSpace(sanitizedValue))
+                {
+                    bindingContext.ModelState.AddModelError(bindingContext.ModelName, InvalidInputErrorMessage);
+                    return;
+                }
                 bindingContext.Result = ModelBindingResult.Success(sanitizedValue);
                 return;
             }

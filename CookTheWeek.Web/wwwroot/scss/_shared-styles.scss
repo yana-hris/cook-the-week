@@ -56,7 +56,7 @@
                 color: var(--bs-success);
 
                 &:hover {
-                    color: var(--bs-primary);
+                    color: var(--bs-primary) !important;
                     background-color: var(--bs-success);
                 }
             }

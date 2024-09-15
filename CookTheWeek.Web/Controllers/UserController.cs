@@ -15,8 +15,6 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using Ganss.Xss;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -26,7 +24,6 @@
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly IEmailSender emailSender;
-        private readonly HtmlSanitizer sanitizer;
         
 
         public UserController(SignInManager<ApplicationUser> signInManager,
@@ -40,7 +37,6 @@
             this.userService = userService;
             this.memoryCache = memoryCache;
             this.emailSender = emailSender;
-            this.sanitizer = new HtmlSanitizer();
         }
 
         [HttpGet]
@@ -57,15 +53,14 @@
                 return View(model); 
             }
 
-            model.Email = SanitizeInput(model.Email);
 
             ApplicationUser user = new ApplicationUser()
             {
-                UserName = SanitizeInput(model.Username),
+                UserName = model.Username,
                 Email = model.Email
             };
 
-            IdentityResult identityResult = await userManager.CreateAsync(user, SanitizeInput(model.Password));
+            IdentityResult identityResult = await userManager.CreateAsync(user, model.Password);
 
             if (!identityResult.Succeeded)
             {
@@ -154,8 +149,8 @@
                 return View(model);
             }
             // Sanitizing User Input
-            model.Username = SanitizeInput(model.Username);
-            model.Password = SanitizeInput(model.Password);
+            model.Username = model.Username;
+            model.Password = model.Password;
 
             ApplicationUser? user = await userManager.FindByNameAsync(model.Username);
 
@@ -321,7 +316,7 @@
                 return View(model);
             }
 
-            model.Email = SanitizeInput(model.Email);
+            model.Email = model.Email;
 
             ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
             bool isEmailConfirmed = user != null ? await userManager.IsEmailConfirmedAsync(user) : false;
@@ -378,7 +373,7 @@
                 return View(model);
             }
 
-            model.Password = SanitizeInput(model.Password);
+            model.Password = model.Password;
 
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
@@ -527,12 +522,6 @@
 
             return RedirectToAction("AccountDeletedConfirmation");
         }
-
-        private string SanitizeInput(string input)
-        {
-            return sanitizer.Sanitize(input);
-        }
-
-
+       
     }
 }

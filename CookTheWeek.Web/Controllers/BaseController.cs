@@ -1,8 +1,7 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {    
-    using Ganss.Xss;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
 
     [Authorize]

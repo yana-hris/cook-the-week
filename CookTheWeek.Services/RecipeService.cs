@@ -16,7 +16,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
-    using Ganss.Xss;
 
     public class RecipeService : IRecipeService
     {

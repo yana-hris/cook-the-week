@@ -187,6 +187,8 @@
 
         public static class ErrorMessages
         {
+            public const string InvalidInputErrorMessage = "Invalid input. Please provide valid content.";
+
             public static readonly Dictionary<string, string> RecipeValidationErrorMessages =
                 new Dictionary<string, string>()
                 {
@@ -213,6 +215,7 @@
                     { "InvalidDecimalRangeErrorMessage", RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
                     { "InvalidFractionErrorMessage", RecipeIngredientQty.InvalidFractionErrorMessage },
                     { "InvalidWholeQtyErrorMessage", RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+                    {"InvalidInputErrorMessage", InvalidInputErrorMessage },
                 };
 
             public static readonly Dictionary<string, string> ToastrMessages =

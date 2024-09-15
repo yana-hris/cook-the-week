@@ -92,6 +92,7 @@ html body #main-container .input-group span.input-group-text {
 }
 html body #main-container span.text-danger {
   display: block;
+  text-align: start;
   font-size: 14px;
   margin-left: 3px;
 }
@@ -484,7 +485,7 @@ html body footer #links-container a:hover {
   color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
   background-color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
@@ -1397,7 +1398,7 @@ html .not-finished {
   color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
   background-color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
@@ -1744,7 +1745,7 @@ html .not-finished {
   color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
   background-color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {

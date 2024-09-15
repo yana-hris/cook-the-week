@@ -43,7 +43,7 @@
   color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
   background-color: var(--bs-success);
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
