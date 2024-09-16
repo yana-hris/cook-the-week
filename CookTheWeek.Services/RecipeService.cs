@@ -151,7 +151,7 @@
             
             await this.dbContext.SaveChangesAsync();
         }        
-        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
+        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id, string userId)
         {
             RecipeDetailsViewModel model = await this.dbContext
                 .Recipes
@@ -169,7 +169,7 @@
                     }).ToList(),
                     Servings = r.Servings,
                     IsSiteRecipe = r.IsSiteRecipe,
-                    TotalTime = r.TotalTime, //String.Format(@"{0}h {1}min", r.TotalTime.Hours.ToString(), r.TotalTime.Minutes.ToString()),
+                    TotalTime = FormatCookingTime(r.TotalTime), 
                     ImageUrl = r.ImageUrl,
                     CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
                     CreatedBy = r.Owner.UserName,
@@ -244,6 +244,7 @@
                 .FirstAsync();
 
             // TODO: create separate service methods and delegate model assembling to recipe-view-model-factory
+            model.IsLikedByUser = await this.dbContext.FavoriteRecipes.Where(fr => fr.RecipeId.ToString().ToLower() == id && fr.UserId.ToString().ToLower() == userId).AnyAsync();
             model.LikedBy = await this.dbContext.FavoriteRecipes.Where(fr => fr.RecipeId.ToString().ToLower() == id).CountAsync();
             model.CookedBy = await this.dbContext.Meals.Where(m => m.RecipeId.ToString().ToLower() == id).CountAsync();
 

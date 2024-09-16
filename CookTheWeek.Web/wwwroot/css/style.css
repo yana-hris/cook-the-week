@@ -1474,8 +1474,8 @@ html .not-finished {
 }
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button, #meal-cook-container .card .card-body .img-container .add-to-favourites-button {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: 12px;
+  left: 12px;
   z-index: 2;
 }
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
@@ -1483,9 +1483,10 @@ html .not-finished {
 }
 #recipe-details-container .card .card-body .img-container .fa-user-circle, #meal-cook-container .card .card-body .img-container .fa-user-circle {
   position: absolute;
-  top: 10px;
-  left: 19px;
+  top: 12px;
+  left: 12px;
   font-size: 28px;
+  z-index: 2;
 }
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container {
   position: absolute;
@@ -1496,22 +1497,30 @@ html .not-finished {
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only {
   position: relative;
 }
-#recipe-details-container .card .card-body .recipe-description, #recipe-details-container .card .card-body .meal-description, #meal-cook-container .card .card-body .recipe-description, #meal-cook-container .card .card-body .meal-description {
-  margin-top: 10px;
-  margin-bottom: 20px;
+#recipe-details-container .card .card-body i.fa-solid, #meal-cook-container .card .card-body i.fa-solid {
+  line-height: 1.7;
+  vertical-align: middle;
+  font-size: 17px;
+}
+#recipe-details-container .card .card-body .list-item-start, #meal-cook-container .card .card-body .list-item-start {
+  line-height: 1.7;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  font-size: 17px;
+  vertical-align: middle;
+}
+#recipe-details-container .card .card-body .list-item-content, #meal-cook-container .card .card-body .list-item-content {
+  line-height: 1.7;
   font-weight: 400;
-}
-#recipe-details-container .card .card-body .list-group-item, #meal-cook-container .card .card-body .list-group-item {
-  border: none;
-}
-#recipe-details-container .card .card-body .list-item-style, #meal-cook-container .card .card-body .list-item-style {
-  font-size: 16px;
-  padding-bottom: 0;
+  font-style: italic;
+  font-size: 17px;
+  vertical-align: middle;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
   text-decoration: underline;
   font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 #recipe-details-container .card .card-body .units-styler, #meal-cook-container .card .card-body .units-styler {
   font-weight: 300;

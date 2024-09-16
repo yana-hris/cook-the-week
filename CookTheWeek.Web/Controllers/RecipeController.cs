@@ -280,7 +280,9 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
-            if (this.User.GetId() == string.Empty)
+            string userId = User.GetId();
+
+            if (userId == string.Empty)
             {
                 TempData[ErrorMessage] = "You need to be logged in to view Details";
                 returnUrl = Url.Action("Details", "Recipe", new { id = id });
@@ -298,7 +300,7 @@
 
             try
             {
-                RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id);
+                RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id, userId);
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }

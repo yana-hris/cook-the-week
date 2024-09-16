@@ -19,11 +19,12 @@
         public string Title { get; set; } = null!;
         public string? Description { get; set; } 
         public int Servings { get; set; }
-        public TimeSpan TotalTime { get; set; } 
+        public string TotalTime { get; set; } 
         public string ImageUrl { get; set; } = null!;
         public string CategoryName { get; set; }
         public string CreatedOn { get; set; } = null!;
         public string CreatedBy { get; set; } = null!;
+        public bool IsLikedByUser { get; set; }
         public int? LikedBy { get; set; }
         public int? CookedBy { get; set; }
         public bool IsSiteRecipe { get; set; }

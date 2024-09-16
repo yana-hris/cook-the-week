@@ -1,15 +1,9 @@
 ﻿@model RecipeDetailsViewModel
-@using CookTheWeek.Services.Data.Interfaces
-@using CookTheWeek.Web.Infrastructure.Extensions
 @using static CookTheWeek.Common.HelperMethods.IngredientHelper;
-@inject IFavouriteRecipeService FavouriteRecipeService
-@inject IUserService UserService
 @{
     string userId = User.GetId();
     bool isAdmin = User.IsAdmin();
-    string recipeId = Model.Id;
-    bool isOwner = await this.UserService.IsRecipeOwnerByIdAsync(recipeId, userId);
-    bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+    string recipeId = Model.Id;    
 
     var headingModel = new PageHeadingViewModel
     {
@@ -32,15 +26,15 @@
 
         <div class="card-body p-0" id="recipe-details">
             <div id="info-content" class="tab-content g-3">
-                <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                <div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="info-tab">
                     <div class="row g-0">
                         <div class="col-12">
                             <div class="img-container">
                                 <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                                @if (!isOwner)
+                                @if (Model.IsSiteRecipe)
                                 {
                                     <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
-                                        @if (isLiked)
+                                        @if (Model.IsLikedByUser)
                                         {
                                             <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
                                         }
@@ -66,69 +60,79 @@
                         </div>
                         
                     </div>
-                    <div class="row p-4">
-                        <div class="col col-12 col-sm-6">
+                    <div class="row p-4 pt-3 pb-2">
+                        <div class="col col-12 col-md-6">
                             <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-list me-2"></i>
-                                <span>Type: @Model.CategoryName</span>
+                                <i class="fa-solid fa-list me-2"></i>                                
+                                <span class="list-item-start">Type: </span>
+                                <span class="list-item-content"> @Model.CategoryName</span>
                             </div>
                             <div class="d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-utensils me-2"></i>
-                                <span>Serves: @Model.Servings</span>
+                                <span class="list-item-start">Serves: </span>
+                                <span class="list-item-content"> @Model.Servings</span>
                             </div>
                             <div class="d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-hourglass-start me-2"></i>
-                                <span>Ready in: @(Model.TotalTime.Hours > 0 ? Model.TotalTime.Hours.ToString() + "h " : "")@(Model.TotalTime.Minutes > 0 ? Model.TotalTime.Minutes.ToString() + " min" : "")</span>
+                                <span class="list-item-start">Ready in: </span>
+                                <span class="list-item-content"> @Model.TotalTime</span>
                             </div>
                         </div>
-                        <div class="col col-12 col-sm-6">
-                        
+                        <div class="col col-12 col-md-6">                        
                             <div class="d-flex align-items-center mb-2">
-                                <i class="fa-regular fa-calendar-plus me-2"></i>
-                                <span>Added on: @Model.CreatedOn</span>
+                                <i class="fa-solid fa-calendar-plus me-2"></i>
+                                <span class="list-item-start">Added on: </span>
+                                <span class="list-item-content"> @Model.CreatedOn</span>
                             </div>
 
                             @if (!Model.IsSiteRecipe)
                             {
                                 <div class="d-flex align-items-center mb-2">
                                     <i class="fa-solid fa-at me-2"></i>
-                                    <span>Added by: @Model.CreatedBy</span>
+                                    <span class="list-item-start">Added by: </span>
+                                    <span class="list-item-content"> @Model.CreatedBy</span>
                                 </div>
                             }
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-heart me-2"></i>
-                                @if (Model.LikedBy > 0)
-                                {
-                                    <span>Liked by: @Model.LikedBy users</span>
-                                }
-                                else
-                                {
-                                    <span>This recipe hasn't been added by any users yet</span>
-                                }
+                            else
+                            {
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fa-solid fa-heart me-2"></i>
+                                    @if (Model.LikedBy > 0)
+                                    {
+                                        <span class="list-item-start">Liked by: </span>
+                                        <span class="list-item-content"> @Model.LikedBy users</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="list-item-content">This recipe hasn't been liked yet</span>
+                                    }
 
-                            </div>
+                                </div>
+                            }
+                           
                             <div class="d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-bowl-rice me-2"></i>
                                 @if (Model.CookedBy > 0)
                                 {
-                                    <span>Cooked: @Model.CookedBy times</span>
+                                    <span class="list-item-start">Cooked: </span>
+                                    <span class="list-item-content"> @Model.CookedBy times</span>
                                 }
                                 else
                                 {
-                                    <span>No one has cooked this recipe yet</span>
+                                    <span class="list-item-content">No one has cooked this recipe yet</span>
                                 }
                             </div>
                         </div>
                     </div>
-                    <div class="row p-4">
+                    <div class="row p-4 pt-0">
                         <div class="col col-12">
                             <p class="recipe-description">@Model.Description</p>
                         </div>                              
                     </div>
                     
                 </div>
-                <div id="ingredients" class="tab-pane fade">
-                    <div class="row g-3">
+                <div id="ingredients" class="tab-pane fade" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <div class="row g-3 p-4">
                         
                         @if (Model.DiaryMeatSeafood.Any())
                         {
@@ -205,7 +209,7 @@
                     </div>
                 </div>
                 <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
-                    <div class="row">
+                    <div class="row py-4">
                         <div class="col">
                            @for (int i = 0; i < Model.Steps.Count; i++)
                             {
@@ -227,7 +231,7 @@
             </div>
         </div>
 
-        @if (isAdmin || isOwner)
+        @if (isAdmin || !Model.IsSiteRecipe)
         {
          <div class="card-footer">
             <div class="col text-center">

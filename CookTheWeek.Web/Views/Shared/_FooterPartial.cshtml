@@ -1,7 +1,7 @@
 ﻿@using static CookTheWeek.Common.GeneralApplicationConstants
 
-<footer class="text-center bg-dark p-1 no-print @(FixedFooterActions.Contains(ViewContext.RouteData.Values["action"].ToString()) ? "fixed-footer" : "")">
-    <div id="links-container" class="d-flex align-items-center justify-content-center mb-2">
+<footer class="text-center d-flex flex-column align-items-center justify-content-center bg-dark no-print @(FixedFooterActions.Contains(ViewContext.RouteData.Values["action"].ToString()) ? "fixed-footer" : "")">
+    <div id="links-container" class="pt-1 pb-2 d-flex align-items-center justify-content-center">
         <div class="text-center footer-padding footer-border"><a href="/Home/About">About</a></div>
         <div class="text-center footer-padding footer-border"><a href="/Home/HowItWorks">How It Works</a></div>
         <div class="text-center footer-padding footer-border"><a href="/Home/Contact">Contact us</a></div>
@@ -21,8 +21,9 @@
         
         
     </div>
-    <div class="text-center">
-        <p class="small text-white my-0">
+    <hr class="text-white w-75 my-0 py-0"/>
+    <div class="py-1">
+        <p class="small text-white mb-0">
             CookTheWeek &copy; Meal Planning App @ReleaseYear
             @if (DateTime.UtcNow.Year != ReleaseYear)
             {
