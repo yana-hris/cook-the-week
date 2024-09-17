@@ -109,6 +109,15 @@
             model.IngredientsByCategories = ingredientsByCategories;
             return model;
         }
+        public async Task<int?> MealsCountAsync(string recipeId)
+        {
+            int? count = await this.dbContext
+                .Meals
+                .AsNoTracking()
+                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .CountAsync();
 
+            return count;
+        }
     }
 }

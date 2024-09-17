@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CookTheWeek.Data.Models\CookTheWeek.Data.Models.csproj" />
+    <ProjectReference Include="..\CookTheWeek.Data.Repositories\CookTheWeek.Data.Repositories.csproj" />
     <ProjectReference Include="..\CookTheWeek.Data\CookTheWeek.Data.csproj" />
     <ProjectReference Include="..\CookTheWeek.Services.Data.Models\CookTheWeek.Services.Data.Models.csproj" />
     <ProjectReference Include="..\CookTheWeek.Web.ViewModels\CookTheWeek.Web.ViewModels.csproj" />

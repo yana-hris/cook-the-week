@@ -17,7 +17,7 @@
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
             @if (!string.IsNullOrEmpty(userId) && !isOwner && !isAdmin)
             {
-                bool isLiked = await this.FavouriteRecipeService.ExistsByUserIdAsync(recipeId, userId);
+                bool isLiked = await this.FavouriteRecipeService.IsLikedByUserIdAsync(recipeId, userId);
 
                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                     @if (isLiked)

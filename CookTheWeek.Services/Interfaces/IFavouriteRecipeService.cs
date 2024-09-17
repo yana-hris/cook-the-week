@@ -4,9 +4,10 @@
 
     public interface IFavouriteRecipeService
     {
-        Task<bool> ExistsByUserIdAsync(string id, string userId);
-        Task AddByUserIdAsync(string id, string userId);
-        Task RemoveByUserIdAsync(string id, string userId);
-        Task<ICollection<RecipeAllViewModel>> AllByUserIdAsync(string userId);
+        Task<bool> IsLikedByUserIdAsync(string id, string userId);
+        Task LikeAsync(string id, string userId);
+        Task UnlikeAsync(string id, string userId);
+        Task<ICollection<RecipeAllViewModel>> AllLikedByUserIdAsync(string userId);
+        Task<int?> LikesCountAsync(string recipeId);
     }
 }

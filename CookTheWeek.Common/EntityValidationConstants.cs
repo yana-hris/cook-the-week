@@ -195,6 +195,7 @@
         public static class ErrorMessages
         {
             public const string InvalidInputErrorMessage = "Invalid input. Please provide valid content.";
+            
 
             public static readonly Dictionary<string, string> RecipeValidationErrorMessages =
                 new Dictionary<string, string>()
@@ -231,6 +232,8 @@
                     {"MealsRequiredErrorMessage", MealPlan.MealsRequiredErrorMessage},
                 };
         };
+
+       
 
         public static class ValidationConstants
         {

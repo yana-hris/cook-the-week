@@ -25,8 +25,8 @@
         public string CreatedOn { get; set; } = null!;
         public string CreatedBy { get; set; } = null!;
         public bool IsLikedByUser { get; set; }
-        public int? LikedBy { get; set; }
-        public int? CookedBy { get; set; }
+        public int? LikesCount { get; set; }
+        public int? CookedCount { get; set; }
         public bool IsSiteRecipe { get; set; }
         public List<StepViewModel> Steps { get; set; }
         public ICollection<RecipeIngredientDetailsViewModel> DiaryMeatSeafood { get; set; }

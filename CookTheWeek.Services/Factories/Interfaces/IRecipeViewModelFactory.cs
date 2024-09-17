@@ -22,7 +22,7 @@
         /// <summary>
         /// Generates a detailed view model for a recipe.
         /// </summary>
-        Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId);
+        Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId);
 
         /// <summary>
         /// Generates a view model for a user's recipes, including owned and favorite recipes.

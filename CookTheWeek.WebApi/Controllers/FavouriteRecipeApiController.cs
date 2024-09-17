@@ -50,18 +50,18 @@
 
             // If the recipe is already in the user`s favourites, we have to remove it (delete entity FavouriteRecipe)
             bool isAlreadyAdded = await this.favouriteRecipeService
-                .ExistsByUserIdAsync(recipeId, userId);
+                .IsLikedByUserIdAsync(recipeId, userId);
             try
             {
                 if (isAlreadyAdded)
                 {
-                    await this.favouriteRecipeService.RemoveByUserIdAsync(recipeId, userId);
+                    await this.favouriteRecipeService.UnlikeAsync(recipeId, userId);
 
                     return Ok();
                 }
                 else
                 {
-                    await this.favouriteRecipeService.AddByUserIdAsync(recipeId, userId);
+                    await this.favouriteRecipeService.LikeAsync(recipeId, userId);
                     return Ok();
                 }
             }

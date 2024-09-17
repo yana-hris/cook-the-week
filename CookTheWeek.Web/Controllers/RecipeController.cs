@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     
+    using Common.Exceptions;
     using Infrastructure.Extensions;
     using Services.Data.Factories.Interfaces;
     using Services.Data.Interfaces;
@@ -81,8 +82,7 @@
         [HttpGet]
         public async Task<IActionResult> Add(string returnUrl)
         {
-            RecipeAddFormModel model = new RecipeAddFormModel();
-            await PopulateModelDataAsync(model);
+            var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
 
             if (returnUrl == null)
             {
@@ -96,7 +96,7 @@
                 }
             }
 
-            ViewBag.ReturnUrl = returnUrl; 
+            SetViewData("Add Recipe", returnUrl);
             return View(model);
         }
 
@@ -110,8 +110,7 @@
             if (!ModelState.IsValid)
             {
                 StoreServerErrorsInTempData();
-                ViewBag.ReturnUrl = returnUrl;
-                // For the back btn to work
+                SetViewData("Add Recipe", returnUrl);
                 return View(model);
             }
             
@@ -266,6 +265,10 @@
                 return Ok(new { success = true, redirectUrl = recipeDetailsLink });
 
             }
+            catch(RecordNotFoundException ex)
+            {
+                return NotFound(ex);
+            }
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, StatusCode500InternalServerErrorMessage);
@@ -277,70 +280,59 @@
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Details(string id, string returnUrl = null)
+        public IActionResult Details(string id, string returnUrl = null)
         {
             string userId = User.GetId();
 
-            if (userId == string.Empty)
-            {
-                TempData[ErrorMessage] = "You need to be logged in to view Details";
-                returnUrl = Url.Action("Details", "Recipe", new { id = id });
-                return RedirectToAction("Login", "User", new {returnUrl});
-            }
-
-            bool exists = await this.recipeService.ExistsByIdAsync(id);
-            ViewData["Title"] = "Recipe Details";           
-
-            if (!exists)
-            {
-                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
-                return Redirect(returnUrl ?? "/Recipe/All");
-            }
-
             try
             {
-                RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(id, userId);
-                ViewBag.ReturnUrl = returnUrl;
+                var model = this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id, userId);                
+                SetViewData("Recipe Details", returnUrl);
                 return View(model);
             }
-            catch (Exception)
+            catch (UnauthorizedException)
             {
-                logger.LogError("Recipe Details unsuccessfully loaded!");
-                return BadRequest();
+                returnUrl = Url.Action("Details", "Recipe", new { id })!;
+                return RedirectToAction("Login", "User", new { returnUrl });
+            }
+            catch (RecordNotFoundException ex) 
+            {
+                return NotFound(ex);
+            }
+            catch (DataRetrievalException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.GetFormattedMessage());
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            string userId = this.User.GetId();
-            ViewData["Title"] = "My Recipes";
-
             if (User.IsAdmin())
             {
                 Redirect("/Admin/RecipeAdmin/Site");
             }
 
+            string userId = this.User.GetId();
+            SetViewData("My Recipes", Request.Path + Request.QueryString);
+
             try
             {
-                RecipeMineViewModel model = new RecipeMineViewModel();
-                model.FavouriteRecipes = await this.favouriteRecipeService.AllByUserIdAsync(userId);
-                model.OwnedRecipes = await this.recipeService.AllAddedByUserAsync(userId);
-
-                if(!model.OwnedRecipes.Any() && !model.FavouriteRecipes.Any())
-                {
-                    return RedirectToAction("None");
-                }
-                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
-                return View(model);
+                var recipes = await recipeViewModelFactory.CreateRecipeMineViewModelAsync(userId);
+                return View(recipes);
             }
-            catch (Exception)
+            catch (RecordNotFoundException ex)
             {
-                logger.LogError("My Recipes unsuccessfully loaded to View Model!");
-                return BadRequest();
+                return RedirectToAction("None");
             }
-
+            catch (DataRetrievalException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.GetFormattedMessage());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
         }
 
         [HttpGet]

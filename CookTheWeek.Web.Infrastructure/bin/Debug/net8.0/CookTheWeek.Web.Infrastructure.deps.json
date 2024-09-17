@@ -1367,10 +1367,25 @@
           }
         }
       },
+      "CookTheWeek.Data.Repositories/1.0.0": {
+        "dependencies": {
+          "CookTheWeek.Common": "1.0.0",
+          "CookTheWeek.Data": "1.0.0",
+          "CookTheWeek.Data.Models": "1.0.0",
+          "CookTheWeek.Web.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "CookTheWeek.Data.Repositories.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "CookTheWeek.Services.Data/1.0.0": {
         "dependencies": {
           "CookTheWeek.Data": "1.0.0",
           "CookTheWeek.Data.Models": "1.0.0",
+          "CookTheWeek.Data.Repositories": "1.0.0",
           "CookTheWeek.Services.Data.Models": "1.0.0",
           "CookTheWeek.Web.ViewModels": "1.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
@@ -2307,6 +2322,11 @@
       "sha512": ""
     },
     "CookTheWeek.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CookTheWeek.Data.Repositories/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

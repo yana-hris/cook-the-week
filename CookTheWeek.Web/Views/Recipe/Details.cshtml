@@ -97,10 +97,10 @@
                             {
                                 <div class="d-flex align-items-center mb-2">
                                     <i class="fa-solid fa-heart me-2"></i>
-                                    @if (Model.LikedBy > 0)
+                                    @if (Model.LikesCount > 0)
                                     {
                                         <span class="list-item-start">Liked by: </span>
-                                        <span class="list-item-content"> @Model.LikedBy users</span>
+                                        <span class="list-item-content"> @Model.LikesCount users</span>
                                     }
                                     else
                                     {
@@ -112,10 +112,10 @@
                            
                             <div class="d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-bowl-rice me-2"></i>
-                                @if (Model.CookedBy > 0)
+                                @if (Model.CookedCount > 0)
                                 {
                                     <span class="list-item-start">Cooked: </span>
-                                    <span class="list-item-content"> @Model.CookedBy times</span>
+                                    <span class="list-item-content"> @Model.CookedCount times</span>
                                 }
                                 else
                                 {

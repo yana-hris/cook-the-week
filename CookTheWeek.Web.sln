@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.WebApi", "CookT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{960CAD7B-6E05-4D9D-8612-DD0B825E7747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookTheWeek.Services.Tests", "CookTheWeek.Services.Tests\CookTheWeek.Services.Tests.csproj", "{34D7C93A-14BB-4762-8C29-228FC5AD7E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Services.Tests", "CookTheWeek.Services.Tests\CookTheWeek.Services.Tests.csproj", "{34D7C93A-14BB-4762-8C29-228FC5AD7E63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookTheWeek.Data.Repositories", "CookTheWeek.Data.Repositories\CookTheWeek.Data.Repositories.csproj", "{927F392D-8966-474A-8383-67686A5434F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{34D7C93A-14BB-4762-8C29-228FC5AD7E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D7C93A-14BB-4762-8C29-228FC5AD7E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D7C93A-14BB-4762-8C29-228FC5AD7E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{927F392D-8966-474A-8383-67686A5434F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{927F392D-8966-474A-8383-67686A5434F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{927F392D-8966-474A-8383-67686A5434F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{927F392D-8966-474A-8383-67686A5434F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{37832F57-782E-4D3A-9793-6484CD543FF3} = {E7A62CDF-0D87-493B-9D4E-99512B0BD726}
 		{E3C13B0B-1006-49D7-8192-9BFAFC79B71A} = {8B8CD3E0-A9E8-4C77-A051-0C031124EABA}
 		{34D7C93A-14BB-4762-8C29-228FC5AD7E63} = {960CAD7B-6E05-4D9D-8612-DD0B825E7747}
+		{927F392D-8966-474A-8383-67686A5434F1} = {B0FCA865-0BDD-4BF5-98C3-425AC2C0307C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9D5BB21-40F0-47A3-93CB-7657EBC7DDFF}

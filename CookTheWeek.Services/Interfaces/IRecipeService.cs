@@ -15,7 +15,7 @@
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
         Task EditAsync(RecipeEditFormModel model);
         Task DeleteByIdAsync(string id);
-        Task<ICollection<RecipeAllViewModel>> AllAddedByUserAsync(string userId);
+        Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId);
         Task<int> MineCountAsync(string userId);         
         Task<int> AllCountAsync();
         Task<bool> IsIncludedInMealPlans(string id);

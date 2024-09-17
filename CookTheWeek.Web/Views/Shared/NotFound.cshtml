@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Page Not Found";
+    string message = ViewBag.Message;
     int errorCode = ViewBag.ErrorCode ?? 404; 
 }
 <div id="not-found-container" class="image-overlay error-image">
@@ -7,7 +8,14 @@
         <h2 class="text-danger text-capitalize mb-1">Oops! </h2>
         <h2 class="text-danger text-uppercase mb-2">Page Not Found</h2>
         <h5 class="mb-1">
-            It seems we can`t find the page you`re looking for.
+            @if (message == null)
+            {
+                <text>It seems we can`t find the page you`re looking for.</text>
+            }
+            else
+            {
+                <text>@message</text>
+            }
         </h5>
         <p class="fw-bold mb-5">(Error @errorCode)</p>
         <p class="fw-bold mb-2">Here are some helpful links instead:</p>

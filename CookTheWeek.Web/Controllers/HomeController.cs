@@ -113,10 +113,11 @@ namespace CookTheWeek.Web.Controllers
 
         [Route("Home/NotFound")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult NotFound(int code)
+        public IActionResult NotFound(int code, string message)
         {
             Response.StatusCode = 404;
             ViewBag.ErrorCode = code;
+            ViewBag.Message = message;  
             return View();
         }
 
