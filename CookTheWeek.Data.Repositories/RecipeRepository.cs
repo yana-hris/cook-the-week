@@ -10,6 +10,7 @@
     using CookTheWeek.Data.Models;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
+    using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
 
     public class RecipeRepository : IRecipeRepository
     {
@@ -31,12 +32,6 @@
         {
             throw new NotImplementedException();
         }
-
-        public Task<bool> ExistsByIdAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ICollection<Recipe>>? GetAllByUserIdAsync(string userId)
         {
             var recipes = await this.dbContext
@@ -49,44 +44,42 @@
             return recipes;
         }
 
-        public async Task<ICollection<Recipe>> GetAllAsync()
+        public IQueryable<Recipe> GetAllQuery()
         {
-            return await this.dbContext
+
+            IQueryable<Recipe>? allRecipes = this.dbContext
                 .Recipes
                 .AsNoTracking()
-                .ToListAsync();
-        }
+                .AsQueryable();
 
-        public Task<int> GetAllCountAsync()
-        {
-            throw new NotImplementedException();
-        }
+            if (!allRecipes.Any())
+            {
+                throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
+            }
 
-        public Task<ICollection<Recipe>> GetAllSiteAsync()
-        {
-            throw new NotImplementedException();
+            return allRecipes;
         }
-
-        public Task<ICollection<Recipe>> GetAllUserRecipesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Recipe> GetByIdAsync(string id)
+        
+        public async Task<Recipe?> GetByIdAsync(string id)
         {
             try
             {
                 Recipe? recipe = await this.dbContext.Recipes
-                .AsNoTracking()
-                .Include(r => r.Steps)
-                .Include(r => r.RecipesIngredients)
-                .FirstOrDefaultAsync(r => r.Id.ToString().ToLower() == id);
+                    .AsNoTracking()
+                    .Include(r => r.Owner)
+                    .Include(r => r.Steps)
+                    .Include(r => r.Category)
+                    .Include(r => r.RecipesIngredients)
+                        .ThenInclude(ri => ri.Ingredient)
+                            .ThenInclude(i => i.Category)
+                    .Include(r => r.RecipesIngredients)
+                        .ThenInclude(ri => ri.Measure)
+                    .Include(r => r.RecipesIngredients)
+                        .ThenInclude(ri => ri.Specification)
+                    .FirstOrDefaultAsync(r => r.Id.ToString().ToLower() == id);
 
-                return recipe == null ? throw new RecordNotFoundException($"No recipe found with ID {id}.", null) : recipe;
-            }
-            catch (RecordNotFoundException)
-            {
-                throw; 
+
+                return recipe;
             }
             catch (Exception ex)
             {

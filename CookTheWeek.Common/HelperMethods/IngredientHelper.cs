@@ -1,7 +1,7 @@
 ﻿namespace CookTheWeek.Common.HelperMethods
 {
     using static Common.GeneralApplicationConstants;
-    
+
     public static class IngredientHelper
     {
         public static string FormatIngredientQty(decimal qty)
@@ -59,5 +59,7 @@
                 return $"{wholeNumber} {closestFractionString.Replace("/", HtmlEntityFractionSlash)}";
             }
         }
+
+        
     }
 }

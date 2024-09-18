@@ -8,7 +8,7 @@
 
     using static Common.EntityValidationConstants.Recipe;
 
-    public class RecipeEditFormModel
+    public class RecipeEditFormModel : IRecipeFormModel
     {
         public RecipeEditFormModel()
         {

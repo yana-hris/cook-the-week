@@ -8,6 +8,7 @@ namespace CookTheWeek.WebApi
     using Services.Data.Interfaces;
     using CookTheWeek.Services.Data;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
 
     public class Program
     {
@@ -42,6 +43,7 @@ namespace CookTheWeek.WebApi
             builder.Services.AddScoped<IMealPlanService, MealPlanService>();
             builder.Services.AddScoped<IIngredientService, IngredientService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

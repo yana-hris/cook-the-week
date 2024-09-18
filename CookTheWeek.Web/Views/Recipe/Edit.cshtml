@@ -371,6 +371,8 @@
         var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
         const errorMessages = @Html.Raw(errorMessagesString);
         const validationConstants = @Html.Raw(validationConstantsString);
+        debugger;
+        const returnUrl = '@ViewBag.ReturnUrl' || '/Recipe/All';
         
         // Create Regex URL pattern, corresponding to server-side regex
         const ValidationConstants = {

@@ -10,9 +10,9 @@
     {
         Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId);
         Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin);
-        Task<RecipeDetailsViewModel> DetailsByIdAsync(string id, string userId);
+        Task<RecipeDetailsViewModel> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
-        Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
+        Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
         Task EditAsync(RecipeEditFormModel model);
         Task DeleteByIdAsync(string id);
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId);

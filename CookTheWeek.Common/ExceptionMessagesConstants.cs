@@ -14,7 +14,7 @@
 
         public static class  UnauthorizedExceptionMessages 
         {
-            public const string UnauthorizedAccessExceptionMessage = "You have no rights to access this information.";
+            public const string RecipeAuthorizationExceptionMessage = "You must be the recipe owner to edit it.";
         }
 
         public static class  RecordNotFoundExceptionMessages

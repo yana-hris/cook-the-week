@@ -4,12 +4,14 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
 
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+    using static CookTheWeek.Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
@@ -64,72 +66,41 @@
         public async Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
         {
             // Create the ViewModel with default values and empty lists
-            var model = new RecipeAddFormModel
+            var addModel = await AddRecipeOptionValues(new RecipeAddFormModel());
+
+            if (addModel is RecipeAddFormModel model && model != null)
             {
-                // Load categories and servings options
-                Categories = await categoryService.AllRecipeCategoriesAsync(),
-                ServingsOptions = ServingsOptions,
-
-                // Initialize lists with default values
-                RecipeIngredients = new List<RecipeIngredientFormModel>
-                {
-                    new RecipeIngredientFormModel() // Empty ingredient
-                },
-                Steps = new List<StepFormModel>
-                {
-                    new StepFormModel() // Empty step
-                }
-            };
-
-            // Perform parallel asynchronous operations
-            var measuresTask = recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            var specificationsTask = recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
-            // Await the results of parallel tasks
-            var measures = await measuresTask;
-            var specifications = await specificationsTask;
-
-            // Set the measures and specifications for the first ingredient
-            model.RecipeIngredients.First().Measures = measures;
-            model.RecipeIngredients.First().Specifications = specifications;
-
-            return model;
+                return model;
+            }
+            throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, null);           
         }
 
         /// <summary>
         /// Generates a form model for editing an existing recipe, including categories and ingredient options.
         /// </summary>
-        public Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId)
+        public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId, string userId, bool isAdmin)
         {
-            throw new NotImplementedException();
+            RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId, userId, isAdmin);
+            
+            var filledModel = await AddRecipeOptionValues(editModel);
+            if (filledModel is RecipeEditFormModel model)
+            {
+                return model;
+            }
+            throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, null);
         }
 
         /// <summary>
         /// Generates a detailed view model for a recipe.
         /// </summary>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
-        {
-            try
-            {
-                RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId, userId);
-                model.IsLikedByUser = await this.favouriteRecipeService.IsLikedByUserIdAsync(recipeId, userId);
-                model.LikesCount = await this.favouriteRecipeService.LikesCountAsync(recipeId);
-                model.CookedCount = await this.mealService.MealsCountAsync(recipeId);
+        { 
+            RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
+            model.IsLikedByUser = await this.favouriteRecipeService.IsLikedByUserIdAsync(recipeId, userId);
+            model.LikesCount = await this.favouriteRecipeService.LikesCountAsync(recipeId);
+            model.CookedCount = await this.mealService.MealsCountAsync(recipeId);
 
-                return model;
-            }
-            catch (UnauthorizedException)
-            {
-                throw;
-            }
-            catch (RecordNotFoundException)
-            {
-                throw;
-            }
-            catch (DataRetrievalException)
-            {
-                throw;
-            }
+            return model;
         }
 
         /// <summary>
@@ -144,6 +115,29 @@
             return model;
         }
 
-       
+       private async Task<IRecipeFormModel> AddRecipeOptionValues(IRecipeFormModel model)
+        {            
+            model.Categories = await categoryService.AllRecipeCategoriesAsync();
+            model.ServingsOptions = ServingsOptions;
+
+            if (!model.RecipeIngredients.Any())
+            {
+                model.RecipeIngredients.Add(new RecipeIngredientFormModel());
+            }
+
+            if (!model.Steps.Any())
+            {
+                model.Steps.Add(new StepFormModel());
+            }
+            
+            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+
+            // Set the measures and specifications for the first ingredient
+            model.RecipeIngredients.First().Measures = measures;
+            model.RecipeIngredients.First().Specifications = specifications;
+
+            return model;
+        }
     }
 }

@@ -17,7 +17,7 @@
         /// <summary>
         /// Generates a form model for editing an existing recipe, including categories and ingredient options.
         /// </summary>
-        Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId);
+        Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId, string userId, bool isAdmin);
 
         /// <summary>
         /// Generates a detailed view model for a recipe.

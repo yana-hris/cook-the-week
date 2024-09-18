@@ -113,7 +113,7 @@ namespace CookTheWeek.Web.Controllers
 
         [Route("Home/NotFound")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult NotFound(int code, string message)
+        public IActionResult NotFound(string? message, string? code)
         {
             Response.StatusCode = 404;
             ViewBag.ErrorCode = code;
@@ -122,9 +122,11 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [Route("Home/InternalServerError")]
-        public IActionResult InternalServerError()
+        public IActionResult InternalServerError(string? message, string? code)
         {
             Response.StatusCode = 500;
+            ViewBag.ErrorCode = code;
+            ViewBag.Message = message;
             return View();
         }
     }

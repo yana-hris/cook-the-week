@@ -50,11 +50,11 @@
             this.logger = logger;            
         }
 
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
-
             string userId = User.GetId();
             bool isAdmin = User.IsAdmin();
 
@@ -68,17 +68,21 @@
                 var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, userId);
 
                 SetViewData("All Recipes", Request.Path + Request.QueryString);
-
                 return View(model);
             }
-            catch (Exception ex)
+            catch (RecordNotFoundException)
             {
-                logger.LogError(ex, "An error occurred while processing the All Recipes query");
-                return NotFound();
+                return Redirect("None");
+            }
+            catch(DataRetrievalException ex)
+            {
+                return RedirectToAction("InternalServerError", "Home", new {message = ex.Message, code = ex.ErrorCode});
             }
 
         }
 
+
+        // TODO: add exception-handling
         [HttpGet]
         public async Task<IActionResult> Add(string returnUrl)
         {
@@ -135,39 +139,31 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
-            bool exists = await this.recipeService.ExistsByIdAsync(id);
-
-            if (!exists)
-            {
-                TempData[ErrorMessage] = "Recipe with the provided id does not exist!";
-                logger.LogWarning($"Recipe with id {id} does not exist in database!");
-                return Redirect(returnUrl ?? "/Recipe/All");
-            }
-
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(id, userId);
-
-            if (!isOwner && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = "You must be the owner of the recipe to edit recipe info!";
-                logger.LogWarning("The user id of the recipe owner and current user do not match!");
-                return RedirectToAction("Details", "Recipe", new { id, returnUrl });
-            }
+            bool isAdmin = User.IsAdmin();
 
             try
             {
-                RecipeEditFormModel model = await this.recipeService.GetForEditByIdAsync(id);
-                model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-                model.ServingsOptions = ServingsOptions;
-                model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-                model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-                ViewBag.ReturnUrl = returnUrl; 
+                RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(id, userId, isAdmin);
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
-            catch (Exception)
+            catch (RecordNotFoundException ex)
             {
-                logger.LogError("Recipe model was not successfully loaded for edit!");
-                return BadRequest();
+                TempData[ErrorMessage] = ex.Message;
+                logger.LogWarning($"Recipe with id {id} does not exist in database!");
+                return Redirect(returnUrl ?? "/Recipe/All");
+            }
+            catch (UnauthorizedException ex)
+            {
+                TempData[ErrorMessage] = ex.Message;
+                logger.LogWarning($"Unauthorized user with id: {userId} tried to edit a recipe with id: {id}");
+                return RedirectToAction("Details", "Recipe", new { id, returnUrl });
+            }
+            catch(DataRetrievalException ex)
+            {
+                logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}");
+                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message, code = ex.ErrorCode });
             }
         }
 
@@ -280,28 +276,23 @@
         }
 
         [HttpGet]
-        public IActionResult Details(string id, string returnUrl = null)
+        public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
             string userId = User.GetId();
 
             try
             {
-                var model = this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id, userId);                
+                RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id, userId);                
                 SetViewData("Recipe Details", returnUrl);
                 return View(model);
             }
-            catch (UnauthorizedException)
-            {
-                returnUrl = Url.Action("Details", "Recipe", new { id })!;
-                return RedirectToAction("Login", "User", new { returnUrl });
-            }
             catch (RecordNotFoundException ex) 
             {
-                return NotFound(ex);
+                return RedirectToAction("NotFound", "Home", new {message = ex.Message, code = ex.ErrorCode});
             }
             catch (DataRetrievalException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.GetFormattedMessage());
+                return RedirectToAction("InternalServerError", "Home", new {message = ex.Message, code = ex.ErrorCode});
             }
         }
 
@@ -321,18 +312,14 @@
                 var recipes = await recipeViewModelFactory.CreateRecipeMineViewModelAsync(userId);
                 return View(recipes);
             }
-            catch (RecordNotFoundException ex)
+            catch (RecordNotFoundException)
             {
                 return RedirectToAction("None");
             }
             catch (DataRetrievalException ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.GetFormattedMessage());
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-            }
+            }            
         }
 
         [HttpGet]

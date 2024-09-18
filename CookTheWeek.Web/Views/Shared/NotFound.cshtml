@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Page Not Found";
     string message = ViewBag.Message;
-    int errorCode = ViewBag.ErrorCode ?? 404; 
+    string errorCode = ViewBag.ErrorCode ?? "404";
 }
 <div id="not-found-container" class="image-overlay error-image">
     <div class="form-container info-message">

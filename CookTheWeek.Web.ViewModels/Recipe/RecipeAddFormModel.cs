@@ -8,7 +8,7 @@
 
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
 
-    public class RecipeAddFormModel
+    public class RecipeAddFormModel : IRecipeFormModel
     {
         public RecipeAddFormModel()
         {

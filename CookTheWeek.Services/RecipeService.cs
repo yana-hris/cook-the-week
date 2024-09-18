@@ -38,9 +38,7 @@
         {
             try
             {
-                ICollection<Recipe> allrecipes = await this.recipeRepository.GetAllAsync();
-
-                IQueryable<Recipe> recipesQuery = allrecipes.AsQueryable();
+                IQueryable<Recipe> recipesQuery = this.recipeRepository.GetAllQuery();
 
                 if (userId != String.Empty)
                 {
@@ -100,7 +98,7 @@
                     queryModel.RecipesPerPage = DefaultRecipesPerPage;
                 }
 
-                queryModel.TotalRecipes = await recipesQuery.CountAsync();
+                queryModel.TotalRecipes = recipesQuery.Count();
 
                 ICollection<RecipeAllViewModel> model = await recipesQuery
                     .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
@@ -123,12 +121,14 @@
 
                 return model;
             }
+            catch (RecordNotFoundException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                throw new DataRetrievalException(NoRecipesFoundExceptionMessage, ex);
+                throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, ex);
             }
-
-            
         }
         public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
@@ -148,7 +148,7 @@
 
             if (recipe == null)
             {
-                throw new RecordNotFoundException();
+                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
             }
             
             UpdateRecipeNonCollectionFields(model, recipe);
@@ -164,121 +164,42 @@
             
             await this.dbContext.SaveChangesAsync();
         }        
-        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id, string userId)
+        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
-            if (String.IsNullOrEmpty(userId))
-            {
-                throw new UnauthorizedException(UnauthorizedAccessExceptionMessage);
-            }
+            
+            Recipe? recipe = await this.recipeRepository.GetByIdAsync(id);
 
-            try
+            if (recipe == null)
             {
-                Recipe recipe = await this.recipeRepository.GetByIdAsync(id);
+                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
+            }
                 
-                RecipeDetailsViewModel model = new RecipeDetailsViewModel()
+            RecipeDetailsViewModel model = new RecipeDetailsViewModel()
+            {
+                Id = recipe.Id.ToString(),
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Steps = recipe.Steps.Select(s => new StepViewModel()
                 {
-                    Id = recipe.Id.ToString(),
-                    Title = recipe.Title,
-                    Description = recipe.Description,
-                    Steps = recipe.Steps.Select(s => new StepViewModel()
-                    {
-                        Id = s.Id,
-                        Description = s.Description
-                    }).ToList(),
-                    Servings = recipe.Servings,
-                    IsSiteRecipe = recipe.IsSiteRecipe,
-                    TotalTime = FormatCookingTime(recipe.TotalTime),
-                    ImageUrl = recipe.ImageUrl,
-                    CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
-                    CreatedBy = recipe.Owner.UserName!,
-                    CategoryName = recipe.Category.Name,
-                    DiaryMeatSeafood = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => DiaryMeatSeafoodIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                    Produce = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => ProduceIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                    Legumes = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => LegumesIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                    PastaGrainsBakery = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => PastaGrainsBakeryIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                    OilsHerbsSpicesSweeteners = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => OilsHerbsSpicesSweetenersIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                    NutsSeedsAndOthers = recipe.RecipesIngredients
-                    .OrderBy(ri => ri.Ingredient.CategoryId)
-                    .ThenBy(ri => ri.Ingredient.Name)
-                    .Where(ri => NutsSeedsAndOthersIngredientCategories.Contains(ri.Ingredient.CategoryId))
-                    .Select(ri => new RecipeIngredientDetailsViewModel()
-                    {
-                        Name = ri.Ingredient.Name,
-                        Qty = ri.Qty,
-                        Measure = ri.Measure.Name,
-                        Specification = ri.Specification.Description,
-                    }).ToList(),
-                };
+                    Id = s.Id,
+                    Description = s.Description
+                }).ToList(),
+                Servings = recipe.Servings,
+                IsSiteRecipe = recipe.IsSiteRecipe,
+                TotalTime = FormatCookingTime(recipe.TotalTime),
+                ImageUrl = recipe.ImageUrl,
+                CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
+                CreatedBy = recipe.Owner.UserName!,
+                CategoryName = recipe.Category.Name,
+                DiaryMeatSeafood = MapIngredientsByCategory(recipe, DiaryMeatSeafoodIngredientCategories),                    
+                Produce = MapIngredientsByCategory(recipe, ProduceIngredientCategories),
+                Legumes = MapIngredientsByCategory(recipe, LegumesIngredientCategories),
+                PastaGrainsBakery = MapIngredientsByCategory(recipe, PastaGrainsBakeryIngredientCategories),
+                OilsHerbsSpicesSweeteners = MapIngredientsByCategory(recipe, OilsHerbsSpicesSweetenersIngredientCategories),
+                NutsSeedsAndOthers = MapIngredientsByCategory(recipe, NutsSeedsAndOthersIngredientCategories)
+            };
 
-                return model;
-               
-            }
-            catch(UnauthorizedException)
-            {
-                throw;
-            }
-            catch(RecordNotFoundException)
-            {
-                throw;
-            }
-            catch(DataRetrievalException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, ex);
-            }
+            return model;
 
         }
         public async Task<bool> ExistsByIdAsync(string id)
@@ -329,15 +250,20 @@
 
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
+        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin)
         {
-            var recipe = await this.recipeRepository.GetByIdAsync(id);
-
+            Recipe? recipe = await this.recipeRepository.GetByIdAsync(id);
+            
             if (recipe == null)
             {
-                throw new RecipeNotFoundException($"Recipe with {id} was not found in the database.");
+                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
             }
-           
+
+            if (userId != recipe.OwnerId.ToString().ToLower() && !isAdmin)
+            {
+                throw new UnauthorizedException(RecipeAuthorizationExceptionMessage);
+            }
+
             RecipeEditFormModel model = new RecipeEditFormModel()
             {
                 Id = recipe.Id.ToString(),
@@ -363,7 +289,6 @@
             };
 
             return model;
-            
         }
         
         public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId)
@@ -373,7 +298,7 @@
 
             if (recipes == null || !recipes.Any())
             {
-                throw new RecordNotFoundException("No recipes found in the database.");
+                throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
             }
 
             try
@@ -572,6 +497,21 @@
                 .FirstOrDefaultAsync();
         }
 
-       
+        // Helper method to map ingredients by category in Recipe Details View
+        private List<RecipeIngredientDetailsViewModel> MapIngredientsByCategory(Recipe recipe, IEnumerable<int> ingredientCategoryIds)
+        {
+            return recipe.RecipesIngredients
+                .OrderBy(ri => ri.Ingredient.CategoryId)
+                .ThenBy(ri => ri.Ingredient.Name)
+                .Where(ri => ingredientCategoryIds.Contains(ri.Ingredient.CategoryId))
+                .Select(ri => new RecipeIngredientDetailsViewModel()
+                {
+                    Name = ri.Ingredient.Name,
+                    Qty = ri.Qty,
+                    Measure = ri.Measure.Name,
+                    Specification = ri.Specification != null ? ri.Specification.Description : null,
+                }).ToList();
+        }
+
     }
 }

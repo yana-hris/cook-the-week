@@ -4,14 +4,10 @@
 
     public interface IRecipeRepository
     {
-        Task<ICollection<Recipe>> GetAllAsync();
+        IQueryable<Recipe> GetAllQuery();
         Task<string> AddAsync(Recipe recipe);
 
-        Task<Recipe> GetByIdAsync(string id);
-
-        Task<bool> ExistsByIdAsync(string id);
-
-        Task<Recipe> GetForEditByIdAsync(string id);
+        Task<Recipe?> GetByIdAsync(string id);
         Task UpdateAsync(Recipe recipe);
 
         Task DeleteByIdAsync(string id);
@@ -20,14 +16,8 @@
 
         Task<int> GetMineCountAsync(string userId);
 
-        Task<int> GetAllCountAsync();
-
         Task<bool> IsIncludedInMealPlansAsync(string id);
 
         Task<Recipe> GetForMealByIdAsync(string recipeId);
-
-        Task<ICollection<Recipe>> GetAllSiteAsync();
-
-        Task<ICollection<Recipe>> GetAllUserRecipesAsync();
     }
 }
