@@ -92,6 +92,8 @@ namespace CookTheWeek.Web
             builder.Services.AddApplicationServices(typeof(IRecipeService));
             builder.Services.AddApplicationFactories(typeof(IRecipeViewModelFactory));
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<IStepRepository, StepRepository>();
+            builder.Services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
 
 
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",

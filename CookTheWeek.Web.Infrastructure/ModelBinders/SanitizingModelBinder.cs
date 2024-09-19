@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-
+    using CookTheWeek.Web.ViewModels.Recipe;
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -11,6 +11,12 @@
     public class SanitizingModelBinder : IModelBinder
     {
         private readonly HtmlSanitizer sanitizer;
+
+        private readonly HashSet<string> excludedProperties = new HashSet<string>
+        {
+            nameof(RecipeAddFormModel.ImageUrl),
+            nameof(RecipeEditFormModel.ImageUrl),// Add other property names as needed
+        };
 
         public SanitizingModelBinder()
         {
@@ -26,6 +32,7 @@
 
             // Get the value being bound
             var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+            Console.WriteLine(valueProviderResult);
 
             if (valueProviderResult == ValueProviderResult.None)
             {
@@ -41,6 +48,13 @@
 
                 // Check if the string is null or empty before sanitizing
                 if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+
+                // Skip sanitization if the property is in the excluded list
+                var propertyName = bindingContext.ModelName;
+                if (excludedProperties.Contains(propertyName))
                 {
                     return;
                 }

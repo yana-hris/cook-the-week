@@ -2,9 +2,12 @@
 {
     using System.Threading.Tasks;
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
+    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
@@ -13,10 +16,12 @@
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
     using static CookTheWeek.Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
+    using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
+        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
@@ -26,6 +31,7 @@
                                       ICategoryService categoryService,
                                       IRecipeIngredientService recipeIngredientService,
                                       IFavouriteRecipeService favouriteRecipeService,
+                                      IFavouriteRecipeRepository favouriteRecipeRepository,
                                       IMealService mealService)
         {
             this.recipeService = recipeService;
@@ -33,6 +39,7 @@
             this.recipeIngredientService = recipeIngredientService;
             this.favouriteRecipeService = favouriteRecipeService;
             this.mealService = mealService;
+            this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
 
         /// <summary>
@@ -96,8 +103,8 @@
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
         { 
             RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
-            model.IsLikedByUser = await this.favouriteRecipeService.IsLikedByUserIdAsync(recipeId, userId);
-            model.LikesCount = await this.favouriteRecipeService.LikesCountAsync(recipeId);
+            model.IsLikedByUser = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+            model.LikesCount = await this.favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
             model.CookedCount = await this.mealService.MealsCountAsync(recipeId);
 
             return model;
@@ -109,7 +116,26 @@
         public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId)
         {
             RecipeMineViewModel model = new RecipeMineViewModel();
-            model.FavouriteRecipes = await this.favouriteRecipeService.AllLikedByUserIdAsync(userId);
+
+            ICollection<FavouriteRecipe> likedRecipes = await 
+                this.favouriteRecipeRepository.GetAllByUserIdAsync(userId);
+
+            model.FavouriteRecipes = likedRecipes
+                .Select(fr => new RecipeAllViewModel()
+                {
+                    Id = fr.Recipe.Id.ToString(),
+                    ImageUrl = fr.Recipe.ImageUrl,
+                    Title = fr.Recipe.Title,
+                    Description = fr.Recipe.Description,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = fr.Recipe.CategoryId,
+                        Name = fr.Recipe.Category.Name
+                    },
+                    Servings = fr.Recipe.Servings,
+                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
+                }).ToList();
+
             model.OwnedRecipes = await this.recipeService.AllAddedByUserIdAsync(userId);
 
             return model;

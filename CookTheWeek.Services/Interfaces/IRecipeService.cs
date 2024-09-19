@@ -22,5 +22,6 @@
         Task<MealAddFormModel> GetForMealByIdAsync(string recipeId);
         Task<ICollection<RecipeAllViewModel>> AllSiteAsync();
         Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync();
+        Task DeleteByIdAsync(string id, string userId);
     }
 }

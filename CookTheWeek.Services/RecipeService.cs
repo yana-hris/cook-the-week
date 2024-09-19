@@ -26,12 +26,25 @@
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
+        private readonly IIngredientService ingredientService;
         private readonly IRecipeRepository recipeRepository;
+        private readonly IStepRepository stepRepository;
+        private readonly IRecipeIngredientRepository recipeIngredientRepository;
+        private readonly IFavouriteRecipeRepository favouriteRecipeRepository
         
-        public RecipeService(CookTheWeekDbContext dbContext, IRecipeRepository recipeRepository)
+        public RecipeService(CookTheWeekDbContext dbContext, 
+            IngredientService ingredientService,
+            IRecipeRepository recipeRepository, 
+            IStepRepository stepRepository,
+            IRecipeIngredientRepository recipeIngredientRepository,
+            IFavouriteRecipeRepository favouriteRecipeRepository)
         {
             this.dbContext = dbContext;
+            this.ingredientService = ingredientService;
             this.recipeRepository = recipeRepository;
+            this.stepRepository = stepRepository;
+            this.recipeIngredientRepository = recipeIngredientRepository;
+            this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
 
         public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
@@ -133,9 +146,9 @@
         public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
             // TODO: refactor
-            var recipe = MapToRecipe(model, ownerId, isAdmin);
-            await AddStepsToRecipeAsync(recipe, model.Steps);
-            await AddIngredientsToRecipeAsync(recipe, model.RecipeIngredients);
+            Recipe recipe = MapNonCollectionPropertiesToRecipe(model, ownerId, isAdmin);
+            await AddOrUpdateSteps(null, model.Steps);
+            await AddOrUpdateIngredients(null, model.RecipeIngredients);
 
             string recipeId = await this.recipeRepository.AddAsync(recipe);
 
@@ -144,36 +157,18 @@
         public async Task EditAsync(RecipeEditFormModel model)
         {
             // Load the recipe including related entities
-            Recipe? recipe = await this.recipeRepository.GetByIdAsync(model.Id);
+            Recipe recipe = await this.recipeRepository.GetByIdAsync(model.Id);
 
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
-            }
-            
-            UpdateRecipeNonCollectionFields(model, recipe);
-            
-            this.dbContext.Steps.RemoveRange(recipe.Steps);
-            recipe.Steps.Clear();
-            await AddStepsToRecipeAsync(recipe, model.Steps);
-
-            
-            this.dbContext.RecipesIngredients.RemoveRange(recipe.RecipesIngredients);
-            recipe.RecipesIngredients.Clear();
-            await AddIngredientsToRecipeAsync(recipe, model.RecipeIngredients);
-            
-            await this.dbContext.SaveChangesAsync();
+            await this.recipeRepository.UpdateAsync(recipe);
+            await MapRecipeModelToRecipe(model, recipe);
+            await AddOrUpdateSteps(model.Id, model.Steps);
         }        
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
             
-            Recipe? recipe = await this.recipeRepository.GetByIdAsync(id);
+            Recipe recipe = await this.recipeRepository.GetByIdAsync(id);
 
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
-            }
-                
+            
             RecipeDetailsViewModel model = new RecipeDetailsViewModel()
             {
                 Id = recipe.Id.ToString(),
@@ -210,36 +205,23 @@
                 .Where(r => r.Id.ToString().ToLower() == id.ToLower())
                 .AnyAsync();
         }
-        public async Task DeleteByIdAsync(string id)
+        public async Task DeleteByIdAsync(string id, string userId)
         {
-            // Implementing soft delete requires to delete manually all related records, as we do not need them in the database
-            Recipe recipeToDelete = await this.dbContext
-                .Recipes
-                .Include(r => r.RecipesIngredients)
-                .Include(r => r.Steps)
-                .Include(r => r.FavouriteRecipes)
-                .Include(r => r.Meals)
-                .Where(r => r.Id.ToString() == id)
-                .FirstAsync();
-            
+            Recipe recipeToDelete = await this.recipeRepository.GetByIdAsync(id);
+
+            // Implementing soft delete 
             recipeToDelete.IsDeleted = true;
 
             // Delete Steps of deleted recipe
-            if (recipeToDelete != null && recipeToDelete.Steps.Any())
-            {
-                this.dbContext.Steps.RemoveRange(recipeToDelete.Steps);
-            }
+            await this.stepRepository.DeleteAllAsync(id);
 
             // Delete RecipeIngredients of deleted recipe
-            if(recipeToDelete != null && recipeToDelete.RecipesIngredients.Any())
-            {
-                this.dbContext.RecipesIngredients.RemoveRange(recipeToDelete.RecipesIngredients);
-            }
+            await this.recipeIngredientRepository.DeleteAllAsync(id);
 
             // Delete User Likes for Deleted Recipe
             if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
             {
-                this.dbContext.FavoriteRecipes.RemoveRange(recipeToDelete.FavouriteRecipes);
+                await this.favouriteRecipeRepository.DeleteAllByRecipeIdAsync(id);
             }
 
             // Delete All Meals that contain the Recipe
@@ -252,13 +234,8 @@
         }
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin)
         {
-            Recipe? recipe = await this.recipeRepository.GetByIdAsync(id);
-            
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
-            }
-
+            Recipe recipe = await this.recipeRepository.GetByIdAsync(id);            
+           
             if (userId != recipe.OwnerId.ToString().ToLower() && !isAdmin)
             {
                 throw new UnauthorizedException(RecipeAuthorizationExceptionMessage);
@@ -411,7 +388,7 @@
         }
 
         // Helper methods for improved code reusability
-        private Recipe MapToRecipe(RecipeAddFormModel model, string ownerId, bool isAdmin)
+        private Recipe MapNonCollectionPropertiesToRecipe(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
             return new Recipe
             {
@@ -426,77 +403,113 @@
             };
         }
 
-        private async Task AddStepsToRecipeAsync(Recipe recipe, IEnumerable<StepFormModel> steps)
+        private async Task AddOrUpdateSteps(string? recipeId, IEnumerable<StepFormModel> steps)
         {
-            foreach (var step in steps)
+            
+            ICollection<Step> newSteps = steps
+                .Select(s => new Step()
+                    {
+                        Description = s.Description,
+                    })
+                .ToList();
+
+            if (recipeId == null)
             {
-                recipe.Steps.Add(new Step
-                {
-                    Description = step.Description
-                });
+                await this.stepRepository.AddAllAsync(newSteps);
             }
+            else
+            {
+                await this.stepRepository.UpdateAllAsync(recipeId, newSteps);
+            }
+            
         }
 
-        private async Task AddIngredientsToRecipeAsync(Recipe recipe, IEnumerable<RecipeIngredientFormModel> ingredients)
+        private async Task AddOrUpdateIngredients(string? recipeId, IEnumerable<RecipeIngredientFormModel> newIngredients)
         {
-            foreach (var ingredient in ingredients)
+            
+            ICollection<RecipeIngredient> validRecipeIngredients = new List<RecipeIngredient>();
+
+            foreach (var ingredient in newIngredients)
             {
-                int? ingredientId = await GetIngredientIdByNameAsync(ingredient.Name);
+                var ingredientId = await GetIngredientIdByNameAsync(ingredient.Name);
 
-                if (ingredientId.HasValue && ingredientId != 0)
-                {                    
-                    bool isIngredientAlreadyAdded = recipe.RecipesIngredients
-                        .Any(ri => ri.IngredientId == ingredientId &&
-                                ri.MeasureId == ingredient.MeasureId);
-
-                    if (isIngredientAlreadyAdded)
+                // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
+                if (ingredientId != null)
+                {
+                    if (CheckAndUpdateAnExistingIngredient(validRecipeIngredients, ingredient, ingredientId.Value))
                     {
-                        // Check if specs is the same and if yes update qty
-                        var ingredientWithSpecsAdded = recipe.RecipesIngredients
-                        .FirstOrDefault(ri => ri.IngredientId == ingredientId &&
-                                        ri.MeasureId == ingredient.MeasureId &&
-                                        ri.SpecificationId == ingredient.SpecificationId);
-
-                        if (ingredientWithSpecsAdded != null)
-                        {
-                            decimal newQty = ingredient.Qty.GetDecimalQtyValue() + ingredientWithSpecsAdded.Qty;
-                            ingredientWithSpecsAdded.Qty = newQty;
-                            continue;
-                        }
+                        continue;
                     }
 
-                    // Or alternatively create the new ingredient
-                    recipe.RecipesIngredients.Add(new RecipeIngredient
-                    {
-                        IngredientId = ingredientId.Value,
-                        Qty = ingredient.Qty.GetDecimalQtyValue(),
-                        MeasureId = ingredient.MeasureId!.Value,
-                        SpecificationId = ingredient.SpecificationId
-                    });
-                }               
+                    // Otherwise, create a new ingredient
+                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, ingredientId.Value);
+
+                }
+                else
+                {
+                    // such ingredient does not exist in DB => to do => server-side error to upon form submit
+                    throw new RecordNotFoundException(IngredientNotFoundExceptionMessage, null);
+                }
+            }
+
+            if (recipeId != null)
+            {
+                await this.recipeIngredientRepository.UpdateAllAsync(recipeId, validRecipeIngredients);
+            }
+            else
+            {
+                await this.recipeIngredientRepository.AddAllAsync(validRecipeIngredients);
             }
         }
 
-        private static void UpdateRecipeNonCollectionFields(RecipeEditFormModel model, Recipe recipe)
+        private static RecipeIngredient CreateNewRecipeIngredient(RecipeIngredientFormModel ingredient, int ingredientId)
         {
+            return new RecipeIngredient
+            {
+                IngredientId = ingredientId,
+                Qty = ingredient.Qty.GetDecimalQtyValue(),
+                MeasureId = ingredient.MeasureId!.Value,
+                SpecificationId = ingredient.SpecificationId
+            };
+        }
+
+        private bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
+                                                             RecipeIngredientFormModel ingredient,
+                                                             int ingredientId)
+        {
+            // Check if the ingredient is already added with the same measure and specification
+            var existingIngredient = validRecipeIngredients
+                .FirstOrDefault(ri => ri.IngredientId == ingredientId &&
+                                      ri.MeasureId == ingredient.MeasureId &&
+                                      (ri.SpecificationId == ingredient.SpecificationId || 
+                                      ri.SpecificationId == null && ingredient.SpecificationId == null));
+
+            // Update the quantity if found
+            if (existingIngredient != null)
+            {
+                existingIngredient.Qty += ingredient.Qty.GetDecimalQtyValue();
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private async Task<Recipe> MapRecipeModelToRecipe(IRecipeFormModel model, Recipe recipe)
+        {
+            
             recipe.Title = model.Title;
             recipe.Description = model.Description;
             recipe.Servings = model.Servings!.Value;
             recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
             recipe.ImageUrl = model.ImageUrl;
             recipe.CategoryId = model.RecipeCategoryId!.Value;
+           
+            return recipe;
         }
 
 
-        // TODO: move to ingredient service?
-        private async Task<int?> GetIngredientIdByNameAsync(string name)
-        {
-            return await this.dbContext.Ingredients
-                .Where(i => i.Name.ToLower() == name.ToLower())
-                .Select(i => i.Id)
-                .FirstOrDefaultAsync();
-        }
-
+        
         // Helper method to map ingredients by category in Recipe Details View
         private List<RecipeIngredientDetailsViewModel> MapIngredientsByCategory(Recipe recipe, IEnumerable<int> ingredientCategoryIds)
         {

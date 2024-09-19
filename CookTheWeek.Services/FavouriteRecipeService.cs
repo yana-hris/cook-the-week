@@ -47,6 +47,7 @@
             this.dbContext.FavoriteRecipes.Remove(favouriteRecipe);
             await this.dbContext.SaveChangesAsync();
         }
+
         public async Task<ICollection<RecipeAllViewModel>> AllLikedByUserIdAsync(string userId)
         {
             ICollection<RecipeAllViewModel> myRecipes = await this.dbContext
@@ -56,17 +57,7 @@
                 .Where(fr => fr.UserId.ToString() == userId)
                 .Select(fr => new RecipeAllViewModel()
                 {
-                    Id = fr.Recipe.Id.ToString(),
-                    ImageUrl = fr.Recipe.ImageUrl,
-                    Title = fr.Recipe.Title,
-                    Description = fr.Recipe.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = fr.Recipe.CategoryId,
-                        Name = fr.Recipe.Category.Name
-                    },
-                    Servings = fr.Recipe.Servings,
-                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
+                    
 
                 }).ToListAsync();
 

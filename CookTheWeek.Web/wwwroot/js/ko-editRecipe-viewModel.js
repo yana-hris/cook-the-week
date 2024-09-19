@@ -218,7 +218,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         if (isValid) {
 
             var jsonData = JSON.stringify(self.toJSON());
-            
+            debugger;
             console.log('Submitting data:', jsonData);
             
             $.ajax({

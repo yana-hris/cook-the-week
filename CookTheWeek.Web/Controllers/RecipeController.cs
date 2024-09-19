@@ -160,10 +160,15 @@
                 logger.LogWarning($"Unauthorized user with id: {userId} tried to edit a recipe with id: {id}");
                 return RedirectToAction("Details", "Recipe", new { id, returnUrl });
             }
-            catch(DataRetrievalException ex)
+            catch (DataRetrievalException ex)
             {
                 logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}");
                 return RedirectToAction("InternalServerError", "Home", new { message = ex.Message, code = ex.ErrorCode });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}. Error StackTrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
             }
         }
 
@@ -174,28 +179,30 @@
             if (model == null)
             {
                 logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
-                return BadRequest(new { success = false, message = "Invalid data received." });
+                TempData[ErrorMessage] = "Error: please try again!";
+                return RedirectToAction("Edit");
             }
 
-            if (!model.RecipeIngredients.Any())
-            {
-                ModelState.AddModelError(nameof(model.RecipeIngredients), IngredientsRequiredErrorMessage);
-                TempData[ErrorMessage] = "At least one ingredient is required";
-                return BadRequest(new { success = false, errors = ModelState });
-            }
+            // TODO: check if this is really needed
+            //if (!model.RecipeIngredients.Any())
+            //{
+            //    ModelState.AddModelError(nameof(model.RecipeIngredients), IngredientsRequiredErrorMessage);
+            //    TempData[ErrorMessage] = "At least one ingredient is required";
+            //    return BadRequest(new { success = false, errors = ModelState });
+            //}
 
-            if (!model.Steps.Any())
-            {
-                ModelState.AddModelError(nameof(model.Steps), StepsRequiredErrorMessage);
-                TempData[ErrorMessage] = "At least one cooking step is required";
-                return BadRequest(new { success = false, errors = ModelState }); 
-            }
+            //if (!model.Steps.Any())
+            //{
+            //    ModelState.AddModelError(nameof(model.Steps), StepsRequiredErrorMessage);
+            //    TempData[ErrorMessage] = "At least one cooking step is required";
+            //    return BadRequest(new { success = false, errors = ModelState }); 
+            //}
 
-            model.Id = model.Id.ToLower();
-            model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-            model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
+            //model.Id = model.Id.ToLower();
+            //model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
+            //model.ServingsOptions = ServingsOptions;
+            //model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            //model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             if (!ModelState.IsValid)
             {
@@ -205,21 +212,23 @@
                 return BadRequest(new { success = false, errors = ModelState });
             }
 
-            bool exists = await this.recipeService.ExistsByIdAsync(model.Id);
-            if (!exists)
+            try
+            {
+                await this.recipeService.EditAsync(model);
+            }
+            catch (RecordNotFoundException)
             {
                 TempData[ErrorMessage] = RecipeNotFoundErrorMessage;
                 return Redirect(returnUrl ?? "/Recipe/All");
             }
-
-            string userId = User.GetId();
-            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(model.Id, userId);
-            if (!isOwner && !User.IsAdmin())
+            catch (UnauthorizedException)
             {
                 TempData[ErrorMessage] = RecipeOwnerErrorMessage;
                 return RedirectToAction("Details", "Recipe", new { id = model.Id, returnUrl });
             }
 
+            
+           
             if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId.Value != default)
             {
                 bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
@@ -331,16 +340,36 @@
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {
-            bool exists = await this.recipeService.ExistsByIdAsync(id);
+            string userId = User.GetId();
 
-            string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsRecipeOwnerByIdAsync(id, currentUserId);
-
-            if (!exists)
+            try
+            {
+                await this.recipeService.DeleteByIdAsync(id, userId);
+                TempData[SuccessMessage] = "Recipe successfully deleted!";
+                return Redirect(returnUrl ?? "/Recipe/Mine");
+            }
+            catch (RecordNotFoundException ex)
             {
                 logger.LogError($"Recipe with id {id} does not exist");
-                return NotFound();
+                return RedirectToAction("NotFound", "Home", new { message =  ex.Message, code = ex.ErrorCode});
             }
+            catch(UnauthorizedException ex)
+            {
+                TempData[ErrorMessage] = ex.Message;
+                return RedirectToAction("Details", "Recipe", new { id });
+            }
+            catch(InvalidOperationException ex) // TODO: in case is included in meal plans
+            {
+                TempData[WarningMessage] = ex.Message; // and procede!
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Something went wrong and the recipe with id {id} was not deleted!");
+                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+            }
+
+
+            // TODO: check for admin in service!
 
             if (!isOwner && !User.IsAdmin())
             {
@@ -348,24 +377,11 @@
                 return RedirectToAction("Details", "Recipe", new { id });
             }
 
-            // Business Logic => if the Recipe is included in existing Meal Plans, a notification message should be shown before delete
-            if (await this.recipeService.IsIncludedInMealPlans(id))
-            {
-                TempData[WarningMessage] = "Please note this recipe is included in existing Meal Plans!";
-            }
+            
+            
+            
 
-            try
-            {
-                await this.recipeService.DeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Recipe successfully deleted!";
-            }
-            catch (Exception)
-            {
-                logger.LogError($"Something went wrong and the recipe with id {id} was not deleted!");
-                return BadRequest();
-            }
-
-            return Redirect(returnUrl ?? "/Recipe/Mine");
+            
         }
 
         // private method for ingredient input validation
@@ -378,37 +394,8 @@
             return false;
         }
 
-        private async Task PopulateModelDataAsync(RecipeAddFormModel model)
-        {
-            model.Categories = await categoryService.AllRecipeCategoriesAsync();
-            model.ServingsOptions = ServingsOptions;
-
-            await EnsureIngredientsAndStepsExist(model);
-
-            var firstIngredient = model.RecipeIngredients.First();
-            firstIngredient.Measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            firstIngredient.Specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-                       
-        }
-        private async Task EnsureIngredientsAndStepsExist(RecipeAddFormModel model)
-        {
-            if (!model.RecipeIngredients.Any())
-            {
-                model.RecipeIngredients = new List<RecipeIngredientFormModel>()
-                {
-                    new RecipeIngredientFormModel()
-                };
-            }
-
-            if (!model.Steps.Any())
-            {
-                model.Steps = new List<StepFormModel>()
-                {
-                    new StepFormModel()
-                };
-            }
-        }
-
+        
+        
         private async Task ValidateCategoryAsync(RecipeAddFormModel model)
         {
             if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId != default)

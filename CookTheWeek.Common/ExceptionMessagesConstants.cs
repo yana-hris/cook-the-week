@@ -25,6 +25,17 @@
 
             // For Recipe collections
             public const string NoRecipesFoundExceptionMessage = "No recipe records found in the database";
+
+            // INGREDIENT:
+            public const string IngredientNotFoundExceptionMessage = "Ingredient not found.";
+
+            // FAV RECIPES
+            public const string FavouriteRecipeNotFoundExceptionMessage = "Favourite recipe not found.";
+        }
+
+        public static class InvalidOperationExceptionMessages
+        {
+            public const string InvalidRecipeOperationDueToMealPlansInclusion = "Please note this recipe is included in meal plans!";
         }
     }
 }

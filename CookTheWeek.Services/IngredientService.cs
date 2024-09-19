@@ -149,6 +149,15 @@
 
             return exists;
         }
+
+        public async Task<int?> GetIdByNameAsync(string name)
+        {
+            return await this.dbContext
+                .Ingredients
+                .Where(i => i.Name.ToLower() == name.ToLower())
+                .Select(i => i.Id)
+                .FirstOrDefaultAsync();
+        }
         public async Task<int> AllCountAsync()
         {
             return await this.dbContext

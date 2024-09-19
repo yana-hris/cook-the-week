@@ -14,11 +14,11 @@
         Task EditAsync(IngredientEditFormModel model);
         Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input);
         Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
+        Task<int?> GetIdByNameAsync(string name);
         Task<bool> ExistsByIdAsync(int id);
         Task<bool> ExistsByNameAsync(string name);
         Task<int> AllCountAsync();
         Task DeleteById(int id);
-        Task<int> GetIdByNameAsync(string name);
         
     }
 }
