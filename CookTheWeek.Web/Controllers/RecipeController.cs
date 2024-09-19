@@ -154,7 +154,7 @@
                 logger.LogWarning($"Recipe with id {id} does not exist in database!");
                 return Redirect(returnUrl ?? "/Recipe/All");
             }
-            catch (UnauthorizedException ex)
+            catch (UnauthorizedUserException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
                 logger.LogWarning($"Unauthorized user with id: {userId} tried to edit a recipe with id: {id}");
@@ -221,7 +221,7 @@
                 TempData[ErrorMessage] = RecipeNotFoundErrorMessage;
                 return Redirect(returnUrl ?? "/Recipe/All");
             }
-            catch (UnauthorizedException)
+            catch (UnauthorizedUserException)
             {
                 TempData[ErrorMessage] = RecipeOwnerErrorMessage;
                 return RedirectToAction("Details", "Recipe", new { id = model.Id, returnUrl });
@@ -353,7 +353,7 @@
                 logger.LogError($"Recipe with id {id} does not exist");
                 return RedirectToAction("NotFound", "Home", new { message =  ex.Message, code = ex.ErrorCode});
             }
-            catch(UnauthorizedException ex)
+            catch(UnauthorizedUserException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
                 return RedirectToAction("Details", "Recipe", new { id });

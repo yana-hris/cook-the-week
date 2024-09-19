@@ -30,14 +30,16 @@
         private readonly IRecipeRepository recipeRepository;
         private readonly IStepRepository stepRepository;
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
-        private readonly IFavouriteRecipeRepository favouriteRecipeRepository
+        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
+        private readonly IMealRepository mealRepository;
         
         public RecipeService(CookTheWeekDbContext dbContext, 
             IngredientService ingredientService,
             IRecipeRepository recipeRepository, 
             IStepRepository stepRepository,
             IRecipeIngredientRepository recipeIngredientRepository,
-            IFavouriteRecipeRepository favouriteRecipeRepository)
+            IFavouriteRecipeRepository favouriteRecipeRepository,
+            IMealRepository mealRepository)
         {
             this.dbContext = dbContext;
             this.ingredientService = ingredientService;
@@ -45,6 +47,7 @@
             this.stepRepository = stepRepository;
             this.recipeIngredientRepository = recipeIngredientRepository;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
+            this.mealRepository = mealRepository;
         }
 
         public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
@@ -160,7 +163,7 @@
             Recipe recipe = await this.recipeRepository.GetByIdAsync(model.Id);
 
             await this.recipeRepository.UpdateAsync(recipe);
-            await MapRecipeModelToRecipe(model, recipe);
+            MapRecipeModelToRecipe(model, recipe);
             await AddOrUpdateSteps(model.Id, model.Steps);
         }        
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
@@ -209,28 +212,29 @@
         {
             Recipe recipeToDelete = await this.recipeRepository.GetByIdAsync(id);
 
+            if (recipeToDelete.OwnerId.ToString().ToLower() != userId)
+            {
+                throw new UnauthorizedUserException(RecipeDeleteAuthorizationMessage);
+            }
+
             // Implementing soft delete 
             recipeToDelete.IsDeleted = true;
 
-            // Delete Steps of deleted recipe
+            // Delete Steps, Ingredients, Likes and Meals of deleted recipe
             await this.stepRepository.DeleteAllAsync(id);
-
-            // Delete RecipeIngredients of deleted recipe
             await this.recipeIngredientRepository.DeleteAllAsync(id);
 
-            // Delete User Likes for Deleted Recipe
-            if(recipeToDelete != null && recipeToDelete.FavouriteRecipes.Any())
+            if(recipeToDelete.FavouriteRecipes.Any())
             {
                 await this.favouriteRecipeRepository.DeleteAllByRecipeIdAsync(id);
             }
 
             // Delete All Meals that contain the Recipe
-            if(recipeToDelete != null && recipeToDelete.Meals.Any()) 
+            if(recipeToDelete.Meals.Any()) 
             {
-                this.dbContext.Meals.RemoveRange(recipeToDelete.Meals);
+                await this.mealRepository.DeleteAllByRecipeIdAsync(id);
             }
 
-            await this.dbContext.SaveChangesAsync();
         }
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin)
         {
@@ -238,7 +242,7 @@
            
             if (userId != recipe.OwnerId.ToString().ToLower() && !isAdmin)
             {
-                throw new UnauthorizedException(RecipeAuthorizationExceptionMessage);
+                throw new UnauthorizedUserException(RecipeEditAuthorizationExceptionMessage);
             }
 
             RecipeEditFormModel model = new RecipeEditFormModel()
@@ -431,7 +435,7 @@
 
             foreach (var ingredient in newIngredients)
             {
-                var ingredientId = await GetIngredientIdByNameAsync(ingredient.Name);
+                var ingredientId = await this.ingredientService.GetIdByNameAsync(ingredient.Name);
 
                 // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
                 if (ingredientId != null)
@@ -442,7 +446,7 @@
                     }
 
                     // Otherwise, create a new ingredient
-                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, ingredientId.Value);
+                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, ingredientId.Value));
 
                 }
                 else
@@ -473,7 +477,7 @@
             };
         }
 
-        private bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
+        private static bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
                                                              RecipeIngredientFormModel ingredient,
                                                              int ingredientId)
         {
@@ -495,23 +499,27 @@
         }
 
 
-        private async Task<Recipe> MapRecipeModelToRecipe(IRecipeFormModel model, Recipe recipe)
+        private static Recipe MapRecipeModelToRecipe(IRecipeFormModel model, Recipe recipe)
         {
-            
-            recipe.Title = model.Title;
-            recipe.Description = model.Description;
-            recipe.Servings = model.Servings!.Value;
-            recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
-            recipe.ImageUrl = model.ImageUrl;
-            recipe.CategoryId = model.RecipeCategoryId!.Value;
-           
-            return recipe;
+            if (model is RecipeAddFormModel || model is RecipeEditFormModel)
+            {
+                recipe.Title = model.Title;
+                recipe.Description = model.Description;
+                recipe.Servings = model.Servings!.Value;
+                recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
+                recipe.ImageUrl = model.ImageUrl;
+                recipe.CategoryId = model.RecipeCategoryId!.Value;
+
+                return recipe;
+            }
+
+            throw new DataRetrievalException("Invalid model type in method MapRecipeModelToRecipe", null);
         }
 
 
         
         // Helper method to map ingredients by category in Recipe Details View
-        private List<RecipeIngredientDetailsViewModel> MapIngredientsByCategory(Recipe recipe, IEnumerable<int> ingredientCategoryIds)
+        private static List<RecipeIngredientDetailsViewModel> MapIngredientsByCategory(Recipe recipe, IEnumerable<int> ingredientCategoryIds)
         {
             return recipe.RecipesIngredients
                 .OrderBy(ri => ri.Ingredient.CategoryId)

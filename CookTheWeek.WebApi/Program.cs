@@ -39,11 +39,11 @@ namespace CookTheWeek.WebApi
 
             // Add services to the container.
             builder.Services.AddScoped<IRecipeService, RecipeService>();
-            builder.Services.AddScoped<IFavouriteRecipeService, FavouriteRecipeService>();
             builder.Services.AddScoped<IMealPlanService, MealPlanService>();
             builder.Services.AddScoped<IIngredientService, IngredientService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<IFavouriteRecipeRepository, FavouriteRecipeRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

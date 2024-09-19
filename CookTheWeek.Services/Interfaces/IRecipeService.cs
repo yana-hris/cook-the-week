@@ -14,7 +14,7 @@
         Task<bool> ExistsByIdAsync(string id);
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
         Task EditAsync(RecipeEditFormModel model);
-        Task DeleteByIdAsync(string id);
+        Task DeleteByIdAsync(string id, string userId);
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId);
         Task<int> MineCountAsync(string userId);         
         Task<int> AllCountAsync();
@@ -22,6 +22,5 @@
         Task<MealAddFormModel> GetForMealByIdAsync(string recipeId);
         Task<ICollection<RecipeAllViewModel>> AllSiteAsync();
         Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync();
-        Task DeleteByIdAsync(string id, string userId);
     }
 }

@@ -5,21 +5,28 @@
 
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
+    using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Common.Exceptions;
 
     [Route("api/favouriteRecipe")]
     [ApiController]
     public class FavouriteRecipeApiController : ControllerBase
     {
-        private readonly IRecipeService recipeService;
         private readonly IUserService userService;
-        private readonly IFavouriteRecipeService favouriteRecipeService;
-        public FavouriteRecipeApiController(IRecipeService recipeService,
-            IUserService userService,
-            IFavouriteRecipeService favouriteRecipeService)
+        private readonly IRecipeRepository recipeRepository;
+        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
+        private readonly ILogger<FavouriteRecipeApiController> logger;
+
+        public FavouriteRecipeApiController(IUserService userService,
+            IRecipeRepository recipeRepository,
+            IFavouriteRecipeRepository favouriteRecipeRepository,
+            ILogger<FavouriteRecipeApiController> logger)
         {
-            this.recipeService = recipeService;
+            
             this.userService = userService;
-            this.favouriteRecipeService = favouriteRecipeService;
+            this.recipeRepository = recipeRepository;
+            this.favouriteRecipeRepository = favouriteRecipeRepository;
+            this.logger = logger;   
         }
 
         [HttpPost]
@@ -28,47 +35,53 @@
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ToggleFavourites([FromBody]FavouriteRecipeServiceModel model)
         {
             string userId = model.UserId;
-            string recipeId = model.RecipeId; 
-           
-            bool recipeExists = await this.recipeService
-                .ExistsByIdAsync(recipeId);
-            if (!recipeExists)
-            {
-                return NotFound();
-            }
+            string recipeId = model.RecipeId;
 
-            bool userExists = await this.userService.ExistsByIdAsync(userId);
-            if (!userExists)
+            if (userId == null)
             {
                 return Unauthorized();
             }
 
-            // If the recipe is already in the user`s favourites, we have to remove it (delete entity FavouriteRecipe)
-            bool isAlreadyAdded = await this.favouriteRecipeService
-                .IsLikedByUserIdAsync(recipeId, userId);
             try
             {
+                var recipe = await this.recipeRepository.GetByIdAsync(recipeId);
+                bool isAlreadyAdded = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+
                 if (isAlreadyAdded)
                 {
-                    await this.favouriteRecipeService.UnlikeAsync(recipeId, userId);
-
-                    return Ok();
+                    await this.favouriteRecipeRepository.DeleteAsync(userId, recipeId);
                 }
                 else
                 {
-                    await this.favouriteRecipeService.LikeAsync(recipeId, userId);
-                    return Ok();
+                    await this.favouriteRecipeRepository.AddAsync(userId, recipeId);
                 }
+
+                return Ok();
             }
-            catch (Exception)
+            catch (RecordNotFoundException ex)
             {
+                logger.LogError($"Recipe with id {recipeId} not found in the database. Error stacktrace: {ex.StackTrace}");
+                return NotFound();
+            }
+            catch(UnauthorizedUserException ex)
+            {
+                return Unauthorized();
+            }
+            catch(DataRetrievalException ex)
+            {
+                logger.LogError($"The following data retrieval exception occured: {ex.Message}, Error Stack Trace: {ex.StackTrace}");
                 return StatusCode(500, "An unexpected error occured.");
-            } 
+            }
+            catch(Exception ex)
+            {
+                logger.LogError($"The following uncaught exception occured: {ex.Message}, Error Stack Trace: {ex.StackTrace}");
+                return StatusCode(500, "An unexpected error occured.");
+            }
+           
         }
     }
 }
