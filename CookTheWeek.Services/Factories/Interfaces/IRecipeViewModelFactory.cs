@@ -28,5 +28,7 @@
         /// Generates a view model for a user's recipes, including owned and favorite recipes.
         /// </summary>
         Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId);
+
+        Task<IRecipeFormModel> AddRecipeOptionValuesAsync(IRecipeFormModel model);
     }
 }

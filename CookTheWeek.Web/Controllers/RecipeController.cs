@@ -9,8 +9,6 @@
     using Services.Data.Factories.Interfaces;
     using Services.Data.Interfaces;
     using ViewModels.Recipe;
-    using ViewModels.RecipeIngredient;
-    using ViewModels.Step;
 
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
@@ -107,17 +105,18 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string returnUrl = null)
         {
-            await PopulateModelDataAsync(model);
+            model = await this.recipeViewModelFactory.AddRecipeOptionValuesAsync(model) as RecipeAddFormModel;
             await ValidateCategoryAsync(model);
             await ValidateIngredientsAsync(model);
 
             if (!ModelState.IsValid)
             {
+                
                 StoreServerErrorsInTempData();
                 SetViewData("Add Recipe", returnUrl);
                 return View(model);
             }
-            
+
 
             try
             {
@@ -127,10 +126,24 @@
                 TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
                 return RedirectToAction("Details", "Recipe", new { id = recipeId, returnUrl });
             }
+            catch (RecordNotFoundException ex)
+            {
+                logger.LogError($"Problem with non-existing entity. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
+            }
+            catch (InvalidCastException ex)
+            {
+                logger.LogError($"Recipe addition failed, error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home");
+            }
+            catch (InvalidOperationException ex)
+            {
+
+            }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Reicpe was not added!");
-                return BadRequest();
+                logger.LogError($"Recipe not added. Error message: {ex.Message}, error stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home");
             }
         }
 
@@ -341,10 +354,11 @@
         public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {
             string userId = User.GetId();
+            bool isAdmin = User.IsAdmin();
 
             try
             {
-                await this.recipeService.DeleteByIdAsync(id, userId);
+                await this.recipeService.DeleteByIdAsync(id, userId, isAdmin);
                 TempData[SuccessMessage] = "Recipe successfully deleted!";
                 return Redirect(returnUrl ?? "/Recipe/Mine");
             }
@@ -358,33 +372,20 @@
                 TempData[ErrorMessage] = ex.Message;
                 return RedirectToAction("Details", "Recipe", new { id });
             }
-            catch(InvalidOperationException ex) // TODO: in case is included in meal plans
+            catch(InvalidOperationException ex)
             {
-                TempData[WarningMessage] = ex.Message; // and procede!
+                TempData[WarningMessage] = ex.Message; 
+                return RedirectToAction("Details", "Recipe", new { id });
             }
             catch (Exception ex)
             {
                 logger.LogError($"Something went wrong and the recipe with id {id} was not deleted!");
                 return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
             }
-
-
-            // TODO: check for admin in service!
-
-            if (!isOwner && !User.IsAdmin())
-            {
-                TempData[ErrorMessage] = "You must be the owner of the recipe to delete it!";
-                return RedirectToAction("Details", "Recipe", new { id });
-            }
-
-            
-            
-            
-
-            
         }
 
         // private method for ingredient input validation
+        // TODO: check if it is needed
         private async Task<bool> IsIngredientValid(string ingredientName)
         {
             if (!string.IsNullOrEmpty(ingredientName))
@@ -393,21 +394,6 @@
             }
             return false;
         }
-
-        
-        
-        private async Task ValidateCategoryAsync(RecipeAddFormModel model)
-        {
-            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId != default)
-            {
-                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
-                if (!categoryExists)
-                {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
-                }
-            }
-        }
-
         private async Task ValidateIngredientsAsync(RecipeAddFormModel model)
         {
             foreach (var ingredient in model.RecipeIngredients)

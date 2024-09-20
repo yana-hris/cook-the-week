@@ -1,5 +1,4 @@
 ﻿@model RecipeAllViewModel
-@inject IUserService UserService
 @inject IFavouriteRecipeService FavouriteRecipeService
 @using CookTheWeek.Common.Extensions
 @using CookTheWeek.Services.Data.Interfaces
@@ -7,8 +6,8 @@
 @{
     string recipeId = Model.Id.ToString();
     string userId = this.User.GetId();
-    bool isOwner = await this.UserService.IsRecipeOwnerByIdAsync(recipeId, userId);
     bool isAdmin = User.IsAdmin();
+    bool isOwner = Model.OwnerId == userId.ToLower();
 }
 
 <div class="col recipe-container">    

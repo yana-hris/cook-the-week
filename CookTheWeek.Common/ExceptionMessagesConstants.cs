@@ -38,6 +38,17 @@
         public static class InvalidOperationExceptionMessages
         {
             public const string InvalidRecipeOperationDueToMealPlansInclusion = "Please note this recipe is included in meal plans!";
+
+            public const string RecipeUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe was not added to the Database.";
+
+            public const string RecipeIngredientsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe ingredients were not added to the Database.";
+
+            public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
+        }
+
+        public static class InvalidCastExceptionMessages
+        {
+            public const string RecipeAddOrEditModelUnsuccessfullyCasted = "Failed to cast RecipeFormModel.";
         }
     }
 }

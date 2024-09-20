@@ -11,36 +11,32 @@
     using Interfaces;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using CookTheWeek.Data.Repositories;
 
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly CookTheWeekDbContext dbContext;
+        private readonly IUserRepository userRepository;
         private readonly IRecipeService recipeService;
         private readonly IMealPlanService mealPlanService;
         
-        public UserService(UserManager<ApplicationUser> userManager, 
+        public UserService(UserManager<ApplicationUser> userManager,
+            IUserRepository userRepository,
             CookTheWeekDbContext dbContext, 
             IRecipeService recipeService,
             IMealPlanService mealPlanService)
         {
             this.userManager = userManager;
+            this.userRepository = userRepository;
             this.dbContext = dbContext;
             this.recipeService = recipeService;
             this.mealPlanService = mealPlanService;
         }
-
-        public async Task<bool> ExistsByIdAsync(string id)
-        {
-            return await this.dbContext.Users
-                .AnyAsync(u => u.Id.ToString() == id);
-        }
         public async Task<UserProfileViewModel?> GetProfileDetailsAync(string userId)
         {
-            var user = await this.dbContext
-                .Users
-                .Where(u => u.Id.ToString().ToLower() == userId.ToLower())
-                .FirstOrDefaultAsync();
+            // userRepository.GetUserByIdAsync()
+            var user = await this.userRepository.GetUserByIdAsync(userId);
 
             if (user == null)
             {
@@ -67,6 +63,7 @@
             }
 
             // Check if the current password matches
+            // userRepository.CheckPasswordAsync
             bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
 
             if(!oldPasswordMatches)
@@ -104,7 +101,7 @@
             foreach (var recipe in userRecipes)
             {
                 recipe.OwnerId = Guid.Parse(DeletedUserId.ToLower());
-                await this.recipeService.DeleteByIdAsync(recipe.Id.ToString());
+                await this.recipeService.DeleteByIdAsync(recipe.Id.ToString(), userId);
             }
 
             ICollection<MealPlan> userMealPlans = await this.dbContext.MealPlans

@@ -1,12 +1,12 @@
 ﻿namespace CookTheWeek.Services.Data.Factories
 {
     using System.Threading.Tasks;
+
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
@@ -73,7 +73,7 @@
         public async Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
         {
             // Create the ViewModel with default values and empty lists
-            var addModel = await AddRecipeOptionValues(new RecipeAddFormModel());
+            var addModel = await AddRecipeOptionValuesAsync(new RecipeAddFormModel());
 
             if (addModel is RecipeAddFormModel model && model != null)
             {
@@ -89,7 +89,7 @@
         {
             RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId, userId, isAdmin);
             
-            var filledModel = await AddRecipeOptionValues(editModel);
+            var filledModel = await AddRecipeOptionValuesAsync(editModel);
             if (filledModel is RecipeEditFormModel model)
             {
                 return model;
@@ -141,7 +141,7 @@
             return model;
         }
 
-       private async Task<IRecipeFormModel> AddRecipeOptionValues(IRecipeFormModel model)
+        public async Task<IRecipeFormModel> AddRecipeOptionValuesAsync(IRecipeFormModel model)
         {            
             model.Categories = await categoryService.AllRecipeCategoriesAsync();
             model.ServingsOptions = ServingsOptions;

@@ -20,6 +20,7 @@
     using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
     using static Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
     using static Common.ExceptionMessagesConstants.UnauthorizedExceptionMessages;
+    using static Common.ExceptionMessagesConstants.InvalidCastExceptionMessages;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
 
@@ -122,6 +123,7 @@
                     .Select(r => new RecipeAllViewModel()
                     {
                         Id = r.Id.ToString(),
+                        OwnerId = r.OwnerId.ToString().ToLower(),
                         ImageUrl = r.ImageUrl,
                         Title = r.Title,
                         Description = r.Description,
@@ -146,16 +148,19 @@
                 throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, ex);
             }
         }
-        public async Task<string> AddAsync(RecipeAddFormModel model, string ownerId, bool isAdmin)
+        public async Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin)
         {
             // TODO: refactor
-            Recipe recipe = MapNonCollectionPropertiesToRecipe(model, ownerId, isAdmin);
-            await AddOrUpdateSteps(null, model.Steps);
-            await AddOrUpdateIngredients(null, model.RecipeIngredients);
+            
+            Recipe recipe = MapNonCollectionPropertiesToRecipe(model, userId, isAdmin);
+            await AddOrUpdateIngredients(model, model.RecipeIngredients);
+            await AddOrUpdateSteps(model, model.Steps);
 
             string recipeId = await this.recipeRepository.AddAsync(recipe);
-
             return recipeId.ToLower();
+           
+
+            
         }
         public async Task EditAsync(RecipeEditFormModel model)
         {
@@ -164,7 +169,7 @@
 
             await this.recipeRepository.UpdateAsync(recipe);
             MapRecipeModelToRecipe(model, recipe);
-            await AddOrUpdateSteps(model.Id, model.Steps);
+            await AddOrUpdateSteps(model, model.Steps);
         }        
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
@@ -208,11 +213,11 @@
                 .Where(r => r.Id.ToString().ToLower() == id.ToLower())
                 .AnyAsync();
         }
-        public async Task DeleteByIdAsync(string id, string userId)
+        public async Task DeleteByIdAsync(string id, string userId, bool isAdmin)
         {
             Recipe recipeToDelete = await this.recipeRepository.GetByIdAsync(id);
 
-            if (recipeToDelete.OwnerId.ToString().ToLower() != userId)
+            if (recipeToDelete.OwnerId.ToString().ToLower() != userId && !isAdmin)
             {
                 throw new UnauthorizedUserException(RecipeDeleteAuthorizationMessage);
             }
@@ -287,6 +292,7 @@
                 ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
+                    OwnerId = r.OwnerId.ToString().ToLower(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -354,6 +360,7 @@
                     .Select(r => new RecipeAllViewModel()
                     {
                         Id = r.Id.ToString(),
+                        OwnerId = r.OwnerId.ToString().ToLower(),
                         ImageUrl = r.ImageUrl,
                         Title = r.Title,
                         Description = r.Description,
@@ -376,6 +383,7 @@
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
+                    OwnerId = r.OwnerId.ToString().ToLower(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -407,7 +415,7 @@
             };
         }
 
-        private async Task AddOrUpdateSteps(string? recipeId, IEnumerable<StepFormModel> steps)
+        private async Task AddOrUpdateSteps(IRecipeFormModel recipe, IEnumerable<StepFormModel> steps)
         {
             
             ICollection<Step> newSteps = steps
@@ -417,18 +425,21 @@
                     })
                 .ToList();
 
-            if (recipeId == null)
+            if (recipe is RecipeAddFormModel)
             {
                 await this.stepRepository.AddAllAsync(newSteps);
             }
+            else if (recipe is RecipeEditFormModel recipeEditFormModel)
+            {
+                await this.stepRepository.UpdateAllAsync(recipeEditFormModel.Id, newSteps);
+            }
             else
             {
-                await this.stepRepository.UpdateAllAsync(recipeId, newSteps);
+                throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
             }
-            
         }
 
-        private async Task AddOrUpdateIngredients(string? recipeId, IEnumerable<RecipeIngredientFormModel> newIngredients)
+        private async Task AddOrUpdateIngredients(IRecipeFormModel recipe, IEnumerable<RecipeIngredientFormModel> newIngredients)
         {
             
             ICollection<RecipeIngredient> validRecipeIngredients = new List<RecipeIngredient>();
@@ -451,21 +462,26 @@
                 }
                 else
                 {
-                    // such ingredient does not exist in DB => to do => server-side error to upon form submit
+                    // such ingredient does not exist in DB => to do => server-side error 
                     throw new RecordNotFoundException(IngredientNotFoundExceptionMessage, null);
                 }
             }
 
-            if (recipeId != null)
+            if (recipe is RecipeEditFormModel existingRecipe)
             {
-                await this.recipeIngredientRepository.UpdateAllAsync(recipeId, validRecipeIngredients);
+                await this.recipeIngredientRepository.UpdateAllAsync(existingRecipe.Id, validRecipeIngredients);
             }
-            else
+            else if(recipe is RecipeAddFormModel)
             {
                 await this.recipeIngredientRepository.AddAllAsync(validRecipeIngredients);
             }
+            else
+            {
+                throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
+            }
         }
 
+        // Create new RecipeIngredient
         private static RecipeIngredient CreateNewRecipeIngredient(RecipeIngredientFormModel ingredient, int ingredientId)
         {
             return new RecipeIngredient
@@ -477,6 +493,7 @@
             };
         }
 
+        // Check if an ingredient with the same characteristics is already existing to update QTY
         private static bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
                                                              RecipeIngredientFormModel ingredient,
                                                              int ingredientId)
@@ -498,7 +515,7 @@
             return false;
         }
 
-
+        // Mapping non collection properties from viewModel to Recipe entity
         private static Recipe MapRecipeModelToRecipe(IRecipeFormModel model, Recipe recipe)
         {
             if (model is RecipeAddFormModel || model is RecipeEditFormModel)
@@ -513,9 +530,8 @@
                 return recipe;
             }
 
-            throw new DataRetrievalException("Invalid model type in method MapRecipeModelToRecipe", null);
+            throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
         }
-
 
         
         // Helper method to map ingredients by category in Recipe Details View
