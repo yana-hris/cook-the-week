@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class IngredientCategorySelectViewModel
+    using CookTheWeek.Web.ViewModels.Interfaces;
+
+    public class IngredientCategorySelectViewModel : ICategory
     {
         [Required]
         public int Id { get; set; }

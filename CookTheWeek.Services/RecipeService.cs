@@ -23,11 +23,13 @@
     using static Common.ExceptionMessagesConstants.InvalidCastExceptionMessages;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+    using CookTheWeek.Web.ViewModels.Interfaces;
 
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
         private readonly IIngredientService ingredientService;
+        private readonly IMealService mealService;
         private readonly IRecipeRepository recipeRepository;
         private readonly IStepRepository stepRepository;
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
@@ -40,12 +42,14 @@
             IStepRepository stepRepository,
             IRecipeIngredientRepository recipeIngredientRepository,
             IFavouriteRecipeRepository favouriteRecipeRepository,
+            IMealService mealService,
             IMealRepository mealRepository)
         {
             this.dbContext = dbContext;
             this.ingredientService = ingredientService;
             this.recipeRepository = recipeRepository;
             this.stepRepository = stepRepository;
+            this.mealService = mealService;
             this.recipeIngredientRepository = recipeIngredientRepository;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
             this.mealRepository = mealRepository;
@@ -224,10 +228,10 @@
                 throw new UnauthorizedUserException(RecipeDeleteAuthorizationMessage);
             }
 
-            // Implementing soft delete 
+            // SOFT Delete
             recipeToDelete.IsDeleted = true;
 
-            // Delete Steps, Ingredients, Likes and Meals of deleted recipe
+            // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
             await this.stepRepository.DeleteAllAsync(id);
             await this.recipeIngredientRepository.DeleteAllAsync(id);
 
@@ -235,8 +239,7 @@
             {
                 await this.favouriteRecipeRepository.DeleteAllByRecipeIdAsync(id);
             }
-
-            // Delete All Meals that contain the Recipe
+           
             if(recipeToDelete.Meals.Any()) 
             {
                 await this.mealRepository.DeleteAllByRecipeIdAsync(id);
@@ -555,6 +558,40 @@
         public Task<bool> IsLikedByUserAsync(string userId, string recipeId)
         {
             return this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+        }
+
+        public async Task<int?> GetAllRecipeLikesAsync(string recipeId)
+        {
+            return await this.favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
+        }
+
+        public async Task<ICollection<RecipeAllViewModel>> AllLikedByUserAsync(string userId)
+        {
+            ICollection<FavouriteRecipe> likedRecipes = await
+                this.favouriteRecipeRepository.GetAllByUserIdAsync(userId);
+
+            var model = likedRecipes
+                .Select(fr => new RecipeAllViewModel()
+                {
+                    Id = fr.Recipe.Id.ToString(),
+                    ImageUrl = fr.Recipe.ImageUrl,
+                    Title = fr.Recipe.Title,
+                    Description = fr.Recipe.Description,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = fr.Recipe.CategoryId,
+                        Name = fr.Recipe.Category.Name
+                    },
+                    Servings = fr.Recipe.Servings,
+                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
+                }).ToList();
+
+            return model;
+        }
+
+        public async Task<int?> GetAllRecipeMealsCountAsync(string recipeId)
+        {
+            return await this.mealRepository.GetAllCountByRecipeIdAsync(recipeId);
         }
     }
 }

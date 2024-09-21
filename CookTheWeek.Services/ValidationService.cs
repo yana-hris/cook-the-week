@@ -5,7 +5,7 @@
 
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Vlidation;
-    using CookTheWeek.Web.ViewModels.Recipe;
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;

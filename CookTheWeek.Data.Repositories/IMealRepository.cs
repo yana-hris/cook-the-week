@@ -7,7 +7,7 @@ namespace CookTheWeek.Data.Repositories
     {
         Task<Meal> GetByIdAsync(int id);
 
-        Task<int?> GetAllCountByRecipeIdAsync(string recipeId);
+        Task<int> GetAllCountByRecipeIdAsync(string recipeId);
 
         Task DeleteAllByRecipeIdAsync(string recipeId);
     }

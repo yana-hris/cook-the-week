@@ -7,7 +7,7 @@
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Interfaces;
-    using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
@@ -16,12 +16,10 @@
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
     using static CookTheWeek.Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
-    using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
-        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IMealService mealService;
@@ -29,14 +27,12 @@
         public RecipeViewModelFactory(IRecipeService recipeService, 
                                       ICategoryService categoryService,
                                       IRecipeIngredientService recipeIngredientService,
-                                      IFavouriteRecipeRepository favouriteRecipeRepository,
                                       IMealService mealService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
             this.mealService = mealService;
-            this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
 
         /// <summary>
@@ -100,9 +96,9 @@
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
         { 
             RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
-            model.IsLikedByUser = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
-            model.LikesCount = await this.favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
-            model.CookedCount = await this.mealService.MealsCountAsync(recipeId);
+            model.IsLikedByUser = await this.recipeService.IsLikedByUserAsync(userId, recipeId);
+            model.LikesCount = await this.recipeService.GetAllRecipeLikesAsync(recipeId);
+            model.CookedCount = await this.recipeService.GetAllRecipeMealsCountAsync(recipeId);
 
             return model;
         }
@@ -114,25 +110,7 @@
         {
             RecipeMineViewModel model = new RecipeMineViewModel();
 
-            ICollection<FavouriteRecipe> likedRecipes = await 
-                this.favouriteRecipeRepository.GetAllByUserIdAsync(userId);
-
-            model.FavouriteRecipes = likedRecipes
-                .Select(fr => new RecipeAllViewModel()
-                {
-                    Id = fr.Recipe.Id.ToString(),
-                    ImageUrl = fr.Recipe.ImageUrl,
-                    Title = fr.Recipe.Title,
-                    Description = fr.Recipe.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = fr.Recipe.CategoryId,
-                        Name = fr.Recipe.Category.Name
-                    },
-                    Servings = fr.Recipe.Servings,
-                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
-                }).ToList();
-
+            model.FavouriteRecipes = await this.recipeService.AllLikedByUserAsync(userId);
             model.OwnedRecipes = await this.recipeService.AllAddedByUserIdAsync(userId);
 
             return model;

@@ -33,6 +33,9 @@
 
             // FAV RECIPES
             public const string FavouriteRecipeNotFoundExceptionMessage = "Favourite recipe not found.";
+
+            // For MEAL:
+            public const string MealNotFoundExceptionMessage = "Meal not found.";
         }
 
         public static class InvalidOperationExceptionMessages

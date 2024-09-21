@@ -55,6 +55,12 @@
             return allRecipes;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="RecordNotFoundException">throws a RecordNotFoundException when recipe is not found</exception>
         public async Task<Recipe> GetByIdAsync(string id)
         {
             // TODO: think about optimizing this query or splitting to separate by needed nested entities

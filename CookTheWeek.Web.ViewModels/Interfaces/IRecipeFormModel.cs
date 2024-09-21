@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.Recipe
+﻿namespace CookTheWeek.Web.ViewModels.Interfaces
 {
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;

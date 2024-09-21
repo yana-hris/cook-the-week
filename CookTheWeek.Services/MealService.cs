@@ -3,8 +3,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Data;
+    
+    using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data.Models;
     using Data.Interfaces;
     using Web.ViewModels.Meal;
     using Web.ViewModels.ShoppingList;
@@ -12,39 +14,37 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.IngredientHelper;
+    using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
 
+    // TODO: Move dbcontext to IMealRepository
     public class MealService : IMealService
     {
-        private readonly CookTheWeekDbContext dbContext;
+        private readonly IMealRepository mealRepository;
+        private readonly IRecipeRepository recipeRepository;
+        private readonly IRecipeIngredientService recipeIngredientService;
 
-        public MealService(CookTheWeekDbContext dbContext)
+        public MealService(IMealRepository mealRepository, 
+            IRecipeRepository recipeRepository,
+            IRecipeIngredientService recipeIngredientService)
         {
-            this.dbContext = dbContext;
+            this.mealRepository = mealRepository;
+            this.recipeRepository = recipeRepository;
+            this.recipeIngredientService = recipeIngredientService; 
         }
-        public Task<bool> ExistsByIdAsync(int id)
+        public async Task<MealDetailsViewModel> Details(int mealId)
         {
-            return this.dbContext
-                .Meals
-                .AnyAsync(m => m.Id == id);
-        }
-        public async Task<MealDetailsViewModel> DetailsByIdAsync(int mealId)
-        {
-            var mealInfo = await this.dbContext
-                .Meals
-                .Where(m => m.Id == mealId)
-                .FirstAsync();
+            // Get Meal from mealRepo by Id
+            Meal meal = await this.mealRepository.GetByIdAsync(mealId);
 
-            string recipeId = mealInfo.RecipeId.ToString();
+            if (meal == null)
+            {
+                throw new RecordNotFoundException(MealNotFoundExceptionMessage, null);
+            }
 
-            var recipe = await this.dbContext
-                .Recipes
-                .Include(r => r.Category)
-                .Include(r => r.Steps)
-                .Include(r => r.RecipesIngredients)
-                .ThenInclude(ri => ri.Ingredient)
-                .AsNoTracking()
-                .Where(r => r.Id.ToString() == recipeId)
-                .FirstAsync();
+            string recipeId = meal.RecipeId.ToString();
+
+            // Get RecipeById from recipe (this will throw an exception if not found
+            Recipe recipe = await this.recipeRepository.GetByIdAsync(recipeId);
 
             MealDetailsViewModel model = new MealDetailsViewModel()
             {
@@ -60,9 +60,9 @@
                     Description = st.Description
                 }).ToList(),    
             };
-            model.ServingSize = mealInfo.ServingSize;
+            model.ServingSize = meal.ServingSize;
 
-            decimal servingSizeMultiplier = mealInfo.ServingSize * 1.0m / recipe.Servings * 1.0m;
+            decimal servingSizeMultiplier = meal.ServingSize * 1.0m / recipe.Servings * 1.0m;
 
             var ingredients = new List<ProductServiceModel>();
 
@@ -82,8 +82,8 @@
 
             ICollection<ProductListViewModel> ingredientsByCategories = new List<ProductListViewModel>();
 
-            var measures = await this.dbContext.Measures.ToListAsync();
-            var specifications = await this.dbContext.Specifications.ToListAsync();
+            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
 
             for (int i = 0; i < ProductListCategoryNames.Length; i++)
@@ -100,7 +100,7 @@
                                 Qty = FormatIngredientQty(p.Qty),
                                 Measure = measures.Where(m => m.Id == p.MeasureId).Select(m => m.Name).First(),
                                 Name = p.Name,
-                                Specification = specifications.Where(s => s.Id == p.SpecificationId).Select(s => s.Description).FirstOrDefault()
+                                Specification = specifications.Where(s => s.Id == p.SpecificationId).Select(s => s.Name).FirstOrDefault()
                             }).ToList()
                 };
 
@@ -109,15 +109,6 @@
             model.IngredientsByCategories = ingredientsByCategories;
             return model;
         }
-        public async Task<int?> MealsCountAsync(string recipeId)
-        {
-            int? count = await this.dbContext
-                .Meals
-                .AsNoTracking()
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
-                .CountAsync();
-
-            return count;
-        }
+       
     }
 }

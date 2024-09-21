@@ -4,6 +4,10 @@
 
     public class MealPlanViewModel
     {
+        public MealPlanViewModel()
+        {
+            this.Meals = new List<MealViewModel>();
+        }
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;
@@ -11,7 +15,7 @@
 
         public bool IsFinished { get; set; }
 
-        public IList<MealViewModel> Meals { get; set; } = new List<MealViewModel>();
+        public IList<MealViewModel> Meals { get; set; }
 
         public int? TotalServings { get; set; }
 

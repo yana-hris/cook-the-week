@@ -23,14 +23,24 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public Task<int?> GetAllCountByRecipeIdAsync(string recipeId)
+        public async Task<int> GetAllCountByRecipeIdAsync(string recipeId)
         {
-            throw new NotImplementedException();
+            return await this.dbContext
+                .Meals
+                .AsNoTracking()
+                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .CountAsync();
         }
 
-        public Task<Meal> GetByIdAsync(int id)
+        public async Task<Meal> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Meal meal = await this.dbContext
+                .Meals
+                .FirstAsync(m => m.Id == id);
+
+            return meal;
         }
+
+        
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace CookTheWeek.Services.Data.Interfaces
 {
     using CookTheWeek.Services.Data.Vlidation;
-    using CookTheWeek.Web.ViewModels.Recipe;
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     public interface IValidationService

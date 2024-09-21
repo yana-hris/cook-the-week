@@ -6,7 +6,6 @@
     {
         IQueryable<Recipe> GetAllQuery();
         Task<string> AddAsync(Recipe recipe);
-
         Task<Recipe> GetByIdAsync(string id);
         Task UpdateAsync(Recipe recipe);
 

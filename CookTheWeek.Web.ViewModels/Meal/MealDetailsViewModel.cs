@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Meal
 {
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.ShoppingList;
     using CookTheWeek.Web.ViewModels.Step;
 
