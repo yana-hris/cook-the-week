@@ -1,10 +1,8 @@
 ﻿@model MealPlanViewModel
-@using CookTheWeek.Services.Data.Interfaces
-@inject IUserService UserService
 @{
     ViewData["Title"] = "Meal Plan Details";
     string userId = User.GetId();
-    bool isOwner = await this.UserService.IsMealplanOwnerByIdAsync(Model.Id, userId);
+    bool isOwner = Model.OwnerId == userId.ToString().ToLower();
     bool isAdmin = User.IsAdmin();
 
     var headingModel = new PageHeadingViewModel

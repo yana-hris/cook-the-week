@@ -1,5 +1,5 @@
 ﻿@model RecipeAllViewModel
-@inject IFavouriteRecipeService FavouriteRecipeService
+@inject IRecipeService RecipeService
 @using CookTheWeek.Common.Extensions
 @using CookTheWeek.Services.Data.Interfaces
 @using static CookTheWeek.Common.GeneralApplicationConstants
@@ -16,7 +16,7 @@
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
             @if (!string.IsNullOrEmpty(userId) && !isOwner && !isAdmin)
             {
-                bool isLiked = await this.FavouriteRecipeService.IsLikedByUserIdAsync(recipeId, userId);
+                bool isLiked = await this.RecipeService.IsLikedByUserAsync(userId, recipeId);
 
                 <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                     @if (isLiked)

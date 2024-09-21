@@ -541,7 +541,7 @@
                 return NotFound("User not found.");
             }
 
-            await this.userService.DeleteUserAsync(userId);
+            await this.userService.DeleteUserAndUserDataAsync(userId);
             await this.signInManager.SignOutAsync();
 
             return RedirectToAction("AccountDeletedConfirmation");

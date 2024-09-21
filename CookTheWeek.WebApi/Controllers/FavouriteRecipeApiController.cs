@@ -43,6 +43,7 @@
 
             if (userId == null)
             {
+                logger.LogError("User must be logged in to like and unlike recipes");
                 return Unauthorized();
             }
 
@@ -69,6 +70,7 @@
             }
             catch(UnauthorizedUserException ex)
             {
+                logger.LogError($"User has no authorization rights to like/unline this recipe. Exception stackTrace: {ex.StackTrace}");
                 return Unauthorized();
             }
             catch(DataRetrievalException ex)

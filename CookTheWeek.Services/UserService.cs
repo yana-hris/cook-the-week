@@ -15,23 +15,20 @@
 
     public class UserService : IUserService
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly CookTheWeekDbContext dbContext;
         private readonly IUserRepository userRepository;
+        private readonly IRecipeRepository recipeRepository;
         private readonly IRecipeService recipeService;
-        private readonly IMealPlanService mealPlanService;
+        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         
-        public UserService(UserManager<ApplicationUser> userManager,
-            IUserRepository userRepository,
-            CookTheWeekDbContext dbContext, 
+        public UserService(IUserRepository userRepository,
+            IRecipeRepository recipeRepository,
             IRecipeService recipeService,
-            IMealPlanService mealPlanService)
+            IFavouriteRecipeRepository favouriteRecipeRepository)
         {
-            this.userManager = userManager;
             this.userRepository = userRepository;
-            this.dbContext = dbContext;
+            this.recipeRepository = recipeRepository;
             this.recipeService = recipeService;
-            this.mealPlanService = mealPlanService;
+            this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
         public async Task<UserProfileViewModel?> GetProfileDetailsAync(string userId)
         {
@@ -43,7 +40,7 @@
                 return null;
             }
 
-            bool hasPassword = hasPassword = await userManager.HasPasswordAsync(user);
+            bool hasPassword = hasPassword = await userRepository.HasPasswordAsync(user);
 
             return new UserProfileViewModel
             {
@@ -53,8 +50,8 @@
             };
         }
         public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
-        {            
-            var user = await userManager.FindByIdAsync(userId);
+        {
+            var user = await userRepository.GetUserByIdAsync(userId);
 
             if (user == null)
             {
@@ -64,21 +61,21 @@
 
             // Check if the current password matches
             // userRepository.CheckPasswordAsync
-            bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
+            bool oldPasswordMatches = await userRepository.CheckPasswordAsync(user, model.CurrentPassword);
 
             if(!oldPasswordMatches)
             {
                 return IdentityResult.Failed(new IdentityError { Description = IncorrectPasswordErrorMessage });
             }
 
-            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            var result = await userRepository.ChangePassAsync(user, model.CurrentPassword, model.NewPassword);
 
             return result;
         }
 
         public async Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userRepository.GetUserByIdAsync(userId);
 
             if (user == null)
             {
@@ -86,22 +83,20 @@
                 return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
             }
 
-            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
+            var result = await userRepository.AddPasswordAsync(user, model.NewPassword);
 
             return result;
         }
 
-        public async Task DeleteUserAsync(string userId)
+        public async Task DeleteUserAndUserDataAsync(string userId)
         {
             // Delete related data first
-            ICollection<Recipe> userRecipes = await this.dbContext.Recipes
-                .Where(r => r.OwnerId.ToString() == userId)
-                .ToListAsync();
+            ICollection<Recipe> userRecipes = await this.recipeRepository.GetAllByUserIdAsync(userId);
 
             foreach (var recipe in userRecipes)
             {
                 recipe.OwnerId = Guid.Parse(DeletedUserId.ToLower());
-                await this.recipeService.DeleteByIdAsync(recipe.Id.ToString(), userId);
+                await this.recipeService.DeleteByIdAsync(recipe.Id.ToString(), userId, false);
             }
 
             ICollection<MealPlan> userMealPlans = await this.dbContext.MealPlans
@@ -113,40 +108,17 @@
                 await this.mealPlanService.DeleteById(mealPlan.Id.ToString());
             }
 
-            ICollection<FavouriteRecipe> userLikedRecipes = await this.dbContext
-                .FavoriteRecipes
-                .Where(fr => fr.UserId.ToString() == userId)
-                .ToListAsync();
+            await this.favouriteRecipeRepository.DeleteAllByUserIdAsync(userId);
 
-            this.dbContext.FavoriteRecipes.RemoveRange(userLikedRecipes);
-
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userRepository.GetUserByIdAsync(userId);
             if (user != null)
             {
-                await userManager.DeleteAsync(user);
+                await userRepository.DeleteAsync(user);
             }
 
             await this.dbContext.SaveChangesAsync();
 
         }
 
-        public async Task<bool> IsRecipeOwnerByIdAsync(string recipeId, string userId)
-        {
-            return await this.dbContext
-                .Recipes
-                .Where(r => r.Id.ToString() == recipeId && r.OwnerId.ToString() == userId)
-                .AnyAsync();
-        }
-
-        public async Task<bool> IsMealplanOwnerByIdAsync(string id, string userId)
-        {
-            return await this.dbContext
-                .MealPlans
-                .AnyAsync(mp => mp.Id.ToString() == id &&
-                          mp.OwnerId.ToString() == userId);
-        }
-
-        
-        
     }
 }

@@ -24,20 +24,17 @@
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IMealService mealService;
 
         public RecipeViewModelFactory(IRecipeService recipeService, 
                                       ICategoryService categoryService,
                                       IRecipeIngredientService recipeIngredientService,
-                                      IFavouriteRecipeService favouriteRecipeService,
                                       IFavouriteRecipeRepository favouriteRecipeRepository,
                                       IMealService mealService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
-            this.favouriteRecipeService = favouriteRecipeService;
             this.mealService = mealService;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
         }

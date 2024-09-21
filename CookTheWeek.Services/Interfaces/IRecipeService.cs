@@ -12,6 +12,7 @@
         Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin);
         Task<RecipeDetailsViewModel> DetailsByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
+        Task<bool> IsLikedByUserAsync(string userId, string recipeId);
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
         Task EditAsync(RecipeEditFormModel model);
         Task DeleteByIdAsync(string id, string userId, bool isAdmin);

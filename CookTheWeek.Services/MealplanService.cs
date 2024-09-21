@@ -156,7 +156,7 @@
 
             return userMealPlans.Count;
         }
-        public async Task<MealPlanViewModel> GetByIdAsync(string id)
+        public async Task<MealPlanViewModel> GetByIdAsync(string id, string userId)
         {
             // without IngredientsCount
             MealPlanViewModel model = await this.dbContext
@@ -169,6 +169,7 @@
                 {
                     Id = mp.Id.ToString(),
                     Name = mp.Name,
+                    OwnerId = userId,
                     IsFinished = mp.IsFinished,
                     Meals = mp.Meals.Select(mpm => new MealViewModel()
                     {

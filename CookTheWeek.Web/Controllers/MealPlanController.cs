@@ -267,7 +267,7 @@ namespace CookTheWeek.Web.Controllers
             string userId = User.GetId();
 
             bool mealPlanExists = await this.mealPlanService.ExistsByIdAsync(id);
-            bool isMealPlanOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
+            //bool isMealPlanOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
             if (!mealPlanExists)
             {
@@ -302,6 +302,7 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl)
         {
+            string userId = User.GetId();
             bool exists = await this.mealPlanService.ExistsByIdAsync(id);
 
             if(!exists)
@@ -310,9 +311,9 @@ namespace CookTheWeek.Web.Controllers
                 logger.LogWarning($"Meal Plan with id {id} does not exist in database!");
                 return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
-
-            string userId = User.GetId();
-            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
+            
+            // TODO: move business loic to service and add exceptions for owner, etc.
+            //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
             if (!isOwner)
             {
@@ -355,7 +356,7 @@ namespace CookTheWeek.Web.Controllers
             }
 
             string userId = User.GetId();
-            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(model.Id!, userId);
+            //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(model.Id!, userId);
 
             if (!isOwner)
             {
@@ -428,7 +429,7 @@ namespace CookTheWeek.Web.Controllers
         {
             bool exists = await this.mealPlanService.ExistsByIdAsync(id);
             string currentUserId = User.GetId();
-            bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, currentUserId);
+            //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, currentUserId);
 
             if (!exists)
             {

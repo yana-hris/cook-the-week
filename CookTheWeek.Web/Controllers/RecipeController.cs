@@ -14,6 +14,7 @@
     using static Common.EntityValidationConstants.RecipeIngredient;
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class RecipeController : BaseController
     {
@@ -27,15 +28,15 @@
         private readonly ICategoryService categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserService userService;
-        private readonly IFavouriteRecipeService favouriteRecipeService;
+        private readonly IValidationService validationService;
 
         public RecipeController(IRecipeService recipeService,
             ICategoryService categoryService,
             IRecipeIngredientService recipeIngredientService,
             IIngredientService ingredientService,
             IUserService userService,
-            IFavouriteRecipeService favouriteRecipeService,
             IRecipeViewModelFactory recipeViewModelFactory,
+            IValidationService validationService,
             ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;
@@ -43,8 +44,8 @@
             this.recipeIngredientService = recipeIngredientService;
             this.ingredientService = ingredientService;
             this.userService = userService;
-            this.favouriteRecipeService = favouriteRecipeService;
             this.recipeViewModelFactory = recipeViewModelFactory;
+            this.validationService = validationService;
             this.logger = logger;            
         }
 
@@ -105,13 +106,21 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string returnUrl = null)
         {
+            // TODO: check logic for order of validation and add some try-catch
+
             model = await this.recipeViewModelFactory.AddRecipeOptionValuesAsync(model) as RecipeAddFormModel;
-            await ValidateCategoryAsync(model);
-            await ValidateIngredientsAsync(model);
+            var validationResult = await this.validationService.ValidateRecipeAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(nameof(error.Key), error.Value);
+                }
+            }
 
             if (!ModelState.IsValid)
             {
-                
                 StoreServerErrorsInTempData();
                 SetViewData("Add Recipe", returnUrl);
                 return View(model);
@@ -131,18 +140,9 @@
                 logger.LogError($"Problem with non-existing entity. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
                 return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
             }
-            catch (InvalidCastException ex)
-            {
-                logger.LogError($"Recipe addition failed, error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
-            }
-            catch (InvalidOperationException ex)
-            {
-
-            }
             catch (Exception ex)
             {
-                logger.LogError($"Recipe not added. Error message: {ex.Message}, error stacktrace: {ex.StackTrace}");
+                logger.LogError($"Recipe addition failed, error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
                 return RedirectToAction("InternalServerError", "Home");
             }
         }
@@ -394,25 +394,7 @@
             }
             return false;
         }
-        private async Task ValidateIngredientsAsync(RecipeAddFormModel model)
-        {
-            foreach (var ingredient in model.RecipeIngredients)
-            {
-                if (ingredient.Name != default && !await IsIngredientValid(ingredient.Name))
-                {
-                    ModelState.AddModelError(nameof(ingredient.Name), "Invalid ingridient!");
-                }
-                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
-                }
-                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
-                }
-            }
-        }
-
+        
         private void StoreServerErrorsInTempData()
         {
             // Collect server-side validation errors

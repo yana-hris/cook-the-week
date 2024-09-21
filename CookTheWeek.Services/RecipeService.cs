@@ -171,6 +171,8 @@
             MapRecipeModelToRecipe(model, recipe);
             await AddOrUpdateSteps(model, model.Steps);
         }        
+
+
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
             
@@ -550,5 +552,9 @@
                 }).ToList();
         }
 
+        public Task<bool> IsLikedByUserAsync(string userId, string recipeId)
+        {
+            return this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+        }
     }
 }
