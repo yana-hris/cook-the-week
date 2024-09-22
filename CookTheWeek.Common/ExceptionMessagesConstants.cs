@@ -36,6 +36,9 @@
 
             // For MEAL:
             public const string MealNotFoundExceptionMessage = "Meal not found.";
+
+            // For USER:
+            public const string UserNotFoundExceptionMessage = "No user found by this id";
         }
 
         public static class InvalidOperationExceptionMessages
@@ -47,11 +50,25 @@
             public const string RecipeIngredientsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe ingredients were not added to the Database.";
 
             public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
+
+            
+
+            public const string UserUnsuccessfullyCreatedException = "User creation failed.";
+        }
+
+        public static class SmtpExceptionMessages
+        {
+            public const string EmailConfirmationUnsuccessfullySentToUser = "The token for email confirmation was unsuccessfully sent to the user.";
         }
 
         public static class InvalidCastExceptionMessages
         {
             public const string RecipeAddOrEditModelUnsuccessfullyCasted = "Failed to cast RecipeFormModel.";
+        }
+
+        public static class ArgumentNullExceptionMessages
+        {
+            public const string TokenNullExceptionMessage = "The validation token is missing.";
         }
     }
 }

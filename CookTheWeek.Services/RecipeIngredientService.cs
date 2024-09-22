@@ -42,7 +42,7 @@
                 .Select(sp => new RecipeIngredientSelectSpecificationViewModel()
                 {
                     Id = sp.Id,
-                    Description = sp.Description
+                    Name = sp.Description
                 }).ToListAsync();
 
             return allSpecs;

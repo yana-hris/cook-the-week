@@ -4,43 +4,42 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Data;
+    
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Web.ViewModels.User;
+    using CookTheWeek.Data.Repositories;
+    using Web.ViewModels.Admin.UserAdmin;
+    using Web.ViewModels.User;
     using Interfaces;
 
-    using static CookTheWeek.Common.GeneralApplicationConstants;
-    using CookTheWeek.Data.Repositories;
+    using static Common.GeneralApplicationConstants;
+    using static Common.ExceptionMessagesConstants.InvalidOperationExceptionMessages;
 
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
         private readonly IRecipeRepository recipeRepository;
         private readonly IRecipeService recipeService;
+        private readonly IEmailSender emailSender;
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         
         public UserService(IUserRepository userRepository,
             IRecipeRepository recipeRepository,
             IRecipeService recipeService,
+            IEmailSender emailSender,
             IFavouriteRecipeRepository favouriteRecipeRepository)
         {
             this.userRepository = userRepository;
             this.recipeRepository = recipeRepository;
             this.recipeService = recipeService;
+            this.emailSender = emailSender;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
-        public async Task<UserProfileViewModel?> GetProfileDetailsAync(string userId)
+        public async Task<UserProfileViewModel> DetailsByIdAsync(string userId)
         {
-            // userRepository.GetUserByIdAsync()
+            // This Throws RecordNotFoundException
             var user = await this.userRepository.GetUserByIdAsync(userId);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            bool hasPassword = hasPassword = await userRepository.HasPasswordAsync(user);
+            
+            bool hasPassword = await userRepository.HasPasswordAsync(user);
 
             return new UserProfileViewModel
             {
@@ -48,6 +47,25 @@
                 Email = user.Email!,
                 HasPassword = hasPassword
             };
+        }
+        public async Task<ApplicationUser> CreateUserAsync(RegisterFormModel model)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                UserName = model.Username,
+                Email = model.Email
+            };
+
+            IdentityResult identityResult = await userRepository.CreateUserAsync(user, model.Password);
+
+            if (!identityResult.Succeeded)
+            {
+                // Collect error messages from the IdentityResult and throw an exception
+                var errorMessages = string.Join("; ", identityResult.Errors.Select(e => e.Description));
+                throw new InvalidOperationException($"{UserUnsuccessfullyCreatedException} Errors: {errorMessages}");  // Custom exception
+            }
+
+            return user;
         }
         public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
         {
@@ -95,6 +113,7 @@
 
             foreach (var recipe in userRecipes)
             {
+                // Assign a pre-defined "Dleted" user id to existing use recipes
                 recipe.OwnerId = Guid.Parse(DeletedUserId.ToLower());
                 await this.recipeService.DeleteByIdAsync(recipe.Id.ToString(), userId, false);
             }
@@ -119,6 +138,36 @@
             await this.dbContext.SaveChangesAsync();
 
         }
+
+        /// <summary>
+        /// Returns the sum of all users, registered in the database
+        /// </summary>
+        /// <returns>int or 0</returns>
+        public async Task<int?> AllCountAsync()
+        {
+            return await this.userRepository.AllCountAsync();
+        }
+
+        /// <summary>
+        /// Returns a collection of all users, registered in the database
+        /// </summary>
+        /// <returns>A collection of UserAllViewModel</returns>
+        public async Task<ICollection<UserAllViewModel>> AllAsync()
+        {
+            var users = await this.userRepository.GetAll();
+            var model = users.Select(u => new UserAllViewModel()
+            {
+                Id = u.Id.ToString(),
+                Username = u.UserName,
+                Email = u.Email
+            }).ToList();
+
+            foreach (var user in model)
+            {
+                user.TotalRecipes = await 
+            }
+        }
+
 
     }
 }

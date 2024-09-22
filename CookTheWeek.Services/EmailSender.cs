@@ -9,6 +9,10 @@
     
     using CookTheWeek.Services.Data.Interfaces;
 
+    using static CookTheWeek.Common.ExceptionMessagesConstants.SmtpExceptionMessages;
+    using System.Net.Mail;
+    using CookTheWeek.Data.Repositories;
+
     public class EmailSender : IEmailSender
     {
         private readonly IConfiguration configuration;
@@ -29,6 +33,22 @@
             Response? response = await client.SendEmailAsync(msg);
 
             return response;
+        }
+
+        
+        /// <inheritdoc/>
+        public async Task SendEmailConfirmationAsync(string email, string callBackUrl)
+        {
+            var responseResult = await SendEmailAsync(
+                email,
+                "Confirm your email with CookTheWeek",
+                $"Please confirm your account by clicking this link: {callBackUrl}",
+                $"Please confirm your account by clicking this link: <a href='{callBackUrl}'>link</a>");
+
+            if (responseResult != null && !responseResult.IsSuccessStatusCode)
+            {
+                throw new SmtpException(EmailConfirmationUnsuccessfullySentToUser);
+            }
         }
     }
 }

@@ -2,12 +2,14 @@
 {
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
-
+    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Vlidation;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.User;
 
+    using static CookTheWeek.Common.EntityValidationConstants.ApplicationUser;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
     using static CookTheWeek.Common.EntityValidationConstants.RecipeIngredient;
 
@@ -16,16 +18,19 @@
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
         private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IUserRepository userRepository;
         public ValidationService(ICategoryService categoryService,
             IIngredientService ingredientService,
-            IRecipeIngredientService recipeIngredientService)
+            IRecipeIngredientService recipeIngredientService,
+            IUserRepository userRepository)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
             this.recipeIngredientService = recipeIngredientService;
+            this.userRepository = userRepository;
         }
 
-        // Implement logic to create ingredients which don`t exist!
+        // TODO: Implement logic to create ingredients which don`t exist!
         public async Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model)
         {
             bool exists = await this.ingredientService.ExistsByNameAsync(model.Name);
@@ -74,6 +79,44 @@
 
             return result;
         }
+
+        /// <summary>
+        /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
+        /// </summary>
+        /// <param name="model">The Register form model (user input fields)</param>
+        /// <returns>ValidationResult</returns>
+        public async Task<ValidationResult> ValidateRegisterUserModelAsync(RegisterFormModel model)
+        {
+            var result = new ValidationResult();
+
+            var userWithEmailExists = await this.userRepository.FindByEmailAsync(model.Email);
+            var userWithUserNameExists = await this.userRepository.FindByNameAsync(model.Username);
+
+            if (userWithEmailExists != null || userWithUserNameExists != null)
+            {
+                AddValidationError(result, String.Empty, AlreadyHaveAccountErrorMessage);
+            }
+
+            if (userWithUserNameExists != null)
+            {
+                AddValidationError(result, nameof(model.Username), UsernameAlreadyExistsErrorMessage);
+            }
+
+            if (userWithEmailExists != null)
+            {
+                AddValidationError(result, nameof(model.Email), EmailAlreadyExistsErrorMessage);
+            }
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// Set a validation error with a message and make validation result false. If the validation error key alreday exists, the message will not be overwritten
+        /// </summary>
+        /// <param name="result">The overall validation result</param>
+        /// <param name="key">The validation error key</param>
+        /// <param name="errorMessage">The validation error message</param>
         private static void AddValidationError(ValidationResult result, string key, string errorMessage)
         {
             result.IsValid = false;
@@ -82,7 +125,5 @@
                 result.Errors.Add(key, errorMessage);
             }
         }
-
-
     }
 }

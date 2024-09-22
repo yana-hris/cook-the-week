@@ -3,8 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Data.Models;
 
     public class StepRepository : IStepRepository
     {

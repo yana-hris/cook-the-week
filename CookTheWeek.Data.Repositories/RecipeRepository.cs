@@ -19,6 +19,8 @@
         {
             this.dbContext = dbContext;
         }
+
+        /// <inheritdoc/>
         public async Task<string> AddAsync(Recipe recipe)
         {
             await this.dbContext.Recipes.AddAsync(recipe);
@@ -27,6 +29,7 @@
             return recipe.Id.ToString();
         }
 
+        /// <inheritdoc/>
         public async Task<ICollection<Recipe>>? GetAllByUserIdAsync(string userId)
         {
             var recipes = await this.dbContext
@@ -39,6 +42,7 @@
             return recipes;
         }
 
+        /// <inheritdoc/>
         public IQueryable<Recipe> GetAllQuery()
         {
 
@@ -54,13 +58,8 @@
 
             return allRecipes;
         }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="RecordNotFoundException">throws a RecordNotFoundException when recipe is not found</exception>
+
+        /// <inheritdoc/>
         public async Task<Recipe> GetByIdAsync(string id)
         {
             // TODO: think about optimizing this query or splitting to separate by needed nested entities
@@ -86,8 +85,9 @@
             
             return recipe;
            
-        }                        
-        
+        }
+
+        /// <inheritdoc/>
         public async Task UpdateAsync(Recipe recipe)
         {
             this.dbContext.Update(recipe);

@@ -11,8 +11,8 @@
         /// <summary>
         /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters
         /// </summary>
-        /// <param name="queryModel"></param>
-        /// <param name="userId"></param>
+        /// <param name="queryModel">The user input as view model</param>
+        /// <param name="userId">The current user if any (may be null)</param>
         /// <returns>A collection of the sorted and filtered recipes</returns>
         Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId); // Ok
 
@@ -24,6 +24,11 @@
         /// <param name="isAdmin"></param>
         /// <returns>The newly created Recipe Id</returns>
         Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin); // Ok
+
+        /// <summary>
+        /// Edits an existing Recipe
+        /// </summary>
+        Task EditAsync(RecipeEditFormModel model);
 
         /// <summary>
         /// Returns a Detailed Viewmodel for a specific recipe
@@ -42,11 +47,7 @@
         Task<bool> IsLikedByUserAsync(string userId, string recipeId); //Ok
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
 
-        /// <summary>
-        /// Edits an existing Recipe
-        /// </summary>
-        Task EditAsync(RecipeEditFormModel model);
-
+        
         /// <summary>
         /// Deletes a specific recipe and all its nested entities: recipe ingredients, recipe steps, meals and likes
         /// </summary>
@@ -56,8 +57,8 @@
         /// Returns a viewmodel collection of all recipes, added by a specific user
         /// </summary>
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId); // Ok
-        Task<int> MineCountAsync(string userId);         
-        Task<int> AllCountAsync();
+        int? MineCountAsync(string userId);         
+        int? AllCountAsync();
         Task<bool> IsIncludedInMealPlans(string id);
         Task<MealAddFormModel> GetForMealByIdAsync(string recipeId);
         Task<ICollection<RecipeAllViewModel>> AllSiteAsync();

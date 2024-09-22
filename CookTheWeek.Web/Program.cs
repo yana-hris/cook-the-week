@@ -5,21 +5,21 @@ namespace CookTheWeek.Web
     using Microsoft.AspNetCore.Mvc.ViewEngines;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json.Serialization;
+    using Rotativa.AspNetCore;
     using SendGrid;
 
-    using CookTheWeek.Services.Data;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
     using Data;
     using Data.Models;
-    using Infrastructure.ModelBinders;
-    using Infrastructure.Extensions;
+    using Data.Repositories;
     using Infrastructure.BackgroundServices;
+    using Infrastructure.Extensions;
     using Infrastructure.HostedServices;
-    using Rotativa.AspNetCore;
+    using Infrastructure.ModelBinders;
+    using Services.Data;
+    using Services.Data.Factories.Interfaces;
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Data.Repositories;
 
     public class Program
     {

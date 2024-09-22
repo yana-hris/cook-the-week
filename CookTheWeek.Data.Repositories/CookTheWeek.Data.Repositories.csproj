@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CookTheWeek.Common\CookTheWeek.Common.csproj" />
     <ProjectReference Include="..\CookTheWeek.Data.Models\CookTheWeek.Data.Models.csproj" />
     <ProjectReference Include="..\CookTheWeek.Data\CookTheWeek.Data.csproj" />

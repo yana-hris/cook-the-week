@@ -10,20 +10,20 @@
         private readonly IRecipeService recipeService;
         private readonly ICategoryService categoryService;
         private readonly IIngredientService ingredientService;
-        private readonly IUserAdminService userAdminService;
         private readonly IMealPlanService mealplanService;
+        private readonly IUserService userService;
 
         public HomeAdminController(IRecipeService recipeService,
+            IUserService userService,
             ICategoryService categoryService,
             IIngredientService ingredientService,
-            IUserAdminService userAdminService,
             IMealPlanService mealplanService)
         {
             this.recipeService = recipeService; 
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
-            this.userAdminService = userAdminService;
             this.mealplanService = mealplanService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@
             model.RecipeCategoriesTotalCount = await this.categoryService.AllRecipeCategoriesCountAsync();
             model.IngredientsTotalCount = await this.ingredientService.AllCountAsync();
             model.IngredientCategoriesTotalCount = await this.categoryService.AllIngredientCategoriesCountAsync();
-            model.UsersTotalCount = await this.userAdminService.AllCountAsync();
+            model.UsersTotalCount = await this.userService.AllCountAsync();
             model.MealPlansTotalCount = await this.mealplanService.AllActiveCountAsync();
 
             return View(model);

@@ -55,6 +55,15 @@
             this.mealRepository = mealRepository;
         }
 
+
+        /// <summary>
+        /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="RecordNotFoundException">Rethrown if a record is not found in the database</exception>
+        /// <exception cref="DataRetrievalException">Thrown when a database Exception occurs</exception>
         public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
         {
             try
@@ -152,9 +161,11 @@
                 throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, ex);
             }
         }
+       
+
+        /// <inheritdoc/>
         public async Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin)
         {
-            // TODO: refactor
             
             Recipe recipe = MapNonCollectionPropertiesToRecipe(model, userId, isAdmin);
             await AddOrUpdateIngredients(model, model.RecipeIngredients);
@@ -162,10 +173,9 @@
 
             string recipeId = await this.recipeRepository.AddAsync(recipe);
             return recipeId.ToLower();
-           
-
-            
         }
+
+        /// <inheritdoc/>
         public async Task EditAsync(RecipeEditFormModel model)
         {
             // Load the recipe including related entities
@@ -326,18 +336,19 @@
                 .Where(m => m.Id.ToString() == id && m.IsCooked == false)
                 .AnyAsync();
         }
-        public async Task<int> AllCountAsync()
+        public int? AllCountAsync()
         {
-            return await this.dbContext
-               .Recipes
-               .CountAsync();
+            return this.recipeRepository
+                .GetAllQuery()
+                .Count();
         }
-        public async Task<int> MineCountAsync(string userId)
+        public int? MineCountAsync(string userId)
         {
-            return await this.dbContext
-                .Recipes
-                .Where(r => r.OwnerId.ToString() == userId)
-                .CountAsync();
+            return this.recipeRepository
+                .GetAllQuery()
+                .Where(r => r.OwnerId.ToString().ToLower() == userId)
+                .Count();
+
         }
         public Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
         {
