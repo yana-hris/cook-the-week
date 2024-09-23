@@ -310,7 +310,7 @@
                                                     <option value="">Type</option>
                                                     @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                     {
-                                                        <option value="@specification.Id">@specification.Description</option>
+                                                        <option value="@specification.Id">@specification.Name</option>
                                                     }
                                                 </select>
                                             </div>

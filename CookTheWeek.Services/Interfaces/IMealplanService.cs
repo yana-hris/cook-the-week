@@ -14,14 +14,10 @@
         Task EditAsync(string userId, MealPlanAddFormModel model);
         Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
         Task<int> MineCountAsync(string userId);
-        Task<MealPlanViewModel> GetByIdAsync(string id);
+        Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id);
         Task<MealPlanAddFormModel> GetForEditByIdAsync(string id);
         Task<bool> ExistsByIdAsync(string id);
         Task<int> AllActiveCountAsync();
-
-        // Helper methods for Meal Plan Details View
-        Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id);
-        Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id);
         Task DeleteById(string id);
     }
 }

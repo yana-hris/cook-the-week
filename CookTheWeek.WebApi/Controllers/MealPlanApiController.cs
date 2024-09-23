@@ -7,23 +7,27 @@
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.MealPlan;
+    using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Common.Exceptions;
 
     [Route("api/mealplan")]
     [ApiController]
     public class MealPlanApiController : ControllerBase
     {
         private readonly IRecipeService recipeService;
+        private readonly IUserRepository userRepository;
         private readonly IUserService userService;
         private readonly ILogger<MealPlanApiController> logger;
 
         public MealPlanApiController(IRecipeService recipeService,
+            IUserRepository userRepository,
             IUserService userService,
             ILogger<MealPlanApiController> logger)
         {
             this.recipeService = recipeService;
+            this.userRepository = userRepository;
             this.userService = userService;
             this.logger = logger;
-
         }
 
         [HttpPost]
@@ -38,14 +42,14 @@
                 logger.LogWarning($"Invalid model received!");
                 return BadRequest(ModelState);
             }
-
-            string userId = model.UserId;
-
-            if (!await this.userService.ExistsByIdAsync(userId))
+            try
             {
-                ModelState.AddModelError(nameof(model.UserId), "Invalid User Id!");
-                logger.LogWarning($"User with ID {model.UserId} does not exist.");
-                return BadRequest(ModelState);
+                var user = await this.userRepository.GetUserByIdAsync(model.UserId);
+            }
+            catch (RecordNotFoundException ex)
+            {
+                logger.LogError(ex.Message, ex.StackTrace);
+                return NotFound();
             }
 
             ICollection<MealServiceModel> recipes = model.Meals;

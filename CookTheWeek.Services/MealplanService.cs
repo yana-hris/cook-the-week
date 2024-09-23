@@ -7,8 +7,10 @@
     using Microsoft.EntityFrameworkCore;
 
     using Common.Extensions;
+    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
     using Interfaces;
     using Web.ViewModels.Admin.MealPlanAdmin;
     using Web.ViewModels.Meal;
@@ -16,19 +18,24 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using CookTheWeek.Common;
 
     public class MealPlanService : IMealPlanService
     {
         private readonly CookTheWeekDbContext dbContext;
+        private readonly IMealplanRepository mealplanRepository;
 
-        public MealPlanService(CookTheWeekDbContext dbContext)
+        public MealPlanService(CookTheWeekDbContext dbContext,
+            IMealplanRepository mealplanRepository)
         {
             this.dbContext = dbContext;
+            this.mealplanRepository = mealplanRepository;
         }
 
         public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
         {
-            return await this.dbContext.MealPlans
+            return await this.mealplanRepository.GetAllQuery()
                 .Where(mp => !mp.IsFinished)
                 .OrderBy(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
@@ -44,7 +51,7 @@
         }
         public async Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync()
         {
-            return await this.dbContext.MealPlans
+            return await this.mealplanRepository.GetAllQuery()
                 .Where(mp => mp.IsFinished == true)
                 .OrderByDescending(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
@@ -58,6 +65,8 @@
                     MealsCount = mp.Meals.Count
                 }).ToListAsync();
         }
+
+        // TODO: apply repository usage
         public async Task<string> AddAsync(string userId, MealPlanAddFormModel model)
         {
             MealPlan newMealPlan = new MealPlan()
@@ -77,12 +86,17 @@
                 }).ToList()
             };
 
-            await this.dbContext.MealPlans.AddAsync(newMealPlan);
-            await this.dbContext.SaveChangesAsync();
+            string id = await this.mealplanRepository.AddAsync(newMealPlan);
+
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyAddedExceptionMessage);
+            }
 
             return newMealPlan.Id.ToString();
            
         }
+        // TODO: use repository
         public async Task EditAsync(string userId, MealPlanAddFormModel model)
         {
             MealPlan mealPlanToEdit = await this.dbContext
@@ -132,8 +146,7 @@
         }                
         public async Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId)
         {
-            return await this.dbContext
-                .MealPlans
+            return await this.mealplanRepository.GetAllQuery()
                 .Where(mp => mp.OwnerId.ToString() == userId)
                 .OrderByDescending(mp => mp.StartDate)
                 .Select(mp => new MealPlanAllViewModel()
@@ -149,29 +162,29 @@
 
         public async Task<int> MineCountAsync(string userId)
         {
-            var userMealPlans = await this.dbContext
-                .MealPlans.Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
-                .Select(mp => mp.Id)
-                .ToListAsync();
-
-            return userMealPlans.Count;
+            return await this.mealplanRepository.GetAllQuery()
+                .Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
+                .CountAsync();
         }
-        public async Task<MealPlanViewModel> GetByIdAsync(string id, string userId)
+
+        // TODO: delegate model creation to factory and here only return the mealplan
+        // TODO: handle RecordNotFoundException in the controller
+        public async Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id, string userId)
         {
-            // without IngredientsCount
-            MealPlanViewModel model = await this.dbContext
-                .MealPlans                
-                .Where(mp => mp.Id.ToString() == id)
-                .Include(mp => mp.Meals)
-                    .ThenInclude(mpm => mpm.Recipe)                        
-                        .ThenInclude(recipe => recipe.Category)
-                .Select(mp => new MealPlanViewModel()
+            MealPlan? mealPlan = await this.mealplanRepository.GetByIdAsync(id);
+
+            if (mealPlan == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+
+            MealPlanDetailsViewModel model = new MealPlanDetailsViewModel()
                 {
-                    Id = mp.Id.ToString(),
-                    Name = mp.Name,
+                    Id = mealPlan.Id.ToString(),
+                    Name = mealPlan.Name,
                     OwnerId = userId,
-                    IsFinished = mp.IsFinished,
-                    Meals = mp.Meals.Select(mpm => new MealViewModel()
+                    IsFinished = mealPlan.IsFinished,
+                    Meals = mealPlan.Meals.Select(mpm => new MealViewModel()
                     {
                         Id = mpm.Id.ToString(),
                         RecipeId = mpm.RecipeId.ToString(),
@@ -181,83 +194,83 @@
                         CategoryName = mpm.Recipe.Category.Name,
                         Date = mpm.CookDate.ToString(MealDateFormat),
                     }).ToList(),
-                    TotalServings = mp.Meals.Sum(mpm => mpm.ServingSize),                    
-                    TotalCookingDays = mp.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
-
-                }).FirstAsync();
-
+                    TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),                    
+                    TotalCookingDays = mealPlan.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
+                    TotalIngredients = mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
+                    TotalCookingTimeMinutes = mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes),
+            };
+            
             return model;
         }
+
+        // TODO: delegate model creation to factory and here only return the mealplan
+        // TODO: handle RecordNotFound Exception in the controller
         public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
         {
-            MealPlanAddFormModel model = await this.dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                .Include(mp => mp.Meals)
-                .ThenInclude(mpm => mpm.Recipe)
-                .ThenInclude(mpmr => mpmr.Category)
-                .Select(mp => new MealPlanAddFormModel()
+            MealPlan? mealplan = await this.mealplanRepository.GetByIdAsync(id);
+
+            if (mealplan == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+
+            MealPlanAddFormModel model = new MealPlanAddFormModel()
+            {
+                Name = mealplan.Name,
+                StartDate = mealplan.StartDate,
+                Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
                 {
-                    Name = mp.Name,
-                    StartDate = mp.StartDate,
-                    Meals = mp.Meals.Select(mpm => new MealAddFormModel()
-                    {
-                        RecipeId = mpm.RecipeId.ToString().ToLower(),
-                        Title = mpm.Recipe.Title,
-                        Servings = mpm.ServingSize,
-                        ImageUrl = mpm.Recipe.ImageUrl,
-                        CategoryName = mpm.Recipe.Category.Name,
-                        Date = mpm.CookDate.ToString(MealDateFormat),
-                        SelectServingOptions = ServingsOptions
-                    }).ToList(),
-                }).FirstAsync();
+                    RecipeId = mpm.RecipeId.ToString().ToLower(),
+                    Title = mpm.Recipe.Title,
+                    Servings = mpm.ServingSize,
+                    ImageUrl = mpm.Recipe.ImageUrl,
+                    CategoryName = mpm.Recipe.Category.Name,
+                    Date = mpm.CookDate.ToString(MealDateFormat),
+                    SelectServingOptions = ServingsOptions
+                }).ToList(),
+            };
 
             return model;
         }
         public async Task<bool> ExistsByIdAsync(string id)
         {
-            return await this.dbContext
-                .MealPlans
-                .AnyAsync(mp => mp.Id.ToString() == id);
+            return await this.mealplanRepository.GetByIdAsync(id) != null;
         }
         public async Task<int> AllActiveCountAsync()
         {
-            return await this.dbContext
-                .MealPlans
+            return await this.mealplanRepository.GetAllQuery()
                 .Where(mp => mp.IsFinished == false)
                 .CountAsync();
         }
-        public async Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id)
-        {
-            var mealPlan = await this.dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                    .Include(mp => mp.Meals)
-                        .ThenInclude(m => m.Recipe)  
-                            .ThenInclude(r => r.RecipesIngredients)
-                .FirstAsync();
 
-            return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count);
-        }
-        public async Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id)
-        {
-            var mealPlan = await this.dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                .Include(mp => mp.Meals)
-                .ThenInclude(m => m.Recipe)
-                .FirstAsync();
+        //// TODO: catch RecordNotFound exception in all controllers, using it
+        //public async Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id)
+        //{
+        //    var mealPlan = await this.mealplanRepository.GetByIdAsync(id);
 
-            return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
-        }
+        //    if (mealPlan == null)
+        //    {
+        //        throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+        //    }
+        //    return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count);
+        //}
+
+        //// TODO: catch RecordNotFound exception in all controllers, using it
+        //public async Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id)
+        //{
+        //    MealPlan? mealPlan = await this.mealplanRepository.GetByIdAsync(id);
+
+        //    if (mealPlan == null)
+        //    {
+        //        throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+        //    }
+        //    return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
+        //}
         public async Task DeleteById(string id)
         {
-            MealPlan mealPlanToDelete = await this.dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                .FirstAsync();
+            MealPlan? mealPlanToDelete = await this.mealplanRepository.GetByIdAsync(id);
 
-            if (mealPlanToDelete != null && mealPlanToDelete.Meals.Any())
+            if (mealPlanToDelete != null)
             {
                 this.dbContext.Meals.RemoveRange(mealPlanToDelete.Meals);
             }

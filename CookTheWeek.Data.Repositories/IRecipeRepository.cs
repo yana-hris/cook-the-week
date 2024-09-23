@@ -32,11 +32,6 @@
         /// <returns></returns>
         Task UpdateAsync(Recipe recipe);
 
-        /// <summary>
-        /// Returns a collection of all user Recipes
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns>A collection of Recipes or an empty collection</returns>
-        Task<ICollection<Recipe>>? GetAllByUserIdAsync(string userId);
+        
     }
 }

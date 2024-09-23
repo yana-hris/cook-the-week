@@ -204,11 +204,10 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<ApplicationUser>> GetAll()
+        public IQueryable<ApplicationUser> GetAllQuery()
         {
-            return await this.dbContext.Users
-                .AsNoTracking()
-                .ToListAsync();
+            return this.dbContext.Users.AsQueryable();
+                
         }
     }
 }

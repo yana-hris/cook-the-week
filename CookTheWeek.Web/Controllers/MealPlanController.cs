@@ -247,9 +247,7 @@ namespace CookTheWeek.Web.Controllers
 
             try
             {
-                MealPlanViewModel model = await this.mealPlanService.GetByIdAsync(id);
-                model.TotalIngredients = await this.mealPlanService.GetIMealPlanIngredientsCountForDetailsAsync(id);
-                model.TotalCookingTimeMinutes = await this.mealPlanService.GetMealPlanTotalMinutesForDetailsAsync(id);
+                MealPlanDetailsViewModel model = await this.mealPlanService.GetForDetailsAsync(id);
 
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
@@ -326,7 +324,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
                 model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate); // ensure the plan start date stays the same
-                model.Id = id;
+                
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }

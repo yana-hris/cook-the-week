@@ -16,17 +16,20 @@
     public class ValidationService : IValidationService
     {
         private readonly ICategoryService categoryService;
+        private readonly IRecipeRepository recipeRepository;
         private readonly IIngredientService ingredientService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserRepository userRepository;
         public ValidationService(ICategoryService categoryService,
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
+            IRecipeRepository recipeRepository,
             IUserRepository userRepository)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
             this.recipeIngredientService = recipeIngredientService;
+            this.recipeRepository = recipeRepository;
             this.userRepository = userRepository;
         }
 
@@ -37,6 +40,11 @@
             return exists;
         }
 
+        /// <summary>
+        /// Custom validation for recipes upon adding and editing Recipe: checks if the selected category, ingredient, measure and specification exist in the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ValidationResult> ValidateRecipeAsync(IRecipeFormModel model)
         {
             var result = new ValidationResult();
@@ -110,6 +118,10 @@
             return result;
 
         }
+
+
+
+
 
         /// <summary>
         /// Set a validation error with a message and make validation result false. If the validation error key alreday exists, the message will not be overwritten

@@ -2,9 +2,9 @@
 {
     using Meal;
 
-    public class MealPlanViewModel
+    public class MealPlanDetailsViewModel
     {
-        public MealPlanViewModel()
+        public MealPlanDetailsViewModel()
         {
             this.Meals = new List<MealViewModel>();
         }

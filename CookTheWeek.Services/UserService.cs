@@ -154,18 +154,21 @@
         /// <returns>A collection of UserAllViewModel</returns>
         public async Task<ICollection<UserAllViewModel>> AllAsync()
         {
-            var users = await this.userRepository.GetAll();
-            var model = users.Select(u => new UserAllViewModel()
-            {
-                Id = u.Id.ToString(),
-                Username = u.UserName,
-                Email = u.Email
-            }).ToList();
+            ICollection<UserAllViewModel> users = this.userRepository
+                .GetAllQuery()
+                .Select(u => new UserAllViewModel()
+                {
+                    Id = u.Id.ToString(),
+                    Username = u.UserName,
+                    Email = u.Email,
+                    TotalRecipes = this.recipeService.MineCountAsync(u.Id.ToString()),
+                    //TotalMealPlans = this.mealPlanService.MineCountAsync(u.Id.ToString())
+                    // TODO: after adding mealPlanRepository + rewrite service => then uncomment
 
-            foreach (var user in model)
-            {
-                user.TotalRecipes = await 
-            }
+                }).ToList();
+
+            return users;
+
         }
 
 

@@ -57,12 +57,12 @@
 
 
         /// <summary>
-        /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters
+        /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters (if any)
         /// </summary>
         /// <param name="queryModel"></param>
         /// <param name="userId"></param>
-        /// <returns></returns>
-        /// <exception cref="RecordNotFoundException">Rethrown if a record is not found in the database</exception>
+        /// <returns>A collection of RecipeAllViewModel</returns>
+        /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
         /// <exception cref="DataRetrievalException">Thrown when a database Exception occurs</exception>
         public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
         {
@@ -70,6 +70,11 @@
             {
                 IQueryable<Recipe> recipesQuery = this.recipeRepository.GetAllQuery();
 
+                if (!recipesQuery.Any())
+                {
+                    throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
+                }
+                
                 if (userId != String.Empty)
                 {
                     recipesQuery = recipesQuery
@@ -129,6 +134,11 @@
                 }
 
                 queryModel.TotalRecipes = recipesQuery.Count();
+
+                if (queryModel.TotalRecipes == 0)
+                {
+                    //TODO: Show no recipes message by throwing an exception (and redirect in the controller)
+                }
 
                 ICollection<RecipeAllViewModel> model = await recipesQuery
                     .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
@@ -221,14 +231,7 @@
             return model;
 
         }
-        public async Task<bool> ExistsByIdAsync(string id)
-        {
-            return await this.dbContext
-                .Recipes
-                .AsNoTracking()
-                .Where(r => r.Id.ToString().ToLower() == id.ToLower())
-                .AnyAsync();
-        }
+       
         public async Task DeleteByIdAsync(string id, string userId, bool isAdmin)
         {
             Recipe recipeToDelete = await this.recipeRepository.GetByIdAsync(id);
@@ -294,10 +297,12 @@
         
         public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId)
         {
+            var recipes = await this.recipeRepository
+                .GetAllQuery()
+                .Where(r => r.OwnerId.ToString().ToLower() == userId)
+                .ToListAsync();
 
-            var recipes = await this.recipeRepository.GetAllByUserIdAsync(userId);
-
-            if (recipes == null || !recipes.Any())
+            if (!recipes.Any())
             {
                 throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
             }
@@ -322,6 +327,10 @@
 
                 return model;
             }
+            catch (RecordNotFoundException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new DataRetrievalException("An error occurred while retrieving recipes.", ex);
@@ -329,34 +338,32 @@
                 
         }
         
-        public async Task<bool> IsIncludedInMealPlans(string id)
+        public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
         {
-            return await this.dbContext
-                .Meals
-                .Where(m => m.Id.ToString() == id && m.IsCooked == false)
+            return await this.mealRepository.GetAllQuery()
+                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower() && 
+                       m.IsCooked == false)
                 .AnyAsync();
         }
-        public int? AllCountAsync()
+        public async Task<int?> AllCountAsync()
         {
-            return this.recipeRepository
+            return await this.recipeRepository
                 .GetAllQuery()
-                .Count();
+                .CountAsync();
         }
-        public int? MineCountAsync(string userId)
+        public async Task<int?> MineCountAsync(string userId)
         {
-            return this.recipeRepository
+            return await this.recipeRepository
                 .GetAllQuery()
                 .Where(r => r.OwnerId.ToString().ToLower() == userId)
-                .Count();
+                .CountAsync();
 
         }
-        public Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
+        // Move to mealplan viemodel factory
+        public async Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
         {
-            return this.dbContext
-                .Recipes
-                .AsNoTracking()
-                .Include(r => r.Category)
-                .Where(r => r.Id.ToString() == recipeId)
+            return await this.recipeRepository.GetAllQuery()
+                .Where(r => r.Id.ToString().ToLower() == recipeId.ToLower())
                 .Select(r => new MealAddFormModel()
                 {
                     RecipeId = r.Id.ToString(),
@@ -369,9 +376,10 @@
                 .FirstAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> AllSiteAsync()
         {
-            List<RecipeAllViewModel> siteRecipes = await this.dbContext.Recipes
+            List<RecipeAllViewModel> siteRecipes = await this.recipeRepository.GetAllQuery()
                     .Where(r => r.IsSiteRecipe)
                     .Select(r => new RecipeAllViewModel()
                     {
@@ -391,10 +399,11 @@
 
             return siteRecipes;
         }
+        
+        /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync()
         {
-            ICollection<RecipeAllViewModel> allUserRecipes = await this.dbContext
-                .Recipes
+            ICollection<RecipeAllViewModel> allUserRecipes = await this.recipeRepository.GetAllQuery()
                 .Where(r => !r.IsSiteRecipe)
                 .Select(r => new RecipeAllViewModel()
                 {
@@ -602,7 +611,10 @@
 
         public async Task<int?> GetAllRecipeMealsCountAsync(string recipeId)
         {
-            return await this.mealRepository.GetAllCountByRecipeIdAsync(recipeId);
+            return await this.mealRepository
+                .GetAllQuery()
+                .Select(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .CountAsync();
         }
     }
 }

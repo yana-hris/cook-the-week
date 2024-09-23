@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookTheWeek.Data.Models;
@@ -12,6 +13,26 @@
         {
             this.dbContext = dbContext;
         }
+       
+        /// <inheritdoc/>
+        public IQueryable<Meal> GetAllQuery()
+        {
+            return this.dbContext
+                .Meals
+                .AsQueryable();
+        }
+
+        /// <inheritdoc/>
+        public async Task<Meal> GetByIdAsync(int id)
+        {
+            Meal meal = await this.dbContext
+                .Meals
+                .FirstAsync(m => m.Id == id);
+
+            return meal;
+        }
+
+        /// <inheritdoc/>
         public async Task DeleteAllByRecipeIdAsync(string recipeId)
         {
             ICollection<Meal> mealsToDelete = await this.dbContext
@@ -22,25 +43,5 @@
             this.dbContext.RemoveRange(mealsToDelete);
             await this.dbContext.SaveChangesAsync();
         }
-
-        public async Task<int> GetAllCountByRecipeIdAsync(string recipeId)
-        {
-            return await this.dbContext
-                .Meals
-                .AsNoTracking()
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
-                .CountAsync();
-        }
-
-        public async Task<Meal> GetByIdAsync(int id)
-        {
-            Meal meal = await this.dbContext
-                .Meals
-                .FirstAsync(m => m.Id == id);
-
-            return meal;
-        }
-
-        
     }
 }

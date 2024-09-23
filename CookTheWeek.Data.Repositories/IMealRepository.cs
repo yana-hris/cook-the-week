@@ -6,6 +6,11 @@ namespace CookTheWeek.Data.Repositories
     public interface IMealRepository
     {
         /// <summary>
+        /// Gets a queryable collection of all meals in the database, that can be filtered using LINQ
+        /// </summary>
+        /// <returns>A queryable collection of Meals</returns>
+        IQueryable<Meal> GetAllQuery();
+        /// <summary>
         /// Gets a meal by Id
         /// </summary>
         /// <param name="id"></param>
@@ -13,16 +18,10 @@ namespace CookTheWeek.Data.Repositories
         Task<Meal> GetByIdAsync(int id);
 
         /// <summary>
-        /// Gets the count of all meals, cooked by a certain recipe
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <returns>int</returns>
-        Task<int> GetAllCountByRecipeIdAsync(string recipeId);
-
-        /// <summary>
         /// Deletes all meals, cooked by a certain recipe
         /// </summary>
         /// <param name="recipeId"></param>
         Task DeleteAllByRecipeIdAsync(string recipeId);
+       
     }
 }

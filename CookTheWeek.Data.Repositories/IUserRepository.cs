@@ -136,9 +136,9 @@
         Task<int?> AllCountAsync();
 
         /// <summary>
-        /// Returns a collection of all users in the database
+        /// Returns an IQueryable collection of all users in the database, that can be filtered and sorted using LINQ
         /// </summary>
-        /// <returns>A collection of Application User</returns>
-        Task<ICollection<ApplicationUser>> GetAll();
+        /// <returns>IQueryable collection of ApplicationUser</returns>
+        IQueryable<ApplicationUser> GetAllQuery();
     }
 }

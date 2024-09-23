@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -21,6 +20,18 @@
         }
 
         /// <inheritdoc/>
+        public IQueryable<Recipe> GetAllQuery()
+        {
+            IQueryable<Recipe>? allRecipes = this.dbContext
+                .Recipes
+                .Include(r => r.Category)
+                .AsNoTracking()
+                .AsQueryable();
+
+            return allRecipes;
+        }
+
+        /// <inheritdoc/>
         public async Task<string> AddAsync(Recipe recipe)
         {
             await this.dbContext.Recipes.AddAsync(recipe);
@@ -28,40 +39,12 @@
 
             return recipe.Id.ToString();
         }
-
-        /// <inheritdoc/>
-        public async Task<ICollection<Recipe>>? GetAllByUserIdAsync(string userId)
-        {
-            var recipes = await this.dbContext
-                .Recipes
-                .Include(r => r.Category)
-                .AsNoTracking()
-                .Where(r => r.OwnerId.ToString() == userId)
-                .ToListAsync();
-
-            return recipes;
-        }
-
-        /// <inheritdoc/>
-        public IQueryable<Recipe> GetAllQuery()
-        {
-
-            IQueryable<Recipe>? allRecipes = this.dbContext
-                .Recipes
-                .AsNoTracking()
-                .AsQueryable();
-
-            if (!allRecipes.Any())
-            {
-                throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
-            }
-
-            return allRecipes;
-        }
+        
 
         /// <inheritdoc/>
         public async Task<Recipe> GetByIdAsync(string id)
         {
+            id = id.ToLower();
             // TODO: think about optimizing this query or splitting to separate by needed nested entities
             Recipe? recipe = await this.dbContext.Recipes
                 .Include(r => r.Owner)
@@ -76,7 +59,8 @@
                     .ThenInclude(ri => ri.Specification)
                 .Include(r => r.Meals)
                 .Include(r => r.FavouriteRecipes)
-                .FirstOrDefaultAsync(r => r.Id.ToString().ToLower() == id.ToLower());
+                .FirstOrDefaultAsync(r => string.Equals(r.Id.ToString(), id, StringComparison.OrdinalIgnoreCase));
+                //.FirstOrDefaultAsync(r => r.Id.ToString().ToLower() == id.ToLower()); // Check if works!
 
             if (recipe == null)
             {

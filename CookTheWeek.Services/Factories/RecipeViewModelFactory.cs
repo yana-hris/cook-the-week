@@ -3,8 +3,6 @@
     using System.Threading.Tasks;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
@@ -98,7 +96,7 @@
             RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
             model.IsLikedByUser = await this.recipeService.IsLikedByUserAsync(userId, recipeId);
             model.LikesCount = await this.recipeService.GetAllRecipeLikesAsync(recipeId);
-            model.CookedCount = await this.recipeService.GetAllRecipeMealsCountAsync(recipeId);
+            model.CookedCount = this.recipeService.GetAllRecipeMealsCount(recipeId);
 
             return model;
         }

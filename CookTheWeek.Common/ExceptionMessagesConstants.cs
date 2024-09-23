@@ -37,10 +37,16 @@
             // For MEAL:
             public const string MealNotFoundExceptionMessage = "Meal not found.";
 
+            // For MEALPLAN:
+            public const string MealplanNotFoundExceptionMessage = "Mealplan not found.";
+
             // For USER:
             public const string UserNotFoundExceptionMessage = "No user found by this id";
         }
 
+        /// <summary>
+        /// Exception Messages, returned when creating and editing entities in the database results in an error
+        /// </summary>
         public static class InvalidOperationExceptionMessages
         {
             public const string InvalidRecipeOperationDueToMealPlansInclusion = "Please note this recipe is included in meal plans!";
@@ -51,7 +57,7 @@
 
             public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
 
-            
+            public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 
             public const string UserUnsuccessfullyCreatedException = "User creation failed.";
         }
