@@ -14,12 +14,15 @@
         {
             this.dbContext = dbContext;   
         }
+        /// <inheritdoc/>
         public async Task AddAllAsync(ICollection<RecipeIngredient> recipeIngredients)
         {
             await this.dbContext.RecipesIngredients.AddRangeAsync(recipeIngredients);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task UpdateAllAsync(string recipeId, ICollection<RecipeIngredient> recipeIngredients)
+
+        /// <inheritdoc/>
+        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<RecipeIngredient> recipeIngredients)
         {
             var oldIngredients = await this.dbContext.RecipesIngredients
                 .Where(ri => ri.RecipeId.ToString().ToLower() == recipeId.ToLower())
@@ -30,14 +33,20 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAllAsync(string recipeId)
+        
+        /// <inheritdoc/>
+        public async Task DeleteAllByRecipeIdAsync(string recipeId)
         {
             var ingredientsToDelete = await this.dbContext
                 .RecipesIngredients
                 .Where(ri => ri.RecipeId.ToString().ToLower() == recipeId.ToLower())
                 .ToListAsync();
 
-            this.dbContext.RecipesIngredients.RemoveRange(ingredientsToDelete);
+            if (ingredientsToDelete.Any())
+            {
+                this.dbContext.RecipesIngredients.RemoveRange(ingredientsToDelete);
+            }
+            
             await this.dbContext.SaveChangesAsync();
         }
 

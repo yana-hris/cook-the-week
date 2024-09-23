@@ -6,8 +6,9 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    using Common.Exceptions;
     using Common.Extensions;
-    using CookTheWeek.Common.Exceptions;
+    using Common.HelperMethods;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
@@ -18,19 +19,18 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using CookTheWeek.Common;
+    using static Common.ExceptionMessagesConstants;
 
     public class MealPlanService : IMealPlanService
     {
-        private readonly CookTheWeekDbContext dbContext;
         private readonly IMealplanRepository mealplanRepository;
+        private readonly IMealService mealService;
 
-        public MealPlanService(CookTheWeekDbContext dbContext,
+        public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository)
         {
-            this.dbContext = dbContext;
             this.mealplanRepository = mealplanRepository;
+            this.mealService = mealService;
         }
 
         public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
@@ -66,12 +66,13 @@
                 }).ToListAsync();
         }
 
-        // TODO: apply repository usage
+        
+        /// <inheritdoc/>
         public async Task<string> AddAsync(string userId, MealPlanAddFormModel model)
         {
             MealPlan newMealPlan = new MealPlan()
             {
-                Name = model.Name!,
+                Name = model.Name,
                 OwnerId = Guid.Parse(userId),
                 StartDate = DateTime.ParseExact(model
                                                  .Meals
@@ -81,7 +82,7 @@
                 Meals = model.Meals.Select(m => new Meal()
                 {
                     RecipeId = Guid.Parse(m.RecipeId),
-                    ServingSize = m.Servings!.Value,
+                    ServingSize = m.Servings,
                     CookDate = DateTime.ParseExact(m.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 }).ToList()
             };
@@ -96,53 +97,23 @@
             return newMealPlan.Id.ToString();
            
         }
+
         // TODO: use repository
-        public async Task EditAsync(string userId, MealPlanAddFormModel model)
+        /// <inheritdoc/>
+        public async Task EditAsync(string userId, MealPlanEditFormModel model)
         {
-            MealPlan mealPlanToEdit = await this.dbContext
-                .MealPlans
-                .Include(mp => mp.Meals)
-                .FirstAsync(mp => mp.Id.ToString() == model.Id);
+            MealPlan? mealPlan = await this.mealplanRepository.GetByIdAsync(model.Id);
 
-            mealPlanToEdit.Name = model.Name!;
-
-            // Add or update existing Meals
-            foreach (var modelMeal in model.Meals)
+            if (mealPlan == null)
             {
-                if (mealPlanToEdit.Meals.Any(m => m.RecipeId.ToString() == modelMeal.RecipeId.ToLower()))
-                {
-                    Meal currentMeal = await this.dbContext
-                        .Meals
-                        .FirstAsync(m => m.MealPlanId.ToString() == model.Id && m.RecipeId.ToString() == modelMeal.RecipeId);
-
-                    currentMeal.ServingSize = modelMeal.Servings!.Value;
-                    currentMeal.CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    Meal newMeal = new Meal()
-                    {
-                        RecipeId = Guid.Parse(modelMeal.RecipeId),
-                        ServingSize = modelMeal.Servings!.Value,
-                        CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture),
-                    };
-                    mealPlanToEdit.Meals.Add(newMeal);
-                }                
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
             }
 
-            // Delete removed Meals from Meal Plan Database
-            foreach (var existingMeal in mealPlanToEdit.Meals)
-            {
-                string databaseMealRecipeId = existingMeal.RecipeId.ToString();
-                bool remains = model.Meals.Any(m => m.RecipeId.ToLower() == databaseMealRecipeId);
+            mealPlan.Name = model.Name;
+            
 
-                if (!remains)
-                {
-                    dbContext.Meals.Remove(existingMeal);
-                }
-            }
-
-            await this.dbContext.SaveChangesAsync();
+            await this.mealService.DeleteAllByMealPlanIdAsync(model.Id);
+            await this.mealService.AddAllAsync(model.Meals);
         }                
         public async Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId)
         {
@@ -205,7 +176,7 @@
 
         // TODO: delegate model creation to factory and here only return the mealplan
         // TODO: handle RecordNotFound Exception in the controller
-        public async Task<MealPlanAddFormModel> GetForEditByIdAsync(string id)
+        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id)
         {
             MealPlan? mealplan = await this.mealplanRepository.GetByIdAsync(id);
 
@@ -214,8 +185,9 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
             }
 
-            MealPlanAddFormModel model = new MealPlanAddFormModel()
+            MealPlanEditFormModel model = new MealPlanEditFormModel()
             {
+                Id = mealplan.Id.ToString(),
                 Name = mealplan.Name,
                 StartDate = mealplan.StartDate,
                 Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
@@ -230,6 +202,8 @@
                 }).ToList(),
             };
 
+            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+
             return model;
         }
         public async Task<bool> ExistsByIdAsync(string id)
@@ -243,40 +217,44 @@
                 .CountAsync();
         }
 
-        //// TODO: catch RecordNotFound exception in all controllers, using it
-        //public async Task<int> GetIMealPlanIngredientsCountForDetailsAsync(string id)
-        //{
-        //    var mealPlan = await this.mealplanRepository.GetByIdAsync(id);
-
-        //    if (mealPlan == null)
-        //    {
-        //        throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-        //    }
-        //    return mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count);
-        //}
-
-        //// TODO: catch RecordNotFound exception in all controllers, using it
-        //public async Task<int> GetMealPlanTotalMinutesForDetailsAsync(string id)
-        //{
-        //    MealPlan? mealPlan = await this.mealplanRepository.GetByIdAsync(id);
-
-        //    if (mealPlan == null)
-        //    {
-        //        throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-        //    }
-        //    return mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes);
-        //}
+        
+        /// <inheritdoc/>
         public async Task DeleteById(string id)
         {
             MealPlan? mealPlanToDelete = await this.mealplanRepository.GetByIdAsync(id);
 
             if (mealPlanToDelete != null)
             {
-                this.dbContext.Meals.RemoveRange(mealPlanToDelete.Meals);
+                await this.mealService.DeleteAllByMealPlanIdAsync(id);
+                await this.mealplanRepository.DeleteByIdAsync(mealPlanToDelete);
+            }
+            else
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+        }
+
+        public Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAllByUserIdAsync(string userId)
+        {
+            var userMealplans = await this.mealplanRepository
+                .GetAllQuery()
+                .Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
+                .ToListAsync();
+
+            if (userMealplans.Any())
+            {
+                foreach (var mealpan in userMealplans)
+                {
+                    await this.mealService.DeleteAllByMealPlanIdAsync(mealpan.Id.ToString());
+                }
+                await this.mealplanRepository.DeleteAllAsync(userMealplans);
             }
 
-            this.dbContext.MealPlans.Remove(mealPlanToDelete!);
-            await this.dbContext.SaveChangesAsync();
         }
     }
 }

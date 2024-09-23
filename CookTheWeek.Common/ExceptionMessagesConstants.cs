@@ -49,7 +49,7 @@
         /// </summary>
         public static class InvalidOperationExceptionMessages
         {
-            public const string InvalidRecipeOperationDueToMealPlansInclusion = "Please note this recipe is included in meal plans!";
+            public const string InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage = "Please note this recipe is included in meal plans!";
 
             public const string RecipeUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe was not added to the Database.";
 
@@ -59,7 +59,11 @@
 
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 
-            public const string UserUnsuccessfullyCreatedException = "User creation failed.";
+            public const string UserUnsuccessfullyCreatedExceptionMessage = "User creation failed.";
+
+            public const string UserUnsuccessfullyDeletedExceptionMessage = "User deletion failed.";
+
+            public const string TokenGenerationUnsuccessfullExceptionMessage = "User Token unsuccessfully generated.";
         }
 
         public static class SmtpExceptionMessages
@@ -74,7 +78,11 @@
 
         public static class ArgumentNullExceptionMessages
         {
-            public const string TokenNullExceptionMessage = "The validation token is missing.";
+            public const string TokenNullExceptionMessage = "The validation token is null.";
+
+            public const string RecipeNullExceptionMessage = "The Recipe is null";
+
+            public const string UserNullExceptionMessage = "The User is null.";
         }
     }
 }

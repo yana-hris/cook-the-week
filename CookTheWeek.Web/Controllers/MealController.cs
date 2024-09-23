@@ -23,7 +23,7 @@
         {
             try
             {
-                MealDetailsViewModel model = await this.mealService.Details(id);
+                MealDetailsViewModel model = await this.mealService.GetForDetailsAsync(id);
                 return View(model);
             }
             catch (RecordNotFoundException ex)

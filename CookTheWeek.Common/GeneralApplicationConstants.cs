@@ -42,7 +42,7 @@
                 "InternalServerError",
             ];
 
-
+        public const int GuidLength = 36;
         public const int RecipeCardTitleMaxLength = 50;
         public const int RecipeCardDescriptionMaxLength = 113;
 

@@ -18,6 +18,13 @@
         Task<string> AddAsync(Recipe recipe);
 
         /// <summary>
+        /// Checks if a given recipe exists in the database and returns a flag
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> ExistsByIdAsync(string id);
+
+        /// <summary>
         /// Gets a Recipe By id (including recipe Owner, recipe Steps, Category, Recipe Likes, Recipe Meals, Recipe Ingredients + their categories + their measures + their specifications)
         /// </summary>
         /// <param name="id"></param>
@@ -31,6 +38,21 @@
         /// <param name="recipe"></param>
         /// <returns></returns>
         Task UpdateAsync(Recipe recipe);
+
+        /// <summary>
+        /// Soft deletes a single recipe by setting its boolean property IsDeleted to true. If accepted Recipe is null, throws an ArgumentNullException.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        Task Delete(Recipe recipe);
+
+        /// <summary>
+        /// Soft deletes a collection of recipes by setting its boolean property IsDeleted to true. Does not delete any nested entities or properties of the recipe itself.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteAllByOwnerIdAsync(string userId);
 
         
     }

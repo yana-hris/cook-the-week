@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
@@ -12,7 +11,8 @@
     using Interfaces;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.ExceptionMessagesConstants.InvalidOperationExceptionMessages;
+    using static Common.ExceptionMessagesConstants;
+    using Microsoft.EntityFrameworkCore;
 
     public class UserService : IUserService
     {
@@ -20,17 +20,19 @@
         private readonly IRecipeRepository recipeRepository;
         private readonly IRecipeService recipeService;
         private readonly IEmailSender emailSender;
+        private readonly IMealPlanService mealPlanService;
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         
         public UserService(IUserRepository userRepository,
             IRecipeRepository recipeRepository,
             IRecipeService recipeService,
             IEmailSender emailSender,
+            IMealPlanService mealPlanService,
             IFavouriteRecipeRepository favouriteRecipeRepository)
         {
             this.userRepository = userRepository;
             this.recipeRepository = recipeRepository;
-            this.recipeService = recipeService;
+            this.mealPlanService = mealPlanService;
             this.emailSender = emailSender;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
         }
@@ -106,37 +108,24 @@
             return result;
         }
 
+        /// <summary>
+        /// Deletes the user and all user data: meal plans (and related meals), added recipes, favourite recipes.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task DeleteUserAndUserDataAsync(string userId)
         {
             // Delete related data first
-            ICollection<Recipe> userRecipes = await this.recipeRepository.GetAllByUserIdAsync(userId);
-
-            foreach (var recipe in userRecipes)
-            {
-                // Assign a pre-defined "Dleted" user id to existing use recipes
-                recipe.OwnerId = Guid.Parse(DeletedUserId.ToLower());
-                await this.recipeService.DeleteByIdAsync(recipe.Id.ToString(), userId, false);
-            }
-
-            ICollection<MealPlan> userMealPlans = await this.dbContext.MealPlans
-                .Where(mp => mp.OwnerId.ToString() == userId)
-                .ToListAsync();
-
-            foreach (var mealPlan in userMealPlans)
-            {
-                await this.mealPlanService.DeleteById(mealPlan.Id.ToString());
-            }
-
+            await this.mealPlanService.DeleteAllByUserIdAsync(userId);
+            await this.recipeService.DeleteAllByUserIdAsync(userId);
             await this.favouriteRecipeRepository.DeleteAllByUserIdAsync(userId);
 
             var user = await userRepository.GetUserByIdAsync(userId);
+
             if (user != null)
             {
                 await userRepository.DeleteAsync(user);
             }
-
-            await this.dbContext.SaveChangesAsync();
-
         }
 
         /// <summary>
@@ -149,28 +138,63 @@
         }
 
         /// <summary>
-        /// Returns a collection of all users, registered in the database
+        /// Returns a collection of UserAllViewModel which contains all users, registered in the database
         /// </summary>
         /// <returns>A collection of UserAllViewModel</returns>
         public async Task<ICollection<UserAllViewModel>> AllAsync()
         {
-            ICollection<UserAllViewModel> users = this.userRepository
+            ICollection<UserAllViewModel> users = await this.userRepository
                 .GetAllQuery()
                 .Select(u => new UserAllViewModel()
                 {
                     Id = u.Id.ToString(),
                     Username = u.UserName,
-                    Email = u.Email,
-                    TotalRecipes = this.recipeService.MineCountAsync(u.Id.ToString()),
-                    //TotalMealPlans = this.mealPlanService.MineCountAsync(u.Id.ToString())
-                    // TODO: after adding mealPlanRepository + rewrite service => then uncomment
+                    Email = u.Email
 
-                }).ToList();
+                }).ToListAsync();
+
+            foreach (var user in users) 
+            {
+                user.TotalRecipes = await this.recipeService.MineCountAsync(user.Id.ToString());
+                user.TotalMealPlans = await this.mealPlanService.MineCountAsync(user.Id);
+            }
 
             return users;
-
         }
 
+        public async Task<string> GenerateTokenForEmailConfirmationAsync(ApplicationUser user)
+        {
+            if (user != null)
+            {
+                string? token = await this.userRepository.GenerateEmailConfirmationTokenAsync(user);
 
+                if (token == null)
+                {
+                    throw new InvalidOperationException(InvalidOperationExceptionMessages.TokenGenerationUnsuccessfullExceptionMessage);
+                }
+            }
+
+            throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);
+        }
+
+       
+        /// <inheritdoc/>
+        public async Task DeleteUserAsync(ApplicationUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);
+            }
+
+            try
+            {
+                await this.userRepository.DeleteAsync(user);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(InvalidOperationExceptionMessages
+                    .UserUnsuccessfullyDeletedExceptionMessage);
+            }
+        }
     }
 }

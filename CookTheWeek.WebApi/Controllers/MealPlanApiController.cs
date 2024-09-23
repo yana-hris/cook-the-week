@@ -15,17 +15,20 @@
     public class MealPlanApiController : ControllerBase
     {
         private readonly IRecipeService recipeService;
-        private readonly IUserRepository userRepository;
+        private readonly IMealPlanService mealPlanService;
         private readonly IUserService userService;
+        private readonly IValidationService validationService;
         private readonly ILogger<MealPlanApiController> logger;
 
         public MealPlanApiController(IRecipeService recipeService,
-            IUserRepository userRepository,
+            IMealPlanService mealPlanService,
+            IValidationService validationService,
             IUserService userService,
             ILogger<MealPlanApiController> logger)
         {
             this.recipeService = recipeService;
-            this.userRepository = userRepository;
+            this.validationService = validationService;
+            this.mealPlanService = mealPlanService;
             this.userService = userService;
             this.logger = logger;
         }
@@ -42,9 +45,18 @@
                 logger.LogWarning($"Invalid model received!");
                 return BadRequest(ModelState);
             }
+
+            // Custom validation
+            var validationResult = await this.validationService.ValidateMealPlanServiceModelAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+
+            }
+
             try
             {
-                var user = await this.userRepository.GetUserByIdAsync(model.UserId);
+                
             }
             catch (RecordNotFoundException ex)
             {
@@ -54,7 +66,6 @@
 
             ICollection<MealServiceModel> recipes = model.Meals;
             MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel();
-            mealPlanModel.Name = "Your Meal Plan";
 
             foreach (var recipe in recipes)
             {

@@ -5,7 +5,7 @@
     public interface IMealplanRepository
     {
         /// <summary>
-        /// Gets a queryable collection of all mealplans in the database
+        /// Returns a queryable collection of all mealplans in the database
         /// </summary>
         /// <returns>A queryable collection of MealPlan</returns>
         IQueryable<MealPlan> GetAllQuery();
@@ -24,9 +24,26 @@
         /// <returns>the newly created MealPlan Id as string</returns>
         Task<string> AddAsync(MealPlan mealPlan);
 
-        Task UpdateAsync(MealPlan newMealPlan);
+        /// <summary>
+        /// Updates an existing meal plan
+        /// </summary>
+        /// <param name="mealPlan"></param>
+        /// <returns></returns>
+        Task UpdateAsync(MealPlan mealPlan);
 
-        Task DeleteByIdAsync(string id);
+        /// <summary>
+        /// Deletes a single meal plan
+        /// </summary>
+        /// <param name="mealPlan"></param>
+        /// <returns></returns>
+        Task DeleteByIdAsync(MealPlan mealPlan);
+
+        /// <summary>
+        /// Deletes a collection of meal plans
+        /// </summary>
+        /// <param name="mealPlans"></param>
+        /// <returns></returns>
+        Task DeleteAllAsync(ICollection<MealPlan> mealPlans);
 
     }
 }

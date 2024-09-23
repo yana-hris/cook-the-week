@@ -8,6 +8,9 @@
             public const string RecipeSuccessfullySavedMessage = "Your recipe was successfully added!";
             public const string RecipeOwnerErrorMessage = "You must be the owner of this recipe to edit or delete it";
 
+            // Id
+            public const string InvalidRecipeIdErrorMessage = "Invalid recipeId";
+                        
             // Title
             public const int TitleMinLength = 3;
             public const int TitleMaxLength = 100;
@@ -147,7 +150,7 @@
         }
 
         public static class ApplicationUser
-        {
+        {            
             public const int UsernameMinLength = 3;
             public const int UsernameMaxLength = 50;
 
@@ -160,6 +163,8 @@
             public const string UsernameAlreadyExistsErrorMessage = "User with such username already exists";
             public const string EmailAlreadyExistsErrorMessage = "User with such email already exists";
             public const string AlreadyHaveAccountErrorMessage = "Are you sure you don`t already have an account? Go to <a href=\"/User/Login\">Login</a>";
+            public const string UserNotFoundErrorMessage = "User with such id does not exist!";
+            public const string InvalidUserIdErrorMessage = "The current user has another user id!";
         }
 
         public static class Meal

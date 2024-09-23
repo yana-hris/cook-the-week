@@ -17,10 +17,7 @@
     using Web.ViewModels.RecipeIngredient;
     using Web.ViewModels.Step;
 
-    using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
-    using static Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
-    using static Common.ExceptionMessagesConstants.UnauthorizedExceptionMessages;
-    using static Common.ExceptionMessagesConstants.InvalidCastExceptionMessages;
+    using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
     using CookTheWeek.Web.ViewModels.Interfaces;
@@ -72,7 +69,7 @@
 
                 if (!recipesQuery.Any())
                 {
-                    throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
+                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
                 }
                 
                 if (userId != String.Empty)
@@ -168,11 +165,10 @@
             }
             catch (Exception ex)
             {
-                throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, ex);
+                throw new DataRetrievalException(DataRetrievalExceptionMessages.RecipeDataRetrievalExceptionMessage, ex);
             }
         }
        
-
         /// <inheritdoc/>
         public async Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin)
         {
@@ -194,14 +190,13 @@
             await this.recipeRepository.UpdateAsync(recipe);
             MapRecipeModelToRecipe(model, recipe);
             await AddOrUpdateSteps(model, model.Steps);
-        }        
+        }
 
-
+        /// <inheritdoc/>
         public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
         {
             
             Recipe recipe = await this.recipeRepository.GetByIdAsync(id);
-
             
             RecipeDetailsViewModel model = new RecipeDetailsViewModel()
             {
@@ -229,24 +224,31 @@
             };
 
             return model;
-
         }
-       
+
+        /// <inheritdoc/>
         public async Task DeleteByIdAsync(string id, string userId, bool isAdmin)
         {
             Recipe recipeToDelete = await this.recipeRepository.GetByIdAsync(id);
 
             if (recipeToDelete.OwnerId.ToString().ToLower() != userId && !isAdmin)
             {
-                throw new UnauthorizedUserException(RecipeDeleteAuthorizationMessage);
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
+            }
+
+            bool hasMealPlans = await IsIncludedInMealPlansAsync(recipeToDelete.Id.ToString());
+
+            if (hasMealPlans)
+            {
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
             }
 
             // SOFT Delete
-            recipeToDelete.IsDeleted = true;
+            await this.recipeRepository.Delete(recipeToDelete);
 
             // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
-            await this.stepRepository.DeleteAllAsync(id);
-            await this.recipeIngredientRepository.DeleteAllAsync(id);
+            await this.stepRepository.DeleteAllByRecipeIdAsync(id);
+            await this.recipeIngredientRepository.DeleteAllByRecipeIdAsync(id);
 
             if(recipeToDelete.FavouriteRecipes.Any())
             {
@@ -255,17 +257,25 @@
            
             if(recipeToDelete.Meals.Any()) 
             {
-                await this.mealRepository.DeleteAllByRecipeIdAsync(id);
+                await this.mealService.DeleteAllByRecipeIdAsync(id);
             }
 
         }
+
+        /// <inheritdoc/>
+        public async Task DeleteAllByUserIdAsync(string userId)
+        {
+            await this.recipeRepository.DeleteAllByOwnerIdAsync(userId);
+        }
+
+        /// <inheritdoc/>
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin)
         {
             Recipe recipe = await this.recipeRepository.GetByIdAsync(id);            
            
             if (userId != recipe.OwnerId.ToString().ToLower() && !isAdmin)
             {
-                throw new UnauthorizedUserException(RecipeEditAuthorizationExceptionMessage);
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeEditAuthorizationExceptionMessage);
             }
 
             RecipeEditFormModel model = new RecipeEditFormModel()
@@ -294,7 +304,8 @@
 
             return model;
         }
-        
+
+        /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId)
         {
             var recipes = await this.recipeRepository
@@ -304,7 +315,7 @@
 
             if (!recipes.Any())
             {
-                throw new RecordNotFoundException(NoRecipesFoundExceptionMessage, null);
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
 
             try
@@ -333,24 +344,28 @@
             }
             catch (Exception ex)
             {
-                throw new DataRetrievalException("An error occurred while retrieving recipes.", ex);
+                throw new DataRetrievalException(DataRetrievalExceptionMessages.RecipeDataRetrievalExceptionMessage, ex);
             }
                 
         }
-        
+
+        /// <inheritdoc/>
         public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
         {
             return await this.mealRepository.GetAllQuery()
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower() && 
-                       m.IsCooked == false)
+                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
                 .AnyAsync();
         }
+
+        /// <inheritdoc/>
         public async Task<int?> AllCountAsync()
         {
             return await this.recipeRepository
                 .GetAllQuery()
                 .CountAsync();
         }
+
+        /// <inheritdoc/>
         public async Task<int?> MineCountAsync(string userId)
         {
             return await this.recipeRepository
@@ -359,21 +374,25 @@
                 .CountAsync();
 
         }
-        // Move to mealplan viemodel factory
+
+
+        // CreateMealViewModel ??
         public async Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
         {
-            return await this.recipeRepository.GetAllQuery()
-                .Where(r => r.Id.ToString().ToLower() == recipeId.ToLower())
-                .Select(r => new MealAddFormModel()
-                {
-                    RecipeId = r.Id.ToString(),
-                    Title = r.Title,
-                    Servings = r.Servings,
-                    ImageUrl = r.ImageUrl,
-                    CategoryName = r.Category.Name,
-                    Date = DateTime.Now.ToString(MealDateFormat),
-                })
-                .FirstAsync();
+            Recipe recipe = await this.recipeRepository.GetByIdAsync(recipeId);
+
+
+            MealAddFormModel model = new MealAddFormModel()
+            {
+                RecipeId = recipe.Id.ToString(),
+                Title = recipe.Title,
+                Servings = recipe.Servings,
+                ImageUrl = recipe.ImageUrl,
+                CategoryName = recipe.Category.Name,
+                Date = DateTime.Now.ToString(MealDateFormat),
+            };
+
+            return model;
         }
 
         /// <inheritdoc/>
@@ -424,6 +443,52 @@
             return allUserRecipes;
         }
 
+        /// <inheritdoc/>
+        public Task<bool> IsLikedByUserAsync(string userId, string recipeId)
+        {
+            return this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+        }
+
+        /// <inheritdoc/>
+        public async Task<int?> GetAllRecipeLikesAsync(string recipeId)
+        {
+            return await this.favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
+        }
+
+        /// <inheritdoc/>
+        public async Task<ICollection<RecipeAllViewModel>> AllLikedByUserAsync(string userId)
+        {
+            ICollection<FavouriteRecipe> likedRecipes = await
+                this.favouriteRecipeRepository.GetAllByUserIdAsync(userId);
+
+            var model = likedRecipes
+                .Select(fr => new RecipeAllViewModel()
+                {
+                    Id = fr.Recipe.Id.ToString(),
+                    ImageUrl = fr.Recipe.ImageUrl,
+                    Title = fr.Recipe.Title,
+                    Description = fr.Recipe.Description,
+                    Category = new RecipeCategorySelectViewModel()
+                    {
+                        Id = fr.Recipe.CategoryId,
+                        Name = fr.Recipe.Category.Name
+                    },
+                    Servings = fr.Recipe.Servings,
+                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
+                }).ToList();
+
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public async Task<int?> GetAllRecipeMealsCountAsync(string recipeId)
+        {
+            return await this.mealRepository
+                .GetAllQuery()
+                .Select(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .CountAsync();
+        }
+
         // Helper methods for improved code reusability
         private Recipe MapNonCollectionPropertiesToRecipe(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
@@ -456,11 +521,11 @@
             }
             else if (recipe is RecipeEditFormModel recipeEditFormModel)
             {
-                await this.stepRepository.UpdateAllAsync(recipeEditFormModel.Id, newSteps);
+                await this.stepRepository.UpdateAllByRecipeIdAsync(recipeEditFormModel.Id, newSteps);
             }
             else
             {
-                throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
+                throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
             }
         }
 
@@ -488,13 +553,13 @@
                 else
                 {
                     // such ingredient does not exist in DB => to do => server-side error 
-                    throw new RecordNotFoundException(IngredientNotFoundExceptionMessage, null);
+                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.IngredientNotFoundExceptionMessage, null);
                 }
             }
 
             if (recipe is RecipeEditFormModel existingRecipe)
             {
-                await this.recipeIngredientRepository.UpdateAllAsync(existingRecipe.Id, validRecipeIngredients);
+                await this.recipeIngredientRepository.UpdateAllByRecipeIdAsync(existingRecipe.Id, validRecipeIngredients);
             }
             else if(recipe is RecipeAddFormModel)
             {
@@ -502,7 +567,7 @@
             }
             else
             {
-                throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
+                throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
             }
         }
 
@@ -555,7 +620,7 @@
                 return recipe;
             }
 
-            throw new InvalidCastException(RecipeAddOrEditModelUnsuccessfullyCasted);
+            throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
         }
 
         
@@ -575,46 +640,7 @@
                 }).ToList();
         }
 
-        public Task<bool> IsLikedByUserAsync(string userId, string recipeId)
-        {
-            return this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
-        }
-
-        public async Task<int?> GetAllRecipeLikesAsync(string recipeId)
-        {
-            return await this.favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
-        }
-
-        public async Task<ICollection<RecipeAllViewModel>> AllLikedByUserAsync(string userId)
-        {
-            ICollection<FavouriteRecipe> likedRecipes = await
-                this.favouriteRecipeRepository.GetAllByUserIdAsync(userId);
-
-            var model = likedRecipes
-                .Select(fr => new RecipeAllViewModel()
-                {
-                    Id = fr.Recipe.Id.ToString(),
-                    ImageUrl = fr.Recipe.ImageUrl,
-                    Title = fr.Recipe.Title,
-                    Description = fr.Recipe.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = fr.Recipe.CategoryId,
-                        Name = fr.Recipe.Category.Name
-                    },
-                    Servings = fr.Recipe.Servings,
-                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
-                }).ToList();
-
-            return model;
-        }
-
-        public async Task<int?> GetAllRecipeMealsCountAsync(string recipeId)
-        {
-            return await this.mealRepository
-                .GetAllQuery()
-                .Select(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
-                .CountAsync();
-        }
+        
+        
     }
 }

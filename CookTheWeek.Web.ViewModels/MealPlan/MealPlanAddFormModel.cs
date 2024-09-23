@@ -14,11 +14,11 @@ public class MealPlanAddFormModel : IMealPlanFormModel
         this.Meals = new List<MealAddFormModel>();
         this.StartDate = DateTime.Now;  
     }
-    public DateTime StartDate { get; set; }
 
     [Required(ErrorMessage = NameRequiredErrorMessage)]
     [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthErrorMessage)]
     public string Name { get; set; } = null!;
+    public DateTime StartDate { get; set; }
 
     [Required]
     public IList<MealAddFormModel> Meals { get; set; } = null!;

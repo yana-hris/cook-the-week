@@ -1,6 +1,7 @@
 ﻿
 namespace CookTheWeek.Data.Repositories
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +16,15 @@ namespace CookTheWeek.Data.Repositories
         private readonly CookTheWeekDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public UserRepository(CookTheWeekDbContext dbContext,
+            IHttpContextAccessor httpContextAccessor,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.dbContext = dbContext;
+            this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -208,6 +212,13 @@ namespace CookTheWeek.Data.Repositories
         {
             return this.dbContext.Users.AsQueryable();
                 
+        }
+
+        /// <inheritdoc/>
+        public string? GetCurrentUserId()
+        {
+            var user = httpContextAccessor.HttpContext?.User;
+            return this.userManager.GetUserId(user);
         }
     }
 }

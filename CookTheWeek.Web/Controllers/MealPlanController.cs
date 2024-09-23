@@ -43,7 +43,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
-        [IgnoreAntiforgeryToken]
+        [IgnoreAntiforgeryToken] //TODO: Refacor and move model creation to viewmodel factory
         public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel serviceModel)
         {
             if (!ModelState.IsValid)
@@ -52,47 +52,47 @@ namespace CookTheWeek.Web.Controllers
                 return BadRequest();
             }
 
-            string userId = serviceModel.UserId;
-            bool userExists = await this.userService.ExistsByIdAsync(userId);
+            //string userId = serviceModel.UserId;
+            ////bool userExists = await this.userService.ExistsByIdAsync(userId);
 
-            if (!userExists || userId != User.GetId())
-            {
-                ModelState.AddModelError(nameof(serviceModel.UserId), "Invalid User Id!");
-                logger.LogError($"User with ID {serviceModel.UserId} does not exist.");
-                return BadRequest(ModelState);
-            }
+            //if (!userExists || userId != User.GetId())
+            //{
+            //    ModelState.AddModelError(nameof(serviceModel.UserId), "Invalid User Id!");
+            //    logger.LogError($"User with ID {serviceModel.UserId} does not exist.");
+            //    return BadRequest(ModelState);
+            //}
 
-            ICollection<MealServiceModel> recipes = serviceModel.Meals;
-            MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel()
-            {
-                Name = "",
-                Meals = new List<MealAddFormModel>()
-            };
+            //ICollection<MealServiceModel> recipes = serviceModel.Meals;
+            //MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel()
+            //{
+            //    Name = "",
+            //    Meals = new List<MealAddFormModel>()
+            //};
 
-            foreach (var recipe in recipes)
-            {
-                try
-                {
-                    bool exists = await this.recipeService.ExistsByIdAsync(recipe.RecipeId);
+            //foreach (var recipe in recipes)
+            //{
+            //    try
+            //    {
+            //        //bool exists = await this.recipeService.ExistsByIdAsync(recipe.RecipeId);
 
-                    // there might be a case where recipe, previously added to local storage has been deleted, but still exists in local storage array
-                    if (exists)
-                    {
-                        MealAddFormModel mealModel = await this.recipeService.GetForMealByIdAsync(recipe.RecipeId);
-                        mealPlanModel.Meals.Add(mealModel);
-                    }                    
+            //        // there might be a case where recipe, previously added to local storage has been deleted, but still exists in local storage array
+            //        //if (exists)
+            //        //{
+            //        //    MealAddFormModel mealModel = await this.recipeService.GetForMealByIdAsync(recipe.RecipeId);
+            //        //    mealPlanModel.Meals.Add(mealModel);
+            //        //}                    
                    
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, $"An error occurred while processing recipe ID {recipe.RecipeId}.");
-                    return StatusCode(500, StatusCode500InternalServerErrorMessage);
-                }
-            }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        logger.LogError(ex, $"An error occurred while processing recipe ID {recipe.RecipeId}.");
+            //        return StatusCode(500, StatusCode500InternalServerErrorMessage);
+            //    }
+            //}
 
             try
             {
-                SaveMealPlanToMemoryCache(mealPlanModel);
+                //SaveMealPlanToMemoryCache(mealPlanModel);
                 string redirectUrl = Url.Action("Add", "MealPlan")!;
                 Response.Headers.Append("X-Redirect", redirectUrl);
 
@@ -140,7 +140,7 @@ namespace CookTheWeek.Web.Controllers
         {
             string userId = User.GetId();
 
-            if (string.IsNullOrEmpty(model.Name) || model.Name == DefaultMealPlanName)
+            if (model.Name == DefaultMealPlanName)
             {
                 ModelState.AddModelError(nameof(model.Name), NameRequiredErrorMessage);
             }
@@ -267,27 +267,27 @@ namespace CookTheWeek.Web.Controllers
             bool mealPlanExists = await this.mealPlanService.ExistsByIdAsync(id);
             //bool isMealPlanOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
-            if (!mealPlanExists)
-            {
-                logger.LogError($"Meal Plan with id {id} does not exist!");
-                return NotFound();
-            }
+            //if (!mealPlanExists)
+            //{
+            //    logger.LogError($"Meal Plan with id {id} does not exist!");
+            //    return NotFound();
+            //}
 
-            if (!isMealPlanOwner)
-            {
-                logger.LogError($"User with Id {userId} is not the owner of Meal Plan with id {id}");
-                return BadRequest();
-            }
+            //if (!isMealPlanOwner)
+            //{
+            //    logger.LogError($"User with Id {userId} is not the owner of Meal Plan with id {id}");
+            //    return BadRequest();
+            //}
 
-            MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
-            model.Id = null;
-            model.Name = "";
-            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
-            model.StartDate = DateTime.Today;
+            //MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
+            //model.Id = null;
+            //model.Name = "";
+            //model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
+            //model.StartDate = DateTime.Today;
 
             try
             {
-                SaveMealPlanToMemoryCache(model);                
+                //SaveMealPlanToMemoryCache(model);                
                 return RedirectToAction("Add", "MealPlan");
             }
             catch (Exception ex)
@@ -313,17 +313,16 @@ namespace CookTheWeek.Web.Controllers
             // TODO: move business loic to service and add exceptions for owner, etc.
             //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
 
-            if (!isOwner)
-            {
-                TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
-                logger.LogWarning("The user id of the meal plan owner and current user do not match!");
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
-            }
+            //if (!isOwner)
+            //{
+            //    TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
+            //    logger.LogWarning("The user id of the meal plan owner and current user do not match!");
+            //    return Redirect(returnUrl ?? "/MealPlan/Mine");
+            //}
 
             try
             {
-                MealPlanAddFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
-                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate); // ensure the plan start date stays the same
+                MealPlanEditFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
                 
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
@@ -336,9 +335,9 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MealPlanAddFormModel model, string? returnUrl)
+        public async Task<IActionResult> Edit(MealPlanEditFormModel model, string? returnUrl)
         {
-            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id!);
+            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id);
 
             if (returnUrl == null)
             {
@@ -356,12 +355,12 @@ namespace CookTheWeek.Web.Controllers
             string userId = User.GetId();
             //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(model.Id!, userId);
 
-            if (!isOwner)
-            {
-                TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
-                logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
-            }
+            //if (!isOwner)
+            //{
+            //    TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
+            //    logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
+            //    return Redirect(returnUrl ?? "/MealPlan/Mine");
+            //}
 
             if (model.Name == DefaultMealPlanName)
             {

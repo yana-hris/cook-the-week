@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using Common.HelperMethods;
+
     using static Common.EntityValidationConstants.Meal;
     using static Common.EntityValidationConstants.Recipe;
 
@@ -14,7 +15,8 @@
             this.SelectServingOptions = ServingsOptions;
         }
 
-        public string? Id { get; set; }
+        [Required]
+        public int Id { get; set; }
 
         [Required]
         public string RecipeId { get; set; } = null!;
@@ -24,7 +26,7 @@
 
         [Required(ErrorMessage = MealServingsRequiredErrorMessage)]
         [Range(MinServingSize, MaxServingSize, ErrorMessage = MealServingsRangeErrorMessage)]
-        public int? Servings { get; set; }
+        public int Servings { get; set; }
 
         [Required]
         [Url]

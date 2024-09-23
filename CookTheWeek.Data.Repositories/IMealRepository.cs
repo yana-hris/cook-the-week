@@ -1,6 +1,8 @@
 ﻿
 namespace CookTheWeek.Data.Repositories
 {
+    using System.Collections.Generic;
+
     using CookTheWeek.Data.Models;
 
     public interface IMealRepository
@@ -15,13 +17,20 @@ namespace CookTheWeek.Data.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Meal</returns>
-        Task<Meal> GetByIdAsync(int id);
+        Task<Meal?> GetByIdAsync(int id);
 
         /// <summary>
-        /// Deletes all meals, cooked by a certain recipe
+        /// Adds a collection of meals to the database
+        /// </summary>
+        /// <param name="newMeals"></param>
+        /// <returns></returns>
+        Task AddAllAsync(ICollection<Meal> meals);
+
+        /// <summary>
+        /// Deletes all meals from a collection
         /// </summary>
         /// <param name="recipeId"></param>
-        Task DeleteAllByRecipeIdAsync(string recipeId);
-       
+        Task DeleteAll(ICollection<Meal> meals);
+        
     }
 }

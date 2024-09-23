@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Interfaces
 {
+    using CookTheWeek.Data.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     
@@ -30,7 +31,7 @@
         Task EditAsync(RecipeEditFormModel model);
 
         /// <summary>
-        /// Returns a Detailed Viewmodel for a specific recipe
+        /// Creates a Detailed Viewmodel for a specific recipe
         /// </summary>
         /// <param name="id">Recipe Id</param>
         /// <returns>RecipeDetailsViewModel</returns>
@@ -44,19 +45,31 @@
         /// <returns>true or false</returns>
         Task<bool> IsLikedByUserAsync(string userId, string recipeId); //Ok
 
-        // TODO: move to recipeFactory
+        /// <summary>
+        /// Creates a RecipeEditFormModel or throws xceptions if recipe is not found or is not owned by the current user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userId"></param>
+        /// <param name="isAdmin"></param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedUserException"></exception>
+        /// <exception cref="RecordNotFoundException">rethrown</exception>
         Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
 
-        
+
         /// <summary>
-        /// Deletes a specific recipe and all its nested entities: recipe ingredients, recipe steps, meals and likes
+        /// Deletes a specific (soft delete) recipe and all its nested nested and connected entities (hard delete): recipe ingredients, recipe steps, meals and likes. Throws an exception if the recipe is included in Meal Plans.
         /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="UnauthorizedUserException"></exception>
         Task DeleteByIdAsync(string id, string userId, bool isAdmin);
 
         /// <summary>
         /// Returns a viewmodel collection of all recipes, added by a specific user
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        /// <exception cref="DataRetrievalException"></exception>
         Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId); // Ok
         
         /// <summary>
@@ -73,10 +86,10 @@
         Task<int?> AllCountAsync();
 
         /// <summary>
-        /// 
+        /// Returns a flag indicating if a recipe is included in any meal plans or not
         /// </summary>
         /// <param name="recipeId"></param>
-        /// <returns></returns>
+        /// <returns>true or false</returns>
         Task<bool> IsIncludedInMealPlansAsync(string recipeId);
 
         /// <summary>
@@ -108,6 +121,13 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>int?</returns>
-        Task<int?> GetAllRecipeMealsCountAsync(string recipeId); 
+        Task<int?> GetAllRecipeMealsCountAsync(string recipeId);
+
+        /// <summary>
+        /// Deletes all recipes that a user has added
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task DeleteAllByUserIdAsync(string userId);
     }
 }

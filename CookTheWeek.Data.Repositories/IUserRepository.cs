@@ -13,6 +13,12 @@
         Task<bool> ExistsByIdAsync(string id);
 
         /// <summary>
+        /// Gets the currently logged in user id. Does not throw any exceptions. Posibble null reference.
+        /// </summary>
+        /// <returns>the current user id or null</returns>
+        Task<string?> GetCurrentUserId();
+
+        /// <summary>
         /// Gets the Application user if exists by email
         /// </summary>
         /// <param name="email"></param>

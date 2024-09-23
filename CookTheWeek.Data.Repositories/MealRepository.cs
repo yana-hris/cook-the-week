@@ -19,29 +19,37 @@
         {
             return this.dbContext
                 .Meals
+                .AsNoTracking()
                 .AsQueryable();
         }
 
         /// <inheritdoc/>
-        public async Task<Meal> GetByIdAsync(int id)
+        public async Task<Meal?> GetByIdAsync(int id)
         {
-            Meal meal = await this.dbContext
+            Meal? meal = await this.dbContext
                 .Meals
-                .FirstAsync(m => m.Id == id);
+                .Where(m => m.Id == id)
+                    .Include(m => m.Recipe)
+                        .ThenInclude(r => r.RecipesIngredients)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             return meal;
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAllByRecipeIdAsync(string recipeId)
+        public async Task AddAllAsync(ICollection<Meal> meals)
         {
-            ICollection<Meal> mealsToDelete = await this.dbContext
-                .Meals
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
-                .ToListAsync();
-
-            this.dbContext.RemoveRange(mealsToDelete);
+            await this.dbContext.Meals.AddRangeAsync(meals);
             await this.dbContext.SaveChangesAsync();
         }
+
+        /// <inheritdoc/>
+        public async Task DeleteAll(ICollection<Meal> meals)
+        {
+            this.dbContext.RemoveRange(meals);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        
     }
 }

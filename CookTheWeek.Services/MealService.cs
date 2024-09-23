@@ -15,8 +15,8 @@
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.IngredientHelper;
     using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
+    using System.Globalization;
 
-    // TODO: Move dbcontext to IMealRepository
     public class MealService : IMealService
     {
         private readonly IMealRepository mealRepository;
@@ -31,10 +31,13 @@
             this.recipeRepository = recipeRepository;
             this.recipeIngredientService = recipeIngredientService; 
         }
-        public async Task<MealDetailsViewModel> Details(int mealId)
+
+       
+        /// <inheritdoc/>
+        public async Task<MealDetailsViewModel> GetForDetailsAsync(int mealId)
         {
             // Get Meal from mealRepo by Id
-            Meal meal = await this.mealRepository.GetByIdAsync(mealId);
+            Meal? meal = await this.mealRepository.GetByIdAsync(mealId);
 
             if (meal == null)
             {
@@ -109,6 +112,48 @@
             model.IngredientsByCategories = ingredientsByCategories;
             return model;
         }
-       
+
+        /// <inheritdoc/>
+        public async Task DeleteAllByMealPlanIdAsync(string mealplanId)
+        {
+            var mealsToDelete = await this.mealRepository.GetAllQuery()
+                .Where(m => m.MealPlanId.ToString().ToLower() == mealplanId.ToLower())
+                .ToListAsync();
+
+            await this.mealRepository.DeleteAll(mealsToDelete);
+
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteAllByRecipeIdAsync(string recipeId)
+        {
+            var mealsToDelete = await this.mealRepository
+                .GetAllQuery()
+                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .ToListAsync();
+
+            await this.mealRepository.DeleteAll(mealsToDelete);
+
+        }
+
+        /// <inheritdoc/>
+        public async Task AddAllAsync(IList<MealAddFormModel> meals)
+        {
+            ICollection<Meal> newMeals = new List<Meal>();
+
+            foreach (var meal in meals)
+            {
+                Meal newMeal = new Meal()
+                {
+                    RecipeId = Guid.Parse(meal.RecipeId),
+                    ServingSize = meal.Servings,
+                    CookDate = DateTime.ParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture),
+                };
+
+                newMeals.Add(newMeal);
+            }
+
+            await this.mealRepository.AddAllAsync(newMeals);
+        }
     }
 }

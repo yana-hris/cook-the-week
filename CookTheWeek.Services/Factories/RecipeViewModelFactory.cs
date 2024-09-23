@@ -96,7 +96,7 @@
             RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
             model.IsLikedByUser = await this.recipeService.IsLikedByUserAsync(userId, recipeId);
             model.LikesCount = await this.recipeService.GetAllRecipeLikesAsync(recipeId);
-            model.CookedCount = this.recipeService.GetAllRecipeMealsCount(recipeId);
+            model.CookedCount = await this.recipeService.GetAllRecipeMealsCountAsync(recipeId);
 
             return model;
         }

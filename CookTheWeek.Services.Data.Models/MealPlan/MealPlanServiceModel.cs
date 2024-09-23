@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+
     public class MealPlanServiceModel
     {
         public MealPlanServiceModel()
@@ -10,9 +12,8 @@
         }
 
         [Required]
+        [StringLength(GuidLength)]
         public string UserId { get; set; } = null!;
-
-        [Required]
         public ICollection<MealServiceModel> Meals { get; set; }
     }
 }

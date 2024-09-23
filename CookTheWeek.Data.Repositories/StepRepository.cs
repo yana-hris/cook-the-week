@@ -14,12 +14,17 @@
         {
             this.dbContext = dbContext;
         }
+
+        
+        /// <inheritdoc/>
         public async Task AddAllAsync(ICollection<Step> steps)
         {
             await this.dbContext.AddRangeAsync(steps);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task UpdateAllAsync(string recipeId, ICollection<Step> steps)
+
+        /// <inheritdoc/>
+        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps)
         {
             var oldSteps = await this.dbContext.Steps
                 .Where(s => s.RecipeId.ToString().ToLower() == recipeId.ToLower())
@@ -30,7 +35,9 @@
 
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task DeleteAllAsync(string recipeId)
+
+        /// <inheritdoc/>
+        public async Task DeleteAllByRecipeIdAsync(string recipeId)
         {
             var stepsToDelete = await this.dbContext
                 .Steps

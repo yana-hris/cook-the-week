@@ -173,16 +173,6 @@
             this.dbContext.Ingredients.Remove(ingredient);
             await this.dbContext.SaveChangesAsync();
         }
-        public async Task<int> GetIdByNameAsync(string name)
-        {
-            return await this.dbContext.Ingredients
-                .Where(i => i.Name == name)
-                .Select(i => i.Id)
-                .FirstAsync();
-        }
-
-        
-
 
     }
 }

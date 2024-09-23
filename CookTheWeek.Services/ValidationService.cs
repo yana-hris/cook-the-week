@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Vlidation;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
@@ -119,9 +120,51 @@
 
         }
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel)
+        {
+            var result = new ValidationResult();
 
+            string userId = serviceModel.UserId;
+            var user = await this.userRepository.ExistsByIdAsync(userId);
 
+            // Validate userId exists in the database;
+            if (!user)
+            {
+                AddValidationError(result, nameof(serviceModel.UserId), UserNotFoundErrorMessage);
+            }
 
+            // Validate the currently logged in user is the same
+            string? currentUserId = await this.userRepository.GetCurrentUserId();   
+
+            if (!String.IsNullOrEmpty(currentUserId) && userId.ToLower() != currentUserId.ToLower())
+            {
+                AddValidationError(result, nameof(serviceModel.UserId), InvalidUserIdErrorMessage);
+            }
+
+            // Validate recipe id`s are valid recipes
+            var meals = serviceModel.Meals;
+
+            for (int i = 0; i < meals.Count; i++)
+            {
+                var meal = serviceModel.Meals.ElementAt(i);
+                bool recipeIdIsValid = await this.recipeRepository.ExistsByIdAsync(meal.RecipeId);
+
+                if (!recipeIdIsValid)
+                {
+                    string key = $"Meals[{i}].RecipeId"; // sub-entry
+                    AddValidationError(result, key, InvalidRecipeIdErrorMessage);
+                }
+            }
+           
+            return result;
+        }
 
         /// <summary>
         /// Set a validation error with a message and make validation result false. If the validation error key alreday exists, the message will not be overwritten
@@ -137,5 +180,6 @@
                 result.Errors.Add(key, errorMessage);
             }
         }
+
     }
 }

@@ -14,12 +14,12 @@
         /// </summary>
         /// <param name="recipeId">Needed for the old steps to be deleted</param>
         /// <param name="steps">The new steps to add</param>
-        Task UpdateAllAsync(string recipeId, ICollection<Step> steps);
+        Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps);
 
         /// <summary>
         /// Deletes all steps of a Recipe
         /// </summary>
         /// <param name="recipeId">recipeId</param>
-        Task DeleteAllAsync(string recipeId);
+        Task DeleteAllByRecipeIdAsync(string recipeId);
     }
 }

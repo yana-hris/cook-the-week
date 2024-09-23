@@ -27,7 +27,6 @@
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUserRepository userRepository;
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly IEmailSender emailSender;
@@ -37,7 +36,6 @@
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
-                              IUserRepository userRepository,
                               IUserService userService,
                               IMemoryCache memoryCache,
                               IEmailSender emailSender,
@@ -49,7 +47,6 @@
             this.userService = userService;
             this.memoryCache = memoryCache;
             this.emailSender = emailSender;
-            this.userRepository = userRepository;
             this.validationService = validationService;
             this.logger = logger;
         }
@@ -80,29 +77,55 @@
             try
             {
                 user = await this.userService.CreateUserAsync(model);
-                var token = await userRepository.GenerateEmailConfirmationTokenAsync(user);
+
+                // Try to generate the email confirmation token
+                var token = await userService.GenerateTokenForEmailConfirmationAsync(user);
+
+                // Generate callback URL and send the confirmation email
                 var callbackUrl = Url.Action(nameof(ConfirmedEmail), "User", new { userId = user.Id, code = token }, Request.Scheme);
                 await this.emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                // If everything is successful, redirect to the confirmation info page
+                return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
             }
             catch (InvalidOperationException ex)
             {
-                logger.LogError($"");
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View(model);
+                // Handle token generation failure
+                logger.LogError($"Token generation failed. Error message: {ex.Message}. Error stacktrace: {ex.StackTrace}");
             }
             catch (SmtpException ex)
             {
-                logger.LogError($"Email confirmation failed. Error message: {ex.Message}; Error StackTrace: {ex.StackTrace}");
-                await userRepository.DeleteAsync(user);
-                return RedirectToAction("ConfirmationFailed");
+                // Handle email sending failure
+                logger.LogError($"Email sending failed. Error message: {ex.Message}. Error stacktrace: {ex.StackTrace}");
             }
             catch (Exception ex)
             {
-                logger.LogError($"Unexpected error occured, error message: {ex.Message}, error stacktrace: {ex.StackTrace}");
+                // Catch any unexpected errors
+                logger.LogError($"Unexpected error occurred, error message: {ex.Message}, error stacktrace: {ex.StackTrace}");
                 return RedirectToAction("InternalServerError", "Home");
             }
+            finally
+            {
+                // Always try to delete the user if something failed
+                if (user != null)
+                {
+                    try
+                    {
+                        await userService.DeleteUserAsync(user);
+                    }
+                    catch (ArgumentNullException deleteEx)
+                    {
+                        logger.LogError($"User deletion failed because user was NULL. Error message: {deleteEx.Message}, Error StackTrace: {deleteEx.StackTrace}");
+                    }
+                    catch (InvalidOperationException deleteEx)
+                    {
+                        logger.LogError($"User deletion failed. Error message: {deleteEx.Message}, Error StackTrace: {deleteEx.StackTrace}");
+                    }
+                }
 
-            return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
+                // Always redirect to ConfirmationFailed if there was any failure
+                return RedirectToAction("ConfirmationFailed");
+            }
         }
         
         [HttpGet]

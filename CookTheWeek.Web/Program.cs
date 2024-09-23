@@ -96,6 +96,7 @@ namespace CookTheWeek.Web
             builder.Services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
             builder.Services.AddScoped<IMealRepository, MealRepository>();
 
+            builder.Services.AddHttpContextAccessor();  
 
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>

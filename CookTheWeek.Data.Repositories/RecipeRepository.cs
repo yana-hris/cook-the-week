@@ -8,7 +8,8 @@
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     
-    using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class RecipeRepository : IRecipeRepository
     {
@@ -38,8 +39,7 @@
             await this.dbContext.SaveChangesAsync();
 
             return recipe.Id.ToString();
-        }
-        
+        }        
 
         /// <inheritdoc/>
         public async Task<Recipe> GetByIdAsync(string id)
@@ -64,7 +64,7 @@
 
             if (recipe == null)
             {
-                throw new RecordNotFoundException(RecipeNotFoundExceptionMessage, null);
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
             }
             
             return recipe;
@@ -76,6 +76,35 @@
         {
             this.dbContext.Update(recipe);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task Delete(Recipe recipe)
+        {
+            if (recipe == null)
+            {
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
+            }
+            recipe.OwnerId = Guid.Parse(DeletedUserId);
+            recipe.IsDeleted = true;
+            await UpdateAsync(recipe);
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteAllByOwnerIdAsync(string userId)
+        {
+            await this.dbContext.Recipes
+                .Where(r => r.OwnerId.ToString().ToLower() == userId.ToLower())
+            .ExecuteUpdateAsync(r => r
+                .SetProperty(r => r.OwnerId, Guid.Parse(DeletedUserId))
+                .SetProperty(r => r.IsDeleted, true));
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await this.dbContext.Recipes
+                .AnyAsync(r => r.Id.ToString().ToLower() == id.ToLower());
         }
     }
 }
