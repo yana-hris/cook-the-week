@@ -11,6 +11,7 @@
     using CookTheWeek.Data.Repositories;
     using Interfaces;
     using Web.ViewModels.Category;
+    using Web.ViewModels.Interfaces;
     using Web.ViewModels.Meal;
     using Web.ViewModels.Recipe;
     using Web.ViewModels.Recipe.Enums;
@@ -20,13 +21,12 @@
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
-    using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeService : IRecipeService
     {
         private readonly CookTheWeekDbContext dbContext;
         private readonly IIngredientService ingredientService;
+        private readonly IUserRepository userRepository;
         private readonly IMealService mealService;
         private readonly IRecipeRepository recipeRepository;
         private readonly IStepRepository stepRepository;
@@ -41,6 +41,7 @@
             IRecipeIngredientRepository recipeIngredientRepository,
             IFavouriteRecipeRepository favouriteRecipeRepository,
             IMealService mealService,
+            IUserRepository userRepository,
             IMealRepository mealRepository)
         {
             this.dbContext = dbContext;
@@ -51,6 +52,7 @@
             this.recipeIngredientRepository = recipeIngredientRepository;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
             this.mealRepository = mealRepository;
+            this.userRepository = userRepository;
         }
 
 
@@ -490,6 +492,35 @@
                 .CountAsync();
         }
 
+        /// <inheritdoc/>
+        public async Task ToggleLike(string userId, string recipeId)
+        {
+            bool exists = await this.recipeRepository.ExistsByIdAsync(recipeId);
+            var currentUserId = this.userRepository.GetCurrentUserId();
+
+            if (!exists)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
+
+            if (currentUserId != null && !String.IsNullOrEmpty(userId) && 
+                currentUserId.ToLower() != userId.ToLower())
+            {
+
+            }
+
+            bool isAlreadyAdded = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+
+            if (isAlreadyAdded)
+            {
+                await this.favouriteRecipeRepository.DeleteAsync(userId, recipeId);
+            }
+            else
+            {
+                await this.favouriteRecipeRepository.AddAsync(userId, recipeId);
+            }
+        }
+
         // Helper methods for improved code reusability
         private Recipe MapNonCollectionPropertiesToRecipe(RecipeAddFormModel model, string ownerId, bool isAdmin)
         {
@@ -641,7 +672,6 @@
                 }).ToList();
         }
 
-
-
+        
     }
 }

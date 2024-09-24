@@ -12,18 +12,18 @@
     public class FavouriteRecipeApiController : ControllerBase
     {
         private readonly IUserService userService;
-        private readonly IRecipeRepository recipeRepository;
+        private readonly IRecipeService recipeService;
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly ILogger<FavouriteRecipeApiController> logger;
 
         public FavouriteRecipeApiController(IUserService userService,
-            IRecipeRepository recipeRepository,
+            IRecipeService recipeService,
             IFavouriteRecipeRepository favouriteRecipeRepository,
             ILogger<FavouriteRecipeApiController> logger)
         {
             
             this.userService = userService;
-            this.recipeRepository = recipeRepository;
+            this.recipeService = recipeService;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
             this.logger = logger;   
         }
@@ -48,18 +48,7 @@
 
             try
             {
-                var recipe = await this.recipeRepository.GetByIdAsync(recipeId);
-                bool isAlreadyAdded = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
-
-                if (isAlreadyAdded)
-                {
-                    await this.favouriteRecipeRepository.DeleteAsync(userId, recipeId);
-                }
-                else
-                {
-                    await this.favouriteRecipeRepository.AddAsync(userId, recipeId);
-                }
-
+                await this.recipeService.ToggleLike(userId, recipeId);
                 return Ok();
             }
             catch (RecordNotFoundException ex)

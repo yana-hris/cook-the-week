@@ -129,5 +129,14 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         Task DeleteAllByUserIdAsync(string userId);
+
+        /// <summary>
+        /// Checks if a user has liked a given recipe and if yes, unlikes it. If no, likes it
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="recipeId"></param>
+        /// <returns>Task</returns>
+        /// <remarks>May throw RecordNotFoundException</remarks>
+        Task ToggleLike(string userId, string recipeId);
     }
 }
