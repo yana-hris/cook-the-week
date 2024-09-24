@@ -5,10 +5,11 @@ namespace CookTheWeek.WebApi
     using Microsoft.EntityFrameworkCore;
 
     using Data;
-    using Services.Data.Interfaces;
-    using CookTheWeek.Services.Data;
+    using Services.Data.Services.Interfaces;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Services;
 
     public class Program
     {

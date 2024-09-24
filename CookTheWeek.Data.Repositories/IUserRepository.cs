@@ -6,17 +6,17 @@
     public interface IUserRepository
     {
         /// <summary>
-        /// Checks if a user exists by Id
+        /// Returns if a user by a specified id exists in the database
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>true or false</returns>
         Task<bool> ExistsByIdAsync(string id);
 
         /// <summary>
         /// Gets the currently logged in user id. Does not throw any exceptions. Posibble null reference.
         /// </summary>
         /// <returns>the current user id or null</returns>
-        Task<string?> GetCurrentUserId();
+        string? GetCurrentUserId();
 
         /// <summary>
         /// Gets the Application user if exists by email
@@ -49,7 +49,7 @@
 
 
         /// <summary>
-        /// Creates the gicen user with the given password in the database
+        /// Creates the given user with the given password in the database
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
@@ -64,7 +64,7 @@
         Task<bool> IsUserEmailConfirmedAsync(ApplicationUser user);
 
         /// <summary>
-        /// Generates a email confirmation token for the specified user
+        /// Generates an email confirmation token for the specified user
         /// </summary>
         /// <param name="user"></param>
         /// <returns>token</returns>
@@ -77,15 +77,15 @@
         /// <param name="code"></param>
         /// <returns>IdentityResult</returns>
         /// <exception cref="ArgumentNullException">If the token is null, throws an exception</exception>
-        /// <exception cref="RecordNotFoundException">If the user is null, throws and exception</exception>
+        /// <exception cref="RecordNotFoundException">If the user is null, throws an exception</exception>
         Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string code);
 
         /// <summary>
         /// Generates a password reset token for the specified user
         /// </summary>
         /// <param name="user"></param>
-        /// <returns>token</returns>
-        Task<string> GeneratePasswordResetTokenAsync(ApplicationUser user);
+        /// <returns>string or null</returns>
+        Task<string?> GeneratePasswordResetTokenAsync(ApplicationUser user);
 
         /// <summary>
         /// Returns a boolean, indicating if the current user has a password or not
@@ -103,7 +103,7 @@
         Task<IdentityResult> AddPasswordAsync(ApplicationUser user, string password);
 
         /// <summary>
-        /// Returns is the current user`s password is true or false
+        /// Returns if the password given is valid for the current user
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
@@ -120,7 +120,7 @@
         Task<IdentityResult> ChangePassAsync(ApplicationUser user, string currentPass, string newPass);
 
         /// <summary>
-        /// Resets the User`s password if the token is verified
+        /// Resets the current user`s password with the new password after validating the user`s token
         /// </summary>
         /// <param name="user"></param>
         /// <param name="token"></param>
@@ -138,13 +138,13 @@
         /// <summary>
         /// Gets the total count of all registered users in the database
         /// </summary>
-        /// <returns>int</returns>
+        /// <returns>int or 0</returns>
         Task<int?> AllCountAsync();
 
         /// <summary>
-        /// Returns an IQueryable collection of all users in the database, that can be filtered and sorted using LINQ
+        /// Returns an IQueryable collection of all users in the database, that can be filtered and sorted using LINQ. The collection can be materialized safely using the Async() methods
         /// </summary>
-        /// <returns>IQueryable collection of ApplicationUser</returns>
+        /// <returns>An IQueryable collection of ApplicationUser</returns>
         IQueryable<ApplicationUser> GetAllQuery();
     }
 }

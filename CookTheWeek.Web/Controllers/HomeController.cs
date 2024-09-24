@@ -3,13 +3,12 @@ namespace CookTheWeek.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SendGrid.Helpers.Mail;
-
-    using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
     using Infrastructure.Extensions;
 
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     [AllowAnonymous]
     public class HomeController : BaseController

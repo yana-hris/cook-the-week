@@ -2,11 +2,10 @@
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-
-    using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     [Route("api/favouriteRecipe")]
     [ApiController]

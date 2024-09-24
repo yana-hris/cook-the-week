@@ -8,25 +8,22 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    
+
     using Common.Exceptions;
     using Data.Models;
-    using Data.Repositories;
+    using Services.Data.Models.Validation;
     using Infrastructure.Extensions;
-    using Services.Data.Interfaces;
-    using Services.Data.Vlidation;
     using ViewModels.User;
+    using Services.Data.Services.Interfaces;
 
-
-    using static Common.EntityValidationConstants.ApplicationUser;
+    using static Common.EntityValidationConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
     [AllowAnonymous]
     public class UserController : BaseController
     {
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly UserManager<ApplicationUser> userManager;
+        
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly IEmailSender emailSender;
@@ -34,16 +31,13 @@
         private readonly ILogger<UserController> logger;
         
 
-        public UserController(SignInManager<ApplicationUser> signInManager,
-                              UserManager<ApplicationUser> userManager,
-                              IUserService userService,
+        public UserController(IUserService userService,
                               IMemoryCache memoryCache,
                               IEmailSender emailSender,
                               IValidationService validationService,
                               ILogger<UserController> logger)
         {
-            this.signInManager = signInManager;
-            this.userManager = userManager;
+           
             this.userService = userService;
             this.memoryCache = memoryCache;
             this.emailSender = emailSender;
@@ -77,55 +71,17 @@
             try
             {
                 user = await this.userService.CreateUserAsync(model);
-
-                // Try to generate the email confirmation token
-                var token = await userService.GenerateTokenForEmailConfirmationAsync(user);
-
-                // Generate callback URL and send the confirmation email
-                var callbackUrl = Url.Action(nameof(ConfirmedEmail), "User", new { userId = user.Id, code = token }, Request.Scheme);
-                await this.emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                // If everything is successful, redirect to the confirmation info page
+                await SendEmailConfirmationAsync(user, model.Email);
+                
                 return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Handle token generation failure
-                logger.LogError($"Token generation failed. Error message: {ex.Message}. Error stacktrace: {ex.StackTrace}");
-            }
-            catch (SmtpException ex)
-            {
-                // Handle email sending failure
-                logger.LogError($"Email sending failed. Error message: {ex.Message}. Error stacktrace: {ex.StackTrace}");
             }
             catch (Exception ex)
             {
-                // Catch any unexpected errors
-                logger.LogError($"Unexpected error occurred, error message: {ex.Message}, error stacktrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                await HandleRegisterFailureAsync(ex, user);
             }
-            finally
-            {
-                // Always try to delete the user if something failed
-                if (user != null)
-                {
-                    try
-                    {
-                        await userService.DeleteUserAsync(user);
-                    }
-                    catch (ArgumentNullException deleteEx)
-                    {
-                        logger.LogError($"User deletion failed because user was NULL. Error message: {deleteEx.Message}, Error StackTrace: {deleteEx.StackTrace}");
-                    }
-                    catch (InvalidOperationException deleteEx)
-                    {
-                        logger.LogError($"User deletion failed. Error message: {deleteEx.Message}, Error StackTrace: {deleteEx.StackTrace}");
-                    }
-                }
 
-                // Always redirect to ConfirmationFailed if there was any failure
-                return RedirectToAction("ConfirmationFailed");
-            }
+            return RedirectToAction("ConfirmationFailed");
+        
         }
         
         [HttpGet]
@@ -583,6 +539,58 @@
                 {
                     ModelState.AddModelError(error.Key, error.Value);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private async Task SendEmailConfirmationAsync(ApplicationUser user, string email)
+        {
+            try
+            {
+                var token = await userService.GenerateTokenForEmailConfirmationAsync(user);
+                var callbackUrl = Url.Action(nameof(ConfirmedEmail), "User", new { userId = user.Id, code = token }, Request.Scheme);
+                await emailSender.SendEmailConfirmationAsync(email, callbackUrl);
+            }
+            catch (InvalidOperationException ex)
+            {
+                logger.LogError($"Token generation failed: {ex.Message}", ex);
+                throw;
+            }
+            catch (SmtpException ex)
+            {
+                logger.LogError($"Email sending failed: {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        private async Task HandleRegisterFailureAsync(Exception ex, ApplicationUser user)
+        {
+            logger.LogError($"Error during registration: {ex.Message}", ex);
+
+            if (user != null)
+            {
+                await TryDeleteUserAsync(user);
+            }
+        }
+
+        private async Task TryDeleteUserAsync(ApplicationUser user)
+        {
+            try
+            {
+                await userService.DeleteUserAsync(user);
+            }
+            catch (ArgumentNullException ex)
+            {
+                logger.LogError($"User deletion failed (null user): {ex.Message}", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                logger.LogError($"User deletion failed: {ex.Message}", ex);
             }
         }
 

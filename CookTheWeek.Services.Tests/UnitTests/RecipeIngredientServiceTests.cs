@@ -1,9 +1,10 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using Data;
-    using Data.Interfaces;
+    using Data.Services.Interfaces;
 
     public class RecipeIngredientServiceTests : UnitTestBase
     {

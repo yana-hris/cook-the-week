@@ -15,9 +15,9 @@ namespace CookTheWeek.Web
     using Infrastructure.Extensions;
     using Infrastructure.HostedServices;
     using Infrastructure.ModelBinders;
-    using Services.Data;
     using Services.Data.Factories.Interfaces;
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
+    using Services.Data.Services;
 
     using static Common.GeneralApplicationConstants;
 
@@ -89,12 +89,14 @@ namespace CookTheWeek.Web
                });  
 
             builder.Services.AddHttpClient();
-            builder.Services.AddApplicationServices(typeof(IRecipeService));
-            builder.Services.AddApplicationFactories(typeof(IRecipeViewModelFactory));
-            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
-            builder.Services.AddScoped<IStepRepository, StepRepository>();
-            builder.Services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
-            builder.Services.AddScoped<IMealRepository, MealRepository>();
+            // Register repositories
+            builder.Services.AddApplicationTypes(typeof(IRecipeRepository), "Repository");
+
+            // Register factories
+            builder.Services.AddApplicationTypes(typeof(IRecipeViewModelFactory), "Factory");
+
+            // Register repositories
+            builder.Services.AddApplicationTypes(typeof(IRecipeService), "Service");
 
             builder.Services.AddHttpContextAccessor();  
 

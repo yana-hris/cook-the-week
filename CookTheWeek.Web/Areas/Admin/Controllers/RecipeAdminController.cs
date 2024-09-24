@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using CookTheWeek.Web.ViewModels.Recipe;
-    using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeAdminController : BaseAdminController
     {

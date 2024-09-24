@@ -4,13 +4,13 @@ namespace CookTheWeek.Web.Controllers
 {
     using System.Globalization;
 
-    
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
     using Common.HelperMethods;
     using Infrastructure.Extensions;
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using Services.Data.Models.MealPlan;
     using ViewModels.Meal;
     using ViewModels.MealPlan;
@@ -20,6 +20,7 @@ namespace CookTheWeek.Web.Controllers
     using static Common.EntityValidationConstants.Meal;
     using static Common.EntityValidationConstants.MealPlan;
     using static Common.EntityValidationConstants.Recipe;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class MealPlanController : BaseController
     {

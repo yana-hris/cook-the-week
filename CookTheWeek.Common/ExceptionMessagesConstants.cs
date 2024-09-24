@@ -21,26 +21,28 @@
 
         public static class  RecordNotFoundExceptionMessages
         {
-            //RECIPE:
+            // RECIPE:
             // For single Recipe
             public const string RecipeNotFoundExceptionMessage = "Recipe not found.";
-
             // For Recipe collections
-            public const string NoRecipesFoundExceptionMessage = "No recipe records found in the database";
+            public const string NoRecipesFoundExceptionMessage = "No recipes found by this criteria.";
 
             // INGREDIENT:
             public const string IngredientNotFoundExceptionMessage = "Ingredient not found.";
 
-            // FAV RECIPES
+            // FAV RECIPES:
             public const string FavouriteRecipeNotFoundExceptionMessage = "Favourite recipe not found.";
 
-            // For MEAL:
+            // MEAL:
             public const string MealNotFoundExceptionMessage = "Meal not found.";
 
-            // For MEALPLAN:
+            // MEALPLAN:
+            // For single MealPlan
             public const string MealplanNotFoundExceptionMessage = "Mealplan not found.";
+            // For MealPlan collections:
+            public const string NoMealplansFoundExceptionMessage = "No mealplans found by this criteria.";
 
-            // For USER:
+            // USER:
             public const string UserNotFoundExceptionMessage = "No user found by this id";
         }
 
@@ -58,6 +60,8 @@
             public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
 
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
+
+            public const string MealplanUnsuccessfullyEditedExceptionMessage = "Something went wrong and the mealplan was not edited in the Database.";
 
             public const string UserUnsuccessfullyCreatedExceptionMessage = "User creation failed.";
 

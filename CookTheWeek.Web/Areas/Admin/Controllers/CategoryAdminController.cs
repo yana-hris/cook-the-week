@@ -4,11 +4,12 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Data.SqlClient;
 
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using ViewModels.Admin.CategoryAdmin;
     using ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class CategoryAdminController : BaseAdminController
     {

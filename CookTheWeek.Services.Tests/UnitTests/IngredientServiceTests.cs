@@ -1,11 +1,12 @@
 ﻿namespace CookTheWeek.Services.Tests.UnitTests
 {
     using Data;
-    using Data.Interfaces;
+    using Data.Services.Interfaces;
     using Data.Models.Ingredient;
     using Data.Models.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     [TestFixture]
     public class IngredientServiceTests : UnitTestBase

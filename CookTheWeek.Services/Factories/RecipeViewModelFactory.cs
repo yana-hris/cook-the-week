@@ -4,7 +4,7 @@
 
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Factories.Interfaces;
-    using CookTheWeek.Services.Data.Interfaces;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;

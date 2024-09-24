@@ -1,13 +1,14 @@
 ﻿namespace CookTheWeek.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-
     using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Data.Models.Interfaces;
 
     using static CookTheWeek.Common.EntityValidationConstants.IngredientCategory;
 
     [Comment("Ingredient Category")]
-    public class IngredientCategory
+    public class IngredientCategory : ICategory
     {
         public IngredientCategory()
         {

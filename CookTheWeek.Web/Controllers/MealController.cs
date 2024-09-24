@@ -3,8 +3,9 @@
     using Microsoft.AspNetCore.Mvc;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Services.Data.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+
     public class MealController : BaseController
     {
         private readonly IMealService mealService;

@@ -3,11 +3,10 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    
+
     using Common.Exceptions;
     using Infrastructure.Extensions;
     using Services.Data.Factories.Interfaces;
-    using Services.Data.Interfaces;
     using ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.Recipe;
@@ -15,6 +14,7 @@
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeController : BaseController
     {

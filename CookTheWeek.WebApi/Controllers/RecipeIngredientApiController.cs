@@ -1,8 +1,9 @@
 ﻿namespace CookTheWeek.WebApi.Controllers
 {
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using Services.Data.Models.RecipeIngredient;
 
     /// <summary>
@@ -14,11 +15,13 @@
     public class RecipeIngredientApiController : ControllerBase
     {
         private readonly IIngredientService ingredientService;
-
+        private readonly ILogger<RecipeIngredientApiController> logger;
         
-        public RecipeIngredientApiController(IIngredientService ingredientService)
+        public RecipeIngredientApiController(IIngredientService ingredientService,
+            ILogger<RecipeIngredientApiController> logger)
         {
             this.ingredientService = ingredientService;
+            this.logger = logger;
         }
         /// <summary>
         /// Get suggestion list for ingredients to be included in a recipe, based on an input string.
@@ -40,8 +43,9 @@
 
                 return Ok(serviceModel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError($"Something happened and recipe ingredient suggestions loading failed. Error message: {ex.Message}. Error tacktrace: {ex.StackTrace}")
                 return BadRequest();
             }
         }

@@ -3,25 +3,25 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using ViewModels.Admin.UserAdmin;
 
     using static Common.GeneralApplicationConstants;
 
     public class UserAdminController : BaseAdminController
     {
-        private readonly IUserAdminService userAdminService;
+        private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserAdminController> logger;
 
        
 
-        public UserAdminController(IUserAdminService userAdminService
+        public UserAdminController(IUserService userService
             ,IMemoryCache memoryCache,
             ILogger<UserAdminController> logger
             )
         {
-            this.userAdminService = userAdminService;
+            this.userService = userService;
             this.memoryCache = memoryCache;
             this.logger = logger;
             
@@ -34,7 +34,7 @@
             {
                 try
                 {
-                    users = await this.userAdminService.AllAsync();
+                    users = await this.userService.AllAsync();
                 }
                 catch (Exception)
                 {

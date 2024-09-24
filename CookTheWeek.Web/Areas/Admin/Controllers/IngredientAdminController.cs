@@ -4,12 +4,13 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Data.SqlClient;
 
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using Services.Data.Models.Ingredient;
     using ViewModels.Admin.IngredientAdmin;
     using ViewModels.Admin.IngredientAdmin.Enums;
 
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class IngredientAdminController : BaseAdminController
     {

@@ -1,13 +1,13 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
-    
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Rotativa.AspNetCore;
 
-    using Services.Data.Interfaces;
+    using Services.Data.Services.Interfaces;
     using ViewModels.ShoppingList;
 
-    
+
     public class ShoppingListController : BaseController
     {
         private readonly IShoppingListService shoppingListService;
