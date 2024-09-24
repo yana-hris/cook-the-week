@@ -6,6 +6,7 @@
     using CookTheWeek.Data.Models;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
+    using CookTheWeek.Common.HelperMethods;
 
     public class FavouriteRecipeRepository : IFavouriteRecipeRepository
     {
@@ -21,8 +22,8 @@
         public async Task<bool> GetByIdAsync(string userId, string recipeId)
         {
             return await this.dbContext.FavoriteRecipes
-                .AnyAsync(fr => fr.UserId.ToString().ToLower() == userId.ToLower() &&
-                                fr.RecipeId.ToString().ToLower() == recipeId.ToLower());
+                .AnyAsync(fr => GuidHelper.CompareGuidStringWithGuid(userId, fr.UserId) &&
+                                GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId));
         }
 
         /// <summary>
@@ -33,7 +34,7 @@
             int? likes = await this.dbContext
                 .FavoriteRecipes
                 .AsNoTracking()
-                .Where(fr => fr.RecipeId.ToString().ToLower() == recipeId)
+                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))
                 .CountAsync();
 
             return likes;
@@ -98,7 +99,7 @@
         {
             var recipes = await this.dbContext 
                 .FavoriteRecipes
-                .Where(fr => fr.UserId.ToString().ToLower() == userId.ToLower())
+                .Where(fr => GuidHelper.CompareGuidStringWithGuid(userId, fr.UserId))
                 .ToListAsync();
 
             this.dbContext.FavoriteRecipes.RemoveRange(recipes);
@@ -113,7 +114,7 @@
         {
             var recipes = await this.dbContext
                 .FavoriteRecipes
-                .Where(fr => fr.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))    
                 .ToListAsync();
 
             this.dbContext.FavoriteRecipes.RemoveRange(recipes);

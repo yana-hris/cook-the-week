@@ -7,6 +7,7 @@
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Common.HelperMethods;
 
     [TestFixture]
     public class IngredientServiceTests : UnitTestBase
@@ -79,7 +80,7 @@
                 Name = "New Ingredient",
                 CategoryId = 1,
             };
-            bool alreadyExists = data.Ingredients.Any(i => i.Name.ToLower() == newIngredientModel.Name.ToLower());
+            bool alreadyExists = data.Ingredients.Any(i => GuidHelper.CompareTwoGuidStrings(i.Name, newIngredientModel.Name));
             int ingredientsCountBeforeAdd = data.Ingredients.Count();
 
             // Act
@@ -114,7 +115,7 @@
                 Name = editedName,
                 CategoryId = editedCategoryId,
             };
-            bool alreadyExists = data.Ingredients.Any(i => i.Name.ToLower() == editIngredientModel.Name.ToLower());
+            bool alreadyExists = data.Ingredients.Any(i => GuidHelper.CompareTwoGuidStrings(i.Name, editIngredientModel.Name));
             
             await this.ingredientService.EditAsync(editIngredientModel);
             var editedIngredient = data.Ingredients.FirstOrDefault(i => i.Id == id);

@@ -10,6 +10,7 @@
     
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeRepository : IRecipeRepository
     {
@@ -59,8 +60,7 @@
                     .ThenInclude(ri => ri.Specification)
                 .Include(r => r.Meals)
                 .Include(r => r.FavouriteRecipes)
-                .FirstOrDefaultAsync(r => string.Equals(r.Id.ToString(), id, StringComparison.OrdinalIgnoreCase));
-                //.FirstOrDefaultAsync(r => r.Id.ToString().ToLower() == id.ToLower()); // Check if works!
+                .FirstOrDefaultAsync(r => GuidHelper.CompareGuidStringWithGuid(id, r.Id));
 
             if (recipe == null)
             {
@@ -94,7 +94,7 @@
         public async Task DeleteAllByOwnerIdAsync(string userId)
         {
             await this.dbContext.Recipes
-                .Where(r => r.OwnerId.ToString().ToLower() == userId.ToLower())
+                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
             .ExecuteUpdateAsync(r => r
                 .SetProperty(r => r.OwnerId, Guid.Parse(DeletedUserId))
                 .SetProperty(r => r.IsDeleted, true));
@@ -104,7 +104,7 @@
         public async Task<bool> ExistsByIdAsync(string id)
         {
             return await this.dbContext.Recipes
-                .AnyAsync(r => r.Id.ToString().ToLower() == id.ToLower());
+                .AnyAsync(r => GuidHelper.CompareGuidStringWithGuid(id, r.Id));
         }
     }
 }

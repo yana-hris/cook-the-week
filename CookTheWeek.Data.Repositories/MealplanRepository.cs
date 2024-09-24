@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -27,7 +28,7 @@
         public async Task<MealPlan?> GetByIdAsync(string id)
         {
             return await this.dbContext.MealPlans
-                .Where(mp => mp.Id.ToString().ToLower() == id.ToLower())
+                .Where(mp => GuidHelper.CompareGuidStringWithGuid(id, mp.Id))
                     .Include(mp => mp.Meals)
                         .ThenInclude(m => m.Recipe)
                             .ThenInclude(r => r.RecipesIngredients)
@@ -43,7 +44,7 @@
             await this.dbContext.MealPlans.AddAsync(mealPlan);
             await this.dbContext.SaveChangesAsync();
 
-            string mealPlanId = mealPlan.Id.ToString().ToLower();
+            string mealPlanId = mealPlan.Id.ToString();
             return mealPlanId;
         }
 

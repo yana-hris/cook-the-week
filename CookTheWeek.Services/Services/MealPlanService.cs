@@ -155,7 +155,7 @@
         public async Task<int?> MineCountAsync(string userId)
         {
             return await mealplanRepository.GetAllQuery()
-                .Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
+                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))
                 .CountAsync();
         }
 
@@ -211,7 +211,7 @@
                 StartDate = mealplan.StartDate,
                 Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
                 {
-                    RecipeId = mpm.RecipeId.ToString().ToLower(),
+                    RecipeId = mpm.RecipeId.ToString(),
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
                     ImageUrl = mpm.Recipe.ImageUrl,
@@ -261,7 +261,7 @@
         {
             var userMealplans = await mealplanRepository
                 .GetAllQuery()
-                .Where(mp => mp.OwnerId.ToString().ToLower() == userId.ToLower())
+                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))
                 .ToListAsync();
 
             if (userMealplans.Any())

@@ -1,8 +1,9 @@
 ﻿@model MealPlanDetailsViewModel
+@using CookTheWeek.Common.HelperMethods
 @{
     ViewData["Title"] = "Meal Plan Details";
     string userId = User.GetId();
-    bool isOwner = Model.OwnerId == userId.ToString().ToLower();
+    bool isOwner = GuidHelper.CompareTwoGuidStrings(Model.OwnerId, userId);
     bool isAdmin = User.IsAdmin();
 
     var headingModel = new PageHeadingViewModel

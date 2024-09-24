@@ -9,8 +9,10 @@
     using Interfaces;
     using Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Common.HelperMethods;
 
-    public class CategoryService : ICategoryService
+    // TODO: Delete as OLD when RecipeCategoryService and IngredientCategoryService are implemented
+    public class CategoryService
     {
         private readonly CookTheWeekDbContext dbContext;
 
@@ -94,7 +96,7 @@
         {
             return dbContext.RecipeCategories
                 .AsNoTracking()
-                .Where(rc => rc.Name.ToLower() == name.ToLower())
+                .Where(rc => GuidHelper.CompareTwoGuidStrings(rc.Name, name))
                 .Select(rc => rc.Id)
                 .FirstAsync();
         }
@@ -193,7 +195,7 @@
         public Task<int> GetIngredientCategoryIdByNameAsync(string name)
         {
             return dbContext.IngredientCategories
-                .Where(ic => ic.Name.ToLower() == name.ToLower())
+                .Where(ic => GuidHelper.CompareTwoGuidStrings(ic.Name, name))
                 .Select(ic => ic.Id)
                 .FirstAsync();
         }

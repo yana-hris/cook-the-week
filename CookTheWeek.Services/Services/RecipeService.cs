@@ -21,6 +21,7 @@
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeService : IRecipeService
     {
@@ -146,7 +147,7 @@
                     .Select(r => new RecipeAllViewModel()
                     {
                         Id = r.Id.ToString(),
-                        OwnerId = r.OwnerId.ToString().ToLower(),
+                        OwnerId = r.OwnerId.ToString(),
                         ImageUrl = r.ImageUrl,
                         Title = r.Title,
                         Description = r.Description,
@@ -234,7 +235,7 @@
         {
             Recipe recipeToDelete = await recipeRepository.GetByIdAsync(id);
 
-            if (recipeToDelete.OwnerId.ToString().ToLower() != userId && !isAdmin)
+            if (!GuidHelper.CompareGuidStringWithGuid(userId, recipeToDelete.OwnerId) && !isAdmin)
             {
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
             }
@@ -276,7 +277,7 @@
         {
             Recipe recipe = await recipeRepository.GetByIdAsync(id);
 
-            if (userId != recipe.OwnerId.ToString().ToLower() && !isAdmin)
+            if (!GuidHelper.CompareGuidStringWithGuid(userId, recipe.OwnerId) && !isAdmin)
             {
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeEditAuthorizationExceptionMessage);
             }
@@ -313,7 +314,7 @@
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
-                .Where(r => r.OwnerId.ToString().ToLower() == userId)
+                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
                 .ToListAsync();
 
             if (!recipes.Any())
@@ -326,7 +327,7 @@
                 ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
-                    OwnerId = r.OwnerId.ToString().ToLower(),
+                    OwnerId = r.OwnerId.ToString(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -356,7 +357,7 @@
         public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
         {
             return await mealRepository.GetAllQuery()
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
                 .AnyAsync();
         }
 
@@ -373,7 +374,7 @@
         {
             return await recipeRepository
                 .GetAllQuery()
-                .Where(r => r.OwnerId.ToString().ToLower() == userId)
+                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
                 .CountAsync();
 
         }
@@ -406,7 +407,7 @@
                     .Select(r => new RecipeAllViewModel()
                     {
                         Id = r.Id.ToString(),
-                        OwnerId = r.OwnerId.ToString().ToLower(),
+                        OwnerId = r.OwnerId.ToString(),
                         ImageUrl = r.ImageUrl,
                         Title = r.Title,
                         Description = r.Description,
@@ -430,7 +431,7 @@
                 .Select(r => new RecipeAllViewModel()
                 {
                     Id = r.Id.ToString(),
-                    OwnerId = r.OwnerId.ToString().ToLower(),
+                    OwnerId = r.OwnerId.ToString(),
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -488,7 +489,7 @@
         {
             return await mealRepository
                 .GetAllQuery()
-                .Select(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Select(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
                 .CountAsync();
         }
 
@@ -504,7 +505,7 @@
             }
 
             if (currentUserId != null && !String.IsNullOrEmpty(userId) && 
-                currentUserId.ToLower() != userId.ToLower())
+                GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
             {
 
             }

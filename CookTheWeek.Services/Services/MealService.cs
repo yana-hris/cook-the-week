@@ -120,7 +120,7 @@
         public async Task DeleteAllByMealPlanIdAsync(string mealplanId)
         {
             var mealsToDelete = await mealRepository.GetAllQuery()
-                .Where(m => m.MealPlanId.ToString().ToLower() == mealplanId.ToLower())
+                .Where(m => GuidHelper.CompareGuidStringWithGuid(mealplanId, m.MealPlanId))
                 .ToListAsync();
 
             await mealRepository.DeleteAll(mealsToDelete);
@@ -132,7 +132,7 @@
         {
             var mealsToDelete = await mealRepository
                 .GetAllQuery()
-                .Where(m => m.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
                 .ToListAsync();
 
             await mealRepository.DeleteAll(mealsToDelete);

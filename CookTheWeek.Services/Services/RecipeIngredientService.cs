@@ -10,6 +10,7 @@
     using Interfaces;
     using Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
@@ -53,7 +54,7 @@
         {
             int ingredientId = await dbContext.Ingredients
                 .AsNoTracking()
-                .Where(i => i.Name.ToLower() == model.Name.ToLower())
+                .Where(i => GuidHelper.CompareTwoGuidStrings(i.Name, model.Name))
                 .Select(i => i.Id)
                 .FirstOrDefaultAsync();
 

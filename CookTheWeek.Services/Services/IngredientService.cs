@@ -13,6 +13,7 @@
     using Web.ViewModels.Admin.IngredientAdmin;
     using Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Common.HelperMethods;
 
     public class IngredientService : IIngredientService
     {
@@ -146,7 +147,7 @@
             bool exists = await dbContext
                 .Ingredients
                 .AsNoTracking()
-                .AnyAsync(i => i.Name.ToLower() == name.ToLower());
+                .AnyAsync(i => GuidHelper.CompareTwoGuidStrings(i.Name, name));
 
             return exists;
         }
@@ -155,7 +156,7 @@
         {
             return await dbContext
                 .Ingredients
-                .Where(i => i.Name.ToLower() == name.ToLower())
+                .Where(i => GuidHelper.CompareTwoGuidStrings(i.Name, name))
                 .Select(i => i.Id)
                 .FirstOrDefaultAsync();
         }

@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Common.HelperMethods;
 
     public class StepRepository : IStepRepository
     {
@@ -27,7 +28,7 @@
         public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps)
         {
             var oldSteps = await this.dbContext.Steps
-                .Where(s => s.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
                 .ToListAsync();
 
             this.dbContext.Steps.RemoveRange(oldSteps);
@@ -40,8 +41,8 @@
         public async Task DeleteAllByRecipeIdAsync(string recipeId)
         {
             var stepsToDelete = await this.dbContext
-                .Steps
-                .Where(s => s.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Steps  
+                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
                 .ToListAsync();
 
             this.dbContext.Steps.RemoveRange(stepsToDelete);

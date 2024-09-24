@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +25,7 @@
         public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<RecipeIngredient> recipeIngredients)
         {
             var oldIngredients = await this.dbContext.RecipesIngredients
-                .Where(ri => ri.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
                 .ToListAsync();
 
             this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
@@ -39,7 +39,7 @@
         {
             var ingredientsToDelete = await this.dbContext
                 .RecipesIngredients
-                .Where(ri => ri.RecipeId.ToString().ToLower() == recipeId.ToLower())
+                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
                 .ToListAsync();
 
             if (ingredientsToDelete.Any())
