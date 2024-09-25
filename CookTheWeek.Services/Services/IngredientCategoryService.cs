@@ -3,65 +3,135 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
+
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
 
     public class IngredientCategoryService : ICategoryService<
         IngredientCategory,
-        IngredientAddFormModel,
-        IngredientEditFormModel,
+        IngredientCategoryAddFormModel,
+        IngredientCategoryEditFormModel,
         IngredientCategorySelectViewModel>
     {
-        public Task AddCategoryAsync(IngredientAddFormModel model)
+        private readonly ICategoryRepository<IngredientCategory> categoryRepository;
+        public IngredientCategoryService(ICategoryRepository<IngredientCategory> categoryRepository)
         {
-            throw new NotImplementedException();
+            this.categoryRepository = categoryRepository;
+        }
+        public async Task AddCategoryAsync(IngredientCategoryAddFormModel model)
+        {
+            IngredientCategory category = new IngredientCategory()
+            {
+                Name = model.Name,
+            };
+
+            await this.categoryRepository.AddAsync(category);
         }
 
-        public Task<bool> CategoryExistsByIdAsync(int categoryId)
+        /// <inheritdoc/>      
+        public async Task<bool> CategoryExistsByIdAsync(int categoryId)
         {
-            throw new NotImplementedException();
+            return await this.categoryRepository.ExistsByIdAsync(categoryId);
         }
 
-        public Task<bool> CategoryExistsByNameAsync(string name)
+        /// <inheritdoc/>      
+        public async Task<bool> CategoryExistsByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await this.categoryRepository.GetAllQuery()
+                .AnyAsync(c => c.Name == name);
         }
 
-        public Task DeleteCategoryByIdAsync(int id)
+        /// <inheritdoc/>      
+        public async Task DeleteCategoryByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var categoryToDelete = await this.categoryRepository.GetByIdAsync(id);
+
+            if (categoryToDelete == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
+
+            await this.categoryRepository.DeleteByIdAsync(id);
         }
 
-        public Task EditCategoryAsync(IngredientEditFormModel model)
+        /// <inheritdoc/>      
+        public async Task EditCategoryAsync(IngredientCategoryEditFormModel model)
         {
-            throw new NotImplementedException();
+            var categoryToEdit = await this.categoryRepository.GetByIdAsync(model.Id);
+
+            if (categoryToEdit == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
+            categoryToEdit.Name = model.Name;
+
+            await this.categoryRepository.EditAsync(categoryToEdit);
         }
 
-        public Task<ICollection<IngredientCategorySelectViewModel>> GetAllCategoriesAsync()
+        /// <inheritdoc/>      
+        public async Task<ICollection<IngredientCategorySelectViewModel>> GetAllCategoriesAsync()
         {
-            throw new NotImplementedException();
+            ICollection<IngredientCategorySelectViewModel> all = await this.categoryRepository.GetAllQuery()
+                .Select(c => new IngredientCategorySelectViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                })
+                .ToListAsync();
+
+            return all;
         }
 
-        public Task<int> GetAllCategoriesCountAsync()
+        /// <inheritdoc/>      
+        public async Task<int?> GetAllCategoriesCountAsync()
         {
-            throw new NotImplementedException();
+            return await this.categoryRepository.GetAllQuery().CountAsync();
         }
 
-        public Task<ICollection<string>> GetAllCategoryNamesAsync()
+        /// <inheritdoc/>      
+        public async Task<ICollection<string>> GetAllCategoryNamesAsync()
         {
-            throw new NotImplementedException();
+            ICollection<string> names = await this.categoryRepository.GetAllQuery()
+                .Select(c => c.Name)
+                .ToListAsync();
+
+            return names;
         }
 
-        public Task<IngredientEditFormModel> GetCategoryForEditByIdAsync(int id)
+        /// <inheritdoc/>      
+        public async Task<IngredientCategoryEditFormModel> GetCategoryForEditByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var categoryToEdit = await this.categoryRepository
+                .GetByIdAsync(id);
+
+            if (categoryToEdit == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
+
+            IngredientCategoryEditFormModel model = new IngredientCategoryEditFormModel()
+            {
+                Id = categoryToEdit.Id,
+                Name = categoryToEdit.Name,
+            };
+
+            return model;
         }
 
-        public Task<int> GetCategoryIdByNameAsync(string name)
+        /// <inheritdoc/>      
+        public async Task<int?> GetCategoryIdByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await this.categoryRepository.GetAllQuery()
+                .Where(c => c.Name.ToLower() == name.ToLower())
+                .Select(c => c.Id)
+                .FirstOrDefaultAsync();
         }
     }
 }

@@ -44,6 +44,9 @@
 
             // USER:
             public const string UserNotFoundExceptionMessage = "No user found by this id";
+
+            // CATEGORY:
+            public const string CategoryNotFoundExceptionMessage = "No category found by this id.";
         }
 
         /// <summary>
@@ -51,6 +54,7 @@
         /// </summary>
         public static class InvalidOperationExceptionMessages
         {
+            // RECIPE:
             public const string InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage = "Please note this recipe is included in meal plans!";
 
             public const string RecipeUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe was not added to the Database.";
@@ -59,15 +63,26 @@
 
             public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
 
+            
+            // MEALPLAN:
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 
-            public const string MealplanUnsuccessfullyEditedExceptionMessage = "Something went wrong and the mealplan was not edited in the Database.";
+            public const string MealplanUnsuccessfullyEditedExceptionMessage = "Something went wrong and the mealplan was not edited.";
 
+            
+            // USER:
             public const string UserUnsuccessfullyCreatedExceptionMessage = "User creation failed.";
 
             public const string UserUnsuccessfullyDeletedExceptionMessage = "User deletion failed.";
 
             public const string TokenGenerationUnsuccessfullExceptionMessage = "User Token unsuccessfully generated.";
+
+            // CATEGORY:
+            public const string CategoryUnsuccessfullyAddedExceptionMessage = "Something went wrong and the category was not added to the Database.";
+
+            public const string CategoryUnsuccessfullyEditedExceptionMessage = "Something went wrong and the category was not edited.";
+
+            public const string CategoryUnsuccessfullyDeletedExceptionMessage = "Something went wrong and the category was not deleted.";
         }
 
         public static class SmtpExceptionMessages

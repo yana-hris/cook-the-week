@@ -17,51 +17,27 @@
             this.dbContext = dbContext;
         }
 
-        /// <summary>
-        /// Gets a queryable collection of all categories of type T, which can be used for filtering and sorting and can be materialized with any of the Async methods
-        /// </summary>
-        /// <returns>A collection of IQueryable of TCategory</returns>
+        /// <inheritdoc/> 
         public IQueryable<TCategory> GetAllQuery()
         {
-            return dbContext.Set<TCategory>().AsNoTracking();
+            return dbContext.Set<TCategory>().AsNoTracking().AsQueryable();
         }
 
-        /// <summary>
-        /// Adds a TCategory to the database
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>the new entity Id (int) or 0</returns>
-        public async Task<int?> AddAsync(TCategory entity)
+        /// <inheritdoc/> 
+        public async Task AddAsync(TCategory entity)
         {
-            try
-            {
-                await dbContext.Set<TCategory>().AddAsync(entity);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-
-            return entity.Id;   
+            await dbContext.Set<TCategory>().AddAsync(entity);
+            await dbContext.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Edits the current TCategory and persists changes in the database
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+        /// <inheritdoc/> 
         public async Task EditAsync(TCategory entity)
         {
             dbContext.Set<TCategory>().Update(entity);
             await dbContext.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Finds a TCategory by id and deletes it from the database
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <inheritdoc/> 
         public async Task DeleteByIdAsync(int id)
         {
             var entity = await GetByIdAsync(id);
@@ -72,22 +48,14 @@
             }
         }
 
-        /// <summary>
-        /// Returns a single TCategory by id if it exists in the database. If not, returns null
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>TCategory or null</returns>
+        /// <inheritdoc/> 
         public async Task<TCategory?> GetByIdAsync(int id)
         {
             return await dbContext.Set<TCategory>().
                 FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        /// <summary>
-        /// Returns a flag if a TCategory exists in the database by its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true or false</returns>
+        /// <inheritdoc/> 
         public async Task<bool> ExistsByIdAsync(int id)
         {
             return await dbContext.Set<TCategory>().AnyAsync(e => e.Id == id);
