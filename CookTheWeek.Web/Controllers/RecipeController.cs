@@ -13,7 +13,6 @@
     using static Common.EntityValidationConstants.RecipeIngredient;
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeController : BaseController
@@ -104,36 +103,27 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RecipeAddFormModel model, string returnUrl = null)
+        public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
-            // TODO: check logic for order of validation and add some try-catch
-
             model = await this.recipeViewModelFactory.AddRecipeOptionValuesAsync(model) as RecipeAddFormModel;
-            var validationResult = await this.validationService.ValidateRecipeAsync(model);
 
-            if (!validationResult.IsValid)
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(nameof(error.Key), error.Value);
-                }
-            }
+            var validationResult = await this.validationService.ValidateRecipeAsync(model);
+            AddValidationErrorsToModelState(validationResult);
+            string redirectUrl = String.Empty;
 
             if (!ModelState.IsValid)
             {
                 StoreServerErrorsInTempData();
-                SetViewData("Add Recipe", returnUrl);
+                SetViewData("Add Recipe", returnUrl ?? "Home/Index");
                 return View(model);
             }
-
 
             try
             {
                 string ownerId = User.GetId();
                 bool isAdmin = User.IsAdmin();
                 string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
-                TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
-                return RedirectToAction("Details", "Recipe", new { id = recipeId, returnUrl });
+                redirectUrl = Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl });
             }
             catch (RecordNotFoundException ex)
             {
@@ -145,6 +135,9 @@
                 logger.LogError($"Recipe addition failed, error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
                 return RedirectToAction("InternalServerError", "Home");
             }
+
+            TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
+            return RedirectToAction(redirectUrl);
         }
 
         

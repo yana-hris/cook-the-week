@@ -7,12 +7,11 @@ namespace CookTheWeek.Web.Controllers
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-
-    using Common.HelperMethods;
+   
+    using CookTheWeek.Common.Exceptions;
     using Infrastructure.Extensions;
     using Services.Data.Services.Interfaces;
     using Services.Data.Models.MealPlan;
-    using ViewModels.Meal;
     using ViewModels.MealPlan;
 
     using static Common.NotificationMessagesConstants;
@@ -20,7 +19,6 @@ namespace CookTheWeek.Web.Controllers
     using static Common.EntityValidationConstants.Meal;
     using static Common.EntityValidationConstants.MealPlan;
     using static Common.EntityValidationConstants.Recipe;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class MealPlanController : BaseController
     {
@@ -29,9 +27,11 @@ namespace CookTheWeek.Web.Controllers
         private readonly IRecipeService recipeService;
         private readonly ILogger<MealPlanController> logger;
         private readonly IMemoryCache memoryCache;
+        private readonly IValidationService validationService;
 
         public MealPlanController(IMealPlanService mealPlanService,
             IRecipeService recipeService,
+            IValidationService validationService,
             IUserService userService,
             ILogger<MealPlanController> logger,
             IMemoryCache memoryCache)
@@ -41,6 +41,7 @@ namespace CookTheWeek.Web.Controllers
             this.userService = userService;
             this.logger = logger;
             this.memoryCache = memoryCache;
+            this.validationService = validationService;
         }
 
         [HttpPost]
@@ -302,43 +303,30 @@ namespace CookTheWeek.Web.Controllers
         public async Task<IActionResult> Edit(string id, string? returnUrl)
         {
             string userId = User.GetId();
-            bool exists = await this.mealPlanService.ExistsByIdAsync(id);
-
-            if(!exists)
-            {
-                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
-                logger.LogWarning($"Meal Plan with id {id} does not exist in database!");
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
-            }
-            
-            // TODO: move business loic to service and add exceptions for owner, etc.
-            //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(id, userId);
-
-            //if (!isOwner)
-            //{
-            //    TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
-            //    logger.LogWarning("The user id of the meal plan owner and current user do not match!");
-            //    return Redirect(returnUrl ?? "/MealPlan/Mine");
-            //}
 
             try
             {
-                MealPlanEditFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
-                
+                var model = await this.mealPlanService.GetForEditByIdAsync(id, userId);
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
             {
-                logger.LogError("Meal Plan model was not successfully loaded for edit!");
-                return BadRequest();
+                TempData[ErrorMessage] = ex.Message;
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
+            catch (Exception ex)
+            {
+                logger.LogError($"Getting meal plan edit data failed. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home", new {message = ex.Message});
+            }
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(MealPlanEditFormModel model, string? returnUrl)
         {
-            bool exists = await this.mealPlanService.ExistsByIdAsync(model.Id);
+            string userId = User.GetId();
 
             if (returnUrl == null)
             {
@@ -346,79 +334,32 @@ namespace CookTheWeek.Web.Controllers
             }
             ViewBag.ReturnUrl = returnUrl;
 
-            if (!exists)
-            {
-                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
-                logger.LogWarning($"Meal Plan with id {model.Id} does not exist in database!");
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
-            }
+            
 
-            string userId = User.GetId();
-            //bool isOwner = await this.userService.IsMealplanOwnerByIdAsync(model.Id!, userId);
-
-            //if (!isOwner)
-            //{
-            //    TempData[ErrorMessage] = MealPlanOwnerErrorMessage;
-            //    logger.LogWarning("The mealPlan OwnerId and current userId do not match!");
-            //    return Redirect(returnUrl ?? "/MealPlan/Mine");
-            //}
-
-            if (model.Name == DefaultMealPlanName)
-            {
-                ModelState.AddModelError(nameof(model.Name), NameRequiredErrorMessage);
-            }
-
-            if (!model.Meals.Any())
-            {
-                ModelState.AddModelError(nameof(model.Meals), MealsRequiredErrorMessage);
-            }
-            else
-            {
-                foreach (var meal in model.Meals)
-                {
-                    bool recipeExists = await this.recipeService.ExistsByIdAsync(meal.RecipeId);
-
-                    if (!recipeExists)
-                    {
-                        ModelState.AddModelError(nameof(meal.RecipeId), RecipeNotFoundErrorMessage);
-                    }
-
-                    if (!meal.SelectDates.Contains(meal.Date))
-                    {
-                        ModelState.AddModelError(meal.Date.ToString(), DateRangeErrorMessage);
-                    }
-
-                    if (!DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
-                    {
-                        ModelState.AddModelError(nameof(meal.Date), DateRangeErrorMessage);
-                    }
-                }
-            }
+            var validationResult = await this.validationService.ValidateMealPlanEditFormModelAsync(model);
+            AddValidationErrorsToModelState(validationResult);
 
             if (!ModelState.IsValid)
             {
-                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-                string formattedMessage = string.Join(Environment.NewLine, modelErrors);
-                TempData[ErrorMessage] = formattedMessage;
-                logger.LogError($"Model State is Invalid: {formattedMessage}");
-
                 return View(model);
             }
 
             try
             {
                 await this.mealPlanService.EditAsync(userId, model);
+                TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;                
+            }
+            catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
+            {
+                TempData[ErrorMessage] = ex.Message;
+                return Redirect(returnUrl);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "MealPlan not edited.", model);
-                TempData[ErrorMessage] = StatusCode500InternalServerErrorMessage;
-                return BadRequest();
+                logger.LogError($"Meal plan edit failed. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
             }
 
-            TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
             return RedirectToAction("Mine", "MealPlan");
         }
 
@@ -476,6 +417,5 @@ namespace CookTheWeek.Web.Controllers
 
             memoryCache.Remove(cacheKey);
         }
-        
     }
 }

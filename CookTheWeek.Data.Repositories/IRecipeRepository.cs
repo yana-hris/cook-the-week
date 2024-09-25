@@ -5,16 +5,16 @@
     public interface IRecipeRepository
     {
         /// <summary>
-        /// Gets all recipes as a query collection 
+        /// Gets all recipes as a query collection of Recipe, that can be awaited and materialized later with any of the Async methods
         /// </summary>
-        /// <returns>A queryable collection of all recipes</returns>
+        /// <returns>A queryable collection of all recipes (inlcuding their Categories)</returns>
         IQueryable<Recipe> GetAllQuery();
 
         /// <summary>
-        /// Adds a recipe to the database
+        /// Adds a recipe to the database and returns the id
         /// </summary>
         /// <param name="recipe"></param>
-        /// <returns>Newly created Recipe ID</returns>
+        /// <returns>string, recipeId</returns>
         Task<string> AddAsync(Recipe recipe);
 
         /// <summary>
@@ -25,10 +25,10 @@
         Task<bool> ExistsByIdAsync(string id);
 
         /// <summary>
-        /// Gets a Recipe By id (including recipe Owner, recipe Steps, Category, Recipe Likes, Recipe Meals, Recipe Ingredients + their categories + their measures + their specifications)
+        /// Gets a Recipe By id (including recipe Owner, recipe Steps, Category, Recipe Likes, Recipe Meals, Recipe Ingredients + their categories + their measures + their specifications) or throws an exception if the recipe is not found
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>a given Recipe or throws Exception</returns>
         /// <exception cref="RecordNotFoundException">If Recipe is null, throws a RecordNotFoundException when recipe is not found</exception>
         Task<Recipe> GetByIdAsync(string id);
 

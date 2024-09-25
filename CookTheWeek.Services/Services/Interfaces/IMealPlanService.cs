@@ -31,13 +31,13 @@
         Task<string> AddAsync(string userId, MealPlanAddFormModel model);
 
         /// <summary>
-        /// Edits a meal plan to the database or throws an exception
+        /// Edits a meal plan or throws an exception (if not found or user is not authorized). The edit includes updating all inclusive meals
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="model"></param>
         /// <returns>mealPlan ID</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="UnauthorizedUserException"></exception>
         Task EditAsync(string userId, MealPlanEditFormModel model);
 
         /// <summary>
@@ -64,12 +64,13 @@
         Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id);
 
         /// <summary>
-        /// Returns a single meal plan for Edit View or throws an exception if the mealplan is not found
+        /// Returns a single meal plan for Edit View or throws an exception if the mealplan is not found or the user is not the owner
         /// </summary>
         /// <param name="id"></param>
         /// <returns>MealPlanEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<MealPlanEditFormModel> GetForEditByIdAsync(string id);
+        /// <exception cref="UnauthorizedException"></exception>
+        Task<MealPlanEditFormModel> GetForEditByIdAsync(string id, string userId);
 
         /// <summary>
         /// Returns a flag if a specific meal plan exists or not. Does not throw any exceptions

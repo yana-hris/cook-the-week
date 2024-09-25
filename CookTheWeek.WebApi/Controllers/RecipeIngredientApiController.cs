@@ -45,7 +45,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogError($"Something happened and recipe ingredient suggestions loading failed. Error message: {ex.Message}. Error tacktrace: {ex.StackTrace}")
+                logger.LogError($"Something happened and recipe ingredient suggestions loading failed. Error message: {ex.Message}. Error tacktrace: {ex.StackTrace}");
                 return BadRequest();
             }
         }

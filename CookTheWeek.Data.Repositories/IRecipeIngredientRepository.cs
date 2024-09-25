@@ -1,6 +1,7 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     public interface IRecipeIngredientRepository
     {
@@ -25,5 +26,6 @@
         /// <param name="recipeId"></param>
         /// <returns></returns>
         Task DeleteAllByRecipeIdAsync(string recipeId);
+        Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetAllMeasuresAsync();
     }
 }

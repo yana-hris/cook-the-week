@@ -5,7 +5,7 @@
     public interface IMealplanRepository
     {
         /// <summary>
-        /// Returns a queryable collection of all mealplans in the database
+        /// Returns a queryable collection of all mealplans in the database that can be filtered, sorted and materialized with any of the Async methods
         /// </summary>
         /// <returns>A queryable collection of MealPlan</returns>
         IQueryable<MealPlan> GetAllQuery();

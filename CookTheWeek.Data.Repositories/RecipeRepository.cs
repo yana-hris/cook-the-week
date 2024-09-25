@@ -5,12 +5,12 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeRepository : IRecipeRepository
     {

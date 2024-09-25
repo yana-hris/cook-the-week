@@ -4,7 +4,10 @@
     {
         public static string ToStringWithSuffix(this int number)
         {
-            if (number <= 0) return number.ToString();
+            if (number <= 0)
+            {
+                return "1<sup>st</sup>";
+            }
 
             int lastTwoDigits = number % 100;
             int lastDigit = number % 10;

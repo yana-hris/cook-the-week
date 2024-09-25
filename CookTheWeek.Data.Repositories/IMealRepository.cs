@@ -16,7 +16,7 @@ namespace CookTheWeek.Data.Repositories
         /// Gets a meal by Id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Meal</returns>
+        /// <returns>Meal or null</returns>
         Task<Meal?> GetByIdAsync(int id);
 
         /// <summary>

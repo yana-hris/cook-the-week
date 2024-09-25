@@ -20,18 +20,22 @@
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.Recipe;
     using static Common.ExceptionMessagesConstants;
-    using CookTheWeek.Services.Data.Services.Interfaces;
+    using Microsoft.Extensions.Logging;
+    using SendGrid.Helpers.Errors.Model;
 
     public class MealPlanService : IMealPlanService
     {
         private readonly IMealplanRepository mealplanRepository;
         private readonly IMealService mealService;
+        private readonly ILogger<MealPlanService> logger;
 
         public MealPlanService(IMealService mealService,
-            IMealplanRepository mealplanRepository)
+            IMealplanRepository mealplanRepository,
+            ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
             this.mealService = mealService;
+            this.logger = logger;
         }
 
         /// <inheritdoc/>
@@ -104,24 +108,13 @@
         /// <inheritdoc/>
         public async Task EditAsync(string userId, MealPlanEditFormModel model)
         {
-            MealPlan? mealPlan = await mealplanRepository.GetByIdAsync(model.Id);
+            MealPlan mealPlan = await ValidateMealPlanAndAuthorizationAsync(userId, model.Id);
 
-            if (mealPlan == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-            }
-
+            // Implementing logic for editing a meal plan
             mealPlan.Name = model.Name;
-
-            try
-            {
-                await mealService.DeleteAllByMealPlanIdAsync(model.Id);
-                await mealService.AddAllAsync(model.Meals);
-            }
-            catch (Exception)
-            {
-                throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyEditedExceptionMessage);
-            }
+            await mealService.DeleteAllByMealPlanIdAsync(model.Id);
+            await mealService.AddAllAsync(model.Meals);
+            await mealplanRepository.UpdateAsync(mealPlan);
         }
 
         /// <inheritdoc/>
@@ -195,36 +188,28 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id)
+        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id, string userId)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
 
             if (mealplan == null)
             {
+                logger.LogError($"Meal plan with id {id} not found.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
             }
 
-            MealPlanEditFormModel model = new MealPlanEditFormModel()
+            if (!GuidHelper.CompareGuidStringWithGuid(userId, mealplan.OwnerId))
             {
-                Id = mealplan.Id.ToString(),
-                Name = mealplan.Name,
-                StartDate = mealplan.StartDate,
-                Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
-                {
-                    RecipeId = mpm.RecipeId.ToString(),
-                    Title = mpm.Recipe.Title,
-                    Servings = mpm.ServingSize,
-                    ImageUrl = mpm.Recipe.ImageUrl,
-                    CategoryName = mpm.Recipe.Category.Name,
-                    Date = mpm.CookDate.ToString(MealDateFormat),
-                    SelectServingOptions = ServingsOptions
-                }).ToList(),
-            };
+                logger.LogError($"User with id {userId} does not have authorization rights to edit meal plan with id {id}.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
+            }
 
-            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+            MealPlanEditFormModel model = MapMealPlanToEditModel(mealplan);
 
             return model;
         }
+
+        
 
         /// <inheritdoc/>
         public async Task<bool> ExistsByIdAsync(string id)
@@ -298,6 +283,61 @@
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// Receives a MealPlan entity and maps it to a MealPlanEditFormModel for the edit view
+        /// </summary>
+        /// <param name="mealplan"></param>
+        /// <returns></returns>
+        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealplan)
+        {
+            MealPlanEditFormModel model = new MealPlanEditFormModel()
+            {
+                Id = mealplan.Id.ToString(),
+                Name = mealplan.Name,
+                StartDate = mealplan.StartDate,
+                Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
+                {
+                    RecipeId = mpm.RecipeId.ToString(),
+                    Title = mpm.Recipe.Title,
+                    Servings = mpm.ServingSize,
+                    ImageUrl = mpm.Recipe.ImageUrl,
+                    CategoryName = mpm.Recipe.Category.Name,
+                    Date = mpm.CookDate.ToString(MealDateFormat),
+                    SelectServingOptions = ServingsOptions
+                }).ToList(),
+            };
+
+            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+            return model;
+        }
+
+        /// <summary>
+        /// Checkes if a meal plan exists in the database by id and if it belongs to a user with a certain id. If not, loggs errors and throws exceptions
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="mealPlanId"></param>
+        /// <returns></returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        /// <exception cref="UnauthorizedUserException"></exception>
+        private async Task<MealPlan> ValidateMealPlanAndAuthorizationAsync(string userId, string mealPlanId)
+        {
+            MealPlan? mealPlan = await mealplanRepository.GetByIdAsync(mealPlanId);
+
+            if (mealPlan == null)
+            {
+                logger.LogError($"Meal plan with id {mealPlanId} not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+
+            if (!GuidHelper.CompareGuidStringWithGuid(userId, mealPlan.OwnerId))
+            {
+                logger.LogError($"User with id {userId} does not have authorization rights to edit meal plan with id {mealPlanId}.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
+            }
+
+            return mealPlan;
         }
     }
 }

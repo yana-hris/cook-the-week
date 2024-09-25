@@ -147,7 +147,7 @@
             bool exists = await dbContext
                 .Ingredients
                 .AsNoTracking()
-                .AnyAsync(i => GuidHelper.CompareTwoGuidStrings(i.Name, name));
+                .AnyAsync(i => i.Name.ToLower() == name.ToLower());
 
             return exists;
         }
@@ -156,7 +156,7 @@
         {
             return await dbContext
                 .Ingredients
-                .Where(i => GuidHelper.CompareTwoGuidStrings(i.Name, name))
+                .Where(i => i.Name.ToLower() == name.ToLower())
                 .Select(i => i.Id)
                 .FirstOrDefaultAsync();
         }

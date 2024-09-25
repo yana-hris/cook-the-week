@@ -11,14 +11,23 @@
 
     using static Common.NotificationMessagesConstants;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Data.Models;
 
     public class IngredientAdminController : BaseAdminController
     {
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService<IngredientCategory,
+                                            IngredientCategoryAddFormModel,
+                                            IngredientCategoryEditFormModel,
+                                            IngredientCategorySelectViewModel> categoryService;
         private readonly IIngredientService ingredientService;
         private readonly ILogger<IngredientAdminController> logger;
 
-        public IngredientAdminController(ICategoryService categoryService,
+        public IngredientAdminController(ICategoryService<IngredientCategory,
+                                            IngredientCategoryAddFormModel,
+                                            IngredientCategoryEditFormModel,
+                                            IngredientCategorySelectViewModel> categoryService,
             IIngredientService ingredientService,
             ILogger<IngredientAdminController> logger)
         {
@@ -36,7 +45,7 @@
                 .AllAsync(queryModel);
                 queryModel.Ingredients = serviceModel.Ingredients;
                 queryModel.TotalIngredients = serviceModel.TotalIngredientsCount;
-                queryModel.Categories = await categoryService.AllIngredientCategoryNamesAsync();
+                queryModel.Categories = await categoryService.GetAllCategoryNamesAsync();
                 queryModel.IngredientSortings = Enum.GetValues(typeof(IngredientSorting))
                     .Cast<IngredientSorting>()
                     .ToDictionary(rs => (int)rs, rs => rs.ToString());
@@ -54,7 +63,7 @@
         public async Task<IActionResult> Add()
         {
             IngredientAddFormModel model = new IngredientAddFormModel();
-            model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
+            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
 
             return View(model);
         }
@@ -63,7 +72,7 @@
         public async Task<IActionResult> Add([FromForm]IngredientAddFormModel model)
         {
             bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryExists = await categoryService.IngredientCategoryExistsByIdAsync(model.CategoryId);
+            bool categoryExists = await categoryService.CategoryExistsByIdAsync(model.CategoryId);
 
             if (ingredientExists)
             {
@@ -90,7 +99,7 @@
                 }
             }
 
-            model.IngredientCategories = await categoryService.AllIngredientCategoriesAsync();
+            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
             return View(model);
         }
 
@@ -108,7 +117,7 @@
             try
             {
                 IngredientEditFormModel model = await ingredientService.GetForEditByIdAsync(id);
-                model.Categories = await categoryService.AllIngredientCategoriesAsync();
+                model.Categories = await categoryService.GetAllCategoriesAsync();
                 return View(model);
             }
             catch (Exception)
@@ -118,6 +127,7 @@
             }
         }
 
+        // TODO: Refactor controller and use exceptions thrown from service anyway
         [HttpPost]
         public async Task<IActionResult> Edit(IngredientEditFormModel model)
         {
@@ -156,7 +166,7 @@
                 }
             }
 
-            model.Categories = await categoryService.AllIngredientCategoriesAsync();
+            model.Categories = await categoryService.GetAllCategoriesAsync();
             return View(model);
         }
 

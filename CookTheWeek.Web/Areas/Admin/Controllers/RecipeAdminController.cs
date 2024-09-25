@@ -9,17 +9,14 @@
     {
         private readonly IRecipeService recipeService;
         private readonly IUserService userService;
-        private readonly IUserAdminService userAdminService;
         private readonly ILogger<RecipeAdminController> logger;
 
         public RecipeAdminController(IRecipeService recipeService,
             IUserService userService,
-            IUserAdminService userAdminService,
             ILogger<RecipeAdminController> logger)
         {
             this.recipeService = recipeService;
             this.userService = userService;
-            this.userAdminService = userAdminService;
             this.logger = logger;
         }
 

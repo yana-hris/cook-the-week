@@ -3,17 +3,16 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using Interfaces;
     using Web.ViewModels.Admin.UserAdmin;
     using Web.ViewModels.User;
-    using Interfaces;
 
     using static Common.GeneralApplicationConstants;
     using static Common.ExceptionMessagesConstants;
-    using Microsoft.EntityFrameworkCore;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class UserService : IUserService
     {

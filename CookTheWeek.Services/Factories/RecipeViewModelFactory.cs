@@ -3,8 +3,11 @@
     using System.Threading.Tasks;
 
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
@@ -18,12 +21,18 @@
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService<RecipeCategory, 
+            RecipeCategoryAddFormModel, 
+            RecipeCategoryEditFormModel, 
+            RecipeCategorySelectViewModel> categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IMealService mealService;
 
-        public RecipeViewModelFactory(IRecipeService recipeService, 
-                                      ICategoryService categoryService,
+        public RecipeViewModelFactory(IRecipeService recipeService,
+                                      ICategoryService<RecipeCategory, 
+                                          RecipeCategoryAddFormModel, 
+                                          RecipeCategoryEditFormModel, 
+                                          RecipeCategorySelectViewModel> categoryService,
                                       IRecipeIngredientService recipeIngredientService,
                                       IMealService mealService)
         {
@@ -40,7 +49,7 @@
         {
             
             var allRecipes = await recipeService.AllAsync(queryModel, userId);
-            var categories = await categoryService.AllRecipeCategoryNamesAsync();
+            var categories = await categoryService.GetAllCategoryNamesAsync();
             
             var viewModel = new AllRecipesFilteredAndPagedViewModel
             {
@@ -116,7 +125,7 @@
 
         public async Task<IRecipeFormModel> AddRecipeOptionValuesAsync(IRecipeFormModel model)
         {            
-            model.Categories = await categoryService.AllRecipeCategoriesAsync();
+            model.Categories = await categoryService.GetAllCategoriesAsync();
             model.ServingsOptions = ServingsOptions;
 
             if (!model.RecipeIngredients.Any())

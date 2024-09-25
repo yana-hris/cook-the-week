@@ -3,23 +3,38 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Data.SqlClient;
-
-    using Services.Data.Services.Interfaces;
+    
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Data.Models;
     using ViewModels.Admin.CategoryAdmin;
     using ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class CategoryAdminController : BaseAdminController
     {
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService<IngredientCategory,
+                                            IngredientCategoryAddFormModel,
+                                            IngredientCategoryEditFormModel,
+                                            IngredientCategorySelectViewModel> ingredientCategoryService;
+        private readonly ICategoryService<RecipeCategory,
+                                            RecipeCategoryAddFormModel,
+                                            RecipeCategoryEditFormModel,
+                                            RecipeCategorySelectViewModel> recipeCategoryService;
         private readonly ILogger<CategoryAdminController> logger;
 
-        public CategoryAdminController(ICategoryService categoryService, 
-            ILogger<CategoryAdminController> logger)
+        public CategoryAdminController(ICategoryService<IngredientCategory,
+                                            IngredientCategoryAddFormModel,
+                                            IngredientCategoryEditFormModel,
+                                            IngredientCategorySelectViewModel> ingredientCategoryService,
+                                    ICategoryService<RecipeCategory,
+                                            RecipeCategoryAddFormModel,
+                                            RecipeCategoryEditFormModel,
+                                            RecipeCategorySelectViewModel> recipeCategoryService,
+                                    ILogger<CategoryAdminController> logger)
         {
-            this.categoryService = categoryService;
+            this.recipeCategoryService = recipeCategoryService;
+            this.ingredientCategoryService = ingredientCategoryService;
             this.logger = logger;
         }
 
@@ -27,8 +42,8 @@
         [HttpGet]
         public async Task<IActionResult> AllRecipeCategories()
         {
-            ICollection<RecipeCategorySelectViewModel> all = await categoryService
-                .AllRecipeCategoriesAsync();
+            ICollection<RecipeCategorySelectViewModel> all = await this.recipeCategoryService
+                .GetAllCategoriesAsync();
 
             return View(all);
         }
@@ -44,7 +59,7 @@
         [HttpPost]
         public async Task<IActionResult> AddRecipeCategory(RecipeCategoryAddFormModel model)
         {
-            bool categoryExists = await categoryService.RecipeCategoryExistsByNameAsync(model.Name);
+            bool categoryExists = await recipeCategoryService.CategoryExistsByNameAsync(model.Name);
             
             if(categoryExists)
             {
@@ -63,7 +78,7 @@
 
             try
             {
-                await this.categoryService.AddRecipeCategoryAsync(model);
+                await this.recipeCategoryService.AddCategoryAsync(model);
                 TempData[SuccessMessage] = $"Recipe Category with name \"{model.Name}\" was successfully added!";
             }
             catch (Exception)
@@ -78,14 +93,14 @@
         [HttpGet]
         public async Task<IActionResult> EditRecipeCategory(int id)
         {
-            bool exists = await categoryService.RecipeCategoryExistsByIdAsync(id);
+            bool exists = await recipeCategoryService.CategoryExistsByIdAsync(id);
 
             if(!exists)
             {
                 return NotFound();
             }
 
-            RecipeCategoryEditFormModel model = await this.categoryService.GetRecipeCategoryForEditByIdAsync(id);
+            RecipeCategoryEditFormModel model = await this.recipeCategoryService.GetCategoryForEditByIdAsync(id);
 
             return View(model);
         }
@@ -93,16 +108,16 @@
         [HttpPost]
         public async Task<IActionResult> EditRecipeCategory(RecipeCategoryEditFormModel model)
         {
-            bool existsById = await this.categoryService.RecipeCategoryExistsByIdAsync(model.Id);
+            bool existsById = await this.recipeCategoryService.CategoryExistsByIdAsync(model.Id);
             if(!existsById)
             {
                 return NotFound(model);
             }
 
-            bool existsByName = await this.categoryService.RecipeCategoryExistsByNameAsync(model.Name);
+            bool existsByName = await this.recipeCategoryService.CategoryExistsByNameAsync(model.Name);
             if(existsByName)
             {
-                int existingCategoryId = await this.categoryService.GetRecipeCategoryIdByNameAsync(model.Name);
+                int? existingCategoryId = await this.recipeCategoryService.GetCategoryIdByNameAsync(model.Name);
 
                 if(existingCategoryId != model.Id)
                 {
@@ -114,7 +129,7 @@
             {
                 try
                 {
-                    await categoryService.EditRecipeCategoryAsync(model);
+                    await recipeCategoryService.EditCategoryAsync(model);
                     TempData[SuccessMessage] = $"Recipe Category \"{model.Name}\" edited successfully!";
                     return RedirectToAction("AllRecipeCategories");
                 }
@@ -128,7 +143,7 @@
         }
         public async Task<IActionResult> DeleteRecipeCategory(int id)
         {
-            bool exists = await this.categoryService.RecipeCategoryExistsByIdAsync(id);
+            bool exists = await this.recipeCategoryService.CategoryExistsByIdAsync(id);
 
             if(!exists)
             {
@@ -138,7 +153,7 @@
             
             try
             {
-                await this.categoryService.DeleteRecipeCategoryById(id);
+                await this.recipeCategoryService.DeleteCategoryByIdAsync(id);
                 TempData[SuccessMessage] = $"Recipe Category successfully deleted!";
             }
             catch (DbUpdateException ex)
@@ -166,8 +181,8 @@
         {
             try
             {
-                ICollection<IngredientCategorySelectViewModel> all = await categoryService
-               .AllIngredientCategoriesAsync();
+                ICollection<IngredientCategorySelectViewModel> all = await ingredientCategoryService
+                                                                        .GetAllCategoriesAsync();
                 return View(all);
             }
             catch (Exception)
@@ -188,7 +203,7 @@
         [HttpPost]
         public async Task<IActionResult> AddIngredientCategory(IngredientCategoryAddFormModel model)
         {
-            bool categoryExists = await this.categoryService.IngredientCategoryExistsByNameAsync(model.Name);
+            bool categoryExists = await this.ingredientCategoryService.CategoryExistsByNameAsync(model.Name);
 
             if(categoryExists)
             {
@@ -207,7 +222,7 @@
 
             try
             {
-                await this.categoryService.AddIngredientCategoryAsync(model);
+                await this.ingredientCategoryService.AddCategoryAsync(model);
                 TempData[SuccessMessage] = $"Ingredient Category with name \"{model.Name}\" was successfully added!";
             }
             catch (Exception)
@@ -222,7 +237,7 @@
         [HttpGet]
         public async Task<IActionResult> EditIngredientCategory(int id)
         {
-            bool exists = await categoryService.IngredientCategoryExistsByIdAsync(id);
+            bool exists = await ingredientCategoryService.CategoryExistsByIdAsync(id);
 
             if (!exists)
             {
@@ -232,7 +247,7 @@
 
             try
             {
-                IngredientCategoryEditFormModel model = await this.categoryService.GetIngredientCategoryForEditByIdAsync(id);
+                IngredientCategoryEditFormModel model = await this.ingredientCategoryService.GetCategoryForEditByIdAsync(id);
                 return View(model);
             }
             catch (Exception)
@@ -245,16 +260,16 @@
         [HttpPost]
         public async Task<IActionResult> EditIngredientCategory(IngredientCategoryEditFormModel model)
         {
-            bool existsById = await this.categoryService.IngredientCategoryExistsByIdAsync(model.Id);
+            bool existsById = await this.ingredientCategoryService.CategoryExistsByIdAsync(model.Id);
             if (!existsById)
             {
                 return NotFound(model);
             }
 
-            bool existsByName = await this.categoryService.IngredientCategoryExistsByNameAsync(model.Name);
+            bool existsByName = await this.ingredientCategoryService.CategoryExistsByNameAsync(model.Name);
             if (existsByName)
             {
-                int existingCategoryId = await this.categoryService.GetIngredientCategoryIdByNameAsync(model.Name);
+                int? existingCategoryId = await this.ingredientCategoryService.GetCategoryIdByNameAsync(model.Name);
 
                 if (existingCategoryId != model.Id)
                 {
@@ -266,7 +281,7 @@
             {
                 try
                 {
-                    await categoryService.EditIngredientCategoryAsync(model);
+                    await ingredientCategoryService.EditCategoryAsync(model);
                     TempData[SuccessMessage] = $"Ingredient Category \"{model.Name}\" edited successfully!";
                     return RedirectToAction("AllIngredientCategories");
                 }
@@ -281,7 +296,7 @@
 
         public async Task<IActionResult> DeleteIngredientCategory(int id)
         {
-            bool exists = await this.categoryService.IngredientCategoryExistsByIdAsync(id);
+            bool exists = await this.ingredientCategoryService.CategoryExistsByIdAsync(id);
 
             if (!exists)
             {
@@ -291,7 +306,7 @@
 
             try
             {
-                await this.categoryService.DeleteIngredientCategoryById(id);
+                await this.ingredientCategoryService.DeleteCategoryByIdAsync(id);
                 TempData[SuccessMessage] = $"Ingredient Category successfully deleted!";
             }
             catch (DbUpdateException ex)

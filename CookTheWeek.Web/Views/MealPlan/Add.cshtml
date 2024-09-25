@@ -1,16 +1,16 @@
 ﻿@model MealPlanAddFormModel
 @inject IMealPlanService MealPlanService
-@    using static CookTheWeek.Common.Extensions.NumberExtensions
-@    using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages
+@using static CookTheWeek.Common.Extensions.NumberExtensions
+@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages
 @{
     ViewData["Title"] = "Add Meal Plan";
     int initialCount = Model.Meals.Count;
-    int userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());
+    int? userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());
 
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = $"It's your <strong>{userPlansCount.ToStringWithSuffix()}</strong> plan",
+        HeadingSecondary = $"It's your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
     };
     
     if (ViewBag.ReturnUrl == null)

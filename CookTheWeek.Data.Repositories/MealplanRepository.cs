@@ -1,11 +1,13 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
-    using CookTheWeek.Common.HelperMethods;
-    using CookTheWeek.Data.Models;
-    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Common.HelperMethods;
+    using CookTheWeek.Data.Models;
 
     public class MealplanRepository : IMealplanRepository
     {
@@ -49,10 +51,10 @@
         }
 
         /// <inheritdoc/>
-        //TODO: implement
-        public Task UpdateAsync(MealPlan mealPlan)
+        public async Task UpdateAsync(MealPlan mealPlan)
         {
-            throw new NotImplementedException();
+            this.dbContext.MealPlans.Update(mealPlan);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>

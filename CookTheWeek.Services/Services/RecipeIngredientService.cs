@@ -5,25 +5,30 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.RecipeIngredient;
-    using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Common.HelperMethods;
+    using CookTheWeek.Data.Repositories;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
         private readonly CookTheWeekDbContext dbContext;
+        private readonly IRecipeIngredientRepository recipeIngredientRepository;
 
-        public RecipeIngredientService(CookTheWeekDbContext dbContext)
+        public RecipeIngredientService(CookTheWeekDbContext dbContext,
+            IRecipeIngredientRepository recipeIngredientRepository)
         {
             this.dbContext = dbContext;
+            this.recipeIngredientRepository = recipeIngredientRepository;
         }
 
         public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
         {
-            ICollection<RecipeIngredientSelectMeasureViewModel> allMeasures = await dbContext
+            ICollection<RecipeIngredientSelectMeasureViewModel> allMeasures = await this.recipeIngredientRepository.GetAllMeasuresAsync();
+                
+                dbContext
                 .Measures
                 .AsNoTracking()
                 .Select(m => new RecipeIngredientSelectMeasureViewModel()
