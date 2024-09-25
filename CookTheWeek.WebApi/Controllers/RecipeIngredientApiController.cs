@@ -2,8 +2,7 @@
 {
     using CookTheWeek.Services.Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
-
-    using Services.Data.Services.Interfaces;
+   
     using Services.Data.Models.RecipeIngredient;
 
     /// <summary>

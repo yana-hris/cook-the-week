@@ -1,7 +1,6 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     public interface IRecipeIngredientRepository
     {
@@ -26,6 +25,63 @@
         /// <param name="recipeId"></param>
         /// <returns></returns>
         Task DeleteAllByRecipeIdAsync(string recipeId);
-        Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetAllMeasuresAsync();
+
+        // FOR NESTED ENTITIES IN RECIPE INGREDIETS:
+        // MEASURES
+        /// <summary>
+        /// Returns a queriable of all measures
+        /// </summary>
+        /// <returns>A qieryable collection of Measure</returns>
+        IQueryable<Measure> GetAllMeasuresQuery();
+
+        /// <summary>
+        /// Adds a Measure to the database
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task AddMeasureAsync(Measure measure); 
+
+        /// <summary>
+        /// Updates an existing Measure
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task UpdateMeasureAsync(Measure measure);
+
+        /// <summary>
+        /// Deletes an existing Measure from the database
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task DeleteMeasureAsync(Measure measure);
+
+        // SPECIFICATIONS:
+        /// <summary>
+        /// Returns a queriable of all measures
+        /// </summary>
+        /// <returns>A qieryable collection of Measure</returns>
+        IQueryable<Measure> GetAllSpecsQuery();
+
+        /// <summary>
+        /// Adds a Specification to the database
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task AddSpecAsync(Measure measure);
+
+        /// <summary>
+        /// Updates an existing Specification
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task UpdateSpecAsync(Measure measure);
+
+        /// <summary>
+        /// Deletes an existing Specification from the database
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
+        Task DeleteSpecAsync(Measure measure);
+
     }
 }

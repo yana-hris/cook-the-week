@@ -26,7 +26,7 @@
 
         public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
         {
-            ICollection<RecipeIngredientSelectMeasureViewModel> allMeasures = await this.recipeIngredientRepository.GetAllMeasuresAsync();
+            ICollection<RecipeIngredientSelectMeasureViewModel> allMeasures = await this.recipeIngredientRepository.GetAllMeasuresQuery();
                 
                 dbContext
                 .Measures

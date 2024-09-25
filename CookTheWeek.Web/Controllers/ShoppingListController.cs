@@ -4,7 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Rotativa.AspNetCore;
 
-    using Services.Data.Services.Interfaces;
     using ViewModels.ShoppingList;
 
 

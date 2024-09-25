@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using Microsoft.EntityFrameworkCore;
 
     public class RecipeIngredientRepository : IRecipeIngredientRepository
@@ -50,6 +51,14 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        
+        public IQueryable<Measure> GetMeasuresQuery()
+        {
+            var measures = await dbContext
+                .Measures
+                .AsNoTracking()
+                ToListAsync();
+
+            return measures;
+        }
     }
 }
