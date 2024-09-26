@@ -5,32 +5,28 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using Interfaces;
-    using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-    using Models.Ingredient;
-    using Models.RecipeIngredient;
-    using Web.ViewModels.Admin.IngredientAdmin;
-    using Web.ViewModels.Admin.IngredientAdmin.Enums;
+    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Common.HelperMethods;
+    using CookTheWeek.Services.Data.Models.Ingredient;
+    using CookTheWeek.Services.Data.Models.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     public class IngredientService : IIngredientService
     {
-        private readonly CookTheWeekDbContext dbContext;
+        private readonly IIngredientRepository ingredientRepository;
 
-        public IngredientService(CookTheWeekDbContext dbContext)
+        public IngredientService(IIngredientRepository ingredientRepository)
         {
-            this.dbContext = dbContext;
+            this.ingredientRepository = ingredientRepository;
         }
 
+        /// <inheritdoc/>
         public async Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel)
         {
-            IQueryable<Ingredient> ingredientsQuery = dbContext
-                .Ingredients
-                .Include(i => i.Category)
-                .AsNoTracking()
-                .AsQueryable();
+            IQueryable<Ingredient> ingredientsQuery = 
+                                ingredientRepository.GetAllQuery();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Category))
             {
@@ -59,7 +55,7 @@
                 _ => ingredientsQuery.OrderBy(i => i.Name)
             };
 
-            ICollection<IngredientAllViewModel> allIngredients = await ingredientsQuery
+            ICollection<IngredientAllViewModel> resultIngredients = await ingredientsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.IngredientsPerPage)
                 .Take(queryModel.IngredientsPerPage)
                 .Select(i => new IngredientAllViewModel()
@@ -75,9 +71,11 @@
             return new AllIngredientsFilteredAndPagedServiceModel()
             {
                 TotalIngredientsCount = totalIngredients,
-                Ingredients = allIngredients
+                Ingredients = resultIngredients
             };
         }
+
+        /// <inheritdoc/>
         public async Task<int> AddAsync(IngredientAddFormModel model)
         {
             Ingredient ingredient = new Ingredient()
@@ -86,94 +84,74 @@
                 CategoryId = model.CategoryId
             };
 
-            await dbContext.Ingredients.AddAsync(ingredient);
-            await dbContext.SaveChangesAsync();
-
-            return ingredient.Id;
+            return await ingredientRepository.AddAsync(ingredient);
         }
+
+        /// <inheritdoc/>
         public async Task EditAsync(IngredientEditFormModel model)
         {
-            Ingredient? ingredient = await dbContext
-                .Ingredients
-                .Where(i => i.Id == model.Id)
-                .FirstOrDefaultAsync();
+            Ingredient ingredient = await ingredientRepository.GetByIdAsync(model.Id);
 
-            if (ingredient != null)
-            {
-                ingredient.Name = model.Name;
-                ingredient.CategoryId = model.CategoryId;
-            }
+            ingredient.Name = model.Name;
+            ingredient.CategoryId = model.CategoryId;
 
-            await dbContext.SaveChangesAsync();
+            await ingredientRepository.UpdateAsync(ingredient);
         }
+
+        /// <inheritdoc/>
         public async Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input)
         {
-            string wildCard = $"%{input.ToLower()}%";
+            IQueryable<Ingredient> suggestions = ingredientRepository
+                .GetAllBySearchStringQuery(input);
 
-            return await dbContext
-                .Ingredients
-                .AsNoTracking()
-                .Where(i => EF.Functions.Like(i.Name.ToLower(), wildCard))
-                .Select(i => new RecipeIngredientSuggestionServiceModel()
+            var model = await suggestions.
+                Select(s => new RecipeIngredientSuggestionServiceModel()
                 {
-                    Id = i.Id,
-                    Name = i.Name,
+                    Id = s.Id,
+                    Name = s.Name,  
                 }).ToListAsync();
-        }
-        public async Task<IngredientEditFormModel> GetForEditByIdAsync(int id)
-        {
-            IngredientEditFormModel? model = await dbContext.Ingredients
-                .Where(i => i.Id == id)
-                .AsNoTracking()
-                .Select(i => new IngredientEditFormModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    CategoryId = i.CategoryId
-                })
-                .FirstOrDefaultAsync();
 
             return model;
         }
+
+        /// <inheritdoc/>
+        public async Task<IngredientEditFormModel> GetForEditByIdAsync(int id)
+        {
+            Ingredient ingredient = await ingredientRepository.GetByIdAsync(id);
+
+            IngredientEditFormModel model = new IngredientEditFormModel()
+            { 
+                Id = ingredient.Id,
+                Name = ingredient.Name,
+                CategoryId = ingredient.CategoryId
+            };
+
+            return model;
+        }
+
+        /// <inheritdoc/>
         public async Task<bool> ExistsByIdAsync(int id)
         {
-            return await dbContext
-                .Ingredients
-                .AsNoTracking()
-                .AnyAsync(i => i.Id == id);
+            return await ingredientRepository.ExistsByIdAsync(id);
         }
+
+        /// <inheritdoc/>
         public async Task<bool> ExistsByNameAsync(string name)
         {
-            bool exists = await dbContext
-                .Ingredients
-                .AsNoTracking()
-                .AnyAsync(i => i.Name.ToLower() == name.ToLower());
-
-            return exists;
+            return await ingredientRepository.ExistsByNameAsync(name);
+        }
+        
+        /// <inheritdoc/>
+        public async Task<int?> AllCountAsync()
+        {
+            return await ingredientRepository.CountAsync();
         }
 
-        public async Task<int?> GetIdByNameAsync(string name)
+        /// <inheritdoc/>
+        public async Task DeleteByIdAsync(int id)
         {
-            return await dbContext
-                .Ingredients
-                .Where(i => i.Name.ToLower() == name.ToLower())
-                .Select(i => i.Id)
-                .FirstOrDefaultAsync();
-        }
-        public async Task<int> AllCountAsync()
-        {
-            return await dbContext
-                .Ingredients
-                .CountAsync();
-        }
-        public async Task DeleteById(int id)
-        {
-            Ingredient ingredient = await dbContext
-                .Ingredients
-                .FirstAsync(i => i.Id == id);
-
-            dbContext.Ingredients.Remove(ingredient);
-            await dbContext.SaveChangesAsync();
+            Ingredient ingredient = await ingredientRepository.GetByIdAsync(id);
+            await ingredientRepository.DeleteAsync(ingredient);
         }
 
     }

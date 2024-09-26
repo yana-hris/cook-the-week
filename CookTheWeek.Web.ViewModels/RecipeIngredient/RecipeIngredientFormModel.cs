@@ -13,7 +13,9 @@
             this.Measures = new HashSet<RecipeIngredientSelectMeasureViewModel>();
             this.Specifications = new HashSet<RecipeIngredientSelectSpecificationViewModel>();
         }
-        
+
+        public int IngredientId { get; set; }
+
         [Required(ErrorMessage = RecipeIngredientNameRequiredErrorMessage)]
         [StringLength(RecipeIngredientNameMaxLength, MinimumLength = RecipeIngredientNameMinLength, ErrorMessage = RecipeIngredientNameRangeErrorMessage)]
         [Display(Name = "Ingredient")]

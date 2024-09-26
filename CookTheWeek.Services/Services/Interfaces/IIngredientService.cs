@@ -24,32 +24,28 @@
         Task<int> AddAsync(IngredientAddFormModel model);
 
         /// <summary>
-        /// Edits an existing ingredient in the database.
+        /// Edits an existing ingredient in the database or throws an exception if ingredient is not found
         /// </summary>
+        /// <remarks>May throw RecordNotFoundException due to using GetById method</remarks>
         /// <param name="model">The model containing updated ingredient data.</param>
         Task EditAsync(IngredientEditFormModel model);
 
         /// <summary>
-        /// Generates a list of ingredient suggestions based on the input search string.
+        /// Generates a collection of ingredient suggestions model, based on the input search string, to be used for suggestive search functionality
         /// </summary>
         /// <param name="input">The input string to search for ingredient suggestions.</param>
-        /// <returns>A list of ingredient suggestions that match the input search string.</returns>
+        /// <returns>A collection of RecipeIngredientSuggestionsServiceModel</returns>
         Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input);
 
         /// <summary>
-        /// Retrieves an ingredient by ID for editing purposes.
+        /// Retrieves an ingredient by ID for editing purposes or throws an exception
         /// </summary>
         /// <param name="id">The ID of the ingredient to retrieve.</param>
-        /// <returns>The ingredient edit form model containing the ingredient data, or null if not found.</returns>
-        Task<IngredientEditFormModel?> GetForEditByIdAsync(int id);
+        /// <remarks>May throw RecordNotFoundException due to using GetById method</remarks>
+        /// <returns>The IngredientEditFormModel containing the ingredient data, or null if not found.</returns>
+        Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
 
-        /// <summary>
-        /// Retrieves the ID of an ingredient by its name.
-        /// </summary>
-        /// <param name="name">The name of the ingredient to search for.</param>
-        /// <returns>The ID of the ingredient, or null if not found.</returns>
-        Task<int?> GetIdByNameAsync(string name);
-
+       
         /// <summary>
         /// Checks if an ingredient exists by its ID.
         /// </summary>
@@ -67,13 +63,14 @@
         /// <summary>
         /// Retrieves the total count of all ingredients in the database.
         /// </summary>
-        /// <returns>The total count of ingredients.</returns>
-        Task<int> AllCountAsync();
+        /// <returns>The total count of ingredients (int or 0)</returns>
+        Task<int?> AllCountAsync();
 
         /// <summary>
-        /// Deletes an ingredient by its ID.
+        /// Deletes an ingredient by its ID or throws and exception
         /// </summary>
-        /// <param name="id">The ID of the ingredient to delete.</param>
+        /// <param name="id">The ID of the ingredient to delete</param>
+        /// <remarks>May throw RecordNotFoundException of ingredient does not exist</remarks>
         Task DeleteByIdAsync(int id);
 
 

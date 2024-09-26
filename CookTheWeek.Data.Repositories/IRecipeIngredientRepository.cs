@@ -35,6 +35,20 @@
         IQueryable<Measure> GetAllMeasuresQuery();
 
         /// <summary>
+        /// Checks if a given recipe ingredient Measure exists by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> MeasureExistsByIdAsync(int id);
+
+        /// <summary>
+        /// Checks if a given recipe ingredient Measure exists by name
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> MeasureExistsByNameAsync(string name);
+
+        /// <summary>
         /// Adds a Measure to the database
         /// </summary>
         /// <param name="measure"></param>
@@ -61,6 +75,20 @@
         /// </summary>
         /// <returns>A qieryable collection of Specification</returns>
         IQueryable<Specification> GetAllSpecsQuery();
+
+        /// <summary>
+        /// Checks if a given recipe ingredient Specification exists by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> SpecificationExistsByIdAsync(int id);
+
+        /// <summary>
+        /// Checks if a given recipe ingredient Specification exists by name
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> SpecificationExistsByNameAsync(string name);
 
         /// <summary>
         /// Adds a Specification to the database

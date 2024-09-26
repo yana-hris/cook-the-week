@@ -14,9 +14,9 @@ namespace CookTheWeek.Data.Repositories
         Task<Ingredient> GetByIdAsync(int id);
 
         /// <summary>
-        /// Gets a queryable collection of all Ingredients that can be filtered, sorted and materialized (awaited) with any of the Async methods later
+        /// Gets a queryable collection of all Ingredients (incl. their Category) that can be filtered, sorted and materialized (awaited) with any of the Async methods later
         /// </summary>
-        /// <returns>A queryable collection of Ingredient</returns>
+        /// <returns>A queryable collection of Ingredient (+ Category)</returns>
         IQueryable<Ingredient> GetAllQuery();
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace CookTheWeek.Data.Repositories
         /// </summary>
         /// <param name="name"></param>
         /// <returns>A collection of Ingredients, filtered by a search string or an empty collection</returns>
-        Task<IEnumerable<Ingredient>> GetAllBySearchString(string name);
+        IQueryable<Ingredient> GetAllBySearchStringQuery(string name);
 
         /// <summary>
         /// Adds an ingredient to the database and returns its id as a result

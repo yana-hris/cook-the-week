@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -34,8 +33,7 @@
             await this.dbContext.RecipesIngredients.AddRangeAsync(recipeIngredients);
             await this.dbContext.SaveChangesAsync();
         }
-
-        
+                
         /// <inheritdoc/>
         public async Task DeleteAllByRecipeIdAsync(string recipeId)
         {
@@ -62,6 +60,19 @@
         }
 
         /// <inheritdoc/>
+        public async Task<bool> MeasureExistsByIdAsync(int id)
+        {
+            return await dbContext.Measures.AnyAsync(m => m.Id == id);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> MeasureExistsByNameAsync(string name)
+        {
+            return await dbContext.Measures
+                .AnyAsync(m => m.Name.ToLower() == name.ToLower());
+        }
+
+        /// <inheritdoc/>
         public async Task AddMeasureAsync(Measure measure)
         {
             await dbContext.Measures.AddAsync(measure);
@@ -82,12 +93,26 @@
             await dbContext.SaveChangesAsync();
         }
 
+        /// <inheritdoc/>
         public IQueryable<Specification> GetAllSpecsQuery()
         {
             return dbContext
                 .Specifications
                 .AsNoTracking()
                 .AsQueryable();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SpecificationExistsByIdAsync(int id)
+        {
+            return await dbContext.Specifications.AnyAsync(sp => sp.Id == id);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SpecificationExistsByNameAsync(string name)
+        {
+            return await dbContext.Specifications
+                .AnyAsync(sp => sp.Description.ToLower() == name.ToLower());
         }
 
         /// <inheritdoc/>
@@ -110,5 +135,6 @@
             dbContext.Remove(spec);
             await dbContext.SaveChangesAsync();
         }
+        
     }
 }

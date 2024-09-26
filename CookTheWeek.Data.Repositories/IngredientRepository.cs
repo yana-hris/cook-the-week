@@ -58,12 +58,12 @@
                 .AsNoTracking()
                 .AnyAsync(i => i.Name == name);
         }
-
         
         /// <inheritdoc/>
         public IQueryable<Ingredient> GetAllQuery()
         {
             return this.dbContext.Ingredients
+                .Include(i => i.Category)
                 .AsNoTracking()
                 .AsQueryable();
         }
@@ -85,15 +85,15 @@
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Ingredient>> GetAllBySearchString(string searchString)
+        public IQueryable<Ingredient> GetAllBySearchStringQuery(string searchString)
         {
             string wildCard = $"%{searchString.ToLower()}%";
 
-            return await dbContext
+            return dbContext
                 .Ingredients
                 .AsNoTracking()
                 .Where(i => EF.Functions.Like(i.Name.ToLower(), wildCard))
-                .ToListAsync();
+                .AsQueryable();
         }
 
         /// <inheritdoc/>

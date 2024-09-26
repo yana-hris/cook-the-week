@@ -299,6 +299,7 @@
                 RecipeCategoryId = recipe.CategoryId,
                 RecipeIngredients = recipe.RecipesIngredients.Select(ri => new RecipeIngredientFormModel()
                 {
+                    IngredientId = ri.IngredientId,
                     Name = ri.Ingredient.Name,
                     Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty, ri.Measure.Name),
                     MeasureId = ri.MeasureId,
@@ -564,23 +565,22 @@
 
         private async Task AddOrUpdateIngredients(IRecipeFormModel recipe, IEnumerable<RecipeIngredientFormModel> newIngredients)
         {
-
             ICollection<RecipeIngredient> validRecipeIngredients = new List<RecipeIngredient>();
 
             foreach (var ingredient in newIngredients)
             {
-                var ingredientId = await ingredientService.GetIdByNameAsync(ingredient.Name);
+                bool isValidIngredient = await ingredientService.ExistsByIdAsync(ingredient.IngredientId);
 
                 // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
-                if (ingredientId != null)
+                if (isValidIngredient)
                 {
-                    if (CheckAndUpdateAnExistingIngredient(validRecipeIngredients, ingredient, ingredientId.Value))
+                    if (CheckAndUpdateAnExistingIngredient(validRecipeIngredients, ingredient))
                     {
                         continue;
                     }
 
                     // Otherwise, create a new ingredient
-                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, ingredientId.Value));
+                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, isValidIngredient.Value));
 
                 }
                 else
@@ -596,6 +596,7 @@
             }
             else if (recipe is RecipeAddFormModel)
             {
+                //TODO: implement a service in recipeIngredientService for adding recipe-ingredients instead of using repository
                 await recipeIngredientRepository.AddAllAsync(validRecipeIngredients);
             }
             else
@@ -618,12 +619,11 @@
 
         // Check if an ingredient with the same characteristics is already existing to update QTY
         private static bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
-                                                             RecipeIngredientFormModel ingredient,
-                                                             int ingredientId)
+                                                             RecipeIngredientFormModel ingredient)
         {
             // Check if the ingredient is already added with the same measure and specification
             var existingIngredient = validRecipeIngredients
-                .FirstOrDefault(ri => ri.IngredientId == ingredientId &&
+                .FirstOrDefault(ri => ri.IngredientId == ingredient.IngredientId &&
                                       ri.MeasureId == ingredient.MeasureId &&
                                       (ri.SpecificationId == ingredient.SpecificationId ||
                                       ri.SpecificationId == null && ingredient.SpecificationId == null));
