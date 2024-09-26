@@ -230,38 +230,41 @@
         /// <summary>
         /// A generic method to validate if a given TCategory is not already existent in the database, which can lead to data duplication (by name)
         /// </summary>
-        /// <typeparam name="TCategory">The type of category to check for</typeparam>
-        /// <typeparam name="TCategoryAddFormModel">The form model for adding a category</typeparam>
+        /// <typeparam name="TCategory">The type of category to check for (TCategory)</typeparam>
+        /// <typeparam name="TCategoryAddFormModel">The form model for adding or editing a category</typeparam>
         /// <param name="model">The model</param>
         /// <returns>Validation Result, having isValid and Errors properties</returns>
-        /// <exception cref="InvalidCastException"></exception>
-        public async Task<ValidationResult> ValidateCategoryByName<TCategoryAddFormModel>(TCategoryAddFormModel model)
+        public async Task<ValidationResult> ValidateCategoryNameAsync<TCategoryFormModel>(TCategoryFormModel model,
+                                                              Func<string, Task<bool>> categoryExistsByNameFunc,
+                                                              Func<int, Task<bool>> categoryExistsByIdFunc = null)
+                                      where TCategoryFormModel : ICategoryFormModel
         {
             var result = new ValidationResult();
 
-            bool exists = false;
+            // For editing models, use categoryExistsByIdFunc to ensure we're not checking the current category's name
+            if (model is ICategoryEditFormModel editModel && categoryExistsByIdFunc != null)
+            {
+                // Ensure the category name exists for other categories but not the one being edited
+                bool nameExists = await categoryExistsByNameFunc(editModel.Name);
+                bool isSameCategory = await categoryExistsByIdFunc(editModel.Id);
 
-            if (model is RecipeCategoryAddFormModel recipeCategoryModel)
-            {
-                exists = await recipeCategoryService.CategoryExistsByNameAsync(recipeCategoryModel.Name);
-            }
-            else if (model is IngredientCategoryAddFormModel ingredientCategoryModel)
-            {
-                exists = await ingredientCategoryService.CategoryExistsByNameAsync(ingredientCategoryModel.Name);
+                if (nameExists && !isSameCategory)
+                {
+                    AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
+                }
             }
             else
             {
-                throw new InvalidCastException(InvalidCastExceptionMessages.IngredientAddOrEditModelUnsuccessfullyCasted);
-            }
-
-            if (!exists)
-            {
-                AddValidationError(result, nameof(model.Name))
-
-                ModelState.AddModelError(nameof(model.Name), $"Category with name {model.Name} already exists!");
+                // For adding models or cases where no Id is needed
+                bool exists = await categoryExistsByNameFunc(model.Name);
+                if (exists)
+                {
+                    AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
+                }
             }
 
             return result;
+
         }
 
 

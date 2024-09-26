@@ -45,7 +45,7 @@
         public async Task<bool> CategoryExistsByNameAsync(string name)
         {
             return await this.categoryRepository.GetAllQuery()
-                .AnyAsync(c => c.Name == name);
+                .AnyAsync(c => c.Name.ToLower() == name.ToLower());
         }
 
         /// <inheritdoc/>      

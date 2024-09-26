@@ -21,7 +21,6 @@
     using static Common.EntityValidationConstants.Recipe;
     using static Common.ExceptionMessagesConstants;
     using Microsoft.Extensions.Logging;
-    using SendGrid.Helpers.Errors.Model;
 
     public class MealPlanService : IMealPlanService
     {

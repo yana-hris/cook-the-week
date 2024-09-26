@@ -5,7 +5,7 @@
 
     using CookTheWeek.Data.Models.Interfaces;
 
-    using static CookTheWeek.Common.EntityValidationConstants.IngredientCategory;
+    using static CookTheWeek.Common.EntityValidationConstants.Category;
 
     [Comment("Ingredient Category")]
     public class IngredientCategory : ICategory

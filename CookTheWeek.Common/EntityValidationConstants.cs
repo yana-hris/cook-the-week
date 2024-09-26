@@ -137,18 +137,15 @@
             public const int DescriptionMaxLength = 50;
         }
 
-        public static class RecipeCategory
+        // All categories TCategory (RecipeCategory, IngredientCategory)
+        public static class Category
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
-        }
 
-        public static class IngredientCategory
-        {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 50;
+            public const string CategoryExistsErrorMessage = "Category with this name already exists.";
         }
-
+        
         public static class ApplicationUser
         {            
             public const int UsernameMinLength = 3;

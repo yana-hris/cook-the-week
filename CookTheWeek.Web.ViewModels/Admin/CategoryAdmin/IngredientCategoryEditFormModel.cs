@@ -4,8 +4,8 @@
 
     using CookTheWeek.Web.ViewModels.Interfaces;
 
-    using static Common.EntityValidationConstants.IngredientCategory;
-    public class IngredientCategoryEditFormModel : ICategoryFormModel
+    using static Common.EntityValidationConstants.Category;
+    public class IngredientCategoryEditFormModel : ICategoryEditFormModel
     {
         [Required]
         public int Id { get; set; }
