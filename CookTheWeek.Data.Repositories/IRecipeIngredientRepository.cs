@@ -57,31 +57,31 @@
 
         // SPECIFICATIONS:
         /// <summary>
-        /// Returns a queriable of all measures
+        /// Returns a queriable of all specifications
         /// </summary>
-        /// <returns>A qieryable collection of Measure</returns>
-        IQueryable<Measure> GetAllSpecsQuery();
+        /// <returns>A qieryable collection of Specification</returns>
+        IQueryable<Specification> GetAllSpecsQuery();
 
         /// <summary>
         /// Adds a Specification to the database
         /// </summary>
-        /// <param name="measure"></param>
+        /// <param name="spec"></param>
         /// <returns></returns>
-        Task AddSpecAsync(Measure measure);
+        Task AddSpecAsync(Specification spec);
 
         /// <summary>
         /// Updates an existing Specification
         /// </summary>
-        /// <param name="measure"></param>
+        /// <param name="spec"></param>
         /// <returns></returns>
-        Task UpdateSpecAsync(Measure measure);
+        Task UpdateSpecAsync(Specification spec);
 
         /// <summary>
         /// Deletes an existing Specification from the database
         /// </summary>
-        /// <param name="measure"></param>
+        /// <param name="spec"></param>
         /// <returns></returns>
-        Task DeleteSpecAsync(Measure measure);
+        Task DeleteSpecAsync(Specification mespecasure);
 
     }
 }

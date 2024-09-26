@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using Microsoft.EntityFrameworkCore;
 
     public class RecipeIngredientRepository : IRecipeIngredientRepository
     {
@@ -51,14 +52,63 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public IQueryable<Measure> GetMeasuresQuery()
+        /// <inheritdoc/>
+        public IQueryable<Measure> GetAllMeasuresQuery()
         {
-            var measures = await dbContext
+            return dbContext
                 .Measures
                 .AsNoTracking()
-                ToListAsync();
+                .AsQueryable();
+        }
 
-            return measures;
+        /// <inheritdoc/>
+        public async Task AddMeasureAsync(Measure measure)
+        {
+            await dbContext.Measures.AddAsync(measure);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task UpdateMeasureAsync(Measure measure)
+        {
+            dbContext.Update(measure);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteMeasureAsync(Measure measure)
+        {
+            dbContext.Remove(measure);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public IQueryable<Specification> GetAllSpecsQuery()
+        {
+            return dbContext
+                .Specifications
+                .AsNoTracking()
+                .AsQueryable();
+        }
+
+        /// <inheritdoc/>
+        public async Task AddSpecAsync(Specification spec)
+        {
+            await dbContext.Specifications.AddAsync(spec);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task UpdateSpecAsync(Specification spec)
+        {
+            dbContext.Update(spec);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteSpecAsync(Specification spec)
+        {
+            dbContext.Remove(spec);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
