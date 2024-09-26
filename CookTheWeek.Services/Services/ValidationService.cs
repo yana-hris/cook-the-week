@@ -2,6 +2,7 @@
 {
     using System.Globalization;
     using System.Threading.Tasks;
+
     using CookTheWeek.Common;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
@@ -18,12 +19,17 @@
 
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
     public class ValidationService : IValidationService
     {
         private readonly ICategoryService<RecipeCategory, 
             RecipeCategoryAddFormModel, 
             RecipeCategoryEditFormModel, 
-            RecipeCategorySelectViewModel> categoryService;
+            RecipeCategorySelectViewModel> recipeCategoryService;
+        private readonly ICategoryService<IngredientCategory,
+            IngredientCategoryAddFormModel,
+            IngredientCategoryEditFormModel,
+            IngredientCategorySelectViewModel> ingredientCategoryService;
         private readonly IRecipeRepository recipeRepository;
         private readonly IIngredientService ingredientService;
         private readonly IRecipeIngredientService recipeIngredientService;
@@ -32,12 +38,16 @@
             RecipeCategoryAddFormModel, 
             RecipeCategoryEditFormModel, 
             RecipeCategorySelectViewModel> categoryService,
+            ICategoryService<IngredientCategory,
+            IngredientCategoryAddFormModel,
+            IngredientCategoryEditFormModel,
+            IngredientCategorySelectViewModel> ingredientCategoryService,
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
             IRecipeRepository recipeRepository,
             IUserRepository userRepository)
         {
-            this.categoryService = categoryService;
+            this.recipeCategoryService = categoryService;
             this.ingredientService = ingredientService;
             this.recipeIngredientService = recipeIngredientService;
             this.recipeRepository = recipeRepository;
@@ -67,7 +77,7 @@
         {
             var result = new ValidationResult();
 
-            bool categoryExists = await categoryService.CategoryExistsByIdAsync(model.RecipeCategoryId.Value);
+            bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId.Value);
 
             if (!categoryExists)
             {
@@ -144,7 +154,6 @@
         /// </summary>
         /// <param name="serviceModel"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel)
         {
             var result = new ValidationResult();
@@ -219,6 +228,47 @@
         }
 
         /// <summary>
+        /// A generic method to validate if a given TCategory is not already existent in the database, which can lead to data duplication (by name)
+        /// </summary>
+        /// <typeparam name="TCategory">The type of category to check for</typeparam>
+        /// <typeparam name="TCategoryAddFormModel">The form model for adding a category</typeparam>
+        /// <param name="model">The model</param>
+        /// <returns>Validation Result, having isValid and Errors properties</returns>
+        /// <exception cref="InvalidCastException"></exception>
+        public async Task<ValidationResult> ValidateCategoryByName<TCategoryAddFormModel>(TCategoryAddFormModel model)
+        {
+            var result = new ValidationResult();
+
+            bool exists = false;
+
+            if (model is RecipeCategoryAddFormModel recipeCategoryModel)
+            {
+                exists = await recipeCategoryService.CategoryExistsByNameAsync(recipeCategoryModel.Name);
+            }
+            else if (model is IngredientCategoryAddFormModel ingredientCategoryModel)
+            {
+                exists = await ingredientCategoryService.CategoryExistsByNameAsync(ingredientCategoryModel.Name);
+            }
+            else
+            {
+                throw new InvalidCastException(InvalidCastExceptionMessages.IngredientAddOrEditModelUnsuccessfullyCasted);
+            }
+
+            if (!exists)
+            {
+                AddValidationError(result, nameof(model.Name))
+
+                ModelState.AddModelError(nameof(model.Name), $"Category with name {model.Name} already exists!");
+            }
+
+            return result;
+        }
+
+
+
+
+        // PRIVATE METHODS:
+        /// <summary>
         /// Checks if a meal`s selected date is valid (being present in the select-dates and if can be parsed correctly).
         /// </summary>
         /// <param name="meal">the meal form model to check for validation errors</param>
@@ -237,6 +287,7 @@
 
             return true;
         }
+
 
         /// <summary>
         /// Set a validation error with a message and make validation result false. If the validation error key alreday exists, the message will not be overwritten

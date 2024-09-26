@@ -9,12 +9,12 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
-    using Common.Exceptions;
-    using Data.Models;
-    using Services.Data.Models.Validation;
-    using Infrastructure.Extensions;
-    using ViewModels.User;
-    using Services.Data.Services.Interfaces;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Models.Validation;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Web.ViewModels.User;
 
     using static Common.EntityValidationConstants;
     using static Common.GeneralApplicationConstants;

@@ -2,9 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CookTheWeek.Web.ViewModels.Interfaces;
+
     using static Common.EntityValidationConstants.RecipeCategory;
 
-    public class RecipeCategoryEditFormModel
+    public class RecipeCategoryEditFormModel : ICategoryFormModel
     {
         [Required]
         public int Id { get; set; }

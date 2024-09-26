@@ -68,11 +68,7 @@
 
             if(!ModelState.IsValid)
             {
-                ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-                var formattedErrors = string.Join(Environment.NewLine, modelErrors);
-                TempData[ErrorMessage] = formattedErrors;
+                TempData[ErrorMessage] = ExtractModelErrors();
                 return View(model);
             }
 
@@ -81,10 +77,10 @@
                 await this.recipeCategoryService.AddCategoryAsync(model);
                 TempData[SuccessMessage] = $"Recipe Category with name \"{model.Name}\" was successfully added!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 logger.LogError($"Recipe Category with name {model.Name} not added!");
-                return BadRequest();
+                return RedirectToAction("InternalServerError", "Home", new { area = "" });
             }
 
             return RedirectToAction("AllRecipeCategories");

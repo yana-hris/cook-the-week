@@ -97,6 +97,8 @@
         public static class InvalidCastExceptionMessages
         {
             public const string RecipeAddOrEditModelUnsuccessfullyCasted = "Failed to cast RecipeFormModel.";
+
+            public const string IngredientAddOrEditModelUnsuccessfullyCasted = "Failed to cast IngredientFormModel.";
         }
 
         public static class ArgumentNullExceptionMessages

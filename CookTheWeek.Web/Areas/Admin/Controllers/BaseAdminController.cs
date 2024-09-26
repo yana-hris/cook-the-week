@@ -7,8 +7,21 @@
 
     [Area(AdminAreaName)]
     [Authorize(Roles = AdminRoleName)]
-    public class BaseAdminController : Controller
+    public abstract class BaseAdminController : Controller
     {
-       
+       /// <summary>
+       /// Extract model errors from the ModelState into a common string 
+       /// </summary>
+       /// <returns>All model errors, separated by a new line in a single string</returns>
+        protected string ExtractModelErrors()
+        {
+            ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
+                                   .Select(e => e.ErrorMessage)
+                                   .ToList();
+
+            return string.Join(Environment.NewLine, modelErrors);
+        }
     }
+
+   
 }
