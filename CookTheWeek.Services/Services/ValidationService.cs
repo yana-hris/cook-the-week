@@ -73,6 +73,16 @@
                 AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.Recipe.RecipeCategoryIdInvalidErrorMessage);
             }
 
+            if (!model.RecipeIngredients.Any())
+            {
+                AddValidationError(result, nameof(model.RecipeIngredients), EntityValidationConstants.Recipe.IngredientsRequiredErrorMessage);
+            }
+
+            if (!model.Steps.Any())
+            {
+                AddValidationError(result, nameof(model.Steps), EntityValidationConstants.Recipe.StepsRequiredErrorMessage);
+            }
+
             foreach (var ingredient in model.RecipeIngredients)
             {
                 bool exists = await ValidateIngredientAsync(ingredient);
@@ -104,11 +114,7 @@
             return result;
         }
 
-        /// <summary>
-        /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
-        /// </summary>
-        /// <param name="model">The Register form model (user input fields)</param>
-        /// <returns>ValidationResult</returns>
+        /// <inheritdoc/>
         public async Task<ValidationResult> ValidateRegisterUserModelAsync(RegisterFormModel model)
         {
             var result = new ValidationResult();
@@ -136,11 +142,7 @@
         }
 
 
-        /// <summary>
-        /// Validates the service model data before creating a meal plan Add form model
-        /// </summary>
-        /// <param name="serviceModel"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel)
         {
             var result = new ValidationResult();
@@ -180,11 +182,7 @@
             return result;
         }
 
-        /// <summary>
-        /// Validates if the ids of a meal`s collection are valid recipes
-        /// </summary>
-        /// <param name="meals"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<ValidationResult> ValidateMealPlanEditFormModelAsync(MealPlanEditFormModel model)
         {
             var result = new ValidationResult();
@@ -214,13 +212,8 @@
             return result;
         }
 
-        /// <summary>
-        /// A generic method to validate if a given TCategory is not already existent in the database, which can lead to data duplication (by name)
-        /// </summary>
-        /// <typeparam name="TCategory">The type of category to check for (TCategory)</typeparam>
-        /// <typeparam name="TCategoryAddFormModel">The form model for adding or editing a category</typeparam>
-        /// <param name="model">The model</param>
-        /// <returns>Validation Result, having isValid and Errors properties</returns>
+       
+       /// <inheritdoc/>
         public async Task<ValidationResult> ValidateCategoryNameAsync<TCategoryFormModel>(TCategoryFormModel model,
                                                               Func<string, Task<int?>> getCategoryIdByNameFunc,
                                                               Func<int, Task<bool>> categoryExistsByIdFunc = null)

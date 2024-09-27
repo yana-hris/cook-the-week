@@ -105,28 +105,36 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
-            model = await this.recipeViewModelFactory.AddRecipeOptionValuesAsync(model) as RecipeAddFormModel;
-
-            var validationResult = await this.validationService.ValidateRecipeWithIngredientsAsync(model);
-            AddValidationErrorsToModelState(validationResult);
-            string redirectUrl = String.Empty;
+            model = await this.recipeViewModelFactory.AddRecipeSelectValuesAsync(model) as RecipeAddFormModel;
+            string redirectUrl;
 
             if (!ModelState.IsValid)
             {
-                StoreServerErrorsInTempData();
-                SetViewData("Add Recipe", returnUrl ?? "Home/Index");
-                return View(model);
+                return ReturnToAddViewWithErrors(model, returnUrl);
             }
 
             try
             {
                 string ownerId = User.GetId();
                 bool isAdmin = User.IsAdmin();
-                string recipeId = await this.recipeService.TryAddRecipeAsync(model, ownerId, isAdmin);
-                redirectUrl = Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl });
+                var result = await this.recipeService.TryAddRecipeAsync(model, ownerId, isAdmin);
+
+                if (result.Succeeded)
+                {
+                    string recipeId = result.Value;
+                    TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
+
+                    return RedirectToAction(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl }));
+                }
+                else
+                {
+                    AddValidationErrorsToModelState(result.Errors);
+                    return ReturnToAddViewWithErrors(model, returnUrl);
+                }
             }
             catch (RecordNotFoundException ex)
             {
+                // TODO: move logging to the service
                 logger.LogError($"Problem with non-existing entity. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
                 return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
             }
@@ -136,11 +144,22 @@
                 return RedirectToAction("InternalServerError", "Home");
             }
 
-            TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
-            return RedirectToAction(redirectUrl);
+            
         }
 
-        
+        /// <summary>
+        /// Helper method for the case when model errors have to be shown to the user in Add view
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        private IActionResult ReturnToAddViewWithErrors(RecipeAddFormModel model, string? returnUrl)
+        {
+            StoreServerErrorsInTempData();
+            SetViewData("Add Recipe", returnUrl ?? "Home/Index");
+            return View(model);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
@@ -166,11 +185,6 @@
                 logger.LogWarning($"Unauthorized user with id: {userId} tried to edit a recipe with id: {id}");
                 return RedirectToAction("Details", "Recipe", new { id, returnUrl });
             }
-            catch (DataRetrievalException ex)
-            {
-                logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}");
-                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message, code = ex.ErrorCode });
-            }
             catch (Exception ex)
             {
                 logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}. Error StackTrace: {ex.StackTrace}");
@@ -189,38 +203,14 @@
                 return RedirectToAction("Edit");
             }
 
-            // TODO: check if this is really needed
-            //if (!model.RecipeIngredients.Any())
-            //{
-            //    ModelState.AddModelError(nameof(model.RecipeIngredients), IngredientsRequiredErrorMessage);
-            //    TempData[ErrorMessage] = "At least one ingredient is required";
-            //    return BadRequest(new { success = false, errors = ModelState });
-            //}
-
-            //if (!model.Steps.Any())
-            //{
-            //    ModelState.AddModelError(nameof(model.Steps), StepsRequiredErrorMessage);
-            //    TempData[ErrorMessage] = "At least one cooking step is required";
-            //    return BadRequest(new { success = false, errors = ModelState }); 
-            //}
-
-            //model.Id = model.Id.ToLower();
-            //model.Categories = await this.categoryService.AllRecipeCategoriesAsync();
-            //model.ServingsOptions = ServingsOptions;
-            //model.RecipeIngredients.First().Measures = await this.recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            //model.RecipeIngredients.First().Specifications = await this.recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
             if (!ModelState.IsValid)
             {
-                logger.LogWarning("Invalid model received!");
-
-                // Return the view with the model and validation errors
                 return BadRequest(new { success = false, errors = ModelState });
             }
 
             try
             {
-                await this.recipeService.EditAsync(model);
+                await this.recipeService.TryEditRecipeAsync(model);
             }
             catch (RecordNotFoundException)
             {
@@ -269,7 +259,7 @@
 
             try
             {
-                await this.recipeService.EditAsync(model);
+                await this.recipeService.TryEditRecipeAsync(model);
                 string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl })!;
 
                 // Return JSON response with redirect URL

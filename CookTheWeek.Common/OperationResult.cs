@@ -3,6 +3,26 @@
     /// <summary>
     /// A utility class returned as a result from Service mrthods, used by the controller 
     /// </summary>
+    public class OperationResult
+    {
+        public bool Succeeded { get; set; }
+        public IDictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
+
+        public static OperationResult Success()
+        {
+            return new OperationResult { Succeeded = true };
+        }
+
+        public static OperationResult Failure(IDictionary<string, string> errors)
+        {
+            return new OperationResult { Succeeded = false, Errors = errors };
+        }
+    }
+
+    /// <summary>
+    /// A generic utility class returned as a result from Service mrthods, used by the controller 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class OperationResult<T>
     {
         /// <summary>
@@ -40,5 +60,7 @@
             return new OperationResult<T> { Succeeded = false, Errors = errors };
         }
     }
+
+   
 
 }

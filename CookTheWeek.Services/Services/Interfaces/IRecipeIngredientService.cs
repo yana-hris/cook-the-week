@@ -30,5 +30,27 @@
         /// <returns>RecipeIngredient</returns>
         /// <exception cref="RecordNotFoundException"></exception>
         Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model);
+
+        /// <summary>
+        /// Updates the recipe ingredients of an existing recipe
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="addedIngredients"></param>
+        /// <returns></returns>
+        Task EditAsync(string id, ICollection<RecipeIngredient> addedIngredients);
+
+        /// <summary>
+        /// Adds recipe ingredients upon creating a new recipe in the database
+        /// </summary>
+        /// <param name="addedIngredients"></param>
+        /// <returns></returns>
+        Task AddAsync(ICollection<RecipeIngredient> addedIngredients);
+
+        /// <summary>
+        /// Deletes all recipeIngredients by a recipe id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteAllByRecipeIdAsync(string id);
     }
 }

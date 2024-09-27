@@ -4,9 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Common.HelperMethods;
-    using CookTheWeek.Data;
+  
     using CookTheWeek.Data.Models;
     using Interfaces;
     using Web.ViewModels.RecipeIngredient;
@@ -19,6 +17,7 @@
     {
         
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
+
         private readonly IIngredientService ingredientService;
 
         public RecipeIngredientService(IRecipeIngredientRepository recipeIngredientRepository, 
@@ -28,9 +27,22 @@
             this.ingredientService = ingredientService;
         }
 
+        /// <inheritdoc/>    
+        public async Task AddAsync(ICollection<RecipeIngredient> ingredients)
+        {
+            await recipeIngredientRepository.AddAllAsync(ingredients);
+        }
+
+        /// <inheritdoc/>    
+        public async Task EditAsync(string id, ICollection<RecipeIngredient> ingredients)
+        {
+            await recipeIngredientRepository.UpdateAllByRecipeIdAsync(id, ingredients);
+        }
+
+        /// <inheritdoc/>    
         public async Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model)
         {
-            bool exists = await ingredientService.ExistsByIdAsync(model.IngredientId);
+            bool exists = await ingredientService.ExistsByIdAsync(model.IngredientId.Value);
 
             if (!exists)
             {
@@ -39,12 +51,13 @@
 
             return new RecipeIngredient
             {
-                IngredientId = model.IngredientId,
+                IngredientId = model.IngredientId.Value,
                 Qty = model.Qty.GetDecimalQtyValue(),
                 MeasureId = model.MeasureId.Value,
                 SpecificationId = model.SpecificationId.Value
             };
         }
+                
 
         /// <inheritdoc/>        
         public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
@@ -82,61 +95,23 @@
         }
 
 
-        // NOTE: It recipeService uses directly repository to add ingredients
-        //public async Task<int> AddAsync(RecipeIngredientFormModel model, string recipeId)
-        //{
-        //    int ingredientId = await dbContext.Ingredients
-        //        .AsNoTracking()
-        //        .Where(i => GuidHelper.CompareTwoGuidStrings(i.Name, model.Name))
-        //        .Select(i => i.Id)
-        //        .FirstOrDefaultAsync();
-
-
-        //    RecipeIngredient recipeIngredient = new RecipeIngredient()
-        //    {
-        //        IngredientId = ingredientId,
-        //        RecipeId = Guid.Parse(recipeId),
-        //        MeasureId = model.MeasureId!.Value,
-        //        Qty = model.Qty.GetDecimalQtyValue(),
-        //        SpecificationId = model.SpecificationId!.Value
-        //    };
-
-        //    await dbContext.RecipesIngredients
-        //        .AddAsync(recipeIngredient);
-        //    await dbContext.SaveChangesAsync();
-
-        //    return recipeIngredient.IngredientId;
-        //}
-
-        //public async Task<bool> IsAlreadyAddedAsync(string ingredientName, string recipeId)
-        //{
-        //    return await dbContext.RecipesIngredients
-        //        .AsNoTracking()
-        //        .AnyAsync(ri => ri.RecipeId.ToString() == recipeId && ri.Ingredient.Name == ingredientName);
-        //}
-
+        /// <inheritdoc/>     
         public async Task<bool> IngredientMeasureExistsAsync(int measureId)
         {
             return await recipeIngredientRepository.MeasureExistsByIdAsync(measureId);
         }
 
+        /// <inheritdoc/>     
         public async Task<bool> IngredientSpecificationExistsAsync(int specificationId)
         {
             return await recipeIngredientRepository.SpecificationExistsByIdAsync(specificationId);
         }
 
-        //public async Task RemoveAsync(int ingredientId, string recipeId)
-        //{
-        //    RecipeIngredient? recipeIngredient = await dbContext.RecipesIngredients
-        //        .FirstOrDefaultAsync(ri => ri.IngredientId == ingredientId && ri.RecipeId.ToString() == recipeId);
-
-        //    if (recipeIngredient == null)
-        //    {
-        //        throw new InvalidOperationException("No such ingredient exists for this recipe!");
-        //    }
-
-        //    dbContext.RecipesIngredients.Remove(recipeIngredient);
-        //    await dbContext.SaveChangesAsync();
-        //}
+        /// <inheritdoc/>     
+        public async Task DeleteAllByRecipeIdAsync(string id)
+        {
+            await recipeIngredientRepository.DeleteAllByRecipeIdAsync(id);
+        }
+        
     }
 }

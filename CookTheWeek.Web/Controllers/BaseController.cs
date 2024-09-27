@@ -15,15 +15,15 @@
             
         }
 
-        // Helper method for adding validation errors to ModelState
-        protected void AddValidationErrorsToModelState(ValidationResult validationResult)
+        /// <summary>
+        /// Helper method for adding custom validation errors to the model state
+        /// </summary>
+        /// <param name="errors">A Dictionary of kvp errors</param>
+        protected void AddValidationErrorsToModelState(IDictionary<string,string> errors)
         {
-            if (!validationResult.IsValid)
+            foreach (var error in errors)
             {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.Key, error.Value);
-                }
+                ModelState.AddModelError(error.Key, error.Value);
             }
         }
 

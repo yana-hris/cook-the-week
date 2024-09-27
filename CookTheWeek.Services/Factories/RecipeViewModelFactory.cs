@@ -73,7 +73,7 @@
         public async Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
         {
             // Create the ViewModel with default values and empty lists
-            var addModel = await AddRecipeOptionValuesAsync(new RecipeAddFormModel());
+            var addModel = await AddRecipeSelectValuesAsync(new RecipeAddFormModel());
 
             if (addModel is RecipeAddFormModel model && model != null)
             {
@@ -89,7 +89,7 @@
         {
             RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId, userId, isAdmin);
             
-            var filledModel = await AddRecipeOptionValuesAsync(editModel);
+            var filledModel = await AddRecipeSelectValuesAsync(editModel);
             if (filledModel is RecipeEditFormModel model)
             {
                 return model;
@@ -123,7 +123,7 @@
             return model;
         }
 
-        public async Task<IRecipeFormModel> AddRecipeOptionValuesAsync(IRecipeFormModel model)
+        public async Task<IRecipeFormModel> AddRecipeSelectValuesAsync(IRecipeFormModel model)
         {            
             model.Categories = await categoryService.GetAllCategoriesAsync();
             model.ServingsOptions = ServingsOptions;

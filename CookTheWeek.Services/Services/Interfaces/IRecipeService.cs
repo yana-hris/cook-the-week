@@ -28,9 +28,9 @@
         Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model, string userId, bool isAdmin); 
 
         /// <summary>
-        /// Edits an existing Recipe
+        /// Edits an existing Recipe by first validating the model, including all nested entities. Persists the changes in the database if model is valid.
         /// </summary>
-        Task EditAsync(RecipeEditFormModel model);
+        Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model);
 
         /// <summary>
         /// Creates a Detailed Viewmodel for a specific recipe
@@ -139,6 +139,6 @@
         /// <param name="recipeId"></param>
         /// <returns>Task</returns>
         /// <remarks>May throw RecordNotFoundException</remarks>
-        Task ToggleLike(string userId, string recipeId);
+        Task ToggleRecipeLikeAsync(string userId, string recipeId);
     }
 }

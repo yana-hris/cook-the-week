@@ -48,7 +48,7 @@
 
             try
             {
-                await this.recipeService.ToggleLike(userId, recipeId);
+                await this.recipeService.ToggleRecipeLikeAsync(userId, recipeId);
                 return Ok();
             }
             catch (RecordNotFoundException ex)

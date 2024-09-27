@@ -34,7 +34,7 @@
             public const string ImageInvalidErrorMessage = "Invalid URL";
             public const string ImageRangeErrorMessage = "Invalid URL length";
 
-            // Meal Type (RecipeCategoryId)
+            // RecipeCategory
             public const string RecipeCategoryIdRequiredErrorMessage = "Meal type is required";
             public const string RecipeCategoryIdInvalidErrorMessage = "Invalid meal type";
 

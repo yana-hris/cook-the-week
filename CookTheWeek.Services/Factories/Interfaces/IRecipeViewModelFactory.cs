@@ -30,6 +30,6 @@
         /// </summary>
         Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId);
 
-        Task<IRecipeFormModel> AddRecipeOptionValuesAsync(IRecipeFormModel model);
+        Task<IRecipeFormModel> AddRecipeSelectValuesAsync(IRecipeFormModel model);
     }
 }

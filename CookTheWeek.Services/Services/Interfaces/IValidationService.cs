@@ -26,15 +26,7 @@
         /// <returns>true or false</returns>
         /// <remarks>May throw RecordNotFoundException if the ingredient does not exist</remarks>
         Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model);
-
-        /// <summary>
-        /// Validates a single Recipe Ingredient
-        /// </summary>
-        /// <param name="ingredient"></param>
-        /// <remarks>May throw RecordNotFoundException because of ValidateIngredient => GetById method</remarks>
-        /// <returns>Validation Result for a single RecipeIngredient with IsValid and Errors properties</returns>
-        Task<ValidationResult> ValidateRecipeIngredientAsync(RecipeIngredientFormModel ingredient, int index);
-
+       
         /// <summary>
         /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
         /// </summary>
@@ -56,6 +48,14 @@
         /// <param name="meals"></param>
         /// <returns></returns>
         Task<ValidationResult> ValidateMealPlanEditFormModelAsync(MealPlanEditFormModel model);
+
+        /// <summary>
+        /// A generic method to validate if a given TCategory is not already existent in the database, which can lead to data duplication (by name)
+        /// </summary>
+        /// <typeparam name="TCategory">The type of category to check for (TCategory)</typeparam>
+        /// <typeparam name="TCategoryAddFormModel">The form model for adding or editing a category</typeparam>
+        /// <param name="model">The model</param>
+        /// <returns>Validation Result, having isValid and Errors properties</returns>
         Task<ValidationResult> ValidateCategoryNameAsync<TCategoryFormModel>(TCategoryFormModel model,
                                                               Func<string, Task<int?>> getCategoryIdByNameFunc,
                                                               Func<int, Task<bool>> categoryExistsByIdFunc = null)

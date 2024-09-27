@@ -5,6 +5,7 @@
     using static CookTheWeek.Common.EntityValidationConstants.Step;
     public class StepFormModel
     {
+        [Required]
         public int? Id { get; set; }
 
         [Required(ErrorMessage = StepRequiredErrorMessage)]
