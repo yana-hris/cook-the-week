@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
+    using CookTheWeek.Common;
     using CookTheWeek.Data.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -14,16 +15,17 @@
         /// <param name="queryModel">The user input as view model</param>
         /// <param name="userId">The current user if any (may be null)</param>
         /// <returns>A collection of the sorted and filtered recipes</returns>
-        Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId); // Ok
+        Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId); 
 
         /// <summary>
-        /// Adds a Recipe to the database
+        /// Takes the model and validates further for any errors, if the model is correct, persists the Recipe in the database
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">The Recipe form model to create a new recipe from</param>
         /// <param name="userId"></param>
         /// <param name="isAdmin"></param>
-        /// <returns>The newly created Recipe Id</returns>
-        Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin); // Ok
+        /// <returns>The Result of the Operation: Success/Failure (and the recipeId if Success)</returns>
+        /// <remarks>May throw RecordNotFoundException due to underlying usage of GetById method</remarks>
+        Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model, string userId, bool isAdmin); 
 
         /// <summary>
         /// Edits an existing Recipe

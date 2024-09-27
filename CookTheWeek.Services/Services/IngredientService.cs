@@ -154,5 +154,10 @@
             await ingredientRepository.DeleteAsync(ingredient);
         }
 
+        /// <inheritdoc/>
+        public async Task<Ingredient> GetByIdAsync(int ingredientId)
+        {
+            return await ingredientRepository.GetByIdAsync(ingredientId);
+        }
     }
 }

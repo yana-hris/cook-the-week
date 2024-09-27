@@ -19,7 +19,6 @@
 
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
     public class ValidationService : IValidationService
     {
         private readonly ICategoryService<RecipeCategory, 
@@ -54,36 +53,24 @@
             this.userRepository = userRepository;
         }
 
-       
-        /// <summary>
-        /// Checks if an ingredient exists by name in the database returns a flag
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns>true or false</returns>
+              
+        /// <inheritdoc/>
         public async Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model)
         {
-            bool exists = await ingredientService.ExistsByNameAsync(model.Name);
-            // TODO: Implement logic to create ingredients which don`t exist!
-            return exists;
-
+            Ingredient ingredient = await ingredientService.GetByIdAsync(model.IngredientId!.Value);
+            return ingredient.Id == model.IngredientId && ingredient.Name == model.Name;
         }
 
-        /// <summary>
-        /// Custom validation for recipes upon adding and editing Recipe: checks if the selected category, ingredient, measure and specification exist in the database
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<ValidationResult> ValidateRecipeAsync(IRecipeFormModel model)
+
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model)
         {
             var result = new ValidationResult();
 
             bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId.Value);
-
             if (!categoryExists)
             {
-    
                 AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.Recipe.RecipeCategoryIdInvalidErrorMessage);
-
             }
 
             foreach (var ingredient in model.RecipeIngredients)
@@ -235,29 +222,28 @@
         /// <param name="model">The model</param>
         /// <returns>Validation Result, having isValid and Errors properties</returns>
         public async Task<ValidationResult> ValidateCategoryNameAsync<TCategoryFormModel>(TCategoryFormModel model,
-                                                              Func<string, Task<bool>> categoryExistsByNameFunc,
+                                                              Func<string, Task<int?>> getCategoryIdByNameFunc,
                                                               Func<int, Task<bool>> categoryExistsByIdFunc = null)
                                       where TCategoryFormModel : ICategoryFormModel
         {
             var result = new ValidationResult();
 
-            // For editing models, use categoryExistsByIdFunc to ensure we're not checking the current category's name
+            // Editing scenario: check if the category name exists in another category
             if (model is ICategoryEditFormModel editModel && categoryExistsByIdFunc != null)
             {
-                // Ensure the category name exists for other categories but not the one being edited
-                bool nameExists = await categoryExistsByNameFunc(editModel.Name);
-                bool isSameCategory = await categoryExistsByIdFunc(editModel.Id);
+                int? existingCategoryId = await getCategoryIdByNameFunc(editModel.Name);
 
-                if (nameExists && !isSameCategory)
+                // If a category with the same name exists but it is not the current one being edited
+                if (existingCategoryId.HasValue && existingCategoryId.Value != editModel.Id)
                 {
                     AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
                 }
             }
             else
             {
-                // For adding models or cases where no Id is needed
-                bool exists = await categoryExistsByNameFunc(model.Name);
-                if (exists)
+                // Adding scenario: Check if a category with the same name already exists
+                int? existingCategoryId = await getCategoryIdByNameFunc(model.Name);
+                if (existingCategoryId.HasValue)
                 {
                     AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
                 }
@@ -267,10 +253,10 @@
 
         }
 
-
-
-
+        
+       
         // PRIVATE METHODS:
+
         /// <summary>
         /// Checks if a meal`s selected date is valid (being present in the select-dates and if can be parsed correctly).
         /// </summary>

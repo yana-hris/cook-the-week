@@ -11,17 +11,41 @@
     using Interfaces;
     using Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Common.Exceptions;
+
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
         
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
+        private readonly IIngredientService ingredientService;
 
-        public RecipeIngredientService(IRecipeIngredientRepository recipeIngredientRepository)
+        public RecipeIngredientService(IRecipeIngredientRepository recipeIngredientRepository, 
+            IIngredientService ingredientService)
         {
             this.recipeIngredientRepository = recipeIngredientRepository;
+            this.ingredientService = ingredientService;
         }
-               
+
+        public async Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model)
+        {
+            bool exists = await ingredientService.ExistsByIdAsync(model.IngredientId);
+
+            if (!exists)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.IngredientNotFoundExceptionMessage, null);
+            }
+
+            return new RecipeIngredient
+            {
+                IngredientId = model.IngredientId,
+                Qty = model.Qty.GetDecimalQtyValue(),
+                MeasureId = model.MeasureId.Value,
+                SpecificationId = model.SpecificationId.Value
+            };
+        }
+
         /// <inheritdoc/>        
         public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
         {

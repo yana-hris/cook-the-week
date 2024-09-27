@@ -18,6 +18,9 @@
             public const string RecipeEditAuthorizationExceptionMessage = "You must be the recipe owner to edit this recipe.";
             public const string RecipeDeleteAuthorizationMessage = "You must be the recipe owner to delete this recipe.";
 
+            // USER:
+            public const string UserNotLoggedInExceptionMessage = "You need to be logged in.";
+
             //MEAL PLAN:
             public const string MealplanEditAuthorizationExceptionMessage = "You must be the meal plan owner to edit this meal plan.";
             public const string MealplanDeleteAuthorizationMessage = "You must be the meal plan owner to delete this meal plan.";

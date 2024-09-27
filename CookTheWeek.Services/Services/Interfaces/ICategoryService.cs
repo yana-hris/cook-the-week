@@ -35,12 +35,12 @@
         Task DeleteCategoryByIdAsync(int id);
 
         /// <summary>
-        /// Gets a category for Edit as a view model or throws an exception if category does not exist
+        /// Retrieves a category by its Id and returns the correct model or throws an exception
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>The TCategoryEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<TCategoryEditFormModel> GetCategoryForEditByIdAsync(int id);
+        Task<TCategoryEditFormModel> TryGetCategoryForEdit(int id);
 
         /// <summary>
         /// Checks if a category exists by id
@@ -74,6 +74,8 @@
         /// </summary>
         /// <returns>int or 0</returns>
         Task<int?> GetAllCategoriesCountAsync();
+
+        
     }
 
     // OLD CODE - DELETE when new code starts to work

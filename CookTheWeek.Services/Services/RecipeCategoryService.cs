@@ -26,7 +26,6 @@
         {
             this.categoryRepository = categoryRepository;
         }
-
         
         /// <inheritdoc/>       
         public async Task AddCategoryAsync(RecipeCategoryAddFormModel model)
@@ -110,32 +109,34 @@
         }
 
         /// <inheritdoc/>      
-        public async Task<RecipeCategoryEditFormModel> GetCategoryForEditByIdAsync(int id)
-        {
-            var categoryToEdit = await this.categoryRepository
-                .GetByIdAsync(id);
-
-            if (categoryToEdit == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
-            }
-
-            RecipeCategoryEditFormModel model = new RecipeCategoryEditFormModel()
-            {
-                Id = categoryToEdit.Id,
-                Name = categoryToEdit.Name,
-            };
-
-            return model;
-        }
-
-        /// <inheritdoc/>      
         public async Task<int?> GetCategoryIdByNameAsync(string name)
         {
             return await this.categoryRepository.GetAllQuery()
                 .Where(c => c.Name.ToLower() == name.ToLower())
                 .Select(c => c.Id)
                 .FirstOrDefaultAsync();
+        }
+
+        /// <inheritdoc/>  
+        public async Task<RecipeCategoryEditFormModel> TryGetCategoryForEdit(int id)
+        {
+            bool exists = await categoryRepository.ExistsByIdAsync(id);
+
+            if (!exists)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
+
+            var categoryToEdit = await this.categoryRepository
+                .GetByIdAsync(id);
+
+            RecipeCategoryEditFormModel model = new RecipeCategoryEditFormModel()
+            {
+                Id = categoryToEdit!.Id,
+                Name = categoryToEdit.Name,
+            };
+
+            return model;
         }
     }
 }

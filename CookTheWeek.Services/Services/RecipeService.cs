@@ -5,27 +5,31 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using Common.Exceptions;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
-    using Interfaces;
-    using Web.ViewModels.Category;
-    using Web.ViewModels.Interfaces;
-    using Web.ViewModels.Meal;
-    using Web.ViewModels.Recipe;
-    using Web.ViewModels.Recipe.Enums;
-    using Web.ViewModels.RecipeIngredient;
-    using Web.ViewModels.Step;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.Interfaces;
+    using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Web.ViewModels.Recipe;
+    using CookTheWeek.Web.ViewModels.Recipe.Enums;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
+    using CookTheWeek.Web.ViewModels.Step;
 
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
-    using CookTheWeek.Common.HelperMethods;
+    using Microsoft.Extensions.Logging;
+    using CookTheWeek.Services.Data.Models.Validation;
+    using CookTheWeek.Common;
 
     public class RecipeService : IRecipeService
     {
-        private readonly CookTheWeekDbContext dbContext;
+        
+        private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IIngredientService ingredientService;
         private readonly IUserRepository userRepository;
         private readonly IMealService mealService;
@@ -34,18 +38,21 @@
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly IMealRepository mealRepository;
+        private readonly IValidationService validationService;
+        private readonly ILogger<RecipeService> logger;
 
-        public RecipeService(CookTheWeekDbContext dbContext,
-            IngredientService ingredientService,
+        public RecipeService(IngredientService ingredientService,
             IRecipeRepository recipeRepository,
             IStepRepository stepRepository,
+            IRecipeIngredientService recipeIngredientService,
             IRecipeIngredientRepository recipeIngredientRepository,
             IFavouriteRecipeRepository favouriteRecipeRepository,
             IMealService mealService,
             IUserRepository userRepository,
-            IMealRepository mealRepository)
+            IMealRepository mealRepository,
+            ILogger<RecipeService> logger,
+            IValidationService validationService)
         {
-            this.dbContext = dbContext;
             this.ingredientService = ingredientService;
             this.recipeRepository = recipeRepository;
             this.stepRepository = stepRepository;
@@ -54,6 +61,9 @@
             this.favouriteRecipeRepository = favouriteRecipeRepository;
             this.mealRepository = mealRepository;
             this.userRepository = userRepository;
+            this.recipeIngredientService = recipeIngredientService;
+            this.logger = logger;
+            this.validationService = validationService;
         }
 
 
@@ -174,15 +184,21 @@
         }
 
         /// <inheritdoc/>
-        public async Task<string> AddAsync(RecipeAddFormModel model, string userId, bool isAdmin)
+        public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model, string userId, bool isAdmin)
         {
+            ValidationResult validationResult = await validationService.ValidateRecipeWithIngredientsAsync(model);
+            if (!validationResult.IsValid)
+            {
+                return OperationResult<string>.Failure(validationResult.Errors);
+            }
+
 
             Recipe recipe = MapNonCollectionPropertiesToRecipe(model, userId, isAdmin);
             await AddOrUpdateIngredients(model, model.RecipeIngredients);
             await AddOrUpdateSteps(model, model.Steps);
 
             string recipeId = await recipeRepository.AddAsync(recipe);
-            return recipeId.ToLower();
+            return OperationResult<string>.Success(recipeId);
         }
 
         /// <inheritdoc/>
@@ -191,8 +207,9 @@
             // Load the recipe including related entities
             Recipe recipe = await recipeRepository.GetByIdAsync(model.Id);
 
-            await recipeRepository.UpdateAsync(recipe);
+            
             MapRecipeModelToRecipe(model, recipe);
+            await recipeRepository.UpdateAsync(recipe);
             await AddOrUpdateSteps(model, model.Steps);
         }
 
@@ -505,10 +522,10 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
             }
 
-            if (currentUserId != null && !String.IsNullOrEmpty(userId) && 
+            if (!String.IsNullOrEmpty(currentUserId) && !String.IsNullOrEmpty(userId) && 
                 GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
             {
-
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
             bool isAlreadyAdded = await this.favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
@@ -524,7 +541,7 @@
         }
 
         // Helper methods for improved code reusability
-        private Recipe MapNonCollectionPropertiesToRecipe(RecipeAddFormModel model, string ownerId, bool isAdmin)
+        private Recipe MapNonCollectionPropertiesToRecipe(IRecipeFormModel model, string ownerId, bool isAdmin)
         {
             return new Recipe
             {
@@ -563,30 +580,31 @@
             }
         }
 
-        private async Task AddOrUpdateIngredients(IRecipeFormModel recipe, IEnumerable<RecipeIngredientFormModel> newIngredients)
+        private async Task AddOrUpdateIngredients(IRecipeFormModel recipe, ICollection<RecipeIngredientFormModel> newIngredients)
         {
             ICollection<RecipeIngredient> validRecipeIngredients = new List<RecipeIngredient>();
+            var indexedIngredients = newIngredients.Select((ingredient, index) => new { ingredient, index });
 
-            foreach (var ingredient in newIngredients)
+            foreach (var item in indexedIngredients)
             {
-                bool isValidIngredient = await ingredientService.ExistsByIdAsync(ingredient.IngredientId);
-
+                
                 // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
-                if (isValidIngredient)
+                if (ingredientValidationResult.IsValid)
                 {
-                    if (CheckAndUpdateAnExistingIngredient(validRecipeIngredients, ingredient))
+                    if (CheckAndUpdateAnExistingIngredient(validRecipeIngredients, item.ingredient))
                     {
                         continue;
                     }
 
-                    // Otherwise, create a new ingredient
-                    validRecipeIngredients.Add(CreateNewRecipeIngredient(ingredient, isValidIngredient.Value));
-
+                    // If valid, create new ingredient
+                    var newIngredient = await recipeIngredientService.CreateRecipeIngredientForAddRecipeAsync(item.ingredient);
+                    validRecipeIngredients.Add(newIngredient);
                 }
                 else
                 {
-                    // such ingredient does not exist in DB => to do => server-side error 
-                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.IngredientNotFoundExceptionMessage, null);
+                    // TODO: log in the validation service!
+                    // TODO: Pass validation errors to modelstate
+                                   
                 }
             }
 
@@ -605,18 +623,7 @@
             }
         }
 
-        // Create new RecipeIngredient
-        private static RecipeIngredient CreateNewRecipeIngredient(RecipeIngredientFormModel ingredient, int ingredientId)
-        {
-            return new RecipeIngredient
-            {
-                IngredientId = ingredientId,
-                Qty = ingredient.Qty.GetDecimalQtyValue(),
-                MeasureId = ingredient.MeasureId!.Value,
-                SpecificationId = ingredient.SpecificationId
-            };
-        }
-
+        
         // Check if an ingredient with the same characteristics is already existing to update QTY
         private static bool CheckAndUpdateAnExistingIngredient(ICollection<RecipeIngredient> validRecipeIngredients,
                                                              RecipeIngredientFormModel ingredient)

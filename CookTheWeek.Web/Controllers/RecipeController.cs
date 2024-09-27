@@ -107,7 +107,7 @@
         {
             model = await this.recipeViewModelFactory.AddRecipeOptionValuesAsync(model) as RecipeAddFormModel;
 
-            var validationResult = await this.validationService.ValidateRecipeAsync(model);
+            var validationResult = await this.validationService.ValidateRecipeWithIngredientsAsync(model);
             AddValidationErrorsToModelState(validationResult);
             string redirectUrl = String.Empty;
 
@@ -122,7 +122,7 @@
             {
                 string ownerId = User.GetId();
                 bool isAdmin = User.IsAdmin();
-                string recipeId = await this.recipeService.AddAsync(model, ownerId, isAdmin);
+                string recipeId = await this.recipeService.TryAddRecipeAsync(model, ownerId, isAdmin);
                 redirectUrl = Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl });
             }
             catch (RecordNotFoundException ex)

@@ -10,6 +10,7 @@
     using ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Common.Exceptions;
 
     public class CategoryAdminController : BaseAdminController
     {
@@ -22,6 +23,7 @@
                                             RecipeCategoryEditFormModel,
                                             RecipeCategorySelectViewModel> recipeCategoryService;
         private readonly ILogger<CategoryAdminController> logger;
+        private readonly IValidationService validationService;
 
         public CategoryAdminController(ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
@@ -31,10 +33,12 @@
                                             RecipeCategoryAddFormModel,
                                             RecipeCategoryEditFormModel,
                                             RecipeCategorySelectViewModel> recipeCategoryService,
+                                    IValidationService validationService,
                                     ILogger<CategoryAdminController> logger)
         {
             this.recipeCategoryService = recipeCategoryService;
             this.ingredientCategoryService = ingredientCategoryService;
+            this.validationService = validationService;
             this.logger = logger;
         }
 
@@ -59,14 +63,15 @@
         [HttpPost]
         public async Task<IActionResult> AddRecipeCategory(RecipeCategoryAddFormModel model)
         {
-            bool categoryExists = await recipeCategoryService.CategoryExistsByNameAsync(model.Name);
-            
-            if(categoryExists)
+            var result = await validationService.ValidateCategoryNameAsync(
+                                               model,
+                                               name => recipeCategoryService.GetCategoryIdByNameAsync(name));
+            if (!result.IsValid)
             {
-                ModelState.AddModelError(nameof(model.Name), $"Category with name {model.Name} already exists!");
+                AddValidationErrorsToModelState(result);
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 TempData[ErrorMessage] = ExtractModelErrors();
                 return View(model);
@@ -79,7 +84,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogError($"Recipe Category with name {model.Name} not added!");
+                logger.LogError($"Recipe Category with name {model.Name} failed!");
                 return RedirectToAction("InternalServerError", "Home", new { area = "" });
             }
 
@@ -89,84 +94,85 @@
         [HttpGet]
         public async Task<IActionResult> EditRecipeCategory(int id)
         {
-            bool exists = await recipeCategoryService.CategoryExistsByIdAsync(id);
-
-            if(!exists)
+            try
             {
-                return NotFound();
+                RecipeCategoryEditFormModel model = await this.recipeCategoryService.TryGetCategoryForEdit(id);
+                return View(model);
+
+            }
+            catch (RecordNotFoundException ex)
+            {
+                logger.LogError($"Category with id {id} not found.");
+                TempData[ErrorMessage] = ex.Message;
+            }
+            catch(Exception ex)
+            {
+                logger.LogError($"Failed getting the view model for category with id {id}.");
             }
 
-            RecipeCategoryEditFormModel model = await this.recipeCategoryService.GetCategoryForEditByIdAsync(id);
-
-            return View(model);
+            return RedirectToAction("AllRecipeCategories");
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> EditRecipeCategory(RecipeCategoryEditFormModel model)
         {
-            bool existsById = await this.recipeCategoryService.CategoryExistsByIdAsync(model.Id);
-            if(!existsById)
+            var result = await validationService.ValidateCategoryNameAsync(
+                                               model,
+                                               name => recipeCategoryService.GetCategoryIdByNameAsync(name),
+                                               id => recipeCategoryService.CategoryExistsByIdAsync(id));
+            if (!result.IsValid)
             {
-                return NotFound(model);
+                AddValidationErrorsToModelState(result);
             }
 
-            bool existsByName = await this.recipeCategoryService.CategoryExistsByNameAsync(model.Name);
-            if(existsByName)
+            if (!ModelState.IsValid)
             {
-                int? existingCategoryId = await this.recipeCategoryService.GetCategoryIdByNameAsync(model.Name);
-
-                if(existingCategoryId != model.Id)
-                {
-                    ModelState.AddModelError(nameof(model.Name), $"Recipe Category with name \"{model.Name}\" already exists!");
-                }
-            }           
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await recipeCategoryService.EditCategoryAsync(model);
-                    TempData[SuccessMessage] = $"Recipe Category \"{model.Name}\" edited successfully!";
-                    return RedirectToAction("AllRecipeCategories");
-                }
-                catch (Exception)
-                {
-                    return BadRequest();
-                }
+                TempData[ErrorMessage] = ExtractModelErrors();
+                return View(model);
             }
 
-            return View(model);
+            try
+            {
+                await this.recipeCategoryService.EditCategoryAsync(model);
+                TempData[SuccessMessage] = $"Recipe Category \"{model.Name}\" edited successfully!";
+            }
+            catch (RecordNotFoundException)
+            {
+                logger.LogError($"Recipe Category with name {model.Name} does not exist in the database!");
+            }
+            catch(Exception ex)
+            {
+                logger.LogError($"Something happened and editing recipe category with id {model.Id} failed! Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home", new { area = "" });
+            }
+
+            return RedirectToAction("AllRecipeCategories");
         }
+
+        [HttpGet]
         public async Task<IActionResult> DeleteRecipeCategory(int id)
         {
-            bool exists = await this.recipeCategoryService.CategoryExistsByIdAsync(id);
-
-            if(!exists)
-            {
-                logger.LogError($"Recipe Category with id {id} does not exist.");
-                return NotFound();
-            }
-            
             try
             {
                 await this.recipeCategoryService.DeleteCategoryByIdAsync(id);
                 TempData[SuccessMessage] = $"Recipe Category successfully deleted!";
             }
-            catch (DbUpdateException ex)
+            catch (RecordNotFoundException ex)
             {
-                if (ex.InnerException is SqlException sqlException && (sqlException.Number == 547 || sqlException.Number == 547)) // SQL Server error code for foreign key constraint violation
-                {
-                    // Handle foreign key constraint violation
-                    // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
-                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated Recipes with this Category.";
-                }
-                else
-                {
-                    // Handle other exceptions
-                    TempData[ErrorMessage] = "An error occurred while deleting the category.";
-                    logger.LogError($"Recipe Category with id {id} was not deleted.");
-                    return BadRequest();
-                }
+                logger.LogError($"Recipe Category with id {id} not found in the database. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}.");
+                TempData[ErrorMessage] = ex.Message;
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException && sqlException.Number == 547)
+            {
+                    // Handle foreign key constraint violation (existing associated records)
+                    logger.LogError($"Recipe Category with id {id} has existing Recipes and cannot be deleted.");
+                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing Recipes associated with this Category.";
+            }
+            catch(Exception ex)
+            {
+                logger.LogError($"An unexpected error occurred while deleting Recipe Category with id {id}. Error: {ex.Message}. StackTrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home", new { area = "" });
             }
 
             return RedirectToAction("AllRecipeCategories");

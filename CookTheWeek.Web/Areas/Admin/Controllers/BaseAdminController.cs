@@ -3,6 +3,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using CookTheWeek.Services.Data.Models.Validation;
+
     using static Common.GeneralApplicationConstants;
 
     [Area(AdminAreaName)]
@@ -20,6 +22,21 @@
                                    .ToList();
 
             return string.Join(Environment.NewLine, modelErrors);
+        }
+
+        /// <summary>
+        /// Adding custom validation errors to the modelstate
+        /// </summary>
+        /// <param name="validationResult"></param>
+        protected void AddValidationErrorsToModelState(ValidationResult validationResult)
+        {
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
         }
     }
 

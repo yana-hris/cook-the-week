@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
@@ -72,6 +72,14 @@
         /// <param name="id">The ID of the ingredient to delete</param>
         /// <remarks>May throw RecordNotFoundException of ingredient does not exist</remarks>
         Task DeleteByIdAsync(int id);
+
+        /// <summary>
+        /// Gets an ingredient by id or throws an exception
+        /// </summary>
+        /// <param name="ingredientId"></param>
+        /// <returns></returns>
+        /// <remarks>May throw a RecordNotFoundException if ingredient does not exist in the database</remarks>
+        Task<Ingredient> GetByIdAsync(int ingredientId);
 
 
 

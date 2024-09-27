@@ -23,6 +23,12 @@
         Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync();
         //Task RemoveAsync(int ingredientId, string recipeId);
 
-        Task<RecipeIngredient> CreateRecipeIngredientFromModel(RecipeIngredientFormModel model);
+        /// <summary>
+        /// Creates a new RecipeIngredient from a RecipeIngredientFormModel or throws an exception
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>RecipeIngredient</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model);
     }
 }
