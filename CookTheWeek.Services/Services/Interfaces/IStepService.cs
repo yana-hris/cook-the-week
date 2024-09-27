@@ -1,6 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
-    using CookTheWeek.Data.Models;
+    using CookTheWeek.Web.ViewModels.Step;
 
     public interface IStepService
     {
@@ -10,21 +10,21 @@
         /// <param name="recipeId"></param>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps);
+        Task UpdateByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
 
 
         /// <summary>
-        /// Adds new steps to a recipe
+        /// Adds new steps to a recipe from a collection of SteFormModel
         /// </summary>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task AddAllAsync(ICollection<Step> steps);
+        Task AddByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
 
         /// <summary>
         /// Deletes all steps a of a Recipe by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteRecipeStepsAsync(string id);
+        Task DeleteByRecipeIdAsync(string id);
     }
 }

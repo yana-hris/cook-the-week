@@ -3,9 +3,13 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Step;
 
     public class StepService : IStepService
     {
@@ -18,21 +22,39 @@
 
        
         /// <inheritdoc/>
-        public async Task AddAllAsync(ICollection<Step> steps)
+        public async Task AddByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
         {
+            ICollection<Step> steps = model.Select
+                (s => new Step()
+                {
+                    Id = s.Id.Value,
+                    Description = s.Description,
+                }).ToList();    
+
             await stepRepository.AddAllAsync(steps);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps)
+        public async Task UpdateByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
         {
-            await stepRepository.UpdateAllByRecipeIdAsync(recipeId, steps);
+            ICollection<Step> oldSteps = await stepRepository.GetAllQuery()
+                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
+                .ToListAsync();
+
+            await stepRepository.DeleteAllAsync(oldSteps);
+            await AddByRecipeIdAsync(recipeId, model);
+            
         }
 
         /// <inheritdoc/>
-        public async Task DeleteRecipeStepsAsync(string id)
+        public async Task DeleteByRecipeIdAsync(string recipeId)
         {
-            await stepRepository.DeleteAllByRecipeIdAsync(id);
+            ICollection<Step> stepsToDelete = await stepRepository
+                .GetAllQuery()
+                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
+                .ToListAsync();
+
+            await stepRepository.DeleteAllAsync(stepsToDelete);
         }
     }
 }

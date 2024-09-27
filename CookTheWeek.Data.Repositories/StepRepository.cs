@@ -1,12 +1,12 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Common.HelperMethods;
 
     public class StepRepository : IStepRepository
     {
@@ -16,7 +16,15 @@
             this.dbContext = dbContext;
         }
 
-        
+
+        /// <inheritdoc/>
+        public IQueryable<Step> GetAllQuery()
+        {
+            return dbContext.Steps
+                .AsNoTracking()
+                .AsQueryable();
+        }
+
         /// <inheritdoc/>
         public async Task AddAllAsync(ICollection<Step> steps)
         {
@@ -24,31 +32,14 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        
         /// <inheritdoc/>
-        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps)
+        public async Task DeleteAllAsync(ICollection<Step> steps)
         {
-            var oldSteps = await this.dbContext.Steps
-                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
-                .ToListAsync();
-
-            this.dbContext.Steps.RemoveRange(oldSteps);
-            await this.dbContext.Steps.AddRangeAsync(steps);
-
+            this.dbContext.Steps.RemoveRange(steps);
             await this.dbContext.SaveChangesAsync();
         }
 
-
-
-        /// <inheritdoc/>
-        public async Task DeleteAllByRecipeIdAsync(string recipeId)
-        {
-            var stepsToDelete = await this.dbContext
-                .Steps  
-                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
-                .ToListAsync();
-
-            this.dbContext.Steps.RemoveRange(stepsToDelete);
-            await this.dbContext.SaveChangesAsync();
-        }
+        
     }
 }

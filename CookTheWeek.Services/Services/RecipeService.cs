@@ -276,7 +276,7 @@
             await recipeRepository.Delete(recipeToDelete);
 
             // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
-            await stepService.DeleteRecipeStepsAsync(id);
+            await stepService.DeleteByRecipeIdAsync(id);
             await recipeIngredientService.DeleteAllByRecipeIdAsync(id);
 
             if (recipeToDelete.FavouriteRecipes.Any())
@@ -595,21 +595,13 @@
         {
             var steps = model.Steps;
 
-            ICollection<Step> stepsToAdd = steps
-                .Select(s => new Step()
-                {
-                    RecipeId = Guid.Parse(recipeId),
-                    Description = s.Description,
-                })
-                .ToList();
-
             if (model is RecipeAddFormModel)
             {
-                await stepService.AddAllAsync(stepsToAdd);
+                await stepService.AddByRecipeIdAsync(recipeId, steps);
             }
             else if (model is RecipeEditFormModel recipeEditFormModel)
             {
-                await  stepService.UpdateAllByRecipeIdAsync(recipeEditFormModel.Id, stepsToAdd);
+                await stepService.UpdateByRecipeIdAsync(recipeId, steps);
             }
             else
             {

@@ -9,6 +9,8 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.MealPlan;
+    using CookTheWeek.Common.HelperMethods;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using Web.ViewModels.Meal;
     using Web.ViewModels.ShoppingList;
     using Web.ViewModels.Step;
@@ -17,8 +19,6 @@
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
     using static Common.HelperMethods.IngredientHelper;
     using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
-    using CookTheWeek.Common.HelperMethods;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class MealService : IMealService
     {

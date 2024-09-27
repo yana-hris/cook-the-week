@@ -5,21 +5,20 @@
     public interface IStepRepository
     {
         /// <summary>
-        /// Adds a collection of steps to the database, recipe Id is not needed
+        /// Adds a collection of steps to the database
         /// </summary>
         Task AddAllAsync(ICollection<Step> steps);
-
+                
         /// <summary>
-        /// Updates the steps of an existing recipe by deleting the old steps and adding the new ones
-        /// </summary>
-        /// <param name="recipeId">Needed for the old steps to be deleted</param>
-        /// <param name="steps">The new steps to add</param>
-        Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<Step> steps);
-
-        /// <summary>
-        /// Deletes all steps of a Recipe
+        /// Deletes a collection of Steps
         /// </summary>
         /// <param name="recipeId">recipeId</param>
-        Task DeleteAllByRecipeIdAsync(string recipeId);
+        Task DeleteAllAsync(ICollection<Step> steps);
+
+        /// <summary>
+        /// Gets a queryable collection of all Steps, which can be filtered and materialized (awaited with any of the Async LINQ methods).
+        /// </summary>
+        /// <returns>A queryable collection of Step</returns>
+        IQueryable<Step> GetAllQuery();
     }
 }

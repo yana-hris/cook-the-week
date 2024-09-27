@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CookTheWeek.Services.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfb2d4fc4f1571ec9186577de5b0f46aa76adb17")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db9febfb5858d6426b21d14370aad009e417877f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CookTheWeek.Services.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CookTheWeek.Services.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
