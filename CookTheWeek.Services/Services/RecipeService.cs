@@ -75,113 +75,111 @@
         /// <param name="userId"></param>
         /// <returns>A collection of RecipeAllViewModel</returns>
         /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
-        /// <exception cref="DataRetrievalException">Thrown when a database Exception occurs</exception>
-        public async Task<ICollection<RecipeAllViewModel>> AllAsync(AllRecipesQueryModel queryModel, string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel, string userId)
         {
-            try
+            
+            IQueryable<Recipe> recipesQuery = recipeRepository.GetAllQuery();
+
+            if (!recipesQuery.Any())
             {
-                IQueryable<Recipe> recipesQuery = recipeRepository.GetAllQuery();
+                logger.LogError("No recipes found in the database.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
+            }
 
-                if (!recipesQuery.Any())
+
+            if (userId != string.Empty)
+            {
+                recipesQuery = recipesQuery
+                    .Where(r => r.OwnerId.ToString() == userId || r.IsSiteRecipe);
+            }
+            else
+            {
+                recipesQuery = recipesQuery
+                    .Where(r => r.IsSiteRecipe);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                recipesQuery = recipesQuery
+                    .Where(r => r.Category.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                recipesQuery = recipesQuery
+                    .Where(r => EF.Functions.Like(r.Title, wildCard) ||
+                            EF.Functions.Like(r.Description, wildCard) ||
+                            r.RecipesIngredients!.Any(ri => EF.Functions.Like(ri.Ingredient.Name, wildCard)));
+            }
+
+            // Check if sorting is applied and if it exists in sorting enum
+            string recipeSorting = queryModel.RecipeSorting.ToString("G");
+
+            if (string.IsNullOrEmpty(recipeSorting) || !Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
+            {
+                queryModel.RecipeSorting = RecipeSorting.Newest;
+            }
+
+            recipesQuery = queryModel.RecipeSorting switch
+            {
+                RecipeSorting.Newest => recipesQuery
+                    .OrderByDescending(r => r.CreatedOn),
+                RecipeSorting.Oldest => recipesQuery
+                    .OrderBy(r => r.CreatedOn),
+                RecipeSorting.CookingTimeAscending => recipesQuery
+                    .OrderBy(r => r.TotalTime),
+                RecipeSorting.CookingTimeDescending => recipesQuery
+                    .OrderByDescending(r => r.TotalTime),
+                _ => recipesQuery.OrderByDescending(r => r.CreatedOn)
+            };
+
+            if (queryModel.CurrentPage == default)
+            {
+                queryModel.CurrentPage = DefaultPage;
+            }
+
+            if (queryModel.RecipesPerPage == default)
+            {
+                queryModel.RecipesPerPage = DefaultRecipesPerPage;
+            }
+
+            queryModel.TotalRecipes = recipesQuery.Count();
+
+            if (queryModel.TotalRecipes == 0)
+            {
+                //TODO: Show no recipes message by throwing an exception (and redirect in the controller)
+            }
+
+            ICollection<RecipeAllViewModel> model = await recipesQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
+                .Take(queryModel.RecipesPerPage)
+                .Select(r => new RecipeAllViewModel()
                 {
-                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
-                }
-
-                if (userId != string.Empty)
-                {
-                    recipesQuery = recipesQuery
-                        .Where(r => r.OwnerId.ToString() == userId || r.IsSiteRecipe);
-                }
-                else
-                {
-                    recipesQuery = recipesQuery
-                        .Where(r => r.IsSiteRecipe);
-                }
-
-                if (!string.IsNullOrWhiteSpace(queryModel.Category))
-                {
-                    recipesQuery = recipesQuery
-                        .Where(r => r.Category.Name == queryModel.Category);
-                }
-
-                if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
-                {
-                    string wildCard = $"%{queryModel.SearchString.ToLower()}%";
-
-                    recipesQuery = recipesQuery
-                        .Where(r => EF.Functions.Like(r.Title, wildCard) ||
-                                EF.Functions.Like(r.Description, wildCard) ||
-                                r.RecipesIngredients!.Any(ri => EF.Functions.Like(ri.Ingredient.Name, wildCard)));
-                }
-
-                // Check if sorting is applied and if it exists in sorting enum
-                string recipeSorting = queryModel.RecipeSorting.ToString("G");
-
-                if (string.IsNullOrEmpty(recipeSorting) || !Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
-                {
-                    queryModel.RecipeSorting = RecipeSorting.Newest;
-                }
-
-                recipesQuery = queryModel.RecipeSorting switch
-                {
-                    RecipeSorting.Newest => recipesQuery
-                        .OrderByDescending(r => r.CreatedOn),
-                    RecipeSorting.Oldest => recipesQuery
-                        .OrderBy(r => r.CreatedOn),
-                    RecipeSorting.CookingTimeAscending => recipesQuery
-                        .OrderBy(r => r.TotalTime),
-                    RecipeSorting.CookingTimeDescending => recipesQuery
-                        .OrderByDescending(r => r.TotalTime),
-                    _ => recipesQuery.OrderByDescending(r => r.CreatedOn)
-                };
-
-                if (queryModel.CurrentPage == default)
-                {
-                    queryModel.CurrentPage = DefaultPage;
-                }
-
-                if (queryModel.RecipesPerPage == default)
-                {
-                    queryModel.RecipesPerPage = DefaultRecipesPerPage;
-                }
-
-                queryModel.TotalRecipes = recipesQuery.Count();
-
-                if (queryModel.TotalRecipes == 0)
-                {
-                    //TODO: Show no recipes message by throwing an exception (and redirect in the controller)
-                }
-
-                ICollection<RecipeAllViewModel> model = await recipesQuery
-                    .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
-                    .Take(queryModel.RecipesPerPage)
-                    .Select(r => new RecipeAllViewModel()
+                    Id = r.Id.ToString(),
+                    OwnerId = r.OwnerId.ToString(),
+                    ImageUrl = r.ImageUrl,
+                    Title = r.Title,
+                    Description = r.Description,
+                    Category = new RecipeCategorySelectViewModel()
                     {
-                        Id = r.Id.ToString(),
-                        OwnerId = r.OwnerId.ToString(),
-                        ImageUrl = r.ImageUrl,
-                        Title = r.Title,
-                        Description = r.Description,
-                        Category = new RecipeCategorySelectViewModel()
-                        {
-                            Id = r.CategoryId,
-                            Name = r.Category.Name
-                        },
-                        Servings = r.Servings,
-                        CookingTime = FormatCookingTime(r.TotalTime)
-                    })
-                    .ToListAsync();
+                        Id = r.CategoryId,
+                        Name = r.Category.Name
+                    },
+                    Servings = r.Servings,
+                    CookingTime = FormatCookingTime(r.TotalTime)
+                })
+                .ToListAsync();
 
-                return model;
-            }
-            catch (RecordNotFoundException)
+            if (!model.Any())
             {
-                throw;
+                logger.LogError("No recipes found by these critearia.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
-            catch (Exception ex)
-            {
-                throw new DataRetrievalException(DataRetrievalExceptionMessages.RecipeDataRetrievalExceptionMessage, ex);
-            }
+
+            return model;
+           
         }
 
         /// <inheritdoc/>
@@ -222,11 +220,12 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeDetailsViewModel> DetailsByIdAsync(string id)
+        public async Task<RecipeDetailsViewModel> TryGetForDetailsByRecipeId(string id)
         {
 
             Recipe recipe = await recipeRepository.GetByIdAsync(id);
 
+            // TODO: Consider using Automapper
             RecipeDetailsViewModel model = new RecipeDetailsViewModel()
             {
                 Id = recipe.Id.ToString(),
@@ -277,7 +276,7 @@
 
             // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
             await stepService.DeleteByRecipeIdAsync(id);
-            await recipeIngredientService.DeleteAllByRecipeIdAsync(id);
+            await recipeIngredientService.DeleteByRecipeIdAsync(id);
 
             if (recipeToDelete.FavouriteRecipes.Any())
             {
@@ -286,9 +285,8 @@
 
             if (recipeToDelete.Meals.Any())
             {
-                await mealService.DeleteAllByRecipeIdAsync(id);
+                await mealService.DeleteByRecipeIdAsync(id);
             }
-
         }
 
         
@@ -305,9 +303,11 @@
 
             if (!GuidHelper.CompareGuidStringWithGuid(userId, recipe.OwnerId) && !isAdmin)
             {
+                logger.LogError($"Unauthorized access attempt: User {userId} tried to edit Recipe with {id} but does not have the necessary permissions.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeEditAuthorizationExceptionMessage);
             }
 
+            // TODO: Consider using Automapper
             RecipeEditFormModel model = new RecipeEditFormModel()
             {
                 Id = recipe.Id.ToString(),
@@ -337,7 +337,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> AllAddedByUserIdAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(string userId)
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
@@ -348,36 +348,25 @@
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
-
-            try
+           
+            // TODO: Consider using Automapper
+            ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
             {
-                ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
+                Id = r.Id.ToString(),
+                OwnerId = r.OwnerId.ToString(),
+                ImageUrl = r.ImageUrl,
+                Title = r.Title,
+                Description = r.Description,
+                Category = new RecipeCategorySelectViewModel()
                 {
-                    Id = r.Id.ToString(),
-                    OwnerId = r.OwnerId.ToString(),
-                    ImageUrl = r.ImageUrl,
-                    Title = r.Title,
-                    Description = r.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = r.CategoryId,
-                        Name = r.Category.Name
-                    },
-                    Servings = r.Servings,
-                    CookingTime = FormatCookingTime(r.TotalTime)
-                }).ToList();
+                    Id = r.CategoryId,
+                    Name = r.Category.Name
+                },
+                Servings = r.Servings,
+                CookingTime = FormatCookingTime(r.TotalTime)
+            }).ToList();
 
-                return model;
-            }
-            catch (RecordNotFoundException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new DataRetrievalException(DataRetrievalExceptionMessages.RecipeDataRetrievalExceptionMessage, ex);
-            }
-
+            return model;
         }
 
         /// <inheritdoc/>

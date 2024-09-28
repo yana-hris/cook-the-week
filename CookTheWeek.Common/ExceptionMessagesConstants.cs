@@ -4,26 +4,32 @@
     {
         public static class DataRetrievalExceptionMessages
         {
-            public const string RecipeDataRetrievalExceptionMessage = "An error occurred while retrieving recipe data.";
+            public const string RecipeDataRetrievalExceptionMessage = "Recipe data retrieval failed.";
 
-            public const string IngredientDataRetrievalExceptionMessage = "An error occurred while retrieving ingredient data.";
+            public const string IngredientDataRetrievalExceptionMessage = "Ingredient data retrieval failed.";
 
-            public const string MealplanDataRetrievalExceptionMessage = "An error occurred while retrieving mealplan data.";
+            public const string MealplanDataRetrievalExceptionMessage = "Meal plan data retrieval failed.";
+
+            public const string CategoryDataRetrievalExceptionMessage = "Recipe Categories data retrieval failed.";
+
+            public const string RecipeIngredientMeasuresDataRetrievalExceptionMessage = "Recipe Ingredient Measures data retrieval failed.";
+
+            public const string RecipeIngredientSpecificationsDataRetrievalExceptionMessage = "Recipe Ingredient Specifications data retrieval failed.";
 
         }
 
         public static class  UnauthorizedExceptionMessages 
         {
             // RECIPE:
-            public const string RecipeEditAuthorizationExceptionMessage = "You must be the recipe owner to edit this recipe.";
-            public const string RecipeDeleteAuthorizationMessage = "You must be the recipe owner to delete this recipe.";
+            public const string RecipeEditAuthorizationExceptionMessage = "You do not have permission to edit this recipe.";
+            public const string RecipeDeleteAuthorizationMessage = "You do not have permission to delete this recipe.";
 
             // USER:
-            public const string UserNotLoggedInExceptionMessage = "You need to be logged in.";
+            public const string UserNotLoggedInExceptionMessage = "You need to be logged in to proceed.";
 
             //MEAL PLAN:
-            public const string MealplanEditAuthorizationExceptionMessage = "You must be the meal plan owner to edit this meal plan.";
-            public const string MealplanDeleteAuthorizationMessage = "You must be the meal plan owner to delete this meal plan.";
+            public const string MealplanEditAuthorizationExceptionMessage = "You do not have permission to edit this meal plan.";
+            public const string MealplanDeleteAuthorizationMessage = "You do not have permission to delete this meal plan.";
         }
 
         public static class  RecordNotFoundExceptionMessages

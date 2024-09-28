@@ -108,7 +108,7 @@
         }
 
         /// <inheritdoc/>     
-        public async Task DeleteAllByRecipeIdAsync(string id)
+        public async Task DeleteByRecipeIdAsync(string id)
         {
             await recipeIngredientRepository.DeleteAllByRecipeIdAsync(id);
         }

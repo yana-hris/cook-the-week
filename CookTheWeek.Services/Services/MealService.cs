@@ -128,7 +128,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAllByRecipeIdAsync(string recipeId)
+        public async Task DeleteByRecipeIdAsync(string recipeId)
         {
             var mealsToDelete = await mealRepository
                 .GetAllQuery()

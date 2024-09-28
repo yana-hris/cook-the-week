@@ -13,9 +13,9 @@
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
-
+    using Microsoft.Extensions.Logging;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
-    using static CookTheWeek.Common.ExceptionMessagesConstants.DataRetrievalExceptionMessages;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
@@ -27,6 +27,7 @@
             RecipeCategorySelectViewModel> categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IMealService mealService;
+        private readonly ILogger<RecipeViewModelFactory> logger;    
 
         public RecipeViewModelFactory(IRecipeService recipeService,
                                       ICategoryService<RecipeCategory, 
@@ -34,21 +35,21 @@
                                           RecipeCategoryEditFormModel, 
                                           RecipeCategorySelectViewModel> categoryService,
                                       IRecipeIngredientService recipeIngredientService,
+                                      ILogger<RecipeViewModelFactory> logger,
                                       IMealService mealService)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
+            this.logger = logger;
             this.mealService = mealService;
         }
 
-        /// <summary>
-        /// Generates a view model for displaying all recipes with filtering and sorting.
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, string userId)
         {
             
-            var allRecipes = await recipeService.AllAsync(queryModel, userId);
+            var allRecipes = await recipeService.GetAllAsync(queryModel, userId);
             var categories = await categoryService.GetAllCategoryNamesAsync();
             
             var viewModel = new AllRecipesFilteredAndPagedViewModel
@@ -67,34 +68,33 @@
             return viewModel;
         }
 
-        /// <summary>
-        /// Generates a form model for adding a new recipe with populated categories and ingredient options.
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
         {
-            // Create the ViewModel with default values and empty lists
-            var addModel = await AddRecipeSelectValuesAsync(new RecipeAddFormModel());
+            var addModel = await PreloadRecipeSelectOptionsToFormModel(new RecipeAddFormModel());
 
-            if (addModel is RecipeAddFormModel model && model != null)
+            if (addModel is RecipeAddFormModel model)
             {
                 return model;
             }
-            throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, null);           
+            logger.LogError($"Type cast error: Unable to cast {addModel.GetType().Name} to {nameof(RecipeAddFormModel)}.");
+            throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);           
         }
 
-        /// <summary>
-        /// Generates a form model for editing an existing recipe, including categories and ingredient options.
-        /// </summary>
+        
+        /// <inheritdoc/>
         public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId, string userId, bool isAdmin)
         {
             RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId, userId, isAdmin);
             
-            var filledModel = await AddRecipeSelectValuesAsync(editModel);
+            var filledModel = await PreloadRecipeSelectOptionsToFormModel(editModel);
             if (filledModel is RecipeEditFormModel model)
             {
                 return model;
             }
-            throw new DataRetrievalException(RecipeDataRetrievalExceptionMessage, null);
+
+            logger.LogError($"Type cast error: Unable to cast {editModel.GetType().Name} to {nameof(RecipeEditFormModel)}.");
+            throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@
         /// </summary>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
         { 
-            RecipeDetailsViewModel model = await this.recipeService.DetailsByIdAsync(recipeId);
+            RecipeDetailsViewModel model = await this.recipeService.TryGetForDetailsByRecipeId(recipeId);
             model.IsLikedByUser = await this.recipeService.IsLikedByUserAsync(userId, recipeId);
             model.LikesCount = await this.recipeService.GetAllRecipeLikesAsync(recipeId);
             model.CookedCount = await this.recipeService.GetAllRecipeMealsCountAsync(recipeId);
@@ -118,14 +118,20 @@
             RecipeMineViewModel model = new RecipeMineViewModel();
 
             model.FavouriteRecipes = await this.recipeService.AllLikedByUserAsync(userId);
-            model.OwnedRecipes = await this.recipeService.AllAddedByUserIdAsync(userId);
+            model.OwnedRecipes = await this.recipeService.GetAllAddedByUserIdAsync(userId);
 
             return model;
         }
 
-        public async Task<IRecipeFormModel> AddRecipeSelectValuesAsync(IRecipeFormModel model)
-        {            
-            model.Categories = await categoryService.GetAllCategoriesAsync();
+
+        /// <inheritdoc/>
+        public async Task<IRecipeFormModel> PreloadRecipeSelectOptionsToFormModel(IRecipeFormModel model)
+        {
+            model.Categories = await SafeExecuteAsync(
+                async () => await categoryService.GetAllCategoriesAsync(),
+                DataRetrievalExceptionMessages.CategoryDataRetrievalExceptionMessage
+            );
+
             model.ServingsOptions = ServingsOptions;
 
             if (!model.RecipeIngredients.Any())
@@ -137,15 +143,43 @@
             {
                 model.Steps.Add(new StepFormModel());
             }
-            
-            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
-            // Set the measures and specifications for the first ingredient
+            var measures = await SafeExecuteAsync(
+                async () => await recipeIngredientService.GetRecipeIngredientMeasuresAsync(),
+                DataRetrievalExceptionMessages.RecipeIngredientMeasuresDataRetrievalExceptionMessage
+            );
             model.RecipeIngredients.First().Measures = measures;
+
+            var specifications = await SafeExecuteAsync(
+                async () => await recipeIngredientService.GetRecipeIngredientSpecificationsAsync(),
+                DataRetrievalExceptionMessages.RecipeIngredientSpecificationsDataRetrievalExceptionMessage
+            );
             model.RecipeIngredients.First().Specifications = specifications;
 
             return model;
         }
+
+        /// <summary>
+        /// A helper method to log errors upon asyncronous data retrieval from the database
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        /// <exception cref="DataRetrievalException"></exception>
+        private async Task<T> SafeExecuteAsync<T>(Func<Task<T>> action, string errorMessage)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"{errorMessage} Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                throw new DataRetrievalException(errorMessage, ex);
+            }
+        }
     }
+
+    
 }

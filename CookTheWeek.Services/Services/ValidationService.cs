@@ -3,7 +3,10 @@
     using System.Globalization;
     using System.Threading.Tasks;
 
+    using Microsoft.Extensions.Logging;
+
     using CookTheWeek.Common;
+    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.MealPlan;
@@ -16,7 +19,6 @@
     using CookTheWeek.Web.ViewModels.MealPlan;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.User;
-
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
     public class ValidationService : IValidationService
@@ -33,17 +35,19 @@
         private readonly IIngredientService ingredientService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserRepository userRepository;
+        private readonly ILogger<ValidationService> logger;
         public ValidationService(ICategoryService<RecipeCategory, 
-            RecipeCategoryAddFormModel, 
-            RecipeCategoryEditFormModel, 
-            RecipeCategorySelectViewModel> categoryService,
+                                            RecipeCategoryAddFormModel, 
+                                            RecipeCategoryEditFormModel, 
+                                            RecipeCategorySelectViewModel> categoryService,
             ICategoryService<IngredientCategory,
-            IngredientCategoryAddFormModel,
-            IngredientCategoryEditFormModel,
-            IngredientCategorySelectViewModel> ingredientCategoryService,
+                                            IngredientCategoryAddFormModel,
+                                            IngredientCategoryEditFormModel,
+                                            IngredientCategorySelectViewModel> ingredientCategoryService,
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
             IRecipeRepository recipeRepository,
+            ILogger<ValidationService> logger,
             IUserRepository userRepository)
         {
             this.recipeCategoryService = categoryService;
@@ -51,6 +55,7 @@
             this.recipeIngredientService = recipeIngredientService;
             this.recipeRepository = recipeRepository;
             this.userRepository = userRepository;
+            this.logger = logger;
         }
 
               
@@ -58,7 +63,7 @@
         public async Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model)
         {
             Ingredient ingredient = await ingredientService.GetByIdAsync(model.IngredientId!.Value);
-            return ingredient.Id == model.IngredientId && ingredient.Name == model.Name;
+            return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
         }
 
 
@@ -67,7 +72,7 @@
         {
             var result = new ValidationResult();
 
-            bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId.Value);
+            bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId!.Value);
             if (!categoryExists)
             {
                 AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.Recipe.RecipeCategoryIdInvalidErrorMessage);
@@ -85,14 +90,17 @@
 
             foreach (var ingredient in model.RecipeIngredients)
             {
-                bool exists = await ValidateIngredientAsync(ingredient);
-
-                if (!exists)
+                try
                 {
+                    bool exists = await ValidateIngredientAsync(ingredient);
+                }
+                catch (RecordNotFoundException ex)
+                {
+                    logger.LogError($"Ingredient with name {ingredient.Name} and id {ingredient.Name} does not exist. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
                     AddValidationError(result, nameof(ingredient.Name), EntityValidationConstants.RecipeIngredient.RecipeIngredientInvalidErrorMessage);
                 }
 
-                bool measureExists = await recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId.Value);
+                bool measureExists = await recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value);
 
                 if (!measureExists)
                 {
@@ -104,10 +112,9 @@
                     bool specificationExists = await recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value);
                     if (!specificationExists)
                     {
-                        result.IsValid = false;
-                        result.Errors.Add(nameof(ingredient.SpecificationId), EntityValidationConstants.RecipeIngredient.SpecificationRangeErrorMessage);
-                    }
+                        AddValidationError(result, nameof(ingredient.SpecificationId), EntityValidationConstants.RecipeIngredient.SpecificationRangeErrorMessage);
 
+                    }
                 }
             }
 

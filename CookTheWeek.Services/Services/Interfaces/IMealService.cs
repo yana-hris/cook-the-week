@@ -27,7 +27,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteAllByRecipeIdAsync(string recipeId);
+        Task DeleteByRecipeIdAsync(string recipeId);
 
         /// <summary>
         /// Transforms a collection of MealAddFormModel into a collection of Meals and adds them to the database

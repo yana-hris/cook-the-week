@@ -4,16 +4,16 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
-    using Common.Exceptions;
-    using Infrastructure.Extensions;
-    using Services.Data.Factories.Interfaces;
-    using ViewModels.Recipe;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Services.Data.Factories.Interfaces;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Web.ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.Recipe;
     using static Common.EntityValidationConstants.RecipeIngredient;
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeController : BaseController
     {
@@ -70,17 +70,17 @@
             }
             catch (RecordNotFoundException)
             {
-                return Redirect("None");
+                return Redirect("None"); // In case of no recipes found redirect to "None" view
             }
-            catch(DataRetrievalException ex)
+            catch(Exception ex)
             {
-                return RedirectToAction("InternalServerError", "Home", new {message = ex.Message, code = ex.ErrorCode});
+                logger.LogError($"An unexpected error occured. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return RedirectToAction("InternalServerError", "Home");
             }
 
         }
 
-
-        // TODO: add exception-handling
+        
         [HttpGet]
         public async Task<IActionResult> Add(string returnUrl)
         {
@@ -105,62 +105,42 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
-            model = await this.recipeViewModelFactory.AddRecipeSelectValuesAsync(model) as RecipeAddFormModel;
+            model = await this.recipeViewModelFactory.PreloadRecipeSelectOptionsToFormModel(model) as RecipeAddFormModel;
             string redirectUrl;
 
             if (!ModelState.IsValid)
             {
-                return ReturnToAddViewWithErrors(model, returnUrl);
+                return RedirectToAddViewWithModelErrors(model!, returnUrl);
             }
 
             try
             {
                 string ownerId = User.GetId();
                 bool isAdmin = User.IsAdmin();
-                var result = await this.recipeService.TryAddRecipeAsync(model, ownerId, isAdmin);
+                var result = await this.recipeService.TryAddRecipeAsync(model!, ownerId, isAdmin);
 
                 if (result.Succeeded)
                 {
                     string recipeId = result.Value;
-                    TempData[SuccessMessage] = RecipeSuccessfullySavedMessage;
+                    TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
 
                     return RedirectToAction(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl }));
                 }
                 else
                 {
-                    AddValidationErrorsToModelState(result.Errors);
-                    return ReturnToAddViewWithErrors(model, returnUrl);
+                    AddCustomValidationErrorsToModelState(result.Errors);
+                    return RedirectToAddViewWithModelErrors(model, returnUrl);
                 }
-            }
-            catch (RecordNotFoundException ex)
-            {
-                // TODO: move logging to the service
-                logger.LogError($"Problem with non-existing entity. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
-                return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
             }
             catch (Exception ex)
             {
-                logger.LogError($"Recipe addition failed, error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
+                logger.LogError($"An unexpected error occured while adding recipe. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
                 return RedirectToAction("InternalServerError", "Home");
             }
-
             
         }
 
-        /// <summary>
-        /// Helper method for the case when model errors have to be shown to the user in Add view
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        private IActionResult ReturnToAddViewWithErrors(RecipeAddFormModel model, string? returnUrl)
-        {
-            StoreServerErrorsInTempData();
-            SetViewData("Add Recipe", returnUrl ?? "Home/Index");
-            return View(model);
-        }
-
-
+        
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
@@ -171,27 +151,32 @@
             {
                 RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(id, userId, isAdmin);
                 ViewBag.ReturnUrl = returnUrl;
+
                 return View(model);
             }
             catch (RecordNotFoundException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
-                logger.LogWarning($"Recipe with id {id} does not exist in database!");
+
                 return Redirect(returnUrl ?? "/Recipe/All");
             }
             catch (UnauthorizedUserException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
-                logger.LogWarning($"Unauthorized user with id: {userId} tried to edit a recipe with id: {id}");
+
                 return RedirectToAction("Details", "Recipe", new { id, returnUrl });
             }
             catch (Exception ex)
             {
-                logger.LogError($"Internal Server error while retrieving RecipeEditFormModel for recipe with id: {id}. Error StackTrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+                TempData[ErrorMessage] = "An unexpected error occurred while processing your request.";
+                logger.LogError($"Unexpected error occurred while processing the request. Action: {nameof(Edit)}, Recipe ID: {id}, User ID: {userId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
+
+                return RedirectToAction("InternalServerError", "Home");
             }
         }
 
+        // TODO: Check how to add CSFR token in hidden input in view
+        // TODO: Check if it works as Json result not testes yet!
         [HttpPost]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model, [FromQuery] string returnUrl)
@@ -200,84 +185,46 @@
             {
                 logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
                 TempData[ErrorMessage] = "Error: please try again!";
-                return RedirectToAction("Edit");
+                return BadRequest(new { success = false});
             }
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { success = false, errors = ModelState });
             }
+            string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl })!;
 
             try
             {
-                await this.recipeService.TryEditRecipeAsync(model);
-            }
-            catch (RecordNotFoundException)
-            {
-                TempData[ErrorMessage] = RecipeNotFoundErrorMessage;
-                return Redirect(returnUrl ?? "/Recipe/All");
-            }
-            catch (UnauthorizedUserException)
-            {
-                TempData[ErrorMessage] = RecipeOwnerErrorMessage;
-                return RedirectToAction("Details", "Recipe", new { id = model.Id, returnUrl });
-            }
+                var result = await this.recipeService.TryEditRecipeAsync(model);
 
-            
-           
-            if (model.RecipeCategoryId.HasValue && model.RecipeCategoryId.Value != default)
-            {
-                bool categoryExists = await this.categoryService.RecipeCategoryExistsByIdAsync(model.RecipeCategoryId.Value);
-                if (!categoryExists)
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError(nameof(model.RecipeCategoryId), RecipeCategoryIdInvalidErrorMessage);
+                    return Ok(new { success = true, redirectUrl = recipeDetailsLink });
+                }
+                else
+                {
+                    AddCustomValidationErrorsToModelState(result.Errors);
+                    return BadRequest(new { success = false, errors = ModelState });
                 }
             }
-
-            foreach (var ingredient in model.RecipeIngredients)
+            catch (RecordNotFoundException ex)
             {
-                if (!await IsIngredientValid(ingredient.Name))
-                {
-                    ModelState.AddModelError(nameof(ingredient.Name), RecipeIngredientInvalidErrorMessage);
-                }
-                if (ingredient.MeasureId.HasValue && !await this.recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.MeasureId), MeasureRangeErrorMessage);
-                }
-                if (ingredient.SpecificationId.HasValue && !await this.recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value))
-                {
-                    ModelState.AddModelError(nameof(ingredient.SpecificationId), SpecificationRangeErrorMessage);
-                }
+                TempData[ErrorMessage] = ex.Message;
+                string myRecipesLink = Url.Action("Mine", "Recipe", new {area = ""})!;
+                return BadRequest(new { success = false, redirectUrl = myRecipesLink });
             }
-
-            if (!ModelState.IsValid)
+            catch (UnauthorizedUserException ex)
             {
-                // Return the view with the model and validation errors
-                return BadRequest(new { success = false, errors = ModelState });
+                TempData[ErrorMessage] = ex.Message;                
+                return BadRequest(new { success = false, redirectUrl = recipeDetailsLink });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An unexpected error occured while adding recipe. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
+                return StatusCode(500, new { success = false, message = "An internal server error occurred." });
             }
             
-
-            try
-            {
-                await this.recipeService.TryEditRecipeAsync(model);
-                string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl })!;
-
-                // Return JSON response with redirect URL
-                return Ok(new { success = true, redirectUrl = recipeDetailsLink });
-
-            }
-            catch(RecordNotFoundException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError(string.Empty, StatusCode500InternalServerErrorMessage);
-                logger.LogError($"Recipe with Id {model.Id} unsuccessfully edited!");
-
-                // Return the view with the model and validation errors
-                return BadRequest(new { success = false, errors = ModelState });
-            }
         }
 
         [HttpGet]
@@ -378,6 +325,35 @@
             return false;
         }
         
+       
+
+        /// <summary>
+        /// Helper method for setting up ViewData and ViewBag values
+        /// </summary>
+        /// <param name="title">The View Title</param>
+        /// <param name="returnUrl">The ReturnUrl</param>
+        private void SetViewData(string title, string returnUrl)
+        {
+            ViewData["Title"] = title;
+            ViewBag.ReturnUrl = returnUrl;
+        }
+
+        /// <summary>
+        /// Helper method for the case when model errors have to be shown to the user in Add view
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model, string? returnUrl)
+        {
+            StoreServerErrorsInTempData();
+            SetViewData("Add Recipe", returnUrl ?? "Home/Index");
+            return View(model);
+        }
+
+        /// <summary>
+        /// Helper method for setting server errors for Recipe Add View
+        /// </summary>
         private void StoreServerErrorsInTempData()
         {
             // Collect server-side validation errors
@@ -390,13 +366,6 @@
 
             // Serialize the errors to JSON and store them in TempData
             TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
-        }
-
-        // Helper method for setting up ViewData/ViewBag
-        private void SetViewData(string title, string returnUrl)
-        {
-            ViewData["Title"] = title;
-            ViewBag.ReturnUrl = returnUrl;
         }
     }
 }

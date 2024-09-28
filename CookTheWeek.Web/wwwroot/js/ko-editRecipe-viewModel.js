@@ -222,70 +222,34 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             console.log('Submitting data:', jsonData);
             
             $.ajax({
-                url: '/Recipe/Edit?returnUrl=' + encodeURIComponent(returnUrl), //'/Recipe/Edit',
+                url: '/Recipe/Edit?returnUrl=' + encodeURIComponent(returnUrl), 
                 type: 'POST',
                 contentType: 'application/json',
-                data: jsonData, // Send the updated JSON with returnUrl
+                data: jsonData, 
                 success: function (response) {
-                    if (response.success && response.redirectUrl) {
+                    if (response.success && response.redirectUrl) { 
                         setTimeout(function () {
                             toastr.success('Recipe edited successfully!');
                         }, 2000);
-                        // Replace the current history state with the recipe details view
+                        // Replace the current history state with the return URL
                         history.replaceState(null, null, returnUrl);
                         window.location.href = response.redirectUrl;
-                    }
+                    } 
                 },
                 error: (response) => {
                     if (response.status === 400 && response.responseJSON && !response.responseJSON.success) {
                         // Display server-side validation errors
-                        var errors = response.responseJSON.errors;
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                var errorMessages = errors[key].errors;
-                                var firstErrorMessage = errorMessages[0].errorMessage;
-
-                                if (errorMessages && errorMessages.length > 0) {
-                                    // Make the property in the same format as the ko viewModel)
-                                    const propertyName = key.charAt(0).toUpperCase() + key.slice(1);
-
-                                    // Check if the property is not a collection member
-                                    var observable = this;
-                                    var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
-
-                                    for (var i = 0; i < path.length; i++) {
-
-                                        // retrieve the value of the observable wanted if it exists
-                                        if (ko.isObservable(observable)) {
-                                            observable = observable();
-                                        }
-
-                                        // check if the value is a number and the observable - an array
-                                        if (!isNaN(parseInt(path[i], 10)) && Array.isArray(observable)) {
-
-                                            observable = observable[parseInt(path[i], 10)];
-
-                                        } else if (observable[path[i]]) {
-
-                                            observable = observable[path[i]];
-                                            console.log(observable.toString());
-
-                                        } else {
-
-                                            console.warn(`Path ${path[i]} not found in ViewModel`);
-                                            observable = null;
-                                            break;
-                                        }
-
-                                    }
-                                    if (observable && ko.isObservable(observable)) {
-                                        //Manually set observable`s error
-                                        observable.setError(firstErrorMessage);
-                                    }                           
-                                }
-                            }
+                        if (response.responseJSON.errors) {
+                            processErrors(response.responseJSON.errors);
                         }
-                        this.errors.showAllMessages();
+
+                        // Handle redirection if provided in case of 400 errors
+                        if (response.responseJSON.redirectUrl) {
+                            window.location.href = response.responseJSON.redirectUrl;
+                        }
+                    } else if (response.status === 500) {
+                        toastr.error('An internal server error occurred. Please try again later.');
+                        window.location.href = '/Home/InternalServerError';
                     } else {
                         console.error('Error occurred while submitting form:', response.statusText);
                         toastr.error('Error occurred while submitting form. Please try again later.');
@@ -301,6 +265,46 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
     };
     
     return self;
+
+    // Helper function for processing ajax JSON errors in case of response BadRequest and Errors dictionary sent in json format
+    function processErrors(errors) {
+        for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+                var errorMessages = errors[key].errors;
+                var firstErrorMessage = errorMessages[0].errorMessage;
+
+                if (errorMessages && errorMessages.length > 0) {
+                    // Convert property name to match the Knockout view model's format
+                    const propertyName = key.charAt(0).toUpperCase() + key.slice(1);
+
+                    var observable = this; // Adjust the context if needed
+                    var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
+
+                    // Traverse the path to the correct observable
+                    for (var i = 0; i < path.length; i++) {
+                        if (ko.isObservable(observable)) {
+                            observable = observable();
+                        }
+                        if (!isNaN(parseInt(path[i], 10)) && Array.isArray(observable)) {
+                            observable = observable[parseInt(path[i], 10)];
+                        } else if (observable[path[i]]) {
+                            observable = observable[path[i]];
+                        } else {
+                            console.warn(`Path ${path[i]} not found in ViewModel`);
+                            observable = null;
+                            break;
+                        }
+                    }
+
+                    // Set the error on the observable
+                    if (observable && ko.isObservable(observable)) {
+                        observable.setError(firstErrorMessage);
+                    }
+                }
+            }
+        }
+        this.errors.showAllMessages(); // Display all validation messages
+    }
 
     function createQtyObservable(qty) {
 

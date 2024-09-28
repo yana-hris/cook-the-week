@@ -51,6 +51,6 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteAllByRecipeIdAsync(string id);
+        Task DeleteByRecipeIdAsync(string id);
     }
 }

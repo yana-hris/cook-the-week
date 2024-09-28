@@ -5,7 +5,8 @@
         public static class Recipe
         {
             public const string RecipeNotFoundErrorMessage = "Recipe not found";
-            public const string RecipeSuccessfullySavedMessage = "Your recipe was successfully added!";
+            public const string RecipeSuccessfullyAddedMessage = "Your recipe was successfully added!";
+            public const string RecipeSuccessfullyEditedMessage = "Your recipe was successfully edited!";
             public const string RecipeOwnerErrorMessage = "You must be the owner of this recipe to edit or delete it";
 
             // Id

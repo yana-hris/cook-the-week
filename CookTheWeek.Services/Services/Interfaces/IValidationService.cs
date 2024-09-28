@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns>Validation Result</returns>
-        /// <remarks>May throw RecordNotFoundException message upon GetById (ingredient)</remarks>
+        /// <remarks>Does not throw exceptions, returns the validation result and logs errors.</remarks>
         Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model);
 
         /// <summary>

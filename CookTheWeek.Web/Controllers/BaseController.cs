@@ -19,7 +19,7 @@
         /// Helper method for adding custom validation errors to the model state
         /// </summary>
         /// <param name="errors">A Dictionary of kvp errors</param>
-        protected void AddValidationErrorsToModelState(IDictionary<string,string> errors)
+        protected void AddCustomValidationErrorsToModelState(IDictionary<string,string> errors)
         {
             foreach (var error in errors)
             {
