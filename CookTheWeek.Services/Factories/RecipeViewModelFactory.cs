@@ -97,28 +97,47 @@
             throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
         }
 
-        /// <summary>
-        /// Generates a detailed view model for a recipe.
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
-        { 
-            RecipeDetailsViewModel model = await this.recipeService.TryGetForDetailsByRecipeId(recipeId);
-            model.IsLikedByUser = await this.recipeService.IsLikedByUserAsync(userId, recipeId);
-            model.LikesCount = await this.recipeService.GetAllRecipeLikesAsync(recipeId);
-            model.CookedCount = await this.recipeService.GetAllRecipeMealsCountAsync(recipeId);
+        {
+            try
+            {
+                RecipeDetailsViewModel model = await this.recipeService.TryGetForDetailsByRecipeId(recipeId);
+                model.IsLikedByUser = await SafeExecuteAsync(
+                async () => await this.recipeService.IsLikedByUserAsync(userId, recipeId),
+                DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
+                );
 
-            return model;
+                model.LikesCount = await SafeExecuteAsync(
+                    async () => await this.recipeService.GetAllRecipeLikesAsync(recipeId),
+                    DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
+                    );
+                model.CookedCount = await SafeExecuteAsync(
+                    async () => await this.recipeService.GetAllRecipeMealsCountAsync(recipeId),
+                    DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
+                    );
+
+                return model;
+            }
+            catch (RecordNotFoundException)
+            {
+                logger.LogError($"Record not found: {nameof(Recipe)} with ID {recipeId} was not found.");
+                throw;
+            }
         }
 
-        /// <summary>
-        /// Generates a view model for a user's recipes, including owned and favorite recipes.
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId)
         {
             RecipeMineViewModel model = new RecipeMineViewModel();
 
-            model.FavouriteRecipes = await this.recipeService.AllLikedByUserAsync(userId);
+            model.FavouriteRecipes = await this.recipeService.GetAllLikedByUserIdAsync(userId);
             model.OwnedRecipes = await this.recipeService.GetAllAddedByUserIdAsync(userId);
+
+            if (!model.FavouriteRecipes.Any() && !model.OwnedRecipes.Any())
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
+            }
 
             return model;
         }
@@ -160,11 +179,11 @@
         }
 
         /// <summary>
-        /// A helper method to log errors upon asyncronous data retrieval from the database
+        /// A helper method to log errors upon asyncronous data retrieval from the database and throw exceptions if needed
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="action"></param>
-        /// <param name="errorMessage"></param>
+        /// <param name="action">the asynchronous function for data retrieval</param>
+        /// <param name="errorMessage">The message to log and pass in case of DataRetrievalException</param>
         /// <returns></returns>
         /// <exception cref="DataRetrievalException"></exception>
         private async Task<T> SafeExecuteAsync<T>(Func<Task<T>> action, string errorMessage)

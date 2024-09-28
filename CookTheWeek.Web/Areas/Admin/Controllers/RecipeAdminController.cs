@@ -26,8 +26,8 @@
             try
             {
                 RecipeMineAdminViewModel model = new RecipeMineAdminViewModel();
-                model.SiteRecipes = await this.recipeService.AllSiteAsync();
-                model.UserRecipes = await this.recipeService.AllUserRecipesAsync();
+                model.SiteRecipes = await this.recipeService.GetAllSiteRecipesAsync();
+                model.UserRecipes = await this.recipeService.GetAllNonSiteRecipesAsync();
 
                 ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 

@@ -14,7 +14,7 @@
         ///  Returns the total likes for a recipe by Id
         /// </summary>
         /// <returns>int or 0</returns>
-        Task<int?> AllCountByRecipeIdAsync(string recipeId);
+        Task<int?> GetAllCountByRecipeIdAsync(string recipeId);
 
         /// <summary>
         ///  Checks if a recipe is added to the user`s favourites and returns boolean

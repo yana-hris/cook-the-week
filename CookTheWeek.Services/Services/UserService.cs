@@ -155,7 +155,7 @@
 
             foreach (var user in users)
             {
-                user.TotalRecipes = await recipeService.MineCountAsync(user.Id.ToString());
+                user.TotalRecipes = await recipeService.GetMineCountAsync(user.Id.ToString());
                 user.TotalMealPlans = await mealPlanService.MineCountAsync(user.Id);
             }
 

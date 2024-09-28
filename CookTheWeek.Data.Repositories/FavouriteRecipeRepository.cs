@@ -26,7 +26,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> AllCountByRecipeIdAsync(string recipeId)
+        public async Task<int?> GetAllCountByRecipeIdAsync(string recipeId)
         {
             int? likes = await this.dbContext
                 .FavoriteRecipes

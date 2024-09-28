@@ -24,6 +24,7 @@
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+    using Azure;
 
     public class RecipeService : IRecipeService
     {
@@ -191,7 +192,7 @@
                 return OperationResult<string>.Failure(result.Errors);
             }
 
-            Recipe recipe = MapNonCollectionPropertiesToRecipe(model, userId, isAdmin);
+            Recipe recipe = MapNonCollectionPropertiesFromModelToRecipe(model, userId, isAdmin);
             string recipeId = await recipeRepository.AddAsync(recipe);
             await ProcessRecipeIngredientsAsync(model);
             await ProcessRecipeStepsAsync(recipeId, model);
@@ -257,35 +258,45 @@
         /// <inheritdoc/>
         public async Task DeleteByIdAsync(string id, string userId, bool isAdmin)
         {
-            Recipe recipeToDelete = await recipeRepository.GetByIdAsync(id);
-
-            if (!GuidHelper.CompareGuidStringWithGuid(userId, recipeToDelete.OwnerId) && !isAdmin)
+            try
             {
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
+                Recipe recipeToDelete = await recipeRepository.GetByIdAsync(id);
+
+                if (!GuidHelper.CompareGuidStringWithGuid(userId, recipeToDelete.OwnerId) && !isAdmin)
+                {
+                    logger.LogError($"Unauthorized access attempt: User {userId} tried to delete a recipe {id} but does not have the necessary permissions.");
+                    throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
+                }
+
+                bool hasMealPlans = await HasMealPlansAsync(recipeToDelete.Id.ToString());
+
+                if (hasMealPlans)
+                {
+                    logger.LogError($"Invalid operation while trying to delete recipe with id {id}. Recipe is included in mealplans and cannot be deleted.");
+                    throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
+                }
+
+                // SOFT Delete
+                await recipeRepository.Delete(recipeToDelete);
+
+                // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
+                await stepService.DeleteByRecipeIdAsync(id);
+                await recipeIngredientService.DeleteByRecipeIdAsync(id);
+
+                if (recipeToDelete.FavouriteRecipes.Any())
+                {
+                    await DeleteRecipeLikesByRecipeIdAsync(id);
+                }
+
+                if (recipeToDelete.Meals.Any())
+                {
+                    await mealService.DeleteByRecipeIdAsync(id);
+                }
             }
-
-            bool hasMealPlans = await IsIncludedInMealPlansAsync(recipeToDelete.Id.ToString());
-
-            if (hasMealPlans)
+            catch (RecordNotFoundException)
             {
-                throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
-            }
-
-            // SOFT Delete
-            await recipeRepository.Delete(recipeToDelete);
-
-            // Delete all relevant recipe Steps, Ingredients, Likes and Meals 
-            await stepService.DeleteByRecipeIdAsync(id);
-            await recipeIngredientService.DeleteByRecipeIdAsync(id);
-
-            if (recipeToDelete.FavouriteRecipes.Any())
-            {
-                await DeleteRecipeLikesByRecipeIdAsync(id);  
-            }
-
-            if (recipeToDelete.Meals.Any())
-            {
-                await mealService.DeleteByRecipeIdAsync(id);
+                logger.LogError($"Record not found: {nameof(Recipe)} with ID {id} was not found.");
+                throw;
             }
         }
 
@@ -343,12 +354,7 @@
                 .GetAllQuery()
                 .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
                 .ToListAsync();
-
-            if (!recipes.Any())
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
-            }
-           
+            
             // TODO: Consider using Automapper
             ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
             {
@@ -370,7 +376,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
+        public async Task<bool> HasMealPlansAsync(string recipeId)
         {
             return await mealRepository.GetAllQuery()
                 .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
@@ -378,7 +384,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> AllCountAsync()
+        public async Task<int?> GetAllCountAsync()
         {
             return await recipeRepository
                 .GetAllQuery()
@@ -386,7 +392,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> MineCountAsync(string userId)
+        public async Task<int?> GetMineCountAsync(string userId)
         {
             return await recipeRepository
                 .GetAllQuery()
@@ -416,7 +422,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> AllSiteAsync()
+        public async Task<ICollection<RecipeAllViewModel>> GetAllSiteRecipesAsync()
         {
             List<RecipeAllViewModel> siteRecipes = await recipeRepository.GetAllQuery()
                     .Where(r => r.IsSiteRecipe)
@@ -440,7 +446,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync()
+        public async Task<ICollection<RecipeAllViewModel>> GetAllNonSiteRecipesAsync()
         {
             ICollection<RecipeAllViewModel> allUserRecipes = await recipeRepository.GetAllQuery()
                 .Where(r => !r.IsSiteRecipe)
@@ -472,15 +478,16 @@
         /// <inheritdoc/>
         public async Task<int?> GetAllRecipeLikesAsync(string recipeId)
         {
-            return await favouriteRecipeRepository.AllCountByRecipeIdAsync(recipeId);
+            return await favouriteRecipeRepository.GetAllCountByRecipeIdAsync(recipeId);
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> AllLikedByUserAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId)
         {
             ICollection<FavouriteRecipe> likedRecipes = await
                 favouriteRecipeRepository.GetAllByUserIdAsync(userId);
 
+            // TODO: Consider using Automapper
             var model = likedRecipes
                 .Select(fr => new RecipeAllViewModel()
                 {
@@ -510,7 +517,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task ToggleRecipeLikeAsync(string userId, string recipeId)
+        public async Task LikeOrUnlikeRecipeByUserIdAsync(string userId, string recipeId)
         {
             bool exists = await this.recipeRepository.ExistsByIdAsync(recipeId);
             var currentUserId = this.userRepository.GetCurrentUserId();
@@ -547,7 +554,7 @@
         /// <returns></returns>
         private async Task DeleteRecipeLikesByRecipeIdAsync(string id)
         {
-            await favouriteRecipeRepository.DeleteAllByUserIdAsync(id);
+            await favouriteRecipeRepository.DeleteAllByRecipeIdAsync(id);
         }
 
         /// <summary>
@@ -558,7 +565,7 @@
         /// <param name="isAdmin"></param>
         /// <returns>Recipe</returns>
         // TODO: Consider using Automapper
-        private static Recipe MapNonCollectionPropertiesToRecipe(IRecipeFormModel model, string ownerId, bool isAdmin)
+        private static Recipe MapNonCollectionPropertiesFromModelToRecipe(IRecipeFormModel model, string ownerId, bool isAdmin)
         {
             return new Recipe
             {
@@ -599,7 +606,7 @@
         }
 
         /// <summary>
-        /// Helper method to check if an ingredient is not already added to the collection and adjust the Qty if so. Checks for identical measure and specification (if any)
+        ///  A helper method to Add or Edit a recipe`s recipe ingredients. Works with both Add and Edit Recipe Form Models. Throws an exception in case of unsucessful cast
         /// </summary>
         /// <param name="recipe"></param>
         /// <param name="ingredientsToAdd"></param>

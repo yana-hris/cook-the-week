@@ -11,40 +11,23 @@
     using CookTheWeek.Web.ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.Recipe;
-    using static Common.EntityValidationConstants.RecipeIngredient;
-    using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
     public class RecipeController : BaseController
     {
 
         private readonly IRecipeViewModelFactory recipeViewModelFactory;
-        private readonly ILogger<RecipeController> logger;
-
-        // TODO: use factories instead
         private readonly IRecipeService recipeService;
-        private readonly IIngredientService ingredientService;
-        private readonly ICategoryService categoryService;
-        private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IUserService userService;
-        private readonly IValidationService validationService;
+
+        private readonly ILogger<RecipeController> logger;        
 
         public RecipeController(IRecipeService recipeService,
-            ICategoryService categoryService,
-            IRecipeIngredientService recipeIngredientService,
-            IIngredientService ingredientService,
-            IUserService userService,
             IRecipeViewModelFactory recipeViewModelFactory,
-            IValidationService validationService,
             ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;
-            this.categoryService = categoryService;
-            this.recipeIngredientService = recipeIngredientService;
-            this.ingredientService = ingredientService;
-            this.userService = userService;
             this.recipeViewModelFactory = recipeViewModelFactory;
-            this.validationService = validationService;
+
             this.logger = logger;            
         }
 
@@ -70,14 +53,12 @@
             }
             catch (RecordNotFoundException)
             {
-                return Redirect("None"); // In case of no recipes found redirect to "None" view
+                return RedirectToAction("None");
             }
             catch(Exception ex)
             {
-                logger.LogError($"An unexpected error occured. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                return HandleException(ex, nameof(All), userId, null);
             }
-
         }
 
         
@@ -105,6 +86,9 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
+            string userId = User.GetId();
+            bool isAdmin = User.IsAdmin();
+
             model = await this.recipeViewModelFactory.PreloadRecipeSelectOptionsToFormModel(model) as RecipeAddFormModel;
             string redirectUrl;
 
@@ -115,9 +99,7 @@
 
             try
             {
-                string ownerId = User.GetId();
-                bool isAdmin = User.IsAdmin();
-                var result = await this.recipeService.TryAddRecipeAsync(model!, ownerId, isAdmin);
+                var result = await this.recipeService.TryAddRecipeAsync(model!, userId, isAdmin);
 
                 if (result.Succeeded)
                 {
@@ -134,8 +116,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogError($"An unexpected error occured while adding recipe. Error message: {ex.Message}, error Stacktrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                return HandleException(ex, nameof(Add), userId, null);
             }
             
         }
@@ -168,10 +149,7 @@
             }
             catch (Exception ex)
             {
-                TempData[ErrorMessage] = "An unexpected error occurred while processing your request.";
-                logger.LogError($"Unexpected error occurred while processing the request. Action: {nameof(Edit)}, Recipe ID: {id}, User ID: {userId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
-
-                return RedirectToAction("InternalServerError", "Home");
+                return HandleException(ex, nameof(Edit), userId, id);
             }
         }
 
@@ -192,7 +170,7 @@
             {
                 return BadRequest(new { success = false, errors = ModelState });
             }
-            string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl })!;
+            string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl = returnUrl ?? "/" })!;
 
             try
             {
@@ -248,6 +226,7 @@
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
@@ -268,10 +247,15 @@
             {
                 return RedirectToAction("None");
             }
-            catch (DataRetrievalException ex)
+            catch(DataRetrievalException)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.GetFormattedMessage());
-            }            
+                return RedirectToAction("InternalServerError", "Home");
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Mine), userId, null);
+            }
+
         }
 
         [HttpGet]
@@ -294,38 +278,20 @@
             }
             catch (RecordNotFoundException ex)
             {
-                logger.LogError($"Recipe with id {id} does not exist");
                 return RedirectToAction("NotFound", "Home", new { message =  ex.Message, code = ex.ErrorCode});
             }
-            catch(UnauthorizedUserException ex)
+            catch (Exception ex) when (ex is UnauthorizedUserException || ex is InvalidOperationException)
             {
-                TempData[ErrorMessage] = ex.Message;
-                return RedirectToAction("Details", "Recipe", new { id });
-            }
-            catch(InvalidOperationException ex)
-            {
-                TempData[WarningMessage] = ex.Message; 
+                TempData[WarningMessage] = ex.Message;
                 return RedirectToAction("Details", "Recipe", new { id });
             }
             catch (Exception ex)
             {
-                logger.LogError($"Something went wrong and the recipe with id {id} was not deleted!");
-                return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
-            }
+                return HandleException(ex, nameof(DeleteConfirmed), userId, id);
+            }            
         }
 
-        // private method for ingredient input validation
-        // TODO: check if it is needed
-        private async Task<bool> IsIngredientValid(string ingredientName)
-        {
-            if (!string.IsNullOrEmpty(ingredientName))
-            {
-                return await this.ingredientService.ExistsByNameAsync(ingredientName);
-            }
-            return false;
-        }
-        
-       
+        // PRIVATE HELPER METHODS:
 
         /// <summary>
         /// Helper method for setting up ViewData and ViewBag values
@@ -366,6 +332,23 @@
 
             // Serialize the errors to JSON and store them in TempData
             TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
+        }
+
+        /// <summary>
+        /// Helper method to log error message and return a custom Internal Server Error page
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="actionName"></param>
+        /// <param name="userId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private IActionResult HandleException(Exception ex, string actionName, string userId, string? recipeId = null)
+        {
+            var recipeIdInfo = recipeId != null ? $"Recipe ID: {recipeId}" : "No Recipe ID";
+            logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {recipeIdInfo}, User ID: {userId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
+
+            // Redirect to the internal server error page with the exception message
+            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
         }
     }
 }

@@ -73,49 +73,49 @@
         Task DeleteByIdAsync(string id, string userId, bool isAdmin);
 
         /// <summary>
-        /// Returns a viewmodel collection of all recipes, added by a specific user. If the collection is empty throws a RecordNotFound Exception
+        /// Returns a viewmodel collection of all recipes, added by a specific user by userId. 
+        /// Does not throw any exceptions.
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(string userId); // Ok
+        Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(string userId); 
 
         /// <summary>
         /// Returns the number of recipes added by a given user
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>int or 0</returns>
-        Task<int?> MineCountAsync(string userId);
+        Task<int?> GetMineCountAsync(string userId);
 
         /// <summary>
         /// Returns the count of all recipes
         /// </summary>
         /// <returns>int or 0</returns>
-        Task<int?> AllCountAsync();
+        Task<int?> GetAllCountAsync();
 
         /// <summary>
         /// Returns a flag indicating if a recipe is included in any meal plans or not
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> IsIncludedInMealPlansAsync(string recipeId);
+        Task<bool> HasMealPlansAsync(string recipeId);
 
         /// <summary>
         /// Returns a collection of all Site Recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> AllSiteAsync();
+        Task<ICollection<RecipeAllViewModel>> GetAllSiteRecipesAsync();
 
         /// <summary>
         /// Returns a collection of all users` recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> AllUserRecipesAsync();
+        Task<ICollection<RecipeAllViewModel>> GetAllNonSiteRecipesAsync();
 
         /// <summary>
         /// Returns all user-liked recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> AllLikedByUserAsync(string userId);
+        Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId);
 
         /// <summary>
         /// Gets the total amount of likes for a recipe
@@ -144,6 +144,6 @@
         /// <param name="recipeId"></param>
         /// <returns>Task</returns>
         /// <remarks>May throw RecordNotFoundException</remarks>
-        Task ToggleRecipeLikeAsync(string userId, string recipeId);
+        Task LikeOrUnlikeRecipeByUserIdAsync(string userId, string recipeId);
     }
 }

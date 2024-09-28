@@ -31,13 +31,16 @@
         Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId, string userId, bool isAdmin);
 
         /// <summary>
-        /// Generates a detailed view model for a recipe.
+        /// Generates a detailed view model for a recipe or throws an exception
         /// </summary>
+        /// <remarks>May throw a RecordNotFoundException due to usage of TryGetForDetails and GetById methods</remarks>
+        /// <exception cref="DataRetrievalException"></exception>
         Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId);
 
         /// <summary>
-        /// Generates a view model for a user's recipes, including owned and favorite recipes.
+        /// Generates a view model for a user's recipes, including owned and favorite recipes or throws an Exception if collections are empty.
         /// </summary>
+        /// <exception cref="RecordNotFoundException"></exception>
         Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId);
 
         /// <summary>

@@ -49,7 +49,7 @@
         public async Task<IActionResult> Index()
         {
             AdminServiceModel model = new AdminServiceModel();
-            model.RecipesTotalCount = await this.recipeService.AllCountAsync();
+            model.RecipesTotalCount = await this.recipeService.GetAllCountAsync();
             model.RecipeCategoriesTotalCount = await this.recipeCategoryService.GetAllCategoriesCountAsync();
             model.IngredientsTotalCount = await this.ingredientService.AllCountAsync();
             model.IngredientCategoriesTotalCount = await this.ingredientCategoryService.GetAllCategoriesCountAsync();
