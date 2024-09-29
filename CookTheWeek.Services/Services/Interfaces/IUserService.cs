@@ -6,6 +6,7 @@
     using CookTheWeek.Web.ViewModels.User;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using CookTheWeek.Data.Models;
+    using System.Security.Claims;
 
     public interface IUserService
     {
@@ -36,5 +37,10 @@
         /// <exception cref="InvalidOperationException"></exception>
         Task DeleteUserAsync(ApplicationUser user);
 
+        /// <summary>
+        /// Gets the currenly logged in user and returns his/her id
+        /// </summary>
+        /// <returns>string or null</returns>
+        string? GetCurrentUserId();
     }
 }

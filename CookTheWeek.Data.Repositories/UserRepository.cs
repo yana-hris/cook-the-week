@@ -1,7 +1,6 @@
 ﻿
 namespace CookTheWeek.Data.Repositories
 {
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -10,21 +9,20 @@ namespace CookTheWeek.Data.Repositories
 
     using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
     using static CookTheWeek.Common.ExceptionMessagesConstants.ArgumentNullExceptionMessages;
+    using System.Security.Claims;
 
     class UserRepository : IUserRepository
     {
         private readonly CookTheWeekDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UserRepository(CookTheWeekDbContext dbContext,
-            IHttpContextAccessor httpContextAccessor,
+        public UserRepository(CookTheWeekDbContext dbContext,            
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.dbContext = dbContext;
-            this.httpContextAccessor = httpContextAccessor;
+            
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -41,29 +39,22 @@ namespace CookTheWeek.Data.Repositories
 
             return false;
         }
-
+        
         /// <inheritdoc/>
-        public string? GetCurrentUserId()
-        {
-            var user = httpContextAccessor.HttpContext?.User;
-            return this.userManager.GetUserId(user);
-        }
-
-        /// <inheritdoc/>
-        public async Task<ApplicationUser?> FindByEmailAsync(string email)
+        public async Task<ApplicationUser?> GetByEmailAsync(string email)
         {
             var user = await this.userManager.FindByEmailAsync(email);
             return user;
         }
 
         /// <inheritdoc/>       
-        public async Task<ApplicationUser?> FindByNameAsync(string userName)
+        public async Task<ApplicationUser?> GetByUsernameAsync(string userName)
         {
             return await this.userManager.FindByNameAsync(userName);
         }
 
         /// <inheritdoc/>
-        public async Task<ApplicationUser> GetUserByIdAsync(string id)
+        public async Task<ApplicationUser> GetByIdAsync(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
 
@@ -76,19 +67,19 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task SignInUserAsync(ApplicationUser user)
+        public async Task SignInAsync(ApplicationUser user)
         {
             await this.signInManager.SignInAsync(user, isPersistent: false);
         }
 
         /// <inheritdoc/>
-        public async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password)
+        public async Task<IdentityResult> AddAsync(ApplicationUser user, string password)
         {
             return await this.userManager.CreateAsync(user, password);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> IsUserEmailConfirmedAsync(ApplicationUser user)
+        public async Task<bool> IsEmailConfirmedAsync(ApplicationUser user)
         {
             return await this.userManager.IsEmailConfirmedAsync(user);
         }
@@ -174,6 +165,11 @@ namespace CookTheWeek.Data.Repositories
                 
         }
 
-        
+        /// <inheritdoc/>
+        public string? GetUserId(ClaimsPrincipal? user)
+        {
+            string? userId = userManager.GetUserId(user);
+            return userId;
+        }
     }
 }

@@ -7,6 +7,7 @@
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.MealPlan;
@@ -21,6 +22,8 @@
     using CookTheWeek.Web.ViewModels.User;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+
     public class ValidationService : IValidationService
     {
         private readonly ICategoryService<RecipeCategory, 
@@ -32,9 +35,11 @@
             IngredientCategoryEditFormModel,
             IngredientCategorySelectViewModel> ingredientCategoryService;
         private readonly IRecipeRepository recipeRepository;
+        private readonly IRecipeService recipeService;
         private readonly IIngredientService ingredientService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IUserRepository userRepository;
+        private readonly IUserService userService;
         private readonly ILogger<ValidationService> logger;
         public ValidationService(ICategoryService<RecipeCategory, 
                                             RecipeCategoryAddFormModel, 
@@ -47,6 +52,7 @@
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
             IRecipeRepository recipeRepository,
+            IRecipeService recipeService,
             ILogger<ValidationService> logger,
             IUserRepository userRepository)
         {
@@ -55,6 +61,7 @@
             this.recipeIngredientService = recipeIngredientService;
             this.recipeRepository = recipeRepository;
             this.userRepository = userRepository;
+            this.recipeService = recipeService;
             this.logger = logger;
         }
 
@@ -126,8 +133,8 @@
         {
             var result = new ValidationResult();
 
-            var userWithEmailExists = await userRepository.FindByEmailAsync(model.Email);
-            var userWithUserNameExists = await userRepository.FindByNameAsync(model.Username);
+            var userWithEmailExists = await userRepository.GetByEmailAsync(model.Email);
+            var userWithUserNameExists = await userRepository.GetByUsernameAsync(model.Username);
 
             if (userWithEmailExists != null || userWithUserNameExists != null)
             {
@@ -164,7 +171,7 @@
             }
 
             // Validate the currently logged in user is the same
-            string? currentUserId = userRepository.GetCurrentUserId();
+            string? currentUserId = userService.GetCurrentUserId();
 
             if (!string.IsNullOrEmpty(currentUserId) && userId.ToLower() != currentUserId.ToLower())
             {
@@ -253,8 +260,35 @@
 
         }
 
-        
-       
+
+        public async Task<ValidationResult> ValidateLikeOrUnlikeRecipe(string userId, string recipeId)
+        {
+            var result = new ValidationResult();
+            string? currentUserId = userService.GetCurrentUserId();
+
+           
+            // Validate if recipe exists
+            if (string.IsNullOrEmpty(recipeId))
+            {
+                logger.LogError($"Null reference error: RecipeId is null upon attempt of user with id {userId} to like it.");
+                AddValidationError(result, nameof(recipeId), ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
+            }
+
+            bool exists = await recipeRepository.ExistsByIdAsync(recipeId);
+
+            // Validate user authorization
+            if (!string.IsNullOrEmpty(currentUserId) &&
+                !string.IsNullOrEmpty(userId) &&
+                !GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
+            {
+                logger.LogError($"Unauthorized access attempt: User {userId} tried to access {recipeId} but does not have the necessary permissions.");
+                AddValidationError(result, nameof(userId), UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
+            }
+
+            return result;
+        }
+
+
         // PRIVATE METHODS:
 
         /// <summary>

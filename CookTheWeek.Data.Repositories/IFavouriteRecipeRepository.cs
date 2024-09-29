@@ -5,42 +5,35 @@
     public interface IFavouriteRecipeRepository
     {
         /// <summary>
-        ///  Gets all liked recipes by a given user id as a collection
-        /// </summary>  
-        /// <returns>A collection of FavouriteRecipe</returns>
-        Task<ICollection<FavouriteRecipe>> GetAllByUserIdAsync(string userId);
-
-        /// <summary>
-        ///  Returns the total likes for a recipe by Id
+        /// Returns a queryable collection of all existing user likes 
         /// </summary>
-        /// <returns>int or 0</returns>
-        Task<int?> GetAllCountByRecipeIdAsync(string recipeId);
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        IQueryable<FavouriteRecipe> GetAllQuery();
+
 
         /// <summary>
-        ///  Checks if a recipe is added to the user`s favourites and returns boolean
+        /// Returns the like if existing or throws an exception
         /// </summary>
-        /// <returns>true or false</returns>
-        Task<bool> GetByIdAsync(string userId, string recipeId);
+        /// <returns>FavouriteRecipe</returns>
+        Task<FavouriteRecipe?> GetByIdAsync(string userId, string recipeId);
 
         /// <summary>
-        ///  Adds a given recipe to a user`s favourites by ids
+        ///  Adds a given recipe to a user`s favourites
         /// </summary>     
-        Task AddAsync(string userId, string recipeId);
+        Task AddAsync(FavouriteRecipe like);
 
         /// <summary>
-        /// Removes a given recipe from a user`s favourites by ids or throws an exception
+        /// Removes a given recipe from a user`s favourites 
         /// </summary> 
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task DeleteAsync(string userId, string recipeId);
+        Task DeleteAsync(FavouriteRecipe like);
 
         /// <summary>
-        /// Deletes all likes for all recipes by a given user id from the favurite-recipe table.  If there are not likes - does nothing.
+        /// Deletes a collection of entries of type favourite recipe (user likes)
         /// </summary>
-        Task DeleteAllByUserIdAsync(string userId);
+        /// <param name="userLikes"></param>
+        /// <returns></returns>
+        Task DeleteAllAsync(ICollection<FavouriteRecipe> userLikes);
 
-        /// <summary>
-        /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are not likes - does nothing.
-        /// </summary>
-        Task DeleteAllByRecipeIdAsync(string recipeId);
     }
 }

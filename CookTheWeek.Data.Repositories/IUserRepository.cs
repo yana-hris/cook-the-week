@@ -1,6 +1,9 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
+    using System.Security.Claims;
+
     using CookTheWeek.Data.Models;
+
     using Microsoft.AspNetCore.Identity;
 
     public interface IUserRepository
@@ -11,26 +14,20 @@
         /// <param name="id"></param>
         /// <returns>true or false</returns>
         Task<bool> ExistsByIdAsync(string id);
-
-        /// <summary>
-        /// Gets the currently logged in user id. Does not throw any exceptions. Posibble null reference.
-        /// </summary>
-        /// <returns>the current user id or null</returns>
-        string? GetCurrentUserId();
-
+        
         /// <summary>
         /// Gets the Application user if exists by email
         /// </summary>
         /// <param name="email"></param>
         /// <returns>Application User or null</returns>
-        Task<ApplicationUser?> FindByEmailAsync(string email);
+        Task<ApplicationUser?> GetByEmailAsync(string email);
 
         /// <summary>
         /// Gets the Application user if exists by name
         /// </summary>
         /// <param name="userName"></param>
         /// <returns>Application user or null</returns>
-        Task<ApplicationUser?> FindByNameAsync(string userName);
+        Task<ApplicationUser?> GetByUsernameAsync(string userName);
 
         /// <summary>
         /// Returns the user, if existing or throws an exception
@@ -38,14 +35,14 @@
         /// <param name="id"></param>
         /// <returns>User or null</returns>
         /// <exception cref="RecordNotFoundException">If a user is not found, throws an exception</exception>
-        Task<ApplicationUser> GetUserByIdAsync(string id);
+        Task<ApplicationUser> GetByIdAsync(string id);
 
         /// <summary>
         /// Signs in the user
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task SignInUserAsync(ApplicationUser user);
+        Task SignInAsync(ApplicationUser user);
 
 
         /// <summary>
@@ -54,14 +51,14 @@
         /// <param name="user"></param>
         /// <param name="password"></param>
         /// <returns>Indetity Result</returns>
-        Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password);
+        Task<IdentityResult> AddAsync(ApplicationUser user, string password);
 
         /// <summary>
         /// Returns true or false, indicating if the user has confirmed his email address
         /// </summary>
         /// <param name=""></param>
         /// <returns>true or false</returns>
-        Task<bool> IsUserEmailConfirmedAsync(ApplicationUser user);
+        Task<bool> IsEmailConfirmedAsync(ApplicationUser user);
 
         /// <summary>
         /// Generates an email confirmation token for the specified user
@@ -146,5 +143,12 @@
         /// </summary>
         /// <returns>An IQueryable collection of ApplicationUser</returns>
         IQueryable<ApplicationUser> GetAllQuery();
+
+        /// <summary>
+        /// Returns the id of the user that is passed as a parameter.
+        /// </summary>
+        /// <param name="user">the user from the ClaimsPrincipal</param>
+        /// <returns>string or null</returns>
+        string? GetUserId(ClaimsPrincipal? user);
     }
 }

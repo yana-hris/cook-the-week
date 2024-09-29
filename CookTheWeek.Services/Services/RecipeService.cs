@@ -15,7 +15,6 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
@@ -30,10 +29,10 @@
     {
         
         private readonly IRecipeRepository recipeRepository;
-        private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly IMealRepository mealRepository;
 
         private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IIngredientService ingredientService;
         private readonly IMealService mealService;
         private readonly IStepService stepService;
@@ -48,14 +47,14 @@
             IStepService stepService,
             IRecipeIngredientService recipeIngredientService,
             IRecipeIngredientRepository recipeIngredientRepository,
-            IFavouriteRecipeRepository favouriteRecipeRepository,
+            IFavouriteRecipeService favouriteRecipeService,
             IMealService mealService,
             IUserService userService,
             ILogger<RecipeService> logger,
             IValidationService validationService)
         {
             this.recipeRepository = recipeRepository;
-            this.favouriteRecipeRepository = favouriteRecipeRepository;
+            this.favouriteRecipeService = favouriteRecipeService;
             this.mealRepository = mealRepository;
 
             this.recipeIngredientService = recipeIngredientService;
@@ -299,8 +298,7 @@
                 throw;
             }
         }
-
-        
+                
         /// <inheritdoc/>
         public async Task DeleteAllByUserIdAsync(string userId)
         {
@@ -400,27 +398,7 @@
                 .CountAsync();
 
         }
-
-
-        // CreateMealViewModel ??
-        public async Task<MealAddFormModel> GetForMealByIdAsync(string recipeId)
-        {
-            Recipe recipe = await recipeRepository.GetByIdAsync(recipeId);
-
-
-            MealAddFormModel model = new MealAddFormModel()
-            {
-                RecipeId = recipe.Id.ToString(),
-                Title = recipe.Title,
-                Servings = recipe.Servings,
-                ImageUrl = recipe.ImageUrl,
-                CategoryName = recipe.Category.Name,
-                Date = DateTime.Now.ToString(MealDateFormat),
-            };
-
-            return model;
-        }
-
+       
         /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> GetAllSiteRecipesAsync()
         {
@@ -469,23 +447,26 @@
             return allUserRecipes;
         }
 
-        /// <inheritdoc/>
+        // TODO: move to fr service
+        /// <inheritdoc/> 
         public Task<bool> IsLikedByUserAsync(string userId, string recipeId)
         {
-            return favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
+            return favouriteRecipeService.GetByIdAsync(userId, recipeId);
         }
 
+        // TODO: move to fr service
         /// <inheritdoc/>
         public async Task<int?> GetAllRecipeLikesAsync(string recipeId)
         {
-            return await favouriteRecipeRepository.GetAllCountByRecipeIdAsync(recipeId);
+            return await favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId);
         }
 
+        // TODO: move to fr service
         /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId)
         {
             ICollection<FavouriteRecipe> likedRecipes = await
-                favouriteRecipeRepository.GetAllByUserIdAsync(userId);
+                favouriteRecipeService.GetAllRecipesLikedByUserIdAsync(userId);
 
             // TODO: Consider using Automapper
             var model = likedRecipes
@@ -520,7 +501,7 @@
         public async Task LikeOrUnlikeRecipeByUserIdAsync(string userId, string recipeId)
         {
             bool exists = await this.recipeRepository.ExistsByIdAsync(recipeId);
-            var currentUserId = this.userRepository.GetCurrentUserId();
+            var currentUserId = this.userService.GetCurrentUserId();
 
             if (!exists)
             {

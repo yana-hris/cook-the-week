@@ -13,6 +13,7 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.ExceptionMessagesConstants;
+    using Microsoft.AspNetCore.Http;
 
     public class UserService : IUserService
     {
@@ -22,12 +23,14 @@
         private readonly IEmailSender emailSender;
         private readonly IMealPlanService mealPlanService;
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public UserService(IUserRepository userRepository,
             IRecipeRepository recipeRepository,
             IRecipeService recipeService,
             IEmailSender emailSender,
             IMealPlanService mealPlanService,
+            IHttpContextAccessor httpContextAccessor,
             IFavouriteRecipeRepository favouriteRecipeRepository)
         {
             this.userRepository = userRepository;
@@ -35,11 +38,12 @@
             this.mealPlanService = mealPlanService;
             this.emailSender = emailSender;
             this.favouriteRecipeRepository = favouriteRecipeRepository;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<UserProfileViewModel> DetailsByIdAsync(string userId)
         {
             // This Throws RecordNotFoundException
-            var user = await userRepository.GetUserByIdAsync(userId);
+            var user = await userRepository.GetByIdAsync(userId);
 
             bool hasPassword = await userRepository.HasPasswordAsync(user);
 
@@ -58,7 +62,7 @@
                 Email = model.Email
             };
 
-            IdentityResult identityResult = await userRepository.CreateUserAsync(user, model.Password);
+            IdentityResult identityResult = await userRepository.AddAsync(user, model.Password);
 
             if (!identityResult.Succeeded)
             {
@@ -71,7 +75,7 @@
         }
         public async Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model)
         {
-            var user = await userRepository.GetUserByIdAsync(userId);
+            var user = await userRepository.GetByIdAsync(userId);
 
             if (user == null)
             {
@@ -95,7 +99,7 @@
 
         public async Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model)
         {
-            var user = await userRepository.GetUserByIdAsync(userId);
+            var user = await userRepository.GetByIdAsync(userId);
 
             if (user == null)
             {
@@ -120,7 +124,7 @@
             await recipeService.DeleteAllByUserIdAsync(userId);
             await favouriteRecipeRepository.DeleteAllByUserIdAsync(userId);
 
-            var user = await userRepository.GetUserByIdAsync(userId);
+            var user = await userRepository.GetByIdAsync(userId);
 
             if (user != null)
             {
@@ -195,6 +199,19 @@
                 throw new InvalidOperationException(InvalidOperationExceptionMessages
                     .UserUnsuccessfullyDeletedExceptionMessage);
             }
+        }
+
+        /// <summary>
+        /// Gets the currently logged in user id
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public string? GetCurrentUserId()
+        {
+            var user = httpContextAccessor.HttpContext?.User;
+            string? userId = userRepository.GetUserId(user);
+
+            return userId;
         }
     }
 }

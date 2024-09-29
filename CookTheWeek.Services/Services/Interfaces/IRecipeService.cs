@@ -42,7 +42,7 @@
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
         /// <returns>RecipeDetailsViewModel</returns>
-        Task<RecipeDetailsViewModel> TryGetForDetailsByRecipeId(string id); // Ok
+        Task<RecipeDetailsViewModel> TryGetForDetailsByRecipeId(string id);
 
         /// <summary>
         /// Returns true if the user has liked a specific recipe
@@ -50,7 +50,7 @@
         /// <param name="userId"></param>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> IsLikedByUserAsync(string userId, string recipeId); //Ok
+        Task<bool> IsLikedByUserAsync(string userId, string recipeId); 
 
         /// <summary>
         /// Creates a RecipeEditFormModel or throws exceptions if recipe is not found or is not owned by the current user
