@@ -4,8 +4,8 @@
 
     using Common.HelperMethods;
 
-    using static Common.EntityValidationConstants.Meal;
-    using static Common.EntityValidationConstants.Recipe;
+    using static Common.EntityValidationConstants.MealValidation;
+    using static Common.EntityValidationConstants.RecipeValidation;
 
     public class MealAddFormModel
     {

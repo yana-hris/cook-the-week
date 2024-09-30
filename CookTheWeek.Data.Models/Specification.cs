@@ -4,7 +4,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.Specification;
+    using static Common.EntityValidationConstants.SpecificationValidation;
 
     [Comment("Specification of Recipe-Ingredient")]
     public class Specification

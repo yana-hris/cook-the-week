@@ -4,7 +4,7 @@
     
     using CustomValidationAttributes;
 
-    using static Common.EntityValidationConstants.RecipeIngredient;
+    using static Common.EntityValidationConstants.RecipeIngredientValidation;
     public class RecipeIngredientFormModel
     {
         

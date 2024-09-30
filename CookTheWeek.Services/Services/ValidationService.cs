@@ -3,12 +3,14 @@
     using System.Globalization;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Models.Interfaces;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
@@ -23,8 +25,7 @@
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using Microsoft.EntityFrameworkCore;
-    using CookTheWeek.Data.Models.Interfaces;
+    using static CookTheWeek.Common.EntityValidationConstants;
 
     public class ValidationService : IValidationService
     {
@@ -69,12 +70,47 @@
 
               
         /// <inheritdoc/>
-        public async Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model)
+        public async Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model)
         {
             Ingredient ingredient = await ingredientService.GetByIdAsync(model.IngredientId!.Value);
             return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
         }
 
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateIngredientFormModelAsync(IIngredientFormModel model)
+        {
+            var result = new ValidationResult();
+
+            bool categoryExists = await ingredientCategoryService.CategoryExistsByIdAsync(model.CategoryId);
+
+            if (!categoryExists)
+            {
+                AddValidationError(result, nameof(model.CategoryId), CategoryValidation.CategoryInvalidErrorMessage);
+            }
+
+            // Check if an ingredient with the same name already exists
+            bool existingByName = await ingredientService.ExistsByNameAsync(model.Name);
+
+            if (existingByName)
+            {
+                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
+
+                if (model is IIngredientEditFormModel editModel)
+                {
+                    if (existingIngredientId != editModel.Id)
+                    {
+                        AddValidationError(result, nameof(editModel.Name), IngredientValidation.IngredientNameErrorMessage);
+                    }
+                }
+                else
+                {
+                    // In the add scenario, any matching name is a conflict
+                    AddValidationError(result, nameof(model.Name), IngredientValidation.IngredientNameErrorMessage);
+                }
+            }
+
+            return result;
+        }
 
         /// <inheritdoc/>
         public async Task<bool> ValidateCategoryCanBeDeletedAsync(int id)
@@ -92,36 +128,36 @@
             bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId!.Value);
             if (!categoryExists)
             {
-                AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.Recipe.RecipeCategoryIdInvalidErrorMessage);
+                AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.RecipeValidation.RecipeCategoryIdInvalidErrorMessage);
             }
 
             if (!model.RecipeIngredients.Any())
             {
-                AddValidationError(result, nameof(model.RecipeIngredients), EntityValidationConstants.Recipe.IngredientsRequiredErrorMessage);
+                AddValidationError(result, nameof(model.RecipeIngredients), EntityValidationConstants.RecipeValidation.IngredientsRequiredErrorMessage);
             }
 
             if (!model.Steps.Any())
             {
-                AddValidationError(result, nameof(model.Steps), EntityValidationConstants.Recipe.StepsRequiredErrorMessage);
+                AddValidationError(result, nameof(model.Steps), EntityValidationConstants.RecipeValidation.StepsRequiredErrorMessage);
             }
 
             foreach (var ingredient in model.RecipeIngredients)
             {
                 try
                 {
-                    bool exists = await ValidateIngredientAsync(ingredient);
+                    bool exists = await ValidateIngredientForRecipeIngredientAsync(ingredient);
                 }
                 catch (RecordNotFoundException ex)
                 {
                     logger.LogError($"Ingredient with name {ingredient.Name} and id {ingredient.Name} does not exist. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                    AddValidationError(result, nameof(ingredient.Name), EntityValidationConstants.RecipeIngredient.RecipeIngredientInvalidErrorMessage);
+                    AddValidationError(result, nameof(ingredient.Name), RecipeIngredientValidation.RecipeIngredientInvalidErrorMessage);
                 }
 
                 bool measureExists = await recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value);
 
                 if (!measureExists)
                 {
-                    AddValidationError(result, nameof(ingredient.MeasureId), EntityValidationConstants.RecipeIngredient.MeasureRangeErrorMessage);
+                    AddValidationError(result, nameof(ingredient.MeasureId), RecipeIngredientValidation.MeasureRangeErrorMessage);
                 }
 
                 if (ingredient.SpecificationId != null && ingredient.SpecificationId.HasValue)
@@ -129,7 +165,7 @@
                     bool specificationExists = await recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value);
                     if (!specificationExists)
                     {
-                        AddValidationError(result, nameof(ingredient.SpecificationId), EntityValidationConstants.RecipeIngredient.SpecificationRangeErrorMessage);
+                        AddValidationError(result, nameof(ingredient.SpecificationId), RecipeIngredientValidation.SpecificationRangeErrorMessage);
 
                     }
                 }
@@ -148,17 +184,17 @@
 
             if (userWithEmailExists != null || userWithUserNameExists != null)
             {
-                AddValidationError(result, string.Empty, EntityValidationConstants.ApplicationUser.AlreadyHaveAccountErrorMessage);
+                AddValidationError(result, string.Empty, EntityValidationConstants.ApplicationUserValidation.AlreadyHaveAccountErrorMessage);
             }
 
             if (userWithUserNameExists != null)
             {
-                AddValidationError(result, nameof(model.Username), EntityValidationConstants.ApplicationUser.UsernameAlreadyExistsErrorMessage);
+                AddValidationError(result, nameof(model.Username), EntityValidationConstants.ApplicationUserValidation.UsernameAlreadyExistsErrorMessage);
             }
 
             if (userWithEmailExists != null)
             {
-                AddValidationError(result, nameof(model.Email), EntityValidationConstants.ApplicationUser.EmailAlreadyExistsErrorMessage);
+                AddValidationError(result, nameof(model.Email), EntityValidationConstants.ApplicationUserValidation.EmailAlreadyExistsErrorMessage);
             }
 
             return result;
@@ -177,7 +213,7 @@
             // Validate userId exists in the database;
             if (!user)
             {
-                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUser.UserNotFoundErrorMessage);
+                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUserValidation.UserNotFoundErrorMessage);
             }
 
             // Validate the currently logged in user is the same
@@ -185,7 +221,7 @@
 
             if (!string.IsNullOrEmpty(currentUserId) && userId.ToLower() != currentUserId.ToLower())
             {
-                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUser.InvalidUserIdErrorMessage);
+                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUserValidation.InvalidUserIdErrorMessage);
             }
 
             // Validate recipe id`s are valid recipes
@@ -199,7 +235,7 @@
                 if (!recipeIdIsValid)
                 {
                     string key = $"Meals[{i}].RecipeId"; // sub-entry
-                    AddValidationError(result, key, EntityValidationConstants.Recipe.InvalidRecipeIdErrorMessage);
+                    AddValidationError(result, key, EntityValidationConstants.RecipeValidation.InvalidRecipeIdErrorMessage);
                 }
             }
 
@@ -213,7 +249,7 @@
 
             if (!model.Meals.Any())
             {
-                AddValidationError(result, nameof(model.Meals), EntityValidationConstants.MealPlan.MealsRequiredErrorMessage);
+                AddValidationError(result, nameof(model.Meals), EntityValidationConstants.MealPlanValidation.MealsRequiredErrorMessage);
             }
 
             for (int i = 0; i < model.Meals.Count; i++)
@@ -224,12 +260,12 @@
                 if (!recipeIdIsValid)
                 {
                     string key = $"Meals[{i}].RecipeId"; // sub-entry
-                    AddValidationError(result, key, EntityValidationConstants.Recipe.InvalidRecipeIdErrorMessage);
+                    AddValidationError(result, key, EntityValidationConstants.RecipeValidation.InvalidRecipeIdErrorMessage);
                 }
 
                 if (!ValidateMealDates(meal))
                 {
-                    AddValidationError(result, nameof(meal.Date), EntityValidationConstants.Meal.DateRangeErrorMessage);
+                    AddValidationError(result, nameof(meal.Date), EntityValidationConstants.MealValidation.DateRangeErrorMessage);
                 }
             }
 
@@ -262,7 +298,7 @@
                 // If a category with the same name exists but it is not the current one being edited
                 if (existingCategoryId.HasValue && existingCategoryId.Value != editModel.Id)
                 {
-                    AddValidationError(result, nameof(editModel.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
+                    AddValidationError(result, nameof(editModel.Name), CategoryValidation.CategoryExistsErrorMessage);
                 }
             }
             else
@@ -271,7 +307,7 @@
                 int? existingCategoryId = await getCategoryIdByNameFunc(model.Name);
                 if (existingCategoryId.HasValue)
                 {
-                    AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
+                    AddValidationError(result, nameof(model.Name), CategoryValidation.CategoryExistsErrorMessage);
                 }
             }
 
@@ -304,6 +340,7 @@
             return true;
         }
 
+        // TODO: check!
         public async Task<ValidationResult> ValidateLikeOrUnlikeRecipe(string userId, string recipeId)
         {
             var result = new ValidationResult();
@@ -331,7 +368,14 @@
             return result;
         }
 
-        
+        /// <inheritdoc/>
+        public Task<bool> ValidateIngredientCanBeDeleted(int id)
+        {
+            return recipeRepository.GetAllQuery()
+                .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
+        }
+
+
 
         // PRIVATE METHODS:
 
@@ -371,5 +415,6 @@
             }
         }
 
+        
     }
 }

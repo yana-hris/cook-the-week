@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using CookTheWeek.Web.ViewModels.Interfaces;
 using CookTheWeek.Web.ViewModels.Meal;
 
-using static Common.EntityValidationConstants.MealPlan;
+using static Common.EntityValidationConstants.MealPlanValidation;
 
 public class MealPlanAddFormModel : IMealPlanFormModel
 {

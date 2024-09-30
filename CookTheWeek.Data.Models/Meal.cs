@@ -5,7 +5,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.Meal;
+    using static Common.EntityValidationConstants.MealValidation;
 
     [Comment("Meal")]
     public class Meal

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CookTheWeek.Common;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
@@ -21,14 +22,15 @@
         /// </summary>
         /// <param name="model">The model containing the ingredient data to be added.</param>
         /// <returns>The ID of the newly added ingredient.</returns>
-        Task<int> AddAsync(IngredientAddFormModel model);
+        Task<OperationResult> TryAddIngredientAsync(IngredientAddFormModel model);
 
         /// <summary>
-        /// Edits an existing ingredient in the database or throws an exception if ingredient is not found
+        /// Tries to edit an existing ingredient by first validating the form model. May throw exceptions or return model errors.
         /// </summary>
         /// <remarks>May throw RecordNotFoundException due to using GetById method</remarks>
         /// <param name="model">The model containing updated ingredient data.</param>
-        Task EditAsync(IngredientEditFormModel model);
+        /// <returns>The result from the operation (IsSuccess or if not => result.Errors for ModelState) </returns>
+        Task<OperationResult> TryEditIngredientAsync(IngredientEditFormModel model);
 
         /// <summary>
         /// Generates a collection of ingredient suggestions model, based on the input search string, to be used for suggestive search functionality
@@ -43,7 +45,7 @@
         /// <param name="id">The ID of the ingredient to retrieve.</param>
         /// <remarks>May throw RecordNotFoundException due to using GetById method</remarks>
         /// <returns>The IngredientEditFormModel containing the ingredient data, or null if not found.</returns>
-        Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
+        Task<IngredientEditFormModel> TryGetIngredientModelForEditAsync(int id);
 
        
         /// <summary>
@@ -89,5 +91,12 @@
         /// <returns>true or false</returns>
         Task<bool> HasAnyWithCategory(int categoryId);
 
+        /// <summary>
+        /// Returns the id of an Ingredient with a given name or throws an exception
+        /// </summary>
+        /// <param name="name">the ingredient name to serach for</param>
+        /// <returns>the ingredient ID</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<int> GetIdByNameAsync(string name);
     }
 }

@@ -7,7 +7,7 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.EntityValidationConstants.RecipeIngredientQty;
+    using static Common.EntityValidationConstants.RecipeIngredientQtyValidation;
 
     public class ValidateQtyAttribute : ValidationAttribute, IClientValidatable
     {

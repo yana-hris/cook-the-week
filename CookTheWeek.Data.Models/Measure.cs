@@ -4,7 +4,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.Measure;
+    using static Common.EntityValidationConstants.MeasureValidation;
 
     [Comment("Measure of Recipe-Ingredient")]
     public class Measure

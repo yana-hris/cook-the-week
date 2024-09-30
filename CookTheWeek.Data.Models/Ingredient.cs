@@ -5,7 +5,7 @@
     
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.RecipeIngredient;
+    using static Common.EntityValidationConstants.RecipeIngredientValidation;
 
     [Comment("Ingredient")]
     public class Ingredient

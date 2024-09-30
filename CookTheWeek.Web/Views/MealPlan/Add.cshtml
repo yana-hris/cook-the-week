@@ -1,7 +1,7 @@
 ﻿@model MealPlanAddFormModel
 @inject IMealPlanService MealPlanService
 @using static CookTheWeek.Common.Extensions.NumberExtensions
-@using static CookTheWeek.Common.EntityValidationConstants.ErrorMessages
+@using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
     ViewData["Title"] = "Add Meal Plan";
     int initialCount = Model.Meals.Count;

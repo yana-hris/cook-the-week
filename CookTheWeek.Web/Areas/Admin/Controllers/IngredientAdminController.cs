@@ -1,7 +1,7 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
+    
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -12,6 +12,8 @@
     using CookTheWeek.Web.ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
+    using static Common.EntityValidationConstants;
+    using CookTheWeek.Web.ViewModels.Interfaces;
 
     public class IngredientAdminController : BaseAdminController
     {
@@ -49,10 +51,9 @@
 
                 return View(queryModel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.LogError($"Ingredient Query model was not successfully loaded.");
-                return BadRequest();
+                return HandleException(ex, nameof(All), "Ingredient", null);                
             }
         }
 
@@ -60,7 +61,7 @@
         public async Task<IActionResult> Add()
         {
             IngredientAddFormModel model = new IngredientAddFormModel();
-            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
+            await PopulateIngredientCategoriesAsync(model);
 
             return View(model);
         }
@@ -68,103 +69,87 @@
         [HttpPost]
         public async Task<IActionResult> Add([FromForm]IngredientAddFormModel model)
         {
-            bool ingredientExists = await ingredientService.ExistsByNameAsync(model.Name);
-            bool categoryExists = await categoryService.CategoryExistsByIdAsync(model.CategoryId);
-
-            if (ingredientExists)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
+                await PopulateIngredientCategoriesAsync(model);
+                return View(model);
             }
 
-            if (!categoryExists)
+            try
             {
-                ModelState.AddModelError(nameof(model.CategoryId), $"Invalid Ingredient Category: {model.CategoryId}");
-            }
+                var result = await ingredientService.TryAddIngredientAsync(model);
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (result.Succeeded)
                 {
-                    await ingredientService.AddAsync(model);
-                    TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" added successfully!";
+                    TempData[ErrorMessage] = IngredientValidation.IngredientSuccessfullyAddedMessage;
+
                     return RedirectToAction("All");
                 }
-                catch (Exception)
-                {
-                    logger.LogError($"Ingredient with name {model.Name} was not successfully added.");
-                    return BadRequest();
-                }
-            }
 
-            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
-            return View(model);
+                AddCustomValidationErrorsToModelState(result.Errors);
+                await PopulateIngredientCategoriesAsync(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Add), nameof(Ingredient), null);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            bool exists = await this.ingredientService.ExistsByIdAsync(id);
-
-            if(!exists)
+            try
             {
-                logger.LogError($"Ingredient with id {id} does not exist and cannot be edited.");
-                return NotFound();
+                IngredientEditFormModel model = await ingredientService.TryGetIngredientModelForEditAsync(id);
+                await PopulateIngredientCategoriesAsync(model);
+                return View(model);
+            }
+            catch (RecordNotFoundException ex)
+            {
+                TempData[ErrorMessage] = ex.Message;
+
+                return RedirectToAction("All");
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Edit), nameof(Ingredient), id.ToString());
+            }
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(IngredientEditFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                await PopulateIngredientCategoriesAsync(model);
+                return View(model);
             }
 
             try
             {
-                IngredientEditFormModel model = await ingredientService.GetForEditByIdAsync(id);
-                model.Categories = await categoryService.GetAllCategoriesAsync();
-                return View(model);
-            }
-            catch (Exception)
-            {
-                logger.LogError($"Model for ingredient with id {id} was not successfully loaded.");
-                return BadRequest();
-            }
-        }
+                var result = await ingredientService.TryEditIngredientAsync(model);
 
-        // TODO: Refactor controller and use exceptions thrown from service anyway
-        [HttpPost]
-        public async Task<IActionResult> Edit(IngredientEditFormModel model)
-        {
-            bool ingredientExists = await this.ingredientService.ExistsByIdAsync(model.Id);
-
-            if(!ingredientExists)
-            {
-                logger.LogError($"Ingredient with id {model.Id} does not exist and cannot be edited.");
-                return NotFound();
-            }
-
-            bool nameAlreadyExists = await ingredientService.ExistsByNameAsync(model.Name);
-
-            if (nameAlreadyExists)
-            {
-                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
-
-                if(existingIngredientId != model.Id)
+                if (!result.Succeeded)
                 {
-                    ModelState.AddModelError(nameof(model.Name), $"Ingredient with name \"{model.Name}\" already exists!");
+                    AddCustomValidationErrorsToModelState(result.Errors);
+                    await PopulateIngredientCategoriesAsync(model);
+                    return View(model);
                 }
-            }
 
-            if (ModelState.IsValid)
+                TempData[SuccessMessage] = IngredientValidation.IngredientSuccessfullyEditedMessage;
+            }
+            catch (RecordNotFoundException ex)
             {
-                try
-                {
-                    await ingredientService.EditAsync(model);
-                    TempData[SuccessMessage] = $"Ingredient \"{model.Name}\" edited successfully!";
-                    return RedirectToAction("All");
-                }
-                catch (Exception)
-                {
-                    logger.LogError($"Ingredient with id {model.Id} was not edited successfully");
-                    return BadRequest();
-                }
+                TempData[ErrorMessage] = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Edit), nameof(Ingredient), id.ToString());
             }
 
-            model.Categories = await categoryService.GetAllCategoriesAsync();
-            return View(model);
+            return RedirectToAction("All");
         }
 
         [HttpGet]
@@ -172,12 +157,12 @@
         {
             try
             {
-                await this.ingredientService.TryDeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Ingredient successfully deleted!";
+                await ingredientService.TryDeleteByIdAsync(id);
+                TempData[SuccessMessage] = IngredientValidation.IngredientSuccessfullyDeletedMessage;
             }
-            catch (RecordNotFoundException)
+            catch (RecordNotFoundException ex)
             {
-                return RedirectToAction("NotFound", "Home", new { area = "" });
+                TempData[ErrorMessage] = ex.Message;
             }
             catch(InvalidOperationException ex)
             {
@@ -185,10 +170,21 @@
             }
             catch (Exception ex)
             {
-                logger.log
+                return HandleException(ex, nameof(Delete), nameof(Ingredient), id.ToString());
             }
 
             return RedirectToAction("All");
         }
+
+        /// <summary>
+        /// Helper method to populate Ingredient Categories for Select menu
+        /// </summary>
+        /// <param name="model">IIngredientFormModel for adding or editing an Ingredient</param>
+        /// <returns></returns>
+        private async Task PopulateIngredientCategoriesAsync(IIngredientFormModel model)
+        {
+            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
+        }
+
     }
 }

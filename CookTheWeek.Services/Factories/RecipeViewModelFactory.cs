@@ -14,7 +14,7 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
     using Microsoft.Extensions.Logging;
-    using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
 

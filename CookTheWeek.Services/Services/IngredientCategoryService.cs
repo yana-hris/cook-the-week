@@ -141,7 +141,7 @@
         }
 
         /// <inheritdoc/>      
-        public async Task<IngredientCategoryEditFormModel> TryGetCategoryModelForEdit(int id)
+        public async Task<IngredientCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id)
         {
             var categoryToEdit = await this.categoryRepository
                 .GetByIdAsync(id);

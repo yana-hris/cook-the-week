@@ -7,7 +7,7 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
 
-    using static Common.EntityValidationConstants.Recipe;
+    using static Common.EntityValidationConstants.RecipeValidation;
 
     public class RecipeEditFormModel : IRecipeFormModel
     {

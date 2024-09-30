@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Data.Models.Validation;
 
     using static Common.GeneralApplicationConstants;
 
@@ -17,20 +16,6 @@
         protected BaseAdminController(ILogger<BaseAdminController> logger)
         {
             this.logger = logger;
-        }
-
-
-        /// <summary>
-        /// Extract model errors from the ModelState into a common string 
-        /// </summary>
-        /// <returns>All model errors, separated by a new line in a single string</returns>
-        protected string ExtractModelErrors()
-        {
-            ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-
-            return string.Join(Environment.NewLine, modelErrors);
         }
 
         /// <summary>

@@ -16,9 +16,9 @@ namespace CookTheWeek.Web.Controllers
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using static Common.EntityValidationConstants.Meal;
-    using static Common.EntityValidationConstants.MealPlan;
-    using static Common.EntityValidationConstants.Recipe;
+    using static Common.EntityValidationConstants.MealValidation;
+    using static Common.EntityValidationConstants.MealPlanValidation;
+    using static Common.EntityValidationConstants.RecipeValidation;
 
     public class MealPlanController : BaseController
     {

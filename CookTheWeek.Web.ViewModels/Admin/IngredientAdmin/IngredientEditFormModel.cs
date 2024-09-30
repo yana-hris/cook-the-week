@@ -1,13 +1,16 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Admin.IngredientAdmin
 {
     using System.ComponentModel.DataAnnotations;
-    using CookTheWeek.Web.ViewModels.Category;
-    using static Common.EntityValidationConstants.RecipeIngredient;
 
-    public class IngredientEditFormModel
+    using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.Interfaces;
+    using static Common.EntityValidationConstants.RecipeIngredientValidation;
+
+    public class IngredientEditFormModel : IIngredientEditFormModel
     {
         [Required]
         public int Id { get; set; }
+
         [Required]
         [StringLength(RecipeIngredientNameMaxLength, MinimumLength = RecipeIngredientNameMinLength)]
         public string Name { get; set; } = null!;

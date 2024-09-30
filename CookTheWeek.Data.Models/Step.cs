@@ -5,7 +5,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using static CookTheWeek.Common.EntityValidationConstants.Step;
+    using static CookTheWeek.Common.EntityValidationConstants.StepValidation;
 
     [Comment("Cooking Step")]
     public class Step

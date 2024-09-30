@@ -38,7 +38,7 @@
         Task DeleteUserAsync(ApplicationUser user);
 
         /// <summary>
-        /// Gets the currenly logged in user and returns his/her id
+        /// Gets the currently logged in user and returns his/her id
         /// </summary>
         /// <returns>string or null</returns>
         string? GetCurrentUserId();

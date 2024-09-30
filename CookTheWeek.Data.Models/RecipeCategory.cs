@@ -4,7 +4,7 @@
     using CookTheWeek.Data.Models.Interfaces;
     using Microsoft.EntityFrameworkCore;
 
-    using static Common.EntityValidationConstants.Category;
+    using static Common.EntityValidationConstants.CategoryValidation;
 
     [Comment("Recipes Category")]
     public class RecipeCategory : ICategory

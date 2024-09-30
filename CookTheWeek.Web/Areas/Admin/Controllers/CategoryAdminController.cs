@@ -1,9 +1,8 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Data.SqlClient;
     
+    using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -11,7 +10,6 @@
     using CookTheWeek.Web.ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Common;
 
     public class CategoryAdminController : BaseAdminController
     {
@@ -92,7 +90,7 @@
         {
             try
             {
-                RecipeCategoryEditFormModel model = await this.recipeCategoryService.TryGetCategoryModelForEdit(id);
+                RecipeCategoryEditFormModel model = await this.recipeCategoryService.TryGetCategoryModelForEditAsync(id);
                 return View(model);
 
             }
@@ -152,7 +150,7 @@
                 await recipeCategoryService.TryDeleteCategoryAsync(id);
                 TempData[SuccessMessage] = $"Recipe Category successfully deleted!";
             }
-            catch (RecordNotFoundException ex)
+            catch (RecordNotFoundException)
             {
                 TempData[ErrorMessage] = "Recipe Category does not exist.";
             }
@@ -224,7 +222,7 @@
         {
             try
             {
-                IngredientCategoryEditFormModel model = await this.ingredientCategoryService.TryGetCategoryModelForEdit(id);
+                IngredientCategoryEditFormModel model = await this.ingredientCategoryService.TryGetCategoryModelForEditAsync(id);
                 return View(model);
 
             }
@@ -285,11 +283,11 @@
             }
             catch (RecordNotFoundException ex)
             {
-                TempData[ErrorMessage] = "Ingredient Category does not exist.";
+                TempData[ErrorMessage] = ex.Message;
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                TempData[ErrorMessage] = "Ingredient Category cannot be deleted due to existing Recipes.";
+                TempData[ErrorMessage] = ex.Message;
             }
             catch (Exception ex)
             {

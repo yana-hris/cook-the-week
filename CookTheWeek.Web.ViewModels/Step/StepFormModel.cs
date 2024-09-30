@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static CookTheWeek.Common.EntityValidationConstants.Step;
+    using static CookTheWeek.Common.EntityValidationConstants.StepValidation;
     public class StepFormModel
     {
         [Required]

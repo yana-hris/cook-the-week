@@ -18,7 +18,7 @@
     using Web.ViewModels.MealPlan;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.EntityValidationConstants.Recipe;
+    using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.ExceptionMessagesConstants;
     using Microsoft.Extensions.Logging;
 

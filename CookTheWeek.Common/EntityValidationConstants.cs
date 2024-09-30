@@ -2,12 +2,21 @@
 {
     public static class EntityValidationConstants
     {
-        public static class Recipe
+        public static class IngredientValidation
         {
-            public const string RecipeNotFoundErrorMessage = "Recipe not found";
-            public const string RecipeSuccessfullyAddedMessage = "Your recipe was successfully added!";
-            public const string RecipeSuccessfullyEditedMessage = "Your recipe was successfully edited!";
-            public const string RecipeOwnerErrorMessage = "You must be the owner of this recipe to edit or delete it";
+            public const string IngredientSuccessfullyAddedMessage = "Ingredient successfully added.";
+            public const string IngredientSuccessfullyEditedMessage = "Ingredient successfully edited.";
+            public const string IngredientSuccessfullyDeletedMessage = "Ingredient successfully deleted.";
+
+            public const string IngredientNameErrorMessage = "Ingredient with this name already exisrs.";
+        }
+        public static class RecipeValidation
+        {
+            public const string RecipeNotFoundErrorMessage = "Recipe not found.";
+            public const string RecipeSuccessfullyAddedMessage = "Your recipe is successfully added.";
+            public const string RecipeSuccessfullyEditedMessage = "Your recipe is successfully edited.";
+            public const string RecipeOwnerErrorMessage = "You must be the owner of this recipe to edit or delete it.";
+            public const string RecipeSuccessfullyDeletedMessage = "Your recipe is successfully deleted.";
 
             // Id
             public const string InvalidRecipeIdErrorMessage = "Invalid recipeId";
@@ -72,7 +81,7 @@
             
         }
         
-        public static class Step
+        public static class StepValidation
         {
             public const int StepDescriptionMinLength = 5;
             public const int StepDescriptionMaxLength = 1000;
@@ -81,7 +90,7 @@
             public const string StepDescriptionRangeErrorMessage = "The cooking step description can be between 5 and 1000 characters long";
         }
         
-        public static class RecipeIngredient
+        public static class RecipeIngredientValidation
         {
             // Name
             public const int RecipeIngredientNameMinLength = 2;
@@ -112,7 +121,7 @@
 
         }
 
-        public static class RecipeIngredientQty
+        public static class RecipeIngredientQtyValidation
         {
             
             public const string MissingFormInputErrorMessage = "Required either decimal or fractional quantity";
@@ -126,28 +135,29 @@
             public const string InvalidWholeQtyErrorMessage = "Qty must be in the range [1-9999]";
         }
 
-        public static class Measure
+        public static class MeasureValidation
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
         }
 
-        public static class Specification
+        public static class SpecificationValidation
         {
             public const int DescriptionMinLength = 2;
             public const int DescriptionMaxLength = 50;
         }
 
         // All categories TCategory (RecipeCategory, IngredientCategory)
-        public static class Category
+        public static class CategoryValidation
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
 
             public const string CategoryExistsErrorMessage = "Category with this name already exists.";
+            public const string CategoryInvalidErrorMessage = "Invalid category.";
         }
         
-        public static class ApplicationUser
+        public static class ApplicationUserValidation
         {            
             public const int UsernameMinLength = 3;
             public const int UsernameMaxLength = 50;
@@ -165,7 +175,7 @@
             public const string InvalidUserIdErrorMessage = "The current user has another user id!";
         }
 
-        public static class Meal
+        public static class MealValidation
         {
             public const int MinServingSize = 1;
             public const int MaxServingSize = 12;
@@ -177,7 +187,7 @@
             public const string DateRangeErrorMessage = "Please choose a valid cooking date";
         }
 
-        public static class MealPlan
+        public static class MealPlanValidation
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
@@ -195,7 +205,7 @@
             
         }
 
-        public static class ErrorMessages
+        public static class ValidationErrorMessages
         {
             public const string InvalidInputErrorMessage = "Invalid input. Please provide valid content.";
             
@@ -203,36 +213,36 @@
             public static readonly Dictionary<string, string> RecipeValidationErrorMessages =
                 new Dictionary<string, string>()
                 {
-                    { "TitleRequiredErrorMessage", Recipe.TitleRequiredErrorMessage },
-                    { "TitleMinLengthErrorMessage", Recipe.TitleMinLengthErrorMessage },
-                    { "TitleMaxLengthErrorMessage", Recipe.TitleMaxLengthErrorMessage },
-                    { "DescriptionRangeErrorMessage", Recipe.DescriptionRangeErrorMessage },
-                    { "ServingsRequiredErrorMessage", Recipe.ServingsRequiredErrorMessage },
-                    { "ServingsRangeErrorMessage", Recipe.ServingsRangeErrorMessage },
-                    { "ImageRequiredErrorMessage", Recipe.ImageRequiredErrorMessage },
-                    { "ImageInvalidErrorMessage", Recipe.ImageInvalidErrorMessage },
-                    { "ImageRangeErrorMessage", Recipe.ImageRangeErrorMessage },
-                    { "CookingTimeRequiredErrorMessage", Recipe.CookingTimeRequiredErrorMessage },
-                    { "CookingTimeRangeErrorMessage", Recipe.CookingTimeRangeErrorMessage },
-                    { "RecipeCategoryIdRequiredErrorMessage", Recipe.RecipeCategoryIdRequiredErrorMessage },
-                    { "StepsRequiredErrorMessage", Recipe.StepsRequiredErrorMessage },
-                    { "StepDescriptionRangeErrorMessage", Step.StepDescriptionRangeErrorMessage },
-                    { "IngredientsRequiredErrorMessage", Recipe.IngredientsRequiredErrorMessage },
-                    { "RecipeIngredientNameRequiredErrorMessage", RecipeIngredient.RecipeIngredientNameRequiredErrorMessage },
-                    { "RecipeIngredientNameRangeErrorMessage", RecipeIngredient.RecipeIngredientNameRangeErrorMessage },
-                    { "MeasureRequiredErrorMessage", RecipeIngredient.MeasureRequiredErrorMessage },
-                    { "MissingFormInputErrorMessage", RecipeIngredientQty.MissingFormInputErrorMessage },
-                    { "MissingFractionalOrWholeInputMessage", RecipeIngredientQty.MissingFractionalOrWholeInputMessage },
-                    { "InvalidDecimalRangeErrorMessage", RecipeIngredientQty.InvalidDecimalRangeErrorMessage },
-                    { "InvalidFractionErrorMessage", RecipeIngredientQty.InvalidFractionErrorMessage },
-                    { "InvalidWholeQtyErrorMessage", RecipeIngredientQty.InvalidWholeQtyErrorMessage },
+                    { "TitleRequiredErrorMessage", RecipeValidation.TitleRequiredErrorMessage },
+                    { "TitleMinLengthErrorMessage", RecipeValidation.TitleMinLengthErrorMessage },
+                    { "TitleMaxLengthErrorMessage", RecipeValidation.TitleMaxLengthErrorMessage },
+                    { "DescriptionRangeErrorMessage", RecipeValidation.DescriptionRangeErrorMessage },
+                    { "ServingsRequiredErrorMessage", RecipeValidation.ServingsRequiredErrorMessage },
+                    { "ServingsRangeErrorMessage", RecipeValidation.ServingsRangeErrorMessage },
+                    { "ImageRequiredErrorMessage", RecipeValidation.ImageRequiredErrorMessage },
+                    { "ImageInvalidErrorMessage", RecipeValidation.ImageInvalidErrorMessage },
+                    { "ImageRangeErrorMessage", RecipeValidation.ImageRangeErrorMessage },
+                    { "CookingTimeRequiredErrorMessage", RecipeValidation.CookingTimeRequiredErrorMessage },
+                    { "CookingTimeRangeErrorMessage", RecipeValidation.CookingTimeRangeErrorMessage },
+                    { "RecipeCategoryIdRequiredErrorMessage", RecipeValidation.RecipeCategoryIdRequiredErrorMessage },
+                    { "StepsRequiredErrorMessage", RecipeValidation.StepsRequiredErrorMessage },
+                    { "StepDescriptionRangeErrorMessage", StepValidation.StepDescriptionRangeErrorMessage },
+                    { "IngredientsRequiredErrorMessage", RecipeValidation.IngredientsRequiredErrorMessage },
+                    { "RecipeIngredientNameRequiredErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRequiredErrorMessage },
+                    { "RecipeIngredientNameRangeErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRangeErrorMessage },
+                    { "MeasureRequiredErrorMessage", RecipeIngredientValidation.MeasureRequiredErrorMessage },
+                    { "MissingFormInputErrorMessage", RecipeIngredientQtyValidation.MissingFormInputErrorMessage },
+                    { "MissingFractionalOrWholeInputMessage", RecipeIngredientQtyValidation.MissingFractionalOrWholeInputMessage },
+                    { "InvalidDecimalRangeErrorMessage", RecipeIngredientQtyValidation.InvalidDecimalRangeErrorMessage },
+                    { "InvalidFractionErrorMessage", RecipeIngredientQtyValidation.InvalidFractionErrorMessage },
+                    { "InvalidWholeQtyErrorMessage", RecipeIngredientQtyValidation.InvalidWholeQtyErrorMessage },
                     {"InvalidInputErrorMessage", InvalidInputErrorMessage },
                 };
 
             public static readonly Dictionary<string, string> ToastrMessages =
                 new Dictionary<string, string>()
                 {
-                    {"MealsRequiredErrorMessage", MealPlan.MealsRequiredErrorMessage},
+                    {"MealsRequiredErrorMessage", MealPlanValidation.MealsRequiredErrorMessage},
                 };
         };
 
@@ -243,20 +253,20 @@
             public static readonly Dictionary<string, int> RecipeValidationConstants =
                 new Dictionary<string, int>()
                 {
-                    {"TitleMinLength", Recipe.TitleMinLength },
-                    {"TitleMaxLength", Recipe.TitleMaxLength },
-                    {"DescriptionMinLength", Recipe.DescriptionMinLength },
-                    {"DescriptionMaxLength", Recipe.DescriptionMaxLength },
-                    {"ServingsMinValue", Recipe.ServingsMinValue },
-                    {"ServingsMaxValue", Recipe.ServingsMaxValue },
-                    {"ImageUlrMinLength", Recipe.ImageUlrMinLength },
-                    {"ImageUlrMaxLength", Recipe.ImageUlrMaxLength },
-                    {"CookingTimeMinValue", Recipe.CookingTimeMinValue },
-                    {"CookingTimeMaxValue", Recipe.CookingTimeMaxValue },
-                    {"StepDescriptionMinLength", Step.StepDescriptionMinLength },
-                    {"StepDescriptionMaxLength", Step.StepDescriptionMaxLength },
-                    {"RecipeIngredientNameMinLength", RecipeIngredient.RecipeIngredientNameMinLength },
-                    {"RecipeIngredientNameMaxLength", RecipeIngredient.RecipeIngredientNameMaxLength },
+                    {"TitleMinLength", RecipeValidation.TitleMinLength },
+                    {"TitleMaxLength", RecipeValidation.TitleMaxLength },
+                    {"DescriptionMinLength", RecipeValidation.DescriptionMinLength },
+                    {"DescriptionMaxLength", RecipeValidation.DescriptionMaxLength },
+                    {"ServingsMinValue", RecipeValidation.ServingsMinValue },
+                    {"ServingsMaxValue", RecipeValidation.ServingsMaxValue },
+                    {"ImageUlrMinLength", RecipeValidation.ImageUlrMinLength },
+                    {"ImageUlrMaxLength", RecipeValidation.ImageUlrMaxLength },
+                    {"CookingTimeMinValue", RecipeValidation.CookingTimeMinValue },
+                    {"CookingTimeMaxValue", RecipeValidation.CookingTimeMaxValue },
+                    {"StepDescriptionMinLength", StepValidation.StepDescriptionMinLength },
+                    {"StepDescriptionMaxLength", StepValidation.StepDescriptionMaxLength },
+                    {"RecipeIngredientNameMinLength", RecipeIngredientValidation.RecipeIngredientNameMinLength },
+                    {"RecipeIngredientNameMaxLength", RecipeIngredientValidation.RecipeIngredientNameMaxLength },
 
                 };
         }

@@ -4,7 +4,7 @@
 
     using CookTheWeek.Web.ViewModels.Interfaces;
 
-    using static Common.EntityValidationConstants.Category;
+    using static Common.EntityValidationConstants.CategoryValidation;
 
     public class RecipeCategoryAddFormModel : ICategoryFormModel
     {

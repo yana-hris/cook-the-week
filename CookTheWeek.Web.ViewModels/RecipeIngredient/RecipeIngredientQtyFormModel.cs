@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.EntityValidationConstants.RecipeIngredient;
-    using static Common.EntityValidationConstants.RecipeIngredientQty;
+    using static Common.EntityValidationConstants.RecipeIngredientValidation;
+    using static Common.EntityValidationConstants.RecipeIngredientQtyValidation;
     using static Common.GeneralApplicationConstants;
     public class RecipeIngredientQtyFormModel
     {

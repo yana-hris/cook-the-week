@@ -6,7 +6,7 @@
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-    using static Common.EntityValidationConstants.ErrorMessages;
+    using static Common.EntityValidationConstants.ValidationErrorMessages;
 
     public class SanitizingModelBinder : IModelBinder
     {

@@ -43,7 +43,7 @@
         /// <param name="id"></param>
         /// <returns>The TCategoryEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<TCategoryEditFormModel> TryGetCategoryModelForEdit(int id);
+        Task<TCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id);
 
         /// <summary>
         /// Checks if a category exists by id

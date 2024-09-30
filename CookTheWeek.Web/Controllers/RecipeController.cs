@@ -10,7 +10,7 @@
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.Recipe;
 
-    using static Common.EntityValidationConstants.Recipe;
+    using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.NotificationMessagesConstants;
 
     public class RecipeController : BaseController
@@ -53,7 +53,7 @@
             }
             catch (RecordNotFoundException)
             {
-                return RedirectToAction("None");
+                return RedirectToAction(nameof(None));
             }
             catch(Exception ex)
             {
@@ -99,7 +99,7 @@
 
             try
             {
-                var result = await this.recipeService.TryAddRecipeAsync(model!, userId, isAdmin);
+                var result = await recipeService.TryAddRecipeAsync(model!, userId, isAdmin);
 
                 if (result.Succeeded)
                 {
@@ -174,7 +174,7 @@
 
             try
             {
-                var result = await this.recipeService.TryEditRecipeAsync(model);
+                var result = await recipeService.TryEditRecipeAsync(model);
 
                 if (result.Succeeded)
                 {
@@ -245,7 +245,7 @@
             }
             catch (RecordNotFoundException)
             {
-                return RedirectToAction("None");
+                return RedirectToAction(nameof(None));
             }
             catch(DataRetrievalException)
             {

@@ -3,7 +3,7 @@ namespace CookTheWeek.Web.ViewModels.User
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.EntityValidationConstants.ApplicationUser;
+    using static Common.EntityValidationConstants.ApplicationUserValidation;
 
     public class ResetPasswordFormModel
     {

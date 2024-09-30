@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
+    using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
@@ -16,6 +17,7 @@
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using CookTheWeek.Services.Data.Models.Validation;
 
     public class IngredientService : IIngredientService
     {
@@ -87,26 +89,42 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int> AddAsync(IngredientAddFormModel model)
+        public async Task<OperationResult> TryAddIngredientAsync(IngredientAddFormModel model)
         {
+            var result = await validationService.ValidateIngredientFormModelAsync(model);
+
+            if(!result.IsValid)
+            {
+                return OperationResult.Failure(result.Errors);
+            }
+
             Ingredient ingredient = new Ingredient()
             {
                 Name = model.Name,
                 CategoryId = model.CategoryId
             };
 
-            return await ingredientRepository.AddAsync(ingredient);
+            await ingredientRepository.AddAsync(ingredient);
+            return OperationResult.Success();
         }
 
         /// <inheritdoc/>
-        public async Task EditAsync(IngredientEditFormModel model)
+        public async Task<OperationResult> TryEditIngredientAsync(IngredientEditFormModel model)
         {
-            Ingredient ingredient = await ingredientRepository.GetByIdAsync(model.Id);
+            ValidationResult result = await validationService.ValidateIngredientFormModelAsync(model);
 
-            ingredient.Name = model.Name;
-            ingredient.CategoryId = model.CategoryId;
+            if(!result.IsValid)
+            {
+                return OperationResult.Failure(result.Errors);
+            }
 
-            await ingredientRepository.UpdateAsync(ingredient);
+            Ingredient ingredientToEdit = await ingredientRepository.GetByIdAsync(model.Id);
+
+            ingredientToEdit.Name = model.Name;
+            ingredientToEdit.CategoryId = model.CategoryId;
+
+            await ingredientRepository.UpdateAsync(ingredientToEdit);
+            return OperationResult.Success();
         }
 
         /// <inheritdoc/>
@@ -126,18 +144,26 @@
         }
 
         /// <inheritdoc/>
-        public async Task<IngredientEditFormModel> GetForEditByIdAsync(int id)
+        public async Task<IngredientEditFormModel> TryGetIngredientModelForEditAsync(int id)
         {
-            Ingredient ingredient = await ingredientRepository.GetByIdAsync(id);
+            try
+            {
+                Ingredient ingredient = await ingredientRepository.GetByIdAsync(id);
 
-            IngredientEditFormModel model = new IngredientEditFormModel()
-            { 
-                Id = ingredient.Id,
-                Name = ingredient.Name,
-                CategoryId = ingredient.CategoryId
-            };
+                IngredientEditFormModel model = new IngredientEditFormModel()
+                {
+                    Id = ingredient.Id,
+                    Name = ingredient.Name,
+                    CategoryId = ingredient.CategoryId
+                };
 
-            return model;
+                return model;
+            }
+            catch (RecordNotFoundException)
+            {
+                logger.LogError($"Record not found: {nameof(Ingredient)} with ID: {id} was not found.");
+                throw;
+            }
         }
 
         /// <inheritdoc/>
@@ -163,7 +189,7 @@
         {
             Ingredient ingredient = await GetByIdAsync(id);
 
-            bool validationResult = await validationService.ValidateCategoryCanBeDeletedAsync(ingredient.Id);
+            bool validationResult = await validationService.ValidateIngredientCanBeDeleted(id);
 
             if (validationResult)
             {
@@ -195,6 +221,23 @@
         {
             return await ingredientRepository.GetAllQuery()
                 .AnyAsync(i => i.CategoryId == id);
+        }
+
+        /// <inheritdoc/>
+        public async Task<int> GetIdByNameAsync(string name)
+        {
+            var id = await ingredientRepository.GetAllQuery()
+                .Where(i => i.Name.ToLower() == name.ToLower())
+                .Select(i => i.Id)
+                .FirstOrDefaultAsync();
+
+            if (id == default)
+            {
+                logger.LogError($"Record not found: Ingredient with ID: {id} was not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.IngredientNotFoundExceptionMessage, null);
+            }
+
+            return id;
         }
     }
 }

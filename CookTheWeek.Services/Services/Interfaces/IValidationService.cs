@@ -13,6 +13,13 @@
     public interface IValidationService
     {
         /// <summary>
+        /// Custom validation for Add or Edit Ingredient Form models. Checks if the ingredient is no already added or if the category is valid.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Validation result</returns>
+        Task<ValidationResult> ValidateIngredientFormModelAsync(IIngredientFormModel model);
+
+        /// <summary>
         /// Custom validation for recipes upon adding and editing Recipe: checks if the selected category and nested recipe ingredients are valid and exist in the database
         /// </summary>
         /// <param name="model"></param>
@@ -26,7 +33,7 @@
         /// <param name="model"></param>
         /// <returns>true or false</returns>
         /// <remarks>May throw RecordNotFoundException if the ingredient does not exist</remarks>
-        Task<bool> ValidateIngredientAsync(RecipeIngredientFormModel model);
+        Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model);
 
         /// <summary>
         /// Checks if an ingredient is included in any Recipes and returns a flag if it is safe to delete it
@@ -85,6 +92,11 @@
                                                 Func<int, Task<bool>> hasDependenciesFunc)
             where TCategory : ICategory;
 
-
+        /// <summary>
+        /// Validates if an Ingredient can be deleted by checking if it is included in any recipes or not.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> ValidateIngredientCanBeDeleted(int id);
     }
 }

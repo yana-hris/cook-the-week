@@ -16,7 +16,7 @@
     using Web.ViewModels.Step;
 
     using static Common.GeneralApplicationConstants;
-    using static CookTheWeek.Common.EntityValidationConstants.Recipe;
+    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static Common.HelperMethods.IngredientHelper;
     using static Common.ExceptionMessagesConstants;
 
