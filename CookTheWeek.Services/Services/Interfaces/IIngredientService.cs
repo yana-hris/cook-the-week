@@ -67,33 +67,27 @@
         Task<int?> AllCountAsync();
 
         /// <summary>
-        /// Deletes an ingredient by its ID or throws and exception
+        /// Tries to delete an ingredient if it is not already included in any Recipes.
         /// </summary>
         /// <param name="id">The ID of the ingredient to delete</param>
         /// <remarks>May throw RecordNotFoundException of ingredient does not exist</remarks>
-        Task DeleteByIdAsync(int id);
+        /// <exception cref="InvalidOperationException"></exception>
+        Task TryDeleteByIdAsync(int id);
 
         /// <summary>
         /// Gets an ingredient by id or throws an exception
         /// </summary>
         /// <param name="ingredientId"></param>
-        /// <returns></returns>
-        /// <remarks>May throw a RecordNotFoundException if ingredient does not exist in the database</remarks>
+        /// <returns>Ingredient</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
         Task<Ingredient> GetByIdAsync(int ingredientId);
 
-
-
-        // OLD CODE:
-        //Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
-        //Task<int> AddAsync(IngredientAddFormModel model);
-        //Task EditAsync(IngredientEditFormModel model);
-        //Task<IEnumerable<RecipeIngredientSuggestionServiceModel>> GenerateIngredientSuggestionsAsync(string input);
-        //Task<IngredientEditFormModel> GetForEditByIdAsync(int id);
-        //Task<int?> GetIdByNameAsync(string name);
-        //Task<bool> ExistsByIdAsync(int id);
-        //Task<bool> ExistsByNameAsync(string name);
-        //Task<int> AllCountAsync();
-        //Task DeleteById(int id);
+        // <summary>
+        /// Checks if there are any ingredients in the given category (by id) and returns true or false
+        /// </summary>
+        /// <param name="categoryId">categoryId</param>
+        /// <returns>true or false</returns>
+        Task<bool> HasAnyWithCategory(int categoryId);
 
     }
 }

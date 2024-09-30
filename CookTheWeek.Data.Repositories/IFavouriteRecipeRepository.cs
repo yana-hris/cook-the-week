@@ -8,14 +8,14 @@
         /// Returns a queryable collection of all existing user likes 
         /// </summary>
         /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <returns>A collection of FavouriteRecipe</returns>
         IQueryable<FavouriteRecipe> GetAllQuery();
 
 
         /// <summary>
-        /// Returns the like if existing or throws an exception
+        /// Returns the like (FavouriteRecipe) if existing or null
         /// </summary>
-        /// <returns>FavouriteRecipe</returns>
+        /// <returns>FavouriteRecipe or null</returns>
         Task<FavouriteRecipe?> GetByIdAsync(string userId, string recipeId);
 
         /// <summary>

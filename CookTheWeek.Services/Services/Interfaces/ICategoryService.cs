@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
+    using CookTheWeek.Common;
     using CookTheWeek.Data.Models.Interfaces;
 
     public interface ICategoryService<TCategory, TCategoryAddFormModel, TCategoryEditFormModel, TCategorySelectViewModel>
@@ -16,23 +17,25 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task AddCategoryAsync(TCategoryAddFormModel model);
+        Task<OperationResult> TryAddCategoryAsync(TCategoryAddFormModel model);
 
         /// <summary>
-        /// Edits an existing category
+        /// Validates a category and if valid, persists changes in the database.
+        /// If not, returns a Failure OperationResult with Errors for Modelstate
         /// </summary>
         /// <param name="model"></param>
-        /// <returns></returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task EditCategoryAsync(TCategoryEditFormModel model);
+        /// <returns>The result of the Operation (Success or Failure + Errors)</returns>
+        /// <remarks>May throw RecordNotFoundException due to usage of GetById method in validation</remarks>
+        Task<OperationResult> TryEditCategoryAsync(TCategoryEditFormModel model);
 
         /// <summary>
-        /// Deleted a category by its id or throws and exception if not found
+        /// Tries to retrieve and validates a category, throwing exceptions on the way. If the category has any dependencies, will throw an exception.
+        /// If all goes well, deletes the category.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task DeleteCategoryByIdAsync(int id);
+        /// <param name="id">the category id</param>
+        /// <returns>Task</returns>
+        /// <remarks>May throw RecordNotFoundException or InvalidOperationException</remarks>
+        Task TryDeleteCategoryAsync(int id);
 
         /// <summary>
         /// Retrieves a category by its Id and returns the correct model or throws an exception
@@ -40,7 +43,7 @@
         /// <param name="id"></param>
         /// <returns>The TCategoryEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<TCategoryEditFormModel> TryGetCategoryForEdit(int id);
+        Task<TCategoryEditFormModel> TryGetCategoryModelForEdit(int id);
 
         /// <summary>
         /// Checks if a category exists by id
@@ -77,34 +80,4 @@
 
         
     }
-
-    // OLD CODE - DELETE when new code starts to work
-    //// Recipe Category
-    //    Task<ICollection<RecipeCategorySelectViewModel>> AllRecipeCategoriesAsync();
-    //    Task AddRecipeCategoryAsync(RecipeCategoryAddFormModel model);
-    //    Task EditRecipeCategoryAsync(RecipeCategoryEditFormModel model);
-    //    Task DeleteRecipeCategoryById(int id);
-    //    Task<RecipeCategoryEditFormModel> GetRecipeCategoryForEditByIdAsync(int id);
-    //    Task<bool> RecipeCategoryExistsByIdAsync(int recipeCategoryId);
-    //    Task<bool> RecipeCategoryExistsByNameAsync(string name);
-    //    Task<int> GetRecipeCategoryIdByNameAsync(string name);
-    //    Task<ICollection<string>> AllRecipeCategoryNamesAsync();
-    //    Task<int> AllRecipeCategoriesCountAsync();
-
-    //    // Ingredient Category
-    //    Task<ICollection<IngredientCategorySelectViewModel>> AllIngredientCategoriesAsync();
-
-    //    //Add
-    //    //Edit
-    //    //Delete
-    //    Task<bool> IngredientCategoryExistsByIdAsync(int ingredientCategoryId);
-    //    Task<ICollection<string>> AllIngredientCategoryNamesAsync();
-    //    Task<int> AllIngredientCategoriesCountAsync();
-    //    Task<bool> IngredientCategoryExistsByNameAsync(string name);
-    //    Task AddIngredientCategoryAsync(IngredientCategoryAddFormModel model);
-    //    Task<IngredientCategoryEditFormModel> GetIngredientCategoryForEditByIdAsync(int id);
-    //    Task<int> GetIngredientCategoryIdByNameAsync(string name);
-    //    Task EditIngredientCategoryAsync(IngredientCategoryEditFormModel model);
-    //    Task DeleteIngredientCategoryById(int id);
-    //}
 }

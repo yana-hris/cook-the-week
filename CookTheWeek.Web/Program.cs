@@ -135,7 +135,6 @@ namespace CookTheWeek.Web
 
             builder.Services.AddLogging(options =>
             {
-
                 options.AddConsole();
                 options.AddDebug();
             });

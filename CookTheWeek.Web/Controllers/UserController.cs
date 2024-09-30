@@ -294,7 +294,7 @@
 
             try
             {
-                UserProfileViewModel model = await this.userService.DetailsByIdAsync(userId);
+                UserProfileViewModel model = await this.userService.GetDetailsModelByIdAsync(userId);
                 return View(model);
             }
             catch (RecordNotFoundException ex)
@@ -319,7 +319,7 @@
                 return View(model);
             }
 
-            ApplicationUser? user = await userRepository.FindByEmailAsync(model.Email);
+            ApplicationUser? user = await userRepository.GetByEmailAsync(model.Email);
            
             bool isEmailConfirmed = user != null ? await userRepository.IsUserEmailConfirmedAsync(user) : false;
 

@@ -1,28 +1,23 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Web.ViewModels.Recipe;
 
     public interface IFavouriteRecipeService
     {
-
-
-
-        /// <summary>
-        /// Deletes all likes for all recipes by a given user id from the favurite-recipe table.  If there are no likes - does nothing.
-        /// </summary>
-        Task DeleteAllUserLikesAsync(string userId);
-
-        /// <summary>
-        /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
-        /// </summary>
-        Task DeleteAllRecipeLikesAsync(string recipeId);
 
         /// <summary>
         /// Gets all liked recipes by a given user id as a collection of FavouriteRecipe
         /// </summary>  
         /// <returns>A collection of FavouriteRecipe</returns>
         Task<ICollection<FavouriteRecipe>> GetAllRecipesLikedByUserIdAsync(string userId);
+
+        /// <summary>
+        /// Returns true if the user has liked a specific recipe
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="recipeId"></param>
+        /// <returns>true or false</returns>
+        Task<bool> HasUserByIdLikedRecipeById(string userId, string recipeId);
 
         /// <summary>
         /// Returns the total count of likes for a recipe by Id or 0
@@ -44,6 +39,11 @@
         /// <param name="userId"></param>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        Task AddLikeAsync(string userId, string recipeId); 
+        Task AddLikeAsync(string userId, string recipeId);
+
+        /// <summary>
+        /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
+        /// </summary>
+        Task DeleteAllRecipeLikesAsync(string recipeId);
     }
 }

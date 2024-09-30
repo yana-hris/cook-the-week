@@ -38,21 +38,14 @@
         /// <param name="recipe"></param>
         /// <returns></returns>
         Task UpdateAsync(Recipe recipe);
+        
 
         /// <summary>
-        /// Soft deletes a single recipe by setting its boolean property IsDeleted to true. If accepted Recipe is null, throws an ArgumentNullException.
+        /// Updates a range of Recipes all at once
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="recipes"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        Task Delete(Recipe recipe);
-
-        /// <summary>
-        /// Soft deletes a collection of recipes by setting its boolean property IsDeleted to true. Does not delete any nested entities or properties of the recipe itself.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task DeleteAllByOwnerIdAsync(string userId);
+        Task UpdateAllAsync(ICollection<Recipe> recipes); 
 
         
     }

@@ -1,19 +1,17 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Data.SqlClient;
 
-    using Services.Data.Services.Interfaces;
-    using Services.Data.Models.Ingredient;
-    using ViewModels.Admin.IngredientAdmin;
-    using ViewModels.Admin.IngredientAdmin.Enums;
-
-    using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Models.Ingredient;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
-    using CookTheWeek.Data.Models;
+
+    using static Common.NotificationMessagesConstants;
 
     public class IngredientAdminController : BaseAdminController
     {
@@ -22,18 +20,17 @@
                                             IngredientCategoryEditFormModel,
                                             IngredientCategorySelectViewModel> categoryService;
         private readonly IIngredientService ingredientService;
-        private readonly ILogger<IngredientAdminController> logger;
 
         public IngredientAdminController(ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
                                             IngredientCategorySelectViewModel> categoryService,
             IIngredientService ingredientService,
-            ILogger<IngredientAdminController> logger)
+            ILogger<IngredientAdminController> logger) : base(logger)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;
-            this.logger = logger;
+
         }
 
         [HttpGet]
@@ -173,34 +170,22 @@
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            bool exists = await this.ingredientService.ExistsByIdAsync(id);
-
-            if(!exists)
-            {
-                logger.LogError($"Ingredient with id {id} does not exist and cannot be deleted.");
-                return NotFound();
-            }
-            
             try
             {
-                await this.ingredientService.DeleteById(id);
+                await this.ingredientService.TryDeleteByIdAsync(id);
                 TempData[SuccessMessage] = "Ingredient successfully deleted!";
             }
-            catch (DbUpdateException ex)
+            catch (RecordNotFoundException)
             {
-                if (ex.InnerException is SqlException sqlException && (sqlException.Number == 547 || sqlException.Number == 547)) // SQL Server error code for foreign key constraint violation
-                {
-                    // Handle foreign key constraint violation
-                    // Display a message to the user indicating that the deletion cannot be performed due to existing associated records
-                    TempData[ErrorMessage] = "Deletion cannot be performed. There are existing associated RecipeIngredients with this Ingredient.";
-                }
-                else
-                {
-                    // Handle other exceptions
-                    TempData[ErrorMessage] = "An error occurred while deleting the Ingredient.";
-                    logger.LogError($"Ingredient with id {id} was not edited successfully.");
-                    return BadRequest();
-                }
+                return RedirectToAction("NotFound", "Home", new { area = "" });
+            }
+            catch(InvalidOperationException ex)
+            {
+                TempData[ErrorMessage] = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                logger.log
             }
 
             return RedirectToAction("All");

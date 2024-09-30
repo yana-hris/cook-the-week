@@ -4,10 +4,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
+    using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
@@ -21,18 +24,38 @@
         IngredientCategorySelectViewModel>
     {
         private readonly ICategoryRepository<IngredientCategory> categoryRepository;
-        public IngredientCategoryService(ICategoryRepository<IngredientCategory> categoryRepository)
+        private readonly IValidationService validationService;
+        private readonly IIngredientService ingredientService;
+        private readonly ILogger<IngredientCategoryService> logger;
+        public IngredientCategoryService(
+            ICategoryRepository<IngredientCategory> categoryRepository,
+            IIngredientService ingredientService,
+            ILogger<IngredientCategoryService> logger,
+            IValidationService validationService)
         {
             this.categoryRepository = categoryRepository;
+            this.validationService = validationService;
+            this.ingredientService = ingredientService;
+            this.logger = logger;
         }
-        public async Task AddCategoryAsync(IngredientCategoryAddFormModel model)
+        public async Task<OperationResult> TryAddCategoryAsync(IngredientCategoryAddFormModel model)
         {
+            ValidationResult result = await validationService.ValidateCategoryAsync(
+                                                model,
+                                                name => GetCategoryIdByNameAsync(name));
+
+            if (!result.IsValid)
+            {
+                return OperationResult.Failure(result.Errors);
+            }
+
             IngredientCategory category = new IngredientCategory()
             {
                 Name = model.Name,
             };
 
             await this.categoryRepository.AddAsync(category);
+            return OperationResult.Success();
         }
 
         /// <inheritdoc/>      
@@ -49,30 +72,33 @@
         }
 
         /// <inheritdoc/>      
-        public async Task DeleteCategoryByIdAsync(int id)
+        public async Task TryDeleteCategoryAsync(int id)
         {
-            var categoryToDelete = await this.categoryRepository.GetByIdAsync(id);
+            bool canBeDeleted = await validationService.CanCategoryBeDeletedAsync(id,
+                async (id) => await categoryRepository.GetByIdAsync(id),
+                async (id) => await ingredientService.HasAnyWithCategory(id));
 
-            if (categoryToDelete == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
-            }
-
-            await this.categoryRepository.DeleteByIdAsync(id);
+            await categoryRepository.DeleteByIdAsync(id);
         }
 
         /// <inheritdoc/>      
-        public async Task EditCategoryAsync(IngredientCategoryEditFormModel model)
+        public async Task<OperationResult> TryEditCategoryAsync(IngredientCategoryEditFormModel model)
         {
-            var categoryToEdit = await this.categoryRepository.GetByIdAsync(model.Id);
+            ValidationResult result = await validationService.ValidateCategoryAsync(
+                                               model,
+                                               name => GetCategoryIdByNameAsync(name),
+                                               id => CategoryExistsByIdAsync(id));
 
-            if (categoryToEdit == null)
+            if (!result.IsValid)
             {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+                return OperationResult.Failure(result.Errors);
             }
+
+            var categoryToEdit = await this.categoryRepository.GetByIdAsync(model.Id);
             categoryToEdit.Name = model.Name;
 
-            await this.categoryRepository.EditAsync(categoryToEdit);
+            await this.categoryRepository.UpdateAsync(categoryToEdit);
+            return OperationResult.Success();
         }
 
         /// <inheritdoc/>      
@@ -115,17 +141,16 @@
         }
 
         /// <inheritdoc/>      
-        public async Task<IngredientCategoryEditFormModel> TryGetCategoryForEdit(int id)
+        public async Task<IngredientCategoryEditFormModel> TryGetCategoryModelForEdit(int id)
         {
-            bool exists = await categoryRepository.ExistsByIdAsync(id);
-
-            if (!exists)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
-            }
-
             var categoryToEdit = await this.categoryRepository
                 .GetByIdAsync(id);
+
+            if (categoryToEdit == null)
+            {
+                logger.LogError($"Record not found: {nameof(IngredientCategory)} with ID: {id} was not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
 
             IngredientCategoryEditFormModel model = new IngredientCategoryEditFormModel()
             {

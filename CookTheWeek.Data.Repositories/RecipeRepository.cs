@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,6 @@
     using CookTheWeek.Data.Models;
     
     using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class RecipeRepository : IRecipeRepository
     {
@@ -24,7 +24,7 @@
         /// <inheritdoc/>
         public IQueryable<Recipe> GetAllQuery()
         {
-            IQueryable<Recipe>? allRecipes = this.dbContext
+            IQueryable<Recipe> allRecipes = this.dbContext
                 .Recipes
                 .Include(r => r.Category)
                 .AsNoTracking()
@@ -45,8 +45,7 @@
         /// <inheritdoc/>
         public async Task<Recipe> GetByIdAsync(string id)
         {
-            id = id.ToLower();
-            // TODO: think about optimizing this query or splitting to separate by needed nested entities
+            
             Recipe? recipe = await this.dbContext.Recipes
                 .Include(r => r.Owner)
                 .Include(r => r.Steps)
@@ -74,37 +73,23 @@
         /// <inheritdoc/>
         public async Task UpdateAsync(Recipe recipe)
         {
-            this.dbContext.Update(recipe);
+            dbContext.Recipes.Update(recipe);
             await this.dbContext.SaveChangesAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task Delete(Recipe recipe)
-        {
-            if (recipe == null)
-            {
-                throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
-            }
-            recipe.OwnerId = Guid.Parse(DeletedUserId);
-            recipe.IsDeleted = true;
-            await UpdateAsync(recipe);
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteAllByOwnerIdAsync(string userId)
-        {
-            await this.dbContext.Recipes
-                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
-            .ExecuteUpdateAsync(r => r
-                .SetProperty(r => r.OwnerId, Guid.Parse(DeletedUserId))
-                .SetProperty(r => r.IsDeleted, true));
-        }
-
+        
         /// <inheritdoc/>
         public async Task<bool> ExistsByIdAsync(string id)
         {
-            return await this.dbContext.Recipes
+            return await dbContext.Recipes
                 .AnyAsync(r => GuidHelper.CompareGuidStringWithGuid(id, r.Id));
+        }
+
+        /// <inheritdoc/>
+        public async Task UpdateAllAsync(ICollection<Recipe> recipes)
+        {
+            dbContext.Recipes.UpdateRange(recipes);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace CookTheWeek.Common
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// A utility class returned as a result from Service mrthods, used by the controller 
     /// </summary>
@@ -38,7 +40,7 @@
         /// <summary>
         /// A parameter, if needed to be passed to the controller as a result of the service method (int, string, viewmodel, etc)
         /// </summary>
-        public T Value { get; set; }  
+        public T Value { get; set; }
 
         /// <summary>
         /// Factory method, used to return a successful result without the need to explicitly fill in all properties

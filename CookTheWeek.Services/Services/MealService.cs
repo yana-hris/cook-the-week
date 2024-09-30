@@ -18,24 +18,24 @@
     using static Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.EntityValidationConstants.Recipe;
     using static Common.HelperMethods.IngredientHelper;
-    using static Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
+    using static Common.ExceptionMessagesConstants;
 
     public class MealService : IMealService
     {
         private readonly IMealRepository mealRepository;
-        private readonly IRecipeRepository recipeRepository;
+        private readonly IRecipeService recipeService;
         private readonly IRecipeIngredientService recipeIngredientService;
 
         public MealService(IMealRepository mealRepository,
-            IRecipeRepository recipeRepository,
+            IRecipeService recipeService,
             IRecipeIngredientService recipeIngredientService)
         {
             this.mealRepository = mealRepository;
-            this.recipeRepository = recipeRepository;
+            this.recipeService = recipeService;
             this.recipeIngredientService = recipeIngredientService;
         }
 
-
+        // TODO: consolidate model creation in the factory to reuse methods
         /// <inheritdoc/>
         public async Task<MealDetailsViewModel> GetForDetailsAsync(int mealId)
         {
@@ -44,13 +44,12 @@
 
             if (meal == null)
             {
-                throw new RecordNotFoundException(MealNotFoundExceptionMessage, null);
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
             }
 
             string recipeId = meal.RecipeId.ToString();
-
-            // Get RecipeById from recipe (this will throw an exception if not found
-            Recipe recipe = await recipeRepository.GetByIdAsync(recipeId);
+            
+            Recipe recipe = await recipeService.GetForMealByIdAsync(recipeId);
 
             MealDetailsViewModel model = new MealDetailsViewModel()
             {
@@ -159,11 +158,13 @@
             await mealRepository.AddAllAsync(newMeals);
         }
 
+        // TODO: Consolidate model creation in a factory?
+
         /// <inheritdoc/>
         public async Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
         {
             // Retrieve the recipe from database
-            Recipe recipe = await recipeRepository.GetByIdAsync(meal.RecipeId);
+            Recipe recipe = await recipeService.GetForMealByIdAsync(meal.RecipeId);
 
             MealAddFormModel model = new MealAddFormModel()
             {

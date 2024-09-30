@@ -11,10 +11,19 @@
     [Authorize(Roles = AdminRoleName)]
     public abstract class BaseAdminController : Controller
     {
-       /// <summary>
-       /// Extract model errors from the ModelState into a common string 
-       /// </summary>
-       /// <returns>All model errors, separated by a new line in a single string</returns>
+
+        protected readonly ILogger<BaseAdminController> logger;
+
+        protected BaseAdminController(ILogger<BaseAdminController> logger)
+        {
+            this.logger = logger;
+        }
+
+
+        /// <summary>
+        /// Extract model errors from the ModelState into a common string 
+        /// </summary>
+        /// <returns>All model errors, separated by a new line in a single string</returns>
         protected string ExtractModelErrors()
         {
             ICollection<string> modelErrors = ModelState.Values.SelectMany(v => v.Errors)
@@ -28,15 +37,30 @@
         /// Adding custom validation errors to the modelstate
         /// </summary>
         /// <param name="validationResult"></param>
-        protected void AddValidationErrorsToModelState(ValidationResult validationResult)
+        protected void AddCustomValidationErrorsToModelState(IDictionary<string, string> errors)
         {
-            if (!validationResult.IsValid)
+            foreach (var error in errors)
             {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.Key, error.Value);
-                }
+                ModelState.AddModelError(error.Key, error.Value);
             }
+        }
+
+        /// <summary>
+        /// Helper method to log error message and return a custom Internal Server Error page
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="actionName"></param>
+        /// <param name="userId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected IActionResult HandleException(Exception ex, string actionName, string entityName, string? id)
+        {
+            var entityInfo = entityName != null ? $", Entity: {entityName}" : "";
+            var idInfo = id != null ? $"$ with id: {id}" : "";
+            logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}{entityInfo}{idInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
+
+            // Redirect to the internal server error page with the exception message
+            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
         }
     }
 

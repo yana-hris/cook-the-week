@@ -9,6 +9,7 @@
 
     public interface IRecipeService
     {
+
         /// <summary>
         /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters (if any)
         /// </summary>
@@ -42,15 +43,8 @@
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
         /// <returns>RecipeDetailsViewModel</returns>
-        Task<RecipeDetailsViewModel> TryGetForDetailsByRecipeId(string id);
-
-        /// <summary>
-        /// Returns true if the user has liked a specific recipe
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="recipeId"></param>
-        /// <returns>true or false</returns>
-        Task<bool> IsLikedByUserAsync(string userId, string recipeId); 
+        Task<RecipeDetailsViewModel> TryGetModelForDetailsById(string id);
+                
 
         /// <summary>
         /// Creates a RecipeEditFormModel or throws exceptions if recipe is not found or is not owned by the current user
@@ -93,11 +87,11 @@
         Task<int?> GetAllCountAsync();
 
         /// <summary>
-        /// Returns a flag indicating if a recipe is included in any meal plans or not
+        /// Returns a flag indicating if a recipe is included in any meals which aren`t cooked yet (or in any active meal plans)
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> HasMealPlansAsync(string recipeId);
+        Task<bool> IsIncludedInMealPlansAsync(string recipeId);
 
         /// <summary>
         /// Returns a collection of all Site Recipes
@@ -116,13 +110,7 @@
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
         Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId);
-
-        /// <summary>
-        /// Gets the total amount of likes for a recipe
-        /// </summary>
-        /// <returns>int</returns>
-        Task<int?> GetAllRecipeLikesAsync(string recipeId);
-
+        
         /// <summary>
         /// Gets the total amount of meals, cooked using a recipe
         /// </summary>
@@ -131,9 +119,9 @@
         Task<int?> GetAllRecipeMealsCountAsync(string recipeId);
 
         /// <summary>
-        /// Deletes all recipes that a user has added
+        /// Soft deletes a collection of recipes. All sub-entities will be deleted too. 
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteAllByUserIdAsync(string userId);
 
@@ -145,5 +133,20 @@
         /// <returns>Task</returns>
         /// <remarks>May throw RecordNotFoundException</remarks>
         Task LikeOrUnlikeRecipeByUserIdAsync(string userId, string recipeId);
+
+        /// <summary>
+        /// Gets a Recipe for a meal details view including all its steps and recipee ingredients info (incl. ingredients category)
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns>A single Recipe</returns>
+        /// <remarks>May throw a RecordNotFoundException if recipe id doesn not exist</remarks>
+        Task<Recipe> GetForMealByIdAsync(string recipeId);
+
+        /// <summary>
+        /// Checks if there are any recipes in the given category (by id) and returns true or false
+        /// </summary>
+        /// <param name="categoryId">Recipe Category id</param>
+        /// <returns>true or false</returns>
+        Task<bool> HasAnyWithCategory(int categoryId);
     }
 }

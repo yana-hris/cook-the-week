@@ -31,7 +31,7 @@
         }
 
         /// <inheritdoc/> 
-        public async Task EditAsync(TCategory entity)
+        public async Task UpdateAsync(TCategory entity)
         {
             dbContext.Set<TCategory>().Update(entity);
             await dbContext.SaveChangesAsync();

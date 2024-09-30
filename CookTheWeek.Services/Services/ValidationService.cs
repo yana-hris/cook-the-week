@@ -23,6 +23,8 @@
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using Microsoft.EntityFrameworkCore;
+    using CookTheWeek.Data.Models.Interfaces;
 
     public class ValidationService : IValidationService
     {
@@ -73,6 +75,14 @@
             return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
         }
 
+
+        /// <inheritdoc/>
+        public async Task<bool> ValidateCategoryCanBeDeletedAsync(int id)
+        {
+            return await recipeRepository.GetAllQuery()
+                .Where(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id))
+                .AnyAsync();
+        }
 
         /// <inheritdoc/>
         public async Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model)
@@ -226,24 +236,33 @@
             return result;
         }
 
-       
-       /// <inheritdoc/>
-        public async Task<ValidationResult> ValidateCategoryNameAsync<TCategoryFormModel>(TCategoryFormModel model,
-                                                              Func<string, Task<int?>> getCategoryIdByNameFunc,
-                                                              Func<int, Task<bool>> categoryExistsByIdFunc = null)
-                                      where TCategoryFormModel : ICategoryFormModel
+        
+       /// <inheritdoc/>       
+        public async Task<ValidationResult> ValidateCategoryAsync<TCategoryFormModel>(TCategoryFormModel model,
+                                                   Func<string, Task<int?>> getCategoryIdByNameFunc,
+                                                   Func<int, Task<bool>> categoryExistsByIdFunc = null)
+                           where TCategoryFormModel : ICategoryFormModel
         {
             var result = new ValidationResult();
 
-            // Editing scenario: check if the category name exists in another category
+            // Editing scenario
             if (model is ICategoryEditFormModel editModel && categoryExistsByIdFunc != null)
             {
+                bool categoryExists = await categoryExistsByIdFunc(editModel.Id); // check if exists
+
+                if (!categoryExists)
+                {
+                    logger.LogError($"Record not found: A category with ID {editModel.Id} was not found.");
+                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+                }
+
+                // Check if the category name exists in another category
                 int? existingCategoryId = await getCategoryIdByNameFunc(editModel.Name);
 
                 // If a category with the same name exists but it is not the current one being edited
                 if (existingCategoryId.HasValue && existingCategoryId.Value != editModel.Id)
                 {
-                    AddValidationError(result, nameof(model.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
+                    AddValidationError(result, nameof(editModel.Name), EntityValidationConstants.Category.CategoryExistsErrorMessage);
                 }
             }
             else
@@ -257,9 +276,33 @@
             }
 
             return result;
-
         }
 
+        /// <inheritdoc/>
+        public async Task<bool> CanCategoryBeDeletedAsync<TCategory>(int categoryId, 
+                                                            Func<int, Task<TCategory?>> getCategoryByIdFunc,
+                                                            Func<int, Task<bool>> hasDependenciesFunc)
+            where TCategory : ICategory
+        {
+            var category = await getCategoryByIdFunc(categoryId);
+            
+            if (category == null)
+            {
+                logger.LogError($"Record not found: A category with if {categoryId} was not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
+            }
+
+            // Check if the category has dependencies (e.g., recipes, ingredients)
+            bool hasDependencies = await hasDependenciesFunc(category.Id);
+
+            if (hasDependencies)
+            {
+                logger.LogError($"Category with id {categoryId} has dependencies and cannot be deleted.");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.CategoryCannoBeDeletedExceptionMessage);
+            }
+
+            return true;
+        }
 
         public async Task<ValidationResult> ValidateLikeOrUnlikeRecipe(string userId, string recipeId)
         {
@@ -288,6 +331,7 @@
             return result;
         }
 
+        
 
         // PRIVATE METHODS:
 

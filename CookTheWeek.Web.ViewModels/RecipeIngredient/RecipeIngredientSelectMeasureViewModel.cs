@@ -2,7 +2,7 @@
 {
     using CookTheWeek.Web.ViewModels.Interfaces;
 
-    public class RecipeIngredientSelectMeasureViewModel : ICategory
+    public class RecipeIngredientSelectMeasureViewModel : ISelectViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

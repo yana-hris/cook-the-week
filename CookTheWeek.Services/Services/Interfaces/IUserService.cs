@@ -12,7 +12,7 @@
     {
         Task<ICollection<UserAllViewModel>> AllAsync();
         Task<int?> AllCountAsync();
-        Task<UserProfileViewModel> DetailsByIdAsync(string userId);
+        Task<UserProfileViewModel> GetDetailsModelByIdAsync(string userId);
         Task<ApplicationUser> CreateUserAsync(RegisterFormModel model);
         Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model);
         Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model);

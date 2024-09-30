@@ -4,7 +4,9 @@
     using System.Collections.Generic;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
+    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -13,13 +15,22 @@
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository ingredientRepository;
+        private readonly IValidationService validationService;
 
-        public IngredientService(IIngredientRepository ingredientRepository)
+        private readonly ILogger<IngredientService> logger;
+
+        public IngredientService(IIngredientRepository ingredientRepository,
+            IValidationService validationService,
+            ILogger<IngredientService> logger)
         {
             this.ingredientRepository = ingredientRepository;
+            this.validationService = validationService;
+            this.logger = logger;
         }
 
         /// <inheritdoc/>
@@ -148,16 +159,42 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteByIdAsync(int id)
+        public async Task TryDeleteByIdAsync(int id)
         {
-            Ingredient ingredient = await ingredientRepository.GetByIdAsync(id);
-            await ingredientRepository.DeleteAsync(ingredient);
+            Ingredient ingredient = await GetByIdAsync(id);
+
+            bool validationResult = await validationService.ValidateCategoryCanBeDeletedAsync(ingredient.Id);
+
+            if (validationResult)
+            {
+                await ingredientRepository.DeleteAsync(ingredient);
+            }
+
+            logger.LogError($"Invalid operation while trying to delete an ingredient with id {id}. {InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage}");
+            throw new InvalidOperationException(InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage);
         }
 
         /// <inheritdoc/>
         public async Task<Ingredient> GetByIdAsync(int ingredientId)
         {
-            return await ingredientRepository.GetByIdAsync(ingredientId);
+            try
+            {
+                Ingredient ingredient = await ingredientRepository.GetByIdAsync(ingredientId);
+                return ingredient;
+            }
+            catch (RecordNotFoundException)
+            {
+                logger.LogError($"Record not found: {nameof(Ingredient)} with ID {ingredientId} was not found.");
+                throw;
+            }
+
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> HasAnyWithCategory(int id)
+        {
+            return await ingredientRepository.GetAllQuery()
+                .AnyAsync(i => i.CategoryId == id);
         }
     }
 }

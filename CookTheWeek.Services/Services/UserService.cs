@@ -40,7 +40,7 @@
             this.favouriteRecipeRepository = favouriteRecipeRepository;
             this.httpContextAccessor = httpContextAccessor;
         }
-        public async Task<UserProfileViewModel> DetailsByIdAsync(string userId)
+        public async Task<UserProfileViewModel> GetDetailsModelByIdAsync(string userId)
         {
             // This Throws RecordNotFoundException
             var user = await userRepository.GetByIdAsync(userId);
@@ -122,7 +122,6 @@
             // Delete related data first
             await mealPlanService.DeleteAllByUserIdAsync(userId);
             await recipeService.DeleteAllByUserIdAsync(userId);
-            await favouriteRecipeRepository.DeleteAllByUserIdAsync(userId);
 
             var user = await userRepository.GetByIdAsync(userId);
 

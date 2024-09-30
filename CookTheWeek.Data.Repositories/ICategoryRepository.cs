@@ -24,7 +24,7 @@ namespace CookTheWeek.Data.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task EditAsync(TCategory entity);
+        Task UpdateAsync(TCategory entity);
 
         /// <summary>
         /// Finds a TCategory by id and deletes it from the database

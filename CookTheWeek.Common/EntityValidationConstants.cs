@@ -71,7 +71,7 @@
             public const string IngredientsRequiredErrorMessage = "At least one ingredient is required";
             
         }
-
+        
         public static class Step
         {
             public const int StepDescriptionMinLength = 5;

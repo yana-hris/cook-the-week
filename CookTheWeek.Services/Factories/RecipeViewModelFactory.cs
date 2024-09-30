@@ -21,6 +21,7 @@
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
+        private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly ICategoryService<RecipeCategory, 
             RecipeCategoryAddFormModel, 
             RecipeCategoryEditFormModel, 
@@ -35,10 +36,12 @@
                                           RecipeCategoryEditFormModel, 
                                           RecipeCategorySelectViewModel> categoryService,
                                       IRecipeIngredientService recipeIngredientService,
+                                      IFavouriteRecipeService favouriteRecipeService,
                                       ILogger<RecipeViewModelFactory> logger,
                                       IMealService mealService)
         {
             this.recipeService = recipeService;
+            this.favouriteRecipeService = favouriteRecipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
             this.logger = logger;
@@ -102,14 +105,14 @@
         {
             try
             {
-                RecipeDetailsViewModel model = await this.recipeService.TryGetForDetailsByRecipeId(recipeId);
+                RecipeDetailsViewModel model = await this.recipeService.TryGetModelForDetailsById(recipeId);
                 model.IsLikedByUser = await SafeExecuteAsync(
-                async () => await this.recipeService.IsLikedByUserAsync(userId, recipeId),
+                async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(userId, recipeId),
                 DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
                 );
 
                 model.LikesCount = await SafeExecuteAsync(
-                    async () => await this.recipeService.GetAllRecipeLikesAsync(recipeId),
+                    async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
                     DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
                     );
                 model.CookedCount = await SafeExecuteAsync(

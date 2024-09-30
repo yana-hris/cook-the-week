@@ -74,7 +74,7 @@
         public static class InvalidOperationExceptionMessages
         {
             // RECIPE:
-            public const string InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage = "Please note this recipe is included in meal plans!";
+            public const string InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage = "This Recipe is included in active mealplans and cannot be deleted right now.";
 
             public const string RecipeUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe was not added to the Database.";
 
@@ -82,7 +82,9 @@
 
             public const string RecipeStepsUnsuccessfullyAddedExceptionMessage = "Something went wrong and the recipe steps were not added to the Database.";
 
-            
+            // INGREDIENT:
+            public const string IngredientCannotBeDeletedExceptionMessage = "Ingredient is included in Recipes and cannot be deleted.";
+
             // MEALPLAN:
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 
@@ -102,6 +104,8 @@
             public const string CategoryUnsuccessfullyEditedExceptionMessage = "Something went wrong and the category was not edited.";
 
             public const string CategoryUnsuccessfullyDeletedExceptionMessage = "Something went wrong and the category was not deleted.";
+
+            public const string CategoryCannoBeDeletedExceptionMessage = "Category has dependencies and cannot be deleted.";
         }
 
         public static class SmtpExceptionMessages

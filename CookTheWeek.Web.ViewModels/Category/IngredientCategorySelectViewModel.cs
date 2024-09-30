@@ -4,7 +4,7 @@
 
     using CookTheWeek.Web.ViewModels.Interfaces;
 
-    public class IngredientCategorySelectViewModel : ICategory
+    public class IngredientCategorySelectViewModel : ISelectViewModel
     {
         [Required]
         public int Id { get; set; }
