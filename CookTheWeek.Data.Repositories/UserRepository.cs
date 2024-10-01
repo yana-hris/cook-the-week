@@ -1,6 +1,8 @@
 ﻿
 namespace CookTheWeek.Data.Repositories
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +11,6 @@ namespace CookTheWeek.Data.Repositories
 
     using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
     using static CookTheWeek.Common.ExceptionMessagesConstants.ArgumentNullExceptionMessages;
-    using System.Security.Claims;
 
     class UserRepository : IUserRepository
     {
@@ -54,16 +55,9 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<ApplicationUser> GetByIdAsync(string id)
+        public async Task<ApplicationUser?> GetByIdAsync(string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
-
-            if (user == null)
-            {
-                throw new RecordNotFoundException(UserNotFoundExceptionMessage, null);
-            }
-
-            return user;
+            return await this.userManager.FindByIdAsync(id);
         }
 
         /// <inheritdoc/>
@@ -170,6 +164,20 @@ namespace CookTheWeek.Data.Repositories
         {
             string? userId = userManager.GetUserId(user);
             return userId;
+        }
+
+
+        /// <inheritdoc/>
+        public async Task<SignInResult> PasswordSignInAsync(ApplicationUser user, string password, bool rememberMe)
+        {
+            return await signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: true);
+        }
+
+
+        /// <inheritdoc/>
+        public async Task AccessFailedAsync(ApplicationUser user)
+        {
+            await userManager.AccessFailedAsync(user);
         }
     }
 }

@@ -4,6 +4,7 @@
 
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
+
     using static Common.EntityValidationConstants.RecipeIngredientValidation;
 
     public class IngredientEditFormModel : IIngredientEditFormModel

@@ -30,12 +30,11 @@
         Task<ApplicationUser?> GetByUsernameAsync(string userName);
 
         /// <summary>
-        /// Returns the user, if existing or throws an exception
+        /// Returns the user, if existing or null
         /// </summary>
         /// <param name="id"></param>
         /// <returns>User or null</returns>
-        /// <exception cref="RecordNotFoundException">If a user is not found, throws an exception</exception>
-        Task<ApplicationUser> GetByIdAsync(string id);
+        Task<ApplicationUser?> GetByIdAsync(string id);
 
         /// <summary>
         /// Signs in the user
@@ -150,5 +149,21 @@
         /// <param name="user">the user from the ClaimsPrincipal</param>
         /// <returns>string or null</returns>
         string? GetUserId(ClaimsPrincipal? user);
+
+        /// <summary>
+        /// Attempts to Sign in a user with a given password
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <param name="rememberMe"></param>
+        /// <returns>SignInResult</returns>
+        Task<SignInResult> PasswordSignInAsync(ApplicationUser user, string password, bool rememberMe);
+        
+        /// <summary>
+        /// Increments the number of failed attempts for a given user to log in
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task AccessFailedAsync(ApplicationUser user);
     }
 }

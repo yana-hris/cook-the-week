@@ -6,6 +6,6 @@
     {
         string Name { get; set; }
         int CategoryId { get; set; }
-        ICollection<IngredientCategorySelectViewModel> IngredientCategories { get; set; }
+        ICollection<IngredientCategorySelectViewModel> Categories { get; set; }
     }
 }

@@ -13,11 +13,11 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
+    using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using CookTheWeek.Services.Data.Models.Validation;
 
     public class IngredientService : IIngredientService
     {

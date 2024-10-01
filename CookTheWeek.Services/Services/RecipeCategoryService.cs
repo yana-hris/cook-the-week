@@ -24,8 +24,10 @@
         RecipeCategorySelectViewModel>
     {
         private readonly ICategoryRepository<RecipeCategory> categoryRepository;
+
         private readonly IRecipeService recipeService;
         private readonly IValidationService validationService;
+
         private readonly ILogger<RecipeCategoryService> logger;
 
         public RecipeCategoryService(ICategoryRepository<RecipeCategory> categoryRepository,
@@ -34,8 +36,10 @@
             ILogger<RecipeCategoryService> logger)
         {
             this.categoryRepository = categoryRepository;
-            this.validationService = validationService;
+
             this.recipeService = recipeService;
+            this.validationService = validationService;
+
             this.logger = logger;
         }
         

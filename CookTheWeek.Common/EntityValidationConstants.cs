@@ -172,6 +172,7 @@
             public const string EmailAlreadyExistsErrorMessage = "User with such email already exists";
             public const string AlreadyHaveAccountErrorMessage = "Are you sure you don`t already have an account? Go to <a href=\"/User/Login\">Login</a>";
             public const string UserNotFoundErrorMessage = "User with such id does not exist!";
+            public const string UsernameNotFoundErrorMessage = "User with such username does not exists";
             public const string InvalidUserIdErrorMessage = "The current user has another user id!";
         }
 

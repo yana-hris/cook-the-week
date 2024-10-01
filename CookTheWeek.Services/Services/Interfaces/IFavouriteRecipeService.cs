@@ -1,9 +1,20 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
 
     public interface IFavouriteRecipeService
     {
+        /// <summary>
+        /// Rceives the service model, validates it and if all is valid, creates or deletes the user like (depending on its existence).
+        /// </summary>
+        /// <param name="model"></param>
+        /// <remarks>May throw the following exceptions due to usage of validation service:
+        /// ArgumentNullException (if recipeId is null)
+        /// RecordNotFoundException (if recipe does not exist)
+        /// UnauthorizedUserException (if user is not logged in or if id-s do not match)</remarks>
+        /// <returns>Task or throws an exception</returns>
+        Task TryToggleLikes(FavouriteRecipeServiceModel model);
 
         /// <summary>
         /// Gets all liked recipes by a given user id as a collection of FavouriteRecipe
@@ -25,25 +36,11 @@
         /// <returns>int or 0</returns>
         Task<int?> GetRecipeTotalLikesAsync(string recipeId);
 
-        /// <summary>
-        /// Deletes a user like for a specific recipe if it exists. Otherwise does nothing
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="recipeId"></param>
-        /// <returns></returns>
-        Task DeleteLikeAsync(string userId, string recipeId);
-
-        /// <summary>
-        /// Adds a like by a given user id for a recipe with a given recipe id
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="recipeId"></param>
-        /// <returns></returns>
-        Task AddLikeAsync(string userId, string recipeId);
 
         /// <summary>
         /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
         /// </summary>
         Task DeleteAllRecipeLikesAsync(string recipeId);
+        
     }
 }

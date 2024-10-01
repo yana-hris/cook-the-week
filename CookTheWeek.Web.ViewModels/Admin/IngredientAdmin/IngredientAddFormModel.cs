@@ -11,7 +11,7 @@
     {
         public IngredientAddFormModel()
         {
-            this.IngredientCategories = new HashSet<IngredientCategorySelectViewModel>();
+            this.Categories = new HashSet<IngredientCategorySelectViewModel>();
         }
 
         [Required(ErrorMessage = RecipeIngredientNameRequiredErrorMessage)]
@@ -22,7 +22,7 @@
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public ICollection<IngredientCategorySelectViewModel> IngredientCategories { get; set; }
+        public ICollection<IngredientCategorySelectViewModel> Categories { get; set; }
 
 
     }

@@ -116,7 +116,7 @@
                     DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
                     );
                 model.CookedCount = await SafeExecuteAsync(
-                    async () => await this.recipeService.GetAllRecipeMealsCountAsync(recipeId),
+                    async () => await this.recipeService.GetAllMealsCountByRecipeIdAsync(recipeId),
                     DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
                     );
 

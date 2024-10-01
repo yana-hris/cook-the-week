@@ -108,7 +108,7 @@
             public const string CategoryCannoBeDeletedExceptionMessage = "Category has dependencies and cannot be deleted.";
         }
 
-        public static class SmtpExceptionMessages
+        public static class EmailSenderExceptionMessages
         {
             public const string EmailConfirmationUnsuccessfullySentToUser = "The token for email confirmation was unsuccessfully sent to the user.";
         }

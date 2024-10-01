@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
-    using System.Net.Mail;
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Authentication;
@@ -15,33 +14,29 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.User;
-
-    using static Common.EntityValidationConstants;
+    
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Common;
 
     [AllowAnonymous]
     public class UserController : BaseController
     {
         
         private readonly IUserService userService;
-        private readonly IMemoryCache memoryCache;
-        private readonly IEmailSender emailSender;
         private readonly IValidationService validationService;
+        private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserController> logger;
         
 
         public UserController(IUserService userService,
                               IMemoryCache memoryCache,
-                              IEmailSender emailSender,
                               IValidationService validationService,
                               ILogger<UserController> logger)
         {
-           
+            this.validationService = validationService;
             this.userService = userService;
             this.memoryCache = memoryCache;
-            this.emailSender = emailSender;
-            this.validationService = validationService;
             this.logger = logger;
         }
 
@@ -59,29 +54,29 @@
             {
                 return View(model); 
             }
+
             var validationResult = await validationService.ValidateRegisterUserModelAsync(model);
+
             if (!validationResult.IsValid)
             {
-                AddModelErrors(validationResult);
-                return View(model); 
+                AddCustomValidationErrorsToModelState(validationResult.Errors);
             }
-
-            ApplicationUser user = null;
 
             try
             {
-                user = await this.userService.CreateUserAsync(model);
-                await SendEmailConfirmationAsync(user, model.Email);
+                var result = await userService.TryRegisterUserAsync(model);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
+                }
                 
-                return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
+                return RedirectToAction("ConfirmationFailed");
             }
             catch (Exception ex)
             {
-                await HandleRegisterFailureAsync(ex, user);
+                return LogExceptionAndRedirectToInternalServerError(ex);
             }
-
-            return RedirectToAction("ConfirmationFailed");
-        
         }
         
         [HttpGet]
@@ -96,37 +91,23 @@
         {
             try
             {
-                var user = await userRepository.GetUserByIdAsync(userId);
-                var result = await userRepository.ConfirmEmailAsync(user, code);
+                OperationResult result = await userService.TyrConfirmEmailAsync(userId, code);
 
-                if (result.Succeeded)
+                if (!result.Succeeded)
                 {
-                    // if confirmation goes well, log in the user
-                    await this.userRepository.SignInUserAsync(user);
-
-                    TempData[JustLoggedIn] = true;
-                    this.memoryCache.Remove(UsersCacheKey);
-
-                    return View();
+                    logger.LogError($"Email confirmation Failed. Errors: {result.Errors}");
+                    return RedirectToAction("ConfirmationFailed");
                 }
 
-                logger.LogError("No errors were thrown, but email confirmation failed.");
-                return RedirectToAction("AccountDeletedConfirmation");
-            }
-            catch (RecordNotFoundException ex)
-            {
-                logger.LogError($"User with id {userId} not found in the database. Error message: {ex.Message}; ErrorStacktrace: {ex.StackTrace}");
-                return RedirectToAction("NotFound", "Home", new {message = ex.Message, code = ex.ErrorCode});
-            }
-            catch(ArgumentNullException ex)
-            {
-                logger.LogError($"User token was null, email not confirmed successfully. Error message: {ex.Message}; Error Stacktrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                TempData[JustLoggedIn] = true;
+                this.memoryCache.Remove(UsersCacheKey);
+
+                return View();
+
             }
             catch(Exception ex)
             {
-                logger.LogError($"Unidentified error upon user email confirmation. Error message: {ex.Message}; ErrorStactrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                return LogExceptionAndRedirectToInternalServerError(ex);
             }
         }
 
@@ -152,43 +133,33 @@
                 return View(model);
             }
 
-            ApplicationUser? user = await userManager.FindByNameAsync(model.Username);
-
-            if (user == null)
+            try
             {
-                ModelState.AddModelError(string.Empty, LoginFailedErrorMessage);
-                return View(model);
+                var result = await userService.TryLoginUserAsync(model);
+
+                if (!result.Succeeded)
+                {
+                    AddCustomValidationErrorsToModelState(result.Errors);
+                    return View(model);
+                }
+
+                this.memoryCache.Remove(UsersCacheKey);
+
+                // This will not work before the reponse is received
+                if (this.User.IsAdmin())
+                {
+                    return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
+                }
+                
+                TempData[JustLoggedIn] = true;
+                return Redirect(model.ReturnUrl ?? "/Recipe/All");
+
+            }
+            catch (Exception ex)
+            {
+                return LogExceptionAndRedirectToInternalServerError(ex);
             }
 
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
-            
-            if(result.IsLockedOut)
-            {
-                await userManager.AccessFailedAsync(user);
-                ModelState.AddModelError(string.Empty, AccountLockedErrorMessage);
-
-                return View(model);
-            }
-
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError(string.Empty, LoginFailedErrorMessage);
-
-                return View(model);
-            }
-
-
-            this.memoryCache.Remove(UsersCacheKey);
-
-            // Redirect Admin User to Admin Area
-            if (this.User.IsAdmin())
-            {
-                return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
-            }
-
-            // Redirect User to return url or Home
-            TempData[JustLoggedIn] = true;
-            return Redirect(model.ReturnUrl ?? "/Recipe/All");
         }
 
         [HttpGet]
@@ -542,58 +513,20 @@
             }
         }
 
+        
         /// <summary>
-        /// 
+        /// Utility method that logs the error message and stacktrace in case of Unhandled Exceptions and redirects to Internal Server Error Page
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="email"></param>
+        /// <param name="ex"></param>
         /// <returns></returns>
-        private async Task SendEmailConfirmationAsync(ApplicationUser user, string email)
+        private IActionResult LogExceptionAndRedirectToInternalServerError(Exception ex)
         {
-            try
-            {
-                var token = await userService.GenerateTokenForEmailConfirmationAsync(user);
-                var callbackUrl = Url.Action(nameof(ConfirmedEmail), "User", new { userId = user.Id, code = token }, Request.Scheme);
-                await emailSender.SendEmailConfirmationAsync(email, callbackUrl);
-            }
-            catch (InvalidOperationException ex)
-            {
-                logger.LogError($"Token generation failed: {ex.Message}", ex);
-                throw;
-            }
-            catch (SmtpException ex)
-            {
-                logger.LogError($"Email sending failed: {ex.Message}", ex);
-                throw;
-            }
+            logger.LogError($"Error during registration: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
+
+            // Redirect to the internal server error page with the exception message
+            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+
         }
-
-        private async Task HandleRegisterFailureAsync(Exception ex, ApplicationUser user)
-        {
-            logger.LogError($"Error during registration: {ex.Message}", ex);
-
-            if (user != null)
-            {
-                await TryDeleteUserAsync(user);
-            }
-        }
-
-        private async Task TryDeleteUserAsync(ApplicationUser user)
-        {
-            try
-            {
-                await userService.DeleteUserAsync(user);
-            }
-            catch (ArgumentNullException ex)
-            {
-                logger.LogError($"User deletion failed (null user): {ex.Message}", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                logger.LogError($"User deletion failed: {ex.Message}", ex);
-            }
-        }
-
 
     }
 }

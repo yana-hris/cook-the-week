@@ -136,11 +136,7 @@
 
             queryModel.TotalRecipes = recipesQuery.Count();
 
-            if (queryModel.TotalRecipes == 0)
-            {
-                //TODO: Show no recipes message by throwing an exception (and redirect in the controller)
-            }
-
+            
             ICollection<RecipeAllViewModel> model = await recipesQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
                 .Take(queryModel.RecipesPerPage)
@@ -456,7 +452,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> GetAllRecipeMealsCountAsync(string recipeId)
+        public async Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId)
         {
             return await mealRepository
                 .GetAllQuery()
@@ -465,32 +461,10 @@
         }
 
         /// <inheritdoc/>
-        public async Task LikeOrUnlikeRecipeByUserIdAsync(string userId, string recipeId)
+        public Task<bool> HasAnyWithCategory(int id)
         {
-            bool exists = await this.recipeRepository.ExistsByIdAsync(recipeId);
-            var currentUserId = this.userService.GetCurrentUserId();
-
-            if (!exists)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
-
-            if (!String.IsNullOrEmpty(currentUserId) && !String.IsNullOrEmpty(userId) && 
-                GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
-            {
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
-            }
-
-            bool isAlreadyAdded = await this.favouriteRecipeService.HasUserByIdLikedRecipeById(userId, recipeId);
-
-            if (isAlreadyAdded)
-            {
-                await this.favouriteRecipeService.DeleteLikeAsync(userId, recipeId);
-            }
-            else
-            {
-                await this.favouriteRecipeService.AddLikeAsync(userId, recipeId);
-            }
+            return recipeRepository.GetAllQuery()
+                .AnyAsync(r => r.CategoryId == id);
         }
 
         /// <inheritdoc/>
@@ -557,7 +531,7 @@
                 {
                     if (userId == null)
                     {
-                        logger.LogError($"Recipe cannot be added dues to a missing userId in method MapFromModelToRecipe (Recipe Service).");
+                        logger.LogError($"Missing argument: {nameof(userId)} is null and model of type {model.GetType().Name} cannot be mapped to Entity {nameof(Recipe)} in method {nameof(MapFromModelToRecipe)}");
                         throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);
                     }
 
@@ -568,6 +542,7 @@
                 return recipe;
             }
 
+            logger.LogError($"Type cast error: Unable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(MapFromModelToRecipe)}.");
             throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
 
         }
@@ -593,6 +568,7 @@
             }
             else
             {
+                logger.LogError($"Type cast error: Uable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(ProcessRecipeStepsAsync)}.");
                 throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
             }
         }
@@ -611,7 +587,7 @@
             foreach (var currentRecipeIngredient in model.RecipeIngredients)
             {
                 // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
-               if (UpdateAlreadyExistingRecipeIngredient(recipeIngredients, currentRecipeIngredient))
+               if (UpdateAlreadyExistingRecipeIngredientQty(recipeIngredients, currentRecipeIngredient))
                 {
                     continue;
                 }
@@ -630,6 +606,7 @@
             }
             else
             {
+                logger.LogError($"Type cast error: Uable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(ProcessRecipeIngredientsAsync)}.");
                 throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
             }
         }
@@ -642,7 +619,7 @@
         /// <param name="alreadyAdded"></param>
         /// <param name="ingredient"></param>
         /// <returns>true or false</returns>
-        private static bool UpdateAlreadyExistingRecipeIngredient(ICollection<RecipeIngredient> alreadyAdded,
+        private static bool UpdateAlreadyExistingRecipeIngredientQty(ICollection<RecipeIngredient> alreadyAdded,
                                                              RecipeIngredientFormModel ingredient)
         {
             // Check if the ingredient is already added with the same measure and specification
@@ -650,7 +627,7 @@
                 .FirstOrDefault(ri => ri.IngredientId == ingredient.IngredientId &&
                                       ri.MeasureId == ingredient.MeasureId &&
                                       (ri.SpecificationId == ingredient.SpecificationId ||
-                                      ri.SpecificationId == null && ingredient.SpecificationId == null));
+                                      (ri.SpecificationId == null && ingredient.SpecificationId == null)));
 
             // Update the quantity if found
             if (existingIngredient != null)
@@ -665,7 +642,7 @@
         
 
         /// <summary>
-        /// Maps ingredients to a category and creates a collection view model for Recipe Edit View
+        /// Maps ingredients to a category and creates a collection view model for Recipe Details View
         /// </summary>
         /// <param name="recipe"></param>
         /// <param name="ingredientCategoryIds"></param>
@@ -686,15 +663,6 @@
                 }).ToList();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Task<bool> HasAnyWithCategory(int id)
-        {
-            return recipeRepository.GetAllQuery()
-                .AnyAsync(r => r.CategoryId == id);
-        }
+        
     }
 }

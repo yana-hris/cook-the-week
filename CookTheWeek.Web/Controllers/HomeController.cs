@@ -2,13 +2,13 @@ namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using SendGrid.Helpers.Mail;
+
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
-    using Infrastructure.Extensions;
+    using CookTheWeek.Web.Infrastructure.Extensions;
 
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     [AllowAnonymous]
     public class HomeController : BaseController
@@ -16,13 +16,10 @@ namespace CookTheWeek.Web.Controllers
         
         private readonly ILogger<HomeController> logger;
         private readonly IEmailSender emailSender;
-        private readonly IConfiguration configuration;
 
-        public HomeController(IConfiguration configuration,
-            IEmailSender emailSender,
+        public HomeController(IEmailSender emailSender,
             ILogger<HomeController> logger) 
         {
-            this.configuration = configuration;
             this.logger = logger;
             this.emailSender = emailSender;
         }
@@ -83,31 +80,28 @@ namespace CookTheWeek.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Contact(ContactFormModel model)
         {
-            
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");
-                var plainTextContent = $"Name: {model.FullName}\nEmail: {model.EmailAddress}\nMessage: {model.Message}";
-                var htmlContent = $"<strong>Name:</strong> {model.FullName}<br><strong>Email:</strong> {model.EmailAddress}<br><strong>Message:</strong> {model.Message}";
-                                
-                var response = await emailSender.SendEmailAsync(model.EmailAddress, model.Subject, plainTextContent, htmlContent);
-
-                if (response != null && response.StatusCode == System.Net.HttpStatusCode.Accepted)
-                {
-                    // TODO: Create a ContactFormSubmitConfimrationView (success or not)
-                    TempData[SuccessMessage] = "Thank you for your message. We will get back to you soon.";
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    logger.LogError($"Failed to send contact form message from user with e-mail {model.EmailAddress}");
-                    // TODO: Create a ContactFormSubmitConfimrationView (success or not)
-                    TempData[ErrorMessage] = "Error sending email. Please try again later.";
-                    return RedirectToAction("Error");
-                }                
+                return View(model);
             }
+           
+            var result = await emailSender.SendContactFormEmailAsync(model);
 
-            return View(model);            
+            if (result.Succeeded)
+            {
+                TempData[SuccessMessage] = SuccessfulEmailSentMessage;
+
+                // TODO: change to Confirmation view when available
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData[ErrorMessage] = UnsuccessfulEmailSentMessage;
+
+                // TODO: change to Confirmation Failed view when available
+                return RedirectToAction("Contact", "Home");
+            }
+           
         }        
 
         [Route("Home/NotFound")]

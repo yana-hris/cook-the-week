@@ -12,6 +12,7 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Models.Interfaces;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -23,9 +24,9 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.User;
 
-    using static CookTheWeek.Common.GeneralApplicationConstants;
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.EntityValidationConstants;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class ValidationService : IValidationService
     {
@@ -47,24 +48,29 @@
         public ValidationService(ICategoryService<RecipeCategory, 
                                             RecipeCategoryAddFormModel, 
                                             RecipeCategoryEditFormModel, 
-                                            RecipeCategorySelectViewModel> categoryService,
+                                            RecipeCategorySelectViewModel> recipeCategoryService,
             ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
                                             IngredientCategorySelectViewModel> ingredientCategoryService,
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
-            IRecipeRepository recipeRepository,
             IRecipeService recipeService,
-            ILogger<ValidationService> logger,
-            IUserRepository userRepository)
+            IRecipeRepository recipeRepository,
+            IUserRepository userRepository,
+            IUserService userService,
+            ILogger<ValidationService> logger)
         {
-            this.recipeCategoryService = categoryService;
-            this.ingredientService = ingredientService;
-            this.recipeIngredientService = recipeIngredientService;
             this.recipeRepository = recipeRepository;
             this.userRepository = userRepository;
+
             this.recipeService = recipeService;
+            this.userService = userService;
+            this.recipeCategoryService = recipeCategoryService;
+            this.ingredientCategoryService = ingredientCategoryService; 
+            this.ingredientService = ingredientService;
+            this.recipeIngredientService = recipeIngredientService;
+
             this.logger = logger;
         }
 
@@ -341,32 +347,40 @@
         }
 
         // TODO: check!
-        public async Task<ValidationResult> ValidateLikeOrUnlikeRecipe(string userId, string recipeId)
+        public async Task<bool> ValidateLikeOrUnlikeRecipeAsync(FavouriteRecipeServiceModel model)
         {
-            var result = new ValidationResult();
+            string userId = model.UserId;
+            string recipeId = model.RecipeId;
             string? currentUserId = userService.GetCurrentUserId();
 
-           
-            // Validate if recipe exists
+            // Validate if recipeId is provided
             if (string.IsNullOrEmpty(recipeId))
             {
-                logger.LogError($"Null reference error: RecipeId is null upon attempt of user with id {userId} to like it.");
-                AddValidationError(result, nameof(recipeId), ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
+                logger.LogError($"Validation failed: RecipeId is null or empty when user with id {userId} attempted to like/unlike a recipe.");
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
             }
 
-            bool exists = await recipeRepository.ExistsByIdAsync(recipeId);
+            // Check if the recipe exists
+            bool recipeExists = await recipeRepository.ExistsByIdAsync(recipeId);
+            if (!recipeExists)
+            {
+                logger.LogError($"Validation failed: Recipe with id {recipeId} does not exist. User with id {userId} attempted to like/unlike it.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
 
             // Validate user authorization
             if (!string.IsNullOrEmpty(currentUserId) &&
                 !string.IsNullOrEmpty(userId) &&
                 !GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
             {
-                logger.LogError($"Unauthorized access attempt: User {userId} tried to access {recipeId} but does not have the necessary permissions.");
-                AddValidationError(result, nameof(userId), UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
+                logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            return result;
+            // If all validations pass, return true
+            return true;
         }
+
 
         /// <inheritdoc/>
         public Task<bool> ValidateIngredientCanBeDeleted(int id)

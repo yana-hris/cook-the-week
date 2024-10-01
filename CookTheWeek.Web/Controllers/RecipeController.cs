@@ -114,7 +114,7 @@
                     return RedirectToAddViewWithModelErrors(model, returnUrl);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) // Handle ArgumentNull, InvalidCast and all other exceptions but deliver message
             {
                 return HandleException(ex, nameof(Add), userId, null);
             }

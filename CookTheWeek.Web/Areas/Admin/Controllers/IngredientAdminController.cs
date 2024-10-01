@@ -183,7 +183,7 @@
         /// <returns></returns>
         private async Task PopulateIngredientCategoriesAsync(IIngredientFormModel model)
         {
-            model.IngredientCategories = await categoryService.GetAllCategoriesAsync();
+            model.Categories = await categoryService.GetAllCategoriesAsync();
         }
 
     }
