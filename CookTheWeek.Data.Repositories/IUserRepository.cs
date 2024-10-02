@@ -3,7 +3,7 @@
     using System.Security.Claims;
 
     using CookTheWeek.Data.Models;
-
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
 
     public interface IUserRepository
@@ -50,7 +50,7 @@
         /// <param name="user"></param>
         /// <param name="password"></param>
         /// <returns>Indetity Result</returns>
-        Task<IdentityResult> AddAsync(ApplicationUser user, string password);
+        Task<IdentityResult> CreateUserWithPasswordAsync(ApplicationUser user, string password);
 
         /// <summary>
         /// Returns true or false, indicating if the user has confirmed his email address
@@ -165,5 +165,63 @@
         /// <param name="user"></param>
         /// <returns></returns>
         Task AccessFailedAsync(ApplicationUser user);
+
+        /// <summary>
+        /// Checks if a given user is in Admin Role
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>true or false</returns>
+        Task<bool> IsUserInAdminRoleAsync(ApplicationUser user);
+
+        /// <summary>
+        /// Configures the redirect URL and the user identifier for the given external login provider
+        /// </summary>
+        /// <param name="schemeProvider"></param>
+        /// <param name="redirectUrl"></param>
+        /// <returns>Authentication Properties or null</returns>
+        AuthenticationProperties? ConfigureExternalAuthenticationProperties(string schemeProvider, string? redirectUrl);
+
+        /// <summary>
+        /// Gets the external login information for the current login
+        /// </summary>
+        /// <returns>External Login Info or null</returns>
+        Task<ExternalLoginInfo?> GetExternalLoginInfoAsync();
+
+        /// <summary>
+        /// Creates a user in the database using an Application User (with email, username and confirmed email) to be consumed by external logins
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>The IdentityResult</returns>
+        Task<IdentityResult> CreateUserWithoutPasswordAsync(ApplicationUser user);
+
+        /// <summary>
+        /// Adds an entry for an external login for the specific user in the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="info"></param>
+        /// <returns>The IdentityResult</returns>
+        Task<IdentityResult> AddLoginAsync(ApplicationUser user, ExternalLoginInfo info);
+
+        /// <summary>
+        /// Signs the current user out of the application
+        /// </summary>
+        /// <returns></returns>
+        Task SignOutAsync();
+
+
+        /// <summary>
+        /// Returns the result if the user email has been confirmed or not
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>true or false</returns>
+        Task<bool> IsUserEmailConfirmedAsync(ApplicationUser user);
+
+        /// <summary>
+        /// Sets a password for the user if he doesn`t have one yet
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newPassword"></param>
+        /// <returns>The Identity Result</returns>
+        Task<IdentityResult> SetPasswordAsync(ApplicationUser user, string newPassword);
     }
 }

@@ -18,9 +18,15 @@
         /// <param name="email"></param>
         /// <param name="callBackUrl">The Url, sent to the user</param>
         /// <returns></returns>
-        /// <exception cref="InvalidOperationException">Throws an exception if email confirmation was not successfully sent to the user</exception>
         Task<OperationResult> SendEmailConfirmationAsync(string email, string callBackUrl);
 
-
+        /// <summary>
+        /// Sends an email with a confirmation token to a given email for password reset
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="callbackUrl"></param>
+        /// <param name="tokenExpirationTime"></param>
+        /// <returns></returns>
+        Task<OperationResult> SendPasswordResetEmailAsync(string email, string callbackUrl, string tokenExpirationTime);
     }
 }

@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
+    using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.Validation;
@@ -17,7 +18,6 @@
     
     using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Common;
 
     [AllowAnonymous]
     public class UserController : BaseController
@@ -144,9 +144,11 @@
                 }
 
                 this.memoryCache.Remove(UsersCacheKey);
+                
+                // Retrieve whether the user is an admin from the result data
+                bool isAdmin = (bool)result.Data[IsAdmin];
 
-                // This will not work before the reponse is received
-                if (this.User.IsAdmin())
+                if (isAdmin)
                 {
                     return RedirectToAction("Index", "HomeAdmin", new { area = AdminAreaName });
                 }
@@ -166,7 +168,7 @@
         public IActionResult ExternalLogin(string schemeProvider, string? returnUrl = null)
         {
             string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User", new {returnUrl});
-            var properties = signInManager.ConfigureExternalAuthenticationProperties(schemeProvider, redirectUrl);
+            var properties = userService.GetExternalLoginProperties(schemeProvider, redirectUrl);
             return new ChallengeResult(schemeProvider, properties);
         }
 
@@ -180,60 +182,28 @@
                 return RedirectToAction("Login", new { returnUrl});
             }
 
-            var info = await signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+            try
             {
-                // Handle error
-                return RedirectToAction("Login", new {returnUrl});
-            }
-            
-            // Extract the username, email, and user ID from the external login info
-            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-
-            // Check if the user already exists
-            var user = await userManager.FindByEmailAsync(email);
-
-            if(user == null)
-            {
-                user = new ApplicationUser // If the user does not exist, create a new one
-                {
-                    UserName = email,
-                    Email = email,
-                    EmailConfirmed = true
-                };
-
-                var result = await userManager.CreateAsync(user);
+                OperationResult result = await userService.TryLoginOrRegisterUserWithExternalLoginProvider();
 
                 if (!result.Succeeded)
                 {
-                    // Handle failure to create user
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return View("Error");
+                    return RedirectToAction("Login", new { returnUrl });
                 }
 
-                // Add the external login (Google, etc.) to the user
-                result = await userManager.AddLoginAsync(user, info);
-                if (!result.Succeeded)
-                {
-                    // Handle failure to add login
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return View("Error");
-                }
+                TempData[JustLoggedIn] = true;
+                this.memoryCache.Remove(UsersCacheKey);
+                return Redirect(returnUrl ?? Url.Action("Index", "Home"));
+            }
+            catch(InvalidOperationException)
+            {
+                return RedirectToAction("Login", new { returnUrl });
+            }
+            catch (Exception ex)
+            {
+                return LogExceptionAndRedirectToInternalServerError(ex);
             }
 
-
-            // Sign in the user
-            await signInManager.SignInAsync(user, isPersistent: false);
-
-            TempData[JustLoggedIn] = true;
-            this.memoryCache.Remove(UsersCacheKey);
-            return Redirect(returnUrl ?? Url.Action("Index", "Home"));            
         }
 
         [HttpGet]
@@ -246,15 +216,20 @@
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            try
+            {
+                await userService.TryLogOutUserAsync();
 
-            // Delete IsOnline cookie from memoryCache 
-            this.memoryCache.Remove(UsersCacheKey);
+                // Delete IsOnline cookie from memoryCache 
+                this.memoryCache.Remove(UsersCacheKey);
 
-            // Delete the .AspNet.Consent cookie
-            HttpContext.Response.Cookies.Delete(CookieConsentName);
-
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return LogExceptionAndRedirectToInternalServerError(ex);
+            }
+            
         }
 
         [HttpGet]
@@ -290,28 +265,20 @@
                 return View(model);
             }
 
-            ApplicationUser? user = await userRepository.GetByEmailAsync(model.Email);
-           
-            bool isEmailConfirmed = user != null ? await userRepository.IsUserEmailConfirmedAsync(user) : false;
-
-            // Redirect the non-existent user without generating a token or sending any email
-            if(user == null || !isEmailConfirmed)
+            try
             {
-                return RedirectToAction("ForgotPasswordConfirmation", "User");
+                var result = await userService.TrySendPasswordResetEmailAsync(model);
+                if (!result.Succeeded)
+                {
+                    logger.LogError($"Sending email for password reset failed. Errors: {result.Errors}");
+                }
+                return RedirectToAction("ForgotPasswordConfirmation");
             }
-
-            // Generate the token only if the user exists
-            var token = await userRepository.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = Url.Action("ResetPassword", "User", new { token, email = model.Email }, protocol: Request.Scheme);
-            string tokenExpirationTime = DateTime.Now.AddHours(24).ToString();
-
-            var result = await emailSender.SendEmailAsync(
-                model.Email,
-                "Reset Password",
-                $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}",
-                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>. The link will be active until {tokenExpirationTime}");
-
-            return RedirectToAction("ForgotPasswordConfirmation");
+            catch (Exception ex)
+            {
+                logger.LogError($"Error during registration: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
+                return RedirectToAction("ForgotPasswordConfirmation");
+            }
         }
 
         [HttpGet]
@@ -346,34 +313,19 @@
                 return View(model);
             }
 
-            model.Password = model.Password;
+            var result = await userService.TryResetPasswordAsync(model);
 
-            var user = await userRepository.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                return RedirectToAction("ResetPasswordConfirmation");
-            }
-
-            IdentityResult? result = await userRepository.ResetPasswordAsync(user, model.Token, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation");
             }
 
-            // Handle token expiration
-            if (result.Errors.Any(e => e.Code == "InvalidToken"))
-            {
-                ModelState.AddModelError(string.Empty, "The token is invalid or has expired. Please request a new password reset link.");
-                return View(model); 
-            }
-
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError(string.Empty, error.Value);
             }
 
             return View(model);
-
         }
 
         [HttpGet]
@@ -401,7 +353,7 @@
                 return View(model);
             }
             
-            var result = await userService.ChangePasswordAsync(userId, model);
+            var result = await userService.TryChangePasswordAsync(userId, model);
 
             if (result.Succeeded)
             {
@@ -411,19 +363,18 @@
            
             foreach (var error in result.Errors)
             {
-                if(error.Description == UserNotFoundErrorMessage)
+                if (error.Key == "UserError")
                 {
-                    return RedirectToAction("Error404", "Home");
-                } 
-                else if(error.Description == IncorrectPasswordErrorMessage)
+                    return RedirectToAction("NotFound", "Home", new {area = ""});
+                }
+                else if (error.Key == nameof(model.CurrentPassword))
                 {
-                    ModelState.AddModelError(nameof(model.CurrentPassword), IncorrectPasswordErrorMessage);
+                    ModelState.AddModelError(nameof(model.CurrentPassword), error.Value);
                     return View(model);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                    return BadRequest(ModelState);
+                    ModelState.AddModelError(string.Empty, error.Value);
                 }
             }
 
@@ -448,7 +399,7 @@
                 return View(model);
             }
 
-            var result = await userService.SetPasswordAsync(userId, model);
+            var result = await userService.TrySetPasswordAsync(userId, model);
 
             if (result.Succeeded)
             {
@@ -456,29 +407,23 @@
                 return RedirectToAction("Profile");
             }
 
-            // Check if the error indicates that the user was not found
-            var userNotFoundError = result.Errors.FirstOrDefault(e => e.Description == UserNotFoundErrorMessage);
-            if (userNotFoundError != null)
+            // Handle user not found error
+            if (result.Errors.Any(e => e.Key == "UserError"))
             {
-                return RedirectToAction("Error404", "Home");
+                return RedirectToAction("NotFound", "Home", new {area = ""});
             }
 
-            // Handle other errors, such as password change failure
+            // Handle all other errors
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError(string.Empty, error.Value);
             }
 
-            // Return BadRequest if there are errors in setting the password
-            return BadRequest(ModelState);
+            // Return view with errors
+            return View(model);
         }
 
-        [HttpGet]
-        public IActionResult AccountDeletedConfirmation()
-        {
-            return View();
-        }
-
+        
         [HttpGet]
         public IActionResult ConfirmationFailed()
         {
@@ -489,18 +434,41 @@
         [HttpPost]
         public async Task<IActionResult> DeleteAccount()
         {
-            var userId = userManager.GetUserId(User);
+            var userId = userService.GetCurrentUserId();
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound("User not found.");
+                RedirectToAction("NotFound", "Home", new { area = "", message = "User not found."});
+
+                OperationResult result = await userService.TryDeleteUserAccountAsync(userId);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("AccountDeletedConfirmation");
+                }
+
+                // Handle errors
+                foreach (var error in result.Errors)
+                {
+                    if (error.Key == "UserError")
+                    {
+                        return NotFound(error.Value);
+                    }
+
+                    ModelState.AddModelError(string.Empty, error.Value);
+                }
+
+                return BadRequest(ModelState);
             }
 
-            await this.userService.DeleteUserAndUserDataAsync(userId);
-            await this.signInManager.SignOutAsync();
-
-            return RedirectToAction("AccountDeletedConfirmation");
         }
+
+        [HttpGet]
+        public IActionResult AccountDeletedConfirmation()
+        {
+            return View();
+        }
+
 
         private void AddModelErrors(ValidationResult validationResult)
         {

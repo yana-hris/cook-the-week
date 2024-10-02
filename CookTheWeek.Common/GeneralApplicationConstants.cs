@@ -122,6 +122,8 @@
         public const string OnlineUsersCookieName = "IsOnline";
         public const int LastActivityBeforeOfflineMinutes = 10;
 
+        public const int TokenExpirationDefaultHoursTime = 24;
+
         // RecipeIngredient Measures 
         public static string[] DecimalMeasures = { "ml", "l", "g", "kg" };
         public static string[] FractionalMeasures = { "clove", "pc", "tsp", "tbsp", "cup", "bunch", "pkg", "slice", "pinch"};

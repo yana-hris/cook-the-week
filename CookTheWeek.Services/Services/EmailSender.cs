@@ -1,19 +1,16 @@
 ﻿namespace CookTheWeek.Services.Data.Services
 {
-    using System.Net.Mail;
+    
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
     using SendGrid;
     using SendGrid.Helpers.Mail;
 
-    using CookTheWeek.Services.Data.Services.Interfaces;
-
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using CookTheWeek.Web.ViewModels.Home;
     using CookTheWeek.Common;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Home;
 
     public class EmailSender : IEmailSender
     {
@@ -54,6 +51,30 @@
             return OperationResult.Failure(result.Errors);
         }
 
+        /// <inheritdoc/>
+        public async Task<OperationResult> SendPasswordResetEmailAsync(string email, string callbackUrl, string tokenExpirationTime)
+        {
+            var result = await SendEmailAsync(
+                email,
+                "Reset Password",
+                $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}",
+                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>. The link will be active until {tokenExpirationTime}");
+
+            if (result.Succeeded)
+            {
+                return OperationResult.Success();
+            }
+
+            logger.LogError("Password Reset Email sending failed. Action: {Action}, From: {FromEmail}, To: {ToEmail}, Errors: {Errors}",
+                nameof(SendPasswordResetEmailAsync),
+                null,
+                email,
+                result.Errors);
+
+            return OperationResult.Failure(result.Errors);
+        }
+
+        /// <inheritdoc/>
         public async Task<OperationResult> SendContactFormEmailAsync(ContactFormModel model)
         {
             var to = new EmailAddress(configuration["EmailSettings:ToEmail"], "My personal Mail");
@@ -135,5 +156,6 @@
             }
         }
 
+        
     }
 }

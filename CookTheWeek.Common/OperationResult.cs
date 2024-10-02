@@ -8,16 +8,24 @@
     public class OperationResult
     {
         public bool Succeeded { get; set; }
-        public IDictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Errors { get; private set; }
+        public Dictionary<string, object> Data { get; private set; } // Support for additional data
 
-        public static OperationResult Success()
+        public OperationResult(bool succeeded, Dictionary<string, string> errors, Dictionary<string, object> data)
         {
-            return new OperationResult { Succeeded = true };
+            Succeeded = succeeded;
+            Errors = errors ?? new Dictionary<string, string>();
+            Data = data ?? new Dictionary<string, object>();
         }
 
-        public static OperationResult Failure(IDictionary<string, string> errors)
+        public static OperationResult Success(Dictionary<string, object> data = null)
         {
-            return new OperationResult { Succeeded = false, Errors = errors };
+            return new OperationResult(true, null, data);
+        }
+
+        public static OperationResult Failure(Dictionary<string, string> errors)
+        {
+            return new OperationResult(false, errors, null);
         }
     }
 

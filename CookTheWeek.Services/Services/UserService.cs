@@ -1,6 +1,7 @@
 ﻿namespace CookTheWeek.Services.Data.Services
 {
     using System.Threading.Tasks;
+    using System.Security.Claims;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -15,9 +16,10 @@
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using CookTheWeek.Web.ViewModels.User;
 
-    using static Common.GeneralApplicationConstants;
-    using static Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.EntityValidationConstants;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.NotificationMessagesConstants;
 
     public class UserService : IUserService
     {
@@ -107,21 +109,51 @@
         }
 
         /// <summary>
-        /// Deletes the user and all user data: meal plans (and related meals), added recipes, favourite recipes.
+        /// A helper method that deletes the user and all user data: meal plans (and related meals), added recipes, favourite recipes.
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task DeleteUserAndUserDataAsync(string userId)
+        private async Task<OperationResult> DeleteUserAndUserDataAsync(string userId)
         {
-            // Delete related data first
-            await mealPlanService.DeleteAllByUserIdAsync(userId);
-            await recipeService.DeleteAllByUserIdAsync(userId);
+            var user = await userRepository.GetByIdAsync(AppUserId);
 
-            var user = await userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UserError", "User not found." }
+                });
+            }
 
-            if (user != null)
+            string userId = user.Id.ToString();
+            try
+            {
+                // Delete related data first
+                await recipeService.DeleteAllByUserIdAsync(userId);
+                // Might be deleted by default! check!
+                await mealPlanService.DeleteAllByUserIdAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Error deleting related data for user {userId}: {ex.Message}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "DataDeletionError", "An error occurred while deleting user-related data." }
+                });
+            }
+
+            try
             {
                 await userRepository.DeleteAsync(user);
+                return OperationResult.Success();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Error deleting user {userId}: {ex.Message}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UserDeletionError", "An error occurred while deleting the user account." }
+                });
             }
         }
 
@@ -176,12 +208,8 @@
         }
 
 
-        /// <summary>
-        /// Takes a RegisterFormModel and tries to create an ApplicationUser in the database. If creation is successful, proceeds to generating a Token for Email confirmation. If token generation is successful, sends an email to the user with the confirmation link.
-        /// Logs errors and catches exceptions on the way. In case of failure, returns a dictionary with Errors.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns>The result of the Operation (Success or Failure)</returns>
+      
+        /// <inheritdoc/>
         public async Task<OperationResult> TryRegisterUserAsync(RegisterFormModel model)
         {
             string userId = null;
@@ -192,13 +220,21 @@
                 ApplicationUser user = await CreateUserAsync(model);
 
                 // Step 2: Generate token for email confirmation
-                var token = GenerateTokenForEmailConfirmationAsync(user);
+                var token = await GenerateTokenForEmailConfirmationAsync(user);
 
                 // TODO: check!
                 // Step 3: Construct the email confirmation callback URL
                 userId = user.Id.ToString();
-                var request = httpContextAccessor.HttpContext.Request;
-                var callbackUrl = $"{request.Scheme}://{request.Host}/User/ConfirmedEmail?userId={userId}&code={token}";
+                var routeValues = new Dictionary<string, string>()
+                {
+                    { "userId", userId},
+                    { "code", token }
+                };
+
+                var callbackUrl = GenerateCallbackUrl("ConfirmedEmail", routeValues);
+                
+                // TODO: check if this method works!
+                //var callbackUrl = $"{request.Scheme}://{request.Host}/User/ConfirmedEmail?userId={userId}&code={token}";
 
                 // Step 4: Send confirmation email
                 var emailResult = await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
@@ -229,14 +265,7 @@
             }
         }
 
-        /// <summary>
-        /// Finds the user by the userId and if not null, proceeds to email confirmation using the given token. If successful, logs the user in.
-        /// If token or user are null, a Failure result is returned.
-        /// Does not throw any exceptions, catches RecordNotFound and ArgumentNullExceptions from previous methods.
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="code"></param>
-        /// <returns>The Operation Result (Success or Failure)</returns>
+        /// <inheritdoc/>
         public async Task<OperationResult> TyrConfirmEmailAsync(string userId, string code)
         {
             var user = await userRepository.GetByIdAsync(userId);
@@ -266,6 +295,7 @@
             }
         }
 
+        /// <inheritdoc/>
         public async Task<OperationResult> TryLoginUserAsync(LoginFormModel model)
         {
             var user = await userRepository.GetByUsernameAsync(model.Username);
@@ -285,11 +315,11 @@
             {
                 if (signInResult.IsLockedOut)
                 {
-                    logger.LogError($"User Profile Locked. Sign in failed.");
+                    logger.LogError($"User account is locked out. Username: {model.Username}");
                 }
                 else
                 {
-                    logger.LogError($"Sign in failed for user {model.Username}. Invalid credentials.");
+                    logger.LogError($"Invalid credentials for user {model.Username}.");
                 }
 
                 await userRepository.AccessFailedAsync(user);
@@ -299,12 +329,322 @@
                 });
             }
 
+            bool isAdmin = await userRepository.IsUserInAdminRoleAsync(user);
+
+            // Return OperationResult with isAdmin data
+            return OperationResult.Success(new Dictionary<string, object>
+            {
+                { IsAdmin, isAdmin }
+            });
+        }
+
+        /// <inheritdoc/>
+        public async Task<OperationResult> TryLoginOrRegisterUserWithExternalLoginProvider()
+        {
+            var info = await userRepository.GetExternalLoginInfoAsync();
+
+            if (info == null)
+            {
+                logger.LogError($"Failed to retrieve external login info for user in action {nameof(TryLoginOrRegisterUserWithExternalLoginProvider)}");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.ExternalLoginInfoUnsuccessfulExceptionMessage);
+            }
+
+            // Extract the email from the external login info
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            // Check if the user already exists
+            var user = await userRepository.GetByEmailAsync(email);
+
+            if (user == null)
+            {
+                user = new ApplicationUser // If the user does not exist, create a new one
+                {
+                    UserName = email,
+                    Email = email,
+                    EmailConfirmed = true
+                };
+
+                IdentityResult userResult = await userRepository.CreateUserWithoutPasswordAsync(user);
+
+                if (!userResult.Succeeded)
+                {
+                    logger.LogError($"User creation from external login info failed. Errors: {userResult.Errors}");
+                    throw new InvalidOperationException(InvalidOperationExceptionMessages.UserUnsuccessfullyCreatedExceptionMessage);
+                }
+
+                // Add the external login (Google, etc.) to the user
+                var registerExternalLoginResult = await userRepository.AddLoginAsync(user, info);
+
+                if (!registerExternalLoginResult.Succeeded)
+                {
+                    await DeleteUserByUserIdAsync(user.Id.ToString());
+                    logger.LogError($"External login info adding to user failed. Errors: {registerExternalLoginResult.Errors}");
+                    throw new InvalidOperationException(InvalidOperationExceptionMessages.UserExternalLoginInfoUnsuccessfullyAddedExceptionMessage);
+                }
+
+            }
+
+            await userRepository.SignInAsync(user);
             return OperationResult.Success();
         }
 
+        /// <inheritdoc/>
+        public async Task TryLogOutUserAsync()
+        {
+            try
+            {
+                await userRepository.SignOutAsync();
 
+                var context = httpContextAccessor.HttpContext;
+                if (context != null)
+                {
+                    context.Response.Cookies.Delete(CookieConsentName);
+                }
+                else
+                {
+                    logger.LogWarning("HttpContext is null while attempting to sign out.");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                logger.LogError(ex, "An invalid operation occurred during sign-out.");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An unexpected error occurred during sign-out.");
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<OperationResult> TrySendPasswordResetEmailAsync(ForgotPasswordFormModel model)
+        {
+            ApplicationUser? user = await userRepository.GetByEmailAsync(model.Email);
+
+            bool isEmailConfirmed = user != null ? await userRepository.IsUserEmailConfirmedAsync(user) : false;
+
+            // Redirect the non-existent user without generating a token or sending any email
+
+            if (user == null)
+            {
+                logger.LogWarning($"User with email {model.Email} does not exist.");
+            }
+            else if (!isEmailConfirmed)
+            {
+                logger.LogWarning($"User with email {model.Email} has not confirmed their email.");
+            }
+            if (user != null && isEmailConfirmed)
+            {
+                try
+                {
+                    var token = await userRepository.GeneratePasswordResetTokenAsync(user);
+                    if (string.IsNullOrEmpty(token))
+                    {
+                        logger.LogError("Password reset token generation failed.");
+                        return OperationResult.Failure(new Dictionary<string, string>
+                        {
+                            { "ForgotPasswordError", InvalidOperationExceptionMessages.TokenGenerationUnsuccessfullExceptionMessage }
+                        });
+                    }
+
+                    // TODO: check if it works!
+                    //var callbackUrl = $"{request.Scheme}://{request.Host}/User/ResetPassword?email={model.Email}&code={token}";
+                    var routeValues = new Dictionary<string, string>
+                        {
+                            { "email", model.Email },
+                            { "code", token }
+                        };
+
+                    var callbackUrl = GenerateCallbackUrl("ResetPassword", routeValues);
+                    string tokenExpirationTime = DateTime.Now.AddHours(TokenExpirationDefaultHoursTime).ToString();
+
+                    OperationResult emailResult = await emailSender.SendPasswordResetEmailAsync(model.Email, callbackUrl, tokenExpirationTime);
+
+                    if (emailResult.Succeeded)
+                    {
+                        return OperationResult.Success(); 
+                    }
+
+                    return OperationResult.Failure(emailResult.Errors); // Email sending failed, logging is done in the emailsender service
+
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError($"Token generation error: {ex.Message}");
+                    return OperationResult.Failure(new Dictionary<string, string>
+                    {
+                        { "ForgotPasswordError", "Failed to generate password reset token." }
+                    });
+                }
+                
+            }
+
+            return OperationResult.Success();
+        }
+
+        /// <inheritdoc/>
+        public async Task<OperationResult> TryResetPasswordAsync(ResetPasswordFormModel model)
+        {
+            var user = await userRepository.GetByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                return OperationResult.Success();
+            }
+
+            try
+            {
+                var result = await userRepository.ResetPasswordAsync(user, model.Token, model.Password);
+
+                if (result.Succeeded)
+                {
+                    return OperationResult.Success();
+                }
+
+                // Handle token expiration or invalid token
+                if (result.Errors.Any(e => e.Code == "InvalidToken"))
+                {
+                    return OperationResult.Failure(new Dictionary<string, string>
+                    {
+                        { "TokenError", "The token is invalid or has expired. Please request a new password reset link." }
+                    });
+                }
+
+                // Return failure with all errors
+                return OperationResult.Failure(result.Errors.ToDictionary(e => e.Code, e => e.Description));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Error resetting password for user {model.Email}: {ex.Message}. StackTrace: {ex.StackTrace}", ex);
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "ResetPasswordError", "An error occurred while resetting the password. Please try again." }
+                });
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<OperationResult> TryChangePasswordAsync(string userId, ChangePasswordFormModel model)
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UserError", UserNotFoundErrorMessage }
+                });
+            }
+
+            // Attempt to change the password
+            var result = await userRepository.ChangePassAsync(user, model.CurrentPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return OperationResult.Success();
+            }
+
+            // Handle specific error scenarios
+            if (result.Errors.Any(e => e.Code == "PasswordMismatch"))
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { nameof(model.CurrentPassword), IncorrectPasswordErrorMessage }
+                });
+            }
+
+            // Return failure with all other errors
+            return OperationResult.Failure(result.Errors.ToDictionary(e => e.Code, e => e.Description));
+        }
+
+        /// <inheritdoc/>
+        public async Task<OperationResult> TrySetPasswordAsync(string userId, SetPasswordFormModel model)
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UserError", UserNotFoundErrorMessage }
+                });
+            }
+
+            // Attempt to set the password
+            var result = await userRepository.SetPasswordAsync(user, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return OperationResult.Success();
+            }
+
+            // Return failure with all errors encountered during setting the password
+            return OperationResult.Failure(result.Errors.ToDictionary(e => e.Code, e => e.Description));
+        }
+
+        public async Task<OperationResult> TryDeleteUserAccountAsync()
+        {
+            var userId = GetCurrentUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                logger.LogError($"No user is logged in. Cannot delete account");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UserError", "No user found." }
+                });
+            }
+
+            // Delete the user and related data
+            var deletionResult = await DeleteUserAndUserDataAsync(userId);
+
+            if (!deletionResult.Succeeded)
+            {
+                return deletionResult; // Return the failure from the helper method
+            }
+
+            // Sign out the user after successful deletion
+            try
+            {
+                await userRepository.SignOutAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Error signing out user {userId} after account deletion: {ex.Message}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "SignOutError", "An error occurred while signing out after deleting the account." }
+                });
+            }
+
+            return OperationResult.Success();
+        }
 
         // HELPER METHODS:
+        /// <summary>
+        /// Constructs the URL, necessary for sending the user confirmation links, containing token and other user data
+        /// </summary>
+        /// <param name="action">The controller Action</param>
+        /// <param name="routeValues"></param>
+        /// <returns>The URL link</returns>
+        private string GenerateCallbackUrl(string action, object routeValues)
+        {
+            string controller = "User";
+            var request = httpContextAccessor.HttpContext.Request;
+
+            // Use the scheme and host from the current request
+            var scheme = request.Scheme;
+            var host = request.Host.ToString();
+
+            // Construct the URL using Url.Action logic
+            var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(
+                $"/{controller}/{action}",
+                routeValues as IDictionary<string, string>
+            );
+
+            return $"{scheme}://{host}{queryString}";
+        }
 
         /// <summary>
         /// Utility method that accepts a RegisterFormModel and tries to create an ApplicationUser in the database. If it fails, logs an error and throws an exception
@@ -320,7 +660,7 @@
                 Email = model.Email
             };
 
-            IdentityResult result = await userRepository.AddAsync(user, model.Password);
+            IdentityResult result = await userRepository.CreateUserWithPasswordAsync(user, model.Password);
 
             if (!result.Succeeded)
             {

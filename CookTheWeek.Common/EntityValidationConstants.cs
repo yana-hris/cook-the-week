@@ -158,7 +158,7 @@
         }
         
         public static class ApplicationUserValidation
-        {            
+        {
             public const int UsernameMinLength = 3;
             public const int UsernameMaxLength = 50;
 

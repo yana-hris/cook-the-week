@@ -3,14 +3,16 @@ namespace CookTheWeek.Data.Repositories
 {
     using System.Security.Claims;
 
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Common.Exceptions;
 
-    using static CookTheWeek.Common.ExceptionMessagesConstants.RecordNotFoundExceptionMessages;
-    using static CookTheWeek.Common.ExceptionMessagesConstants.ArgumentNullExceptionMessages;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+    using Microsoft.Extensions.Logging;
 
     class UserRepository : IUserRepository
     {
@@ -67,7 +69,7 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<IdentityResult> AddAsync(ApplicationUser user, string password)
+        public async Task<IdentityResult> CreateUserWithPasswordAsync(ApplicationUser user, string password)
         {
             return await this.userManager.CreateAsync(user, password);
         }
@@ -89,12 +91,12 @@ namespace CookTheWeek.Data.Repositories
         {
             if (string.IsNullOrEmpty(code))
             {
-                throw new ArgumentNullException(TokenNullExceptionMessage);
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.TokenNullExceptionMessage);
             }
 
             if (user == null)
             {
-                throw new RecordNotFoundException(UserNotFoundExceptionMessage, null);
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.UserNotFoundExceptionMessage, null);
             }
 
             return await this.userManager.ConfirmEmailAsync(user, code);
@@ -178,6 +180,69 @@ namespace CookTheWeek.Data.Repositories
         public async Task AccessFailedAsync(ApplicationUser user)
         {
             await userManager.AccessFailedAsync(user);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> IsUserInAdminRoleAsync(ApplicationUser user)
+        {
+            return await userManager.IsInRoleAsync(user, AdminRoleName);
+        }
+
+        public AuthenticationProperties? ConfigureExternalAuthenticationProperties(string schemeProvider, string? redirectUrl)
+        {
+            return signInManager.ConfigureExternalAuthenticationProperties(schemeProvider, redirectUrl);
+        }
+
+        /// <inheritdoc/>
+        public async Task<ExternalLoginInfo?> GetExternalLoginInfoAsync()
+        {
+            return await signInManager.GetExternalLoginInfoAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<IdentityResult> CreateUserWithoutPasswordAsync(ApplicationUser user)
+        {
+            return await this.userManager.CreateAsync(user);
+        }
+
+
+        /// <inheritdoc/>
+        public async Task<IdentityResult> AddLoginAsync(ApplicationUser user, ExternalLoginInfo info)
+        {
+            return await userManager.AddLoginAsync(user, info);
+        }
+
+        /// <inheritdoc/>
+        public async Task SignOutAsync()
+        {
+            await signInManager.SignOutAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> IsUserEmailConfirmedAsync(ApplicationUser user)
+        {
+            return await userManager.IsEmailConfirmedAsync(user);
+        }
+
+        /// <inheritdoc/>
+        public async Task<IdentityResult> SetPasswordAsync(ApplicationUser user, string newPassword)
+        {
+            // Check if the user already has a password set
+            var hasPassword = await userManager.HasPasswordAsync(user);
+
+            if (hasPassword)
+            {
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Code = "PasswordAlreadySet",
+                    Description = "The user already has a password set."
+                });
+            }
+
+            // Add the new password
+            var result = await userManager.AddPasswordAsync(user, newPassword);
+            
+            return result;
         }
     }
 }

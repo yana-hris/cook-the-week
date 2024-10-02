@@ -98,6 +98,10 @@
 
             public const string TokenGenerationUnsuccessfullExceptionMessage = "User Token unsuccessfully generated.";
 
+            public const string ExternalLoginInfoUnsuccessfulExceptionMessage = "The external login info for the user was not retrieved.";
+
+            public const string UserExternalLoginInfoUnsuccessfullyAddedExceptionMessage = "The external login info entry for user failed.";
+
             // CATEGORY:
             public const string CategoryUnsuccessfullyAddedExceptionMessage = "Something went wrong and the category was not added to the Database.";
 
