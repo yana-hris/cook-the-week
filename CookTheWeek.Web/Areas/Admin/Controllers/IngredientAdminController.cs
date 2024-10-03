@@ -146,7 +146,7 @@
             }
             catch (Exception ex)
             {
-                return HandleException(ex, nameof(Edit), nameof(Ingredient), id.ToString());
+                return HandleException(ex, nameof(Edit), nameof(Ingredient), model.Id.ToString());
             }
 
             return RedirectToAction("All");

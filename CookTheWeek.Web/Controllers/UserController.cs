@@ -167,8 +167,11 @@
         [HttpGet]
         public IActionResult ExternalLogin(string schemeProvider, string? returnUrl = null)
         {
-            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User", new {returnUrl});
+            string redirectUrl = Url.Action(nameof(ExternalLoginCallback), "User", new { returnUrl });
+
+            // Call the userService to get the external login properties
             var properties = userService.GetExternalLoginProperties(schemeProvider, redirectUrl);
+
             return new ChallengeResult(schemeProvider, properties);
         }
 
@@ -434,13 +437,9 @@
         [HttpPost]
         public async Task<IActionResult> DeleteAccount()
         {
-            var userId = userService.GetCurrentUserId();
-
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                RedirectToAction("NotFound", "Home", new { area = "", message = "User not found."});
-
-                OperationResult result = await userService.TryDeleteUserAccountAsync(userId);
+                OperationResult result = await userService.TryDeleteUserAccountAsync();
 
                 if (result.Succeeded)
                 {
@@ -459,6 +458,11 @@
                 }
 
                 return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                return LogExceptionAndRedirectToInternalServerError(ex);
+                
             }
 
         }

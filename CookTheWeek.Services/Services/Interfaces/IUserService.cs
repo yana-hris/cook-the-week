@@ -6,6 +6,7 @@
     using CookTheWeek.Common;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using CookTheWeek.Web.ViewModels.User;
+    using Microsoft.AspNetCore.Authentication;
 
     public interface IUserService
     {
@@ -108,6 +109,12 @@
         /// </returns>
 
         Task<OperationResult> TrySetPasswordAsync(string userId, SetPasswordFormModel model);
-        Task<OperationResult> TryDeleteUserAccountAsync(string? userId);
+
+        /// <summary>
+        /// Tries to delete the account of the user and all relevant user data (recipes, mealplans, etc.).
+        /// </summary>
+        /// <returns>The Result of the Operation</returns>
+        Task<OperationResult> TryDeleteUserAccountAsync();
+        AuthenticationProperties? GetExternalLoginProperties(string schemeProvider, string? redirectUrl);
     }
 }

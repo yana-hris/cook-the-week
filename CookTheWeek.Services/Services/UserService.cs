@@ -20,6 +20,7 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.NotificationMessagesConstants;
+    using Microsoft.AspNetCore.Authentication;
 
     public class UserService : IUserService
     {
@@ -124,8 +125,7 @@
                     { "UserError", "User not found." }
                 });
             }
-
-            string userId = user.Id.ToString();
+            
             try
             {
                 // Delete related data first
@@ -207,8 +207,11 @@
             return userId;
         }
 
+        public AuthenticationProperties? GetExternalLoginProperties(string provider, string? redirectUrl)
+        {
+            return userRepository.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        }
 
-      
         /// <inheritdoc/>
         public async Task<OperationResult> TryRegisterUserAsync(RegisterFormModel model)
         {

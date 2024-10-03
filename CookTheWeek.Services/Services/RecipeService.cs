@@ -354,8 +354,9 @@
         /// <inheritdoc/>
         public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
         {
-            return await mealRepository.GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId) && m.IsCooked == false)
+            // Chek if meals are included in query
+            return await recipeRepository.GetAllQuery()
+                .Where(r => r.Meals.Any(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId)))
                 .AnyAsync();
         }
 
@@ -451,14 +452,6 @@
             return model;
         }
 
-        /// <inheritdoc/>
-        public async Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId)
-        {
-            return await mealRepository
-                .GetAllQuery()
-                .Select(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
-                .CountAsync();
-        }
 
         /// <inheritdoc/>
         public Task<bool> HasAnyWithCategory(int id)

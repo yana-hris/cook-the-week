@@ -12,7 +12,6 @@ namespace CookTheWeek.Data.Repositories
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using Microsoft.Extensions.Logging;
 
     class UserRepository : IUserRepository
     {
@@ -188,6 +187,7 @@ namespace CookTheWeek.Data.Repositories
             return await userManager.IsInRoleAsync(user, AdminRoleName);
         }
 
+        /// <inheritdoc/>
         public AuthenticationProperties? ConfigureExternalAuthenticationProperties(string schemeProvider, string? redirectUrl)
         {
             return signInManager.ConfigureExternalAuthenticationProperties(schemeProvider, redirectUrl);

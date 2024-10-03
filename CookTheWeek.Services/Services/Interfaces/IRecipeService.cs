@@ -112,13 +112,6 @@
         Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId);
         
         /// <summary>
-        /// Gets the total amount of meals, cooked using a recipe
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <returns>int?</returns>
-        Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId);
-
-        /// <summary>
         /// Soft deletes a collection of recipes. All sub-entities will be deleted too. 
         /// </summary>
         /// <param name="id"></param>

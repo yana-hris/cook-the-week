@@ -34,10 +34,25 @@
             }    
             catch(Exception ex)
             {
-                logger.LogError($"Meal Details unsuccessfully loaded! Exception error message: {ex.Message}; Exception StackTrace: {ex.StackTrace}");
-                return RedirectToAction("InternalServerError", "Home");
+                return HandleException(ex, nameof(Details), id);
             }
 
+        }
+
+        /// <summary>
+        /// Helper method to log error message and return a custom Internal Server Error page
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="actionName"></param>
+        /// <param name="userId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private IActionResult HandleException(Exception ex, string actionName, int mealId)
+        {
+            logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, MealId: {mealId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
+
+            // Redirect to the internal server error page with the exception message
+            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
         }
     }
 }

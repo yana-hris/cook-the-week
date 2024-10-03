@@ -70,7 +70,7 @@
 
         public const int MealPlanTrimmedNameLnegth = 30;
 
-        // Ingredients by categories FOR Shopping List View
+        // Ingredients by categories FOR Meal Details & Shopping List View
         public static string[] ProductListCategoryNames = new string[]
         {
             "Fruits & Veggies",

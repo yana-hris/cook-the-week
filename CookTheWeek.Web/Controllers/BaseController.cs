@@ -3,8 +3,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using CookTheWeek.Services.Data.Models.Validation;
-
 
     [Authorize]
     public abstract class BaseController : Controller

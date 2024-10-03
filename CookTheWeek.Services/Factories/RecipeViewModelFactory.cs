@@ -2,6 +2,8 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.Extensions.Logging;
+
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Factories.Interfaces;
@@ -13,7 +15,7 @@
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
-    using Microsoft.Extensions.Logging;
+
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
@@ -116,7 +118,7 @@
                     DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
                     );
                 model.CookedCount = await SafeExecuteAsync(
-                    async () => await this.recipeService.GetAllMealsCountByRecipeIdAsync(recipeId),
+                    async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
                     DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
                     );
 

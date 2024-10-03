@@ -35,7 +35,8 @@
                                             RecipeCategorySelectViewModel> recipeCategoryService,
 
             IIngredientService ingredientService,
-            IMealPlanService mealplanService)
+            IMealPlanService mealplanService,
+            ILogger<HomeAdminController> logger) : base(logger)
         {
             this.recipeService = recipeService; 
             this.recipeCategoryService = recipeCategoryService;
