@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Web.ViewModels.Meal;
 
@@ -43,6 +44,12 @@
         /// <remarks>May throw a RecordNotFoundException due to usage of GetByIdAsync method.</remarks>
         /// <returns>MealAddFormModel</returns>
         Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
+
+        /// <summary>
+        /// Returns the total count of all meals, cooked by a given recipeId
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns>int or 0</returns>
         Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId);
     }
 }

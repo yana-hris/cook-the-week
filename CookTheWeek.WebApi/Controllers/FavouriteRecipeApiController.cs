@@ -33,7 +33,7 @@
         {
             try
             {
-                var result = await favouriteRecipeService.TryToggleLikes(model);
+                await favouriteRecipeService.TryToggleLikes(model);
                 return Ok();
             }
             catch (ArgumentNullException ex)

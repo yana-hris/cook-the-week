@@ -1,7 +1,6 @@
 ﻿namespace CookTheWeek.Common
 {
-    using System.ComponentModel.DataAnnotations;
-
+    
     /// <summary>
     /// A utility class returned as a result from Service mrthods, used by the controller 
     /// </summary>

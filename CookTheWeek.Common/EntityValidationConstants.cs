@@ -198,6 +198,7 @@
 
             public const string MealPlanSuccessfulDeleteMessage = "Meal Plan deleted!";
             public const string MealPlanSuccessfulSaveMessage = "Meal plan saved!";
+            public const string MealPlanSuccessfulEditMessage = "Meal plan edited and saved!";
 
             public const string NameRequiredErrorMessage = "Meal plan name is required";
             public const string NameLengthErrorMessage = "Meal plan name cannot be shorter than 2, and longer than 50 characters";

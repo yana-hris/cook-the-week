@@ -6,13 +6,14 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
-    using CookTheWeek.Data.Repositories;
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Common.HelperMethods;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.ShoppingList;
     using CookTheWeek.Web.ViewModels.Step;
 
@@ -24,8 +25,10 @@
     public class MealService : IMealService
     {
         private readonly IMealRepository mealRepository;
+
         private readonly IRecipeService recipeService;
         private readonly IRecipeIngredientService recipeIngredientService;
+
         private readonly ILogger<MealService> logger;
 
         public MealService(IMealRepository mealRepository,
@@ -104,8 +107,6 @@
             await mealRepository.AddAllAsync(newMeals);
         }
 
-        // TODO: Consolidate model creation in a factory?
-
         /// <inheritdoc/>
         public async Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
         {
@@ -137,11 +138,7 @@
 
         }
 
-        /// <summary>
-        /// Returns the total count of all meals, cooked by a given recipeId
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <returns>int or 0</returns>
+        /// <inheritdoc/>
         public async Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId)
         {
             return await mealRepository.GetAllQuery()
@@ -163,6 +160,7 @@
 
             if (meal == null)
             {
+                logger.LogError($"Meal with id {mealId} not found in the database. Error occured in method {nameof(GetMealByIdAsync)} in MealService.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
             }
 
@@ -239,7 +237,7 @@
         /// <param name="measures"></param>
         /// <param name="specifications"></param>
         /// <returns>A collection of ProductListViewModels</returns>
-        private ICollection<ProductListViewModel> BuildIngredientsByCategories(List<ProductServiceModel> ingredients, List<Measure> measures, List<Specification> specifications)
+        private ICollection<ProductListViewModel> BuildIngredientsByCategories(List<ProductServiceModel> ingredients, ICollection<RecipeIngredientSelectMeasureViewModel> measures, ICollection<RecipeIngredientSelectSpecificationViewModel> specifications)
         {
             var ingredientsByCategories = new List<ProductListViewModel>();
 
@@ -257,7 +255,7 @@
                             Qty = FormatIngredientQty(p.Qty),
                             Measure = measures.First(m => m.Id == p.MeasureId).Name,
                             Name = p.Name,
-                            Specification = specifications.FirstOrDefault(s => s.Id == p.SpecificationId)?.Name
+                            Specification = specifications.First(sp => sp.Id == p.SpecificationId).Name ?? ""
                         }).ToList()
                 };
 

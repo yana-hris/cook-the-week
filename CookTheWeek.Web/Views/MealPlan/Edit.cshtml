@@ -1,4 +1,4 @@
-﻿@model MealPlanAddFormModel
+﻿@model MealPlanEditFormModel
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
     ViewData["Title"] = "Edit Meal Plan";
@@ -22,6 +22,7 @@
     <partial name="_BackBtnPartial" />
     
     <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
+        <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
         <div class="row pt-2">
             <div class="col-12">
                 <div class="col-lg-6 pb-2">

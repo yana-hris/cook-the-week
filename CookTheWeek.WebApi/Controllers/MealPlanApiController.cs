@@ -30,11 +30,11 @@
         }
 
         [HttpPost]
-        [Route("getMealPlanData")]
+        [Route("createModel")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MealPlanAddFormModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetMealPlanDataForAddViewAsync([FromBody] MealPlanServiceModel model)
+        public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@
                 return NotFound();
             }
             
-            return Ok(mealPlanModel);
+            return Ok();
 
         }
 

@@ -9,10 +9,13 @@
     {
         private readonly IMealPlanService mealPlanService;
 
-        public MealPlanAdminController(IMealPlanService mealPlanService)
+        public MealPlanAdminController(IMealPlanService mealPlanService,
+            ILogger<MealPlanAdminController> logger) : base(logger) 
         {
             this.mealPlanService = mealPlanService;
         }
+
+        [HttpGet]
         public async Task<IActionResult> AllActive()
         {
             ICollection<MealPlanAllAdminViewModel> allActive = await
@@ -23,6 +26,7 @@
             return View(allActive);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AllFinished()
         {
             ICollection<MealPlanAllAdminViewModel> allFinished = await

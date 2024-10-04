@@ -8,16 +8,16 @@ namespace CookTheWeek.Web
     using Rotativa.AspNetCore;
     using SendGrid;
 
-    using Data;
-    using Data.Models;
-    using Data.Repositories;
-    using Infrastructure.BackgroundServices;
-    using Infrastructure.Extensions;
-    using Infrastructure.HostedServices;
-    using Infrastructure.ModelBinders;
-    using Services.Data.Factories.Interfaces;
-    using Services.Data.Services.Interfaces;
-    using Services.Data.Services;
+    using CookTheWeek.Data;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Web.Infrastructure.BackgroundServices;
+    using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Web.Infrastructure.HostedServices;
+    using CookTheWeek.Web.Infrastructure.ModelBinders;
+    using CookTheWeek.Services.Data.Factories.Interfaces;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Services;
 
     using static Common.GeneralApplicationConstants;
 
@@ -89,6 +89,7 @@ namespace CookTheWeek.Web
                });  
 
             builder.Services.AddHttpClient();
+
             // Register repositories
             builder.Services.AddApplicationTypes(typeof(IRecipeRepository), "Repository");
 
@@ -150,6 +151,19 @@ namespace CookTheWeek.Web
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            builder.Services.AddControllersWithViews();
+
+            // Add session services
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true;  // Make the session cookie HttpOnly for security
+                options.Cookie.IsEssential = true; // Ensure cookie is not affected by consent policies
+            });
+
+            // Add distributed memory cache (used by session to store data)
+            builder.Services.AddDistributedMemoryCache();
+
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
@@ -195,8 +209,10 @@ namespace CookTheWeek.Web
             app.UseAuthorization();
 
             app.EnableOnlineUsersCheck();
-           
-            if(app.Environment.IsDevelopment())
+
+            app.UseSession(); 
+
+            if (app.Environment.IsDevelopment())
             {
                 app.SeedAdministrator(AdminUserUsername);
             }

@@ -25,5 +25,16 @@
             }
         }
 
+        /// <summary>
+        /// Helper method for setting up ViewData and ViewBag values
+        /// </summary>
+        /// <param name="title">The View Title</param>
+        /// <param name="returnUrl">The ReturnUrl</param>
+        protected void SetViewData(string title, string returnUrl)
+        {
+            ViewData["Title"] = title;
+            ViewBag.ReturnUrl = returnUrl;
+        }
+
     }
 }

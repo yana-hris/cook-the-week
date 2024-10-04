@@ -36,13 +36,7 @@
         /// <remarks>May throw RecordNotFoundException if the ingredient does not exist</remarks>
         Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model);
 
-        /// <summary>
-        /// Checks if an ingredient is included in any Recipes and returns a flag if it is safe to delete it
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns>true or false</returns>
-        Task<bool> ValidateCategoryCanBeDeletedAsync(int id);
-
+       
         /// <summary>
         /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
         /// </summary>
@@ -58,12 +52,15 @@
         /// <exception cref="NotImplementedException"></exception>
         Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel);
 
-        /// <summary>
-        /// Validates if the ids of a meal`s collection are valid recipes
-        /// </summary>
-        /// <param name="meals"></param>
-        /// <returns></returns>
-        Task<ValidationResult> ValidateMealPlanEditFormModelAsync(MealPlanEditFormModel model);
+       /// <summary>
+       /// Validates any MealPlanFormModel by checking the model type and performing respective validation. 
+       /// In case of unexisting recipeId in meal plan model, throws exception. In case of unmatching or missing userId and meal plan ownerId, throws exception.
+       /// </summary>
+       /// <param name="model"></param>
+       /// <returns>Validation Result</returns>
+       /// <exception cref="RecordNotFoundException"></exception>
+       /// <exception cref="UnauthorizedUserException"></exception>
+        Task<ValidationResult> ValidateMealPlanFormModelAsync(IMealPlanFormModel model);
 
         /// <summary>
         /// A generic method to validate a given TCategory add or edit form model is valid (name does not exist, category for edit exists, etc.).
@@ -98,7 +95,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true or false</returns>
-        Task<bool> ValidateIngredientCanBeDeleted(int id);
+        Task<bool> CanIngredientBeDeleted(int id);
 
         /// <summary>
         /// Takes a Service model of a recipe like and validates it. Checks for empty enttries, non-existing recipe or unmacthing userId. Throws exceptions.
@@ -109,6 +106,13 @@
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="RecordNotFoundException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task<bool> ValidateLikeOrUnlikeRecipeAsync(FavouriteRecipeServiceModel model);
+        Task<bool> ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
+
+        /// <summary>
+        /// Validates if a user has the rights to edit or delete a given mealplan (by id)
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <exception cref="UnauthorizedUserException"></exception>
+        void ValidateMealPlanUserAuthorizationAsync(Guid ownerId);
     }
 }

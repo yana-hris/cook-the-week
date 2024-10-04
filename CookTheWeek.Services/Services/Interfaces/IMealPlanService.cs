@@ -6,6 +6,8 @@
     using Web.ViewModels.MealPlan;
     using Web.ViewModels.Admin.MealPlanAdmin;
     using CookTheWeek.Services.Data.Models.MealPlan;
+    using CookTheWeek.Common;
+    using CookTheWeek.Data.Models;
 
     public interface IMealPlanService
     {
@@ -22,23 +24,23 @@
         Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync();
 
         /// <summary>
-        /// Adds a meal plan to the database or throws an exception
+        /// Validates the mealplan model and if valid adds it to the database.
+        /// If the OperationResult is Success, newly created mealplan ID is returned as Value.
+        /// If the OperationResult is Failed, returns a dictionary with model Errors.
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="model"></param>
-        /// <returns>mealPlan ID</returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        Task<string> AddAsync(string userId, MealPlanAddFormModel model);
+        /// <returns>The result of the operation with Value(id) or Errors</returns>
+        Task<OperationResult<string>> TryAddMealPlanAsync(MealPlanAddFormModel model);
 
         /// <summary>
-        /// Edits a meal plan or throws an exception (if not found or user is not authorized). The edit includes updating all inclusive meals
+        /// Validates and edits a mealplan or throws exceptions
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="model"></param>
-        /// <returns>mealPlan ID</returns>
+        /// <returns>Operation Result</returns>
         /// <exception cref="RecordNotFoundException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task EditAsync(string userId, MealPlanEditFormModel model);
+        Task<OperationResult> TryEditMealPlanAsync(MealPlanEditFormModel model);
 
         /// <summary>
         /// Returns a collection of all user`s mealplans MealPlanAllViewModel or throws an exception if no meal plans found (collection is empty)
@@ -64,13 +66,12 @@
         Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id);
 
         /// <summary>
-        /// Returns a single meal plan for Edit View or throws an exception if the mealplan is not found or the user is not the owner
+        /// Returns a single meal plan for Edit View or throws an exception if the mealplan is not found 
         /// </summary>
         /// <param name="id"></param>
         /// <returns>MealPlanEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        /// <exception cref="UnauthorizedException"></exception>
-        Task<MealPlanEditFormModel> GetForEditByIdAsync(string id, string userId);
+        Task<MealPlanEditFormModel> GetForEditByIdAsync(string id);
 
         /// <summary>
         /// Returns a flag if a specific meal plan exists or not. Does not throw any exceptions
@@ -86,14 +87,6 @@
         Task<int?> AllActiveCountAsync();
 
         /// <summary>
-        /// Finds and deleted a specific meal plan if it exists, deleting also all its nested meals. If a meal plan does not exists, throws an exception
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task DeleteById(string id);
-
-        /// <summary>
         /// Bulk delete for deleting all meal plans of a specific user, including deleting all nested meals. Does not throw any exceptions. If meal plans don`t exists, does nothing.
         /// </summary>
         /// <param name="userId"></param>
@@ -107,5 +100,29 @@
         /// <returns>MealPlanAddFormModel</returns>
         /// <remarks>May throw a RecordNotFound exception from the GetRecipeById method.</remarks>
         Task<MealPlanAddFormModel> CreateMealPlanAddFormModelAsync(MealPlanServiceModel model);
+
+        /// <summary>
+        /// Either returns the MealPlan or throws an exception in case it does not exist
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>MealPlan</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<MealPlan> GetByIdAsync(string id);
+
+        /// <summary>
+        /// Validates if a mealplan exists and can be deleted by the current user. If so, deletes it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>May throw RecordNotFoundException or UnauthorizedUserException</remarks>
+        Task TryDeleteByIdAsync(string id);
+
+        /// <summary>
+        /// Populates an empty MealPlanAddFormModel with meals data from an existing mealplan. If unsuccessful, throws an exception
+        /// </summary>
+        /// <param name="mealPlanId"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        Task<MealPlanAddFormModel> TryCopyMealPlanByIdAsync(string mealPlanId);
     }
 }

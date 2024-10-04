@@ -9,15 +9,13 @@
     {
         private readonly IRecipeService recipeService;
         private readonly IUserService userService;
-        private readonly ILogger<RecipeAdminController> logger;
 
         public RecipeAdminController(IRecipeService recipeService,
             IUserService userService,
-            ILogger<RecipeAdminController> logger)
+            ILogger<RecipeAdminController> logger) : base(logger)
         {
             this.recipeService = recipeService;
             this.userService = userService;
-            this.logger = logger;
         }
 
         [HttpGet]

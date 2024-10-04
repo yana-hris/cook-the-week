@@ -12,20 +12,19 @@
     {
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
-        private readonly ILogger<UserAdminController> logger;
 
-       
-
-        public UserAdminController(IUserService userService
-            ,IMemoryCache memoryCache,
-            ILogger<UserAdminController> logger
-            )
+        public UserAdminController(
+                        IUserService userService,
+                        IMemoryCache memoryCache,
+                        ILogger<UserAdminController> logger
+                        ) : base(logger) 
         {
             this.userService = userService;
             this.memoryCache = memoryCache;
-            this.logger = logger;
-            
         }
+
+
+        [HttpGet]
         public async Task<IActionResult> All()
         {
             IEnumerable<UserAllViewModel>? users = this.memoryCache.Get<IEnumerable<UserAllViewModel>>(UsersCacheKey);
@@ -51,8 +50,6 @@
 
             return View(users);
         }
-
-
         
     }
 }

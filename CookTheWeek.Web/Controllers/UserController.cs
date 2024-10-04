@@ -24,7 +24,9 @@
     {
         
         private readonly IUserService userService;
+
         private readonly IValidationService validationService;
+
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserController> logger;
         
@@ -472,19 +474,6 @@
         {
             return View();
         }
-
-
-        private void AddModelErrors(ValidationResult validationResult)
-        {
-            if (!validationResult.IsValid && validationResult.Errors.Any())
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.Key, error.Value);
-                }
-            }
-        }
-
         
         /// <summary>
         /// Utility method that logs the error message and stacktrace in case of Unhandled Exceptions and redirects to Internal Server Error Page

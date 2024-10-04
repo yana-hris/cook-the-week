@@ -27,24 +27,31 @@
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using Microsoft.AspNetCore.Mvc;
 
     public class ValidationService : IValidationService
     {
-        private readonly ICategoryService<RecipeCategory, 
-            RecipeCategoryAddFormModel, 
-            RecipeCategoryEditFormModel, 
+        
+        private readonly IRecipeRepository recipeRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IMealplanRepository mealplanRepository;
+
+        private readonly IRecipeService recipeService;
+        private readonly IMealPlanService mealPlanService;
+        private readonly IIngredientService ingredientService;
+        private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IUserService userService;
+        private readonly ICategoryService<RecipeCategory,
+            RecipeCategoryAddFormModel,
+            RecipeCategoryEditFormModel,
             RecipeCategorySelectViewModel> recipeCategoryService;
         private readonly ICategoryService<IngredientCategory,
             IngredientCategoryAddFormModel,
             IngredientCategoryEditFormModel,
             IngredientCategorySelectViewModel> ingredientCategoryService;
-        private readonly IRecipeRepository recipeRepository;
-        private readonly IRecipeService recipeService;
-        private readonly IIngredientService ingredientService;
-        private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IUserRepository userRepository;
-        private readonly IUserService userService;
+
         private readonly ILogger<ValidationService> logger;
+
         public ValidationService(ICategoryService<RecipeCategory, 
                                             RecipeCategoryAddFormModel, 
                                             RecipeCategoryEditFormModel, 
@@ -55,13 +62,16 @@
                                             IngredientCategorySelectViewModel> ingredientCategoryService,
             IIngredientService ingredientService,
             IRecipeIngredientService recipeIngredientService,
+            IMealplanRepository mealplanRepository,
             IRecipeService recipeService,
             IRecipeRepository recipeRepository,
             IUserRepository userRepository,
             IUserService userService,
+            IMealPlanService mealplanService,
             ILogger<ValidationService> logger)
         {
             this.recipeRepository = recipeRepository;
+            this.mealplanRepository = mealplanRepository;
             this.userRepository = userRepository;
 
             this.recipeService = recipeService;
@@ -70,60 +80,19 @@
             this.ingredientCategoryService = ingredientCategoryService; 
             this.ingredientService = ingredientService;
             this.recipeIngredientService = recipeIngredientService;
+            this.mealPlanService = mealplanService;
 
             this.logger = logger;
         }
 
-              
+
+
+        // RECIPE:              
         /// <inheritdoc/>
         public async Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model)
         {
             Ingredient ingredient = await ingredientService.GetByIdAsync(model.IngredientId!.Value);
             return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
-        }
-
-        /// <inheritdoc/>
-        public async Task<ValidationResult> ValidateIngredientFormModelAsync(IIngredientFormModel model)
-        {
-            var result = new ValidationResult();
-
-            bool categoryExists = await ingredientCategoryService.CategoryExistsByIdAsync(model.CategoryId);
-
-            if (!categoryExists)
-            {
-                AddValidationError(result, nameof(model.CategoryId), CategoryValidation.CategoryInvalidErrorMessage);
-            }
-
-            // Check if an ingredient with the same name already exists
-            bool existingByName = await ingredientService.ExistsByNameAsync(model.Name);
-
-            if (existingByName)
-            {
-                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
-
-                if (model is IIngredientEditFormModel editModel)
-                {
-                    if (existingIngredientId != editModel.Id)
-                    {
-                        AddValidationError(result, nameof(editModel.Name), IngredientValidation.IngredientNameErrorMessage);
-                    }
-                }
-                else
-                {
-                    // In the add scenario, any matching name is a conflict
-                    AddValidationError(result, nameof(model.Name), IngredientValidation.IngredientNameErrorMessage);
-                }
-            }
-
-            return result;
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> ValidateCategoryCanBeDeletedAsync(int id)
-        {
-            return await recipeRepository.GetAllQuery()
-                .Where(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id))
-                .AnyAsync();
         }
 
         /// <inheritdoc/>
@@ -180,6 +149,56 @@
             return result;
         }
 
+
+
+        // INGREDIENT:
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateIngredientFormModelAsync(IIngredientFormModel model)
+        {
+            var result = new ValidationResult();
+
+            bool categoryExists = await ingredientCategoryService.CategoryExistsByIdAsync(model.CategoryId);
+
+            if (!categoryExists)
+            {
+                AddValidationError(result, nameof(model.CategoryId), CategoryValidation.CategoryInvalidErrorMessage);
+            }
+
+            // Check if an ingredient with the same name already exists
+            bool existingByName = await ingredientService.ExistsByNameAsync(model.Name);
+
+            if (existingByName)
+            {
+                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
+
+                if (model is IIngredientEditFormModel editModel)
+                {
+                    if (existingIngredientId != editModel.Id)
+                    {
+                        AddValidationError(result, nameof(editModel.Name), IngredientValidation.IngredientNameErrorMessage);
+                    }
+                }
+                else
+                {
+                    // In the add scenario, any matching name is a conflict
+                    AddValidationError(result, nameof(model.Name), IngredientValidation.IngredientNameErrorMessage);
+                }
+            }
+
+            return result;
+        }
+        
+
+        /// <inheritdoc/>
+        public Task<bool> CanIngredientBeDeleted(int id)
+        {
+            return recipeRepository.GetAllQuery()
+                .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
+        }
+
+
+
+        // USER:
         /// <inheritdoc/>
         public async Task<ValidationResult> ValidateRegisterUserModelAsync(RegisterFormModel model)
         {
@@ -208,6 +227,8 @@
         }
 
 
+
+        // MEALPLAN:
         /// <inheritdoc/>
         public async Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel)
         {
@@ -219,7 +240,8 @@
             // Validate userId exists in the database;
             if (!user)
             {
-                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUserValidation.UserNotFoundErrorMessage);
+                logger.LogError($"Creating MealPlan model failed. User with id {userId} does not exist.");
+                AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.UserNotFoundErrorMessage);
             }
 
             // Validate the currently logged in user is the same
@@ -227,7 +249,8 @@
 
             if (!string.IsNullOrEmpty(currentUserId) && userId.ToLower() != currentUserId.ToLower())
             {
-                AddValidationError(result, nameof(serviceModel.UserId), EntityValidationConstants.ApplicationUserValidation.InvalidUserIdErrorMessage);
+                logger.LogError($"$Unauthorized attempt to create mealplan. User Id from Service Model {user} is different form currenly logged in user: {currentUserId}.");
+                AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.InvalidUserIdErrorMessage);
             }
 
             // Validate recipe id`s are valid recipes
@@ -241,7 +264,7 @@
                 if (!recipeIdIsValid)
                 {
                     string key = $"Meals[{i}].RecipeId"; // sub-entry
-                    AddValidationError(result, key, EntityValidationConstants.RecipeValidation.InvalidRecipeIdErrorMessage);
+                    AddValidationError(result, key, RecipeValidation.InvalidRecipeIdErrorMessage);
                 }
             }
 
@@ -249,37 +272,49 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ValidationResult> ValidateMealPlanEditFormModelAsync(MealPlanEditFormModel model)
+        public void ValidateMealPlanUserAuthorizationAsync(Guid mealplanId)
+        {
+            string? currentuserId = userService.GetCurrentUserId();
+
+            if (string.IsNullOrEmpty(currentuserId))
+            {
+                logger.LogError($"Unauthorized attempt of a user to access meal plan data.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
+            }
+
+            if (!GuidHelper.CompareGuidStringWithGuid(currentuserId!, mealplanId))
+            {
+                logger.LogError($"User with id {currentuserId} does not have authorization rights to edit or delete meal plan with id {mealplanId.ToString()}.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateMealPlanFormModelAsync(IMealPlanFormModel model)
         {
             var result = new ValidationResult();
+            
+            if (model is MealPlanEditFormModel editModel)
+            {
+                // RecordNotFounException
+                MealPlan mealplan = await mealPlanService.GetByIdAsync(editModel.Id);               
+                ValidateMealPlanUserAuthorizationAsync(mealplan.Id);                
+            }
 
             if (!model.Meals.Any())
             {
-                AddValidationError(result, nameof(model.Meals), EntityValidationConstants.MealPlanValidation.MealsRequiredErrorMessage);
+                AddValidationError(result, string.Empty, MealPlanValidation.MealsRequiredErrorMessage);
             }
 
-            for (int i = 0; i < model.Meals.Count; i++)
-            {
-                var meal = model.Meals.ElementAt(i);
-                bool recipeIdIsValid = await recipeRepository.ExistsByIdAsync(meal.RecipeId);
-
-                if (!recipeIdIsValid)
-                {
-                    string key = $"Meals[{i}].RecipeId"; // sub-entry
-                    AddValidationError(result, key, EntityValidationConstants.RecipeValidation.InvalidRecipeIdErrorMessage);
-                }
-
-                if (!ValidateMealDates(meal))
-                {
-                    AddValidationError(result, nameof(meal.Date), EntityValidationConstants.MealValidation.DateRangeErrorMessage);
-                }
-            }
-
+            // Validate Meals
+            await ValidateMealsAsync(model.Meals, result);
+            
             return result;
         }
 
         
-       /// <inheritdoc/>       
+        // CATEGORY:
+        /// <inheritdoc/>       
         public async Task<ValidationResult> ValidateCategoryAsync<TCategoryFormModel>(TCategoryFormModel model,
                                                    Func<string, Task<int?>> getCategoryIdByNameFunc,
                                                    Func<int, Task<bool>> categoryExistsByIdFunc = null)
@@ -346,8 +381,11 @@
             return true;
         }
 
+        
+
         // TODO: check!
-        public async Task<bool> ValidateLikeOrUnlikeRecipeAsync(FavouriteRecipeServiceModel model)
+        // LIKES:
+        public async Task<bool> ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
         {
             string userId = model.UserId;
             string recipeId = model.RecipeId;
@@ -382,16 +420,40 @@
         }
 
 
-        /// <inheritdoc/>
-        public Task<bool> ValidateIngredientCanBeDeleted(int id)
-        {
-            return recipeRepository.GetAllQuery()
-                .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
-        }
 
 
 
         // PRIVATE METHODS:
+
+        /// <summary>
+        /// A helper method which validates the meals in a mealplan form model. Takes the mealplan result and processes it or throws an exception
+        /// </summary>
+        /// <param name="meals"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        private async Task ValidateMealsAsync(ICollection<MealAddFormModel> meals, ValidationResult result)
+        {
+
+            for (int i = 0; i < meals.Count; i++)
+            {
+                var meal = meals.ElementAt(i);
+                bool recipeIdIsValid = await recipeRepository.ExistsByIdAsync(meal.RecipeId);
+
+                if (!recipeIdIsValid)
+                {
+                    logger.LogError($"Meal plan model invalid: recipe with id {meal.RecipeId} for meal at index {i} not found.");
+                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+                }
+
+                if (!ValidateMealDates(meal))
+                {
+                    logger.LogError($"Invalid meal date: {meal.Date} for meal with recipeId {meal.RecipeId}");
+                    AddValidationError(result, nameof(meal.Date), MealValidation.DateRangeErrorMessage);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Checks if a meal`s selected date is valid (being present in the select-dates and if can be parsed correctly).

@@ -34,8 +34,7 @@
             public const string UserNotLoggedInExceptionMessage = "You need to be logged in to proceed.";
 
             //MEAL PLAN:
-            public const string MealplanEditAuthorizationExceptionMessage = "You do not have permission to edit this meal plan.";
-            public const string MealplanDeleteAuthorizationMessage = "You do not have permission to delete this meal plan.";
+            public const string MealplanEditAuthorizationExceptionMessage = "You do not have permission to edit/delete this meal plan.";
         }
 
         public static class  RecordNotFoundExceptionMessages
@@ -89,6 +88,8 @@
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 
             public const string MealplanUnsuccessfullyEditedExceptionMessage = "Something went wrong and the mealplan was not edited.";
+
+            public const string MealplanUnsuccessfullyCopiedExceptionMessage = "Mealplan cannot be copied due to missing recipes.";
 
             
             // USER:

@@ -5,35 +5,46 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
-    using Common.Exceptions;
-    using Common.Extensions;
-    using Common.HelperMethods;
+    using CookTheWeek.Common;
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.Extensions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.MealPlan;
-    using Interfaces;
-    using Web.ViewModels.Admin.MealPlanAdmin;
-    using Web.ViewModels.Meal;
-    using Web.ViewModels.MealPlan;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
+    using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Web.ViewModels.MealPlan;
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.ExceptionMessagesConstants;
-    using Microsoft.Extensions.Logging;
+    using CookTheWeek.Web.ViewModels.Interfaces;
+    using System.Runtime.InteropServices;
+    using Microsoft.VisualBasic;
 
     public class MealPlanService : IMealPlanService
     {
         private readonly IMealplanRepository mealplanRepository;
+
         private readonly IMealService mealService;
+        private readonly IValidationService validationService;
+        private readonly IUserService userService;
         private readonly ILogger<MealPlanService> logger;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
+            IValidationService validationService,
+            IUserService userService,
             ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
+            this.validationService = validationService;
             this.mealService = mealService;
+            this.userService = userService;
             this.logger = logger;
         }
 
@@ -74,8 +85,17 @@
         }
 
         /// <inheritdoc/>
-        public async Task<string> AddAsync(string userId, MealPlanAddFormModel model)
+        public async Task<OperationResult<string>> TryAddMealPlanAsync(MealPlanAddFormModel model)
         {
+            var result = await validationService.ValidateMealPlanFormModelAsync(model);
+
+            if (!result.IsValid)
+            {
+                return OperationResult<string>.Failure(result.Errors);
+            }
+
+            string userId = userService.GetCurrentUserId()!;
+
             MealPlan newMealPlan = new MealPlan()
             {
                 Name = model.Name,
@@ -100,21 +120,26 @@
                 throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyAddedExceptionMessage);
             }
 
-            return newMealPlan.Id.ToString();
+            return OperationResult<string>.Success(newMealPlan.Id.ToString());
 
         }
 
         /// <inheritdoc/>
-        public async Task EditAsync(string userId, MealPlanEditFormModel model)
+        public async Task<OperationResult> TryEditMealPlanAsync(MealPlanEditFormModel model)
         {
-            MealPlan mealPlan = await ValidateMealPlanAndAuthorizationAsync(userId, model.Id);
+            var result = await validationService.ValidateMealPlanFormModelAsync(model);
 
-            // Implementing logic for editing a meal plan
-            mealPlan.Name = model.Name;
-            await mealService.DeleteAllByMealPlanIdAsync(model.Id);
-            await mealService.AddAllAsync(model.Meals);
-            await mealplanRepository.UpdateAsync(mealPlan);
-        }
+            if (!result.IsValid)
+            {
+                return OperationResult.Failure(result.Errors);
+            }
+
+            MealPlan mealplan = await GetByIdAsync(model.Id);
+
+            await UpdateMealPlanAsync(model, mealplan);
+
+            return OperationResult.Success();
+        }       
 
         /// <inheritdoc/>
         public async Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId)
@@ -154,12 +179,7 @@
         /// <inheritdoc/>
         public async Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id)
         {
-            MealPlan? mealPlan = await mealplanRepository.GetByIdAsync(id);
-
-            if (mealPlan == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-            }
+            MealPlan mealPlan = await GetByIdAsync(id);
 
             MealPlanDetailsViewModel model = new MealPlanDetailsViewModel()
             {
@@ -187,7 +207,25 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id, string userId)
+        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id)
+        {
+            MealPlan mealplan = await GetByIdAsync(id);
+
+            validationService.ValidateMealPlanUserAuthorizationAsync(mealplan.OwnerId);
+
+            MealPlanEditFormModel model = MapMealPlanToEditModel(mealplan);
+
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await mealplanRepository.GetByIdAsync(id) != null;
+        }
+
+        /// <inheritdoc/>
+        public async Task<MealPlan> GetByIdAsync(string id)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
 
@@ -197,23 +235,7 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
             }
 
-            if (!GuidHelper.CompareGuidStringWithGuid(userId, mealplan.OwnerId))
-            {
-                logger.LogError($"User with id {userId} does not have authorization rights to edit meal plan with id {id}.");
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
-            }
-
-            MealPlanEditFormModel model = MapMealPlanToEditModel(mealplan);
-
-            return model;
-        }
-
-        
-
-        /// <inheritdoc/>
-        public async Task<bool> ExistsByIdAsync(string id)
-        {
-            return await mealplanRepository.GetByIdAsync(id) != null;
+            return mealplan;
         }
 
         /// <inheritdoc/>
@@ -225,21 +247,16 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteById(string id)
+        public async Task TryDeleteByIdAsync(string id)
         {
-            MealPlan? mealPlanToDelete = await mealplanRepository.GetByIdAsync(id);
+            MealPlan mealplanToDelete = await GetByIdAsync(id); //RecordNotFoundException
+            validationService.ValidateMealPlanUserAuthorizationAsync(mealplanToDelete.OwnerId);
 
-            if (mealPlanToDelete != null)
-            {
-                await mealService.DeleteAllByMealPlanIdAsync(id);
-                await mealplanRepository.DeleteByIdAsync(mealPlanToDelete);
-            }
-            else
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-            }
+            await DeleteByIdAsync(mealplanToDelete);
         }
 
+        
+        // TODO: Check if needed as configuration for User is OnDelete.Cascade
         /// <inheritdoc/>
         public async Task DeleteAllByUserIdAsync(string userId)
         {
@@ -284,16 +301,34 @@
             return model;
         }
 
+        /// <inheritdoc/>
+        public async Task<MealPlanAddFormModel> TryCopyMealPlanByIdAsync(string mealPlanId)
+        {
+            MealPlan originalMealPlan = await GetByIdAsync(mealPlanId); // RecordNotFoundException
+            validationService.ValidateMealPlanUserAuthorizationAsync(originalMealPlan.OwnerId); // UnauthorizedUserException
+
+            MealPlanAddFormModel model = MapMealPlanToAddModel(originalMealPlan);
+            var result = await validationService.ValidateMealPlanFormModelAsync(model);
+
+            if (!result.IsValid)
+            {
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyCopiedExceptionMessage);
+            }
+
+            return model;
+        }
+
+        // HELPER METHODS:
+
         /// <summary>
-        /// Receives a MealPlan entity and maps it to a MealPlanEditFormModel for the edit view
+        /// Utility generic common mapping method
         /// </summary>
         /// <param name="mealplan"></param>
-        /// <returns></returns>
-        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealplan)
+        /// <returns>T => An implementation of IMealPlanFormModel</returns>
+        private static T MapMealPlanToFormModel<T>(MealPlan mealplan) where T : IMealPlanFormModel, new()
         {
-            MealPlanEditFormModel model = new MealPlanEditFormModel()
+            var model = new T()
             {
-                Id = mealplan.Id.ToString(),
                 Name = mealplan.Name,
                 StartDate = mealplan.StartDate,
                 Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
@@ -313,30 +348,63 @@
         }
 
         /// <summary>
-        /// Checkes if a meal plan exists in the database by id and if it belongs to a user with a certain id. If not, loggs errors and throws exceptions
+        /// Utility method for mapping the Add Form model (for copy case)
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="mealPlanId"></param>
+        /// <param name="mealPlan"></param>
         /// <returns></returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        /// <exception cref="UnauthorizedUserException"></exception>
-        private async Task<MealPlan> ValidateMealPlanAndAuthorizationAsync(string userId, string mealPlanId)
+        private static MealPlanAddFormModel MapMealPlanToAddModel(MealPlan mealPlan)
         {
-            MealPlan? mealPlan = await mealplanRepository.GetByIdAsync(mealPlanId);
+            var model = MapMealPlanToFormModel<MealPlanAddFormModel>(mealPlan);
 
-            if (mealPlan == null)
+            model.StartDate = DateTime.Today;
+            model.Name = $"{mealPlan.Name} (Copy)";
+
+            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
+
+            foreach (var meal in model.Meals)
             {
-                logger.LogError($"Meal plan with id {mealPlanId} not found.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+                meal.Date = model.StartDate.ToString(MealDateFormat);
             }
 
-            if (!GuidHelper.CompareGuidStringWithGuid(userId, mealPlan.OwnerId))
-            {
-                logger.LogError($"User with id {userId} does not have authorization rights to edit meal plan with id {mealPlanId}.");
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
-            }
+            return model;
+        }
 
-            return mealPlan;
+        /// <summary>
+        /// Utility method for mapping the Edit Form model (for edit case)
+        /// </summary>
+        /// <param name="mealPlan"></param>
+        /// <returns></returns>
+        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealPlan)
+        {
+            var model = MapMealPlanToFormModel<MealPlanEditFormModel>(mealPlan);
+            model.Id = mealPlan.Id.ToString();
+            return model;
+        }
+
+        /// <summary>
+        /// Utility method to update the mealplan according to the edit model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="mealplan"></param>
+        /// <returns></returns>
+        private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
+        {
+            mealplan.Name = model.Name;
+            await mealService.DeleteAllByMealPlanIdAsync(model.Id);
+            await mealService.AddAllAsync(model.Meals);
+            await mealplanRepository.UpdateAsync(mealplan);
+        }
+
+        /// /// <summary>
+        /// Utility metho that deletes a given meal plan, deleting also all its nested meals. If a meal plan does not exists, throws an exception
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task DeleteByIdAsync(MealPlan mealplan)
+        {
+            await mealService.DeleteAllByMealPlanIdAsync(mealplan.Id.ToString()); // TODO: Check if might be useless as Configuration is OnDelete.Cascade
+            await mealplanRepository.DeleteByIdAsync(mealplan);
+
         }
     }
 }

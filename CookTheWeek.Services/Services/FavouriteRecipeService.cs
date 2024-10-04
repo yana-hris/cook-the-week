@@ -1,13 +1,15 @@
 ﻿namespace CookTheWeek.Services.Data.Services
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public class FavouriteRecipeService : IFavouriteRecipeService
     {
@@ -25,7 +27,7 @@
         /// <inheritdoc/>
         public async Task TryToggleLikes(FavouriteRecipeServiceModel model)
         {
-            var result = await validationService.ValidateLikeOrUnlikeRecipeAsync(model);
+            await validationService.ValidateUserLikeForRecipe(model);
 
             string userId = model.UserId;
             string recipeId = model.RecipeId;

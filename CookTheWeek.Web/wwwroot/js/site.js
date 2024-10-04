@@ -251,6 +251,11 @@ function toggleAddRemoveBtn(btn) {
     }          
 }
 
+// Gets the antiforgery token
+function getAntiForgeryToken() {
+    return $('input[name="__RequestVerificationToken"]').val();  
+}
+
 function buildMealPlan(event) {
     event.preventDefault();
     
@@ -268,22 +273,31 @@ function buildMealPlan(event) {
     
     
     $.ajax({
-        url: '/MealPlan/CreateMealPlanModel',
+        url: 'https://localhost:7279/api/mealplan/createModel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(model),        
-        success: function (response, status, xhr) {
-            // Check if a redirect is happening
-            if (xhr.getResponseHeader('X-Redirect') != null) {
-                //eraseUserLocalStorage(); --> local storage should be erased only after the meal plan is created later in the POST Add view
-                window.location.href = xhr.getResponseHeader('X-Redirect');
-            } else {
-                console.log('Success:', response);
-            }
+        success: function (response) {
+            // Send the model to the server to store in session
+            $.ajax({
+                url: '/MealPlan/StoreMealPlanInSession',  // Action to store the model in session
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(response),
+                headers: {
+                    'RequestVerificationToken': getAntiForgeryToken()  // Include anti-forgery token
+                },
+                success: function () {
+                    // Redirect to the Add view after storing the model in session
+                    window.location.href = '/MealPlan/Add';
+                },
+                error: function (response) {
+                    console.log('Meal plan storing in session failed.', response);
+                }
+            });
         },
         error: function (xhr, status, error) {
-            // Handle error
-            console.error('Post to CreateMealPlanModel Failed!');
+            console.error('Error building the meal plan:', error);
         }
     });
 }

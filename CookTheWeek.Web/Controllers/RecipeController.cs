@@ -293,16 +293,7 @@
 
         // PRIVATE HELPER METHODS:
 
-        /// <summary>
-        /// Helper method for setting up ViewData and ViewBag values
-        /// </summary>
-        /// <param name="title">The View Title</param>
-        /// <param name="returnUrl">The ReturnUrl</param>
-        private void SetViewData(string title, string returnUrl)
-        {
-            ViewData["Title"] = title;
-            ViewBag.ReturnUrl = returnUrl;
-        }
+        
 
         /// <summary>
         /// Helper method for the case when model errors have to be shown to the user in Add view

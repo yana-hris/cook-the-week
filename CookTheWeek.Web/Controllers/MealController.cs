@@ -29,7 +29,6 @@
             }
             catch (RecordNotFoundException ex)
             {
-                logger.LogError($"Meal with id {id} does not exist in the DB. Exceprion StackTrace: {ex.StackTrace}");
                 return RedirectToAction("NotFound", "Home", new {message = ex.Message, code =  ex.ErrorCode});
             }    
             catch(Exception ex)

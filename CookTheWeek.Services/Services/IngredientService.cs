@@ -189,7 +189,7 @@
         {
             Ingredient ingredient = await GetByIdAsync(id);
 
-            bool validationResult = await validationService.ValidateIngredientCanBeDeleted(id);
+            bool validationResult = await validationService.CanIngredientBeDeleted(id);
 
             if (validationResult)
             {

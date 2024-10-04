@@ -3,7 +3,6 @@
 @using static CookTheWeek.Common.Extensions.NumberExtensions
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
-    ViewData["Title"] = "Add Meal Plan";
     int initialCount = Model.Meals.Count;
     int? userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());
 
@@ -24,6 +23,7 @@
     <partial name="_HeadingPartial" model="headingModel" />
     <partial name="_BackBtnPartial" />
     <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
+        <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
         <div class="row">
             <div class="col-12">
                 <p class="mb-2">To reuse your meal plan in the future, give it a distinctive name:</p>
