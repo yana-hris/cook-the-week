@@ -32,17 +32,20 @@
         private readonly IValidationService validationService;
         private readonly IUserService userService;
         private readonly ILogger<MealPlanService> logger;
+        private readonly string? userId;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
             IValidationService validationService,
             IUserService userService,
+            IUserContext userContext,
             ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
             this.validationService = validationService;
             this.mealService = mealService;
             this.userService = userService;
+            this.userId = userContext.UserId ?? String.Empty;
             this.logger = logger;
         }
 
@@ -92,8 +95,7 @@
                 return OperationResult<string>.Failure(result.Errors);
             }
 
-            string userId = userService.GetCurrentUserId()!;
-
+            
             MealPlan newMealPlan = new MealPlan()
             {
                 Name = model.Name,
@@ -140,7 +142,7 @@
         }       
 
         /// <inheritdoc/>
-        public async Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId)
+        public async Task<ICollection<MealPlanAllViewModel>> MineAsync()
         {
             var userMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => mp.OwnerId.ToString() == userId)
@@ -167,7 +169,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> MineCountAsync(string userId)
+        public async Task<int?> MineCountAsync()
         {
             return await mealplanRepository.GetAllQuery()
                 .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))

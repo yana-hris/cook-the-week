@@ -10,19 +10,27 @@
 
     public interface IUserService
     {
-        Task<ICollection<UserAllViewModel>> AllAsync();
-        Task<int?> AllCountAsync();
-        Task<UserProfileViewModel> GetDetailsModelByIdAsync(string userId);
-        Task<IdentityResult> ChangePasswordAsync(string userId, ChangePasswordFormModel model);
-        Task<IdentityResult> SetPasswordAsync(string userId, SetPasswordFormModel model);
-        
         /// <summary>
-        /// Gets the currently logged in user and returns his/her id
+        /// Gets All users View Model collection
         /// </summary>
-        /// <returns>string or null</returns>
-        string? GetCurrentUserId();
+        /// <returns>ICollection<UserAllViewModel></returns>
+        Task<ICollection<UserAllViewModel>> AllAsync();
 
+        /// <summary>
+        /// Gets the total count of all users
+        /// </summary>
+        /// <returns>int or 0</returns>
+        Task<int?> AllCountAsync();
 
+        /// <summary>
+        /// Gets the currently logged in user details or throws an exception
+        /// </summary>
+        /// <returns>UserProfileViewModel</returns>
+        /// <exception cref="RecordNotFoundException"></remarks>
+        Task<UserProfileViewModel> GetUserProfileDetailsAsync();
+        Task<IdentityResult> ChangePasswordAsync(ChangePasswordFormModel model);
+        Task<IdentityResult> SetPasswordAsync(SetPasswordFormModel model);
+        
         /// <summary>
         /// Takes a RegisterFormModel and tries to create an ApplicationUser in the database. If creation is successful, proceeds to generating a Token for Email confirmation. If token generation is successful, sends an email to the user with the confirmation link.
         /// Logs errors and catches exceptions on the way. In case of failure, returns a dictionary with Errors.
@@ -36,10 +44,9 @@
         /// If token or user are null, a Failure result is returned.
         /// Does not throw any exceptions, catches RecordNotFound and ArgumentNullExceptions from previous methods.
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="code"></param>
         /// <returns>The Operation Result (Success or Failure)</returns>
-        Task<OperationResult> TyrConfirmEmailAsync(string userId, string code);
+        Task<OperationResult> TyrConfirmEmailAsync(string code);
 
         /// <summary>
         /// Attempts to log the user in with a given password and handles the cases when the user is locked out
@@ -62,13 +69,11 @@
         Task TryLogOutUserAsync();
 
         /// <summary>
-        /// Attempts to send a password reset email to the specified user. 
-        /// If the user exists and their email is confirmed, a reset token is generated, 
-        /// and an email is sent with the reset link.
+        /// Attempts to generate a password reset token for a given user by email.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<OperationResult> TrySendPasswordResetEmailAsync(ForgotPasswordFormModel model);
+        Task<OperationResult> TryGetPasswordResetTokenAsync(string email);
 
         /// <summary>
         /// Tries to reset the user`s password after validating his existence and token with the database.
@@ -85,13 +90,12 @@
         /// OperationResult indicating success; otherwise, it returns the appropriate 
         /// errors, such as incorrect current password or user not found.
         /// </summary>
-        /// <param name="userId">The ID of the user whose password is being changed.</param>
         /// <param name="model">The model containing the current and new passwords.</param>
         /// <returns>
         /// An OperationResult indicating whether the password change was successful, 
         /// along with any errors encountered during the process.
         /// </returns>
-        Task<OperationResult> TryChangePasswordAsync(string userId, ChangePasswordFormModel model);
+        Task<OperationResult> TryChangePasswordAsync(ChangePasswordFormModel model);
 
         /// <summary>
         /// Attempts to set a new password for the specified user.
@@ -101,14 +105,13 @@
         /// OperationResult indicating success. If the user is not found or the operation 
         /// fails, it returns an OperationResult with the appropriate errors.
         /// </summary>
-        /// <param name="userId">The ID of the user whose password is being set.</param>
         /// <param name="model">The model containing the new password to be set.</param>
         /// <returns>
         /// An OperationResult indicating whether the password setting was successful, 
         /// along with any errors encountered during the process.
         /// </returns>
 
-        Task<OperationResult> TrySetPasswordAsync(string userId, SetPasswordFormModel model);
+        Task<OperationResult> TrySetPasswordAsync(SetPasswordFormModel model);
 
         /// <summary>
         /// Tries to delete the account of the user and all relevant user data (recipes, mealplans, etc.).
@@ -116,5 +119,30 @@
         /// <returns>The Result of the Operation</returns>
         Task<OperationResult> TryDeleteUserAccountAsync();
         AuthenticationProperties? GetExternalLoginProperties(string schemeProvider, string? redirectUrl);
+        
+        /// <summary>
+        /// Sends a confirmation email to the given email and includes the given callback url or throws an exception if email sending fails
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="callbackUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        Task SendConfirmationEmailAsync(string email, string? callbackUrl);
+
+        /// <summary>
+        /// Deletes a user upon accepting user id. If the user does not exist, does nothing.
+        /// </summary>
+        /// <param name="user">The user ID</param>
+        /// <returns></returns>
+        Task DeleteUserByIdIfExistsAsync(string userId);
+        
+        /// <summary>
+        /// Sends the given email a password reset token (link) or throws an exception
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="callbackUrl"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        Task SendPasswordResetEmailAsync(string email, string? callbackUrl);
     }
 }

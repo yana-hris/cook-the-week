@@ -3,6 +3,8 @@
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Http;
+
+    using CookTheWeek.Services.Data.Services.Interfaces;
     public class UserContextMiddleware
     {
         private readonly RequestDelegate _next;

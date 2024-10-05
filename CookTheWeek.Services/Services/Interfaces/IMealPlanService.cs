@@ -48,14 +48,14 @@
         /// <param name="userId"></param>
         /// <returns>A collection of MealPlanAllViewModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<ICollection<MealPlanAllViewModel>> MineAsync(string userId);
+        Task<ICollection<MealPlanAllViewModel>> MineAsync();
 
         /// <summary>
         /// Returns the total amount of all user`s mealplans or 0 (not null)
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>int (default = 0)</returns>
-        Task<int?> MineCountAsync(string userId);
+        Task<int?> MineCountAsync();
 
         /// <summary>
         /// Returns a single meal plan for Details View or throws an exception if the mealplan is not found

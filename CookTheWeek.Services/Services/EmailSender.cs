@@ -29,13 +29,21 @@
         
 
         /// <inheritdoc/>
-        public async Task<OperationResult> SendEmailConfirmationAsync(string email, string callBackUrl)
+        public async Task<OperationResult> SendEmailConfirmationAsync(string email, string? callbackUrl)
         {
+            if (string.IsNullOrEmpty(callbackUrl))
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "CallbackUrlError", "Empty callbackurl." }
+                });
+            }
+
             var result = await SendEmailAsync(
                 email,
                 "Confirm your email with CookTheWeek",
-                $"Please confirm your account by clicking this link: {callBackUrl}",
-                $"Please confirm your account by clicking this link: <a href='{callBackUrl}'>link</a>");
+                $"Please confirm your account by clicking this link: {callbackUrl}",
+                $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
 
             if (result.Succeeded)
             {
@@ -52,8 +60,16 @@
         }
 
         /// <inheritdoc/>
-        public async Task<OperationResult> SendPasswordResetEmailAsync(string email, string callbackUrl, string tokenExpirationTime)
+        public async Task<OperationResult> SendPasswordResetEmailAsync(string email, string? callbackUrl, string tokenExpirationTime)
         {
+            if (string.IsNullOrEmpty(callbackUrl))
+            {
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "CallbackUrlError", "Empty callbackurl." }
+                });
+            }
+
             var result = await SendEmailAsync(
                 email,
                 "Reset Password",

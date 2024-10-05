@@ -60,13 +60,6 @@
         Task<bool> CategoryExistsByNameAsync(string name);
 
         /// <summary>
-        /// Gets the category id by its name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>int or null</returns>
-        Task<int?> GetCategoryIdByNameAsync(string name);
-
-        /// <summary>
         /// Gets all category names as a list
         /// </summary>
         /// <returns>A collection of all category names</returns>

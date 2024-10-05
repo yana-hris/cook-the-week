@@ -49,7 +49,7 @@
            
             ValidationResult result = await validationService.ValidateCategoryAsync(
                                                model,
-                                               name => GetCategoryIdByNameAsync(name));
+                                               categoryRepository);
 
             if (!result.IsValid)
             {
@@ -111,11 +111,11 @@
         /// <inheritdoc/>      
         public async Task TryDeleteCategoryAsync(int id)
         {            
-            bool canBeDeleted = await validationService.CanCategoryBeDeletedAsync(id,
-                        async (id) => await categoryRepository.GetByIdAsync(id),
-                        async (id) => await recipeService.HasAnyWithCategory(id));
+            await validationService
+                .CanCategoryBeDeletedAsync<RecipeCategory, Recipe>
+                (id,
+                 categoryRepository);
 
-           
             await categoryRepository.DeleteByIdAsync(id);
         }
 
@@ -124,8 +124,7 @@
         {
             ValidationResult result = await validationService.ValidateCategoryAsync(
                                                model,
-                                               name => GetCategoryIdByNameAsync(name),
-                                               id => CategoryExistsByIdAsync(id));
+                                               categoryRepository);
 
             if (!result.IsValid)
             {

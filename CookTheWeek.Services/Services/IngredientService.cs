@@ -172,11 +172,6 @@
             return await ingredientRepository.ExistsByIdAsync(id);
         }
 
-        /// <inheritdoc/>
-        public async Task<bool> ExistsByNameAsync(string name)
-        {
-            return await ingredientRepository.ExistsByNameAsync(name);
-        }
         
         /// <inheritdoc/>
         public async Task<int?> AllCountAsync()
@@ -221,23 +216,6 @@
         {
             return await ingredientRepository.GetAllQuery()
                 .AnyAsync(i => i.CategoryId == id);
-        }
-
-        /// <inheritdoc/>
-        public async Task<int> GetIdByNameAsync(string name)
-        {
-            var id = await ingredientRepository.GetAllQuery()
-                .Where(i => i.Name.ToLower() == name.ToLower())
-                .Select(i => i.Id)
-                .FirstOrDefaultAsync();
-
-            if (id == default)
-            {
-                logger.LogError($"Record not found: Ingredient with ID: {id} was not found.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.IngredientNotFoundExceptionMessage, null);
-            }
-
-            return id;
         }
     }
 }

@@ -42,7 +42,7 @@
         {
             ValidationResult result = await validationService.ValidateCategoryAsync(
                                                 model,
-                                                name => GetCategoryIdByNameAsync(name));
+                                                categoryRepository);
 
             if (!result.IsValid)
             {
@@ -74,9 +74,8 @@
         /// <inheritdoc/>      
         public async Task TryDeleteCategoryAsync(int id)
         {
-            bool canBeDeleted = await validationService.CanCategoryBeDeletedAsync(id,
-                async (id) => await categoryRepository.GetByIdAsync(id),
-                async (id) => await ingredientService.HasAnyWithCategory(id));
+            await validationService.CanCategoryBeDeletedAsync<IngredientCategory, Ingredient>(id,
+                categoryRepository);
 
             await categoryRepository.DeleteByIdAsync(id);
         }
@@ -86,8 +85,7 @@
         {
             ValidationResult result = await validationService.ValidateCategoryAsync(
                                                model,
-                                               name => GetCategoryIdByNameAsync(name),
-                                               id => CategoryExistsByIdAsync(id));
+                                               categoryRepository);
 
             if (!result.IsValid)
             {
@@ -131,14 +129,6 @@
             return names;
         }
        
-        /// <inheritdoc/>      
-        public async Task<int?> GetCategoryIdByNameAsync(string name)
-        {
-            return await this.categoryRepository.GetAllQuery()
-                .Where(c => c.Name.ToLower() == name.ToLower())
-                .Select(c => c.Id)
-                .FirstOrDefaultAsync();
-        }
 
         /// <inheritdoc/>      
         public async Task<IngredientCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id)

@@ -1,7 +1,6 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
-    using System.Security.Claims;
-
+    
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -10,8 +9,6 @@
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.User;
@@ -24,7 +21,6 @@
     {
         
         private readonly IUserService userService;
-
         private readonly IValidationService validationService;
 
         private readonly IMemoryCache memoryCache;
@@ -62,23 +58,42 @@
             if (!validationResult.IsValid)
             {
                 AddCustomValidationErrorsToModelState(validationResult.Errors);
+                return View(model);
             }
+
+            string newUserId = string.Empty;
 
             try
             {
                 var result = await userService.TryRegisterUserAsync(model);
 
-                if (result.Succeeded)
+                if (result.Succeeded && result.Data.Count == 2)
                 {
+                    newUserId = result.Data["userId"].ToString()!;
+                    string token = result.Data["code"].ToString()!;
+                    
+                    string? callbackUrl = Url.Action(
+                        "ConfirmedEmail", "User",
+                        new { userId = newUserId, code = token },
+                        Request.Scheme);
+
+                    
+                    await userService.SendConfirmationEmailAsync(model.Email, callbackUrl);
                     return RedirectToAction("EmailConfirmationInfo", "User", new { email = model.Email });
                 }
-                
-                return RedirectToAction("ConfirmationFailed");
+            }
+            catch (InvalidOperationException)
+            {
+                TempData[ErrorMessage] = "Sending Confirmation Email failed!";
             }
             catch (Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                await userService.DeleteUserByIdIfExistsAsync(newUserId);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(Register));
             }
+
+            await userService.DeleteUserByIdIfExistsAsync(newUserId);
+            return RedirectToAction("ConfirmationFailed");
         }
         
         [HttpGet]
@@ -89,11 +104,11 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmedEmail(string userId, string code)
+        public async Task<IActionResult> ConfirmedEmail(string code)
         {
             try
             {
-                OperationResult result = await userService.TyrConfirmEmailAsync(userId, code);
+                OperationResult result = await userService.TyrConfirmEmailAsync(code);
 
                 if (!result.Succeeded)
                 {
@@ -109,7 +124,7 @@
             }
             catch(Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(ConfirmedEmail));
             }
         }
 
@@ -161,7 +176,7 @@
             }
             catch (Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(Login));
             }
 
         }
@@ -206,7 +221,7 @@
             }
             catch (Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(ExternalLoginCallback));
             }
 
         }
@@ -224,18 +239,28 @@
             try
             {
                 await userService.TryLogOutUserAsync();
+               
+                if (HttpContext != null)
+                {
+                    // Delete the IsOnline cookie from memoryCache 
+                    this.memoryCache.Remove(UsersCacheKey);
 
-                // Delete IsOnline cookie from memoryCache 
-                this.memoryCache.Remove(UsersCacheKey);
-
+                    // Delete the CookieConsentName cookie from the HttpContext
+                    HttpContext.Response.Cookies.Delete(CookieConsentName);
+                }
+                else
+                {
+                    logger.LogWarning("HttpContext is null while attempting to log out.");
+                }
+                
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(Logout));
             }
-            
         }
+
 
         [HttpGet]
         [Authorize]
@@ -245,12 +270,11 @@
 
             try
             {
-                UserProfileViewModel model = await this.userService.GetDetailsModelByIdAsync(userId);
+                UserProfileViewModel model = await this.userService.GetUserProfileDetailsAsync();
                 return View(model);
             }
             catch (RecordNotFoundException ex)
             {
-                logger.LogError($"User with id {userId} does not exist in the database. Error message: {ex.Message}, Error StackTrace: {ex.StackTrace}");
                 return RedirectToAction("NotFound", "Home", new {message = ex.Message, code=ex.ErrorCode});
             }
         }
@@ -272,19 +296,42 @@
 
             try
             {
-                var result = await userService.TrySendPasswordResetEmailAsync(model);
+                // Step 1: Call the service to find the user and generate the token
+                var result = await userService.TryGetPasswordResetTokenAsync(model.Email);
+
                 if (!result.Succeeded)
                 {
-                    logger.LogError($"Sending email for password reset failed. Errors: {result.Errors}");
+                    // If result indicates a failure, log the error
+                    logger.LogError($"Password reset token generation failed. Errors: {result.Errors}");
                 }
-                return RedirectToAction("ForgotPasswordConfirmation");
+                else
+                {
+                    if (result.Data.Count > 0 && !string.IsNullOrEmpty(result.Data["token"].ToString())) // send email only if there is a token
+                    {
+                        // Step 2: Construct the password reset URL using the token from the result
+                        var callbackUrl = Url.Action(
+                            "ResetPassword",
+                            "User",
+                            new { email = model.Email, code = result.Data["token"].ToString() },
+                            Request.Scheme);
+
+                        // Step 3: Send the password reset email via the service
+                        await userService.SendPasswordResetEmailAsync(model.Email, callbackUrl);
+                    }
+
+                    // Redirect to confirmation view in all Success scenarios
+                    return RedirectToAction("ForgotPasswordConfirmation");
+                }
             }
             catch (Exception ex)
             {
-                logger.LogError($"Error during registration: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
-                return RedirectToAction("ForgotPasswordConfirmation");
+                // Log any unexpected errors
+                logger.LogError($"Error during password reset: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
             }
+
+            return RedirectToAction("ForgotPasswordConfirmation");
         }
+
 
         [HttpGet]
         public IActionResult ForgotPasswordConfirmation()
@@ -351,14 +398,12 @@
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)
         {
-            string userId = User.GetId();
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             
-            var result = await userService.TryChangePasswordAsync(userId, model);
+            var result = await userService.TryChangePasswordAsync(model);
 
             if (result.Succeeded)
             {
@@ -397,14 +442,12 @@
         [Authorize]
         public async Task<IActionResult> SetPassword(SetPasswordFormModel model)
         {
-            string userId = User.GetId();
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var result = await userService.TrySetPasswordAsync(userId, model);
+            var result = await userService.TrySetPasswordAsync(model);
 
             if (result.Succeeded)
             {
@@ -463,7 +506,7 @@
             }
             catch (Exception ex)
             {
-                return LogExceptionAndRedirectToInternalServerError(ex);
+                return LogExceptionAndRedirectToInternalServerError(ex, nameof(DeleteAccount));
                 
             }
 
@@ -480,9 +523,9 @@
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        private IActionResult LogExceptionAndRedirectToInternalServerError(Exception ex)
+        private IActionResult LogExceptionAndRedirectToInternalServerError(Exception ex, string actionName)
         {
-            logger.LogError($"Error during registration: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
+            logger.LogError($"Error in User Action: {actionName}. Error message: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
 
             // Redirect to the internal server error page with the exception message
             return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });

@@ -18,7 +18,7 @@
         /// <param name="email"></param>
         /// <param name="callBackUrl">The Url, sent to the user</param>
         /// <returns></returns>
-        Task<OperationResult> SendEmailConfirmationAsync(string email, string callBackUrl);
+        Task<OperationResult> SendEmailConfirmationAsync(string email, string? callBackUrl);
 
         /// <summary>
         /// Sends an email with a confirmation token to a given email for password reset

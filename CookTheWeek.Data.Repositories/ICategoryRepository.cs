@@ -46,5 +46,20 @@ namespace CookTheWeek.Data.Repositories
         /// <param name="id"></param>
         /// <returns>true or false</returns>
         Task<bool> ExistsByIdAsync(int id);
+
+        /// <summary>
+        /// Gets the category id by its name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>int or null</returns>
+        Task<int?> GetIdByNameAsync(string name);
+
+        /// <summary>
+        /// Checks if any of the TDependecy entity table has a foreign key categoryId. If true => there are existing dependecies
+        /// </summary>
+        /// <typeparam name="TDependency"></typeparam>
+        /// <param name="categoryId"></param>
+        /// <returns>true or false</returns>
+        Task<bool> HasDependenciesAsync<TDependency>(int categoryId) where TDependency : class;
     }
 }

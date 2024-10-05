@@ -35,8 +35,9 @@
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
         private readonly ICategoryRepository<RecipeCategory> recipeCategoryRepository;
         private readonly ICategoryRepository<IngredientCategory> ingredientCategoryRepository;
-
         private readonly ILogger<ValidationService> logger;
+
+        private readonly string? userId;
 
         public ValidationService(
             IRecipeRepository recipeRepository,
@@ -46,6 +47,7 @@
             IRecipeIngredientRepository recipeIngredientRepository,
             ICategoryRepository<RecipeCategory> recipeCategoryRepository,
             ICategoryRepository<IngredientCategory> ingredientCategoryRepository,
+            IUserContext userContext,
             ILogger<ValidationService> logger)
         {
             this.recipeRepository = recipeRepository;
@@ -56,9 +58,8 @@
             this.recipeCategoryRepository = recipeCategoryRepository;
             this.ingredientCategoryRepository = ingredientCategoryRepository;
             this.logger = logger;
+            this.userId = userContext.UserId ?? string.Empty;
         }
-
-
 
         // RECIPE:              
        
@@ -67,20 +68,20 @@
         {
             var result = new ValidationResult();
 
-            bool categoryExists = await recipeCategoryService.CategoryExistsByIdAsync(model.RecipeCategoryId!.Value);
+            bool categoryExists = await recipeCategoryRepository.ExistsByIdAsync(model.RecipeCategoryId!.Value);
             if (!categoryExists)
             {
-                AddValidationError(result, nameof(model.RecipeCategoryId), EntityValidationConstants.RecipeValidation.RecipeCategoryIdInvalidErrorMessage);
+                AddValidationError(result, nameof(model.RecipeCategoryId), RecipeValidation.RecipeCategoryIdInvalidErrorMessage);
             }
 
             if (!model.RecipeIngredients.Any())
             {
-                AddValidationError(result, nameof(model.RecipeIngredients), EntityValidationConstants.RecipeValidation.IngredientsRequiredErrorMessage);
+                AddValidationError(result, nameof(model.RecipeIngredients), RecipeValidation.IngredientsRequiredErrorMessage);
             }
 
             if (!model.Steps.Any())
             {
-                AddValidationError(result, nameof(model.Steps), EntityValidationConstants.RecipeValidation.StepsRequiredErrorMessage);
+                AddValidationError(result, nameof(model.Steps), RecipeValidation.StepsRequiredErrorMessage);
             }
 
             foreach (var ingredient in model.RecipeIngredients)
@@ -95,7 +96,7 @@
                     AddValidationError(result, nameof(ingredient.Name), RecipeIngredientValidation.RecipeIngredientInvalidErrorMessage);
                 }
 
-                bool measureExists = await recipeIngredientService.IngredientMeasureExistsAsync(ingredient.MeasureId!.Value);
+                bool measureExists = await recipeIngredientRepository.MeasureExistsByIdAsync(ingredient.MeasureId!.Value);
 
                 if (!measureExists)
                 {
@@ -104,7 +105,7 @@
 
                 if (ingredient.SpecificationId != null && ingredient.SpecificationId.HasValue)
                 {
-                    bool specificationExists = await recipeIngredientService.IngredientSpecificationExistsAsync(ingredient.SpecificationId.Value);
+                    bool specificationExists = await recipeIngredientRepository.SpecificationExistsByIdAsync(ingredient.SpecificationId.Value);
                     if (!specificationExists)
                     {
                         AddValidationError(result, nameof(ingredient.SpecificationId), RecipeIngredientValidation.SpecificationRangeErrorMessage);
@@ -124,7 +125,7 @@
         {
             var result = new ValidationResult();
 
-            bool categoryExists = await ingredientCategoryService.CategoryExistsByIdAsync(model.CategoryId);
+            bool categoryExists = await ingredientCategoryRepository.ExistsByIdAsync(model.CategoryId);
 
             if (!categoryExists)
             {
@@ -132,11 +133,14 @@
             }
 
             // Check if an ingredient with the same name already exists
-            bool existingByName = await ingredientService.ExistsByNameAsync(model.Name);
+            bool existingByName = await ingredientRepository.ExistsByNameAsync(model.Name);
 
             if (existingByName)
             {
-                int existingIngredientId = await ingredientService.GetIdByNameAsync(model.Name);
+                int existingIngredientId = await ingredientRepository.GetAllQuery()
+                        .Where(i => i.Name.ToLower() == model.Name.ToLower())
+                        .Select(i => i.Id)
+                        .FirstAsync();
 
                 if (model is IIngredientEditFormModel editModel)
                 {
@@ -176,17 +180,17 @@
 
             if (userWithEmailExists != null || userWithUserNameExists != null)
             {
-                AddValidationError(result, string.Empty, EntityValidationConstants.ApplicationUserValidation.AlreadyHaveAccountErrorMessage);
+                AddValidationError(result, string.Empty, ApplicationUserValidation.AlreadyHaveAccountErrorMessage);
             }
 
             if (userWithUserNameExists != null)
             {
-                AddValidationError(result, nameof(model.Username), EntityValidationConstants.ApplicationUserValidation.UsernameAlreadyExistsErrorMessage);
+                AddValidationError(result, nameof(model.Username), ApplicationUserValidation.UsernameAlreadyExistsErrorMessage);
             }
 
             if (userWithEmailExists != null)
             {
-                AddValidationError(result, nameof(model.Email), EntityValidationConstants.ApplicationUserValidation.EmailAlreadyExistsErrorMessage);
+                AddValidationError(result, nameof(model.Email), ApplicationUserValidation.EmailAlreadyExistsErrorMessage);
             }
 
             return result;
@@ -201,22 +205,21 @@
         {
             var result = new ValidationResult();
 
-            string userId = serviceModel.UserId;
-            var user = await userRepository.ExistsByIdAsync(userId);
+            string serviceUserId = serviceModel.UserId;
+            var user = await userRepository.ExistsByIdAsync(serviceUserId);
 
             // Validate userId exists in the database;
             if (!user)
             {
-                logger.LogError($"Creating MealPlan model failed. User with id {userId} does not exist.");
+                logger.LogError($"Creating MealPlan model failed. User with id {serviceUserId} does not exist.");
                 AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.UserNotFoundErrorMessage);
             }
 
             // Validate the currently logged in user is the same
-            string? currentUserId = userService.GetCurrentUserId();
-
-            if (!string.IsNullOrEmpty(currentUserId) && userId.ToLower() != currentUserId.ToLower())
+            
+            if (!string.IsNullOrEmpty(userId) && serviceUserId.ToLower() != userId.ToLower())
             {
-                logger.LogError($"$Unauthorized attempt to create mealplan. User Id from Service Model {user} is different form currenly logged in user: {currentUserId}.");
+                logger.LogError($"$Unauthorized attempt to create mealplan. User Id from Service Model {serviceUserId} is different form currenly logged in user: {userId}.");
                 AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.InvalidUserIdErrorMessage);
             }
 
@@ -241,17 +244,15 @@
         /// <inheritdoc/>
         public void ValidateMealPlanUserAuthorizationAsync(Guid mealplanId)
         {
-            string? currentuserId = userService.GetCurrentUserId();
-
-            if (string.IsNullOrEmpty(currentuserId))
+            if (string.IsNullOrEmpty(userId))
             {
                 logger.LogError($"Unauthorized attempt of a user to access meal plan data.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            if (!GuidHelper.CompareGuidStringWithGuid(currentuserId!, mealplanId))
+            if (!GuidHelper.CompareGuidStringWithGuid(userId!, mealplanId))
             {
-                logger.LogError($"User with id {currentuserId} does not have authorization rights to edit or delete meal plan with id {mealplanId.ToString()}.");
+                logger.LogError($"User with id {userId} does not have authorization rights to edit or delete meal plan with id {mealplanId.ToString()}.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
             }
         }
@@ -264,7 +265,12 @@
             if (model is MealPlanEditFormModel editModel)
             {
                 // RecordNotFounException
-                MealPlan mealplan = await mealPlanService.GetByIdAsync(editModel.Id);               
+                MealPlan? mealplan = await mealplanReposiroty.GetByIdAsync(editModel.Id);    
+                
+                if (mealplan == null)
+                {
+                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+                }
                 ValidateMealPlanUserAuthorizationAsync(mealplan.Id);                
             }
 
@@ -282,17 +288,17 @@
         
         // CATEGORY:
         /// <inheritdoc/>       
-        public async Task<ValidationResult> ValidateCategoryAsync<TCategoryFormModel>(TCategoryFormModel model,
-                                                   Func<string, Task<int?>> getCategoryIdByNameFunc,
-                                                   Func<int, Task<bool>> categoryExistsByIdFunc = null)
-                           where TCategoryFormModel : ICategoryFormModel
+        public async Task<ValidationResult> ValidateCategoryAsync<TCategory, TCategoryFormModel>(TCategoryFormModel model,
+                                                   ICategoryRepository<TCategory> categoryRepository)
+            where TCategory : class, ICategory, new()
+            where TCategoryFormModel : ICategoryFormModel
         {
             var result = new ValidationResult();
 
             // Editing scenario
-            if (model is ICategoryEditFormModel editModel && categoryExistsByIdFunc != null)
+            if (model is ICategoryEditFormModel editModel)
             {
-                bool categoryExists = await categoryExistsByIdFunc(editModel.Id); // check if exists
+                bool categoryExists = await categoryRepository.ExistsByIdAsync(editModel.Id); 
 
                 if (!categoryExists)
                 {
@@ -301,7 +307,7 @@
                 }
 
                 // Check if the category name exists in another category
-                int? existingCategoryId = await getCategoryIdByNameFunc(editModel.Name);
+                int? existingCategoryId = await categoryRepository.GetIdByNameAsync(editModel.Name);
 
                 // If a category with the same name exists but it is not the current one being edited
                 if (existingCategoryId.HasValue && existingCategoryId.Value != editModel.Id)
@@ -312,7 +318,7 @@
             else
             {
                 // Adding scenario: Check if a category with the same name already exists
-                int? existingCategoryId = await getCategoryIdByNameFunc(model.Name);
+                int? existingCategoryId = await categoryRepository.GetIdByNameAsync(model.Name);
                 if (existingCategoryId.HasValue)
                 {
                     AddValidationError(result, nameof(model.Name), CategoryValidation.CategoryExistsErrorMessage);
@@ -323,40 +329,41 @@
         }
 
         /// <inheritdoc/>
-        public async Task<bool> CanCategoryBeDeletedAsync<TCategory>(int categoryId, 
-                                                            Func<int, Task<TCategory?>> getCategoryByIdFunc,
-                                                            Func<int, Task<bool>> hasDependenciesFunc)
-            where TCategory : ICategory
+        public async Task<bool> CanCategoryBeDeletedAsync<TCategory, TDependency>(
+        int categoryId,
+        ICategoryRepository<TCategory> categoryRepository)
+        where TCategory : class, ICategory, new()
+        where TDependency : class
         {
-            var category = await getCategoryByIdFunc(categoryId);
-            
+            // Step 1: Check if the category exists
+            var category = await categoryRepository.GetByIdAsync(categoryId);
             if (category == null)
             {
-                logger.LogError($"Record not found: A category with if {categoryId} was not found.");
+                logger.LogError($"Category of type {typeof(TCategory).Name} with ID {categoryId} not found.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
             }
 
-            // Check if the category has dependencies (e.g., recipes, ingredients)
-            bool hasDependencies = await hasDependenciesFunc(category.Id);
+            // Step 2: Check if the category has dependencies using the generic HasDependenciesAsync method
+            bool hasDependencies = await categoryRepository.HasDependenciesAsync<TDependency>(categoryId);
 
             if (hasDependencies)
             {
-                logger.LogError($"Category with id {categoryId} has dependencies and cannot be deleted.");
-                throw new InvalidOperationException(InvalidOperationExceptionMessages.CategoryCannoBeDeletedExceptionMessage);
+                logger.LogError($"Category of type {typeof(TCategory).Name} with ID {categoryId} has dependencies and cannot be deleted.");
+                throw new InvalidOperationException($"Category of type {typeof(TCategory).Name} cannot be deleted because it has dependencies.");
             }
 
-            return true;
+            return true;  // Category can be deleted
         }
+    
 
-        
 
-        // TODO: check!
-        // LIKES:
-        public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
+
+    // TODO: check!
+    // LIKES:
+    public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
         {
-            string userId = model.UserId;
+            string serviceUserId = model.UserId;
             string recipeId = model.RecipeId;
-            string? currentUserId = userService.GetCurrentUserId();
 
             // Validate if recipeId is provided
             if (string.IsNullOrEmpty(recipeId))
@@ -374,9 +381,9 @@
             }
 
             // Validate user authorization
-            if (!string.IsNullOrEmpty(currentUserId) &&
-                !string.IsNullOrEmpty(userId) &&
-                !GuidHelper.CompareTwoGuidStrings(currentUserId, userId))
+            if (!string.IsNullOrEmpty(userId) &&
+                !string.IsNullOrEmpty(serviceUserId) &&
+                !GuidHelper.CompareTwoGuidStrings(userId, serviceUserId))
             {
                 logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);

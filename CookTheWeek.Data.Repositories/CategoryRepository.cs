@@ -7,7 +7,7 @@
 
     using CookTheWeek.Data.Models.Interfaces;
 
-    public class CategoryRepository<TCategory> : ICategoryRepository<TCategory> 
+    public class CategoryRepository<TCategory> : ICategoryRepository<TCategory>
         where TCategory : class, ICategory, new()
     {
         private readonly CookTheWeekDbContext dbContext;
@@ -59,6 +59,25 @@
         public async Task<bool> ExistsByIdAsync(int id)
         {
             return await dbContext.Set<TCategory>().AnyAsync(e => e.Id == id);
+        }
+
+        /// <inheritdoc/> 
+        public async Task<bool> HasDependenciesAsync<TDependency>(int categoryId) 
+            where TDependency : class
+        {
+            return await dbContext
+                .Set<TDependency>()
+                .AnyAsync(d => EF.Property<int>(d, "CategoryId") == categoryId);
+        }
+
+        /// <inheritdoc/> 
+        public async Task<int?> GetIdByNameAsync(string name)
+        {
+            return await dbContext
+                .Set<TCategory>()
+                .Where(c => c.Name.ToLower() == name.ToLower())
+                .Select(c => c.Id)
+                .FirstOrDefaultAsync();
         }
     }
 

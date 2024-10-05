@@ -55,14 +55,7 @@
         /// <param name="id">The ID of the ingredient to check for existence.</param>
         /// <returns>True if the ingredient exists, false otherwise.</returns>
         Task<bool> ExistsByIdAsync(int id);
-
-        /// <summary>
-        /// Checks if an ingredient exists by its name.
-        /// </summary>
-        /// <param name="name">The name of the ingredient to check for existence.</param>
-        /// <returns>True if the ingredient exists, false otherwise.</returns>
-        Task<bool> ExistsByNameAsync(string name);
-
+        
         /// <summary>
         /// Retrieves the total count of all ingredients in the database.
         /// </summary>
@@ -91,13 +84,5 @@
         /// <param name="categoryId">categoryId</param>
         /// <returns>true or false</returns>
         Task<bool> HasAnyWithCategory(int categoryId);
-
-        /// <summary>
-        /// Returns the id of an Ingredient with a given name or throws an exception
-        /// </summary>
-        /// <param name="name">the ingredient name to serach for</param>
-        /// <returns>the ingredient ID</returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task<int> GetIdByNameAsync(string name);
     }
 }
