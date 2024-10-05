@@ -1,12 +1,12 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
 
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
 
     using CookTheWeek.Common;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using CookTheWeek.Web.ViewModels.User;
-    using Microsoft.AspNetCore.Authentication;
 
     public interface IUserService
     {

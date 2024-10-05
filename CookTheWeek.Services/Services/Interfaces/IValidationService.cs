@@ -7,7 +7,6 @@
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Web.ViewModels.MealPlan;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.User;
 
@@ -27,15 +26,6 @@
         /// <returns>Validation Result</returns>
         /// <remarks>Does not throw exceptions, returns the validation result and logs errors.</remarks>
         Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model);
-
-        /// <summary>
-        /// Checks if an ingredient is valid (has the same id and name in the database)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns>true or false</returns>
-        /// <remarks>May throw RecordNotFoundException if the ingredient does not exist</remarks>
-        Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model);
-
        
         /// <summary>
         /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
@@ -106,7 +96,7 @@
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="RecordNotFoundException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task<bool> ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
+        Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
 
         /// <summary>
         /// Validates if a user has the rights to edit or delete a given mealplan (by id)

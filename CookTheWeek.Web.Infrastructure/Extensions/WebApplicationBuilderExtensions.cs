@@ -19,30 +19,50 @@
     /// </summary>
     public static class WebApplicationBuilderExtensions
     {
-        public static void AddApplicationTypes(this IServiceCollection services, Type assemblyType, string suffix)
+        public static void AddApplicationServicesOfType(this IServiceCollection services, Type[] assemblyTypes, string[] suffixes)
         {
-            Assembly? assembly = Assembly.GetAssembly(assemblyType);
-
-            if (assembly == null)
+            foreach (var assemblyType in assemblyTypes)
             {
-                throw new InvalidOperationException("Invalid type provided!");
-            }
+                Assembly? assembly = Assembly.GetAssembly(assemblyType);
 
-            Type[] implementationTypes = assembly
-                .GetTypes()
-                .Where(t => t.Name.EndsWith(suffix) && !t.IsInterface)
-                .ToArray();
-
-            foreach (Type implementationType in implementationTypes)
-            {
-                Type? interfaceType = implementationType.GetInterface($"I{implementationType.Name}");
-                if (interfaceType == null)
+                if (assembly == null)
                 {
-                    throw new InvalidOperationException(
-                        $"No interface is provided for the type with name: {implementationType.Name}");
+                    throw new InvalidOperationException($"Invalid type provided for assembly: {assemblyType.Name}");
                 }
 
-                services.AddScoped(interfaceType, implementationType);
+                foreach (var suffix in suffixes)
+                {
+                    Type[] implementationTypes = assembly
+                        .GetTypes()
+                        .Where(t => t.Name.EndsWith(suffix) && !t.IsInterface && !t.IsAbstract)
+                        .ToArray();
+
+                    foreach (Type implementationType in implementationTypes)
+                    {
+                        Type[] interfaceTypes = implementationType
+                            .GetInterfaces()
+                            .Where(i => i.Name.StartsWith("I") && i.Name.Contains(suffix))
+                            .ToArray();
+
+                        if (!interfaceTypes.Any())
+                        {
+                            throw new InvalidOperationException(
+                                $"No interface found for the type: {implementationType.Name}");
+                        }
+
+                        foreach (var interfaceType in interfaceTypes)
+                        {
+                            if (suffix.Contains("Category") && implementationType.IsGenericTypeDefinition)
+                            {
+                                services.AddScoped(interfaceType.GetGenericTypeDefinition(), implementationType.GetGenericTypeDefinition());
+                            }
+                            else
+                            {
+                                services.AddScoped(interfaceType, implementationType);
+                            }
+                        }
+                    }
+                }
             }
         }
 

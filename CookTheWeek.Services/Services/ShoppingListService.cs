@@ -10,7 +10,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.IngredientHelper;
-    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class ShoppingListService : IShoppingListService
     {

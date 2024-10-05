@@ -16,8 +16,6 @@
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
-    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.MealPlan;
@@ -27,74 +25,43 @@
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using Microsoft.AspNetCore.Mvc;
 
     public class ValidationService : IValidationService
     {
-        
         private readonly IRecipeRepository recipeRepository;
         private readonly IUserRepository userRepository;
-        private readonly IMealplanRepository mealplanRepository;
-
-        private readonly IRecipeService recipeService;
-        private readonly IMealPlanService mealPlanService;
-        private readonly IIngredientService ingredientService;
-        private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IUserService userService;
-        private readonly ICategoryService<RecipeCategory,
-            RecipeCategoryAddFormModel,
-            RecipeCategoryEditFormModel,
-            RecipeCategorySelectViewModel> recipeCategoryService;
-        private readonly ICategoryService<IngredientCategory,
-            IngredientCategoryAddFormModel,
-            IngredientCategoryEditFormModel,
-            IngredientCategorySelectViewModel> ingredientCategoryService;
+        private readonly IMealplanRepository mealplanReposiroty;
+        private readonly IIngredientRepository ingredientRepository;
+        private readonly IRecipeIngredientRepository recipeIngredientRepository;
+        private readonly ICategoryRepository<RecipeCategory> recipeCategoryRepository;
+        private readonly ICategoryRepository<IngredientCategory> ingredientCategoryRepository;
 
         private readonly ILogger<ValidationService> logger;
 
-        public ValidationService(ICategoryService<RecipeCategory, 
-                                            RecipeCategoryAddFormModel, 
-                                            RecipeCategoryEditFormModel, 
-                                            RecipeCategorySelectViewModel> recipeCategoryService,
-            ICategoryService<IngredientCategory,
-                                            IngredientCategoryAddFormModel,
-                                            IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> ingredientCategoryService,
-            IIngredientService ingredientService,
-            IRecipeIngredientService recipeIngredientService,
-            IMealplanRepository mealplanRepository,
-            IRecipeService recipeService,
+        public ValidationService(
             IRecipeRepository recipeRepository,
             IUserRepository userRepository,
-            IUserService userService,
-            IMealPlanService mealplanService,
+            IMealplanRepository mealplanReposiroty,
+            IIngredientRepository ingredientRepository,
+            IRecipeIngredientRepository recipeIngredientRepository,
+            ICategoryRepository<RecipeCategory> recipeCategoryRepository,
+            ICategoryRepository<IngredientCategory> ingredientCategoryRepository,
             ILogger<ValidationService> logger)
         {
             this.recipeRepository = recipeRepository;
-            this.mealplanRepository = mealplanRepository;
             this.userRepository = userRepository;
-
-            this.recipeService = recipeService;
-            this.userService = userService;
-            this.recipeCategoryService = recipeCategoryService;
-            this.ingredientCategoryService = ingredientCategoryService; 
-            this.ingredientService = ingredientService;
-            this.recipeIngredientService = recipeIngredientService;
-            this.mealPlanService = mealplanService;
-
+            this.mealplanReposiroty = mealplanReposiroty;
+            this.ingredientRepository = ingredientRepository;
+            this.recipeIngredientRepository = recipeIngredientRepository;
+            this.recipeCategoryRepository = recipeCategoryRepository;
+            this.ingredientCategoryRepository = ingredientCategoryRepository;
             this.logger = logger;
         }
 
 
 
         // RECIPE:              
-        /// <inheritdoc/>
-        public async Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model)
-        {
-            Ingredient ingredient = await ingredientService.GetByIdAsync(model.IngredientId!.Value);
-            return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
-        }
-
+       
         /// <inheritdoc/>
         public async Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model)
         {
@@ -385,7 +352,7 @@
 
         // TODO: check!
         // LIKES:
-        public async Task<bool> ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
+        public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
         {
             string userId = model.UserId;
             string recipeId = model.RecipeId;
@@ -415,8 +382,6 @@
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            // If all validations pass, return true
-            return true;
         }
 
 
@@ -424,6 +389,19 @@
 
 
         // PRIVATE METHODS:
+
+        /// <summary>
+        /// A helper method that checks if a recipe-ingredient is a valid and existing ingredient in the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>true or false or throws RecordNotFound</returns>
+        /// <remarks>May throw RecordNotFoundException if the ingredient does not exist</remarks>
+        private async Task<bool> ValidateIngredientForRecipeIngredientAsync(RecipeIngredientFormModel model)
+        {
+            Ingredient ingredient = await ingredientRepository.GetByIdAsync(model.IngredientId!.Value);
+            return ingredient.Id == model.IngredientId && ingredient.Name.ToLower() == model.Name.ToLower();
+        }
+
 
         /// <summary>
         /// A helper method which validates the meals in a mealplan form model. Takes the mealplan result and processes it or throws an exception

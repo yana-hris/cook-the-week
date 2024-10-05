@@ -20,6 +20,7 @@ namespace CookTheWeek.Web
     using CookTheWeek.Services.Data.Services;
 
     using static Common.GeneralApplicationConstants;
+    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     public class Program
     {
@@ -34,16 +35,16 @@ namespace CookTheWeek.Web
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.EnableSensitiveDataLogging();                
+                options.EnableSensitiveDataLogging();
             });
-                
+
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 IConfigurationSection passwordSection =
-                   config.GetSection("Identity:Password");                
+                   config.GetSection("Identity:Password");
                 options.SignIn.RequireConfirmedAccount = builder.Configuration
                     .GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
                 options.Password.RequireLowercase = passwordSection
@@ -68,7 +69,7 @@ namespace CookTheWeek.Web
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();
-           
+
             // Add Authentication services with Google OAuth
             builder.Services.AddAuthentication()
                .AddGoogle(options =>
@@ -86,20 +87,19 @@ namespace CookTheWeek.Web
                    options.ClientId = facebookAuthNSection["AppId"];
                    options.ClientSecret = facebookAuthNSection["AppSecret"];
                    options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
-               });  
+               });
 
             builder.Services.AddHttpClient();
 
-            // Register repositories
-            builder.Services.AddApplicationTypes(typeof(IRecipeRepository), "Repository");
+            builder.Services.AddScoped<IUserContext, UserContext>();
 
-            // Register factories
-            builder.Services.AddApplicationTypes(typeof(IRecipeViewModelFactory), "Factory");
+            //var suffixes = new[] { "Service", "Repository", "CategoryService", "CategoryRepository", "Factory" };
+            //var assemblyTypes = new[] { typeof(IFavouriteRecipeRepository), typeof(ICategoryService<,,,>), typeof(IRecipeViewModelFactory) };
 
-            // Register repositories
-            builder.Services.AddApplicationTypes(typeof(IRecipeService), "Service");
+            //// Register all services and repositories from multiple assemblies
+            //builder.Services.AddApplicationServicesOfType(assemblyTypes, suffixes);
 
-            builder.Services.AddHttpContextAccessor();  
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
@@ -120,12 +120,12 @@ namespace CookTheWeek.Web
             builder.Services.AddResponseCaching();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
-            {                
+            {
                 cfg.LoginPath = "/User/Login";
                 cfg.AccessDeniedPath = "/User/AccessDeniedPathInfo";
 
             });
-           
+
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -177,40 +177,44 @@ namespace CookTheWeek.Web
             builder.Services.Configure<SendGridClientOptions>(builder.Configuration.GetSection("SendGrid"));
             builder.Services.AddTransient<IEmailSender, EmailSender>();
 
-            
+
             WebApplication app = builder.Build();
 
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseMigrationsEndPoint();
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseMigrationsEndPoint();
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
                 app.UseExceptionHandler("/Home/InternalServerError");
                 app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?code={0}");
-                app.UseHsts();
-            //}
+                app.UseHsts();  // HSTS for production
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            // CORS middleware should be placed before routing middleware
-            //app.UseCors("DevelopmentCorsPolicy");
+            // CORS should be placed before routing
             app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
+            // Authentication middleware
             app.UseAuthentication();
 
-            app.UseResponseCaching();
+            // Custom middleware for retrieving the userId
+            app.UseMiddleware<UserContextMiddleware>();
 
+            // Authorization middleware
             app.UseAuthorization();
 
+            // Custom middleware for checking online users (requires user ID)
             app.EnableOnlineUsersCheck();
 
-            app.UseSession(); 
+            // Session middleware
+            app.UseSession();
 
             if (app.Environment.IsDevelopment())
             {
@@ -224,6 +228,7 @@ namespace CookTheWeek.Web
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
             app.MapRazorPages();
 
             app.UseRotativa();

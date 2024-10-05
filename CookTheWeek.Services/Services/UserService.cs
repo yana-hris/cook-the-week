@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using System.Security.Claims;
 
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
@@ -20,7 +21,6 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.NotificationMessagesConstants;
-    using Microsoft.AspNetCore.Authentication;
 
     public class UserService : IUserService
     {

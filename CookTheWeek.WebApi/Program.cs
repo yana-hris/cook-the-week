@@ -4,11 +4,13 @@ namespace CookTheWeek.WebApi
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
-    using Data;
-    using Services.Data.Services.Interfaces;
+    using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Services.Data.Services;
+    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     public class Program
     {
@@ -35,15 +37,20 @@ namespace CookTheWeek.WebApi
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>()
-                .AddDefaultTokenProviders(); 
+                .AddDefaultTokenProviders();
 
-            // Add services to the container.
-            builder.Services.AddScoped<IRecipeService, RecipeService>();
-            builder.Services.AddScoped<IMealPlanService, MealPlanService>();
-            builder.Services.AddScoped<IIngredientService, IngredientService>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<IUserContext, UserContext>();
+
             builder.Services.AddScoped<IFavouriteRecipeRepository, FavouriteRecipeRepository>();
+            builder.Services.AddScoped<IFavouriteRecipeService, FavouriteRecipeService>();
+            builder.Services.AddScoped<IMealplanRepository, MealplanRepository>();
+            builder.Services.AddScoped<IMealPlanService, MealPlanService>();
+            builder.Services.AddScoped<IValidationService, ValidationService>();
+            builder.Services.AddScoped<IMealService, MealService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IIngredientService, IngredientService>();
+            builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+            builder.Services.AddScoped<IValidationService, ValidationService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -69,23 +76,28 @@ namespace CookTheWeek.WebApi
 
             var app = builder.Build();
 
+            // Developer-specific middlewares first
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                app.UseCors("AllowDevelopment");
+                app.UseCors("AllowDevelopment");  
             }
             else
             {
-                app.UseHsts();
-                app.UseCors("AllowProduction");
+                app.UseHsts();  // Apply HSTS before HTTPS redirection
+                app.UseCors("AllowProduction");  // Apply CORS early
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();  // Force HTTPS early
+
+            // Custom middleware for user context
+            app.UseMiddleware<UserContextMiddleware>();
             app.UseRouting();
             app.UseAuthorization();
-            app.MapControllers();
+            app.MapControllers();  
+
             app.Run();
         }
     }
