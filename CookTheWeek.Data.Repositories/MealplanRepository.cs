@@ -34,10 +34,11 @@
                     .Include(mp => mp.Meals)
                         .ThenInclude(m => m.Recipe)
                             .ThenInclude(r => r.RecipesIngredients)
+                                .ThenInclude(ri => ri.Ingredient)
                     .Include(mp => mp.Meals)
                         .ThenInclude(m => m.Recipe)
                             .ThenInclude(r => r.Category)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
         }
 
         /// <inheritdoc/>

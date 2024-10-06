@@ -13,7 +13,7 @@ namespace CookTheWeek.Data.Repositories
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
 
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly CookTheWeekDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;

@@ -11,6 +11,9 @@
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Events.EventHandlers;
+    using CookTheWeek.Services.Data.Events.Dispatchers;
+    using CookTheWeek.Services.Data.Events;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
@@ -23,6 +26,7 @@
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
     using static Common.HelperMethods.CookingTimeHelper;
+   
 
     public class RecipeService : IRecipeService
     {
@@ -31,22 +35,24 @@
 
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
-        private readonly IIngredientService ingredientService;
-        private readonly IMealService mealService;
         private readonly IStepService stepService;
-        private readonly IUserService userService;
+
+        private readonly IRecipeSoftDeletedEventHandler recipeSoftDeletedEventHandler;
+        private readonly IDomainEventDispatcher domainEventDispatcher;
 
         private readonly IValidationService validationService;
         private readonly ILogger<RecipeService> logger;
+        private readonly string? userId;
+        private readonly bool isAdmin;
 
-        public RecipeService(IngredientService ingredientService,
-            IRecipeRepository recipeRepository,
+        public RecipeService(IRecipeRepository recipeRepository,
             IStepService stepService,
             IRecipeIngredientService recipeIngredientService,
             IFavouriteRecipeService favouriteRecipeService,
-            IMealService mealService,
-            IUserService userService,
             ILogger<RecipeService> logger,
+            IUserContext userContext,
+            IRecipeSoftDeletedEventHandler recipeSoftDeletedEventHandler,
+            IDomainEventDispatcher domainEventDispatcher,
             IValidationService validationService)
         {
             this.recipeRepository = recipeRepository;
@@ -54,17 +60,18 @@
             this.favouriteRecipeService = favouriteRecipeService;
             this.recipeIngredientService = recipeIngredientService;
             this.stepService = stepService;
-            this.userService = userService;
-            this.ingredientService = ingredientService;
-            this.mealService = mealService;
 
             this.validationService = validationService;
+            this.recipeSoftDeletedEventHandler = recipeSoftDeletedEventHandler;
+            this.domainEventDispatcher = domainEventDispatcher;
             this.logger = logger;
+            this.userId = userContext.UserId;
+            this.isAdmin = userContext.IsAdmin; 
         }
 
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel, string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel)
         {
             
             IQueryable<Recipe> recipesQuery = recipeRepository.GetAllQuery();
@@ -168,7 +175,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model, string userId, bool isAdmin)
+        public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model)
         {
             ValidationResult result = await validationService.ValidateRecipeWithIngredientsAsync(model);
             if (!result.IsValid)
@@ -176,7 +183,7 @@
                 return OperationResult<string>.Failure(result.Errors);
             }
 
-            Recipe recipe = MapFromModelToRecipe(model, new Recipe(), userId, isAdmin);
+            Recipe recipe = MapFromModelToRecipe(model, new Recipe());
             string recipeId = await recipeRepository.AddAsync(recipe);
             await ProcessRecipeIngredientsAsync(model);
             await ProcessRecipeStepsAsync(recipeId, model);
@@ -196,7 +203,7 @@
             
             Recipe recipe = await recipeRepository.GetByIdAsync(model.Id);
 
-            recipe = MapFromModelToRecipe(model, recipe, null, false);
+            recipe = MapFromModelToRecipe(model, recipe);
             await ProcessRecipeIngredientsAsync(model);
             await ProcessRecipeStepsAsync(model.Id, model);
 
@@ -240,7 +247,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteByIdAsync(string id, string userId, bool isAdmin)
+        public async Task DeleteByIdAsync(string id)
         {
             try
             {
@@ -252,6 +259,7 @@
                     throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
                 }
 
+                // TODO: move to validation service to decouple services
                 bool isIncluded = await IsIncludedInMealPlansAsync(recipeToDelete.Id.ToString());
 
                 if (isIncluded)
@@ -270,7 +278,7 @@
         }
         
         /// <inheritdoc/>
-        public async Task DeleteAllByUserIdAsync(string userId)
+        public async Task DeleteAllByUserIdAsync()
         {
             ICollection<Recipe> allUserRecipes = await recipeRepository.GetAllQuery()
                 .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
@@ -284,7 +292,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin)
+        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
         {
             Recipe recipe = await recipeRepository.GetByIdAsync(id);
 
@@ -324,7 +332,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync()
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
@@ -369,7 +377,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> GetMineCountAsync(string userId)
+        public async Task<int?> GetMineCountAsync()
         {
             return await recipeRepository
                 .GetAllQuery()
@@ -427,10 +435,10 @@
         }
        
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId)
+        public async Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync()
         {
             ICollection<FavouriteRecipe> likedRecipes = await
-                favouriteRecipeService.GetAllRecipesLikedByUserIdAsync(userId);
+                favouriteRecipeService.GetAllRecipesLikedByCurrentUserAsync();
 
             // TODO: Consider using Automapper
             var model = likedRecipes
@@ -451,15 +459,7 @@
 
             return model;
         }
-
-
-        /// <inheritdoc/>
-        public Task<bool> HasAnyWithCategory(int id)
-        {
-            return recipeRepository.GetAllQuery()
-                .AnyAsync(r => r.CategoryId == id);
-        }
-
+        
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(string recipeId)
         {
@@ -469,32 +469,21 @@
         // PRIVATE HELPER METHODS        
 
         /// <summary>
-        /// Helper method which implements the soft delete of a recipe
+        /// Helper method which implements the soft delete of a recipe. All related entities are deleted as well using an event dispatcher.
         /// </summary>
         /// <param name="recipe"></param>
         /// <returns></returns>
         private async Task DeleteAsync(Recipe recipe)
         {
-            // SOFT Delete: change flag and ownerId
-            string id = recipe.Id.ToString();
+            // SOFT DELETE
             recipe.OwnerId = Guid.Parse(DeletedUserId);
-            recipe.IsDeleted = true;
-
-            // Delete all relevant recipe Steps, Ingredients and Meals as soft delete will not cascade and delete any connected entities
-            await stepService.DeleteByRecipeIdAsync(id);
-            await recipeIngredientService.DeleteByRecipeIdAsync(id);
-
-            if (recipe.FavouriteRecipes.Any())
-            {
-                await favouriteRecipeService.DeleteAllRecipeLikesAsync(id);
-            }
-
-            if (recipe.Meals.Any())
-            {
-                await mealService.DeleteByRecipeIdAsync(id);
-            }
+            recipe.IsDeleted = true;          
 
             await recipeRepository.UpdateAsync(recipe);
+
+            // Dispatch the soft delete event
+            var recipeSoftDeletedEvent = new RecipeSoftDeletedEvent(recipe.Id);
+            await domainEventDispatcher.DispatchAsync(recipeSoftDeletedEvent);
         }
 
 
@@ -509,7 +498,7 @@
         /// <exception cref="InvalidCastException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         // TODO: Consider using Automapper
-        private Recipe MapFromModelToRecipe(IRecipeFormModel model, Recipe recipe, string? userId, bool isAdmin)
+        private Recipe MapFromModelToRecipe(IRecipeFormModel model, Recipe recipe)
         {
             if (model is RecipeAddFormModel || model is RecipeEditFormModel)
             {

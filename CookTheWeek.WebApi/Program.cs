@@ -8,9 +8,12 @@ namespace CookTheWeek.WebApi
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Web.Infrastructure.Middlewares;
+    using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Services.Data.Events.Dispatchers;
+    using CookTheWeek.Services.Data.Events.EventHandlers;
 
     public class Program
     {
@@ -39,18 +42,49 @@ namespace CookTheWeek.WebApi
                 .AddEntityFrameworkStores<CookTheWeekDbContext>()
                 .AddDefaultTokenProviders();
 
+
+            builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
+            builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+
             builder.Services.AddScoped<IUserContext, UserContext>();
+
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();  
+            builder.Services.AddScoped<IRecipeService, RecipeService>();
+
+            builder.Services.AddScoped<IStepRepository, StepRepository>();
+            builder.Services.AddScoped<IStepService, StepService>();
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<IMealRepository, MealRepository>();
+            builder.Services.AddScoped<IMealService, MealService>();
 
             builder.Services.AddScoped<IFavouriteRecipeRepository, FavouriteRecipeRepository>();
             builder.Services.AddScoped<IFavouriteRecipeService, FavouriteRecipeService>();
+
+            builder.Services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
+            builder.Services.AddScoped<IRecipeIngredientService, RecipeIngredientService>();
+
             builder.Services.AddScoped<IMealplanRepository, MealplanRepository>();
             builder.Services.AddScoped<IMealPlanService, MealPlanService>();
+
+            builder.Services.AddScoped<ICategoryRepository<RecipeCategory>, CategoryRepository<RecipeCategory>>();
+            builder.Services.AddScoped<ICategoryRepository<IngredientCategory>, CategoryRepository<IngredientCategory>>();
+            builder.Services.AddScoped<ICategoryService<
+                                                        RecipeCategory,
+                                                        RecipeCategoryAddFormModel,
+                                                        RecipeCategoryEditFormModel,
+                                                        RecipeCategorySelectViewModel>, RecipeCategoryService>();
+            builder.Services.AddScoped<ICategoryService<
+                                                        IngredientCategory,
+                                                        IngredientCategoryAddFormModel,
+                                                        IngredientCategoryEditFormModel,
+                                                        IngredientCategorySelectViewModel>, IngredientCategoryService>();
             builder.Services.AddScoped<IValidationService, ValidationService>();
-            builder.Services.AddScoped<IMealService, MealService>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IIngredientService, IngredientService>();
+
             builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
-            builder.Services.AddScoped<IValidationService, ValidationService>();
+            builder.Services.AddScoped<IIngredientService, IngredientService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

@@ -5,13 +5,13 @@
     using Newtonsoft.Json;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Web.Infrastructure.ActionFilters;
     using CookTheWeek.Web.ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Services.Data.Factories;
 
     public class RecipeController : BaseController
     {
@@ -34,19 +34,12 @@
 
         [HttpGet]
         [AllowAnonymous]
+        [AdminRedirect("Site", "RecipeAdmin")]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
-            string userId = User.GetId();
-            bool isAdmin = User.IsAdmin();
-
-            if (isAdmin)
-            {
-                return RedirectToAction("Site", "RecipeAdmin", new { area = "Admin" });
-            }
-
             try
             {
-                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, userId);
+                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel);
 
                 SetViewData("All Recipes", Request.Path + Request.QueryString);
                 return View(model);
@@ -57,7 +50,7 @@
             }
             catch(Exception ex)
             {
-                return HandleException(ex, nameof(All), userId, null);
+                return HandleException(ex, nameof(All), null);
             }
         }
 
@@ -65,30 +58,16 @@
         [HttpGet]
         public async Task<IActionResult> Add(string returnUrl)
         {
-            var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
+            var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();            
 
-            if (returnUrl == null)
-            {
-                if (User.IsAdmin())
-                {
-                    returnUrl = "/Admin/HomeAdmin/Index";
-                }
-                else
-                {
-                    returnUrl = "/Recipe/All";
-                }
-            }
-
-            SetViewData("Add Recipe", returnUrl);
+            SetViewData("Add Recipe", returnUrl ?? "/Recipe/All");
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
-            string userId = User.GetId();
-            bool isAdmin = User.IsAdmin();
-
+            
             model = await this.recipeViewModelFactory.PreloadRecipeSelectOptionsToFormModel(model) as RecipeAddFormModel;
             string redirectUrl;
 
@@ -99,14 +78,14 @@
 
             try
             {
-                var result = await recipeService.TryAddRecipeAsync(model!, userId, isAdmin);
+                var result = await recipeService.TryAddRecipeAsync(model!);
 
                 if (result.Succeeded)
                 {
                     string recipeId = result.Value;
                     TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
 
-                    return RedirectToAction(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl }));
+                    return RedirectToAction(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl }));
                 }
                 else
                 {
@@ -116,7 +95,7 @@
             }
             catch (Exception ex) // Handle ArgumentNull, InvalidCast and all other exceptions but deliver message
             {
-                return HandleException(ex, nameof(Add), userId, null);
+                return HandleException(ex, nameof(Add), null);
             }
             
         }
@@ -125,21 +104,19 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
-            string userId = User.GetId();
-            bool isAdmin = User.IsAdmin();
+            returnUrl = returnUrl ?? "/Recipe/All";
 
             try
             {
-                RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(id, userId, isAdmin);
+                RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(id);
                 ViewBag.ReturnUrl = returnUrl;
-
                 return View(model);
             }
             catch (RecordNotFoundException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
 
-                return Redirect(returnUrl ?? "/Recipe/All");
+                return Redirect(returnUrl);
             }
             catch (UnauthorizedUserException ex)
             {
@@ -149,7 +126,7 @@
             }
             catch (Exception ex)
             {
-                return HandleException(ex, nameof(Edit), userId, id);
+                return HandleException(ex, nameof(Edit), id);
             }
         }
 
@@ -208,52 +185,41 @@
         [HttpGet]
         public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
-            string userId = User.GetId();
-
             try
             {
-                RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id, userId);                
-                SetViewData("Recipe Details", returnUrl);
+                RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id);                
+                SetViewData("Recipe Details", returnUrl ?? "/Recipe/All");
                 return View(model);
             }
             catch (RecordNotFoundException ex) 
             {
                 return RedirectToAction("NotFound", "Home", new {message = ex.Message, code = ex.ErrorCode});
             }
-            catch (DataRetrievalException ex)
+            catch (Exception ex)
             {
-                return RedirectToAction("InternalServerError", "Home", new {message = ex.Message, code = ex.ErrorCode});
+                return HandleException(ex, nameof(Details));
             }
         }
 
 
         [HttpGet]
+        [AdminRedirect("Site", "RecipeAdmin")]
         public async Task<IActionResult> Mine()
         {
-            if (User.IsAdmin())
-            {
-                Redirect("/Admin/RecipeAdmin/Site");
-            }
-
-            string userId = this.User.GetId();
             SetViewData("My Recipes", Request.Path + Request.QueryString);
 
             try
             {
-                var recipes = await recipeViewModelFactory.CreateRecipeMineViewModelAsync(userId);
+                var recipes = await recipeViewModelFactory.CreateRecipeMineViewModelAsync();
                 return View(recipes);
             }
             catch (RecordNotFoundException)
             {
                 return RedirectToAction(nameof(None));
             }
-            catch(DataRetrievalException)
-            {
-                return RedirectToAction("InternalServerError", "Home");
-            }
             catch (Exception ex)
             {
-                return HandleException(ex, nameof(Mine), userId, null);
+                return HandleException(ex, nameof(Mine), null);
             }
 
         }
@@ -267,14 +233,13 @@
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {
-            string userId = User.GetId();
-            bool isAdmin = User.IsAdmin();
+            returnUrl = returnUrl ?? "/Recipe/Mine";
 
             try
             {
-                await this.recipeService.DeleteByIdAsync(id, userId, isAdmin);
+                await this.recipeService.DeleteByIdAsync(id);
                 TempData[SuccessMessage] = "Recipe successfully deleted!";
-                return Redirect(returnUrl ?? "/Recipe/Mine");
+                return Redirect(returnUrl);
             }
             catch (RecordNotFoundException ex)
             {
@@ -287,7 +252,7 @@
             }
             catch (Exception ex)
             {
-                return HandleException(ex, nameof(DeleteConfirmed), userId, id);
+                return HandleException(ex, nameof(DeleteConfirmed), id);
             }            
         }
 
@@ -333,10 +298,10 @@
         /// <param name="userId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private IActionResult HandleException(Exception ex, string actionName, string userId, string? recipeId = null)
+        private IActionResult HandleException(Exception ex, string actionName, string? recipeId = null)
         {
             var recipeIdInfo = recipeId != null ? $"Recipe ID: {recipeId}" : "No Recipe ID";
-            logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {recipeIdInfo}, User ID: {userId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
+            logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {recipeIdInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
 
             // Redirect to the internal server error page with the exception message
             return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });

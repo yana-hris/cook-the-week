@@ -102,7 +102,8 @@
         Task<MealPlanAddFormModel> CreateMealPlanAddFormModelAsync(MealPlanServiceModel model);
 
         /// <summary>
-        /// Either returns the MealPlan or throws an exception in case it does not exist
+        /// Either returns the MealPlan or throws an exception in case it does not exist.
+        /// The returned meal plan contains data for the meals, their recipes, the recipe categories, their recipeingredients and associated ingredients.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>MealPlan</returns>

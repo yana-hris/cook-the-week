@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{960CAD7B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Services.Tests", "CookTheWeek.Services.Tests\CookTheWeek.Services.Tests.csproj", "{34D7C93A-14BB-4762-8C29-228FC5AD7E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookTheWeek.Data.Repositories", "CookTheWeek.Data.Repositories\CookTheWeek.Data.Repositories.csproj", "{927F392D-8966-474A-8383-67686A5434F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookTheWeek.Data.Repositories", "CookTheWeek.Data.Repositories\CookTheWeek.Data.Repositories.csproj", "{927F392D-8966-474A-8383-67686A5434F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,7 +6,6 @@
 
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
@@ -51,10 +50,10 @@
         }
 
         /// <inheritdoc/>
-        public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, string userId)
+        public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel)
         {
             
-            var allRecipes = await recipeService.GetAllAsync(queryModel, userId);
+            var allRecipes = await recipeService.GetAllAsync(queryModel);
             var categories = await categoryService.GetAllCategoryNamesAsync();
             
             var viewModel = new AllRecipesFilteredAndPagedViewModel
@@ -88,9 +87,9 @@
 
         
         /// <inheritdoc/>
-        public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId, string userId, bool isAdmin)
+        public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId)
         {
-            RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId, userId, isAdmin);
+            RecipeEditFormModel editModel = await this.recipeService.GetForEditByIdAsync(recipeId);
             
             var filledModel = await PreloadRecipeSelectOptionsToFormModel(editModel);
             if (filledModel is RecipeEditFormModel model)
@@ -103,13 +102,13 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId, string userId)
+        public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId)
         {
             try
             {
                 RecipeDetailsViewModel model = await this.recipeService.TryGetModelForDetailsById(recipeId);
                 model.IsLikedByUser = await SafeExecuteAsync(
-                async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(userId, recipeId),
+                async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
                 DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
                 );
 
@@ -132,12 +131,12 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync(string userId)
+        public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync()
         {
             RecipeMineViewModel model = new RecipeMineViewModel();
 
-            model.FavouriteRecipes = await this.recipeService.GetAllLikedByUserIdAsync(userId);
-            model.OwnedRecipes = await this.recipeService.GetAllAddedByUserIdAsync(userId);
+            model.FavouriteRecipes = await this.recipeService.GetAllLikedByUserIdAsync();
+            model.OwnedRecipes = await this.recipeService.GetAllAddedByUserIdAsync();
 
             if (!model.FavouriteRecipes.Any() && !model.OwnedRecipes.Any())
             {

@@ -17,18 +17,17 @@
         Task TryToggleLikes(FavouriteRecipeServiceModel model);
 
         /// <summary>
-        /// Gets all liked recipes by a given user id as a collection of FavouriteRecipe
+        /// Gets all liked recipes by the logged-in user (if any) as a collection of FavouriteRecipe
         /// </summary>  
         /// <returns>A collection of FavouriteRecipe</returns>
-        Task<ICollection<FavouriteRecipe>> GetAllRecipesLikedByUserIdAsync(string userId);
+        Task<ICollection<FavouriteRecipe>> GetAllRecipesLikedByCurrentUserAsync();
 
         /// <summary>
         /// Returns true if the user has liked a specific recipe
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> HasUserByIdLikedRecipeById(string userId, string recipeId);
+        Task<bool> HasUserByIdLikedRecipeById(string recipeId);
 
         /// <summary>
         /// Returns the total count of likes for a recipe by Id or 0

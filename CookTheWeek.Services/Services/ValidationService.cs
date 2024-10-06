@@ -5,8 +5,7 @@
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
-
-    using CookTheWeek.Common;
+    
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;

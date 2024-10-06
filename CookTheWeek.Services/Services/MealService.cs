@@ -10,17 +10,16 @@
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Helpers;
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.ShoppingList;
     using CookTheWeek.Web.ViewModels.Step;
 
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using static CookTheWeek.Common.HelperMethods.IngredientHelper;
 
     public class MealService : IMealService
     {
@@ -29,16 +28,20 @@
         private readonly IRecipeService recipeService;
         private readonly IRecipeIngredientService recipeIngredientService;
 
+        private readonly IIngredientAggregatorHelper ingredientHelper;
         private readonly ILogger<MealService> logger;
 
         public MealService(IMealRepository mealRepository,
             IRecipeService recipeService,
             IRecipeIngredientService recipeIngredientService,
+            IIngredientAggregatorHelper ingredientHelper,
             ILogger<MealService> logger)
         {
             this.mealRepository = mealRepository;
+
             this.recipeService = recipeService;
             this.recipeIngredientService = recipeIngredientService;
+            this.ingredientHelper = ingredientHelper;
             this.logger = logger;   
         }
         
@@ -46,20 +49,15 @@
         /// <inheritdoc/>
         public async Task<MealDetailsViewModel> GetForDetailsAsync(int mealId)
         {
-            // Retrieve and validate the meal
             Meal meal = await GetMealByIdAsync(mealId);
-
-            // Retrieve the associated recipe
-            Recipe recipe = await recipeService.GetForMealByIdAsync(meal.RecipeId.ToString());
-
-            // Calculate serving size multiplier
-            decimal servingSizeMultiplier = CalculateServingSizeMultiplier(meal.ServingSize, recipe.Servings);
+           
+            decimal servingSizeMultiplier = CalculateServingSizeMultiplier(meal.ServingSize, meal.Recipe.Servings);
 
             // Process ingredients
-            var ingredients = ProcessIngredients(recipe.RecipesIngredients, servingSizeMultiplier);
+            var ingredients = ProcessIngredients(meal.Recipe.RecipesIngredients, servingSizeMultiplier);
 
             // Group ingredients by categories and build the model
-            var model = await BuildMealDetailsViewModel(meal, recipe, ingredients);
+            var model = await BuildMealDetailsViewModel(meal, ingredients);
 
             return model;
         }
@@ -83,8 +81,10 @@
                 .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
                 .ToListAsync();
 
-            await mealRepository.DeleteAll(mealsToDelete);
-
+            if (mealsToDelete.Any())
+            {
+                await mealRepository.DeleteAll(mealsToDelete);
+            }
         }
 
         /// <inheritdoc/>
@@ -149,7 +149,7 @@
         // HELPER METHODS:
 
         /// <summary>
-        /// A helper method that gets the Meal by a given id or throws an Exception
+        /// A helper method that gets the Meal (including all its ingredients) by a given id or throws an Exception
         /// </summary>
         /// <param name="mealId"></param>
         /// <returns>Meal</returns>
@@ -188,10 +188,10 @@
         {
             var ingredients = recipeIngredients.Select(ri => new ProductServiceModel()
             {
-                Name = ri.Ingredient.Name,
-                MeasureId = ri.MeasureId,
-                Qty = ri.Qty * servingSizeMultiplier,
                 CategoryId = ri.Ingredient.CategoryId,
+                Name = ri.Ingredient.Name,
+                Qty = ri.Qty * servingSizeMultiplier,
+                MeasureId = ri.MeasureId,
                 SpecificationId = ri.SpecificationId
             }).ToList();
 
@@ -205,22 +205,23 @@
         /// <param name="recipe"></param>
         /// <param name="ingredients"></param>
         /// <returns>A MealDetailsViewModel</returns>
-        private async Task<MealDetailsViewModel> BuildMealDetailsViewModel(Meal meal, Recipe recipe, List<ProductServiceModel> ingredients)
+        private async Task<MealDetailsViewModel> BuildMealDetailsViewModel(Meal meal, List<ProductServiceModel> ingredients)
         {
             var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
             var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
-            var ingredientsByCategories = BuildIngredientsByCategories(ingredients, measures, specifications);
+            // TODO: check if this works as expected
+            var ingredientsByCategories = ingredientHelper.AggregateIngredientsByCategory(ingredients, measures, specifications);
 
             return new MealDetailsViewModel
             {
                 Id = meal.Id,
-                Title = recipe.Title,
-                ImageUrl = recipe.ImageUrl,
-                Description = recipe.Description,
-                CookingTime = recipe.TotalTime,
-                CategoryName = recipe.Category.Name,
-                CookingSteps = recipe.Steps.Select(st => new StepViewModel
+                Title = meal.Recipe.Title,
+                ImageUrl = meal.Recipe.ImageUrl,
+                Description = meal.Recipe.Description,
+                CookingTime = meal.Recipe.TotalTime,
+                CategoryName = meal.Recipe.Category.Name,
+                CookingSteps = meal.Recipe.Steps.Select(st => new StepViewModel
                 {
                     Id = st.Id,
                     Description = st.Description
@@ -237,32 +238,34 @@
         /// <param name="measures"></param>
         /// <param name="specifications"></param>
         /// <returns>A collection of ProductListViewModels</returns>
-        private ICollection<ProductListViewModel> BuildIngredientsByCategories(List<ProductServiceModel> ingredients, ICollection<RecipeIngredientSelectMeasureViewModel> measures, ICollection<RecipeIngredientSelectSpecificationViewModel> specifications)
-        {
-            var ingredientsByCategories = new List<ProductListViewModel>();
+        /// 
+        // TODO: Check if the newly implemented method AggregateIngredientsByCategory works right before deleting the old logic
+        //private ICollection<ProductListViewModel> BuildIngredientsByCategories(List<ProductServiceModel> ingredients, ICollection<RecipeIngredientSelectMeasureViewModel> measures, ICollection<RecipeIngredientSelectSpecificationViewModel> specifications)
+        //{
+        //    var ingredientsByCategories = new List<ProductListViewModel>();
 
-            for (int i = 0; i < ProductListCategoryNames.Length; i++)
-            {
-                int[] categoriesArr = ProductListCategoryIds[i];
+        //    for (int i = 0; i < ProductListCategoryNames.Length; i++)
+        //    {
+        //        int[] categoriesArr = ProductListCategoryIds[i];
 
-                var productListViewModel = new ProductListViewModel
-                {
-                    Title = ProductListCategoryNames[i],
-                    Products = ingredients
-                        .Where(p => categoriesArr.Contains(p.CategoryId))
-                        .Select(p => new ProductViewModel
-                        {
-                            Qty = FormatIngredientQty(p.Qty),
-                            Measure = measures.First(m => m.Id == p.MeasureId).Name,
-                            Name = p.Name,
-                            Specification = specifications.First(sp => sp.Id == p.SpecificationId).Name ?? ""
-                        }).ToList()
-                };
+        //        ProductListViewModel productListViewModel = new ProductListViewModel
+        //        {
+        //            Title = ProductListCategoryNames[i],
+        //            Products = ingredients
+        //                .Where(p => categoriesArr.Contains(p.CategoryId))
+        //                .Select(p => new ProductViewModel
+        //                {
+        //                    Qty = FormatIngredientQty(p.Qty),
+        //                    Measure = measures.First(m => m.Id == p.MeasureId).Name,
+        //                    Name = p.Name,
+        //                    Specification = specifications.First(sp => sp.Id == p.SpecificationId).Name ?? ""
+        //                }).ToList()
+        //        };
 
-                ingredientsByCategories.Add(productListViewModel);
-            }
+        //        ingredientsByCategories.Add(productListViewModel);
+        //    }
 
-            return ingredientsByCategories;
-        }
+        //    return ingredientsByCategories;
+        //}
     }
 }

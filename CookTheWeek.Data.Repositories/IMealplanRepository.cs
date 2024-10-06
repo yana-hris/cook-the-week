@@ -11,7 +11,7 @@
         IQueryable<MealPlan> GetAllQuery();
 
         /// <summary>
-        /// Gets a Mealplan by id, including all its meals, their recipes with their categories and recipeingredients
+        /// Gets a Mealplan by id, including all its meals, their recipes with their categories, recipeingredients and even ingredients.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A single MealPlan or null</returns>

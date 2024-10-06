@@ -16,6 +16,10 @@
         public const int DefaultRecipesPerPage = 8;
         public const int DefaultIngredientsPerPage = 20;
 
+        public const double DefaultPdfPageWidth = 210.0d;
+        public const double DefaultPdfPageHeight = 297.0d;
+
+
         public static string[] FixedFooterActions =
             [
                 "Index",

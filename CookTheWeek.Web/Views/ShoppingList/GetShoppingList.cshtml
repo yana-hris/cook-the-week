@@ -1,0 +1,30 @@
+﻿@model ShoppingListViewModel
+@{
+    ViewData["Title"] = "Shopping List";
+}
+
+<div id="shopping-list" class="shopping-list-container">
+    <partial name="_ProductsByCategoriesPartial", model="@Model" />
+    <a id="generatePdfBtn" class="btn btn-primary plus btn-icon-only fixed-size-btn">
+        <i class="fa fa-download"></i>
+    </a>
+    <partial name="_BackBtnPartial"/>
+</div>
+    
+<script>
+    $(document).ready(function () {
+        // Attach click event to the button
+        $('#generatePdfBtn').click(function (e) {
+            e.preventDefault();
+            // Navigate to the controller action URL to trigger download
+            window.location.href = '/ShoppingList/GeneratePdf?id=@Model.MealPlanId';
+        });
+    });
+</script>
+
+
+
+
+
+
+

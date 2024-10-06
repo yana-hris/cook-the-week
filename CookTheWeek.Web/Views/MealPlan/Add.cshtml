@@ -4,7 +4,7 @@
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
     int initialCount = Model.Meals.Count;
-    int? userPlansCount = await this.MealPlanService.MineCountAsync(User.GetId());
+    int? userPlansCount = await this.MealPlanService.MineCountAsync();
 
     var headingModel = new PageHeadingViewModel
     {

@@ -30,7 +30,12 @@
                 .Meals
                 .Where(m => m.Id == id)
                     .Include(m => m.Recipe)
+                        .ThenInclude(r => r.Category)
+                    .Include(m => m.Recipe)
+                        .ThenInclude(r => r.Steps)
+                    .Include(m => m.Recipe)
                         .ThenInclude(r => r.RecipesIngredients)
+                            .ThenInclude(ri => ri.Ingredient)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             return meal;

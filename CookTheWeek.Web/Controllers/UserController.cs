@@ -22,7 +22,6 @@
         
         private readonly IUserService userService;
         private readonly IValidationService validationService;
-
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserController> logger;
         

@@ -17,7 +17,7 @@
         /// <param name="userId"></param>
         /// <returns>A collection of RecipeAllViewModel</returns>
         /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
-        Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel, string userId); 
+        Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel); 
 
         /// <summary>
         /// Takes the model and validates further for any errors, if the model is correct, persists the Recipe in the database
@@ -27,7 +27,7 @@
         /// <param name="isAdmin"></param>
         /// <returns>The Result of the Operation: Success/Failure (and the recipeId if Success)</returns>
         /// <remarks>May throw RecordNotFoundException due to underlying usage of GetById method</remarks>
-        Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model, string userId, bool isAdmin); 
+        Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model); 
 
         /// <summary>
         /// Edits an existing Recipe by first validating the model, including all nested entities. 
@@ -55,7 +55,7 @@
         /// <returns>RecipeEditFormModel</returns>
         /// <exception cref="UnauthorizedUserException"></exception>
         /// <exception cref="RecordNotFoundException">rethrown</exception>
-        Task<RecipeEditFormModel> GetForEditByIdAsync(string id, string userId, bool isAdmin);
+        Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
 
 
         /// <summary>
@@ -64,21 +64,21 @@
         /// <remarks>May throw RecordNotFoundException due to using GetById</remarks>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task DeleteByIdAsync(string id, string userId, bool isAdmin);
+        Task DeleteByIdAsync(string id);
 
         /// <summary>
         /// Returns a viewmodel collection of all recipes, added by a specific user by userId. 
         /// Does not throw any exceptions.
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(string userId); 
+        Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(); 
 
         /// <summary>
         /// Returns the number of recipes added by a given user
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>int or 0</returns>
-        Task<int?> GetMineCountAsync(string userId);
+        Task<int?> GetMineCountAsync();
 
         /// <summary>
         /// Returns the count of all recipes
@@ -109,14 +109,14 @@
         /// Returns all user-liked recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync(string userId);
+        Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync();
         
         /// <summary>
         /// Soft deletes a collection of recipes. All sub-entities will be deleted too. 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteAllByUserIdAsync(string userId);
+        Task DeleteAllByUserIdAsync();
 
         /// <summary>
         /// Gets a Recipe for a meal details view including all its steps and recipee ingredients info (incl. ingredients category)
@@ -125,12 +125,5 @@
         /// <returns>A single Recipe</returns>
         /// <remarks>May throw a RecordNotFoundException if recipe id doesn not exist</remarks>
         Task<Recipe> GetForMealByIdAsync(string recipeId);
-
-        /// <summary>
-        /// Checks if there are any recipes in the given category (by id) and returns true or false
-        /// </summary>
-        /// <param name="categoryId">Recipe Category id</param>
-        /// <returns>true or false</returns>
-        Task<bool> HasAnyWithCategory(int categoryId);
     }
 }

@@ -24,15 +24,14 @@
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
-        private readonly string? userId;
 
         private readonly IRecipeService recipeService;
         private readonly IMealPlanService mealPlanService;
-        private readonly IValidationService validationService;
-        
-        private readonly IEmailSender emailSender;
+        private readonly IValidationService validationService;        
 
+        private readonly IEmailSender emailSender;
         private readonly ILogger<UserService> logger;
+        private readonly string? userId;
 
         public UserService(IUserRepository userRepository,
             IUserContext userContext,
@@ -132,7 +131,7 @@
             try
             {
                 // Delete related data first
-                await recipeService.DeleteAllByUserIdAsync(userId);
+                await recipeService.DeleteAllByUserIdAsync();
                 // Might be deleted by default! check!
                 await mealPlanService.DeleteAllByUserIdAsync(userId);
             }

@@ -115,7 +115,7 @@ namespace CookTheWeek.Web.Controllers
 
             try
             {
-                ICollection<MealPlanAllViewModel> model = await this.mealPlanService.MineAsync(userId);
+                ICollection<MealPlanAllViewModel> model = await this.mealPlanService.MineAsync();
                 return View(model);
                          
             }

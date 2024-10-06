@@ -22,6 +22,7 @@
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository ingredientRepository;
+
         private readonly IValidationService validationService;
 
         private readonly ILogger<IngredientService> logger;

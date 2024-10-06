@@ -2,117 +2,85 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Data;
-    using Data.Services.Interfaces;
-    using Web.ViewModels.ShoppingList;
+    using Microsoft.Extensions.Logging;
+    
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.ShoppingList;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.HelperMethods.IngredientHelper;
 
     public class ShoppingListService : IShoppingListService
     {
-        private readonly CookTheWeekDbContext dbContext;
+        private readonly IMealPlanService mealPlanService;
+        private readonly IRecipeIngredientService recipeIngredientService;
 
-        public ShoppingListService(CookTheWeekDbContext dbContext)
+        private readonly IIngredientAggregatorHelper ingredientHelper;
+        private readonly ILogger<ShoppingListService> logger;
+
+        public ShoppingListService(IMealPlanService mealPlanService, 
+            IIngredientAggregatorHelper ingredientHelper,
+            IRecipeIngredientService recipeIngredientService,
+            ILogger<ShoppingListService> logger)
         {
-            this.dbContext = dbContext;
+            this.logger = logger;
+            this.mealPlanService = mealPlanService;
+            this.ingredientHelper = ingredientHelper;
+            this.recipeIngredientService = recipeIngredientService; 
         }
-        public async Task<ShoppingListViewModel> GetByMealPlanIdAsync(string id)
+        public async Task<ShoppingListViewModel> TryGetShoppingListDataByMealPlanIdAsync(string id)
         {
-            ShoppingListViewModel model = await dbContext
-                .MealPlans
-                .Where(mp => mp.Id.ToString() == id)
-                .Select(mp => new ShoppingListViewModel()
-                {
-                    Id = id,
-                    Title = mp.Name,
-                    StartDate = mp.StartDate.ToString(MealDateFormat),
-                    EndDate = mp.StartDate.AddDays(6).ToString(MealDateFormat),
-                })
-                .FirstAsync();
+            MealPlan mealplan = await mealPlanService.GetByIdAsync(id);
 
-            var meals = await dbContext.Meals
-                .Where(m => m.MealPlanId.ToString() == id)
-                .ToListAsync();
-
-            var products = new List<ProductServiceModel>();
-
-            foreach (var meal in meals)
+            ShoppingListViewModel model = new ShoppingListViewModel
             {
-                var recipeId = meal.RecipeId;
+                MealPlanId = mealplan.Id.ToString(),
+                Title = mealplan.Name,
+                StartDate = mealplan.StartDate.ToString(MealDateFormat),
+                EndDate = mealplan.StartDate.AddDays(6).ToString(MealDateFormat),
+                ProductsByCategories = new List<ProductListViewModel>()
+            };
+
+            // Dictionary for fast product lookup
+            var productDict = new Dictionary<(string Name, int MeasureId, int? SpecificationId), ProductServiceModel>();
+
+
+            foreach (var meal in mealplan.Meals)
+            {
                 int mealServings = meal.ServingSize;
-
-                var recipe = await dbContext.Recipes
-                    .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Ingredient)
-                    .FirstAsync(r => r.Id.Equals(recipeId));
-
-                int recipeServings = recipe.Servings;
+                int recipeServings = meal.Recipe.Servings;
 
                 decimal servingSizeMultiplier = mealServings * 1.0m / recipeServings * 1.0m;
 
-                foreach (var ri in recipe.RecipesIngredients)
+                foreach (var ri in meal.Recipe.RecipesIngredients)
                 {
-                    ProductServiceModel product = new ProductServiceModel()
+                    var key = (ri.Ingredient.Name, ri.MeasureId, ri.SpecificationId);
+
+                    if (productDict.TryGetValue(key, out var existingProduct))
                     {
-                        Name = ri.Ingredient.Name,
-                        CategoryId = ri.Ingredient.CategoryId,
-                        MeasureId = ri.MeasureId,
-                        Qty = ri.Qty * servingSizeMultiplier,
-                        SpecificationId = ri.SpecificationId,
-                    };
-
-                    // Check if a product with the same measure is already added to the list, otherwise add it
-                    if (products.Any(p => p.Name == product.Name &&
-                                     p.MeasureId == product.MeasureId &&
-                                     p.SpecificationId == product.SpecificationId))
-                    {
-                        var existingProduct = products
-                            .First(p => p.Name == product.Name &&
-                                        p.MeasureId == product.MeasureId &&
-                                        p.SpecificationId == product.SpecificationId);
-
-                        existingProduct.Qty += product.Qty;
-
+                        existingProduct.Qty += ri.Qty * servingSizeMultiplier;
                     }
                     else
                     {
-                        products.Add(product);
+                        productDict[key] = new ProductServiceModel
+                        {
+                            Name = ri.Ingredient.Name,
+                            CategoryId = ri.Ingredient.CategoryId,
+                            MeasureId = ri.MeasureId,
+                            Qty = ri.Qty * servingSizeMultiplier,
+                            SpecificationId = ri.SpecificationId
+                        };
                     }
                 }
-
             }
 
-            ICollection<ProductListViewModel> productsByCategories = new List<ProductListViewModel>();
+            var products = productDict.Values.ToList();
 
-            var measures = await dbContext.Measures.ToListAsync();
-            var specifications = await dbContext.Specifications.ToListAsync();
+            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
-
-            for (int i = 0; i < ProductListCategoryNames.Length; i++)
-            {
-                int[] categoriesArr = ProductListCategoryIds[i];
-
-                ProductListViewModel productModel = new ProductListViewModel()
-                {
-                    Title = ProductListCategoryNames[i],
-                    Products = products
-                            .Where(p => categoriesArr.Contains(p.CategoryId))
-                            .Select(p => new ProductViewModel()
-                            {
-                                Qty = FormatIngredientQty(p.Qty),
-                                Measure = measures.Where(m => m.Id == p.MeasureId).Select(m => m.Name).First(),
-                                Name = p.Name,
-                                Specification = specifications.Where(s => s.Id == p.SpecificationId).Select(s => s.Description).FirstOrDefault()
-                            }).ToList()
-                };
-
-                productsByCategories.Add(productModel);
-            }
-
-            model.ProductsByCategories = productsByCategories;
+            model.ProductsByCategories = ingredientHelper.AggregateIngredientsByCategory(products, measures, specifications);
 
             return model;
 

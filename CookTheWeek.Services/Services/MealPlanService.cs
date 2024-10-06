@@ -30,21 +30,18 @@
 
         private readonly IMealService mealService;
         private readonly IValidationService validationService;
-        private readonly IUserService userService;
         private readonly ILogger<MealPlanService> logger;
         private readonly string? userId;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
             IValidationService validationService,
-            IUserService userService,
             IUserContext userContext,
             ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
             this.validationService = validationService;
             this.mealService = mealService;
-            this.userService = userService;
             this.userId = userContext.UserId ?? String.Empty;
             this.logger = logger;
         }

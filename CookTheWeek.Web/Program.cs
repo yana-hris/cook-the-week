@@ -1,5 +1,6 @@
 namespace CookTheWeek.Web
 {
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -11,16 +12,18 @@ namespace CookTheWeek.Web
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Events.Dispatchers;
+    using CookTheWeek.Services.Data.Events.EventHandlers;
+    using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Web.Infrastructure.BackgroundServices;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.Infrastructure.HostedServices;
     using CookTheWeek.Web.Infrastructure.ModelBinders;
-    using CookTheWeek.Services.Data.Factories.Interfaces;
-    using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Services.Data.Services;
+    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     using static Common.GeneralApplicationConstants;
-    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     public class Program
     {
@@ -92,12 +95,20 @@ namespace CookTheWeek.Web
             builder.Services.AddHttpClient();
 
             builder.Services.AddScoped<IUserContext, UserContext>();
+            builder.Services.AddScoped<IIngredientAggregatorHelper, IngredientAggregatorHelper>();
+            builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
+            builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
-            //var suffixes = new[] { "Service", "Repository", "CategoryService", "CategoryRepository", "Factory" };
-            //var assemblyTypes = new[] { typeof(IFavouriteRecipeRepository), typeof(ICategoryService<,,,>), typeof(IRecipeViewModelFactory) };
+
+            var suffixes = new[] { "Repository", "Service", "Factory" };
+            var assemblyTypes = new[] { typeof(RecipeRepository).Assembly,
+                        typeof(RecipeService).Assembly };
 
             //// Register all services and repositories from multiple assemblies
             //builder.Services.AddApplicationServicesOfType(assemblyTypes, suffixes);
+            builder.Services.AddServicesByConvention(
+                assemblyTypes,
+                suffixes);
 
             builder.Services.AddHttpContextAccessor();
 

@@ -2,14 +2,13 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static Common.GeneralApplicationConstants;
     using static Common.EntityValidationConstants.RecipeIngredientQtyValidation;
 
-    public class ValidateQtyAttribute : ValidationAttribute, IClientValidatable
+    public class ValidateQtyAttribute : ValidationAttribute
     {
         private readonly Dictionary<string, decimal> fractionOptions;
         public ValidateQtyAttribute() 
@@ -72,20 +71,5 @@
             return new ValidationResult(MissingFormInputErrorMessage);
 
         }
-
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, 
-            ControllerContext context)
-        {
-            var rule = new ModelClientValidationRule
-            {
-                ErrorMessage = this.ErrorMessageString,
-                ValidationType = "validateqty"
-            };
-
-            rule.ValidationParameters.Add("fractionoptions", string.Join(",", fractionOptions.Keys));
-
-            yield return rule;
-        }
-
     }
 }

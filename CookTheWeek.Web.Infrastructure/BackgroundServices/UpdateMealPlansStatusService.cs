@@ -32,6 +32,7 @@
                 {
                     ICollection<MealPlan> mealPlans = await dbContext
                     .MealPlans
+                    .Where(mp => !mp.IsFinished || mp.Meals.Any(m => !m.IsCooked))
                     .ToListAsync();
 
                     foreach (var mealPlan in mealPlans)
@@ -39,6 +40,11 @@
                         if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
                         {
                             mealPlan.IsFinished = true;
+
+                            foreach (var meal in mealPlan.Meals)
+                            {
+                                meal.IsCooked = true;
+                            }
                         }
                     }
 

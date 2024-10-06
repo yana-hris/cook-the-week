@@ -1,14 +1,21 @@
 ﻿@model RecipeAllViewModel
+
+@inject IUserContext UserContext
 @inject IFavouriteRecipeService LikesService
+
 @using CookTheWeek.Common.Extensions
+@using CookTheWeek.Common.HelperMethods
 @using CookTheWeek.Services.Data.Services.Interfaces
+
 @using static CookTheWeek.Common.GeneralApplicationConstants
+
 @{
     string recipeId = Model.Id.ToString();
-    string userId = this.User.GetId();
-    bool isAdmin = User.IsAdmin();
-    bool isOwner = Model.OwnerId == userId.ToLower();
+    string userId = UserContext.UserId;
+    bool isAdmin = UserContext.IsAdmin;
+    bool isOwner = GuidHelper.CompareTwoGuidStrings(userId, Model.OwnerId);
 }
+
 
 <div class="col recipe-container">    
     <div class="card recipe-card">
@@ -16,9 +23,9 @@
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
             @if (!string.IsNullOrEmpty(userId) && !isOwner && !isAdmin)
             {
-                bool isLiked = await this.LikesService.HasUserByIdLikedRecipeById(userId, recipeId);
+                bool isLiked = await this.LikesService.HasUserByIdLikedRecipeById(recipeId);
 
-                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
                     @if (isLiked)
                     {
                         <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
@@ -46,7 +53,7 @@
                 <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
             </a>
             <div class="d-flex align-items-center justify-content-between recipe-info">
-                    <span class="badge @GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>                    
+                    <span class="badge @BadgeColorHelper.GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>                    
                     <div class="d-flex align-items-center justify-content-center g-1">
                         <i class="material-icons card-icon">timer</i>
                         <span class="icon-text">&nbsp;@Model.CookingTime</span>
@@ -62,28 +69,7 @@
         </div>
     </div>
 </div>
-@functions {
-    public string GetBadgeColor(string mealCategoryName)
-    {
-        switch (mealCategoryName)
-        {
-            case "Breakfast": 
-                return "bg-breakfast-yellow text-dark";
-            case "Soup": 
-                return "bg-soup-orange";
-            case "Salad":
-                return "bg-salad-green";
-            case "Main Dish": 
-                return "bg-main-dish-red";
-            case "Appetizer":
-                return "bg-appetizer-green text-dark";
-            case "Dessert": 
-                return "bg-dessert-pink text-dark";
-            default:
-                return "bg-white text-dark";
-        }
-    }
-}
+
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();

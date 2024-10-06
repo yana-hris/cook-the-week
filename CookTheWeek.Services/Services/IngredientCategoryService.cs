@@ -24,8 +24,10 @@
         IngredientCategorySelectViewModel>
     {
         private readonly ICategoryRepository<IngredientCategory> categoryRepository;
+
         private readonly IValidationService validationService;
         private readonly IIngredientService ingredientService;
+
         private readonly ILogger<IngredientCategoryService> logger;
         public IngredientCategoryService(
             ICategoryRepository<IngredientCategory> categoryRepository,

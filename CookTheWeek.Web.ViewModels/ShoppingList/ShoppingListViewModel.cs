@@ -7,7 +7,7 @@
         {
             this.ProductsByCategories = new List<ProductListViewModel>();
         }
-        public string Id { get; set; } = null!;
+        public string MealPlanId { get; set; } = null!;
         public string Title { get; set; } = null!;
         public string StartDate { get; set; } = null!;
         public string EndDate { get; set; } = null!;

@@ -5,6 +5,7 @@ namespace CookTheWeek.Web.Controllers
 
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
+    using CookTheWeek.Web.Infrastructure.ActionFilters;
     using CookTheWeek.Web.Infrastructure.Extensions;
 
     using static Common.GeneralApplicationConstants;
@@ -25,20 +26,10 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
+        [AdminRedirect("Index", "HomeAdmin")]
         public IActionResult Index()
         {
-            if(User.IsAdmin())
-            {
-                return this.RedirectToAction("Index", "HomeAdmin", new { Area = AdminAreaName });
-            }
-
-            string userId = User.GetId();
-            if(string.IsNullOrEmpty(userId))
-            {
-                return View();
-            }
-
-            return RedirectToAction("All", "Recipe");
+            return View();
         }
 
         [HttpGet]

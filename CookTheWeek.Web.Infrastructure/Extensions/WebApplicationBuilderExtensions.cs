@@ -19,6 +19,48 @@
     /// </summary>
     public static class WebApplicationBuilderExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="assembliesToScan"></param>
+        /// <param name="suffixes"></param>
+        /// <param name="interfaceTypes"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddServicesByConvention(this IServiceCollection services,
+                                                        Assembly[] assembliesToScan,
+                                                        string[] suffixes)
+        {
+            foreach (var assembly in assembliesToScan)
+            {
+                // Get all class types in the assembly
+                var typesToRegister = assembly.GetTypes()
+                    .Where(type => type.IsClass && !type.IsAbstract) // Only classes
+                    .Where(type => suffixes.Any(suffix => type.Name.EndsWith(suffix))) // Matching suffix
+                    .ToList();
+
+                foreach (var implementationType in typesToRegister)
+                {
+                    var interfaces = implementationType.GetInterfaces();
+
+                    foreach (var implementedInterface in interfaces)
+                    {
+                        if (implementedInterface.IsGenericTypeDefinition && implementationType.IsGenericTypeDefinition)
+                        {
+                            // Register open generic types (e.g., ICategoryService<TCategory, TAddFormModel, ...>)
+                            services.AddScoped(implementedInterface.GetGenericTypeDefinition(), implementationType.GetGenericTypeDefinition());
+                        }
+                        else
+                        {
+                            // Register closed generic types & non-generic services
+                            services.AddScoped(implementedInterface, implementationType);
+                        }
+                    }
+                }
+            }
+
+            return services;
+        }
         public static void AddApplicationServicesOfType(this IServiceCollection services, Type[] assemblyTypes, string[] suffixes)
         {
             foreach (var assemblyType in assemblyTypes)
@@ -141,7 +183,7 @@
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
 
-
+        
     }  
     
 }
