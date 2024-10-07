@@ -6,6 +6,7 @@ namespace CookTheWeek.Web.Controllers
    
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.MealPlan;
@@ -15,24 +16,21 @@ namespace CookTheWeek.Web.Controllers
 
     public class MealPlanController : BaseController
     {
+        private readonly IViewModelFactory viewModelFactory;
         private readonly IMealPlanService mealPlanService;
-        private readonly IRecipeService recipeService;
-        private readonly IUserService userService;
         private readonly IValidationService validationService;
 
         private readonly ILogger<MealPlanController> logger;
 
         public MealPlanController(IMealPlanService mealPlanService,
-            IRecipeService recipeService,
             IValidationService validationService,
-            IUserService userService,
+            IViewModelFactory viewModelFactory,
             ILogger<MealPlanController> logger)
         {
             this.mealPlanService = mealPlanService;
-            this.recipeService = recipeService;
-            this.userService = userService;
             this.logger = logger;
             this.validationService = validationService;
+            this.viewModelFactory = viewModelFactory;
         }
 
         [HttpPost]
@@ -111,11 +109,9 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            string userId = User.GetId();
-
             try
             {
-                ICollection<MealPlanAllViewModel> model = await this.mealPlanService.MineAsync();
+                ICollection<MealPlanAllViewModel> model = await viewModelFactory.CreateMyMealPlansViewModelAsync();
                 return View(model);
                          
             }
@@ -140,7 +136,7 @@ namespace CookTheWeek.Web.Controllers
         {
             try
             {
-                MealPlanDetailsViewModel model = await this.mealPlanService.GetForDetailsAsync(id);
+                MealPlanDetailsViewModel model = await this.viewModelFactory.CreateMealPlanDetailsViewModelAsync(id);
 
                 ViewBag.ReturnUrl = returnUrl;
                 return View(model);
@@ -162,36 +158,47 @@ namespace CookTheWeek.Web.Controllers
         {
             try
             {
-                MealPlanAddFormModel copiedModel = await mealPlanService.TryCopyMealPlanByIdAsync(mealPlanId);
-                HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", copiedModel); // store in session
+                MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanAddFormModelAsync(mealPlanId);
 
-                return RedirectToAction("Add", new { returnUrl });
-            }
-            catch(InvalidOperationException ex)
-            {
-                TempData[ErrorMessage] = ex.Message;
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
+                try
+                {
+                    var result = await validationService.ValidateMealPlanFormModelAsync(copiedModel);
+
+                    if (result.IsValid)
+                    {
+                        HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", copiedModel); // store in session
+
+                        return RedirectToAction("Add", new { returnUrl });
+                    }
+
+                    TempData[ErrorMessage] = "Copying meal plan failed!";
+                }
+                catch (RecordNotFoundException)
+                {
+                    // TODO: think about how to exclude them and suggest the user a way to proceed
+                    TempData[ErrorMessage] = "Meal Plan cannot be copied due to unexisting Recipes.";
+                    return Redirect(returnUrl ?? "/MealPlan/Mine");
+                }
             }
             catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
             {
                 TempData[ErrorMessage] = ex.Message;
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
             catch (Exception ex)
             {
                 return HandleException(ex, nameof(CopyMealPlan), mealPlanId);
             }
+
+            return Redirect(returnUrl ?? "/MealPlan/Mine");
         }
         
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl)
         {
-            string userId = User.GetId();
-
             try
             {
-                MealPlanEditFormModel model = await this.mealPlanService.GetForEditByIdAsync(id);
+                MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanEditFormModelAsync(id);
                 SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
                 return View(model);
             }
@@ -248,7 +255,6 @@ namespace CookTheWeek.Web.Controllers
             try
             {
                 await this.mealPlanService.TryDeleteByIdAsync(id);
-
                 TempData[SuccessMessage] = MealPlanSuccessfulDeleteMessage;
             }
             catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)

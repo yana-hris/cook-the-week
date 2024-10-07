@@ -35,5 +35,12 @@
         /// <returns></returns>
         Task DeleteAllAsync(ICollection<FavouriteRecipe> userLikes);
 
+        /// <summary>
+        /// Sets the IsDeleted flag of the like as true
+        /// </summary>
+        /// <param name="like"></param>
+        /// <returns></returns>
+        Task SoftDeleteAsync(FavouriteRecipe like);
+
     }
 }

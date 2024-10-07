@@ -111,5 +111,12 @@
         /// <returns></returns>
         Task DeleteSpecAsync(Specification mespecasure);
 
+        /// <summary>
+        /// Soft deletes a recipe ingredient by setting its IsDeleted flag to true
+        /// </summary>
+        /// <param name="recipeIngredient"></param>
+        /// <returns></returns>
+        Task SoftDeleteAsync(RecipeIngredient recipeIngredient);
+
     }
 }

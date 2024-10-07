@@ -20,5 +20,12 @@
         /// </summary>
         /// <returns>A queryable collection of Step</returns>
         IQueryable<Step> GetAllQuery();
+
+        /// <summary>
+        /// Soft deletes a step by setting its IsDeleted flag to true
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        Task SoftDeleteAsync(Step step);
     }
 }

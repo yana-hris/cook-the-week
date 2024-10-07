@@ -8,7 +8,7 @@
     [Comment("Recipe Ingredient")]
     public class RecipeIngredient
     {
-        [Key]// Surrogate key
+        [Key]
         [Comment("Unique Recipe Ingredient Key identifier")]
         public int Id { get; set; } 
 
@@ -48,5 +48,9 @@
 
         [Comment("Specification")]       
         public Specification? Specification { get; set; }
+
+        [Comment("Soft Delete the RecipeIngredient when the Recipe is deleted")]
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

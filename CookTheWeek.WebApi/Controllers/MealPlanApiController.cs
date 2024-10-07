@@ -8,6 +8,7 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Models.Validation;
+    using CookTheWeek.Services.Data.Factories;
 
     [Route("api/mealplan")]
     [ApiController]
@@ -16,60 +17,67 @@
         
         private readonly IMealPlanService mealPlanService;
         private readonly IValidationService validationService;
+        private readonly IViewModelFactory viewModelFactory;
         private readonly ILogger<MealPlanApiController> logger;
 
         public MealPlanApiController(
             IMealPlanService mealPlanService,
             IValidationService validationService,
+            IViewModelFactory viewModelFactory,
             ILogger<MealPlanApiController> logger)
         {
            
             this.validationService = validationService;
             this.mealPlanService = mealPlanService;
+            this.viewModelFactory = viewModelFactory;
             this.logger = logger;
         }
 
         [HttpPost]
-        [Route("createModel")]
+        [Route("CreateMealPlanModel")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MealPlanAddFormModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel model)
         {
+            // Fast return in case of invalid data received
             if (!ModelState.IsValid)
             {
-                return LogAndReturnBadRequest("Invalid model received.");
+                return LogAndReturnBadRequestWithModelState("Invalid service model received.");
             }
 
-            // Custom validation
+            // Perform additional validation
             var validationResult = await ValidateMealPlanModelAsync(model);
+
             if (!validationResult.IsValid)
             {
-                return BadRequest(ModelState);
+                return LogAndReturnBadRequestWithModelState(string.Join(Environment.NewLine, validationResult.Errors));
             }
 
-            ICollection<MealServiceModel> recipes = model.Meals;
-            MealPlanAddFormModel mealPlanModel = new MealPlanAddFormModel();
-
+            // If model is valid, create the view model for Add view
             try
             {
-                // TODO: create model and throw exceptions
-                mealPlanModel = await this.mealPlanService.CreateMealPlanAddFormModelAsync(model);
+                MealPlanAddFormModel mealPlanModel = await this.viewModelFactory.CreateMealPlanAddFormModelAsync(model);
             }
             catch (RecordNotFoundException ex)
             {
-                logger.LogError(ex.Message, ex.StackTrace);
+                logger.LogError($"MealPlanAddFormModel creation failed due to missing record. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
                 return NotFound();
             }
-            
+            catch (Exception ex) when (ex is DataRetrievalException || ex is Exception)
+            {
+                logger.LogError(ex, "Error retrieving data.");
+                return StatusCode(500, ex.Message);
+            }
+
             return Ok();
 
         }
 
         // Helper method for logging and returning bad request
-        private IActionResult LogAndReturnBadRequest(string message)
+        private IActionResult LogAndReturnBadRequestWithModelState(string message)
         {
-            logger.LogWarning(message);
+            logger.LogError(message);
             return BadRequest(ModelState);
         }
 

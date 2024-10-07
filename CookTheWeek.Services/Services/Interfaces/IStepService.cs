@@ -25,6 +25,6 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteByRecipeIdAsync(string id);
+        Task HardDeleteStepsByRecipesIdAsync(string id);
     }
 }

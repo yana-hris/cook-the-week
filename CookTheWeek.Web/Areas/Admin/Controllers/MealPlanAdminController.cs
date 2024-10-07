@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
+    using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
@@ -7,19 +8,20 @@
 
     public class MealPlanAdminController : BaseAdminController
     {
-        private readonly IMealPlanService mealPlanService;
+        private readonly IViewModelFactory viewModelFactory;
 
-        public MealPlanAdminController(IMealPlanService mealPlanService,
+        public MealPlanAdminController(
+            IViewModelFactory viewModelFactory,
             ILogger<MealPlanAdminController> logger) : base(logger) 
         {
-            this.mealPlanService = mealPlanService;
+            this.viewModelFactory = viewModelFactory;
         }
 
         [HttpGet]
         public async Task<IActionResult> AllActive()
         {
             ICollection<MealPlanAllAdminViewModel> allActive = await
-                this.mealPlanService.AllActiveAsync();
+                viewModelFactory.CreateAllActiveMealPlansAdminViewModelAsync();
 
             ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllActive";
 
@@ -30,7 +32,7 @@
         public async Task<IActionResult> AllFinished()
         {
             ICollection<MealPlanAllAdminViewModel> allFinished = await
-                this.mealPlanService.AllFinishedAsync();
+                viewModelFactory.CreateAllFinishedMealPlansAdminViewModelAsync();
 
             ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllFinished";
 

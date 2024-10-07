@@ -3,19 +3,12 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Web.ViewModels.Meal;
 
     public interface IMealService
     {
-        /// <summary>
-        /// Returns a detailed view model for a meal
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>MealDetailsViewModel</returns>
-        /// <exception cref="RecordNotFoundException">if the meal or recipe is not found</exception>
-        Task<MealDetailsViewModel> GetForDetailsAsync(int id);
-
         /// <summary>
         /// Deletes all meals, included in a specific meal plan (by id)
         /// </summary>
@@ -37,13 +30,14 @@
         /// <returns></returns>
         Task AddAllAsync(IList<MealAddFormModel> meals);
 
+       
         /// <summary>
-        /// Creates a MealAddFormModel from a service model. Throws an exception if the specific recipe is not found in the database
+        /// Gets the Meal (including all its ingredients) by a given id or throws an Exception
         /// </summary>
-        /// <param name="meal"></param>
-        /// <remarks>May throw a RecordNotFoundException due to usage of GetByIdAsync method.</remarks>
-        /// <returns>MealAddFormModel</returns>
-        Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
+        /// <param name="mealId"></param>
+        /// <returns>Meal</returns>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<Meal> GetMealByIdAsync(int mealId);
 
         /// <summary>
         /// Returns the total count of all meals, cooked by a given recipeId

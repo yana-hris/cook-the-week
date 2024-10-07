@@ -13,6 +13,13 @@
                 .HasKey(fr => new { fr.UserId, fr.RecipeId });
 
             builder
+                .HasQueryFilter(fr => !fr.IsDeleted);
+
+            builder
+                .Property(r => r.IsDeleted)
+                .HasDefaultValue(false);
+
+            builder
                 .HasOne(fr => fr.User)
                 .WithMany(u => u.FavoriteRecipes)
                 .HasForeignKey(fr => fr.UserId)

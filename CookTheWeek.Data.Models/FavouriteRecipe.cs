@@ -5,7 +5,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    [Comment("Users` Favourite Recipes")]
+    [Comment("Users` Favourite Recipes (likes)")]
     public class FavouriteRecipe
     {
         [Comment("User Key Identifier")]
@@ -19,5 +19,9 @@
         [ForeignKey(nameof(Recipe))]
         public Guid RecipeId { get; set; }
         public Recipe Recipe { get; set; } = null!;
+
+        [Comment("Soft Delete the Recipe Like when the Recipe is deleted")]
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

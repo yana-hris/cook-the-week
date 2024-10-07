@@ -76,7 +76,6 @@
             dbContext.Recipes.Update(recipe);
             await this.dbContext.SaveChangesAsync();
         }
-
         
         /// <inheritdoc/>
         public async Task<bool> ExistsByIdAsync(string id)
@@ -89,6 +88,21 @@
         public async Task UpdateAllAsync(ICollection<Recipe> recipes)
         {
             dbContext.Recipes.UpdateRange(recipes);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task SoftDeleteAsync(Recipe recipe)
+        {
+            recipe.IsDeleted = true;
+            dbContext.Recipes.Update(recipe);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteAsync(Recipe recipe)
+        {
+            dbContext.Recipes.Remove(recipe);
             await dbContext.SaveChangesAsync();
         }
     }

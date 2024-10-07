@@ -55,5 +55,13 @@
             dbContext.RemoveRange(userLikes);
             await dbContext.SaveChangesAsync();
         }
+
+        /// <inheritdoc/>  
+        public async Task SoftDeleteAsync(FavouriteRecipe like)
+        {
+            like.IsDeleted = true;
+            dbContext.FavoriteRecipes.Update(like);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

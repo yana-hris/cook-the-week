@@ -47,7 +47,22 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteByRecipeIdAsync(string recipeId)
+        public async Task SoftDeleteStepsByRecipeIdAsync(string recipeId)
+        {
+            ICollection<Step> stepsToDelete = await stepRepository
+                .GetAllQuery()
+                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
+                .ToListAsync();
+
+            foreach (var step in stepsToDelete)
+            {
+                await stepRepository.SoftDeleteAsync(step);
+            }
+        }
+
+
+        /// <inheritdoc/>
+        public async Task HardDeleteStepsByRecipesIdAsync(string recipeId)
         {
             ICollection<Step> stepsToDelete = await stepRepository
                 .GetAllQuery()

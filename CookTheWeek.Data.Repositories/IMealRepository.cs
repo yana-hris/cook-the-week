@@ -31,6 +31,13 @@ namespace CookTheWeek.Data.Repositories
         /// </summary>
         /// <param name="recipeId"></param>
         Task DeleteAll(ICollection<Meal> meals);
-        
+
+        /// <summary>
+        /// Soft deletes a meal by setting its IsDeleted flag to true
+        /// </summary>
+        /// <param name="meal"></param>
+        /// <returns></returns>
+        Task SoftDeleteAsync(Meal meal);
+
     }
 }

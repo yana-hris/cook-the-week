@@ -55,6 +55,12 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        
+        /// <inheritdoc/>
+        public async Task SoftDeleteAsync(Meal meal)
+        {
+            meal.IsDeleted = true;
+            dbContext.Meals.Update(meal);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

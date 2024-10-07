@@ -43,5 +43,9 @@
         [ForeignKey(nameof(MealPlan))]
         public Guid MealPlanId { get; set; }
         public MealPlan MealPlan { get; set; } = null!;
+
+        [Comment("Soft Delete the Meal when the Recipe is deleted")]
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

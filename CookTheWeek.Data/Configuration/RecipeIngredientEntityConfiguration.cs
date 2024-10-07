@@ -22,7 +22,14 @@ namespace CookTheWeek.Data.Configuration
                    .HasFilter("[SpecificationId] IS NULL")
                    .IsUnique();
 
-            // Recipe is set to soft delete, but recipe ingredients are hard-deleted
+            builder
+                .Property(r => r.IsDeleted)
+                .HasDefaultValue(false);
+
+            builder
+                .HasQueryFilter(ri => !ri.IsDeleted);
+
+
             builder
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipesIngredients)

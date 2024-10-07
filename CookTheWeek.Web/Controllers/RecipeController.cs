@@ -16,13 +16,13 @@
     public class RecipeController : BaseController
     {
 
-        private readonly IRecipeViewModelFactory recipeViewModelFactory;
+        private readonly IViewModelFactory recipeViewModelFactory;
         private readonly IRecipeService recipeService;
 
         private readonly ILogger<RecipeController> logger;        
 
         public RecipeController(IRecipeService recipeService,
-            IRecipeViewModelFactory recipeViewModelFactory,
+            IViewModelFactory recipeViewModelFactory,
             ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;

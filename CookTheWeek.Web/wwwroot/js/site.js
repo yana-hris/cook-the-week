@@ -273,7 +273,7 @@ function buildMealPlan(event) {
     
     
     $.ajax({
-        url: 'https://localhost:7279/api/mealplan/createModel',
+        url: 'https://localhost:7279/api/mealplan/CreateMealPlanModel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(model),        

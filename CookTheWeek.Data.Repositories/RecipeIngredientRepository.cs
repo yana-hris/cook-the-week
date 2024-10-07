@@ -135,6 +135,13 @@
             dbContext.Remove(spec);
             await dbContext.SaveChangesAsync();
         }
-        
+
+        /// <inheritdoc/>
+        public async Task SoftDeleteAsync(RecipeIngredient recipeIngredient)
+        {
+            recipeIngredient.IsDeleted = true;
+            dbContext.RecipesIngredients.Update(recipeIngredient);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

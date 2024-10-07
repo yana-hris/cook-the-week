@@ -27,5 +27,9 @@
         [MaxLength(StepDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
+        [Comment("Soft Delete the Step upon Recipe Deletion")]
+        [Required]
+        public bool IsDeleted { get; set; }
+
     }
 }

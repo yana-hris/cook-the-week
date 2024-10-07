@@ -9,19 +9,13 @@
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.Extensions;
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
-    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
-    using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.MealPlan;
 
     using static Common.GeneralApplicationConstants;
-    using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.ExceptionMessagesConstants;
 
     public class MealPlanService : IMealPlanService
@@ -47,39 +41,27 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<MealPlanAllAdminViewModel>> AllActiveAsync()
+        public async Task<ICollection<MealPlan>> GetAllActiveAsync()
         {
-            return await mealplanRepository.GetAllQuery()
+            ICollection<MealPlan> activeMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => !mp.IsFinished)
                 .OrderBy(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
-                .Select(mp => new MealPlanAllAdminViewModel()
-                {
-                    Id = mp.Id.ToString(),
-                    Name = mp.Name.TrimToChar(30),
-                    OwnerUsername = mp.Owner.UserName!,
-                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    MealsCount = mp.Meals.Count
-                }).ToListAsync();
+                .ToListAsync();
+
+            return activeMealPlans;
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<MealPlanAllAdminViewModel>> AllFinishedAsync()
+        public async Task<ICollection<MealPlan>> GetAllFinishedAsync()
         {
-            return await mealplanRepository.GetAllQuery()
+            ICollection<MealPlan> finishedMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => mp.IsFinished == true)
                 .OrderByDescending(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
-                .Select(mp => new MealPlanAllAdminViewModel()
-                {
-                    Id = mp.Id.ToString(),
-                    Name = mp.Name.TrimToChar(30),
-                    OwnerUsername = mp.Owner.UserName!,
-                    StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                    MealsCount = mp.Meals.Count
-                }).ToListAsync();
+                .ToListAsync();
+
+            return finishedMealPlans;
         }
 
         /// <inheritdoc/>
@@ -136,13 +118,13 @@
             await UpdateMealPlanAsync(model, mealplan);
 
             return OperationResult.Success();
-        }       
+        }
 
         /// <inheritdoc/>
-        public async Task<ICollection<MealPlanAllViewModel>> MineAsync()
+        public async Task<ICollection<MealPlan>> GetAllMineAsync()
         {
             var userMealPlans = await mealplanRepository.GetAllQuery()
-                .Where(mp => mp.OwnerId.ToString() == userId)
+                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId!, mp.OwnerId))
                 .OrderByDescending(mp => mp.StartDate)
                 .ToListAsync();
 
@@ -151,18 +133,7 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoMealplansFoundExceptionMessage, null);
             }
 
-            var model = userMealPlans
-            .Select(mp => new MealPlanAllViewModel()
-            {
-                Id = mp.Id.ToString(),
-                Name = mp.Name,
-                StartDate = mp.StartDate.ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                EndDate = mp.StartDate.AddDays(6.00).ToString(MealDateFormat, CultureInfo.InvariantCulture),
-                MealsCount = mp.Meals.Count,
-                IsFinished = mp.IsFinished
-            }).ToList();
-
-            return model;
+            return userMealPlans;
         }
 
         /// <inheritdoc/>
@@ -173,54 +144,7 @@
                 .CountAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task<MealPlanDetailsViewModel> GetForDetailsAsync(string id)
-        {
-            MealPlan mealPlan = await GetByIdAsync(id);
-
-            MealPlanDetailsViewModel model = new MealPlanDetailsViewModel()
-            {
-                Id = mealPlan.Id.ToString(),
-                Name = mealPlan.Name,
-                OwnerId = mealPlan.OwnerId.ToString(),
-                IsFinished = mealPlan.IsFinished,
-                Meals = mealPlan.Meals.Select(mpm => new MealViewModel()
-                {
-                    Id = mpm.Id.ToString(),
-                    RecipeId = mpm.RecipeId.ToString(),
-                    Title = mpm.Recipe.Title,
-                    Servings = mpm.ServingSize,
-                    ImageUrl = mpm.Recipe.ImageUrl,
-                    CategoryName = mpm.Recipe.Category.Name,
-                    Date = mpm.CookDate.ToString(MealDateFormat),
-                }).ToList(),
-                TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),
-                TotalCookingDays = mealPlan.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
-                TotalIngredients = mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
-                TotalCookingTimeMinutes = mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes),
-            };
-
-            return model;
-        }
-
-        /// <inheritdoc/>
-        public async Task<MealPlanEditFormModel> GetForEditByIdAsync(string id)
-        {
-            MealPlan mealplan = await GetByIdAsync(id);
-
-            validationService.ValidateMealPlanUserAuthorizationAsync(mealplan.OwnerId);
-
-            MealPlanEditFormModel model = MapMealPlanToEditModel(mealplan);
-
-            return model;
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> ExistsByIdAsync(string id)
-        {
-            return await mealplanRepository.GetByIdAsync(id) != null;
-        }
-
+       
         /// <inheritdoc/>
         public async Task<MealPlan> GetByIdAsync(string id)
         {
@@ -274,110 +198,17 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlanAddFormModel> CreateMealPlanAddFormModelAsync(MealPlanServiceModel serviceModel)
+        public async Task<MealPlan> GetForFormModelById(string id)
         {
-            MealPlanAddFormModel model = new MealPlanAddFormModel();
+            MealPlan mealplan = await GetByIdAsync(id);
 
-            // Ensure all fields are initiated and filled with correct data
-            if (model.StartDate == default)
-            {
-                model.StartDate = DateTime.Now;
-            }
+            validationService.ValidateMealPlanUserAuthorizationAsync(mealplan.OwnerId);
 
-            if (model.Meals == null)
-            {
-                model.Meals = new List<MealAddFormModel>();
-            }
-
-            foreach (var meal in serviceModel.Meals)
-            {
-                MealAddFormModel currentMeal = await mealService.CreateMealAddFormModelAsync(meal);
-                model.Meals.Add(currentMeal);
-            }
-
-            return model;
+            return mealplan;
         }
-
-        /// <inheritdoc/>
-        public async Task<MealPlanAddFormModel> TryCopyMealPlanByIdAsync(string mealPlanId)
-        {
-            MealPlan originalMealPlan = await GetByIdAsync(mealPlanId); // RecordNotFoundException
-            validationService.ValidateMealPlanUserAuthorizationAsync(originalMealPlan.OwnerId); // UnauthorizedUserException
-
-            MealPlanAddFormModel model = MapMealPlanToAddModel(originalMealPlan);
-            var result = await validationService.ValidateMealPlanFormModelAsync(model);
-
-            if (!result.IsValid)
-            {
-                throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyCopiedExceptionMessage);
-            }
-
-            return model;
-        }
-
+        
         // HELPER METHODS:
-
-        /// <summary>
-        /// Utility generic common mapping method
-        /// </summary>
-        /// <param name="mealplan"></param>
-        /// <returns>T => An implementation of IMealPlanFormModel</returns>
-        private static T MapMealPlanToFormModel<T>(MealPlan mealplan) where T : IMealPlanFormModel, new()
-        {
-            var model = new T()
-            {
-                Name = mealplan.Name,
-                StartDate = mealplan.StartDate,
-                Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
-                {
-                    RecipeId = mpm.RecipeId.ToString(),
-                    Title = mpm.Recipe.Title,
-                    Servings = mpm.ServingSize,
-                    ImageUrl = mpm.Recipe.ImageUrl,
-                    CategoryName = mpm.Recipe.Category.Name,
-                    Date = mpm.CookDate.ToString(MealDateFormat),
-                    SelectServingOptions = ServingsOptions
-                }).ToList(),
-            };
-
-            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
-            return model;
-        }
-
-        /// <summary>
-        /// Utility method for mapping the Add Form model (for copy case)
-        /// </summary>
-        /// <param name="mealPlan"></param>
-        /// <returns></returns>
-        private static MealPlanAddFormModel MapMealPlanToAddModel(MealPlan mealPlan)
-        {
-            var model = MapMealPlanToFormModel<MealPlanAddFormModel>(mealPlan);
-
-            model.StartDate = DateTime.Today;
-            model.Name = $"{mealPlan.Name} (Copy)";
-
-            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days();
-
-            foreach (var meal in model.Meals)
-            {
-                meal.Date = model.StartDate.ToString(MealDateFormat);
-            }
-
-            return model;
-        }
-
-        /// <summary>
-        /// Utility method for mapping the Edit Form model (for edit case)
-        /// </summary>
-        /// <param name="mealPlan"></param>
-        /// <returns></returns>
-        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealPlan)
-        {
-            var model = MapMealPlanToFormModel<MealPlanEditFormModel>(mealPlan);
-            model.Id = mealPlan.Id.ToString();
-            return model;
-        }
-
+        
         /// <summary>
         /// Utility method to update the mealplan according to the edit model
         /// </summary>
@@ -403,5 +234,7 @@
             await mealplanRepository.DeleteByIdAsync(mealplan);
 
         }
+
+        
     }
 }

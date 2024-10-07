@@ -5,17 +5,20 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Factories;
 
     public class MealController : BaseController
     {
-        private readonly IMealService mealService;
+        
+        private readonly IViewModelFactory viewModelFactory;
         private readonly ILogger<MealController> logger;
 
-        public MealController(IMealService mealService,
-        ILogger<MealController> logger)
+        public MealController(IViewModelFactory viewModelFactory,
+            ILogger<MealController> logger)
         {
             
-            this.mealService = mealService;
+            
+            this.viewModelFactory = viewModelFactory;
             this.logger = logger;
         }
 
@@ -24,14 +27,14 @@
         {
             try
             {
-                MealDetailsViewModel model = await this.mealService.GetForDetailsAsync(id);
+                MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id);
                 return View(model);
             }
             catch (RecordNotFoundException ex)
             {
                 return RedirectToAction("NotFound", "Home", new {message = ex.Message, code =  ex.ErrorCode});
             }    
-            catch(Exception ex)
+            catch(Exception ex) //in case of all database exceptions
             {
                 return HandleException(ex, nameof(Details), id);
             }

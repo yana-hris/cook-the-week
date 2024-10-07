@@ -31,8 +31,7 @@
             await this.dbContext.AddRangeAsync(steps);
             await this.dbContext.SaveChangesAsync();
         }
-
-        
+                
         /// <inheritdoc/>
         public async Task DeleteAllAsync(ICollection<Step> steps)
         {
@@ -40,6 +39,12 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        
+        /// <inheritdoc/>
+        public async Task SoftDeleteAsync(Step step)
+        {
+            step.IsDeleted = true;
+            dbContext.Steps.Update(step);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
