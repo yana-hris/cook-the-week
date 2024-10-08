@@ -11,9 +11,6 @@
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
-    using CookTheWeek.Services.Data.Events.EventHandlers;
-    using CookTheWeek.Services.Data.Events.Dispatchers;
-    using CookTheWeek.Services.Data.Events;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Category;
@@ -36,10 +33,7 @@
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IStepService stepService;
-
-        private readonly IRecipeSoftDeletedEventHandler recipeSoftDeletedEventHandler;
-        private readonly IDomainEventDispatcher domainEventDispatcher;
-
+        
         private readonly IValidationService validationService;
         private readonly ILogger<RecipeService> logger;
         private readonly string? userId;
@@ -51,8 +45,6 @@
             IFavouriteRecipeService favouriteRecipeService,
             ILogger<RecipeService> logger,
             IUserContext userContext,
-            IRecipeSoftDeletedEventHandler recipeSoftDeletedEventHandler,
-            IDomainEventDispatcher domainEventDispatcher,
             IValidationService validationService)
         {
             this.recipeRepository = recipeRepository;
@@ -62,8 +54,6 @@
             this.stepService = stepService;
 
             this.validationService = validationService;
-            this.recipeSoftDeletedEventHandler = recipeSoftDeletedEventHandler;
-            this.domainEventDispatcher = domainEventDispatcher;
             this.logger = logger;
             this.userId = userContext.UserId;
             this.isAdmin = userContext.IsAdmin; 
@@ -480,10 +470,6 @@
             recipe.IsDeleted = true;          
 
             await recipeRepository.UpdateAsync(recipe);
-
-            // Dispatch the soft delete event
-            var recipeSoftDeletedEvent = new RecipeSoftDeletedEvent(recipe.Id);
-            await domainEventDispatcher.DispatchAsync(recipeSoftDeletedEvent);
         }
 
 

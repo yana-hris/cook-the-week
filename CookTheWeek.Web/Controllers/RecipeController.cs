@@ -12,22 +12,27 @@
     using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.NotificationMessagesConstants;
     using CookTheWeek.Services.Data.Factories;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Events.Dispatchers;
+    using CookTheWeek.Services.Data.Events;
+    using CookTheWeek.Services.Data.Events.EventHandlers;
 
     public class RecipeController : BaseController
     {
 
         private readonly IViewModelFactory recipeViewModelFactory;
         private readonly IRecipeService recipeService;
-
+        private readonly IDomainEventDispatcher domainEventDispatcher;
         private readonly ILogger<RecipeController> logger;        
 
         public RecipeController(IRecipeService recipeService,
             IViewModelFactory recipeViewModelFactory,
+            IDomainEventDispatcher domainEventDispatcher,
             ILogger<RecipeController> logger)
         {
             this.recipeService = recipeService;
             this.recipeViewModelFactory = recipeViewModelFactory;
-
+            this.domainEventDispatcher = domainEventDispatcher;
             this.logger = logger;            
         }
 
@@ -239,6 +244,11 @@
             {
                 await this.recipeService.DeleteByIdAsync(id);
                 TempData[SuccessMessage] = "Recipe successfully deleted!";
+
+                // Dispatch the soft delete event
+                var recipeSoftDeletedEvent = new RecipeSoftDeletedEvent(Guid.Parse(id)); 
+                await domainEventDispatcher.DispatchAsync(recipeSoftDeletedEvent);
+
                 return Redirect(returnUrl);
             }
             catch (RecordNotFoundException ex)
