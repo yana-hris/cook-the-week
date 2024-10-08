@@ -22,8 +22,6 @@
         {
             return dbContext.FavoriteRecipes
                 .AsNoTracking()
-                .Include(fr => fr.Recipe)
-                    .ThenInclude(r => r.Category)
                 .AsQueryable();
         }
 
@@ -43,25 +41,26 @@
         }
 
         /// <inheritdoc/>  
+        public async Task UpdateRangeAsync(ICollection<FavouriteRecipe> favourites)
+        {
+            dbContext.FavoriteRecipes.UpdateRange(favourites);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>  
         public async Task DeleteAsync(FavouriteRecipe like)
         {
-            dbContext.Remove(like);
+            dbContext.FavoriteRecipes.Remove(like);
             await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>  
-        public async Task DeleteAllAsync(ICollection<FavouriteRecipe> userLikes)
+        public async Task DeleteRangeAsync(ICollection<FavouriteRecipe> userLikes)
         {
-            dbContext.RemoveRange(userLikes);
+            dbContext.FavoriteRecipes.RemoveRange(userLikes);
             await dbContext.SaveChangesAsync();
         }
 
-        /// <inheritdoc/>  
-        public async Task SoftDeleteAsync(FavouriteRecipe like)
-        {
-            like.IsDeleted = true;
-            dbContext.FavoriteRecipes.Update(like);
-            await dbContext.SaveChangesAsync();
-        }
+       
     }
 }

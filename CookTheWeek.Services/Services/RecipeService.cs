@@ -31,7 +31,6 @@
         private readonly IRecipeRepository recipeRepository;
 
         private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IStepService stepService;
         
         private readonly IValidationService validationService;
@@ -42,14 +41,12 @@
         public RecipeService(IRecipeRepository recipeRepository,
             IStepService stepService,
             IRecipeIngredientService recipeIngredientService,
-            IFavouriteRecipeService favouriteRecipeService,
             ILogger<RecipeService> logger,
             IUserContext userContext,
             IValidationService validationService)
         {
             this.recipeRepository = recipeRepository;
-
-            this.favouriteRecipeService = favouriteRecipeService;
+            
             this.recipeIngredientService = recipeIngredientService;
             this.stepService = stepService;
 
@@ -424,36 +421,34 @@
             return allUserRecipes;
         }
        
-        /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync()
-        {
-            ICollection<FavouriteRecipe> likedRecipes = await
-                favouriteRecipeService.GetAllRecipesLikedByCurrentUserAsync();
-
-            // TODO: Consider using Automapper
-            var model = likedRecipes
-                .Select(fr => new RecipeAllViewModel()
-                {
-                    Id = fr.Recipe.Id.ToString(),
-                    ImageUrl = fr.Recipe.ImageUrl,
-                    Title = fr.Recipe.Title,
-                    Description = fr.Recipe.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = fr.Recipe.CategoryId,
-                        Name = fr.Recipe.Category.Name
-                    },
-                    Servings = fr.Recipe.Servings,
-                    CookingTime = FormatCookingTime(fr.Recipe.TotalTime)
-                }).ToList();
-
-            return model;
-        }
         
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(string recipeId)
         {
             return await recipeRepository.GetByIdAsync(recipeId);
+        }
+
+        /// <inheritdoc/>
+        public async Task<ICollection<Recipe>> GetAllByIds(ICollection<string> recipeIds)
+        {
+            var guidRecipeIds = recipeIds.Select(id => Guid.Parse(id)).ToList(); // Convert strings to Guids
+
+            var recipes = await recipeRepository.GetAllQuery()
+                .Where(r => guidRecipeIds.Contains(r.Id))
+                .ToListAsync();
+
+            return recipes;
+        }
+
+        /// <inheritdoc/>
+        public async Task<ICollection<string>> GetAllRecipeIdsAddedByCurrentUserAsync()
+        {
+            ICollection<string> allUserAddedRecipesIds = await recipeRepository.GetAllQuery()
+                .Where(recipe => GuidHelper.CompareGuidStringWithGuid(userId, recipe.OwnerId))
+                .Select(recipe => recipe.Id.ToString())
+                .ToListAsync();
+
+            return allUserAddedRecipesIds;
         }
 
         // PRIVATE HELPER METHODS        

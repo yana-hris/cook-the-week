@@ -158,7 +158,7 @@ namespace CookTheWeek.Web.Controllers
         {
             try
             {
-                MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanAddFormModelAsync(mealPlanId);
+                MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanAddFormModel>(mealPlanId);
 
                 try
                 {
@@ -198,7 +198,7 @@ namespace CookTheWeek.Web.Controllers
         {
             try
             {
-                MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanEditFormModelAsync(id);
+                MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(id);
                 SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
                 return View(model);
             }

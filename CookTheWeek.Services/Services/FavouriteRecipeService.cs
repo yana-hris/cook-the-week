@@ -46,14 +46,15 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<FavouriteRecipe>> GetAllRecipesLikedByCurrentUserAsync()
+        public async Task<ICollection<string>> GetAllRecipeIdsLikedByCurrentUserAsync()
         {
-            ICollection<FavouriteRecipe> likes = await favouriteRecipeRepository
+            ICollection<string> allLikedIds = await favouriteRecipeRepository
                 .GetAllQuery()
                 .Where(fr => GuidHelper.CompareGuidStringWithGuid(userId, fr.UserId))
+                .Select(fr => fr.RecipeId.ToString())
                 .ToListAsync();
 
-            return likes;
+            return allLikedIds;
         }
 
         /// <inheritdoc/>
@@ -76,22 +77,52 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAllRecipeLikesAsync(string recipeId)
+        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
         {
-            ICollection<FavouriteRecipe> likesByRecipeId = await favouriteRecipeRepository
-                .GetAllQuery()
-                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))
-                .ToListAsync();
+            ICollection<FavouriteRecipe> allLikes = await GetAllByRecipeIdAsync(recipeId);
+
+            if (allLikes.Any())
+            {
+                foreach (var like in allLikes)
+                {
+                    like.IsDeleted = true;
+                }
+
+                await favouriteRecipeRepository.UpdateRangeAsync(allLikes);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task HardDeleteAllByRecipeIdAsync(string recipeId)
+        {
+            ICollection<FavouriteRecipe> likesByRecipeId = await GetAllByRecipeIdAsync(recipeId);
 
             if (likesByRecipeId.Any())
             {
-                await favouriteRecipeRepository.DeleteAllAsync(likesByRecipeId);
+                await favouriteRecipeRepository.DeleteRangeAsync(likesByRecipeId);
             }
         }
+
+        
+
+
 
 
 
         // PRIVATE METHODS:
+
+        /// <summary>
+        /// Helper method that gets a collection of all user likes for a given recipe by its ID
+        /// </summary>
+        /// <param name="recipeId">The recipe ID</param>
+        /// <returns>A collection of FavouriteRecipes</returns>
+        private async Task<ICollection<FavouriteRecipe>> GetAllByRecipeIdAsync(string recipeId)
+        {
+            return await favouriteRecipeRepository
+                .GetAllQuery()
+                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))
+                .ToListAsync();
+        }
 
         /// <summary>
         /// Deletes a user like for a specific recipe if it exists. Otherwise does nothing

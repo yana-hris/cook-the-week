@@ -24,6 +24,13 @@
         Task AddAsync(FavouriteRecipe like);
 
         /// <summary>
+        /// Updates a collection of user likes
+        /// </summary>
+        /// <param name="favourites"></param>
+        /// <returns></returns>
+        Task UpdateRangeAsync(ICollection<FavouriteRecipe> favourites);
+
+        /// <summary>
         /// Removes a given recipe from a user`s favourites 
         /// </summary> 
         Task DeleteAsync(FavouriteRecipe like);
@@ -33,14 +40,7 @@
         /// </summary>
         /// <param name="userLikes"></param>
         /// <returns></returns>
-        Task DeleteAllAsync(ICollection<FavouriteRecipe> userLikes);
-
-        /// <summary>
-        /// Sets the IsDeleted flag of the like as true
-        /// </summary>
-        /// <param name="like"></param>
-        /// <returns></returns>
-        Task SoftDeleteAsync(FavouriteRecipe like);
-
+        Task DeleteRangeAsync(ICollection<FavouriteRecipe> userLikes);
+        
     }
 }

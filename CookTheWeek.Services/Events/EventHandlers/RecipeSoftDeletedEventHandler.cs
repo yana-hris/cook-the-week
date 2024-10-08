@@ -28,7 +28,7 @@
             // Delete all relevant recipe Steps, Ingredients and Meals as soft delete will not cascade and delete any connected entities
             await stepService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await recipeIngredientService.SoftDeleteAllByRecipeIdAsync(recipeId);
-            await favouriteRecipeService.DeleteAllRecipeLikesAsync(recipeId);
+            await favouriteRecipeService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await mealService.DeleteByRecipeIdAsync(recipeId);
         }
     }

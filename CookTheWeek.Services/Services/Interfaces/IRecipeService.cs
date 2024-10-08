@@ -106,10 +106,11 @@
         Task<ICollection<RecipeAllViewModel>> GetAllNonSiteRecipesAsync();
 
         /// <summary>
-        /// Returns all user-liked recipes
+        /// Returns a collection of Recipes by a list of their IDs
         /// </summary>
-        /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllLikedByUserIdAsync();
+        /// <param name="recipeIds">A collection of string (recipeIds)</param>
+        /// <returns>A collection of Recipes</returns>
+        Task<ICollection<Recipe>> GetAllByIds(ICollection<string> recipeIds);
         
         /// <summary>
         /// Soft deletes a collection of recipes. All sub-entities will be deleted too. 
@@ -125,5 +126,11 @@
         /// <returns>A single Recipe</returns>
         /// <remarks>May throw a RecordNotFoundException if recipe id doesn not exist</remarks>
         Task<Recipe> GetForMealByIdAsync(string recipeId);
+
+        /// <summary>
+        /// Gets all recipe Ids, added by the current user
+        /// </summary>
+        /// <returns>A collection of recipe IDs as strings</returns>
+        Task<ICollection<string>> GetAllRecipeIdsAddedByCurrentUserAsync();
     }
 }

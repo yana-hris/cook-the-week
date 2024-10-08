@@ -1,34 +1,35 @@
 ﻿namespace CookTheWeek.Services.Data.Factories
 {
+    using System.Globalization;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.Extensions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
+    using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Web.ViewModels.MealPlan;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
+    using CookTheWeek.Web.ViewModels.ShoppingList;
 
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
-    using CookTheWeek.Web.ViewModels.Meal;
-    using CookTheWeek.Services.Data.Helpers;
-    using CookTheWeek.Web.ViewModels.ShoppingList;
-    using CookTheWeek.Web.ViewModels.MealPlan;
-    using CookTheWeek.Services.Data.Models.MealPlan;
-    using CookTheWeek.Common.HelperMethods;
-    using System.Globalization;
-    using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
-    using CookTheWeek.Common.Extensions;
-    using CookTheWeek.Services.Data.Services;
+    
 
     public class ViewModelFactory : IViewModelFactory
     {
@@ -124,6 +125,7 @@
             try
             {
                 RecipeDetailsViewModel model = await this.recipeService.TryGetModelForDetailsById(recipeId);
+
                 model.IsLikedByUser = await SafeExecuteAsync(
                 async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
                 DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
@@ -133,6 +135,7 @@
                     async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
                     DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
                     );
+
                 model.CookedCount = await SafeExecuteAsync(
                     async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
                     DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
@@ -150,15 +153,25 @@
         /// <inheritdoc/>
         public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync()
         {
-            RecipeMineViewModel model = new RecipeMineViewModel();
+            RecipeMineViewModel model = new RecipeMineViewModel()
+            {
+                FavouriteRecipes = new HashSet<RecipeAllViewModel>(),
+                OwnedRecipes = new HashSet<RecipeAllViewModel>(),
+            };
 
-            model.FavouriteRecipes = await this.recipeService.GetAllLikedByUserIdAsync();
-            model.OwnedRecipes = await this.recipeService.GetAllAddedByUserIdAsync();
+            var allLikedByUserIds = await favouriteRecipeService.GetAllRecipeIdsLikedByCurrentUserAsync();
+            var allAddedByUserIds = await recipeService.GetAllRecipeIdsAddedByCurrentUserAsync();
 
-            if (!model.FavouriteRecipes.Any() && !model.OwnedRecipes.Any())
+            if (allLikedByUserIds.Count ==  0 || allAddedByUserIds.Count == 0)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
+
+            var likedCollection = await recipeService.GetAllByIds(allLikedByUserIds);
+            var addedCollection = await recipeService.GetAllByIds(allAddedByUserIds);
+
+            model.FavouriteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(likedCollection);
+            model.OwnedRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(addedCollection);
 
             return model;
         }
@@ -186,7 +199,6 @@
 
             return model;
         }
-
         
         /// <inheritdoc/>
         public async Task<MealDetailsViewModel> CreateMealDetailsViewModelAsync(int mealId)
@@ -347,6 +359,7 @@
             return model;
         }
 
+        /// <inheritdoc/>
         public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(string id)
             where TFormModel : IMealPlanFormModel, new()
         {
@@ -364,27 +377,7 @@
             throw new InvalidOperationException("Unsupported form model type.");
         }
 
-        /// <inheritdoc/>
-        public async Task<MealPlanEditFormModel> CreateMealPlanEditFormModelAsync(string mealplanId)
-        {
-            MealPlan mealplan = await mealplanService.GetForFormModelById(mealplanId);
-            
-            MealPlanEditFormModel model = MapMealPlanToEditModel(mealplan);
-
-            return model;
-        }
-
-        /// <inheritdoc/>
-        public async Task<MealPlanAddFormModel> CreateMealPlanAddFormModelAsync(string mealplanId)
-        {
-            MealPlan mealPlanToCopy = await mealplanService.GetForFormModelById(mealplanId);
-
-            MealPlanAddFormModel model = MapMealPlanToAddModel(mealPlanToCopy);
-
-            return model;
-        }
-
-
+       
 
         // HELPER METHODS:
 
@@ -426,7 +419,6 @@
             model.Id = mealPlan.Id.ToString();
             return model;
         }
-
 
 
         /// <summary>
@@ -577,8 +569,27 @@
             return ingredients;
         }
 
-
-        
+        /// <summary>
+        /// A helper method that maps a Recipe collection to a RecipeAllViewModel collection
+        /// </summary>
+        /// <param name="recipe">A given collection of Recipes</param>
+        /// <returns>A collection of RecipeAllViewModel</returns>
+        private ICollection<RecipeAllViewModel> MapRecipeCollectionToRecipeAllViewModelCollection(ICollection<Recipe> recipes)
+        {
+            return recipes.Select(recipe => new RecipeAllViewModel
+            {
+                Id = recipe.Id.ToString(),
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Category = new RecipeCategorySelectViewModel
+                {
+                    Id = recipe.CategoryId,
+                    Name = recipe.Category.Name
+                },
+                Servings = recipe.Servings,
+                CookingTime = FormatCookingTime(recipe.TotalTime)
+            }).ToList();
+        }
 
         /// <summary>
         /// Processes the ingredients by groups and returns a collection of collections of ingredients, grouped by categories, defined in a constant dictionary

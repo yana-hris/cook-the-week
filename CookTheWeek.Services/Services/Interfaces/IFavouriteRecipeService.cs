@@ -17,10 +17,10 @@
         Task TryToggleLikes(FavouriteRecipeServiceModel model);
 
         /// <summary>
-        /// Gets all liked recipes by the logged-in user (if any) as a collection of FavouriteRecipe
+        /// Gets a collection of the ids of all recipes, liked by the current user
         /// </summary>  
         /// <returns>A collection of FavouriteRecipe</returns>
-        Task<ICollection<FavouriteRecipe>> GetAllRecipesLikedByCurrentUserAsync();
+        Task<ICollection<string>> GetAllRecipeIdsLikedByCurrentUserAsync();
 
         /// <summary>
         /// Returns true if the user has liked a specific recipe
@@ -39,7 +39,7 @@
         /// <summary>
         /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
         /// </summary>
-        Task DeleteAllRecipeLikesAsync(string recipeId);
-        
+        Task HardDeleteAllByRecipeIdAsync(string recipeId);
+        Task SoftDeleteAllByRecipeIdAsync(string recipeId);
     }
 }

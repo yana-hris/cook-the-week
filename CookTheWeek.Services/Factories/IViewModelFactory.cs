@@ -82,15 +82,7 @@
         /// <remarks>May throw a RecordNotFoundException due to usage of GetByIdAsync method.</remarks>
         /// <returns>MealAddFormModel</returns>
         Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
-
-        /// <summary>
-        /// Creates a view model for editing an existing meal plan by ID. May throws exceptions
-        /// </summary>
-        /// <param name="mealplanId"></param>
-        /// <returns>A single MealPlanEditFormModel</returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task<MealPlanEditFormModel> CreateMealPlanEditFormModelAsync(string mealplanId);
-
+        
         /// <summary>
         /// Returns a single meal plan for Details View or throws an exception if the mealplan is not found
         /// </summary>
@@ -119,12 +111,14 @@
         /// <returns>A collection of MealPlanAllAdminViewModel</returns>
         Task<ICollection<MealPlanAllAdminViewModel>> CreateAllFinishedMealPlansAdminViewModelAsync();
 
+       
         /// <summary>
-        /// Creates an Add meal plan view model for Copy meal plan functionality (prefilled with the copied meal plan data and validated)
+        /// A generic method which creates either MealPlanAddFormModel (for copying an existing meal plan) or MealPlanEditFormModel (for editing purposes)
         /// </summary>
-        /// <param name="mealplanId"></param>
-        /// <returns></returns>
-        Task<MealPlanAddFormModel> CreateMealPlanAddFormModelAsync(string mealplanId);
-
+        /// <typeparam name="TFormModel"></typeparam>
+        /// <param name="id">an existing meal plan`s ID</param>
+        /// <returns>MealPlanAddFormModel or MealPlanEditFormModel</returns>
+        Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(string id) 
+            where TFormModel : IMealPlanFormModel, new();
     }
 }
