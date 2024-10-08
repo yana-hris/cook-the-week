@@ -25,11 +25,11 @@
             // Handle erasing related meal plans and ingredients when a recipe is soft-deleted
             string recipeId = domainEvent.RecipeId.ToString();
 
-            // Delete all relevant recipe Steps, Ingredients and Meals as soft delete will not cascade and delete any connected entities
-            await stepService.SoftDeleteAllByRecipeIdAsync(recipeId);
+            // Soft Delete all relevant recipe Steps, Ingredients and Meals 
             await recipeIngredientService.SoftDeleteAllByRecipeIdAsync(recipeId);
+            await stepService.SoftDeleteAllByRecipeIdAsync(recipeId);
+            await mealService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await favouriteRecipeService.SoftDeleteAllByRecipeIdAsync(recipeId);
-            await mealService.DeleteByRecipeIdAsync(recipeId);
         }
     }
 }

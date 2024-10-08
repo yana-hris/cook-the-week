@@ -10,11 +10,9 @@
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
-    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
-
-    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
+    
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
 
@@ -36,47 +34,9 @@
             this.logger = logger;   
         }
 
-        /// <inheritdoc/>
-        public async Task<Meal> GetMealByIdAsync(int mealId)
-        {
-            Meal? meal = await mealRepository.GetByIdAsync(mealId);
-
-            if (meal == null)
-            {
-                logger.LogError($"Meal with id {mealId} not found in the database. Error occured in method {nameof(GetMealByIdAsync)} in MealService.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
-            }
-
-            return meal;
-        }
 
         /// <inheritdoc/>
-        public async Task DeleteAllByMealPlanIdAsync(string mealplanId)
-        {
-            var mealsToDelete = await mealRepository.GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(mealplanId, m.MealPlanId))
-                .ToListAsync();
-
-            await mealRepository.DeleteAll(mealsToDelete);
-
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteByRecipeIdAsync(string recipeId)
-        {
-            var mealsToDelete = await mealRepository
-                .GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
-                .ToListAsync();
-
-            if (mealsToDelete.Any())
-            {
-                await mealRepository.DeleteAll(mealsToDelete);
-            }
-        }
-
-        /// <inheritdoc/>
-        public async Task AddAllAsync(IList<MealAddFormModel> meals)
+        public async Task AddAllAsync(ICollection<MealAddFormModel> meals)
         {
             ICollection<Meal> newMeals = new List<Meal>();
 
@@ -92,10 +52,24 @@
                 newMeals.Add(newMeal);
             }
 
-            await mealRepository.AddAllAsync(newMeals);
+            await mealRepository.AddRangeAsync(newMeals);
         }
 
-        
+
+        /// <inheritdoc/>
+        public async Task<Meal> GetByIdAsync(int mealId)
+        {
+            Meal? meal = await mealRepository.GetByIdAsync(mealId);
+
+            if (meal == null)
+            {
+                logger.LogError($"Meal with id {mealId} not found in the database. Error occured in method {nameof(GetByIdAsync)} in MealService.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
+            }
+
+            return meal;
+        }
+
 
         /// <inheritdoc/>
         public async Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId)
@@ -104,6 +78,62 @@
                 .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
                 .CountAsync();
         }
-        
+
+
+        /// <inheritdoc/>
+        public async Task HardDeleteAllByMealPlanIdAsync(string mealplanId)
+        {
+            var mealsToDelete = await mealRepository.GetAllQuery()
+                .Where(m => GuidHelper.CompareGuidStringWithGuid(mealplanId, m.MealPlanId))
+                .ToListAsync();
+
+            await mealRepository.RemoveRangeAsync(mealsToDelete);
+
+        }
+       
+
+        /// <inheritdoc/>
+        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
+        {
+            ICollection<Meal> mealsToDelete = await GetAllByRecipeIdAsync(recipeId);
+
+            if (mealsToDelete.Any())
+            {
+                foreach (var meal in mealsToDelete)
+                {
+                    meal.IsDeleted = true;
+                }
+
+                await mealRepository.UpdateRangeAsync(mealsToDelete);
+            }
+        }
+
+
+        /// <inheritdoc/> // TODO: Check if will be used at all..
+        public async Task HardDeleteAllByRecipeIdAsync(string recipeId)
+        {
+            ICollection<Meal> mealsToDelete = await GetAllByRecipeIdAsync(recipeId);
+
+            if (mealsToDelete.Any())
+            {
+                await mealRepository.RemoveRangeAsync(mealsToDelete);
+            }
+        }
+
+
+        // HELPER METHODS:
+
+        /// <summary>
+        /// Helper method that gets all meals made with a given recipe ID.
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns>A collection of Meals</returns>
+        private async Task<ICollection<Meal>> GetAllByRecipeIdAsync(string recipeId)
+        {
+            return await mealRepository
+                .GetAllQuery()
+                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
+                .ToListAsync();
+        }
     }
 }

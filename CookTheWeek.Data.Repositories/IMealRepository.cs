@@ -24,20 +24,20 @@ namespace CookTheWeek.Data.Repositories
         /// </summary>
         /// <param name="newMeals"></param>
         /// <returns></returns>
-        Task AddAllAsync(ICollection<Meal> meals);
+        Task AddRangeAsync(ICollection<Meal> meals);
+
+        /// <summary>
+        /// Updates a collection of meals in the database
+        /// </summary>
+        /// <param name="meals"></param>
+        /// <returns></returns>
+        Task UpdateRangeAsync(ICollection<Meal> meals);
 
         /// <summary>
         /// Deletes all meals from a collection
         /// </summary>
         /// <param name="recipeId"></param>
-        Task DeleteAll(ICollection<Meal> meals);
-
-        /// <summary>
-        /// Soft deletes a meal by setting its IsDeleted flag to true
-        /// </summary>
-        /// <param name="meal"></param>
-        /// <returns></returns>
-        Task SoftDeleteAsync(Meal meal);
+        Task RemoveRangeAsync(ICollection<Meal> meals);
 
     }
 }

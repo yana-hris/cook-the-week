@@ -190,7 +190,7 @@
             {
                 foreach (var mealpan in userMealplans)
                 {
-                    await mealService.DeleteAllByMealPlanIdAsync(mealpan.Id.ToString());
+                    await mealService.HardDeleteAllByMealPlanIdAsync(mealpan.Id.ToString());
                 }
                 await mealplanRepository.DeleteAllAsync(userMealplans);
             }
@@ -218,7 +218,7 @@
         private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
         {
             mealplan.Name = model.Name;
-            await mealService.DeleteAllByMealPlanIdAsync(model.Id);
+            await mealService.HardDeleteAllByMealPlanIdAsync(model.Id);
             await mealService.AddAllAsync(model.Meals);
             await mealplanRepository.UpdateAsync(mealplan);
         }
@@ -230,7 +230,7 @@
         /// <returns></returns>
         private async Task DeleteByIdAsync(MealPlan mealplan)
         {
-            await mealService.DeleteAllByMealPlanIdAsync(mealplan.Id.ToString()); // TODO: Check if might be useless as Configuration is OnDelete.Cascade
+            await mealService.HardDeleteAllByMealPlanIdAsync(mealplan.Id.ToString()); // TODO: Check if might be useless as Configuration is OnDelete.Cascade
             await mealplanRepository.DeleteByIdAsync(mealplan);
 
         }

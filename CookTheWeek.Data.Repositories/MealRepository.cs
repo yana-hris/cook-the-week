@@ -42,25 +42,24 @@
         }
 
         /// <inheritdoc/>
-        public async Task AddAllAsync(ICollection<Meal> meals)
+        public async Task AddRangeAsync(ICollection<Meal> meals)
         {
             await this.dbContext.Meals.AddRangeAsync(meals);
             await this.dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAll(ICollection<Meal> meals)
+        public async Task UpdateRangeAsync(ICollection<Meal> meals)
         {
-            this.dbContext.RemoveRange(meals);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.Meals.UpdateRange(meals);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
-        public async Task SoftDeleteAsync(Meal meal)
+        public async Task RemoveRangeAsync(ICollection<Meal> meals)
         {
-            meal.IsDeleted = true;
-            dbContext.Meals.Update(meal);
-            await dbContext.SaveChangesAsync();
+            this.dbContext.Meals.RemoveRange(meals);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

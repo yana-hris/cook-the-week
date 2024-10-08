@@ -203,7 +203,7 @@
         /// <inheritdoc/>
         public async Task<MealDetailsViewModel> CreateMealDetailsViewModelAsync(int mealId)
         {
-            Meal meal = await mealService.GetMealByIdAsync(mealId);
+            Meal meal = await mealService.GetByIdAsync(mealId);
 
             decimal servingSizeMultiplier = CalculateServingSizeMultiplier(meal.ServingSize, meal.Recipe.Servings);
 
