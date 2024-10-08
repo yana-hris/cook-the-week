@@ -15,46 +15,47 @@
         {
             this.dbContext = dbContext;   
         }
+
         /// <inheritdoc/>
-        public async Task AddAllAsync(ICollection<RecipeIngredient> recipeIngredients)
+        public IQueryable<RecipeIngredient> GetAllQuery()
+        {
+            return dbContext.RecipesIngredients
+                .AsNoTracking()
+                .AsQueryable();
+        }
+
+        /// <inheritdoc/>
+        public async Task AddRangeAsync(ICollection<RecipeIngredient> recipeIngredients)
         {
             await this.dbContext.RecipesIngredients.AddRangeAsync(recipeIngredients);
             await this.dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<RecipeIngredient> recipeIngredients)
+        public async Task UpdateAsync(RecipeIngredient recipeIngredient)
         {
-            var oldIngredients = await this.dbContext.RecipesIngredients
-                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
-                .ToListAsync();
-
-            this.dbContext.RecipesIngredients.RemoveRange(oldIngredients);
-            await this.dbContext.RecipesIngredients.AddRangeAsync(recipeIngredients);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.RecipesIngredients.Update(recipeIngredient);
+            await dbContext.SaveChangesAsync();
         }
-                
-        /// <inheritdoc/>
-        public async Task DeleteAllByRecipeIdAsync(string recipeId)
-        {
-            var ingredientsToDelete = await this.dbContext
-                .RecipesIngredients
-                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
-                .ToListAsync();
 
-            if (ingredientsToDelete.Any())
-            {
-                this.dbContext.RecipesIngredients.RemoveRange(ingredientsToDelete);
-            }
-            
-            await this.dbContext.SaveChangesAsync();
+        /// <inheritdoc/>
+        public async Task DeleteAsync(RecipeIngredient recipeIngredient)
+        {
+            dbContext.RecipesIngredients.Remove(recipeIngredient);
+            await dbContext.SaveChangesAsync();
+        }        
+        
+        /// <inheritdoc/>
+        public async Task DeleteRangeAsync(ICollection<RecipeIngredient> recipeIngredients)
+        {
+            dbContext.RecipesIngredients.RemoveRange(recipeIngredients);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
         public IQueryable<Measure> GetAllMeasuresQuery()
         {
-            return dbContext
-                .Measures
+            return dbContext.Measures
                 .AsNoTracking()
                 .AsQueryable();
         }
@@ -82,14 +83,14 @@
         /// <inheritdoc/>
         public async Task UpdateMeasureAsync(Measure measure)
         {
-            dbContext.Update(measure);
+            dbContext.Measures.Update(measure);
             await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
         public async Task DeleteMeasureAsync(Measure measure)
         {
-            dbContext.Remove(measure);
+            dbContext.Measures.Remove(measure);
             await dbContext.SaveChangesAsync();
         }
 
@@ -125,23 +126,19 @@
         /// <inheritdoc/>
         public async Task UpdateSpecAsync(Specification spec)
         {
-            dbContext.Update(spec);
+            dbContext.Specifications.Update(spec);
             await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
         public async Task DeleteSpecAsync(Specification spec)
         {
-            dbContext.Remove(spec);
+            dbContext.Specifications.Remove(spec);
             await dbContext.SaveChangesAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task SoftDeleteAsync(RecipeIngredient recipeIngredient)
-        {
-            recipeIngredient.IsDeleted = true;
-            dbContext.RecipesIngredients.Update(recipeIngredient);
-            await dbContext.SaveChangesAsync();
-        }
+        
+
+        
     }
 }

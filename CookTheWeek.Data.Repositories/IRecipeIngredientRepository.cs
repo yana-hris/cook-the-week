@@ -5,27 +5,41 @@
     public interface IRecipeIngredientRepository
     {
         /// <summary>
+        /// Gets a queriable collection of recipe ingredients
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<RecipeIngredient> GetAllQuery();
+
+        /// <summary>
         /// Adds a collection of Recipe Ingredients to the database
         /// </summary>
         /// <param name="recipeIngredients"></param>
         /// <returns></returns>
-        Task AddAllAsync(ICollection<RecipeIngredient> recipeIngredients);
+        Task AddRangeAsync(ICollection<RecipeIngredient> recipeIngredients);
+
+        /// <summary>
+        /// Updates a single Recipe Ingredient
+        /// </summary>
+        /// <param name="recipeIngredient"></param>
+        /// <returns></returns>
+        Task UpdateAsync(RecipeIngredient recipeIngredient);
+
+        /// <summary>
+        /// Deletes a single Recipe Ingredient
+        /// </summary>
+        /// <param name="recipeIngredient"></param>
+        /// <returns></returns>
+        Task DeleteAsync(RecipeIngredient recipeIngredient);
+
+        /// <summary>
+        /// Deletes a range of Recipe Ingredients
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        Task DeleteRangeAsync(ICollection<RecipeIngredient> items);
+
         
-        /// <summary>
-        /// Updates the Recipe Ingredients of an existing recipe by deleting all old ingredients for this recipe and adding the new ingredients
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <param name="recipeIngredients"></param>
-        /// <returns></returns>
-        Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<RecipeIngredient> recipeIngredients);
-
-        /// <summary>
-        /// Deletes all Recipe Ingredients by a given recipeID
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <returns></returns>
-        Task DeleteAllByRecipeIdAsync(string recipeId);
-
+        
         // FOR NESTED ENTITIES IN RECIPE INGREDIETS:
         // MEASURES
         /// <summary>
@@ -111,12 +125,6 @@
         /// <returns></returns>
         Task DeleteSpecAsync(Specification mespecasure);
 
-        /// <summary>
-        /// Soft deletes a recipe ingredient by setting its IsDeleted flag to true
-        /// </summary>
-        /// <param name="recipeIngredient"></param>
-        /// <returns></returns>
-        Task SoftDeleteAsync(RecipeIngredient recipeIngredient);
-
+       
     }
 }

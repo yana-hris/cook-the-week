@@ -12,6 +12,7 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
@@ -30,16 +31,19 @@
         /// <inheritdoc/>    
         public async Task AddAsync(ICollection<RecipeIngredient> ingredients)
         {
-            await recipeIngredientRepository.AddAllAsync(ingredients);
+            await recipeIngredientRepository.AddRangeAsync(ingredients);
         }
 
         /// <inheritdoc/>    
         public async Task EditAsync(string id, ICollection<RecipeIngredient> ingredients)
         {
-            await recipeIngredientRepository.UpdateAllByRecipeIdAsync(id, ingredients);
+            var oldRecipeIngredients = await GetAllByRecipeIdAsync(id);
+
+            await recipeIngredientRepository.DeleteRangeAsync(oldRecipeIngredients);
+            await recipeIngredientRepository.AddRangeAsync(ingredients);
         }
 
-        /// <inheritdoc/>    
+        /// <inheritdoc/>    // TODO: Implement custom ingredient creation here!
         public async Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model)
         {
             bool exists = await ingredientService.ExistsByIdAsync(model.IngredientId.Value);
@@ -58,7 +62,6 @@
             };
         }
                 
-
         /// <inheritdoc/>        
         public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
         {
@@ -94,23 +97,39 @@
             return model;
         }
 
-
         /// <inheritdoc/>     
-        public async Task<bool> IngredientMeasureExistsAsync(int measureId)
+        public async Task SoftDeleteAllByRecipeIdAsync(string id)
         {
-            return await recipeIngredientRepository.MeasureExistsByIdAsync(measureId);
+            var recipeIngredients = await GetAllByRecipeIdAsync(id);
+
+            foreach (var ri in recipeIngredients)
+            {
+                ri.IsDeleted = true;
+                await recipeIngredientRepository.UpdateAsync(ri);
+            }
         }
 
         /// <inheritdoc/>     
-        public async Task<bool> IngredientSpecificationExistsAsync(int specificationId)
+        public async Task HardDeleteAllByRecipeIdAsync(string id)
         {
-            return await recipeIngredientRepository.SpecificationExistsByIdAsync(specificationId);
+            var recipeIngredients = await GetAllByRecipeIdAsync(id);
+            
+            await recipeIngredientRepository.DeleteRangeAsync(recipeIngredients);
         }
 
-        /// <inheritdoc/>     
-        public async Task DeleteByRecipeIdAsync(string id)
+        
+
+        /// <summary>
+        /// Helper method to retrieve all recipe ingredients by a given recipe ID.
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns>A collection of Recipe Ingredients</returns>
+        private async Task<ICollection<RecipeIngredient>> GetAllByRecipeIdAsync(string recipeId)
         {
-            await recipeIngredientRepository.DeleteAllByRecipeIdAsync(id);
+            return await this.recipeIngredientRepository
+                .GetAllQuery()
+                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
+                .ToListAsync();
         }
         
     }

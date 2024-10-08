@@ -5,10 +5,6 @@
 
     public interface IRecipeIngredientService
     {
-        Task<bool> IngredientMeasureExistsAsync(int measureId);
-        Task<bool> IngredientSpecificationExistsAsync(int specificationId);
-        //Task<bool> IsAlreadyAddedAsync(string ingredientName, string recipeId);
-        //Task<int> AddAsync(RecipeIngredientFormModel model, string recipeId);
 
         /// <summary>
         /// Gets all measures for recipe ingredients as a view model for select menus
@@ -32,12 +28,12 @@
         Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model);
 
         /// <summary>
-        /// Updates the recipe ingredients of an existing recipe
+        /// Updates the Recipe Ingredients of an existing recipe by deleting all old ingredients for this recipe and adding the new ingredients
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="addedIngredients"></param>
+        /// <param name="newIngredients"></param>
         /// <returns></returns>
-        Task EditAsync(string id, ICollection<RecipeIngredient> addedIngredients);
+        Task EditAsync(string id, ICollection<RecipeIngredient> newIngredients);
 
         /// <summary>
         /// Adds recipe ingredients upon creating a new recipe in the database
@@ -51,6 +47,13 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteByRecipeIdAsync(string id);
+        Task HardDeleteAllByRecipeIdAsync(string id);
+
+        /// <summary>
+        /// Soft Deletes all recipe ingredients by a given recipe ID by setting their IsDeleted flag to true
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task SoftDeleteAllByRecipeIdAsync(string id);
     }
 }
