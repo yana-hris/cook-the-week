@@ -22,7 +22,7 @@
 
        
         /// <inheritdoc/>
-        public async Task AddByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
+        public async Task AddAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
         {
             ICollection<Step> steps = model.Select
                 (s => new Step()
@@ -31,45 +31,59 @@
                     Description = s.Description,
                 }).ToList();    
 
-            await stepRepository.AddAllAsync(steps);
+            await stepRepository.AddRangeAsync(steps);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
+        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> stepsModel)
         {
-            ICollection<Step> oldSteps = await stepRepository.GetAllQuery()
-                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
-                .ToListAsync();
+            ICollection<Step> oldSteps = await GetAllByRecipeIdAsync(recipeId);
+            await stepRepository.DeleteRangeAsync(oldSteps);
 
-            await stepRepository.DeleteAllAsync(oldSteps);
-            await AddByRecipeIdAsync(recipeId, model);
+            var newSteps = stepsModel
+                .Select(st => new Step()
+                {
+                    Id = st.Id.Value,
+                    Description = st.Description,
+                }).ToList();
             
+            await stepRepository.AddRangeAsync(newSteps);
         }
 
+        
         /// <inheritdoc/>
-        public async Task SoftDeleteStepsByRecipeIdAsync(string recipeId)
+        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
         {
-            ICollection<Step> stepsToDelete = await stepRepository
-                .GetAllQuery()
-                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
-                .ToListAsync();
+            ICollection<Step> stepsToUpdate = await GetAllByRecipeIdAsync(recipeId);
 
-            foreach (var step in stepsToDelete)
+            foreach (var step in stepsToUpdate)
             {
-                await stepRepository.SoftDeleteAsync(step);
+                step.IsDeleted = true;
             }
+
+            await stepRepository.UpdateRangeAsync(stepsToUpdate);
         }
 
 
         /// <inheritdoc/>
-        public async Task HardDeleteStepsByRecipesIdAsync(string recipeId)
+        public async Task HardDeleteAllByRecipesIdAsync(string recipeId)
         {
-            ICollection<Step> stepsToDelete = await stepRepository
-                .GetAllQuery()
+            ICollection<Step> stepsToDelete = await GetAllByRecipeIdAsync(recipeId);
+
+            await stepRepository.DeleteRangeAsync(stepsToDelete);
+        }
+
+        /// <summary>
+        /// Helper method to get a collection of all steps by a given recipe ID
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        private async Task<ICollection<Step>> GetAllByRecipeIdAsync(string recipeId)
+        {
+            return await stepRepository.GetAllQuery()
                 .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
                 .ToListAsync();
-
-            await stepRepository.DeleteAllAsync(stepsToDelete);
         }
+
     }
 }

@@ -4,10 +4,10 @@
 
     public class RecipeSoftDeletedEventHandler : IRecipeSoftDeletedEventHandler
     {
-        private readonly IStepService stepService;
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IMealService mealService;
         private readonly IRecipeIngredientService recipeIngredientService;
+        private readonly IStepService stepService;
 
         public RecipeSoftDeletedEventHandler(IStepService stepService,
             IFavouriteRecipeService favouriteRecipeService,
@@ -26,7 +26,7 @@
             string recipeId = domainEvent.RecipeId.ToString();
 
             // Delete all relevant recipe Steps, Ingredients and Meals as soft delete will not cascade and delete any connected entities
-            await stepService.HardDeleteStepsByRecipesIdAsync(recipeId);
+            await stepService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await recipeIngredientService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await favouriteRecipeService.DeleteAllRecipeLikesAsync(recipeId);
             await mealService.DeleteByRecipeIdAsync(recipeId);

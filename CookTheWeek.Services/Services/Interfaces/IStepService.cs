@@ -5,12 +5,12 @@
     public interface IStepService
     {
         /// <summary>
-        /// Updates the steps of an existing recipe
+        /// Updates the steps of an existing recipe by deleting the old steps and adding the new ones to the database
         /// </summary>
         /// <param name="recipeId"></param>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task UpdateByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
+        Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
 
 
         /// <summary>
@@ -18,13 +18,21 @@
         /// </summary>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task AddByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
+        Task AddAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model);
 
         /// <summary>
-        /// Deletes all steps a of a Recipe by id
+        /// Doft deletes all steps of a given Recipe by its ID by setting their IsDeleted flag to true
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        Task SoftDeleteAllByRecipeIdAsync(string recipeId);
+
+        /// <summary>
+        /// Hard deletes all steps a given recipe by its recipe ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task HardDeleteStepsByRecipesIdAsync(string id);
+        Task HardDeleteAllByRecipesIdAsync(string id);
+        
     }
 }

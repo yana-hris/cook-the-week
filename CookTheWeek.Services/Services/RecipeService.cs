@@ -528,11 +528,11 @@
 
             if (model is RecipeAddFormModel)
             {
-                await stepService.AddByRecipeIdAsync(recipeId, steps);
+                await stepService.AddAllByRecipeIdAsync(recipeId, steps);
             }
             else if (model is RecipeEditFormModel recipeEditFormModel)
             {
-                await stepService.UpdateByRecipeIdAsync(recipeId, steps);
+                await stepService.UpdateAllByRecipeIdAsync(recipeId, steps);
             }
             else
             {

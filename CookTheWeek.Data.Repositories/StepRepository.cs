@@ -26,25 +26,25 @@
         }
 
         /// <inheritdoc/>
-        public async Task AddAllAsync(ICollection<Step> steps)
+        public async Task AddRangeAsync(ICollection<Step> steps)
         {
-            await this.dbContext.AddRangeAsync(steps);
-            await this.dbContext.SaveChangesAsync();
-        }
-                
-        /// <inheritdoc/>
-        public async Task DeleteAllAsync(ICollection<Step> steps)
-        {
-            this.dbContext.Steps.RemoveRange(steps);
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.Steps.AddRangeAsync(steps);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
-        public async Task SoftDeleteAsync(Step step)
+        public async Task UpdateRangeAsync(ICollection<Step> steps)
         {
-            step.IsDeleted = true;
-            dbContext.Steps.Update(step);
+            dbContext.Steps.UpdateRange(steps);
             await dbContext.SaveChangesAsync();
         }
+                
+        /// <inheritdoc/>
+        public async Task DeleteRangeAsync(ICollection<Step> steps)
+        {
+            dbContext.Steps.RemoveRange(steps);
+            await dbContext.SaveChangesAsync();
+        }
+        
     }
 }

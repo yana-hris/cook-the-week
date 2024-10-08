@@ -135,9 +135,7 @@
         {
             dbContext.Specifications.Remove(spec);
             await dbContext.SaveChangesAsync();
-        }
-
-        
+        }        
 
         
     }
