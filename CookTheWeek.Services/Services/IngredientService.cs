@@ -177,7 +177,8 @@
         /// <inheritdoc/>
         public async Task<int?> AllCountAsync()
         {
-            return await ingredientRepository.CountAsync();
+            return await ingredientRepository.GetAllQuery()
+                .CountAsync();
         }
 
         /// <inheritdoc/>

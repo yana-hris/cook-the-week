@@ -18,28 +18,17 @@
             this.dbContext = dbContext;
         }
 
-        /// <inheritdoc/>
-        public async Task<int> AddAsync(Ingredient ingredient)
-        {
-            await this.dbContext.Ingredients.AddAsync(ingredient);
-            await this.dbContext.SaveChangesAsync();
-
-            return ingredient.Id;
-        }
+        
 
         /// <inheritdoc/>
-        public async Task<int?> CountAsync()
+        public IQueryable<Ingredient> GetAllQuery()
         {
-            return await dbContext.Ingredients.CountAsync();
+            return dbContext.Ingredients
+                .Include(i => i.Category)
+                .AsNoTracking()
+                .AsQueryable();
         }
-
-        /// <inheritdoc/>
-        public async Task DeleteAsync(Ingredient ingredient)
-        {
-            dbContext.Ingredients.Remove(ingredient);
-            await dbContext.SaveChangesAsync();
-        }
-
+       
         /// <inheritdoc/>
         public async Task<bool> ExistsByIdAsync(int id)
         {
@@ -57,21 +46,12 @@
                 .AsNoTracking()
                 .AnyAsync(i => i.Name == name);
         }
-        
-        /// <inheritdoc/>
-        public IQueryable<Ingredient> GetAllQuery()
-        {
-            return this.dbContext.Ingredients
-                .Include(i => i.Category)
-                .AsNoTracking()
-                .AsQueryable();
-        }
 
         /// <inheritdoc/>
         public async Task<Ingredient> GetByIdAsync(int id)
         {
-            Ingredient? ingredient =  await dbContext.Ingredients
-                            .Include(i => i.Category) 
+            Ingredient? ingredient = await dbContext.Ingredients
+                            .Include(i => i.Category)
                             .AsNoTracking()
                             .FirstOrDefaultAsync(i => i.Id == id);
 
@@ -96,10 +76,27 @@
         }
 
         /// <inheritdoc/>
+        public async Task<int> AddAsync(Ingredient ingredient)
+        {
+            await this.dbContext.Ingredients.AddAsync(ingredient);
+            await this.dbContext.SaveChangesAsync();
+
+            return ingredient.Id;
+        }
+
+        /// <inheritdoc/>
         public async Task UpdateAsync(Ingredient ingredient)
         {
             dbContext.Ingredients.Update(ingredient);
             await dbContext.SaveChangesAsync();
         }
+
+        /// <inheritdoc/>
+        public async Task DeleteAsync(Ingredient ingredient)
+        {
+            dbContext.Ingredients.Remove(ingredient);
+            await dbContext.SaveChangesAsync();
+        }
+        
     }
 }

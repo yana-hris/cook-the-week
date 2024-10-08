@@ -60,11 +60,5 @@ namespace CookTheWeek.Data.Repositories
         /// <param name="name"></param>
         /// <returns>true or false</returns>
         Task<bool> ExistsByNameAsync(string name);
-
-        /// <summary>
-        /// The total count of all ingredients in the database
-        /// </summary>
-        /// <returns>int or </returns>
-        Task<int?> CountAsync();
     }
 }
