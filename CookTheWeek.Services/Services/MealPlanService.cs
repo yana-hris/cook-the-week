@@ -67,7 +67,7 @@
         /// <inheritdoc/>
         public async Task<OperationResult<string>> TryAddMealPlanAsync(MealPlanAddFormModel model)
         {
-            var result = await validationService.ValidateMealPlanFormModelAsync(model);
+            var result = await validationService.ValidateMealPlanMealsAsync(model);
 
             if (!result.IsValid)
             {
@@ -106,14 +106,15 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryEditMealPlanAsync(MealPlanEditFormModel model)
         {
-            var result = await validationService.ValidateMealPlanFormModelAsync(model);
+            MealPlan mealplan = await TryGetAsync(model.Id); // RecordNotFound, UnauthorizedException
+
+            var result = await validationService.ValidateMealPlanMealsAsync(model);
 
             if (!result.IsValid)
             {
                 return OperationResult.Failure(result.Errors);
             }
 
-            MealPlan mealplan = await GetByIdAsync(model.Id);
 
             await UpdateMealPlanAsync(model, mealplan);
 
@@ -143,21 +144,8 @@
                 .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))
                 .CountAsync();
         }
-
        
-        /// <inheritdoc/>
-        public async Task<MealPlan> GetByIdAsync(string id)
-        {
-            MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
-
-            if (mealplan == null)
-            {
-                logger.LogError($"Meal plan with id {id} not found.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-            }
-
-            return mealplan;
-        }
+        
 
         /// <inheritdoc/>
         public async Task<int?> AllActiveCountAsync()
@@ -170,39 +158,16 @@
         /// <inheritdoc/>
         public async Task TryDeleteByIdAsync(string id)
         {
-            MealPlan mealplanToDelete = await GetByIdAsync(id); //RecordNotFoundException
-            validationService.ValidateMealPlanUserAuthorizationAsync(mealplanToDelete.OwnerId);
-
-            await DeleteByIdAsync(mealplanToDelete);
-        }
-
-        
-        // TODO: Check if needed as configuration for User is OnDelete.Cascade
-        /// <inheritdoc/>
-        public async Task DeleteAllByUserIdAsync(string userId)
-        {
-            var userMealplans = await mealplanRepository
-                .GetAllQuery()
-                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))
-                .ToListAsync();
-
-            if (userMealplans.Any())
-            {
-                foreach (var mealpan in userMealplans)
-                {
-                    await mealService.HardDeleteAllByMealPlanIdAsync(mealpan.Id.ToString());
-                }
-                await mealplanRepository.DeleteAllAsync(userMealplans);
-            }
-
+            MealPlan mealplanToDelete = await TryGetAsync(id); // RecordNotFound, UnauthorizedUser
+            await mealplanRepository.RemoveAsync(mealplanToDelete);
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlan> GetForFormModelById(string id)
+        public async Task<MealPlan> TryGetAsync(string id)
         {
             MealPlan mealplan = await GetByIdAsync(id);
 
-            validationService.ValidateMealPlanUserAuthorizationAsync(mealplan.OwnerId);
+            validationService.ValidateUserIsResourceOwnerAsync(mealplan.OwnerId);
 
             return mealplan;
         }
@@ -218,23 +183,30 @@
         private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
         {
             mealplan.Name = model.Name;
+            await mealplanRepository.UpdateAsync(mealplan);
+
             await mealService.HardDeleteAllByMealPlanIdAsync(model.Id);
             await mealService.AddAllAsync(model.Meals);
-            await mealplanRepository.UpdateAsync(mealplan);
         }
 
-        /// /// <summary>
-        /// Utility metho that deletes a given meal plan, deleting also all its nested meals. If a meal plan does not exists, throws an exception
+
+        /// <summary>
+        /// Gets a single Meal Plan or throws an exception
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private async Task DeleteByIdAsync(MealPlan mealplan)
+        /// <exception cref="RecordNotFoundException"></exception>
+        private async Task<MealPlan> GetByIdAsync(string id)
         {
-            await mealService.HardDeleteAllByMealPlanIdAsync(mealplan.Id.ToString()); // TODO: Check if might be useless as Configuration is OnDelete.Cascade
-            await mealplanRepository.DeleteByIdAsync(mealplan);
+            MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
 
+            if (mealplan == null)
+            {
+                logger.LogError($"Meal plan with id {id} not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+
+            return mealplan;
         }
-
-        
     }
 }

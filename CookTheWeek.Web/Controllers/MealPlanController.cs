@@ -162,7 +162,7 @@ namespace CookTheWeek.Web.Controllers
 
                 try
                 {
-                    var result = await validationService.ValidateMealPlanFormModelAsync(copiedModel);
+                    var result = await validationService.ValidateMealPlanMealsAsync(copiedModel);
 
                     if (result.IsValid)
                     {

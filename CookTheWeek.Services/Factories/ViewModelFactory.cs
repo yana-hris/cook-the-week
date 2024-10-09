@@ -22,14 +22,14 @@
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
-    using CookTheWeek.Web.ViewModels.ShoppingList;
 
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
-    
+    using CookTheWeek.Web.ViewModels.SupplyItem;
+    using CookTheWeek.Services.Data.Models.SupplyItem;
 
     public class ViewModelFactory : IViewModelFactory
     {
@@ -122,32 +122,56 @@
         /// <inheritdoc/>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId)
         {
-            try
-            {
-                RecipeDetailsViewModel model = await this.recipeService.TryGetModelForDetailsById(recipeId);
+            Recipe recipe = await recipeService.GetByIdAsync(recipeId);
 
-                model.IsLikedByUser = await SafeExecuteAsync(
-                async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
-                DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
+            RecipeDetailsViewModel model = new RecipeDetailsViewModel()
+            {
+                Id = recipe.Id.ToString(),
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Steps = recipe.Steps.Select(s => new StepViewModel()
+                {
+                    Id = s.Id,
+                    Description = s.Description
+                }).ToList(),
+                Servings = recipe.Servings,
+                IsSiteRecipe = recipe.IsSiteRecipe,
+                TotalTime = FormatCookingTime(recipe.TotalTime),
+                ImageUrl = recipe.ImageUrl,
+                CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
+                CreatedBy = recipe.Owner.UserName!,
+                CategoryName = recipe.Category.Name,
+            };
+
+            var ingredients = ProcessIngredients(recipe.RecipesIngredients, 1);
+            var measures = await SafelyPreLoadMeasuresAsync();
+            var specifications = await SafelyPreloadSpecificationsAsync();
+
+
+            // TODO: check if this works as expected
+            IEnumerable<ISupplyItemListModel<RecipeIngredientDetailsViewModel>> ingredientsByCategories = ingredientHelper
+                .AggregateIngredientsByCategory<RecipeIngredientDetailsViewModel>(ingredients, measures, specifications, RecipeAndMealDetailedProductListCategoryDictionary);
+
+            model.RecipeIngredientsByCategories = ingredientsByCategories;
+
+
+            model.IsLikedByUser = await SafeExecuteAsync(
+            async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
+            DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
+            );
+
+            model.LikesCount = await SafeExecuteAsync(
+                async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
+                DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
                 );
 
-                model.LikesCount = await SafeExecuteAsync(
-                    async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
-                    DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
-                    );
+            model.CookedCount = await SafeExecuteAsync(
+                async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
+                DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
+                );
 
-                model.CookedCount = await SafeExecuteAsync(
-                    async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
-                    DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
-                    );
-
-                return model;
-            }
-            catch (RecordNotFoundException)
-            {
-                logger.LogError($"Record not found: {nameof(Recipe)} with ID {recipeId} was not found.");
-                throw;
-            }
+            return model;
+           
         }
 
         /// <inheritdoc/>
@@ -275,7 +299,7 @@
         /// <inheritdoc/>
         public async Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(string mealplanId)
         {
-            MealPlan mealPlan = await mealplanService.GetByIdAsync(mealplanId);
+            MealPlan mealPlan = await mealplanService.TryGetAsync(mealplanId);
 
             MealPlanDetailsViewModel model = new MealPlanDetailsViewModel()
             {
@@ -363,7 +387,7 @@
         public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(string id)
             where TFormModel : IMealPlanFormModel, new()
         {
-            MealPlan mealplan = await mealplanService.GetForFormModelById(id);
+            MealPlan mealplan = await mealplanService.TryGetAsync(id);
 
             if (typeof(TFormModel) == typeof(MealPlanAddFormModel))
             {
@@ -512,13 +536,16 @@
         /// <param name="recipe"></param>
         /// <param name="ingredients"></param>
         /// <returns>A MealDetailsViewModel</returns>
-        private async Task<MealDetailsViewModel> BuildMealDetailsViewModel(Meal meal, List<ProductServiceModel> ingredients)
+        private async Task<MealDetailsViewModel> BuildMealDetailsViewModel(Meal meal, List<SupplyItemServiceModel> ingredients)
         {
             var measures = await SafelyPreLoadMeasuresAsync();
             var specifications = await SafelyPreloadSpecificationsAsync();
 
+
             // TODO: check if this works as expected
-            var ingredientsByCategories = ingredientHelper.AggregateIngredientsByCategory(ingredients, measures, specifications);
+            IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> ingredientsByCategories = ingredientHelper
+                .AggregateIngredientsByCategory<MealIngredientDetailsViewModel>(ingredients, measures, specifications, RecipeAndMealDetailedProductListCategoryDictionary);
+                
 
             return new MealDetailsViewModel
             {
@@ -550,14 +577,14 @@
         }
 
         /// <summary>
-        /// Processes the ingredient qty for each meal ingredient according to a serving size multiplier
+        /// Processes the ingredient qty for each meal ingredient according to a serving size multiplier and returns a collection of Service Model
         /// </summary>
         /// <param name="recipeIngredients"></param>
         /// <param name="servingSizeMultiplier"></param>
         /// <returns>A collection of ingredients of type ProductServiceModel</returns>
-        private List<ProductServiceModel> ProcessIngredients(IEnumerable<RecipeIngredient> recipeIngredients, decimal servingSizeMultiplier)
+        private List<SupplyItemServiceModel> ProcessIngredients(IEnumerable<RecipeIngredient> recipeIngredients, decimal servingSizeMultiplier)
         {
-            var ingredients = recipeIngredients.Select(ri => new ProductServiceModel()
+            var ingredients = recipeIngredients.Select(ri => new SupplyItemServiceModel()
             {
                 CategoryId = ri.Ingredient.CategoryId,
                 Name = ri.Ingredient.Name,

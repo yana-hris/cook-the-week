@@ -25,7 +25,7 @@
         /// <param name="model"></param>
         /// <returns>Validation Result</returns>
         /// <remarks>Does not throw exceptions, returns the validation result and logs errors.</remarks>
-        Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model);
+        Task<ValidationResult> ValidateRecipeFormModelAsync(IRecipeFormModel model);
        
         /// <summary>
         /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
@@ -43,14 +43,16 @@
         Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel);
 
        /// <summary>
-       /// Validates any MealPlanFormModel by checking the model type and performing respective validation. 
-       /// In case of unexisting recipeId in meal plan model, throws exception. In case of unmatching or missing userId and meal plan ownerId, throws exception.
+       /// Validates MealPlanAddFormModel and MealPlanEditFormModel.
+       /// For both models checks if Meal collection is empty, if meals are valid recipes. In case of wrong recipeIds throws RecordNotFoundException.
+       /// In case of invalid selected Date (for meal) returns Validation Error.
        /// </summary>
        /// <param name="model"></param>
        /// <returns>Validation Result</returns>
        /// <exception cref="RecordNotFoundException"></exception>
        /// <exception cref="UnauthorizedUserException"></exception>
-        Task<ValidationResult> ValidateMealPlanFormModelAsync(IMealPlanFormModel model);
+       /// <exception cref="ArgumentNullException"></exception>
+        Task<ValidationResult> ValidateMealPlanMealsAsync(IMealPlanFormModel model);
 
         /// <summary>
         /// A generic method to validate a given TCategory add or edit form model.
@@ -106,10 +108,10 @@
         Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
 
         /// <summary>
-        /// Validates if a user has the rights to edit or delete a given mealplan (by id)
+        /// Validates if a user has the rights to access a given resource by the owner ID
         /// </summary>
-        /// <param name="ownerId"></param>
+        /// <param name="mealplanOwnerId">the resource OwnerId</param>
         /// <exception cref="UnauthorizedUserException"></exception>
-        void ValidateMealPlanUserAuthorizationAsync(Guid ownerId);
+        void ValidateUserIsResourceOwnerAsync(Guid mealplanOwnerId);
     }
 }

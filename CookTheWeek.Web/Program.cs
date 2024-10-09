@@ -95,6 +95,7 @@ namespace CookTheWeek.Web
             builder.Services.AddHttpClient();
 
             builder.Services.AddScoped<IUserContext, UserContext>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
             builder.Services.AddScoped<IIngredientAggregatorHelper, IngredientAggregatorHelper>();
             builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
             builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();

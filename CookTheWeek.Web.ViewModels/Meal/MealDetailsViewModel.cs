@@ -1,13 +1,14 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Meal
 {
-    using CookTheWeek.Web.ViewModels.ShoppingList;
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Step;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     public class MealDetailsViewModel
     {
         public MealDetailsViewModel()
         {
-            this.IngredientsByCategories = new List<ProductListViewModel>();
+            this.IngredientsByCategories = new List<SupplyItemListModel<MealIngredientDetailsViewModel>>();
             this.CookingSteps = new List<StepViewModel>();
         }
 
@@ -26,7 +27,8 @@
         public string CategoryName { get; set; } = null!;
         
         public List<StepViewModel> CookingSteps { get; set; }
-        public ICollection<ProductListViewModel> IngredientsByCategories { get; set; }
+
+        public IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> IngredientsByCategories { get; set; }
 
     }
 }

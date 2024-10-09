@@ -3,21 +3,24 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.ShoppingList;
+    using CookTheWeek.Services.Data.Models.SupplyItem;
+    using CookTheWeek.Web.ViewModels.Interfaces;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     using static CookTheWeek.Common.HelperMethods.IngredientHelper;
     using static CookTheWeek.Common.GeneralApplicationConstants;
 
-
     public class IngredientAggregatorHelper : IIngredientAggregatorHelper
     {
-        public ICollection<ProductListViewModel> AggregateIngredientsByCategory(
-            List<ProductServiceModel> ingredients,
-            ICollection<RecipeIngredientSelectMeasureViewModel> measures,
-            ICollection<RecipeIngredientSelectSpecificationViewModel> specifications)
+        public IEnumerable<ISupplyItemListModel<T>> AggregateIngredientsByCategory<T>(
+            List<SupplyItemServiceModel> ingredients,
+            IEnumerable<ISelectViewModel> measures,
+            IEnumerable<ISelectViewModel> specifications,
+            Dictionary<string, int[]> categoryDictionary
+            )
+            where T : ISupplyItemModel, new()
         {
-            var ingredientsByCategories = new List<ProductListViewModel>();
+            var ingredientsByCategories = new List<ISupplyItemListModel<T>>();
 
             // Preprocess measures and specifications into dictionaries for fast lookup
             var measureDict = measures.ToDictionary(m => m.Id, m => m.Name);
@@ -29,16 +32,19 @@
                 .ToDictionary(g => g.Key, g => g.ToList());
 
             // Iterate over each category array to build the product list
-            foreach (var categoryIds in ProductListCategoryIds)
+            foreach (var categoryEntry in categoryDictionary)
             {
-                var productsInCategory = new List<ProductViewModel>();
+                string categoryName = categoryEntry.Key;  // Category name
+                int[] categoryIds = categoryEntry.Value;  // Array of category IDs
+
+                var productsInCategory = new List<T>();
 
                 // Collect ingredients that belong to the current category
                 foreach (var categoryId in categoryIds)
                 {
                     if (ingredientsGroupedByCategory.TryGetValue(categoryId, out var ingredientsInCategory))
                     {
-                        productsInCategory.AddRange(ingredientsInCategory.Select(p => new ProductViewModel
+                        productsInCategory.AddRange(ingredientsInCategory.Select(p => new T
                         {
                             Qty = FormatIngredientQty(p.Qty),
                             Measure = measureDict.TryGetValue(p.MeasureId, out var measureName) ? measureName : "N/A",
@@ -52,10 +58,10 @@
                 }
 
                 // Add the product list to the category view model
-                var productListViewModel = new ProductListViewModel
+                var productListViewModel = new SupplyItemListModel<T>
                 {
-                    Title = ProductListCategoryNames[ProductListCategoryIds.ToList().IndexOf(categoryIds)], // Assuming index is the same
-                    Products = productsInCategory
+                    Title = categoryName,   // Assuming index is the same
+                    SupplyItems = productsInCategory
                 };
 
                 ingredientsByCategories.Add(productListViewModel);

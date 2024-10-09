@@ -59,7 +59,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteByIdAsync(MealPlan mealPlan)
+        public async Task RemoveAsync(MealPlan mealPlan)
         {
             this.dbContext.MealPlans.Remove(mealPlan);
             await this.dbContext.SaveChangesAsync();
@@ -67,7 +67,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAllAsync(ICollection<MealPlan> mealPlans)
+        public async Task RemoveRangeAsync(ICollection<MealPlan> mealPlans)
         {
             this.dbContext.MealPlans.RemoveRange(mealPlans);
             await this.dbContext.SaveChangesAsync();

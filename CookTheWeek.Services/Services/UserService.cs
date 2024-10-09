@@ -130,10 +130,10 @@
             
             try
             {
-                // Delete related data first
+                // SOFT delete for recipe and its related entities
                 await recipeService.DeleteAllByUserIdAsync();
                 // Might be deleted by default! check!
-                await mealPlanService.DeleteAllByUserIdAsync(userId);
+                //await mealPlanService.DeleteAllByUserIdAsync(userId); NOT necessary
             }
             catch (Exception ex)
             {

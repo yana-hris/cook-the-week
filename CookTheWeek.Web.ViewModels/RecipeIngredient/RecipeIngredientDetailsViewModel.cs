@@ -1,9 +1,11 @@
 ﻿namespace CookTheWeek.Web.ViewModels.RecipeIngredient
-{    
-    public class RecipeIngredientDetailsViewModel
+{
+    using CookTheWeek.Web.ViewModels.Interfaces;
+
+    public class RecipeIngredientDetailsViewModel : ISupplyItemModel
     {
         public string Name { get; set; } = null!;
-        public decimal Qty { get; set; }
+        public string Qty { get; set; } = null!;
         public string Measure { get; set; } = null!;
         public string? Specification { get; set; }
     }

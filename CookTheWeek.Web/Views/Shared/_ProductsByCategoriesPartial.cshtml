@@ -7,14 +7,14 @@
     </div>
     <div class="container">
         <div class="row">
-            @foreach (var category in Model.ProductsByCategories)
+            @foreach (var category in Model.ShopItemsByCategories)
             {
-                if (category.Products.Any())
+                if (category.SupplyItems.Count > 0)
                 {
                     <div class="col col-12 col-md-6">
                         <p class="ingredient-heading">@category.Title:</p>
                         <ul class="list-unstyled">
-                            @foreach (var product in category.Products)
+                            @foreach (var product in category.SupplyItems)
                             {
                                 <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Specification</li>
                             }

@@ -67,12 +67,12 @@
                     <div class="row g-3">
                         @foreach (var category in Model.IngredientsByCategories)
                         {
-                            if (category.Products.Any())
+                            if (category.SupplyItems.Count > 0)
                             {
                                 <div class="col col-12 col-sm-6 col-lg-4">
                                     <p class="ingredient-heading">@category.Title:</p>
                                     <ul class="list-unstyled">
-                                        @foreach (var ingredient in category.Products)
+                                        @foreach (var ingredient in category.SupplyItems)
                                         {
                                             <li>@Html.Raw(ingredient.Qty) <span class="units-styler">@ingredient.Measure</span> @ingredient.Name @ingredient.Specification</li>
                                         }

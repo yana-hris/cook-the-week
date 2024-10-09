@@ -1,19 +1,21 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Recipe
 {
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     public class RecipeDetailsViewModel
     {
         public RecipeDetailsViewModel()
         {
             this.Steps = new List<StepViewModel>();
-            this.DiaryMeatSeafood = new List<RecipeIngredientDetailsViewModel>();
-            this.Produce = new List<RecipeIngredientDetailsViewModel>();
-            this.Legumes = new List<RecipeIngredientDetailsViewModel>();
-            this.PastaGrainsBakery = new List<RecipeIngredientDetailsViewModel>();
-            this.OilsHerbsSpicesSweeteners = new List<RecipeIngredientDetailsViewModel>();
-            this.NutsSeedsAndOthers = new List<RecipeIngredientDetailsViewModel>();
+            //this.DiaryMeatSeafood = new List<RecipeIngredientDetailsViewModel>();
+            //this.Produce = new List<RecipeIngredientDetailsViewModel>();
+            //this.Legumes = new List<RecipeIngredientDetailsViewModel>();
+            //this.PastaGrainsBakery = new List<RecipeIngredientDetailsViewModel>();
+            //this.OilsHerbsSpicesSweeteners = new List<RecipeIngredientDetailsViewModel>();
+            //this.NutsSeedsAndOthers = new List<RecipeIngredientDetailsViewModel>();
         }
         public string Id { get; set; } = null!;
         public string Title { get; set; } = null!;
@@ -29,11 +31,14 @@
         public int? CookedCount { get; set; }
         public bool IsSiteRecipe { get; set; }
         public List<StepViewModel> Steps { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> DiaryMeatSeafood { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> Produce { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> Legumes { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> PastaGrainsBakery { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> OilsHerbsSpicesSweeteners { get; set; }
-        public ICollection<RecipeIngredientDetailsViewModel> NutsSeedsAndOthers { get; set; }
+
+        public IEnumerable<ISupplyItemListModel<RecipeIngredientDetailsViewModel>> RecipeIngredientsByCategories =
+                                                new List<SupplyItemListModel<RecipeIngredientDetailsViewModel>>();
+        //public ICollection<RecipeIngredientDetailsViewModel> DiaryMeatSeafood { get; set; }
+        //public ICollection<RecipeIngredientDetailsViewModel> Produce { get; set; }
+        //public ICollection<RecipeIngredientDetailsViewModel> Legumes { get; set; }
+        //public ICollection<RecipeIngredientDetailsViewModel> PastaGrainsBakery { get; set; }
+        //public ICollection<RecipeIngredientDetailsViewModel> OilsHerbsSpicesSweeteners { get; set; }
+        //public ICollection<RecipeIngredientDetailsViewModel> NutsSeedsAndOthers { get; set; }
     }
 }

@@ -4,7 +4,6 @@
 
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Web.ViewModels.Meal;
-    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Factories;
 
     public class MealController : BaseController

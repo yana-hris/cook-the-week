@@ -164,7 +164,7 @@
         /// <inheritdoc/>
         public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model)
         {
-            ValidationResult result = await validationService.ValidateRecipeWithIngredientsAsync(model);
+            ValidationResult result = await validationService.ValidateRecipeFormModelAsync(model);
             if (!result.IsValid)
             {
                 return OperationResult<string>.Failure(result.Errors);
@@ -181,14 +181,16 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model)
         {
-            ValidationResult result = await validationService.ValidateRecipeWithIngredientsAsync(model);
+            Recipe recipe = await recipeRepository.GetByIdAsync(model.Id); // RecordNotFoundExc
+
+            validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId); // UnauthorizedUserExc
+
+            ValidationResult result = await validationService.ValidateRecipeFormModelAsync(model); // no exception
 
             if (!result.IsValid)
             {
                 return OperationResult.Failure(result.Errors);
             }
-            
-            Recipe recipe = await recipeRepository.GetByIdAsync(model.Id);
 
             recipe = MapFromModelToRecipe(model, recipe);
             await ProcessRecipeIngredientsAsync(model);
@@ -199,38 +201,12 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeDetailsViewModel> TryGetModelForDetailsById(string id)
+        public async Task<Recipe> GetByIdAsync(string id)
         {
 
-            Recipe recipe = await recipeRepository.GetByIdAsync(id);
-
-            // TODO: Consider using Automapper
-            RecipeDetailsViewModel model = new RecipeDetailsViewModel()
-            {
-                Id = recipe.Id.ToString(),
-                Title = recipe.Title,
-                Description = recipe.Description,
-                Steps = recipe.Steps.Select(s => new StepViewModel()
-                {
-                    Id = s.Id,
-                    Description = s.Description
-                }).ToList(),
-                Servings = recipe.Servings,
-                IsSiteRecipe = recipe.IsSiteRecipe,
-                TotalTime = FormatCookingTime(recipe.TotalTime),
-                ImageUrl = recipe.ImageUrl,
-                CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
-                CreatedBy = recipe.Owner.UserName!,
-                CategoryName = recipe.Category.Name,
-                DiaryMeatSeafood = MapIngredientsByCategoryForDetailsView(recipe, DiaryMeatSeafoodIngredientCategories),
-                Produce = MapIngredientsByCategoryForDetailsView(recipe, ProduceIngredientCategories),
-                Legumes = MapIngredientsByCategoryForDetailsView(recipe, LegumesIngredientCategories),
-                PastaGrainsBakery = MapIngredientsByCategoryForDetailsView(recipe, PastaGrainsBakeryIngredientCategories),
-                OilsHerbsSpicesSweeteners = MapIngredientsByCategoryForDetailsView(recipe, OilsHerbsSpicesSweetenersIngredientCategories),
-                NutsSeedsAndOthers = MapIngredientsByCategoryForDetailsView(recipe, NutsSeedsAndOthersIngredientCategories)
-            };
-
-            return model;
+            Recipe recipe = await recipeRepository.GetByIdAsync(id); // RecordNotFoundExc
+            
+            return recipe;
         }
 
         /// <inheritdoc/>
@@ -601,31 +577,5 @@
 
             return false;
         }
-
-        
-
-        /// <summary>
-        /// Maps ingredients to a category and creates a collection view model for Recipe Details View
-        /// </summary>
-        /// <param name="recipe"></param>
-        /// <param name="ingredientCategoryIds"></param>
-        /// <returns>A collection of RecipeIngredientDetailsViewModel by category</returns>
-        private static List<RecipeIngredientDetailsViewModel> MapIngredientsByCategoryForDetailsView(Recipe recipe, 
-            IEnumerable<int> ingredientCategoryIds)
-        {
-            return recipe.RecipesIngredients
-                .OrderBy(ri => ri.Ingredient.CategoryId)
-                .ThenBy(ri => ri.Ingredient.Name)
-                .Where(ri => ingredientCategoryIds.Contains(ri.Ingredient.CategoryId))
-                .Select(ri => new RecipeIngredientDetailsViewModel()
-                {
-                    Name = ri.Ingredient.Name,
-                    Qty = ri.Qty,
-                    Measure = ri.Measure.Name,
-                    Specification = ri.Specification != null ? ri.Specification.Description : null,
-                }).ToList();
-        }
-
-        
     }
 }

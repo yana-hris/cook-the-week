@@ -45,7 +45,7 @@
         /// </summary>
         /// <returns>A collection of MealPlan</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<ICollection<CookTheWeek.Data.Models.MealPlan>> GetAllMineAsync();
+        Task<ICollection<MealPlan>> GetAllMineAsync();
 
         /// <summary>
         /// Returns the total amount of all user`s mealplans or 0 (not null)
@@ -55,35 +55,21 @@
         Task<int?> MineCountAsync();
 
         /// <summary>
-        /// Validates the existence and authorization rights of a the current user to edit the given meal plan and returns it 
+        /// Validates the existence of a meal plan by its id and authorization rights of the current user to access it. If not, throws exceptions
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A MealPlan</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<MealPlan> GetForFormModelById(string id);
+        /// <exception cref="UnauthorizedUserException"></exception>
+        Task<MealPlan> TryGetAsync(string id);
        
         /// <summary>
         /// Returns the total count of all Active meal plans. 
         /// </summary>
         /// <returns>int or 0</returns>
         Task<int?> AllActiveCountAsync();
-
-        /// <summary>
-        /// Bulk delete for deleting all meal plans of a specific user, including deleting all nested meals. Does not throw any exceptions. If meal plans don`t exists, does nothing.
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        Task DeleteAllByUserIdAsync(string userId);
+        
        
-        /// <summary>
-        /// Either returns the MealPlan or throws an exception in case it does not exist.
-        /// The returned meal plan contains data for the meals, their recipes, the recipe categories, their recipeingredients and associated ingredients.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>MealPlan</returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        Task<CookTheWeek.Data.Models.MealPlan> GetByIdAsync(string id);
-
         /// <summary>
         /// Validates if a mealplan exists and can be deleted by the current user. If so, deletes it
         /// </summary>

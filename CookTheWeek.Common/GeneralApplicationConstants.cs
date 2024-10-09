@@ -57,6 +57,7 @@
         public const string HtmlEntityFractionSlash = "<span>&frasl;</span>";
 
         // Ingredients by categories FOR Recipe Details View
+        // TODO: Delete when ready
         public static int[] DiaryMeatSeafoodIngredientCategories = [1, 2, 11];
         public static int[] ProduceIngredientCategories = [8, 9];
         public static int[] LegumesIngredientCategories = [3];
@@ -74,32 +75,35 @@
 
         public const int MealPlanTrimmedNameLnegth = 30;
 
-        // Ingredients by categories FOR Meal Details & Shopping List View
-        public static string[] ProductListCategoryNames = new string[]
+        // For meal and Recipe Details Views
+        public static readonly Dictionary<string, int[]> RecipeAndMealDetailedProductListCategoryDictionary = 
+            new Dictionary<string, int[]>
         {
-            "Fruits & Veggies",
-            "Beans, Lentils and Legumes",
-            "Nuts, Seeds and Others",
-            "Bread & Bakery",
-            "Meat & Seafood",
-            "Diary, Cheese & Eggs",
-            "Pasta & Rice",
-            "Fats, Oils, Sauces and Broths",
-            "Herbs, Spices and Sweeteners",
+            { "Meat, Diary Products &amp; Seafood", new int[] { 1, 2, 11 } },
+            { "Produce (Fruit &amp; Vegetables)", new int[] { 8, 9 } },
+            { "Pasta, Grains &amp; Bakery", new int[] { 4, 7 } },
+            { "Beans, Lentils and Legumes", new int[] { 3 } },
+            { "Nuts, Seeds &amp; Others", new int[] { 12, 13 } },
+            { "Herbs, Spices, Oils &amp; Sauces", new int[] { 5, 6, 10 } }
         };
 
-        public static int[][] ProductListCategoryIds = new int[][]
+        // For Shopping List View:
+        public static readonly Dictionary<string, int[]> ShoppingListCategoryGroupDictionary = 
+            new Dictionary<string, int[]>
         {
-             new int[] { 8, 9 },
-             new int[] { 3 },
-             new int[] { 12, 13 },
-             new int[] { 4 },
-             new int[] { 2, 11 },
-             new int[] { 1 },
-             new int[] { 7 },
-             new int[] { 10 },
-             new int[] { 5, 6 },
+            { "Fruits & Veggies", new int[] { 8, 9 } },
+            { "Beans, Lentils and Legumes", new int[] { 3 } },
+            { "Nuts, Seeds and Others", new int[] { 12, 13 } },
+            { "Bread & Bakery", new int[] { 4 } },
+            { "Meat & Seafood", new int[] { 2, 11 } },
+            { "Diary, Cheese & Eggs", new int[] { 1 } },
+            { "Pasta & Rice", new int[] { 7 } },
+            { "Fats, Oils, Sauces and Broths", new int[] { 10 } },
+            { "Herbs, Spices and Sweeteners", new int[] { 5, 6 } }
         };
+
+
+        
 
         public const string AppUserId = "e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403";
         public const string AppUserUsername = "appUser";

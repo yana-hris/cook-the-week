@@ -24,6 +24,7 @@
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using System.Runtime.ExceptionServices;
 
     public class ValidationService : IValidationService
     {
@@ -63,7 +64,7 @@
         // RECIPE:              
        
         /// <inheritdoc/>
-        public async Task<ValidationResult> ValidateRecipeWithIngredientsAsync(IRecipeFormModel model)
+        public async Task<ValidationResult> ValidateRecipeFormModelAsync(IRecipeFormModel model)
         {
             var result = new ValidationResult();
 
@@ -228,9 +229,12 @@
             for (int i = 0; i < meals.Count; i++)
             {
                 var meal = serviceModel.Meals.ElementAt(i);
-                bool recipeIdIsValid = await recipeRepository.ExistsByIdAsync(meal.RecipeId);
 
-                if (!recipeIdIsValid)
+                try
+                {
+                    await ValidateRecipeExistsAsync(meal.RecipeId);
+                }
+                catch (Exception ex) when (ex is RecordNotFoundException || ex is ArgumentNullException)
                 {
                     string key = $"Meals[{i}].RecipeId"; // sub-entry
                     AddValidationError(result, key, RecipeValidation.InvalidRecipeIdErrorMessage);
@@ -241,7 +245,7 @@
         }
 
         /// <inheritdoc/>
-        public void ValidateMealPlanUserAuthorizationAsync(Guid mealplanId)
+        public void ValidateUserIsResourceOwnerAsync(Guid ownerId)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -249,29 +253,17 @@
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            if (!GuidHelper.CompareGuidStringWithGuid(userId!, mealplanId))
+            if (!GuidHelper.CompareGuidStringWithGuid(userId!, ownerId))
             {
-                logger.LogError($"User with id {userId} does not have authorization rights to edit or delete meal plan with id {mealplanId.ToString()}.");
+                logger.LogError($"User with id {userId} is not the resource owner. Authentication not allowed.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
             }
         }
 
         /// <inheritdoc/>
-        public async Task<ValidationResult> ValidateMealPlanFormModelAsync(IMealPlanFormModel model)
+        public async Task<ValidationResult> ValidateMealPlanMealsAsync(IMealPlanFormModel model)
         {
             var result = new ValidationResult();
-            
-            if (model is MealPlanEditFormModel editModel)
-            {
-                // RecordNotFounException
-                MealPlan? mealplan = await mealplanReposiroty.GetByIdAsync(editModel.Id);    
-                
-                if (mealplan == null)
-                {
-                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
-                }
-                ValidateMealPlanUserAuthorizationAsync(mealplan.Id);                
-            }
 
             if (!model.Meals.Any())
             {
@@ -353,31 +345,19 @@
 
             return true;  // Category can be deleted
         }
-    
 
 
 
-    // TODO: check!
-    // LIKES:
-    public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
+
+        // TODO: check!
+        // FAVOURITE RECIPE (LIKES)
+        /// <inheritdoc/>   
+        public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
         {
             string serviceUserId = model.UserId;
             string recipeId = model.RecipeId;
 
-            // Validate if recipeId is provided
-            if (string.IsNullOrEmpty(recipeId))
-            {
-                logger.LogError($"Validation failed: RecipeId is null or empty when user with id {userId} attempted to like/unlike a recipe.");
-                throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
-            }
-
-            // Check if the recipe exists
-            bool recipeExists = await recipeRepository.ExistsByIdAsync(recipeId);
-            if (!recipeExists)
-            {
-                logger.LogError($"Validation failed: Recipe with id {recipeId} does not exist. User with id {userId} attempted to like/unlike it.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
+            await ValidateRecipeExistsAsync(recipeId);
 
             // Validate user authorization
             if (!string.IsNullOrEmpty(userId) &&
@@ -389,6 +369,8 @@
             }
 
         }
+
+        
 
 
 
@@ -416,20 +398,24 @@
         /// <param name="result"></param>
         /// <returns></returns>
         /// <exception cref="RecordNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         private async Task ValidateMealsAsync(ICollection<MealAddFormModel> meals, ValidationResult result)
         {
 
             for (int i = 0; i < meals.Count; i++)
             {
                 var meal = meals.ElementAt(i);
-                bool recipeIdIsValid = await recipeRepository.ExistsByIdAsync(meal.RecipeId);
 
-                if (!recipeIdIsValid)
+                try
                 {
-                    logger.LogError($"Meal plan model invalid: recipe with id {meal.RecipeId} for meal at index {i} not found.");
-                    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+                    await ValidateRecipeExistsAsync(meal.RecipeId);
                 }
-
+                catch (Exception ex) when (ex is RecordNotFoundException || ex is ArgumentNullException)
+                {
+                    logger.LogError($"Meal plan model invalid: recipe with id {meal.RecipeId} for meal at index {i} not found or is null.");
+                    throw;
+                }
+                
                 if (!ValidateMealDates(meal))
                 {
                     logger.LogError($"Invalid meal date: {meal.Date} for meal with recipeId {meal.RecipeId}");
@@ -438,6 +424,31 @@
             }
         }
 
+        /// <summary>
+        /// A helper method which verifies the recipeId is not null or if exists in the database. 
+        /// Throws exceptions.
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="RecordNotFoundException"></exception>
+        private async Task ValidateRecipeExistsAsync(string recipeId)
+        {
+            // Validate if recipeId is provided
+            if (string.IsNullOrEmpty(recipeId))
+            {
+                logger.LogError($"Validation failed: RecipeId is null or empty.");
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);
+            }
+
+            // Check if the recipe exists
+            bool recipeExists = await recipeRepository.ExistsByIdAsync(recipeId);
+            if (!recipeExists)
+            {
+                logger.LogError($"Validation failed: Recipe with id {recipeId} does not exist.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
+        }
 
         /// <summary>
         /// Checks if a meal`s selected date is valid (being present in the select-dates and if can be parsed correctly).

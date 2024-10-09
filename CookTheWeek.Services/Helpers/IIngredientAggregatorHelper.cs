@@ -1,14 +1,15 @@
 ﻿namespace CookTheWeek.Services.Data.Helpers
 {
-
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.ShoppingList;
+    using CookTheWeek.Services.Data.Models.SupplyItem;
+    using CookTheWeek.Web.ViewModels.Interfaces;
 
     public interface IIngredientAggregatorHelper
     {
-        ICollection<ProductListViewModel> AggregateIngredientsByCategory(
-        List<ProductServiceModel> ingredients,
-        ICollection<RecipeIngredientSelectMeasureViewModel> measures,
-        ICollection<RecipeIngredientSelectSpecificationViewModel> specifications);
+        IEnumerable<ISupplyItemListModel<T>> AggregateIngredientsByCategory<T>(
+        List<SupplyItemServiceModel> ingredients,
+        IEnumerable<ISelectViewModel> measures,
+        IEnumerable<ISelectViewModel> specifications,
+        Dictionary<string, int[]> categoryDictionary)
+            where T : ISupplyItemModel, new();
     }
 }

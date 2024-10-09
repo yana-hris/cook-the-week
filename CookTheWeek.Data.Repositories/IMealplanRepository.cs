@@ -36,14 +36,14 @@
         /// </summary>
         /// <param name="mealPlan"></param>
         /// <returns></returns>
-        Task DeleteByIdAsync(MealPlan mealPlan);
+        Task RemoveAsync(MealPlan mealPlan);
 
         /// <summary>
         /// Deletes a collection of meal plans
         /// </summary>
         /// <param name="mealPlans"></param>
         /// <returns></returns>
-        Task DeleteAllAsync(ICollection<MealPlan> mealPlans);
+        Task RemoveRangeAsync(ICollection<MealPlan> mealPlans);
 
     }
 }

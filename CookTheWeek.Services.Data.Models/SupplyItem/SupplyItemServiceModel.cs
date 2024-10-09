@@ -1,7 +1,7 @@
-﻿namespace CookTheWeek.Web.ViewModels.ShoppingList
+﻿namespace CookTheWeek.Services.Data.Models.SupplyItem
 {
     
-    public class ProductServiceModel
+    public class SupplyItemServiceModel
     {
         public string Name { get; set; } = null!;
         public decimal Qty { get; set; }

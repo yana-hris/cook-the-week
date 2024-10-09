@@ -1,7 +1,8 @@
-﻿namespace CookTheWeek.Web.ViewModels.ShoppingList
+﻿namespace CookTheWeek.Web.ViewModels
 {
+    using CookTheWeek.Web.ViewModels.Interfaces;
     
-    public class ProductViewModel
+    public class ShopItemViewModel : ISupplyItemModel
     {
         public string Name { get; set; } = null!;
         public string Qty { get; set; } = null!;

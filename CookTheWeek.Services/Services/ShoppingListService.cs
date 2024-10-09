@@ -6,8 +6,11 @@
     
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Models.SupplyItem;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.ShoppingList;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     using static Common.GeneralApplicationConstants;
 
@@ -29,9 +32,11 @@
             this.ingredientHelper = ingredientHelper;
             this.recipeIngredientService = recipeIngredientService; 
         }
+
+        // TODO: move to viewmodel factory
         public async Task<ShoppingListViewModel> TryGetShoppingListDataByMealPlanIdAsync(string id)
         {
-            MealPlan mealplan = await mealPlanService.GetByIdAsync(id);
+            MealPlan mealplan = await mealPlanService.TryGetAsync(id);
 
             ShoppingListViewModel model = new ShoppingListViewModel
             {
@@ -39,11 +44,11 @@
                 Title = mealplan.Name,
                 StartDate = mealplan.StartDate.ToString(MealDateFormat),
                 EndDate = mealplan.StartDate.AddDays(6).ToString(MealDateFormat),
-                ProductsByCategories = new List<ProductListViewModel>()
+                ShopItemsByCategories = new List<SupplyItemListModel<ShopItemViewModel>>()
             };
 
             // Dictionary for fast product lookup
-            var productDict = new Dictionary<(string Name, int MeasureId, int? SpecificationId), ProductServiceModel>();
+            var productDict = new Dictionary<(string Name, int MeasureId, int? SpecificationId), SupplyItemServiceModel>();
 
 
             foreach (var meal in mealplan.Meals)
@@ -63,7 +68,7 @@
                     }
                     else
                     {
-                        productDict[key] = new ProductServiceModel
+                        productDict[key] = new SupplyItemServiceModel
                         {
                             Name = ri.Ingredient.Name,
                             CategoryId = ri.Ingredient.CategoryId,
@@ -80,7 +85,7 @@
             var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
             var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
-            model.ProductsByCategories = ingredientHelper.AggregateIngredientsByCategory(products, measures, specifications);
+            model.ShopItemsByCategories = ingredientHelper.AggregateIngredientsByCategory<ShopItemViewModel>(products, measures, specifications, ShoppingListCategoryGroupDictionary);
 
             return model;
 

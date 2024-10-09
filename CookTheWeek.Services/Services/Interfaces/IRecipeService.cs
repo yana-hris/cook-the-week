@@ -38,12 +38,12 @@
         Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model);
 
         /// <summary>
-        /// Gets and creates a Detailed Viewmodel for a specific recipe or throws an exception
+        /// Gets a Recipe if by a given ID if it exists in the database or throws an exception
         /// </summary>
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
-        /// <returns>RecipeDetailsViewModel</returns>
-        Task<RecipeDetailsViewModel> TryGetModelForDetailsById(string id);
+        /// <returns>Recipe</returns>
+        Task<Recipe> GetByIdAsync(string id);
                 
 
         /// <summary>
