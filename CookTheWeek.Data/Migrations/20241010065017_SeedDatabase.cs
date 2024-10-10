@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CookTheWeek.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedDB : Migration
+    public partial class SeedDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,9 +18,9 @@ namespace CookTheWeek.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "999e2e41-1570-46d9-b4ba-1da29c190551", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAEEnVfLHDyP105Fd7fvH5uYNeCLcFNEUIcGAUyNQbsBx9QlpKtyAmBgEVJTezig6JWw==", null, false, "9559bba5-a6b8-4a28-84a9-66cb103fdbb8", false, "adminUser" },
-                    { new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"), 0, "69feb5cf-0b2f-4d31-ba6b-ee77b2c3043e", "deletedUser@gmail.com", true, false, null, "DELETEDUSER@GMAIL.COM", "DELETEDUSER", "AQAAAAIAAYagAAAAEG1Xz0DR1KIUTCJnUmtGrEhNFfgIXmYmskmbYHkczMwx0AX/nfUjPfUAsL87GTwjqQ==", null, false, "e3d319d6-bc1f-40ee-846e-2e053577945d", false, "deletedUser" },
-                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "f96c398c-eee3-44e4-ae62-378a33b30c06", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAEGh6RHM/YL3vI52p4iD8tZuPlwkb2MQ+dN9SE8j/uw6/N8uovgGTVrLPkTUvYmi5bQ==", null, false, "b085410c-5950-490a-8183-1bbc667b80cb", false, "appUser" }
+                    { new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"), 0, "6e0b3236-edb4-4c49-a5b5-ad88131d2af6", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMINUSER", "AQAAAAIAAYagAAAAEEKy/sXy4vddDYmcM4dbntF5/QuVbEvMQdhDxvh+ui5Ub6TUM8mA7jTHGkvV6glF0Q==", null, false, "cae86b1f-a0ab-4e4c-b955-f5e88e99a16b", false, "adminUser" },
+                    { new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"), 0, "15b8f90a-7023-4519-b33e-e33a61ba96b2", "deletedUser@gmail.com", true, false, null, "DELETEDUSER@GMAIL.COM", "DELETEDUSER", "AQAAAAIAAYagAAAAEL+eYLVr2c2JgINcEtq4ChFBB3KszeECoGCTwhZW6YH35z6Fau6bpVHvPtG6+TUgpg==", null, false, "0c5836cc-d0f5-4e93-8ffe-2bb125f8be91", false, "deletedUser" },
+                    { new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"), 0, "7d5a9931-e562-4515-abb9-4ce1e6271817", "appUser@yahoo.com", true, false, null, "APPUSER@YAHOO.COM", "APPUSER", "AQAAAAIAAYagAAAAEJLwrvtz6O1PR8mfiVsxuROourCh15tRDc+/VeCuYJn43vTzP96obJJfb0riF1OIQQ==", null, false, "4a404bb5-7979-4453-81a9-d0cba0c89f3b", false, "appUser" }
                 });
 
             migrationBuilder.InsertData(

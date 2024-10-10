@@ -24,6 +24,12 @@
             // Get the userContext or whatever method you use to determine if the user is an admin
             var userContext = context.HttpContext.RequestServices.GetService<IUserContext>();
 
+            if (userContext == null || string.IsNullOrEmpty(userContext.UserId))
+            {
+               
+                return;
+            }
+
             if (userContext != null && userContext.IsAdmin)
             {
                 // Redirect to the admin area action

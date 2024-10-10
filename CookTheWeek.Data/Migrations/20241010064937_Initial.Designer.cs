@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20240831053950_Initial")]
+    [Migration("20241010064937_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace CookTheWeek.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -104,13 +104,19 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Recipe Key Identifier");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Recipe Like when the Recipe is deleted");
+
                     b.HasKey("UserId", "RecipeId");
 
                     b.HasIndex("RecipeId");
 
                     b.ToTable("FavoriteRecipes", t =>
                         {
-                            t.HasComment("Users` Favourite Recipes");
+                            t.HasComment("Users` Favourite Recipes (likes)");
                         });
                 });
 
@@ -184,6 +190,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasComment("Meal completion Identifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Meal when the Recipe is deleted");
 
                     b.Property<Guid>("MealPlanId")
                         .HasColumnType("uniqueidentifier")
@@ -377,6 +389,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Key Identifier for Ingredient");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the RecipeIngredient when the Recipe is deleted");
+
                     b.Property<int>("MeasureId")
                         .HasColumnType("int")
                         .HasComment("Measure Key Identifier");
@@ -453,6 +471,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)")
                         .HasComment("Cooking Step Instructions");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Step upon Recipe Deletion");
 
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uniqueidentifier")

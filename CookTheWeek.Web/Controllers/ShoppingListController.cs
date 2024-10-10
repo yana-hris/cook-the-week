@@ -12,16 +12,13 @@
 
     public class ShoppingListController : BaseController
     {
-        private readonly IShoppingListService shoppingListService;
-        private readonly ILogger<ShoppingListController> logger;
-        
+        private readonly IShoppingListService shoppingListService;        
         private readonly IWebHostEnvironment hostingEnvironment;
 
         public ShoppingListController(IShoppingListService shoppingListService,
             ILogger<ShoppingListController> logger,
-            IWebHostEnvironment hostingEnvironment)
+            IWebHostEnvironment hostingEnvironment) : base(logger) 
         {
-            this.logger = logger;
             this.shoppingListService = shoppingListService;
             this.hostingEnvironment = hostingEnvironment;
         }

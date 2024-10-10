@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-CookTheWeek-ebe2ae70-ce4e-45a7-a637-a08386787907</UserSecretsId>
     <ErrorReport>prompt</ErrorReport>
+    <StartupObject>CookTheWeek.Web.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

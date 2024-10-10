@@ -280,7 +280,7 @@ function buildMealPlan(event) {
         success: function (response) {
             // Send the model to the server to store in session
             $.ajax({
-                url: '/MealPlan/StoreMealPlanInSession',  // Action to store the model in session
+                url: 'https://localhost:7171/MealPlan/StoreMealPlanInSession',  // Action to store the model in session
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(response),

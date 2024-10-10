@@ -295,7 +295,8 @@ namespace CookTheWeek.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User Key Identifier"),
-                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Recipe Key Identifier")
+                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Recipe Key Identifier"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the Recipe Like when the Recipe is deleted")
                 },
                 constraints: table =>
                 {
@@ -313,7 +314,7 @@ namespace CookTheWeek.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 },
-                comment: "Users` Favourite Recipes");
+                comment: "Users` Favourite Recipes (likes)");
 
             migrationBuilder.CreateTable(
                 name: "Meals",
@@ -325,7 +326,8 @@ namespace CookTheWeek.Data.Migrations
                     ServingSize = table.Column<int>(type: "int", nullable: false, comment: "Meal Serving Size"),
                     CookDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Meal Cook Date"),
                     IsCooked = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Meal completion Identifier"),
-                    MealPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Meal Plan Key Identifier")
+                    MealPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Meal Plan Key Identifier"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the Meal when the Recipe is deleted")
                 },
                 constraints: table =>
                 {
@@ -355,7 +357,8 @@ namespace CookTheWeek.Data.Migrations
                     IngredientId = table.Column<int>(type: "int", nullable: false, comment: "Key Identifier for Ingredient"),
                     Qty = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false, comment: "Quantity of Ingredient in Recipe"),
                     MeasureId = table.Column<int>(type: "int", nullable: false, comment: "Measure Key Identifier"),
-                    SpecificationId = table.Column<int>(type: "int", nullable: true, comment: "Key identifier for Specification")
+                    SpecificationId = table.Column<int>(type: "int", nullable: true, comment: "Key identifier for Specification"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the RecipeIngredient when the Recipe is deleted")
                 },
                 constraints: table =>
                 {
@@ -394,7 +397,8 @@ namespace CookTheWeek.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Step Key Identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Recipe Key Identifier"),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false, comment: "Cooking Step Instructions")
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false, comment: "Cooking Step Instructions"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Soft Delete the Step upon Recipe Deletion")
                 },
                 constraints: table =>
                 {

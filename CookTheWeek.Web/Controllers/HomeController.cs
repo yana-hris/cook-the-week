@@ -6,22 +6,20 @@ namespace CookTheWeek.Web.Controllers
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
     using CookTheWeek.Web.Infrastructure.ActionFilters;
-    using CookTheWeek.Web.Infrastructure.Extensions;
 
-    using static Common.GeneralApplicationConstants;
+    
     using static Common.NotificationMessagesConstants;
 
     [AllowAnonymous]
     public class HomeController : BaseController
     { 
         
-        private readonly ILogger<HomeController> logger;
+        //private readonly ILogger<HomeController> logger;
         private readonly IEmailSender emailSender;
 
         public HomeController(IEmailSender emailSender,
-            ILogger<HomeController> logger) 
+                              ILogger<HomeController> logger) : base(logger)
         {
-            this.logger = logger;
             this.emailSender = emailSender;
         }
 
@@ -29,6 +27,7 @@ namespace CookTheWeek.Web.Controllers
         [AdminRedirect("Index", "HomeAdmin")]
         public IActionResult Index()
         {
+            //throw new Exception("Test Exception to trigger the Developer Exception Page.");
             return View();
         }
 
@@ -50,6 +49,7 @@ namespace CookTheWeek.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CookiePolicy()
         {
             return View();
@@ -93,9 +93,8 @@ namespace CookTheWeek.Web.Controllers
                 return RedirectToAction("Contact", "Home");
             }
            
-        }        
-
-        [Route("Home/NotFound")]
+        }   
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult NotFound(string? message, string? code)
         {
@@ -104,8 +103,7 @@ namespace CookTheWeek.Web.Controllers
             ViewBag.Message = message;  
             return View();
         }
-
-        [Route("Home/InternalServerError")]
+       
         public IActionResult InternalServerError(string? message, string? code)
         {
             Response.StatusCode = 500;

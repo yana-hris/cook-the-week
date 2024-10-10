@@ -17,7 +17,7 @@ namespace CookTheWeek.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -95,15 +95,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c475a28e-d106-4482-a675-1efccb795c4e",
+                            ConcurrencyStamp = "6e0b3236-edb4-4c49-a5b5-ad88131d2af6",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC0/H3fy7Kfx3oCT/4ajxzPYm6jmylcZWlsRTByKPASc3td8HYndFYMXDC7zh/1Vdw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEKy/sXy4vddDYmcM4dbntF5/QuVbEvMQdhDxvh+ui5Ub6TUM8mA7jTHGkvV6glF0Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "29bdf111-2dfe-46c0-8759-d0bf6a9a5534",
+                            SecurityStamp = "cae86b1f-a0ab-4e4c-b955-f5e88e99a16b",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -111,15 +111,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57db29f6-e5bb-469e-8475-29a92a91046e",
+                            ConcurrencyStamp = "7d5a9931-e562-4515-abb9-4ce1e6271817",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL0JKA2+/tr8IrTclM4vCiByfFWjw0/chjFbJvvlFHjc/MBKp5d1oeGkrQx8TgrFGA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJLwrvtz6O1PR8mfiVsxuROourCh15tRDc+/VeCuYJn43vTzP96obJJfb0riF1OIQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "287e51ec-b5c2-4c2e-ac4f-8f31423baa26",
+                            SecurityStamp = "4a404bb5-7979-4453-81a9-d0cba0c89f3b",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         },
@@ -127,15 +127,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "edd130ab-b184-495b-ae10-4229c471d858",
+                            ConcurrencyStamp = "15b8f90a-7023-4519-b33e-e33a61ba96b2",
                             Email = "deletedUser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "DELETEDUSER@GMAIL.COM",
                             NormalizedUserName = "DELETEDUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMow8LH9PsQEsxCyPDKzq9nF2FPAqmJh/DkM5ggL6IvcGhOvyU/ZLSFi2dPYYK6eYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL+eYLVr2c2JgINcEtq4ChFBB3KszeECoGCTwhZW6YH35z6Fau6bpVHvPtG6+TUgpg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1d631dc4-52ce-4fb4-8e93-3afabf95a76e",
+                            SecurityStamp = "0c5836cc-d0f5-4e93-8ffe-2bb125f8be91",
                             TwoFactorEnabled = false,
                             UserName = "deletedUser"
                         });
@@ -151,13 +151,19 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Recipe Key Identifier");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Recipe Like when the Recipe is deleted");
+
                     b.HasKey("UserId", "RecipeId");
 
                     b.HasIndex("RecipeId");
 
                     b.ToTable("FavoriteRecipes", t =>
                         {
-                            t.HasComment("Users` Favourite Recipes");
+                            t.HasComment("Users` Favourite Recipes (likes)");
                         });
                 });
 
@@ -1867,6 +1873,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Meal completion Identifier");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Meal when the Recipe is deleted");
+
                     b.Property<Guid>("MealPlanId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Meal Plan Key Identifier");
@@ -2286,6 +2298,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Key Identifier for Ingredient");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the RecipeIngredient when the Recipe is deleted");
+
                     b.Property<int>("MeasureId")
                         .HasColumnType("int")
                         .HasComment("Measure Key Identifier");
@@ -2329,6 +2347,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 1,
                             IngredientId = 11,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 500m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2337,6 +2356,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 2,
                             IngredientId = 113,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2345,6 +2365,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 3,
                             IngredientId = 118,
+                            IsDeleted = false,
                             MeasureId = 6,
                             Qty = 1m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2353,6 +2374,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 4,
                             IngredientId = 122,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 250m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2361,6 +2383,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 5,
                             IngredientId = 154,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 3m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2369,6 +2392,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 6,
                             IngredientId = 54,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2377,6 +2401,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 7,
                             IngredientId = 14,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 1m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2385,6 +2410,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 8,
                             IngredientId = 12,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2393,6 +2419,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 9,
                             IngredientId = 52,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2401,6 +2428,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 10,
                             IngredientId = 53,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
@@ -2409,6 +2437,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 11,
                             IngredientId = 1,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 400m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2417,6 +2446,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 12,
                             IngredientId = 118,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 6m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2425,6 +2455,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 13,
                             IngredientId = 71,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2433,6 +2464,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 14,
                             IngredientId = 113,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2441,6 +2473,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 15,
                             IngredientId = 114,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 3m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2449,6 +2482,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 16,
                             IngredientId = 154,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 3m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2457,6 +2491,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 17,
                             IngredientId = 64,
+                            IsDeleted = false,
                             MeasureId = 10,
                             Qty = 1m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2465,6 +2500,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 18,
                             IngredientId = 52,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2473,6 +2509,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 19,
                             IngredientId = 53,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 10m,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
@@ -2481,6 +2518,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 20,
                             IngredientId = 4,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 600m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2489,6 +2527,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 21,
                             IngredientId = 114,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 3m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2497,6 +2536,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 22,
                             IngredientId = 113,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2505,6 +2545,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 23,
                             IngredientId = 188,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2513,6 +2554,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 24,
                             IngredientId = 53,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2521,6 +2563,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 25,
                             IngredientId = 57,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2529,6 +2572,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 26,
                             IngredientId = 64,
+                            IsDeleted = false,
                             MeasureId = 10,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2537,6 +2581,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 27,
                             IngredientId = 52,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2545,6 +2590,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 28,
                             IngredientId = 56,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2553,6 +2599,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 29,
                             IngredientId = 156,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 150m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2561,6 +2608,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 30,
                             IngredientId = 163,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 250m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2569,6 +2617,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 31,
                             IngredientId = 154,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
@@ -2577,6 +2626,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 32,
                             IngredientId = 2,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 500m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2585,6 +2635,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 33,
                             IngredientId = 127,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 10m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2593,6 +2644,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 34,
                             IngredientId = 114,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2601,6 +2653,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 35,
                             IngredientId = 122,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
@@ -2610,6 +2663,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 36,
                             IngredientId = 154,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 4m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2618,6 +2672,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 37,
                             IngredientId = 189,
+                            IsDeleted = false,
                             MeasureId = 3,
                             Qty = 160m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2626,6 +2681,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 38,
                             IngredientId = 113,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2634,6 +2690,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 39,
                             IngredientId = 52,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2642,6 +2699,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 40,
                             IngredientId = 53,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2650,6 +2708,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 41,
                             IngredientId = 54,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2658,6 +2717,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 42,
                             IngredientId = 188,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
@@ -2666,6 +2726,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 43,
                             IngredientId = 14,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 1m,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
@@ -2674,6 +2735,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 44,
                             IngredientId = 135,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 1m,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
@@ -2682,6 +2744,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 45,
                             IngredientId = 198,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 0.5m,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
@@ -2690,6 +2753,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 46,
                             IngredientId = 116,
+                            IsDeleted = false,
                             MeasureId = 12,
                             Qty = 1m,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4"),
@@ -2699,6 +2763,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 47,
                             IngredientId = 196,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 0.5m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
@@ -2707,6 +2772,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 48,
                             IngredientId = 198,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
@@ -2715,6 +2781,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 49,
                             IngredientId = 218,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 2m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
@@ -2723,6 +2790,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 50,
                             IngredientId = 13,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 1m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
@@ -2731,6 +2799,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 51,
                             IngredientId = 228,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 2m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
@@ -2739,6 +2808,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 52,
                             IngredientId = 229,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 2m,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
@@ -2748,6 +2818,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 53,
                             IngredientId = 134,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 0.5m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
@@ -2756,6 +2827,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 54,
                             IngredientId = 243,
+                            IsDeleted = false,
                             MeasureId = 12,
                             Qty = 1m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
@@ -2764,6 +2836,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 55,
                             IngredientId = 251,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
@@ -2772,6 +2845,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 56,
                             IngredientId = 252,
+                            IsDeleted = false,
                             MeasureId = 13,
                             Qty = 1m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
@@ -2780,6 +2854,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 57,
                             IngredientId = 141,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 1m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
@@ -2789,6 +2864,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 58,
                             IngredientId = 123,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 6m,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
@@ -2797,6 +2873,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 59,
                             IngredientId = 36,
+                            IsDeleted = false,
                             MeasureId = 5,
                             Qty = 500.00m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2805,6 +2882,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 60,
                             IngredientId = 52,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 2m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2813,6 +2891,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 61,
                             IngredientId = 54,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2821,6 +2900,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 62,
                             IngredientId = 59,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2829,6 +2909,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 63,
                             IngredientId = 64,
+                            IsDeleted = false,
                             MeasureId = 10,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2837,6 +2918,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 64,
                             IngredientId = 67,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2845,6 +2927,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 65,
                             IngredientId = 112,
+                            IsDeleted = false,
                             MeasureId = 2,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2853,6 +2936,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 66,
                             IngredientId = 113,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2861,6 +2945,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 67,
                             IngredientId = 114,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2869,6 +2954,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 68,
                             IngredientId = 122,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2877,6 +2963,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 69,
                             IngredientId = 127,
+                            IsDeleted = false,
                             MeasureId = 1,
                             Qty = 2m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2885,6 +2972,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 70,
                             IngredientId = 188,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
@@ -2893,6 +2981,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 71,
                             IngredientId = 116,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 2m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b"),
@@ -2902,6 +2991,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 72,
                             IngredientId = 155,
+                            IsDeleted = false,
                             MeasureId = 8,
                             Qty = 1m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
@@ -2910,6 +3000,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 73,
                             IngredientId = 165,
+                            IsDeleted = false,
                             MeasureId = 3,
                             Qty = 400.0m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
@@ -2918,6 +3009,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 74,
                             IngredientId = 222,
+                            IsDeleted = false,
                             MeasureId = 9,
                             Qty = 2m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
@@ -2926,6 +3018,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 75,
                             IngredientId = 83,
+                            IsDeleted = false,
                             MeasureId = 6,
                             Qty = 1m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
@@ -2934,6 +3027,7 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 76,
                             IngredientId = 253,
+                            IsDeleted = false,
                             MeasureId = 7,
                             Qty = 1m,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
@@ -3035,6 +3129,12 @@ namespace CookTheWeek.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasComment("Cooking Step Instructions");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Soft Delete the Step upon Recipe Deletion");
+
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Recipe Key Identifier");
@@ -3053,282 +3153,329 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = 1,
                             Description = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
                             Id = 2,
                             Description = "Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
                             Id = 3,
                             Description = "Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). ",
+                            IsDeleted = false,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
                             Id = 4,
                             Description = "In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
+                            IsDeleted = false,
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84")
                         },
                         new
                         {
                             Id = 5,
                             Description = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker.",
+                            IsDeleted = false,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
                             Id = 6,
                             Description = "Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes.",
+                            IsDeleted = false,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
                             Id = 7,
                             Description = "Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip.",
+                            IsDeleted = false,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
                             Id = 8,
                             Description = " Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
                             Id = 9,
                             Description = "Bring the pressure cooker to a boil again and cook for another 20 minutes.",
+                            IsDeleted = false,
                             RecipeId = new Guid("4a37318d-86fc-4411-a686-b01ae7e007c8")
                         },
                         new
                         {
                             Id = 10,
                             Description = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour.",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 11,
                             Description = "Remove the chicken and portion it into small pieces.",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 12,
                             Description = "Take the remaining chicken broth back and again bring to a boil. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 13,
                             Description = "Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 14,
                             Description = "After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 15,
                             Description = "After boiling for another 5 minutes, add some finely cut celery.",
+                            IsDeleted = false,
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d")
                         },
                         new
                         {
                             Id = 16,
                             Description = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
                             Id = 17,
                             Description = "2. Add the minced meat while constantly mixing",
+                            IsDeleted = false,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
                             Id = 18,
                             Description = "3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
+                            IsDeleted = false,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
                             Id = 19,
                             Description = "4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
+                            IsDeleted = false,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
                             Id = 20,
                             Description = "5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                            IsDeleted = false,
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb")
                         },
                         new
                         {
                             Id = 21,
                             Description = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth.",
+                            IsDeleted = false,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
                             Id = 22,
                             Description = "Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
                             Id = 23,
                             Description = "Mix well and pour half of the blended milk with banana on top of each bowl. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
                             Id = 24,
                             Description = "Store in a fridge during the night. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
                             Id = 25,
                             Description = "The morning after top with granolla and fruits of your choice.",
+                            IsDeleted = false,
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14")
                         },
                         new
                         {
                             Id = 26,
                             Description = "For a delicious twist, grill your slice of bread to your preference. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
                             Id = 27,
                             Description = "Then, simply smash the avocado with a fork and spread it generously over the bread. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
                             Id = 28,
                             Description = "Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
                             Id = 29,
                             Description = "Now, savor the flavors and enjoy your delightful avocado toast!",
+                            IsDeleted = false,
                             RecipeId = new Guid("16541e8d-716c-45d9-8d6d-e3ae70d46c7b")
                         },
                         new
                         {
                             Id = 30,
                             Description = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours.",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 31,
                             Description = "Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 32,
                             Description = "Prepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 33,
                             Description = "Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 34,
                             Description = "Pressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 35,
                             Description = "Check the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt. Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 36,
                             Description = "Final Cooking: For enhanced flavor, allow the stew to sit with the lid on for at least a few hours. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 37,
                             Description = "Serve: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
+                            IsDeleted = false,
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531")
                         },
                         new
                         {
                             Id = 38,
                             Description = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant.",
+                            IsDeleted = false,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
                             Id = 39,
                             Description = "Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
                             Id = 40,
                             Description = "Then, blend the soup until smooth using an immersion blender or countertop blender.",
+                            IsDeleted = false,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
                             Id = 41,
                             Description = "Adjust seasoning with salt, pepper, and lime juice to taste. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
                             Id = 42,
                             Description = "Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
+                            IsDeleted = false,
                             RecipeId = new Guid("294c6abe-0072-427e-a1e8-355ba414fa5b")
                         },
                         new
                         {
                             Id = 43,
                             Description = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften.",
+                            IsDeleted = false,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
                             Id = 44,
                             Description = "Once the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender.",
+                            IsDeleted = false,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
                             Id = 45,
                             Description = "Blend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining.",
+                            IsDeleted = false,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
                             Id = 46,
                             Description = "our the smoothie into glasses and serve immediately for a delightful and nutritious treat. ",
+                            IsDeleted = false,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         },
                         new
                         {
                             Id = 47,
                             Description = "Enjoy your refreshing fruity smoothie!",
+                            IsDeleted = false,
                             RecipeId = new Guid("115e248e-3165-425d-aec6-5dda97c99be4")
                         });
                 });

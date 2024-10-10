@@ -24,38 +24,44 @@
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (var scope = serviceProvider.CreateScope())
+            while (!stoppingToken.IsCancellationRequested)
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<CookTheWeekDbContext>();
-
-                try
+                using (var scope = serviceProvider.CreateScope())
                 {
-                    ICollection<MealPlan> mealPlans = await dbContext
-                    .MealPlans
-                    .Where(mp => !mp.IsFinished || mp.Meals.Any(m => !m.IsCooked))
-                    .ToListAsync();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<CookTheWeekDbContext>();
 
-                    foreach (var mealPlan in mealPlans)
+                    try
                     {
-                        if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
-                        {
-                            mealPlan.IsFinished = true;
+                        ICollection<MealPlan> mealPlans = await dbContext
+                            .MealPlans
+                            .Where(mp => !mp.IsFinished || mp.Meals.Any(m => !m.IsCooked))
+                            .ToListAsync(stoppingToken); // Pass the cancellation token
 
-                            foreach (var meal in mealPlan.Meals)
+                        foreach (var mealPlan in mealPlans)
+                        {
+                            if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
                             {
-                                meal.IsCooked = true;
+                                mealPlan.IsFinished = true;
+
+                                foreach (var meal in mealPlan.Meals)
+                                {
+                                    meal.IsCooked = true;
+                                }
                             }
                         }
-                    }
 
-                    await dbContext.SaveChangesAsync();
+                        await dbContext.SaveChangesAsync(stoppingToken); // Pass the cancellation token
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "An error occurred and meal plans status was not updated");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "An error occured and meal plans status was not updated");
-                }
+
+                await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // Delay and pass the cancellation token
             }
         }
-       
+
+
     }
 }

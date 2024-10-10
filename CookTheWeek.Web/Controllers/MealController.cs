@@ -10,15 +10,11 @@
     {
         
         private readonly IViewModelFactory viewModelFactory;
-        private readonly ILogger<MealController> logger;
 
         public MealController(IViewModelFactory viewModelFactory,
-            ILogger<MealController> logger)
+            ILogger<MealController> logger) : base(logger) 
         {
-            
-            
             this.viewModelFactory = viewModelFactory;
-            this.logger = logger;
         }
 
         [HttpGet]

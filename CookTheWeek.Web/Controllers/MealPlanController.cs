@@ -20,15 +20,12 @@ namespace CookTheWeek.Web.Controllers
         private readonly IMealPlanService mealPlanService;
         private readonly IValidationService validationService;
 
-        private readonly ILogger<MealPlanController> logger;
-
         public MealPlanController(IMealPlanService mealPlanService,
             IValidationService validationService,
             IViewModelFactory viewModelFactory,
-            ILogger<MealPlanController> logger)
+            ILogger<MealPlanController> logger) : base(logger)
         {
             this.mealPlanService = mealPlanService;
-            this.logger = logger;
             this.validationService = validationService;
             this.viewModelFactory = viewModelFactory;
         }

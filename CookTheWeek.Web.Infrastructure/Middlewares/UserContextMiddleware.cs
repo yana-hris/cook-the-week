@@ -9,29 +9,34 @@
     using static CookTheWeek.Common.GeneralApplicationConstants;
     public class UserContextMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly RequestDelegate next;
 
         public UserContextMiddleware(RequestDelegate next)
         {
-            _next = next;
+            this.next = next;
         }
 
         public async Task InvokeAsync(HttpContext context, IUserContext userContext)
         {
-            var userId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (!string.IsNullOrEmpty(userId))
+            try
             {
-                userContext.UserId = userId;
-                userContext.IsAdmin = context.User.IsInRole(AdminRoleName);
-            }
-            else
-            {
-                userContext.IsAdmin = false;
-            }
+                if (context.User.Identity?.IsAuthenticated ?? false)
+                {
+                    userContext.UserId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+                    userContext.IsAdmin = context.User?.IsInRole(AdminRoleName) ?? false;
 
-            await _next(context);
+                }
+              
+                await next(context);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Middleware error: {ex.Message}");
+                throw;
+            }
         }
+
     }
 
 }

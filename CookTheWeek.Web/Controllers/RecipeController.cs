@@ -23,17 +23,15 @@
         private readonly IViewModelFactory recipeViewModelFactory;
         private readonly IRecipeService recipeService;
         private readonly IDomainEventDispatcher domainEventDispatcher;
-        private readonly ILogger<RecipeController> logger;        
 
         public RecipeController(IRecipeService recipeService,
             IViewModelFactory recipeViewModelFactory,
             IDomainEventDispatcher domainEventDispatcher,
-            ILogger<RecipeController> logger)
+            ILogger<RecipeController> logger) : base(logger)
         {
             this.recipeService = recipeService;
             this.recipeViewModelFactory = recipeViewModelFactory;
             this.domainEventDispatcher = domainEventDispatcher;
-            this.logger = logger;            
         }
 
 

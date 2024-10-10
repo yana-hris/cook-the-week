@@ -7,10 +7,11 @@
     [Authorize]
     public abstract class BaseController : Controller
     {
-        
-        public BaseController()
+        protected readonly ILogger<BaseController> logger;
+
+        public BaseController(ILogger<BaseController> logger)
         {
-            
+            this.logger = logger;
         }
 
         /// <summary>

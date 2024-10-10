@@ -20,11 +20,6 @@
         "StatusCode": 200
       },
       {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 201
-      },
-      {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
         "MediaTypes": [
           "text/plain",
@@ -40,7 +35,7 @@
           "application/json",
           "text/json"
         ],
-        "StatusCode": 404
+        "StatusCode": 400
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
@@ -49,7 +44,7 @@
           "application/json",
           "text/json"
         ],
-        "StatusCode": 403
+        "StatusCode": 404
       },
       {
         "Type": "System.Void",
@@ -70,8 +65,8 @@
   },
   {
     "ContainingType": "CookTheWeek.WebApi.Controllers.MealPlanApiController",
-    "Method": "GetMealPlanData",
-    "RelativePath": "api/mealplan/getMealPlanData",
+    "Method": "CreateMealPlanModel",
+    "RelativePath": "api/mealplan/CreateMealPlanModel",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

@@ -94,19 +94,24 @@ namespace CookTheWeek.Web
 
             builder.Services.AddHttpClient();
 
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+
             builder.Services.AddScoped<IUserContext, UserContext>();
-            builder.Services.AddScoped<IEmailSender, EmailSender>();
             builder.Services.AddScoped<IIngredientAggregatorHelper, IngredientAggregatorHelper>();
             builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
             builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
 
+            // Register all Application Services using Extension method based on Reflection
+
+            builder.Services.AddScoped<ICategoryRepository<RecipeCategory>, CategoryRepository<RecipeCategory>>();
+            builder.Services.AddScoped<ICategoryRepository<IngredientCategory>, CategoryRepository<IngredientCategory>>();
+
             var suffixes = new[] { "Repository", "Service", "Factory" };
             var assemblyTypes = new[] { typeof(RecipeRepository).Assembly,
+                        typeof(CategoryRepository<>).Assembly,
                         typeof(RecipeService).Assembly };
-
-            //// Register all services and repositories from multiple assemblies
-            //builder.Services.AddApplicationServicesOfType(assemblyTypes, suffixes);
+           
             builder.Services.AddServicesByConvention(
                 assemblyTypes,
                 suffixes);
@@ -146,10 +151,11 @@ namespace CookTheWeek.Web
             });
 
 
-            builder.Services.AddLogging(options =>
+            builder.Services.AddLogging(logging =>
             {
-                options.AddConsole();
-                options.AddDebug();
+                logging.ClearProviders();
+                logging.AddConsole();
+                logging.AddDebug();
             });
 
             builder.Services.AddControllersWithViews()
@@ -187,15 +193,14 @@ namespace CookTheWeek.Web
 
             // Register the SendGrid EmailSender service
             builder.Services.Configure<SendGridClientOptions>(builder.Configuration.GetSection("SendGrid"));
-            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 
             WebApplication app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -207,17 +212,14 @@ namespace CookTheWeek.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
-            // CORS should be placed before routing
             app.UseCors("CorsPolicy");
-
             app.UseRouting();
 
             // Authentication middleware
             app.UseAuthentication();
 
             // Custom middleware for retrieving the userId
-            app.UseMiddleware<UserContextMiddleware>();
+            //app.UseMiddleware<UserContextMiddleware>();
 
             // Authorization middleware
             app.UseAuthorization();
@@ -225,13 +227,15 @@ namespace CookTheWeek.Web
             // Custom middleware for checking online users (requires user ID)
             app.EnableOnlineUsersCheck();
 
-            // Session middleware
             app.UseSession();
 
             if (app.Environment.IsDevelopment())
             {
                 app.SeedAdministrator(AdminUserUsername);
             }
+
+            
+            
 
             app.MapControllerRoute(
                 name: "areas",

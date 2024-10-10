@@ -5,8 +5,8 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
+    using CookTheWeek.Web.ViewModels.Admin.HomeAdmin;
     using CookTheWeek.Web.ViewModels.Category;    
-    using ViewModels.Admin.HomeAdmin;
 
     public class HomeAdminController : BaseAdminController
     {

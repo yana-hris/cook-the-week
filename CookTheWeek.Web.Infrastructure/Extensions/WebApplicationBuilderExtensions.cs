@@ -61,54 +61,7 @@
 
             return services;
         }
-        public static void AddApplicationServicesOfType(this IServiceCollection services, Type[] assemblyTypes, string[] suffixes)
-        {
-            foreach (var assemblyType in assemblyTypes)
-            {
-                Assembly? assembly = Assembly.GetAssembly(assemblyType);
-
-                if (assembly == null)
-                {
-                    throw new InvalidOperationException($"Invalid type provided for assembly: {assemblyType.Name}");
-                }
-
-                foreach (var suffix in suffixes)
-                {
-                    Type[] implementationTypes = assembly
-                        .GetTypes()
-                        .Where(t => t.Name.EndsWith(suffix) && !t.IsInterface && !t.IsAbstract)
-                        .ToArray();
-
-                    foreach (Type implementationType in implementationTypes)
-                    {
-                        Type[] interfaceTypes = implementationType
-                            .GetInterfaces()
-                            .Where(i => i.Name.StartsWith("I") && i.Name.Contains(suffix))
-                            .ToArray();
-
-                        if (!interfaceTypes.Any())
-                        {
-                            throw new InvalidOperationException(
-                                $"No interface found for the type: {implementationType.Name}");
-                        }
-
-                        foreach (var interfaceType in interfaceTypes)
-                        {
-                            if (suffix.Contains("Category") && implementationType.IsGenericTypeDefinition)
-                            {
-                                services.AddScoped(interfaceType.GetGenericTypeDefinition(), implementationType.GetGenericTypeDefinition());
-                            }
-                            else
-                            {
-                                services.AddScoped(interfaceType, implementationType);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
+        
         /// <summary>
         /// This method seeds the first role of administrator upon database creation if environment is development and 
         /// if it does not exist

@@ -23,18 +23,16 @@
         private readonly IUserService userService;
         private readonly IValidationService validationService;
         private readonly IMemoryCache memoryCache;
-        private readonly ILogger<UserController> logger;
         
 
         public UserController(IUserService userService,
                               IMemoryCache memoryCache,
                               IValidationService validationService,
-                              ILogger<UserController> logger)
+                              ILogger<UserController> logger) : base(logger)
         {
             this.validationService = validationService;
             this.userService = userService;
             this.memoryCache = memoryCache;
-            this.logger = logger;
         }
 
 
