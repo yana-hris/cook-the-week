@@ -10,10 +10,10 @@
 @using static CookTheWeek.Common.GeneralApplicationConstants
 
 @{
-    string recipeId = Model.Id.ToString();
-    string userId = UserContext.UserId;
+    Guid recipeId = Model.Id;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
-    bool isOwner = GuidHelper.CompareTwoGuidStrings(userId, Model.OwnerId);
+    bool isOwner = userId == Model.OwnerId;
 }
 
 
@@ -21,7 +21,7 @@
     <div class="card recipe-card">
         <div class="position-relative image-container">
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
-            @if (!string.IsNullOrEmpty(userId) && !isOwner && !isAdmin)
+            @if (userId != default && !isOwner && !isAdmin)
             {
                 bool isLiked = await this.LikesService.HasUserByIdLikedRecipeById(recipeId);
 
@@ -39,7 +39,7 @@
             {
                 <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
             }
-            @if(userId != String.Empty && !isAdmin)
+            @if(userId != default && !isAdmin)
             {
                 <div class="add-to-mealplan-container">
                     <a data-recipeId="@Model.Id" class="plus fixed-size-btn btn btn-icon-only">

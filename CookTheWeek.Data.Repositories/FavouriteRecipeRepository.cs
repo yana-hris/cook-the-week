@@ -3,8 +3,7 @@
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
-   
-    using CookTheWeek.Common.HelperMethods;
+    
     using CookTheWeek.Data.Models;
 
     public class FavouriteRecipeRepository : IFavouriteRecipeRepository
@@ -26,11 +25,11 @@
         }
 
         /// <inheritdoc/>    
-        public async Task<FavouriteRecipe?> GetByIdAsync(string userId, string recipeId)
+        public async Task<FavouriteRecipe?> GetByIdAsync(Guid userId, Guid recipeId)
         {
             return  await this.dbContext.FavoriteRecipes
-                .FirstOrDefaultAsync(fr => GuidHelper.CompareGuidStringWithGuid(userId, fr.UserId) &&
-                                GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId));
+                .FirstOrDefaultAsync(fr => fr.UserId == userId &&
+                                fr.RecipeId == recipeId);
         }
 
         /// <inheritdoc/>  

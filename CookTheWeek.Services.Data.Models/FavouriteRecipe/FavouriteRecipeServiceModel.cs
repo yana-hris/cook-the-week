@@ -2,8 +2,8 @@
 {
     public class FavouriteRecipeServiceModel
     {
-        public string UserId { get; set; } = null!;
+        public Guid UserId { get; set; } 
 
-        public string RecipeId { get; set; } = null!;
+        public Guid RecipeId { get; set; } 
     }
 }

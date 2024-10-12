@@ -21,8 +21,18 @@
            
             if (context.User.Identity.IsAuthenticated)
             {
-                userContext.UserId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-                userContext.IsAdmin = context.User?.IsInRole(AdminRoleName) ?? false;
+                string userIdClaim = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (Guid.TryParse(userIdClaim, out Guid userId))
+                {
+                    userContext.UserId = userId;
+                }
+                else
+                {
+                    userContext.UserId = Guid.Empty; 
+                }
+
+                userContext.IsAdmin = context.User.IsInRole(AdminRoleName);
             }
               
             await next(context);

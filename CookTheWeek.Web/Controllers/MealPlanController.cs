@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-
-namespace CookTheWeek.Web.Controllers
+﻿namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
    
@@ -131,84 +129,100 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string id, string? returnUrl = null)
         {
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                MealPlanDetailsViewModel model = await this.viewModelFactory.CreateMealPlanDetailsViewModelAsync(id);
+                try
+                {
+                    MealPlanDetailsViewModel model = await this.viewModelFactory.CreateMealPlanDetailsViewModelAsync(guidId);
 
-                ViewBag.ReturnUrl = returnUrl;
-                return View(model);
-            }
-            catch(RecordNotFoundException)
-            {
-                TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
+                    ViewBag.ReturnUrl = returnUrl;
+                    return View(model);
+                }
+                catch (RecordNotFoundException)
+                {
+                    TempData[ErrorMessage] = MealPlanNotFoundErrorMessage;
+                    return Redirect(returnUrl ?? "/MealPlan/Mine");
 
+                }
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(Details), guidId);
+                }
             }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(Details), id);
-            }
+
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
         }
 
         [HttpPost]
         public async Task<IActionResult> CopyMealPlan(string mealPlanId, string? returnUrl = null)
         {
-            try
+            if (mealPlanId.TryToGuid(out Guid guidId))
             {
-                MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanAddFormModel>(mealPlanId);
-
                 try
                 {
-                    var result = await validationService.ValidateMealPlanMealsAsync(copiedModel);
+                    MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanAddFormModel>(guidId);
 
-                    if (result.IsValid)
+                    try
                     {
-                        HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", copiedModel); // store in session
+                        var result = await validationService.ValidateMealPlanMealsAsync(copiedModel);
 
-                        return RedirectToAction("Add", new { returnUrl });
+                        if (result.IsValid)
+                        {
+                            HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", copiedModel); // store in session
+
+                            return RedirectToAction("Add", new { returnUrl });
+                        }
+
+                        TempData[ErrorMessage] = "Copying meal plan failed!";
                     }
-
-                    TempData[ErrorMessage] = "Copying meal plan failed!";
+                    catch (RecordNotFoundException)
+                    {
+                        // TODO: think about how to exclude them and suggest the user a way to proceed
+                        TempData[ErrorMessage] = "Meal Plan cannot be copied due to unexisting Recipes.";
+                        return Redirect(returnUrl ?? "/MealPlan/Mine");
+                    }
                 }
-                catch (RecordNotFoundException)
+                catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
                 {
-                    // TODO: think about how to exclude them and suggest the user a way to proceed
-                    TempData[ErrorMessage] = "Meal Plan cannot be copied due to unexisting Recipes.";
-                    return Redirect(returnUrl ?? "/MealPlan/Mine");
+                    TempData[ErrorMessage] = ex.Message;
                 }
-            }
-            catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
-            {
-                TempData[ErrorMessage] = ex.Message;
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(CopyMealPlan), mealPlanId);
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(CopyMealPlan), guidId);
+                }
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
-            return Redirect(returnUrl ?? "/MealPlan/Mine");
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
+
         }
         
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl)
         {
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(id);
-                SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
-                return View(model);
-            }
-            catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
-            {
-                TempData[ErrorMessage] = ex.Message;
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(Edit), id);
+                try
+                {
+                    MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(guidId);
+                    SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
+                    return View(model);
+                }
+                catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
+                {
+                    TempData[ErrorMessage] = ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(Edit), guidId);
+                }
+
+                return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
-            return Redirect(returnUrl ?? "/MealPlan/Mine");
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
+
         }
 
         [HttpPost]
@@ -249,21 +263,26 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                await this.mealPlanService.TryDeleteByIdAsync(id);
-                TempData[SuccessMessage] = MealPlanSuccessfulDeleteMessage;
-            }
-            catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
-            {
-                TempData[ErrorMessage] = ex.Message;
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, nameof(Delete), id);
+                try
+                {
+                    await this.mealPlanService.TryDeleteByIdAsync(guidId);
+                    TempData[SuccessMessage] = MealPlanSuccessfulDeleteMessage;
+                }
+                catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
+                {
+                    TempData[ErrorMessage] = ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex, nameof(Delete), guidId);
+                }
+
+                return RedirectToAction("Mine");
             }
 
-            return RedirectToAction("Mine");
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
         }
 
         // HELPER METHODS:
@@ -276,9 +295,9 @@ namespace CookTheWeek.Web.Controllers
         /// <param name="userId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private IActionResult HandleException(Exception ex, string actionName, string? mealPlanId = null)
+        private IActionResult HandleException(Exception ex, string actionName, Guid? mealPlanId = null)
         {
-            var mealPlanInfo = mealPlanId != null ? $"Mealplan ID: {mealPlanId}" : "No mealplan ID";
+            var mealPlanInfo = mealPlanId != default ? $"Mealplan ID: {mealPlanId.ToString()}" : "No mealplan ID";
             logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {mealPlanInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
 
             // Redirect to the internal server error page with the exception message

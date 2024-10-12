@@ -4,7 +4,6 @@ namespace CookTheWeek.Data.Repositories
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Common.HelperMethods;
 
     public class UserRepository : IUserRepository
     {
@@ -16,12 +15,11 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>   
-        public async Task<bool> ExistsByIdAsync(string id)
+        public async Task<bool> ExistsByIdAsync(Guid id)
         {
             return await dbContext
                 .Users
-                .AnyAsync(user => GuidHelper
-                         .CompareGuidStringWithGuid(id, user.Id));
+                .AnyAsync(user => user.Id == id);
         }
         
         /// <inheritdoc/>
@@ -43,11 +41,10 @@ namespace CookTheWeek.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<ApplicationUser?> GetByIdAsync(string id)
+        public async Task<ApplicationUser?> GetByIdAsync(Guid id)
         {
             return await dbContext.Users
-                .FirstOrDefaultAsync(user => GuidHelper.
-                                    CompareGuidStringWithGuid(id, user.Id));
+                .FirstOrDefaultAsync(user => user.Id == id);
         }
 
        

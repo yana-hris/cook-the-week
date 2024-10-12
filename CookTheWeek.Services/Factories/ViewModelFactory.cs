@@ -12,6 +12,7 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Helpers;
     using CookTheWeek.Services.Data.Models.MealPlan;
+    using CookTheWeek.Services.Data.Models.SupplyItem;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Admin.MealPlanAdmin;
     using CookTheWeek.Web.ViewModels.Category;
@@ -28,8 +29,6 @@
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
-    using CookTheWeek.Web.ViewModels.SupplyItem;
-    using CookTheWeek.Services.Data.Models.SupplyItem;
 
     public class ViewModelFactory : IViewModelFactory
     {
@@ -105,7 +104,7 @@
 
         
         /// <inheritdoc/>
-        public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId)
+        public async Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(Guid recipeId)
         {
             RecipeEditFormModel editModel = await recipeService.GetForEditByIdAsync(recipeId);
             
@@ -120,7 +119,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId)
+        public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(Guid recipeId)
         {
             Recipe recipe = await recipeService.GetByIdAsync(recipeId);
 
@@ -269,11 +268,11 @@
         public async Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
         {
             // Retrieve the recipe from database
-            Recipe recipe = await recipeService.GetForMealByIdAsync(meal.RecipeId);
+            Recipe recipe = await recipeService.GetForMealByIdAsync(Guid.Parse(meal.RecipeId));
 
             MealAddFormModel model = new MealAddFormModel()
             {
-                RecipeId = recipe.Id.ToString(),
+                RecipeId = recipe.Id,
                 Title = recipe.Title,
                 Servings = recipe.Servings,
                 ImageUrl = recipe.ImageUrl,
@@ -297,7 +296,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(string mealplanId)
+        public async Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(Guid mealplanId)
         {
             MealPlan mealPlan = await mealplanService.TryGetAsync(mealplanId);
 
@@ -305,7 +304,7 @@
             {
                 Id = mealPlan.Id.ToString(),
                 Name = mealPlan.Name,
-                OwnerId = mealPlan.OwnerId.ToString(),
+                OwnerId = mealPlan.OwnerId,
                 IsFinished = mealPlan.IsFinished,
                 Meals = mealPlan.Meals.Select(mpm => new MealViewModel()
                 {
@@ -384,7 +383,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(string id)
+        public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id)
             where TFormModel : IMealPlanFormModel, new()
         {
             MealPlan mealplan = await mealplanService.TryGetAsync(id);
@@ -418,7 +417,7 @@
                 StartDate = mealplan.StartDate,
                 Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
                 {
-                    RecipeId = mpm.RecipeId.ToString(),
+                    RecipeId = mpm.RecipeId,
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
                     ImageUrl = mpm.Recipe.ImageUrl,
@@ -440,7 +439,7 @@
         private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealPlan)
         {
             var model = MapMealPlanToFormModel<MealPlanEditFormModel>(mealPlan);
-            model.Id = mealPlan.Id.ToString();
+            model.Id = mealPlan.Id;
             return model;
         }
 
@@ -605,7 +604,7 @@
         {
             return recipes.Select(recipe => new RecipeAllViewModel
             {
-                Id = recipe.Id.ToString(),
+                Id = recipe.Id,
                 Title = recipe.Title,
                 Description = recipe.Description,
                 Category = new RecipeCategorySelectViewModel

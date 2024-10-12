@@ -17,7 +17,7 @@
             this.RecipeIngredients = new List<RecipeIngredientFormModel>();
         }
         [Required]
-        public string Id { get; set; } = null!;
+        public Guid Id { get; set; } 
 
         [Required(ErrorMessage = TitleRequiredErrorMessage)]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = TitleMinLengthErrorMessage)]

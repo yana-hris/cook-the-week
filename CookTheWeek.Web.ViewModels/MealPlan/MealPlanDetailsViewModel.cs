@@ -11,7 +11,7 @@
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;
-        public string OwnerId { get; set; } = null!;
+        public Guid OwnerId { get; set; }
 
         public bool IsFinished { get; set; }
 

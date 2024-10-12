@@ -8,7 +8,6 @@
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.Validation;
@@ -35,7 +34,7 @@
         
         private readonly IValidationService validationService;
         private readonly ILogger<RecipeService> logger;
-        private readonly string? userId;
+        private readonly Guid userId;
         private readonly bool isAdmin;
 
         public RecipeService(IRecipeRepository recipeRepository,
@@ -70,10 +69,10 @@
             }
 
 
-            if (userId != string.Empty)
+            if (userId != default)
             {
                 recipesQuery = recipesQuery
-                    .Where(r => r.OwnerId.ToString() == userId || r.IsSiteRecipe);
+                    .Where(r => r.OwnerId == userId || r.IsSiteRecipe);
             }
             else
             {
@@ -136,8 +135,8 @@
                 .Take(queryModel.RecipesPerPage)
                 .Select(r => new RecipeAllViewModel()
                 {
-                    Id = r.Id.ToString(),
-                    OwnerId = r.OwnerId.ToString(),
+                    Id = r.Id,
+                    OwnerId = r.OwnerId,
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -173,7 +172,7 @@
             Recipe recipe = MapFromModelToRecipe(model, new Recipe());
             string recipeId = await recipeRepository.AddAsync(recipe);
             await ProcessRecipeIngredientsAsync(model);
-            await ProcessRecipeStepsAsync(recipeId, model);
+            await ProcessRecipeStepsAsync(Guid.Parse(recipeId), model);
             
             return OperationResult<string>.Success(recipeId);
         }
@@ -201,7 +200,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetByIdAsync(string id)
+        public async Task<Recipe> GetByIdAsync(Guid id)
         {
 
             Recipe recipe = await recipeRepository.GetByIdAsync(id); // RecordNotFoundExc
@@ -210,20 +209,20 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteByIdAsync(string id)
+        public async Task DeleteByIdAsync(Guid id)
         {
             try
             {
                 Recipe recipeToDelete = await recipeRepository.GetByIdAsync(id);
 
-                if (!GuidHelper.CompareGuidStringWithGuid(userId, recipeToDelete.OwnerId) && !isAdmin)
+                if ((userId == recipeToDelete.OwnerId) && !isAdmin)
                 {
                     logger.LogError($"Unauthorized access attempt: User {userId} tried to delete a recipe {id} but does not have the necessary permissions.");
                     throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
                 }
 
                 // TODO: move to validation service to decouple services
-                bool isIncluded = await IsIncludedInMealPlansAsync(recipeToDelete.Id.ToString());
+                bool isIncluded = await IsIncludedInMealPlansAsync(recipeToDelete.Id);
 
                 if (isIncluded)
                 {
@@ -244,7 +243,7 @@
         public async Task DeleteAllByUserIdAsync()
         {
             ICollection<Recipe> allUserRecipes = await recipeRepository.GetAllQuery()
-                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
+                .Where(r => r.OwnerId == userId)
                 .ToListAsync();
 
             foreach (var recipe in allUserRecipes)
@@ -255,11 +254,11 @@
         }
 
         /// <inheritdoc/>
-        public async Task<RecipeEditFormModel> GetForEditByIdAsync(string id)
+        public async Task<RecipeEditFormModel> GetForEditByIdAsync(Guid id)
         {
             Recipe recipe = await recipeRepository.GetByIdAsync(id);
 
-            if (!GuidHelper.CompareGuidStringWithGuid(userId, recipe.OwnerId) && !isAdmin)
+            if (!(id == recipe.OwnerId) && !isAdmin)
             {
                 logger.LogError($"Unauthorized access attempt: User {userId} tried to edit Recipe with {id} but does not have the necessary permissions.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeEditAuthorizationExceptionMessage);
@@ -268,7 +267,7 @@
             // TODO: Consider using Automapper
             RecipeEditFormModel model = new RecipeEditFormModel()
             {
-                Id = recipe.Id.ToString(),
+                Id = recipe.Id,
                 Title = recipe.Title,
                 Description = recipe.Description,
                 Steps = recipe.Steps.Select(s => new StepFormModel()
@@ -299,14 +298,14 @@
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
-                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
+                .Where(r => r.OwnerId == userId)
                 .ToListAsync();
             
             // TODO: Consider using Automapper
             ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
             {
-                Id = r.Id.ToString(),
-                OwnerId = r.OwnerId.ToString(),
+                Id = r.Id,
+                OwnerId = r.OwnerId,
                 ImageUrl = r.ImageUrl,
                 Title = r.Title,
                 Description = r.Description,
@@ -323,11 +322,11 @@
         }
 
         /// <inheritdoc/>
-        public async Task<bool> IsIncludedInMealPlansAsync(string recipeId)
+        public async Task<bool> IsIncludedInMealPlansAsync(Guid recipeId)
         {
             // Chek if meals are included in query
             return await recipeRepository.GetAllQuery()
-                .Where(r => r.Meals.Any(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId)))
+                .Where(r => r.Meals.Any(m => m.RecipeId == recipeId))
                 .AnyAsync();
         }
 
@@ -344,7 +343,7 @@
         {
             return await recipeRepository
                 .GetAllQuery()
-                .Where(r => GuidHelper.CompareGuidStringWithGuid(userId, r.OwnerId))
+                .Where(r => r.OwnerId == userId)
                 .CountAsync();
 
         }
@@ -356,8 +355,8 @@
                     .Where(r => r.IsSiteRecipe)
                     .Select(r => new RecipeAllViewModel()
                     {
-                        Id = r.Id.ToString(),
-                        OwnerId = r.OwnerId.ToString(),
+                        Id = r.Id,
+                        OwnerId = r.OwnerId,
                         ImageUrl = r.ImageUrl,
                         Title = r.Title,
                         Description = r.Description,
@@ -380,8 +379,8 @@
                 .Where(r => !r.IsSiteRecipe)
                 .Select(r => new RecipeAllViewModel()
                 {
-                    Id = r.Id.ToString(),
-                    OwnerId = r.OwnerId.ToString(),
+                    Id = r.Id,
+                    OwnerId = r.OwnerId,
                     ImageUrl = r.ImageUrl,
                     Title = r.Title,
                     Description = r.Description,
@@ -399,7 +398,7 @@
        
         
         /// <inheritdoc/>
-        public async Task<Recipe> GetForMealByIdAsync(string recipeId)
+        public async Task<Recipe> GetForMealByIdAsync(Guid recipeId)
         {
             return await recipeRepository.GetByIdAsync(recipeId);
         }
@@ -420,7 +419,7 @@
         public async Task<ICollection<string>> GetAllRecipeIdsAddedByCurrentUserAsync()
         {
             ICollection<string> allUserAddedRecipesIds = await recipeRepository.GetAllQuery()
-                .Where(recipe => GuidHelper.CompareGuidStringWithGuid(userId, recipe.OwnerId))
+                .Where(recipe => recipe.OwnerId == userId)
                 .Select(recipe => recipe.Id.ToString())
                 .ToListAsync();
 
@@ -474,7 +473,7 @@
                         throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);
                     }
 
-                    recipe.OwnerId = Guid.Parse(userId);
+                    recipe.OwnerId = userId;
                     recipe.IsSiteRecipe = isAdmin;
                 }
 
@@ -493,7 +492,7 @@
         /// <param name="steps"></param>
         /// <returns></returns>
         /// <exception cref="InvalidCastException"></exception>
-        private async Task ProcessRecipeStepsAsync(string recipeId, IRecipeFormModel model)
+        private async Task ProcessRecipeStepsAsync(Guid recipeId, IRecipeFormModel model)
         {
             var steps = model.Steps;
 

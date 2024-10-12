@@ -32,14 +32,14 @@
         /// <remarks>May throw RecordNotFoundException or UnauthorizedUserException due to GetForEditById method.
         /// May throw also DataRetrievalException due to preloading Categories, Measures and Specifications.</remarks>
         /// <exception cref="InvalidCastException"></exception>
-        Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(string recipeId);
+        Task<RecipeEditFormModel> CreateRecipeEditFormModelAsync(Guid recipeId);
 
         /// <summary>
         /// Generates a detailed view model for a recipe or throws an exception
         /// </summary>
         /// <remarks>May throw a RecordNotFoundException due to usage of TryGetForDetails and GetById methods</remarks>
         /// <exception cref="DataRetrievalException"></exception>
-        Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(string recipeId);
+        Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(Guid recipeId);
 
         /// <summary>
         /// Generates a view model for a user's recipes, including owned and favorite recipes or throws an Exception if collections are empty.
@@ -89,7 +89,7 @@
         /// <param name="id"></param>
         /// <returns>MealPlanDetailsViewModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(string mealplanId);
+        Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(Guid mealplanId);
 
         /// <summary>
         /// Returns a collection of all user`s mealplans MealPlanAllViewModel or throws an exception if no meal plans found (collection is empty)
@@ -118,7 +118,7 @@
         /// <typeparam name="TFormModel"></typeparam>
         /// <param name="id">an existing meal plan`s ID</param>
         /// <returns>MealPlanAddFormModel or MealPlanEditFormModel</returns>
-        Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(string id) 
+        Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id) 
             where TFormModel : IMealPlanFormModel, new();
     }
 }

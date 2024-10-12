@@ -9,7 +9,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true or false</returns>
-        Task<bool> ExistsByIdAsync(string id);
+        Task<bool> ExistsByIdAsync(Guid id);
         
         /// <summary>
         /// Gets the Application user if exists by email
@@ -30,7 +30,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>User or null</returns>
-        Task<ApplicationUser?> GetByIdAsync(string id);
+        Task<ApplicationUser?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Gets the total count of all registered users in the database

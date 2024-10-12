@@ -6,7 +6,6 @@
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     
@@ -43,7 +42,7 @@
         }        
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetByIdAsync(string id)
+        public async Task<Recipe> GetByIdAsync(Guid id)
         {
             
             Recipe? recipe = await this.dbContext.Recipes
@@ -59,7 +58,7 @@
                     .ThenInclude(ri => ri.Specification)
                 .Include(r => r.Meals)
                 .Include(r => r.FavouriteRecipes)
-                .FirstOrDefaultAsync(r => GuidHelper.CompareGuidStringWithGuid(id, r.Id));
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (recipe == null)
             {
@@ -78,10 +77,10 @@
         }
         
         /// <inheritdoc/>
-        public async Task<bool> ExistsByIdAsync(string id)
+        public async Task<bool> ExistsByIdAsync(Guid id)
         {
             return await dbContext.Recipes
-                .AnyAsync(r => GuidHelper.CompareGuidStringWithGuid(id, r.Id));
+                .AnyAsync(r => r.Id == id);
         }
 
         /// <inheritdoc/>

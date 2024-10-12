@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "My Meal Plans";
 
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
-    string userId = UserContext.UserId;
 
     var headingModel = new PageHeadingViewModel
     {

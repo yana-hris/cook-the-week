@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "My Recipes";
     string ownedRecipeHeading = "Added By You";
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
 
 
     var likedByYouHeading = new PageHeadingViewModel

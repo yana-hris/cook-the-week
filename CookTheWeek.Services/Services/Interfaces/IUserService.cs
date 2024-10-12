@@ -134,7 +134,7 @@
         /// </summary>
         /// <param name="user">The user ID</param>
         /// <returns></returns>
-        Task DeleteUserByIdIfExistsAsync(string userId);
+        Task DeleteUserByIdIfExistsAsync(Guid userId);
         
         /// <summary>
         /// Sends the given email a password reset token (link) or throws an exception

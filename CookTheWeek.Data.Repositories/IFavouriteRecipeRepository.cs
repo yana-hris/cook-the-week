@@ -16,7 +16,7 @@
         /// Returns the like (FavouriteRecipe) if existing or null
         /// </summary>
         /// <returns>FavouriteRecipe or null</returns>
-        Task<FavouriteRecipe?> GetByIdAsync(string userId, string recipeId);
+        Task<FavouriteRecipe?> GetByIdAsync(Guid userId, Guid recipeId);
 
         /// <summary>
         ///  Adds a given recipe to a user`s favourites

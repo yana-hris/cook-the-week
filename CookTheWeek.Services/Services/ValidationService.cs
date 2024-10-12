@@ -7,7 +7,6 @@
     using Microsoft.Extensions.Logging;
     
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Models.Interfaces;
     using CookTheWeek.Data.Repositories;
@@ -17,14 +16,13 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
-    using CookTheWeek.Web.ViewModels.MealPlan;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.User;
 
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using System.Runtime.ExceptionServices;
+    
 
     public class ValidationService : IValidationService
     {
@@ -37,7 +35,7 @@
         private readonly ICategoryRepository<IngredientCategory> ingredientCategoryRepository;
         private readonly ILogger<ValidationService> logger;
 
-        private readonly string? userId;
+        private readonly Guid userId;
 
         public ValidationService(
             IRecipeRepository recipeRepository,
@@ -58,7 +56,7 @@
             this.recipeCategoryRepository = recipeCategoryRepository;
             this.ingredientCategoryRepository = ingredientCategoryRepository;
             this.logger = logger;
-            this.userId = userContext.UserId ?? string.Empty;
+            this.userId = userContext.UserId;
         }
 
         // RECIPE:              
@@ -205,23 +203,26 @@
         {
             var result = new ValidationResult();
 
-            string serviceUserId = serviceModel.UserId;
-            var user = await userRepository.ExistsByIdAsync(serviceUserId);
-
-            // Validate userId exists in the database;
-            if (!user)
+            if (Guid.TryParse(serviceModel.UserId, out Guid serviceUserId))
             {
-                logger.LogError($"Creating MealPlan model failed. User with id {serviceUserId} does not exist.");
-                AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.UserNotFoundErrorMessage);
+                var user = await userRepository.ExistsByIdAsync(serviceUserId);
+
+                // Validate userId exists in the database;
+                if (!user)
+                {
+                    logger.LogError($"Creating MealPlan model failed. User with id {serviceUserId} does not exist.");
+                    AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.UserNotFoundErrorMessage);
+                }
+
+                // Validate the currently logged in user is the same
+
+                if (userId != default && serviceUserId != userId)
+                {
+                    logger.LogError($"$Unauthorized attempt to create mealplan. User Id from Service Model {serviceUserId} is different form currenly logged in user: {userId}.");
+                    AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.InvalidUserIdErrorMessage);
+                }
             }
 
-            // Validate the currently logged in user is the same
-            
-            if (!string.IsNullOrEmpty(userId) && serviceUserId.ToLower() != userId.ToLower())
-            {
-                logger.LogError($"$Unauthorized attempt to create mealplan. User Id from Service Model {serviceUserId} is different form currenly logged in user: {userId}.");
-                AddValidationError(result, nameof(serviceModel.UserId), ApplicationUserValidation.InvalidUserIdErrorMessage);
-            }
 
             // Validate recipe id`s are valid recipes
             var meals = serviceModel.Meals;
@@ -232,7 +233,15 @@
 
                 try
                 {
-                    await ValidateRecipeExistsAsync(meal.RecipeId);
+                    if (Guid.TryParse(meal.RecipeId, out Guid guidRecipeId))
+                    {
+                        await ValidateRecipeExistsAsync(guidRecipeId);
+                    }
+                    else
+                    {
+                        string key = $"Meals[{i}].RecipeId"; // sub-entry
+                        AddValidationError(result, key, RecipeValidation.InvalidRecipeIdErrorMessage);
+                    }
                 }
                 catch (Exception ex) when (ex is RecordNotFoundException || ex is ArgumentNullException)
                 {
@@ -247,13 +256,13 @@
         /// <inheritdoc/>
         public void ValidateUserIsResourceOwnerAsync(Guid ownerId)
         {
-            if (string.IsNullOrEmpty(userId))
+            if (userId == default)
             {
                 logger.LogError($"Unauthorized attempt of a user to access meal plan data.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            if (!GuidHelper.CompareGuidStringWithGuid(userId!, ownerId))
+            if (userId != ownerId)
             {
                 logger.LogError($"User with id {userId} is not the resource owner. Authentication not allowed.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
@@ -354,15 +363,15 @@
         /// <inheritdoc/>   
         public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
         {
-            string serviceUserId = model.UserId;
-            string recipeId = model.RecipeId;
+            Guid serviceUserId = model.UserId;
+            Guid recipeId = model.RecipeId;
 
             await ValidateRecipeExistsAsync(recipeId);
 
             // Validate user authorization
-            if (!string.IsNullOrEmpty(userId) &&
-                !string.IsNullOrEmpty(serviceUserId) &&
-                !GuidHelper.CompareTwoGuidStrings(userId, serviceUserId))
+            if (userId != default  &&
+                serviceUserId != default &&
+                userId != serviceUserId)
             {
                 logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
@@ -432,10 +441,10 @@
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="RecordNotFoundException"></exception>
-        private async Task ValidateRecipeExistsAsync(string recipeId)
+        private async Task ValidateRecipeExistsAsync(Guid recipeId)
         {
             // Validate if recipeId is provided
-            if (string.IsNullOrEmpty(recipeId))
+            if (recipeId == default)
             {
                 logger.LogError($"Validation failed: RecipeId is null or empty.");
                 throw new ArgumentNullException(ArgumentNullExceptionMessages.RecipeNullExceptionMessage);

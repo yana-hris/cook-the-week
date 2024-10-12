@@ -57,7 +57,7 @@
                 return View(model);
             }
 
-            string newUserId = string.Empty;
+            Guid newUserId = Guid.Empty;
 
             try
             {
@@ -65,7 +65,7 @@
 
                 if (result.Succeeded && result.Data.Count == 2)
                 {
-                    newUserId = result.Data["userId"].ToString()!;
+                    newUserId = Guid.Parse(result.Data["userId"].ToString());
                     string token = result.Data["code"].ToString()!;
                     
                     string? callbackUrl = Url.Action(
@@ -330,7 +330,6 @@
         [HttpGet]
         public IActionResult ForgotPasswordConfirmation()
         {
-
             return View();
         }
 

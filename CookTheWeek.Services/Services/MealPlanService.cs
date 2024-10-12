@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,6 @@
 
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -17,7 +17,6 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.ExceptionMessagesConstants;
-    using System.Threading;
 
     public class MealPlanService : IMealPlanService
     {
@@ -26,7 +25,7 @@
         private readonly IMealService mealService;
         private readonly IValidationService validationService;
         private readonly ILogger<MealPlanService> logger;
-        private readonly string? userId;
+        private readonly Guid userId;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
@@ -37,7 +36,7 @@
             this.mealplanRepository = mealplanRepository;
             this.validationService = validationService;
             this.mealService = mealService;
-            this.userId = userContext.UserId ?? String.Empty;
+            this.userId = userContext.UserId;
             this.logger = logger;
         }
 
@@ -79,7 +78,7 @@
             MealPlan newMealPlan = new MealPlan()
             {
                 Name = model.Name,
-                OwnerId = Guid.Parse(userId),
+                OwnerId = userId,
                 StartDate = DateTime.ParseExact(model
                                                  .Meals
                                                  .First()
@@ -87,7 +86,7 @@
                                                  .First(), MealDateFormat, CultureInfo.InvariantCulture),
                 Meals = model.Meals.Select(m => new Meal()
                 {
-                    RecipeId = Guid.Parse(m.RecipeId),
+                    RecipeId = m.RecipeId,
                     ServingSize = m.Servings,
                     CookDate = DateTime.ParseExact(m.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 }).ToList()
@@ -126,7 +125,7 @@
         public async Task<ICollection<MealPlan>> GetAllMineAsync()
         {
             var userMealPlans = await mealplanRepository.GetAllQuery()
-                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId!, mp.OwnerId))
+                .Where(mp => mp.OwnerId == userId)
                 .OrderByDescending(mp => mp.StartDate)
                 .ToListAsync();
 
@@ -142,7 +141,7 @@
         public async Task<int?> MineCountAsync()
         {
             return await mealplanRepository.GetAllQuery()
-                .Where(mp => GuidHelper.CompareGuidStringWithGuid(userId, mp.OwnerId))
+                .Where(mp => mp.OwnerId == userId)
                 .CountAsync();
         }
        
@@ -157,14 +156,14 @@
         }
 
         /// <inheritdoc/>
-        public async Task TryDeleteByIdAsync(string id)
+        public async Task TryDeleteByIdAsync(Guid id)
         {
             MealPlan mealplanToDelete = await TryGetAsync(id); // RecordNotFound, UnauthorizedUser
             await mealplanRepository.RemoveAsync(mealplanToDelete);
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlan> TryGetAsync(string id)
+        public async Task<MealPlan> TryGetAsync(Guid id)
         {
             MealPlan mealplan = await GetByIdAsync(id);
 
@@ -197,7 +196,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        private async Task<MealPlan> GetByIdAsync(string id)
+        private async Task<MealPlan> GetByIdAsync(Guid id)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
 

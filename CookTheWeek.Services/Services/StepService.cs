@@ -4,8 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Common.HelperMethods;
+   
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -22,7 +21,7 @@
 
        
         /// <inheritdoc/>
-        public async Task AddAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> model)
+        public async Task AddAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model)
         {
             ICollection<Step> steps = model.Select
                 (s => new Step()
@@ -35,7 +34,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAllByRecipeIdAsync(string recipeId, ICollection<StepFormModel> stepsModel)
+        public async Task UpdateAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> stepsModel)
         {
             ICollection<Step> oldSteps = await GetAllByRecipeIdAsync(recipeId);
             await stepRepository.DeleteRangeAsync(oldSteps);
@@ -52,7 +51,7 @@
 
         
         /// <inheritdoc/>
-        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
+        public async Task SoftDeleteAllByRecipeIdAsync(Guid recipeId)
         {
             ICollection<Step> stepsToUpdate = await GetAllByRecipeIdAsync(recipeId);
 
@@ -66,7 +65,7 @@
 
 
         /// <inheritdoc/>
-        public async Task HardDeleteAllByRecipesIdAsync(string recipeId)
+        public async Task HardDeleteAllByRecipesIdAsync(Guid recipeId)
         {
             ICollection<Step> stepsToDelete = await GetAllByRecipeIdAsync(recipeId);
 
@@ -78,10 +77,10 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        private async Task<ICollection<Step>> GetAllByRecipeIdAsync(string recipeId)
+        private async Task<ICollection<Step>> GetAllByRecipeIdAsync(Guid recipeId)
         {
             return await stepRepository.GetAllQuery()
-                .Where(s => GuidHelper.CompareGuidStringWithGuid(recipeId, s.RecipeId))
+                .Where(s => s.RecipeId == recipeId)
                 .ToListAsync();
         }
 

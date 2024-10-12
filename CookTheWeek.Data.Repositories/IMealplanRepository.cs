@@ -23,7 +23,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A single MealPlan or null</returns>
-        Task<MealPlan?> GetByIdAsync(string id);
+        Task<MealPlan?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Creates a new Mealplan in the database

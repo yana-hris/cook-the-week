@@ -33,9 +33,11 @@
 
         private readonly IEmailSender emailSender;
         private readonly ILogger<UserService> logger;
-        private readonly string? userId;
+        private readonly Guid userId;
 
         public UserService(IUserRepository userRepository,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             IUserContext userContext,
             IRecipeService recipeService,
             IValidationService validationService,
@@ -49,6 +51,8 @@
             this.recipeService = recipeService;
             this.mealPlanService = mealPlanService;
             this.validationService = validationService;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
 
             this.emailSender = emailSender;
             this.userId = userContext.UserId;
@@ -120,7 +124,7 @@
         /// <returns></returns>
         private async Task<OperationResult> DeleteUserAndUserDataAsync()
         {
-            var user = await userRepository.GetByIdAsync(AppUserId);
+            var user = await userRepository.GetByIdAsync(userId);
 
             if (user == null)
             {
@@ -371,7 +375,7 @@
 
                 if (!registerExternalLoginResult.Succeeded)
                 {
-                    await DeleteUserByIdIfExistsAsync(user.Id.ToString());
+                    await DeleteUserByIdIfExistsAsync(user.Id);
                     logger.LogError($"External login info adding to user failed. Errors: {registerExternalLoginResult.Errors}");
                     throw new InvalidOperationException(InvalidOperationExceptionMessages.UserExternalLoginInfoUnsuccessfullyAddedExceptionMessage);
                 }
@@ -568,7 +572,7 @@
         public async Task<OperationResult> TryDeleteUserAccountAsync()
         {
             
-            if (string.IsNullOrEmpty(userId))
+            if (userId == default)
             {
                 logger.LogError($"No user is logged in. Cannot delete account");
                 return OperationResult.Failure(new Dictionary<string, string>
@@ -649,7 +653,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task DeleteUserByIdIfExistsAsync(string userId)
+        public async Task DeleteUserByIdIfExistsAsync(Guid userId)
         {
             ApplicationUser? user = await userRepository.GetByIdAsync(userId);
 

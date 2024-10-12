@@ -10,6 +10,7 @@
     using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.ActionFilters;
+    using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.RecipeValidation;
@@ -107,28 +108,34 @@
         {
             returnUrl = returnUrl ?? "/Recipe/All";
 
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(id);
-                ViewBag.ReturnUrl = returnUrl;
-                return View(model);
-            }
-            catch (RecordNotFoundException ex)
-            {
-                TempData[ErrorMessage] = ex.Message;
+                try
+                {
+                    RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(guidId);
+                    ViewBag.ReturnUrl = returnUrl;
+                    return View(model);
+                }
+                catch (RecordNotFoundException ex)
+                {
+                    TempData[ErrorMessage] = ex.Message;
 
-                return Redirect(returnUrl);
-            }
-            catch (UnauthorizedUserException ex)
-            {
-                TempData[ErrorMessage] = ex.Message;
+                    return Redirect(returnUrl);
+                }
+                catch (UnauthorizedUserException ex)
+                {
+                    TempData[ErrorMessage] = ex.Message;
 
-                return RedirectToAction("Details", "Recipe", new { id, returnUrl });
+                    return RedirectToAction("Details", "Recipe", new { id, returnUrl });
+                }
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(Edit), guidId);
+                }
             }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(Edit), id);
-            }
+
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid Recipe Id.", code = "400" });
+
         }
 
         // TODO: Check how to add CSFR token in hidden input in view
@@ -186,20 +193,26 @@
         [HttpGet]
         public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(id);                
-                SetViewData("Recipe Details", returnUrl ?? "/Recipe/All");
-                return View(model);
+                try
+                {
+                    RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(guidId);
+                    SetViewData("Recipe Details", returnUrl ?? "/Recipe/All");
+                    return View(model);
+                }
+                catch (RecordNotFoundException ex)
+                {
+                    return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
+                }
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(Details));
+                }
             }
-            catch (RecordNotFoundException ex) 
-            {
-                return RedirectToAction("NotFound", "Home", new {message = ex.Message, code = ex.ErrorCode});
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(Details));
-            }
+
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid Recipe Id.", code = "400" });
+
         }
 
 
@@ -236,30 +249,36 @@
         {
             returnUrl = returnUrl ?? "/Recipe/Mine";
 
-            try
+            if (id.TryToGuid(out Guid guidId))
             {
-                await this.recipeService.DeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Recipe successfully deleted!";
+                try
+                {
+                    await this.recipeService.DeleteByIdAsync(guidId);
+                    TempData[SuccessMessage] = "Recipe successfully deleted!";
 
-                // Dispatch the soft delete event
-                var recipeSoftDeletedEvent = new RecipeSoftDeletedEvent(Guid.Parse(id)); 
-                await domainEventDispatcher.DispatchAsync(recipeSoftDeletedEvent);
+                    // Dispatch the soft delete event
+                    var recipeSoftDeletedEvent = new RecipeSoftDeletedEvent(guidId);
+                    await domainEventDispatcher.DispatchAsync(recipeSoftDeletedEvent);
 
-                return Redirect(returnUrl);
+                    return Redirect(returnUrl);
+                }
+                catch (RecordNotFoundException ex)
+                {
+                    return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
+                }
+                catch (Exception ex) when (ex is UnauthorizedUserException || ex is InvalidOperationException)
+                {
+                    TempData[WarningMessage] = ex.Message;
+                    return RedirectToAction("Details", "Recipe", new { id });
+                }
+                catch (Exception ex)
+                {
+                    return HandleException(ex, nameof(DeleteConfirmed), guidId);
+                }
             }
-            catch (RecordNotFoundException ex)
-            {
-                return RedirectToAction("NotFound", "Home", new { message =  ex.Message, code = ex.ErrorCode});
-            }
-            catch (Exception ex) when (ex is UnauthorizedUserException || ex is InvalidOperationException)
-            {
-                TempData[WarningMessage] = ex.Message;
-                return RedirectToAction("Details", "Recipe", new { id });
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex, nameof(DeleteConfirmed), id);
-            }            
+
+            return RedirectToAction("NotFound", "Home", new { message = "Invalid Recipe Id.", code = "400" });
+
         }
 
         // PRIVATE HELPER METHODS:
@@ -304,9 +323,9 @@
         /// <param name="userId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        private IActionResult HandleException(Exception ex, string actionName, string? recipeId = null)
+        private IActionResult HandleException(Exception ex, string actionName, Guid? recipeId = null)
         {
-            var recipeIdInfo = recipeId != null ? $"Recipe ID: {recipeId}" : "No Recipe ID";
+            var recipeIdInfo = recipeId != default ? $"Recipe ID: {recipeId.ToString()}" : "No Recipe ID";
             logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {recipeIdInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
 
             // Redirect to the internal server error page with the exception message

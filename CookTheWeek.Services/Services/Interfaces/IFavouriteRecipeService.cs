@@ -27,19 +27,19 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> HasUserByIdLikedRecipeById(string recipeId);
+        Task<bool> HasUserByIdLikedRecipeById(Guid recipeId);
 
         /// <summary>
         /// Returns the total count of likes for a recipe by Id or 0
         /// </summary>
         /// <returns>int or 0</returns>
-        Task<int?> GetRecipeTotalLikesAsync(string recipeId);
+        Task<int?> GetRecipeTotalLikesAsync(Guid recipeId);
 
 
         /// <summary>
         /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
         /// </summary>
-        Task HardDeleteAllByRecipeIdAsync(string recipeId);
-        Task SoftDeleteAllByRecipeIdAsync(string recipeId);
+        Task HardDeleteAllByRecipeIdAsync(Guid recipeId);
+        Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
     }
 }

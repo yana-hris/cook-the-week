@@ -12,7 +12,6 @@
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using CookTheWeek.Common.HelperMethods;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
@@ -35,7 +34,7 @@
         }
 
         /// <inheritdoc/>    
-        public async Task EditAsync(string id, ICollection<RecipeIngredient> ingredients)
+        public async Task EditAsync(Guid id, ICollection<RecipeIngredient> ingredients)
         {
             var oldRecipeIngredients = await GetAllByRecipeIdAsync(id);
 
@@ -98,7 +97,7 @@
         }
 
         /// <inheritdoc/>     
-        public async Task SoftDeleteAllByRecipeIdAsync(string id)
+        public async Task SoftDeleteAllByRecipeIdAsync(Guid id)
         {
             var recipeIngredients = await GetAllByRecipeIdAsync(id);
 
@@ -110,7 +109,7 @@
         }
 
         /// <inheritdoc/>     
-        public async Task HardDeleteAllByRecipeIdAsync(string id)
+        public async Task HardDeleteAllByRecipeIdAsync(Guid id)
         {
             var recipeIngredients = await GetAllByRecipeIdAsync(id);
             
@@ -124,11 +123,11 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>A collection of Recipe Ingredients</returns>
-        private async Task<ICollection<RecipeIngredient>> GetAllByRecipeIdAsync(string recipeId)
+        private async Task<ICollection<RecipeIngredient>> GetAllByRecipeIdAsync(Guid recipeId)
         {
             return await this.recipeIngredientRepository
                 .GetAllQuery()
-                .Where(ri => GuidHelper.CompareGuidStringWithGuid(recipeId, ri.RecipeId))
+                .Where(ri => ri.RecipeId == recipeId)
                 .ToListAsync();
         }
         

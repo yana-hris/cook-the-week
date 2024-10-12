@@ -3,7 +3,7 @@
 @inject IUserContext UserContext
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @{
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
 
     var headingModel = new PageHeadingViewModel
@@ -96,7 +96,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 
-                @if (userId == string.Empty)
+                @if (userId == default)
                 {
                     <div class="modal-header d-flex justify-content-center">
                         <h2 class="modal-title" id="welcomeModalLabel">Welcome to Cook-The-Week</h2>
@@ -132,7 +132,7 @@
                 }
                               
                 <div class="modal-footer">
-                    @if (userId == string.Empty)
+                    @if (userId == default)
                     {
                         <a asp-area="" asp-action="Login" asp-controller="User" class="btn btn-primary card-btn-width">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Log In

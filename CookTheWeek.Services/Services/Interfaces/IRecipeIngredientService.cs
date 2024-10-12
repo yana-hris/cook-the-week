@@ -33,7 +33,7 @@
         /// <param name="id"></param>
         /// <param name="newIngredients"></param>
         /// <returns></returns>
-        Task EditAsync(string id, ICollection<RecipeIngredient> newIngredients);
+        Task EditAsync(Guid id, ICollection<RecipeIngredient> newIngredients);
 
         /// <summary>
         /// Adds recipe ingredients upon creating a new recipe in the database
@@ -47,13 +47,13 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task HardDeleteAllByRecipeIdAsync(string id);
+        Task HardDeleteAllByRecipeIdAsync(Guid id);
 
         /// <summary>
         /// Soft Deletes all recipe ingredients by a given recipe ID by setting their IsDeleted flag to true
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task SoftDeleteAllByRecipeIdAsync(string id);
+        Task SoftDeleteAllByRecipeIdAsync(Guid id);
     }
 }

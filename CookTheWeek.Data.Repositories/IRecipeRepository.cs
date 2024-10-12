@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true or false</returns>
-        Task<bool> ExistsByIdAsync(string id);
+        Task<bool> ExistsByIdAsync(Guid id);
 
         /// <summary>
         /// Gets a Recipe By id (including recipe Owner, recipe Steps, Category, Recipe Likes, Recipe Meals, Recipe Ingredients + their categories + their measures + their specifications) or throws an exception if the recipe is not found
@@ -30,7 +30,7 @@
         /// <param name="id"></param>
         /// <returns>a given Recipe or throws Exception</returns>
         /// <exception cref="RecordNotFoundException">If Recipe is null, throws a RecordNotFoundException when recipe is not found</exception>
-        Task<Recipe> GetByIdAsync(string id);
+        Task<Recipe> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Update an existing Recipe in Database

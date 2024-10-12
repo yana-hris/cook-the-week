@@ -3,9 +3,9 @@
 @inject IUserContext UserContext
 @{
     ViewData["Title"] = "Meal Plan Details";
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
-    bool isOwner = GuidHelper.CompareTwoGuidStrings(Model.OwnerId, userId);
+    bool isOwner = Model.OwnerId == userId;
 
     var headingModel = new PageHeadingViewModel
     {

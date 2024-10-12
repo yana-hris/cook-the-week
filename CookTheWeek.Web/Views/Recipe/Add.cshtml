@@ -11,10 +11,10 @@
 
     };
 
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
 
-    if (userId != string.Empty && isAdmin)
+    if (userId != default && !isAdmin)
     {
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
     } 

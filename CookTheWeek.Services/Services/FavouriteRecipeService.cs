@@ -4,8 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Common.HelperMethods;
+    
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
@@ -15,7 +14,7 @@
     {
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
         private readonly IValidationService validationService;
-        private readonly string? userId;
+        private readonly Guid userId;
 
         public FavouriteRecipeService(IFavouriteRecipeRepository favouriteRecipeRepository,
             IUserContext userContext,
@@ -31,17 +30,16 @@
         public async Task TryToggleLikes(FavouriteRecipeServiceModel model)
         {
             await validationService.ValidateUserLikeForRecipe(model);
-            string recipeId = model.RecipeId;
 
-            bool isAlreadyAdded = await HasUserByIdLikedRecipeById(recipeId);
+            bool isAlreadyAdded = await HasUserByIdLikedRecipeById(model.RecipeId);
 
             if (isAlreadyAdded)
             {
-                await DeleteLikeAsync(recipeId);
+                await DeleteLikeAsync(model.RecipeId);
             }
             else
             {
-                await AddLikeAsync(recipeId);
+                await AddLikeAsync(model.RecipeId);
             }
         }
 
@@ -50,7 +48,7 @@
         {
             ICollection<string> allLikedIds = await favouriteRecipeRepository
                 .GetAllQuery()
-                .Where(fr => GuidHelper.CompareGuidStringWithGuid(userId, fr.UserId))
+                .Where(fr => fr.UserId == userId)
                 .Select(fr => fr.RecipeId.ToString())
                 .ToListAsync();
 
@@ -58,18 +56,18 @@
         }
 
         /// <inheritdoc/>
-        public async Task<int?> GetRecipeTotalLikesAsync(string recipeId)
+        public async Task<int?> GetRecipeTotalLikesAsync(Guid recipeId)
         {
             int? totalLikes = await favouriteRecipeRepository
                 .GetAllQuery()
-                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))
+                .Where(fr => fr.RecipeId == recipeId)
                 .CountAsync();
 
             return totalLikes;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> HasUserByIdLikedRecipeById(string recipeId)
+        public async Task<bool> HasUserByIdLikedRecipeById(Guid recipeId)
         {
             var like = await favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
 
@@ -77,7 +75,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
+        public async Task SoftDeleteAllByRecipeIdAsync(Guid recipeId)
         {
             ICollection<FavouriteRecipe> allLikes = await GetAllByRecipeIdAsync(recipeId);
 
@@ -93,7 +91,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task HardDeleteAllByRecipeIdAsync(string recipeId)
+        public async Task HardDeleteAllByRecipeIdAsync(Guid recipeId)
         {
             ICollection<FavouriteRecipe> likesByRecipeId = await GetAllByRecipeIdAsync(recipeId);
 
@@ -116,11 +114,11 @@
         /// </summary>
         /// <param name="recipeId">The recipe ID</param>
         /// <returns>A collection of FavouriteRecipes</returns>
-        private async Task<ICollection<FavouriteRecipe>> GetAllByRecipeIdAsync(string recipeId)
+        private async Task<ICollection<FavouriteRecipe>> GetAllByRecipeIdAsync(Guid recipeId)
         {
             return await favouriteRecipeRepository
                 .GetAllQuery()
-                .Where(fr => GuidHelper.CompareGuidStringWithGuid(recipeId, fr.RecipeId))
+                .Where(fr => fr.RecipeId == recipeId)
                 .ToListAsync();
         }
 
@@ -130,7 +128,7 @@
         /// <param name="userId"></param>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        private async Task DeleteLikeAsync(string recipeId)
+        private async Task DeleteLikeAsync(Guid recipeId)
         {
             
             FavouriteRecipe? like = await favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
@@ -147,13 +145,13 @@
         /// <param name="userId"></param>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        private async Task AddLikeAsync(string recipeId)
+        private async Task AddLikeAsync(Guid recipeId)
         {
 
             FavouriteRecipe favouriteRecipe = new FavouriteRecipe()
             {
-                UserId = Guid.Parse(userId),
-                RecipeId = Guid.Parse(recipeId)
+                UserId = userId,
+                RecipeId = recipeId
             };
 
             await favouriteRecipeRepository.AddAsync(favouriteRecipe);

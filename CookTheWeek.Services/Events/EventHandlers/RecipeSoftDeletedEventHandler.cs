@@ -23,7 +23,7 @@
         public async Task HandleAsync(RecipeSoftDeletedEvent domainEvent)
         {
             // Handle erasing related meal plans and ingredients when a recipe is soft-deleted
-            string recipeId = domainEvent.RecipeId.ToString();
+            Guid recipeId = domainEvent.RecipeId;
 
             // Soft Delete all relevant recipe Steps, Ingredients and Meals 
             await recipeIngredientService.SoftDeleteAllByRecipeIdAsync(recipeId);

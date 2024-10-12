@@ -15,7 +15,7 @@
         }
 
         [Required]
-        public string Id { get; set; } = null!;
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = NameRequiredErrorMessage)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthErrorMessage)]

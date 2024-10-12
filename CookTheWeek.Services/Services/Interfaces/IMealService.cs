@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>int or 0</returns>
-        Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId);
+        Task<int?> GetAllMealsCountByRecipeIdAsync(Guid recipeId);
 
         
         /// <summary>
@@ -39,7 +39,7 @@
         /// </summary>
         /// <param name="id">Meal Plan Id</param>
         /// <returns></returns>
-        Task HardDeleteAllByMealPlanIdAsync(string mealplanId);
+        Task HardDeleteAllByMealPlanIdAsync(Guid mealplanId);
 
 
         /// <summary>
@@ -47,7 +47,7 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns></returns>
-        Task SoftDeleteAllByRecipeIdAsync(string recipeId);
+        Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
 
 
         /// <summary>
@@ -55,7 +55,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task HardDeleteAllByRecipeIdAsync(string recipeId);
+        Task HardDeleteAllByRecipeIdAsync(Guid recipeId);
 
     }
 }

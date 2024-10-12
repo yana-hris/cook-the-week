@@ -43,7 +43,7 @@
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
         /// <returns>Recipe</returns>
-        Task<Recipe> GetByIdAsync(string id);
+        Task<Recipe> GetByIdAsync(Guid id);
                 
 
         /// <summary>
@@ -55,7 +55,7 @@
         /// <returns>RecipeEditFormModel</returns>
         /// <exception cref="UnauthorizedUserException"></exception>
         /// <exception cref="RecordNotFoundException">rethrown</exception>
-        Task<RecipeEditFormModel> GetForEditByIdAsync(string id);
+        Task<RecipeEditFormModel> GetForEditByIdAsync(Guid id);
 
 
         /// <summary>
@@ -64,7 +64,7 @@
         /// <remarks>May throw RecordNotFoundException due to using GetById</remarks>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task DeleteByIdAsync(string id);
+        Task DeleteByIdAsync(Guid id);
 
         /// <summary>
         /// Returns a viewmodel collection of all recipes, added by a specific user by userId. 
@@ -91,7 +91,7 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> IsIncludedInMealPlansAsync(string recipeId);
+        Task<bool> IsIncludedInMealPlansAsync(Guid recipeId);
 
         /// <summary>
         /// Returns a collection of all Site Recipes
@@ -125,7 +125,7 @@
         /// <param name="recipeId"></param>
         /// <returns>A single Recipe</returns>
         /// <remarks>May throw a RecordNotFoundException if recipe id doesn not exist</remarks>
-        Task<Recipe> GetForMealByIdAsync(string recipeId);
+        Task<Recipe> GetForMealByIdAsync(Guid recipeId);
 
         /// <summary>
         /// Gets all recipe Ids, added by the current user

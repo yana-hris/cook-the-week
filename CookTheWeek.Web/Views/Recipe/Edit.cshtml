@@ -7,7 +7,7 @@
 @{
     ViewData["Title"] = "Edit Recipe";
 
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
 
     var headingModel = new PageHeadingViewModel
@@ -16,7 +16,7 @@
 
     };
 
-    if (userId != string.Empty && !isAdmin)
+    if (userId != default && !isAdmin)
     {
         headingModel.HeadingSecondary = $"Edit \"{Model.Title}\"";
     }

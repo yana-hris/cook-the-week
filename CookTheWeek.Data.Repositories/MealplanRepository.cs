@@ -6,7 +6,6 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
 
     public class MealplanRepository : IMealplanRepository
@@ -26,10 +25,10 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlan?> GetByIdAsync(string id)
+        public async Task<MealPlan?> GetByIdAsync(Guid id)
         {
             return await this.dbContext.MealPlans
-                .Where(mp => GuidHelper.CompareGuidStringWithGuid(id, mp.Id))
+                .Where(mp => mp.Id == id)
                     .Include(mp => mp.Meals)
                         .ThenInclude(m => m.Recipe)
                             .ThenInclude(r => r.RecipesIngredients)

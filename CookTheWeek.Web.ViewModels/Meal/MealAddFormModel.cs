@@ -19,7 +19,7 @@
         //public int Id { get; set; }
 
         [Required]
-        public string RecipeId { get; set; } = null!;
+        public Guid RecipeId { get; set; }
 
         [Required]
         public string Title { get; set; } = null!;

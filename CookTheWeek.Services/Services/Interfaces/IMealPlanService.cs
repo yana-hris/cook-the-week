@@ -62,7 +62,7 @@
         /// <returns>A MealPlan</returns>
         /// <exception cref="RecordNotFoundException"></exception>
         /// <exception cref="UnauthorizedUserException"></exception>
-        Task<MealPlan> TryGetAsync(string id);
+        Task<MealPlan> TryGetAsync(Guid id);
        
         /// <summary>
         /// Returns the total count of all Active meal plans. 
@@ -77,7 +77,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <remarks>May throw RecordNotFoundException or UnauthorizedUserException</remarks>
-        Task TryDeleteByIdAsync(string id);
+        Task TryDeleteByIdAsync(Guid id);
 
         /// <summary>
         /// Asynchronously updates the status of all active meal plans. 

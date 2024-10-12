@@ -3,7 +3,7 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     public class UserContext : IUserContext
     {
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; } = Guid.Empty;
         public bool IsAdmin { get; set; } = false;
     }
 }

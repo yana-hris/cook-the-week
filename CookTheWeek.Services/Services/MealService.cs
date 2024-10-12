@@ -7,7 +7,6 @@
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
@@ -19,9 +18,7 @@
     public class MealService : IMealService
     {
         private readonly IMealRepository mealRepository;
-
-        private readonly IRecipeService recipeService;
-       
+        private readonly IRecipeService recipeService;       
         private readonly ILogger<MealService> logger;
 
         public MealService(IMealRepository mealRepository,
@@ -44,7 +41,7 @@
             {
                 Meal newMeal = new Meal()
                 {
-                    RecipeId = Guid.Parse(meal.RecipeId),
+                    RecipeId = meal.RecipeId,
                     ServingSize = meal.Servings,
                     CookDate = DateTime.ParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 };
@@ -72,19 +69,19 @@
 
 
         /// <inheritdoc/>
-        public async Task<int?> GetAllMealsCountByRecipeIdAsync(string recipeId)
+        public async Task<int?> GetAllMealsCountByRecipeIdAsync(Guid recipeId)
         {
             return await mealRepository.GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
+                .Where(m => m.RecipeId == recipeId)
                 .CountAsync();
         }
 
 
         /// <inheritdoc/>
-        public async Task HardDeleteAllByMealPlanIdAsync(string mealplanId)
+        public async Task HardDeleteAllByMealPlanIdAsync(Guid mealplanId)
         {
             var mealsToDelete = await mealRepository.GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(mealplanId, m.MealPlanId))
+                .Where(m => m.MealPlanId == mealplanId)
                 .ToListAsync();
 
             await mealRepository.RemoveRangeAsync(mealsToDelete);
@@ -93,7 +90,7 @@
        
 
         /// <inheritdoc/>
-        public async Task SoftDeleteAllByRecipeIdAsync(string recipeId)
+        public async Task SoftDeleteAllByRecipeIdAsync(Guid recipeId)
         {
             ICollection<Meal> mealsToDelete = await GetAllByRecipeIdAsync(recipeId);
 
@@ -110,7 +107,7 @@
 
 
         /// <inheritdoc/> // TODO: Check if will be used at all..
-        public async Task HardDeleteAllByRecipeIdAsync(string recipeId)
+        public async Task HardDeleteAllByRecipeIdAsync(Guid recipeId)
         {
             ICollection<Meal> mealsToDelete = await GetAllByRecipeIdAsync(recipeId);
 
@@ -128,11 +125,11 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>A collection of Meals</returns>
-        private async Task<ICollection<Meal>> GetAllByRecipeIdAsync(string recipeId)
+        private async Task<ICollection<Meal>> GetAllByRecipeIdAsync(Guid recipeId)
         {
             return await mealRepository
                 .GetAllQuery()
-                .Where(m => GuidHelper.CompareGuidStringWithGuid(recipeId, m.RecipeId))
+                .Where(m => m.RecipeId == recipeId)
                 .ToListAsync();
         }
     }

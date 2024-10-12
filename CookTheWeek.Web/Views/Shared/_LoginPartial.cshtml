@@ -1,15 +1,15 @@
 ﻿@inject IUserContext UserContext
 @{
-    string userId = UserContext.UserId;
+    Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
 
-    if (userId != string.Empty && !isAdmin)
-    {
-        <partial name="_UserNavigationPartial" />
-    }
-    else if (userId != string.Empty && isAdmin)
+    if (isAdmin)
     {
         <partial name="_AdminNavigationPartial" />
+    }
+    else if (userId != default)
+    {
+        <partial name="_UserNavigationPartial" />
     }
     else
     {
