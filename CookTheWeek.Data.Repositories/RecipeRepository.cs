@@ -42,31 +42,33 @@
         }        
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetByIdAsync(Guid id)
+        public IQueryable<Recipe> GetByIdQuery(Guid id)
         {
-            
-            Recipe? recipe = await this.dbContext.Recipes
-                .Include(r => r.Owner)
-                .Include(r => r.Steps)
-                .Include(r => r.Category)
-                .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Ingredient)
-                        .ThenInclude(i => i.Category)
-                .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Measure)
-                .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Specification)
-                .Include(r => r.Meals)
-                .Include(r => r.FavouriteRecipes)
-                .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
+            return dbContext.Recipes
+                .Where(r => r.Id == id)
+                .AsQueryable();
+
+            //    .Include(r => r.Owner)
+            //    .Include(r => r.Steps)
+            //    .Include(r => r.Category)
+            //    .Include(r => r.RecipesIngredients)
+            //        .ThenInclude(ri => ri.Ingredient)
+            //            .ThenInclude(i => i.Category)
+            //    .Include(r => r.RecipesIngredients)
+            //        .ThenInclude(ri => ri.Measure)
+            //    .Include(r => r.RecipesIngredients)
+            //        .ThenInclude(ri => ri.Specification)
+            //    .Include(r => r.Meals)
+            //    .Include(r => r.FavouriteRecipes)
+            //    .FirstOrDefaultAsync(r => r.Id == id);
+
+            //if (recipe == null)
+            //{
+            //    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            //}
             
-            return recipe;
-           
+            //return recipe;
         }
 
         /// <inheritdoc/>

@@ -45,6 +45,7 @@
         {
             ICollection<MealPlan> activeMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => !mp.IsFinished)
+                .Include(mp => mp.Owner)
                 .OrderBy(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
                 .ToListAsync();
@@ -57,6 +58,7 @@
         {
             ICollection<MealPlan> finishedMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => mp.IsFinished == true)
+                .Include(mp => mp.Owner)
                 .OrderByDescending(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
                 .ToListAsync();
@@ -198,7 +200,15 @@
         /// <exception cref="RecordNotFoundException"></exception>
         private async Task<MealPlan> GetByIdAsync(Guid id)
         {
-            MealPlan? mealplan = await mealplanRepository.GetByIdAsync(id);
+            MealPlan? mealplan = await mealplanRepository.GetByIdQuery(id)
+                .Include(mp => mp.Meals)
+                        .ThenInclude(m => m.Recipe)
+                            .ThenInclude(r => r.RecipesIngredients)
+                                .ThenInclude(ri => ri.Ingredient)
+                    .Include(mp => mp.Meals)
+                        .ThenInclude(m => m.Recipe)
+                            .ThenInclude(r => r.Category)
+                .FirstOrDefaultAsync();
 
             if (mealplan == null)
             {

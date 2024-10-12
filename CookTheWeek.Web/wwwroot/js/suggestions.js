@@ -53,8 +53,10 @@ function renderSuggestionResults(results, search, container, inputForm) {
                 event.stopPropagation();
                 
                 let ingredientName = item.name;
+                let ingredientId = item.id;  // Capture the ingredient ID
 
-                $(inputForm).val(ingredientName).trigger('change');
+                $(inputForm).val(ingredientName).trigger('change'); // Fill selected ingredient name to Input field
+                
 
                 // clear results div after a suggestion is clicked
                 $(container).empty();

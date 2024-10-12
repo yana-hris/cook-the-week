@@ -230,6 +230,7 @@
                     { "StepsRequiredErrorMessage", RecipeValidation.StepsRequiredErrorMessage },
                     { "StepDescriptionRangeErrorMessage", StepValidation.StepDescriptionRangeErrorMessage },
                     { "IngredientsRequiredErrorMessage", RecipeValidation.IngredientsRequiredErrorMessage },
+                    { "RecipeIngredientIdRequiredErrorMessage", RecipeIngredientValidation.RecipeIngredientInvalidErrorMessage},
                     { "RecipeIngredientNameRequiredErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRequiredErrorMessage },
                     { "RecipeIngredientNameRangeErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRangeErrorMessage },
                     { "MeasureRequiredErrorMessage", RecipeIngredientValidation.MeasureRequiredErrorMessage },

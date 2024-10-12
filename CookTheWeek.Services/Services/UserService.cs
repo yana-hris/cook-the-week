@@ -136,23 +136,7 @@
             
             try
             {
-                // SOFT delete for recipe and its related entities
-                await recipeService.DeleteAllByUserIdAsync();
-                // Might be deleted by default! check!
-                //await mealPlanService.DeleteAllByUserIdAsync(userId); NOT necessary
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Error deleting related data for user {userId}: {ex.Message}");
-                return OperationResult.Failure(new Dictionary<string, string>
-                {
-                    { "DataDeletionError", "An error occurred while deleting user-related data." }
-                });
-            }
-
-            try
-            {
-                await userManager.DeleteAsync(user);
+                await userManager.DeleteAsync(user); // Will cascade and delete all user data
                 return OperationResult.Success();
             }
             catch (Exception ex)
@@ -307,7 +291,7 @@
                 });
             }
 
-            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: true);
+            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: true);
 
             if (!signInResult.Succeeded)
             {

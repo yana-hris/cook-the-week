@@ -115,6 +115,7 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
 
     self.addIngredient = function () {
         let newIngredient = new createIngredient({
+            IngredientId: '',
             Name: '',
             Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
             MeasureId: '',
@@ -280,6 +281,13 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
     function createIngredient(ingredient) {
 
         let ingredientSelf = this;
+        
+        ingredientSelf.IngredientId = ko.observable(ingredient.IngredientId ? ingredient.IngredientId : '').extend({
+            required: {
+                message: errorMessages.RecipeIngredientIdRequiredErrorMessage
+            },
+            validatable: true
+        });
 
         ingredientSelf.Name = ko.observable(ingredient.Name).extend({
             required: {

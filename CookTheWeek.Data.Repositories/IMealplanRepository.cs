@@ -19,11 +19,11 @@
         IQueryable<MealPlan> GetAllQuery();
 
         /// <summary>
-        /// Gets a Mealplan by id, including all its meals, their recipes with their categories, recipeingredients and even ingredients.
+        /// Gets a Mealplan by id as queryable
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>A single MealPlan or null</returns>
-        Task<MealPlan?> GetByIdAsync(Guid id);
+        /// <returns>MealPlan as queryable</returns>
+        IQueryable<MealPlan> GetByIdQuery(Guid id);
 
         /// <summary>
         /// Creates a new Mealplan in the database
@@ -66,5 +66,6 @@
         /// A task that represents the asynchronous save operation.
         /// </returns>
         Task SaveAsync(CancellationToken cancellationToken);
+        
     }
 }

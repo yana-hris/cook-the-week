@@ -32,7 +32,6 @@
 
             // Get the value being bound
             var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-            Console.WriteLine(valueProviderResult);
 
             if (valueProviderResult == ValueProviderResult.None)
             {
@@ -54,8 +53,10 @@
 
                 // Skip sanitization if the property is in the excluded list
                 var propertyName = bindingContext.ModelName;
+
                 if (excludedProperties.Contains(propertyName))
                 {
+                    bindingContext.Result = ModelBindingResult.Success(valueProviderResult.FirstValue); // Return the raw value
                     return;
                 }
 

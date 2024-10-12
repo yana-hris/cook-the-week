@@ -217,8 +217,13 @@
                                                        autocomplete="off" />
                                                 <div class="suggestionsList invisible">
                                                 </div>
+                                                <input type="hidden"
+                                                       data-bind="value: IngredientId,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].IngredientId' },
+                                                                  deferValidation: IngredientId"
+                                                       class="ingredientId" />
                                             </div>
-                                            <span data-bind="validationMessage: Name"
+                                            <span data-bind="validationMessage: IngredientId"
                                                   class="small text-danger">
                                             </span>
                                         </div>

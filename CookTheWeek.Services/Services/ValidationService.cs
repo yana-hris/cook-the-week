@@ -36,6 +36,7 @@
         private readonly ILogger<ValidationService> logger;
 
         private readonly Guid userId;
+        private readonly bool isAdmin;
 
         public ValidationService(
             IRecipeRepository recipeRepository,
@@ -56,7 +57,8 @@
             this.recipeCategoryRepository = recipeCategoryRepository;
             this.ingredientCategoryRepository = ingredientCategoryRepository;
             this.logger = logger;
-            this.userId = userContext.UserId;
+            userId = userContext.UserId;
+            isAdmin = userContext.IsAdmin;
         }
 
         // RECIPE:              
@@ -115,7 +117,13 @@
             return result;
         }
 
-
+        /// <inheritdoc/>
+        public Task<bool> CanRecipeBeDeletedAsync(Guid id)
+        {
+            return recipeRepository.GetAllQuery()
+                .Where(r => r.Meals.Any(m => m.RecipeId == id))
+                .AnyAsync();
+        }
 
         // INGREDIENT:
         /// <inheritdoc/>
@@ -159,12 +167,11 @@
         
 
         /// <inheritdoc/>
-        public Task<bool> CanIngredientBeDeleted(int id)
+        public Task<bool> CanIngredientBeDeletedAsync(int id)
         {
             return recipeRepository.GetAllQuery()
                 .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
         }
-
 
 
         // USER:
@@ -258,13 +265,13 @@
         {
             if (userId == default)
             {
-                logger.LogError($"Unauthorized attempt of a user to access meal plan data.");
+                logger.LogError($"Unauthorized attempt of a user to access resource. User not logged in or userId is null.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
             }
 
-            if (userId != ownerId)
+            if (userId != ownerId && !isAdmin)
             {
-                logger.LogError($"User with id {userId} is not the resource owner. Authentication not allowed.");
+                logger.LogError($"User with id {userId} is not the resource owner.");
                 throw new UnauthorizedUserException(UnauthorizedExceptionMessages.MealplanEditAuthorizationExceptionMessage);
             }
         }
@@ -354,8 +361,6 @@
 
             return true;  // Category can be deleted
         }
-
-
 
 
         // TODO: check!

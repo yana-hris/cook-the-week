@@ -94,7 +94,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true or false</returns>
-        Task<bool> CanIngredientBeDeleted(int id);
+        Task<bool> CanIngredientBeDeletedAsync(int id);
 
         /// <summary>
         /// Takes a Service model of a recipe like and validates it. Checks for empty enttries, non-existing recipe or unmacthing userId. Throws exceptions.
@@ -113,5 +113,12 @@
         /// <param name="mealplanOwnerId">the resource OwnerId</param>
         /// <exception cref="UnauthorizedUserException"></exception>
         void ValidateUserIsResourceOwnerAsync(Guid mealplanOwnerId);
+
+        /// <summary>
+        /// Validates if a Recipe can be deleted by checking if it is included in any active MealPlans.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool> CanRecipeBeDeletedAsync(Guid id);
     }
 }

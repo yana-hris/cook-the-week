@@ -43,7 +43,7 @@
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
         /// <returns>Recipe</returns>
-        Task<Recipe> GetByIdAsync(Guid id);
+        Task<Recipe> GetByIdForDetailsAsync(Guid id);
                 
 
         /// <summary>
@@ -85,14 +85,7 @@
         /// </summary>
         /// <returns>int or 0</returns>
         Task<int?> GetAllCountAsync();
-
-        /// <summary>
-        /// Returns a flag indicating if a recipe is included in any meals which aren`t cooked yet (or in any active meal plans)
-        /// </summary>
-        /// <param name="recipeId"></param>
-        /// <returns>true or false</returns>
-        Task<bool> IsIncludedInMealPlansAsync(Guid recipeId);
-
+       
         /// <summary>
         /// Returns a collection of all Site Recipes
         /// </summary>
@@ -112,13 +105,6 @@
         /// <returns>A collection of Recipes</returns>
         Task<ICollection<Recipe>> GetAllByIds(ICollection<string> recipeIds);
         
-        /// <summary>
-        /// Soft deletes a collection of recipes. All sub-entities will be deleted too. 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task DeleteAllByUserIdAsync();
-
         /// <summary>
         /// Gets a Recipe for a meal details view including all its steps and recipee ingredients info (incl. ingredients category)
         /// </summary>

@@ -121,7 +121,7 @@
         /// <inheritdoc/>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(Guid recipeId)
         {
-            Recipe recipe = await recipeService.GetByIdAsync(recipeId);
+            Recipe recipe = await recipeService.GetByIdForDetailsAsync(recipeId);
 
             RecipeDetailsViewModel model = new RecipeDetailsViewModel()
             {
@@ -268,30 +268,35 @@
         public async Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
         {
             // Retrieve the recipe from database
-            Recipe recipe = await recipeService.GetForMealByIdAsync(Guid.Parse(meal.RecipeId));
-
-            MealAddFormModel model = new MealAddFormModel()
+            if (Guid.TryParse(meal.RecipeId, out Guid guidMealId))
             {
-                RecipeId = recipe.Id,
-                Title = recipe.Title,
-                Servings = recipe.Servings,
-                ImageUrl = recipe.ImageUrl,
-                CategoryName = recipe.Category.Name,
-            };
+                Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
 
-            // Make sure all select menus are filled with data
-            if (model.SelectDates == null || model.SelectDates.Count() == 0)
-            {
-                model.SelectDates = DateGenerator.GenerateNext7Days();
+                MealAddFormModel model = new MealAddFormModel()
+                {
+                    RecipeId = recipe.Id,
+                    Title = recipe.Title,
+                    Servings = recipe.Servings,
+                    ImageUrl = recipe.ImageUrl,
+                    CategoryName = recipe.Category.Name,
+                };
+
+                // Make sure all select menus are filled with data
+                if (model.SelectDates == null || model.SelectDates.Count() == 0)
+                {
+                    model.SelectDates = DateGenerator.GenerateNext7Days();
+                }
+
+                if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
+                {
+                    model.SelectServingOptions = ServingsOptions;
+                }
+                model.Date = model.SelectDates!.First();
+
+                return model;
             }
-
-            if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
-            {
-                model.SelectServingOptions = ServingsOptions;
-            }
-            model.Date = model.SelectDates!.First();
-
-            return model;
+            
+            throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
 
         }
 

@@ -124,6 +124,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
 
     self.addIngredient = function () {
         let newIngredient = new createIngredient({
+            IngredientId: '',
             Name: '',
             Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
             MeasureId: '',
@@ -159,6 +160,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             }),
             RecipeIngredients: ko.utils.arrayMap(self.RecipeIngredients(), function (ingredient) {
                 return {
+                    IngredientId: ingredient.IngredientId(),
                     Name: ingredient.Name(),
                     Qty: {
                         QtyDecimal: ingredient.Qty().QtyDecimal(),
@@ -362,6 +364,13 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
     function createIngredient(ingredient) {
 
         let ingredientSelf = this;
+
+        ingredientSelf.IngredientId = ko.observable(ingredient.IngredientId ? ingredient.IngredientId : '').extend({
+            required: {
+                message: errorMessages.RecipeIngredientIdRequiredErrorMessage
+            },
+            validatable: true
+        });
         
         ingredientSelf.Name = ko.observable(ingredient.Name).extend({
             required: {

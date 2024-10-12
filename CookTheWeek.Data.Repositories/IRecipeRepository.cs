@@ -23,14 +23,14 @@
         /// <param name="id"></param>
         /// <returns>true or false</returns>
         Task<bool> ExistsByIdAsync(Guid id);
-
+        
         /// <summary>
-        /// Gets a Recipe By id (including recipe Owner, recipe Steps, Category, Recipe Likes, Recipe Meals, Recipe Ingredients + their categories + their measures + their specifications) or throws an exception if the recipe is not found
+        /// Returns an IQueryable for a Recipe entity based on the provided recipe ID.
+        /// This query can be further extended before being executed.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>a given Recipe or throws Exception</returns>
-        /// <exception cref="RecordNotFoundException">If Recipe is null, throws a RecordNotFoundException when recipe is not found</exception>
-        Task<Recipe> GetByIdAsync(Guid id);
+        /// <param name="id">The unique identifier (Guid) of the recipe to be queried.</param>
+        /// <returns>An IQueryable of Recipe filtered by the specified ID, which can be extended with additional query operations.</returns>
+        IQueryable<Recipe> GetByIdQuery(Guid id);
 
         /// <summary>
         /// Update an existing Recipe in Database

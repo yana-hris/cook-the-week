@@ -180,7 +180,21 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model)
         {
-            Recipe recipe = await recipeRepository.GetByIdAsync(model.Id); // RecordNotFoundExc
+            Recipe? recipe = await recipeRepository
+                .GetByIdQuery(model.Id) 
+                .Include(r => r.Steps)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Measure)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Specification)
+                .FirstOrDefaultAsync();
+
+            if (recipe == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
 
             validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId); // UnauthorizedUserExc
 
@@ -200,69 +214,74 @@
         }
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetByIdAsync(Guid id)
+        public async Task<Recipe> GetByIdForDetailsAsync(Guid id)
         {
+            Recipe? recipe = await recipeRepository.GetByIdQuery(id) 
+                .Include(r => r.Owner)
+                .Include(r => r.Steps)
+                .Include(r => r.Category)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .FirstOrDefaultAsync();
 
-            Recipe recipe = await recipeRepository.GetByIdAsync(id); // RecordNotFoundExc
-            
+            if (recipe == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
+
             return recipe;
         }
 
         /// <inheritdoc/>
         public async Task DeleteByIdAsync(Guid id)
         {
-            try
-            {
-                Recipe recipeToDelete = await recipeRepository.GetByIdAsync(id);
 
-                if ((userId == recipeToDelete.OwnerId) && !isAdmin)
-                {
-                    logger.LogError($"Unauthorized access attempt: User {userId} tried to delete a recipe {id} but does not have the necessary permissions.");
-                    throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeDeleteAuthorizationMessage);
-                }
+            Recipe? recipeToDelete = await recipeRepository
+                .GetByIdQuery(id)
+                .FirstOrDefaultAsync();
 
-                // TODO: move to validation service to decouple services
-                bool isIncluded = await IsIncludedInMealPlansAsync(recipeToDelete.Id);
-
-                if (isIncluded)
-                {
-                    logger.LogError($"Invalid operation while trying to delete recipe with id {id}. Recipe is included in active mealplans and cannot be deleted.");
-                    throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
-                }
-
-                await DeleteAsync(recipeToDelete);
-            }
-            catch (RecordNotFoundException)
+            if (recipeToDelete == null)
             {
                 logger.LogError($"Record not found: {nameof(Recipe)} with ID {id} was not found.");
-                throw;
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
             }
+
+            validationService.ValidateUserIsResourceOwnerAsync(recipeToDelete.OwnerId); // UnauthorizedUserExc
+
+            
+            bool isIncluded = await validationService.CanRecipeBeDeletedAsync(id);
+
+            if (isIncluded)
+            {
+                logger.LogError($"Invalid operation while trying to delete recipe with id {id}. Recipe is included in active mealplans and cannot be deleted.");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
+            }
+
+            await SoftDeleteRecipeAsync(recipeToDelete);
+           
         }
         
-        /// <inheritdoc/>
-        public async Task DeleteAllByUserIdAsync()
-        {
-            ICollection<Recipe> allUserRecipes = await recipeRepository.GetAllQuery()
-                .Where(r => r.OwnerId == userId)
-                .ToListAsync();
-
-            foreach (var recipe in allUserRecipes)
-            {
-                await DeleteAsync(recipe);
-            }
-
-        }
-
+       
         /// <inheritdoc/>
         public async Task<RecipeEditFormModel> GetForEditByIdAsync(Guid id)
         {
-            Recipe recipe = await recipeRepository.GetByIdAsync(id);
+            Recipe? recipe = await recipeRepository.GetByIdQuery(id)
+                .Include(r => r.Steps)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipesIngredients)
+                    .ThenInclude(ri => ri.Measure)
+                .Include(ri => ri.RecipesIngredients)
+                    .ThenInclude(ri => ri.Specification)
+                .FirstOrDefaultAsync();
 
-            if (!(id == recipe.OwnerId) && !isAdmin)
+            if (recipe == null)
             {
-                logger.LogError($"Unauthorized access attempt: User {userId} tried to edit Recipe with {id} but does not have the necessary permissions.");
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.RecipeEditAuthorizationExceptionMessage);
+                logger.LogError($"Recipe with id {id} not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
             }
+
+            validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId);
 
             // TODO: Consider using Automapper
             RecipeEditFormModel model = new RecipeEditFormModel()
@@ -320,16 +339,7 @@
 
             return model;
         }
-
-        /// <inheritdoc/>
-        public async Task<bool> IsIncludedInMealPlansAsync(Guid recipeId)
-        {
-            // Chek if meals are included in query
-            return await recipeRepository.GetAllQuery()
-                .Where(r => r.Meals.Any(m => m.RecipeId == recipeId))
-                .AnyAsync();
-        }
-
+       
         /// <inheritdoc/>
         public async Task<int?> GetAllCountAsync()
         {
@@ -400,7 +410,16 @@
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(Guid recipeId)
         {
-            return await recipeRepository.GetByIdAsync(recipeId);
+            Recipe? recipe =  await recipeRepository.GetByIdQuery(recipeId)
+                .Include(r => r.Category)
+                .FirstOrDefaultAsync();
+
+            if (recipe == null)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
+
+            return recipe;
         }
 
         /// <inheritdoc/>
@@ -433,7 +452,7 @@
         /// </summary>
         /// <param name="recipe"></param>
         /// <returns></returns>
-        private async Task DeleteAsync(Recipe recipe)
+        private async Task SoftDeleteRecipeAsync(Recipe recipe)
         {
             // SOFT DELETE
             recipe.OwnerId = Guid.Parse(DeletedUserId);
@@ -467,7 +486,7 @@
 
                 if (model is RecipeAddFormModel addModel)
                 {
-                    if (userId == null)
+                    if (userId == Guid.Empty)
                     {
                         logger.LogError($"Missing argument: {nameof(userId)} is null and model of type {model.GetType().Name} cannot be mapped to Entity {nameof(Recipe)} in method {nameof(MapFromModelToRecipe)}");
                         throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);

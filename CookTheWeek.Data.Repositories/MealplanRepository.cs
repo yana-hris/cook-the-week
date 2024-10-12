@@ -25,18 +25,13 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlan?> GetByIdAsync(Guid id)
+        public IQueryable<MealPlan> GetByIdQuery(Guid id)
         {
-            return await this.dbContext.MealPlans
+            return dbContext.MealPlans
                 .Where(mp => mp.Id == id)
-                    .Include(mp => mp.Meals)
-                        .ThenInclude(m => m.Recipe)
-                            .ThenInclude(r => r.RecipesIngredients)
-                                .ThenInclude(ri => ri.Ingredient)
-                    .Include(mp => mp.Meals)
-                        .ThenInclude(m => m.Recipe)
-                            .ThenInclude(r => r.Category)
-                .FirstOrDefaultAsync();
+                .AsQueryable();
+
+
         }
 
         /// <inheritdoc/>
