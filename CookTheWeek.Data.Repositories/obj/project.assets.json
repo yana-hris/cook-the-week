@@ -3168,8 +3168,7 @@
       "CookTheWeek.Data >= 1.0.0",
       "CookTheWeek.Data.Models >= 1.0.0",
       "CookTheWeek.Web.ViewModels >= 1.0.0",
-      "HtmlSanitizer >= 8.1.870",
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.0"
+      "HtmlSanitizer >= 8.1.870"
     ]
   },
   "packageFolders": {
@@ -3238,10 +3237,6 @@
           "HtmlSanitizer": {
             "target": "Package",
             "version": "[8.1.870, )"
-          },
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "[8.0.0, )"
           }
         },
         "imports": [

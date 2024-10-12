@@ -1,6 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
-
+    
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
 
