@@ -1,9 +1,10 @@
 ﻿
 @model AllRecipesFilteredAndPagedViewModel
+@inject IUserContext UserContext
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @{
-    string userId = User.GetId();
-    bool isAdmin = User.IsAdmin();
+    string userId = UserContext.UserId;
+    bool isAdmin = UserContext.IsAdmin;
 
     var headingModel = new PageHeadingViewModel
     {

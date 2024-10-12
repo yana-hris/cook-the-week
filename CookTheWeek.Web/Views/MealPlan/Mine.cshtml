@@ -1,10 +1,10 @@
 ﻿@model ICollection<MealPlanAllViewModel>
-@using CookTheWeek.Web.Infrastructure.Extensions
+@inject IUserContext UserContext
 @{
     ViewData["Title"] = "My Meal Plans";
 
-    bool isAdmin = User.IsAdmin();
-    string userId = User.GetId();
+    bool isAdmin = UserContext.IsAdmin;
+    string userId = UserContext.UserId;
 
     var headingModel = new PageHeadingViewModel
     {

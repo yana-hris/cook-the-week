@@ -6,6 +6,8 @@
 
     using Web.ViewModels.Admin.MealPlanAdmin;
 
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+
     public class MealPlanAdminController : BaseAdminController
     {
         private readonly IViewModelFactory viewModelFactory;
@@ -23,7 +25,7 @@
             ICollection<MealPlanAllAdminViewModel> allActive = await
                 viewModelFactory.CreateAllActiveMealPlansAdminViewModelAsync();
 
-            ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllActive";
+            ViewBag.ReturnUrl = Url.Action("AllActive", "MealPlanAdmin", new { area = AdminAreaName }); //"/Admin/MealPlanAdmin/AllActive";
 
             return View(allActive);
         }
@@ -34,7 +36,7 @@
             ICollection<MealPlanAllAdminViewModel> allFinished = await
                 viewModelFactory.CreateAllFinishedMealPlansAdminViewModelAsync();
 
-            ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllFinished";
+            ViewBag.ReturnUrl = ViewBag.ReturnUrl = Url.Action("AllFinished", "MealPlanAdmin", new { area = AdminAreaName });//"/Admin/MealPlanAdmin/AllFinished";
 
             return View(allFinished);
         }

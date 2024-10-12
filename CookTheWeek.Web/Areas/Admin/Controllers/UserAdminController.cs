@@ -3,8 +3,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
 
-    using Services.Data.Services.Interfaces;
-    using ViewModels.Admin.UserAdmin;
+    using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
 
     using static Common.GeneralApplicationConstants;
 
@@ -33,7 +33,7 @@
             {
                 try
                 {
-                    users = await this.userService.AllAsync();
+                    users = await userService.GetAllAsync();
                 }
                 catch (Exception)
                 {

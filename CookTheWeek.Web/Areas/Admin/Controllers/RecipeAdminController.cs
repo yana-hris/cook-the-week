@@ -12,7 +12,8 @@
 
         public RecipeAdminController(IRecipeService recipeService,
             IUserService userService,
-            ILogger<RecipeAdminController> logger) : base(logger)
+            ILogger<RecipeAdminController> logger) 
+        : base(logger)
         {
             this.recipeService = recipeService;
             this.userService = userService;
@@ -24,8 +25,8 @@
             try
             {
                 RecipeMineAdminViewModel model = new RecipeMineAdminViewModel();
-                model.SiteRecipes = await this.recipeService.GetAllSiteRecipesAsync();
-                model.UserRecipes = await this.recipeService.GetAllNonSiteRecipesAsync();
+                model.SiteRecipes = await recipeService.GetAllSiteRecipesAsync();
+                model.UserRecipes = await recipeService.GetAllNonSiteRecipesAsync();
 
                 ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 

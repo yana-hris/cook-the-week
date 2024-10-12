@@ -50,12 +50,12 @@
         public async Task<IActionResult> Index()
         {
             AdminServiceModel model = new AdminServiceModel();
-            model.RecipesTotalCount = await this.recipeService.GetAllCountAsync();
-            model.RecipeCategoriesTotalCount = await this.recipeCategoryService.GetAllCategoriesCountAsync();
-            model.IngredientsTotalCount = await this.ingredientService.AllCountAsync();
-            model.IngredientCategoriesTotalCount = await this.ingredientCategoryService.GetAllCategoriesCountAsync();
-            model.UsersTotalCount = await this.userService.AllCountAsync();
-            model.MealPlansTotalCount = await this.mealplanService.AllActiveCountAsync();
+            model.RecipesTotalCount = await recipeService.GetAllCountAsync();
+            model.RecipeCategoriesTotalCount = await recipeCategoryService.GetAllCategoriesCountAsync();
+            model.IngredientsTotalCount = await ingredientService.AllCountAsync();
+            model.IngredientCategoriesTotalCount = await ingredientCategoryService.GetAllCategoriesCountAsync();
+            model.UsersTotalCount = await userService.AllCountAsync();
+            model.MealPlansTotalCount = await mealplanService.AllActiveCountAsync();
 
             return View(model);
         }

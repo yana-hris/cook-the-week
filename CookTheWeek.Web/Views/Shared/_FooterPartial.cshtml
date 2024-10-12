@@ -1,4 +1,8 @@
 ﻿@using static CookTheWeek.Common.GeneralApplicationConstants
+@inject IUserContext UserContext
+@{
+    bool isLoggedIn = UserContext.UserId == string.Empty ? false : true;
+}
 
 <footer class="text-center d-flex flex-column align-items-center justify-content-center bg-dark no-print @(FixedFooterActions.Contains(ViewContext.RouteData.Values["action"].ToString()) ? "fixed-footer" : "")">
     <div id="links-container" class="pt-1 pb-2 d-flex align-items-center justify-content-center">
@@ -6,7 +10,7 @@
         <div class="text-center footer-padding footer-border"><a href="/Home/HowItWorks">How It Works</a></div>
         <div class="text-center footer-padding footer-border"><a href="/Home/Contact">Contact us</a></div>
         @{
-            if (!string.IsNullOrEmpty(User.GetId()))
+            if (isLoggedIn)
             {
                 <div class="text-center footer-padding footer-border"><a href="/User/Profile">Profile</a></div>
             }

@@ -1,10 +1,6 @@
 ﻿namespace CookTheWeek.Web.Infrastructure.ActionFilters
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Filters;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using CookTheWeek.Services.Data.Services.Interfaces;
+    using System.Threading.Tasks;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
 
@@ -19,22 +15,19 @@
             this.adminAction = adminAction;
         }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            // Get the userContext or whatever method you use to determine if the user is an admin
-            var userContext = context.HttpContext.RequestServices.GetService<IUserContext>();
+            var user = context.HttpContext.User;
 
-            if (userContext == null || string.IsNullOrEmpty(userContext.UserId))
+            if (user.Identity.IsAuthenticated && user.IsInRole("Admin"))
             {
-               
+                // Redirect the admin user to the specific admin area action
+                context.Result = new RedirectToActionResult(adminAction, adminController, new {area = AdminAreaName});
                 return;
             }
 
-            if (userContext != null && userContext.IsAdmin)
-            {
-                // Redirect to the admin area action
-                context.Result = new RedirectToActionResult(adminAction, adminController, new { area = AdminAreaName });
-            }
+            // Continue with the execution of the action if the user is not admin
+            await next();
         }
     }
 

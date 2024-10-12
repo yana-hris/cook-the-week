@@ -10,10 +10,10 @@
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
+    using CookTheWeek.Web.ViewModels.Interfaces;
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants;
-    using CookTheWeek.Web.ViewModels.Interfaces;
 
     public class IngredientAdminController : BaseAdminController
     {
@@ -28,7 +28,8 @@
                                             IngredientCategoryEditFormModel,
                                             IngredientCategorySelectViewModel> categoryService,
             IIngredientService ingredientService,
-            ILogger<IngredientAdminController> logger) : base(logger)
+            ILogger<IngredientAdminController> logger) 
+        : base(logger)
         {
             this.categoryService = categoryService;
             this.ingredientService = ingredientService;

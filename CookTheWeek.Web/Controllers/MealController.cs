@@ -3,8 +3,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using CookTheWeek.Common.Exceptions;
-    using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Services.Data.Factories;
+    using CookTheWeek.Web.ViewModels.Meal;
 
     public class MealController : BaseController
     {

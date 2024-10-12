@@ -1,5 +1,7 @@
 ﻿namespace CookTheWeek.Data.SeedData
 {
+    using System.Globalization;
+
     using Microsoft.AspNetCore.Identity;
 
     using CookTheWeek.Data.Models;
@@ -2969,5 +2971,112 @@
             };
         }
 
+        internal ICollection<FavouriteRecipe> SeedRecipeLikes()
+        {
+            return new HashSet<FavouriteRecipe>()
+            {
+                new()
+                {
+                    UserId = Guid.Parse(AppUserId),
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                },
+                new()
+                {
+                    UserId = Guid.Parse(AppUserId),
+                    RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
+                },
+
+                new()
+                {
+                    UserId = Guid.Parse(AppUserId),
+                    RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
+                },
+
+            };
+        }
+
+        internal ICollection<MealPlan> SeedMealPlans()
+        {
+            return new HashSet<MealPlan>()
+            {
+                new()
+                {
+                    Id = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                    Name = "Super cool week, full of tasty bites",
+                    OwnerId = Guid.Parse(AppUserId),
+                    StartDate = DateTime.ParseExact("10-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsFinished = false
+                },
+                new()
+                {
+                    Id = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
+                    Name = "My first Meal Plan Ever",
+                    OwnerId = Guid.Parse(AppUserId),
+                    StartDate = DateTime.ParseExact("01-01-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsFinished = true
+                },
+            };
+        }
+
+        internal ICollection<Meal> SeedMeals()
+        {
+            return new HashSet<Meal>()
+            {
+                new()
+                {
+                    Id = 1,
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    ServingSize = 10,
+                    CookDate = DateTime.ParseExact("01-01-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = true,
+                    MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
+                },
+                new()
+                {
+                    Id = 2,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    ServingSize = 4,
+                    CookDate = DateTime.ParseExact("02-01-2024", MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = true,
+                    MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
+                },
+                new()
+                {
+                    Id = 3,
+                    RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
+                    ServingSize = 6,
+                    CookDate = DateTime.ParseExact("06-01-2024", MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = true,
+                    MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
+                },
+                new() // NOT FINISHED
+                {
+                    Id = 4,
+                    RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
+                    ServingSize = 4,
+                    CookDate = DateTime.ParseExact("10-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = true,
+                    MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                },
+                new() // NOT FINISHED
+                {
+                    Id = 5,
+                    RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
+                    ServingSize = 10,
+                    CookDate = DateTime.ParseExact("11-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = false,
+                    MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                },
+                new() // NOT FINISHED
+                {
+                    Id = 6,
+                    RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
+                    ServingSize = 2,
+                    CookDate = DateTime.ParseExact("12-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    IsCooked = false,
+                    MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                },
+            };
+        }
     }
 }

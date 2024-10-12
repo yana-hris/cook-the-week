@@ -2,8 +2,7 @@
 {
     using System.Threading.Tasks;
     using System.Security.Claims;
-
-    using Microsoft.AspNetCore.Authentication;
+    
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
     using Microsoft.EntityFrameworkCore;
@@ -23,7 +22,9 @@
 
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository userRepository; 
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         private readonly IRecipeService recipeService;
         private readonly IMealPlanService mealPlanService;
@@ -49,7 +50,7 @@
             this.validationService = validationService;
 
             this.emailSender = emailSender;
-            this.userId = userContext.UserId ?? string.Empty;
+            this.userId = userContext.UserId;
             this.logger = logger;   
         }
         public async Task<UserProfileViewModel> GetUserProfileDetailsAsync()
@@ -63,7 +64,7 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.UserNotFoundExceptionMessage, null);
             }
 
-            bool hasPassword = await userRepository.HasPasswordAsync(user);
+            bool hasPassword = await userManager.HasPasswordAsync(user);
 
             return new UserProfileViewModel
             {
@@ -84,14 +85,14 @@
                 return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
             }
             
-            bool oldPasswordMatches = await userRepository.CheckPasswordAsync(user, model.CurrentPassword);
+            bool oldPasswordMatches = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
 
             if (!oldPasswordMatches)
             {
                 return IdentityResult.Failed(new IdentityError { Description = IncorrectPasswordErrorMessage });
             }
 
-            var result = await userRepository.ChangePassAsync(user, model.CurrentPassword, model.NewPassword);
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 
             return result;
         }
@@ -106,7 +107,7 @@
                 return IdentityResult.Failed(new IdentityError { Description = UserNotFoundErrorMessage });
             }
 
-            var result = await userRepository.AddPasswordAsync(user, model.NewPassword);
+            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
 
             return result;
         }
@@ -146,7 +147,7 @@
 
             try
             {
-                await userRepository.DeleteAsync(user);
+                await userManager.DeleteAsync(user);
                 return OperationResult.Success();
             }
             catch (Exception ex)
@@ -172,7 +173,7 @@
         /// Returns a collection of UserAllViewModel which contains all users, registered in the database
         /// </summary>
         /// <returns>A collection of UserAllViewModel</returns>
-        public async Task<ICollection<UserAllViewModel>> AllAsync()
+        public async Task<ICollection<UserAllViewModel>> GetAllAsync()
         {
             ICollection<UserAllViewModel> users = await userRepository
                 .GetAllQuery()
@@ -195,7 +196,7 @@
         
         public AuthenticationProperties? GetExternalLoginProperties(string provider, string? redirectUrl)
         {
-            return userRepository.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         }
 
         /// <inheritdoc/>
@@ -249,16 +250,37 @@
                 });
             }
 
-            try
-            {
-                var confirmationResult = await userRepository.ConfirmEmailAsync(user, code);
-                await userRepository.SignInAsync(user);
-
-                return OperationResult.Success();   
-            }
-            catch (ArgumentNullException ex)
+            if (string.IsNullOrEmpty(code))
             {
                 logger.LogError($"Token for Email Confirmation is null. UserId: {userId}. Token: {code}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    {"EmailConfirmationError", ArgumentNullExceptionMessages.TokenNullExceptionMessage }
+                });
+                
+            }
+
+            try
+            {
+                var confirmationResult = await userManager.ConfirmEmailAsync(user, code);
+
+                if (confirmationResult.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    return OperationResult.Success();
+                }
+
+                logger.LogError($"Email confirmation failed. The email confirmation token does not match the received token.");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    {"EmailConfirmationError", "The email confirmation token does not match." }
+                });
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Email confirmation failed unexpectedly. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
                 return OperationResult.Failure(new Dictionary<string, string>
                 {
                     {"EmailConfirmationError", ex.Message }
@@ -280,7 +302,7 @@
                 });
             }
 
-            var signInResult = await userRepository.PasswordSignInAsync(user, model.Password, model.RememberMe);
+            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: true);
 
             if (!signInResult.Succeeded)
             {
@@ -293,14 +315,14 @@
                     logger.LogError($"Invalid credentials for user {model.Username}.");
                 }
 
-                await userRepository.AccessFailedAsync(user);
+                await userManager.AccessFailedAsync(user);
                 return OperationResult.Failure(new Dictionary<string, string>
                 {
                     {string.Empty,  ApplicationUserValidation.LoginFailedErrorMessage}
                 });
             }
 
-            bool isAdmin = await userRepository.IsUserInAdminRoleAsync(user);
+            bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);
 
             // Return OperationResult with isAdmin data
             return OperationResult.Success(new Dictionary<string, object>
@@ -312,7 +334,7 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryLoginOrRegisterUserWithExternalLoginProvider()
         {
-            var info = await userRepository.GetExternalLoginInfoAsync();
+            var info = await signInManager.GetExternalLoginInfoAsync();
 
             if (info == null)
             {
@@ -335,7 +357,7 @@
                     EmailConfirmed = true
                 };
 
-                IdentityResult userResult = await userRepository.CreateUserWithoutPasswordAsync(user);
+                IdentityResult userResult = await userManager.CreateAsync(user);
 
                 if (!userResult.Succeeded)
                 {
@@ -344,7 +366,7 @@
                 }
 
                 // Add the external login (Google, etc.) to the user
-                var registerExternalLoginResult = await userRepository.AddLoginAsync(user, info);
+                var registerExternalLoginResult = await userManager.AddLoginAsync(user, info);
 
                 if (!registerExternalLoginResult.Succeeded)
                 {
@@ -355,7 +377,7 @@
 
             }
 
-            await userRepository.SignInAsync(user);
+            await signInManager.SignInAsync(user, isPersistent: false);
             return OperationResult.Success();
         }
 
@@ -364,7 +386,7 @@
         {
             try
             {
-                await userRepository.SignOutAsync();
+                await signInManager.SignOutAsync();
             }
             catch (InvalidOperationException ex)
             {
@@ -384,7 +406,7 @@
         {
             ApplicationUser? user = await userRepository.GetByEmailAsync(email);
 
-            bool isEmailConfirmed = user != null ? await userRepository.IsUserEmailConfirmedAsync(user) : false;
+            bool isEmailConfirmed = user != null ? await userManager.IsEmailConfirmedAsync(user) : false;
 
             // Redirect the non-existent user without generating a token or sending any email
 
@@ -402,7 +424,7 @@
             try
             {
                 // Generate the password reset token
-                var token = await userRepository.GeneratePasswordResetTokenAsync(user);
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
                 if (string.IsNullOrEmpty(token))
                 {
                     logger.LogError("Password reset token generation failed.");
@@ -442,7 +464,7 @@
 
             try
             {
-                var result = await userRepository.ResetPasswordAsync(user, model.Token, model.Password);
+                var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -485,7 +507,7 @@
             }
 
             // Attempt to change the password
-            var result = await userRepository.ChangePassAsync(user, model.CurrentPassword, model.NewPassword);
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 
             if (result.Succeeded)
             {
@@ -519,7 +541,19 @@
             }
 
             // Attempt to set the password
-            var result = await userRepository.SetPasswordAsync(user, model.NewPassword);
+            var hasPassword = await userManager.HasPasswordAsync(user);
+
+            if (hasPassword)
+            {
+                return OperationResult.Failure(new Dictionary<string, string> 
+                {
+                   { "PasswordAlreadySet",
+                     "The user already has a password set." }
+                });
+            }
+
+            // Add the new password
+            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
 
             if (result.Succeeded)
             {
@@ -553,7 +587,7 @@
             // Sign out the user after successful deletion
             try
             {
-                await userRepository.SignOutAsync();
+                await signInManager.SignOutAsync();
             }
             catch (Exception ex)
             {
@@ -620,7 +654,7 @@
 
             if (user != null)
             {
-                await userRepository.DeleteAsync(user);
+                await userManager.DeleteAsync(user);
             }
         }
 
@@ -640,7 +674,7 @@
                 Email = model.Email
             };
 
-            IdentityResult result = await userRepository.CreateUserWithPasswordAsync(user, model.Password);
+            IdentityResult result = await userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
@@ -666,7 +700,7 @@
                 throw new ArgumentNullException(ArgumentNullExceptionMessages.UserNullExceptionMessage);
             }
 
-            string? token = await userRepository.GenerateEmailConfirmationTokenAsync(user);
+            string? token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
             if (token == null)
             {

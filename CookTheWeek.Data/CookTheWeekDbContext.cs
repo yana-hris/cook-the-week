@@ -52,6 +52,7 @@
                 builder.Entity<ApplicationUser>()
                     .HasData(data.SeedUsers());
 
+
                 builder.Entity<RecipeCategory>()
                     .HasData(data.SeedRecipeCategories());
 
@@ -75,6 +76,15 @@
 
                 builder.Entity<RecipeIngredient>()
                     .HasData(data.SeedRecipeIngredients());
+
+                builder.Entity<FavouriteRecipe>()
+                    .HasData(data.SeedRecipeLikes());
+
+                builder.Entity<MealPlan>()
+                    .HasData(data.SeedMealPlans());
+
+                builder.Entity<Meal>()
+                    .HasData(data.SeedMeals());
             }
             
             base.OnModelCreating(builder);

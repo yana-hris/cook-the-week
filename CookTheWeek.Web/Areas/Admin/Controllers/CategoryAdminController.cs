@@ -32,7 +32,8 @@
                                             RecipeCategoryEditFormModel,
                                             RecipeCategorySelectViewModel> recipeCategoryService,
                                     IValidationService validationService,
-                                    ILogger<CategoryAdminController> logger) : base(logger)
+                                    ILogger<CategoryAdminController> logger) 
+        : base(logger)
         {
             this.recipeCategoryService = recipeCategoryService;
             this.ingredientCategoryService = ingredientCategoryService;

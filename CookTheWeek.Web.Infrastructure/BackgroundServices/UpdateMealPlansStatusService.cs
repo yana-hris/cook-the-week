@@ -6,10 +6,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.EntityFrameworkCore;
 
-    using CookTheWeek.Data;
-    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class UpdateMealPlansStatusService : BackgroundService
     {
@@ -28,33 +26,15 @@
             {
                 using (var scope = serviceProvider.CreateScope())
                 {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<CookTheWeekDbContext>();
+                    var mealPlanService = scope.ServiceProvider.GetRequiredService<IMealPlanService>();
 
                     try
                     {
-                        ICollection<MealPlan> mealPlans = await dbContext
-                            .MealPlans
-                            .Where(mp => !mp.IsFinished || mp.Meals.Any(m => !m.IsCooked))
-                            .ToListAsync(stoppingToken); // Pass the cancellation token
-
-                        foreach (var mealPlan in mealPlans)
-                        {
-                            if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
-                            {
-                                mealPlan.IsFinished = true;
-
-                                foreach (var meal in mealPlan.Meals)
-                                {
-                                    meal.IsCooked = true;
-                                }
-                            }
-                        }
-
-                        await dbContext.SaveChangesAsync(stoppingToken); // Pass the cancellation token
+                        await mealPlanService.UpdateMealPlansStatusAsync(stoppingToken);
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, "An error occurred and meal plans status was not updated");
+                        logger.LogError(ex, "An error occurred while updating meal plans` status.");
                     }
                 }
 

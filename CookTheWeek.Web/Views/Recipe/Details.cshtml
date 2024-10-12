@@ -1,8 +1,9 @@
 ﻿@model RecipeDetailsViewModel
 @using static CookTheWeek.Common.HelperMethods.IngredientHelper;
+@inject IUserContext UserContext
 @{
-    string userId = User.GetId();
-    bool isAdmin = User.IsAdmin();
+    string userId = UserContext.UserId;
+    bool isAdmin = UserContext.IsAdmin;
     string recipeId = Model.Id;    
 
     var headingModel = new PageHeadingViewModel

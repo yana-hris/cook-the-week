@@ -20,6 +20,6 @@
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public ICollection<IngredientCategorySelectViewModel> Categories { get; set; }
+        public ICollection<IngredientCategorySelectViewModel> Categories { get; set; } = new List<IngredientCategorySelectViewModel>();
     }
 }

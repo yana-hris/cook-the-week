@@ -28,7 +28,7 @@
                 .HasMany(mp => mp.Meals)
                 .WithOne(m => m.MealPlan)
                 .HasForeignKey(m => m.MealPlanId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

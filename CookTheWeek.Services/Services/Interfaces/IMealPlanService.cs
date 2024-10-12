@@ -1,6 +1,7 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using CookTheWeek.Common;
@@ -78,5 +79,24 @@
         /// <remarks>May throw RecordNotFoundException or UnauthorizedUserException</remarks>
         Task TryDeleteByIdAsync(string id);
 
+        /// <summary>
+        /// Asynchronously updates the status of all active meal plans. 
+        /// It marks meal plans as finished if they are older than 6 days and 
+        /// sets all associated meals as cooked. 
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A token that can be used to cancel the asynchronous operation.
+        /// If cancellation is requested, the operation will stop before completion, 
+        /// and an <see cref="OperationCanceledException"/> will be thrown.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous update operation.
+        /// </returns>
+        /// <remarks>
+        /// The method retrieves all meal plans that are either unfinished or contain uncooked meals,
+        /// iterates through them, and updates their status based on the business rule that meal plans
+        /// older than 6 days are considered finished.
+        /// </remarks>
+        Task UpdateMealPlansStatusAsync(CancellationToken stoppingToken);
     }
 }

@@ -22,7 +22,6 @@
         public IQueryable<MealPlan> GetAllQuery()
         {
             return this.dbContext.MealPlans
-                .AsNoTracking()
                 .AsQueryable();
         }
 
@@ -71,6 +70,13 @@
         {
             this.dbContext.MealPlans.RemoveRange(mealPlans);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task SaveAsync(CancellationToken cancellationToken)
+        {
+            // Save all tracked changes (including related entities like meals)
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

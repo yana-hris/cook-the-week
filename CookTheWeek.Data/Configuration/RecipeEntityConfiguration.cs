@@ -28,36 +28,39 @@
             builder
                 .HasOne(r => r.Category)
                 .WithMany(rc => rc.Recipes)
-                .HasForeignKey(r => r.CategoryId);
+                .HasForeignKey(r => r.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(r => r.Owner)
                 .WithMany(o => o.Recipes)
                 .HasForeignKey(r => r.OwnerId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             
 
             builder
                 .HasMany(r => r.RecipesIngredients)
                 .WithOne(ri => ri.Recipe)
-                .HasForeignKey(ri => ri.RecipeId);
+                .HasForeignKey(ri => ri.RecipeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(r => r.Steps)
                 .WithOne(s => s.Recipe)
                 .HasForeignKey(s => s.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(r => r.Meals)
                 .WithOne(m => m.Recipe)
-                .HasForeignKey(m => m.RecipeId);
+                .HasForeignKey(m => m.RecipeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(r => r.FavouriteRecipes)
                 .WithOne(fr => fr.Recipe)
-                .HasForeignKey(fr =>fr.RecipeId);
-            
+                .HasForeignKey(fr => fr.RecipeId)
+                .OnDelete(DeleteBehavior.Restrict);            
             
         }
     }

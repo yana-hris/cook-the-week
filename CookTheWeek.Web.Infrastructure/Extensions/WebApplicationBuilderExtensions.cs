@@ -136,6 +136,10 @@
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
 
+        public static IApplicationBuilder EnableUserContext(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<UserContextMiddleware>();
+        }
         
     }  
     

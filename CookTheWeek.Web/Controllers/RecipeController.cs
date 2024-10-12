@@ -5,17 +5,15 @@
     using Newtonsoft.Json;
 
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Services.Data.Events.Dispatchers;
+    using CookTheWeek.Services.Data.Events;
+    using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.ActionFilters;
     using CookTheWeek.Web.ViewModels.Recipe;
 
     using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.NotificationMessagesConstants;
-    using CookTheWeek.Services.Data.Factories;
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Events.Dispatchers;
-    using CookTheWeek.Services.Data.Events;
-    using CookTheWeek.Services.Data.Events.EventHandlers;
 
     public class RecipeController : BaseController
     {
@@ -35,9 +33,9 @@
         }
 
 
-        [HttpGet]
         [AllowAnonymous]
-        [AdminRedirect("Site", "RecipeAdmin")]
+        //[AdminRedirect("Site", "RecipeAdmin")]
+        [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
             try

@@ -1,4 +1,5 @@
 ﻿@model RecipeAddFormModel
+@inject IUserContext UserContext
 @using Newtonsoft.Json
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages;
@@ -10,7 +11,10 @@
 
     };
 
-    if (User.GetId() != string.Empty && !User.IsAdmin())
+    string userId = UserContext.UserId;
+    bool isAdmin = UserContext.IsAdmin;
+
+    if (userId != string.Empty && isAdmin)
     {
         headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
     } 

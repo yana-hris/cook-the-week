@@ -4,6 +4,7 @@ namespace CookTheWeek.Web
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewEngines;
+    using Microsoft.AspNetCore.Mvc.ViewFeatures;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json.Serialization;
     using Rotativa.AspNetCore;
@@ -21,7 +22,6 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.Infrastructure.HostedServices;
     using CookTheWeek.Web.Infrastructure.ModelBinders;
-    using CookTheWeek.Web.Infrastructure.Middlewares;
 
     using static Common.GeneralApplicationConstants;
 
@@ -31,8 +31,8 @@ namespace CookTheWeek.Web
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            builder.Configuration.AddUserSecrets<Program>();
             ConfigurationManager config = builder.Configuration;
+            config.AddUserSecrets<Program>();
 
             string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
@@ -109,7 +109,6 @@ namespace CookTheWeek.Web
 
             var suffixes = new[] { "Repository", "Service", "Factory" };
             var assemblyTypes = new[] { typeof(RecipeRepository).Assembly,
-                        typeof(CategoryRepository<>).Assembly,
                         typeof(RecipeService).Assembly };
            
             builder.Services.AddServicesByConvention(
@@ -117,18 +116,9 @@ namespace CookTheWeek.Web
                 suffixes);
 
             builder.Services.AddHttpContextAccessor();
-
-            builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .SetIsOriginAllowed((host) => true)
-                       .AllowCredentials();
-            }));
-
-            // Register the warm-up service
-            builder.Services.AddHostedService<WarmUpService>();
+            
+            // TODO: uncomment Register the warm-up service
+            //builder.Services.AddHostedService<WarmUpService>();
 
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
@@ -169,7 +159,6 @@ namespace CookTheWeek.Web
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
-            builder.Services.AddControllersWithViews();
 
             // Add session services
             builder.Services.AddSession(options =>
@@ -179,20 +168,22 @@ namespace CookTheWeek.Web
                 options.Cookie.IsEssential = true; // Ensure cookie is not affected by consent policies
             });
 
+            builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+
             // Add distributed memory cache (used by session to store data)
             builder.Services.AddDistributedMemoryCache();
 
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .SetIsOriginAllowed((host) => true)
-                       .AllowCredentials();
-            }));
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
 
             // Register the SendGrid EmailSender service
-            builder.Services.Configure<SendGridClientOptions>(builder.Configuration.GetSection("SendGrid"));
+            builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
 
 
             WebApplication app = builder.Build();
@@ -213,32 +204,32 @@ namespace CookTheWeek.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseCors("CorsPolicy");
-            app.UseRouting();
-
-            // Authentication middleware
-            app.UseAuthentication();
-
-            // Custom middleware for retrieving the userId
-            //app.UseMiddleware<UserContextMiddleware>();
-
-            // Authorization middleware
-            app.UseAuthorization();
-
-            // Custom middleware for checking online users (requires user ID)
-            app.EnableOnlineUsersCheck();
-
-            app.UseSession();
 
             if (app.Environment.IsDevelopment())
             {
                 app.SeedAdministrator(AdminUserUsername);
             }
 
-            
+
+            app.UseRouting();
+
+            // Authentication middleware
+            app.UseAuthentication();
+
+            // Custom middleware for retrieving the userId
+            app.EnableUserContext();
+
+            // Authorization middleware
+            app.UseAuthorization();
             
 
+            app.UseSession();
+
+            // Custom middleware for checking online users (requires user ID)
+            app.EnableOnlineUsersCheck();
+
             app.MapControllerRoute(
-                name: "areas",
+                name: $"{AdminAreaName}",
                 pattern: "{area:exists}/{controller=HomeAdmin}/{action=Index}/{id?}");
 
             app.MapControllerRoute(

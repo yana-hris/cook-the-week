@@ -8,7 +8,6 @@
     using CookTheWeek.Web.ViewModels.SupplyItem;
 
     using static CookTheWeek.Common.HelperMethods.IngredientHelper;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class IngredientAggregatorHelper : IIngredientAggregatorHelper
     {

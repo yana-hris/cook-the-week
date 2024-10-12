@@ -14,8 +14,8 @@ namespace CookTheWeek.WebApi
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Web.Infrastructure.Extensions;
-    using CookTheWeek.Web.Infrastructure.Middlewares;
-    using Microsoft.AspNetCore.Authentication.Cookies;
+
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -36,8 +36,9 @@ namespace CookTheWeek.WebApi
                 .AddEntityFrameworkStores<CookTheWeekDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddScoped<IUserContext, UserContext>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+            builder.Services.AddScoped<IUserContext, UserContext>();
             builder.Services.AddScoped<IIngredientAggregatorHelper, IngredientAggregatorHelper>();
             builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
             builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
@@ -48,7 +49,6 @@ namespace CookTheWeek.WebApi
 
             var suffixes = new[] { "Repository", "Service", "Factory" };
             var assemblyTypes = new[] { typeof(RecipeRepository).Assembly,
-                        typeof(CategoryRepository<>).Assembly,
                         typeof(RecipeService).Assembly };
 
             builder.Services.AddServicesByConvention(
@@ -105,10 +105,12 @@ namespace CookTheWeek.WebApi
             app.UseRouting();
 
             app.UseAuthentication();
-            //app.UseMiddleware<UserContextMiddleware>();
+
+            app.EnableUserContext();
+
             app.UseAuthorization();
 
-            app.MapControllers();  
+            app.MapControllers();
 
             app.Run();
         }

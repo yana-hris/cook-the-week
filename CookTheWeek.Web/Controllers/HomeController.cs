@@ -5,7 +5,6 @@ namespace CookTheWeek.Web.Controllers
 
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
-    using CookTheWeek.Web.Infrastructure.ActionFilters;
 
     
     using static Common.NotificationMessagesConstants;
@@ -18,16 +17,16 @@ namespace CookTheWeek.Web.Controllers
         private readonly IEmailSender emailSender;
 
         public HomeController(IEmailSender emailSender,
-                              ILogger<HomeController> logger) : base(logger)
+                              ILogger<HomeController> logger) 
+        : base(logger)
         {
             this.emailSender = emailSender;
         }
 
         [HttpGet]
-        [AdminRedirect("Index", "HomeAdmin")]
+        //[AdminRedirect("Index", "HomeAdmin")]
         public IActionResult Index()
         {
-            //throw new Exception("Test Exception to trigger the Developer Exception Page.");
             return View();
         }
 

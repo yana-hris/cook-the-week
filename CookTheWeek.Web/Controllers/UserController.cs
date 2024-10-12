@@ -10,7 +10,6 @@
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.User;
     
     using static Common.GeneralApplicationConstants;
@@ -263,8 +262,6 @@
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            string userId = User.GetId();
-
             try
             {
                 UserProfileViewModel model = await this.userService.GetUserProfileDetailsAsync();

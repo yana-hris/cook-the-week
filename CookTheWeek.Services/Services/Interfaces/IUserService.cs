@@ -14,7 +14,7 @@
         /// Gets All users View Model collection
         /// </summary>
         /// <returns>ICollection<UserAllViewModel></returns>
-        Task<ICollection<UserAllViewModel>> AllAsync();
+        Task<ICollection<UserAllViewModel>> GetAllAsync();
 
         /// <summary>
         /// Gets the total count of all users

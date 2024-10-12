@@ -1,13 +1,12 @@
 ﻿namespace CookTheWeek.Web.Infrastructure.Middlewares
 {
     using System.Collections.Concurrent;
-
+    using System.Security.Claims;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Features;
     using Microsoft.Extensions.Caching.Memory;
 
     using static Common.GeneralApplicationConstants;
-    using static Extensions.ClaimsPrincipalExtensions;
 
     public class OnlineUsersMiddleware 
     {
@@ -27,7 +26,7 @@
             this.lastActivityMinutes = lastActivityMinutes;
         }
 
-        public Task InvokeAsync(HttpContext context, IMemoryCache memoryCache)
+        public async Task InvokeAsync(HttpContext context, IMemoryCache memoryCache)
         {     
             // Check if the user has given consent for tracking cookies
             bool canTrack = context.Features.Get<ITrackingConsentFeature>()?.CanTrack ?? false;
@@ -40,7 +39,7 @@
                     if (!context.Request.Cookies.TryGetValue(this.cookieName, out string userId))
                     {
                         // First login after being offline
-                        userId = context.User.GetId()!;
+                        userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);    
 
                         context.Response.Cookies.Append(this.cookieName, userId, new CookieOptions() { HttpOnly = true, MaxAge = TimeSpan.FromDays(30) });
                     }
@@ -76,7 +75,7 @@
                 }
             }           
 
-            return this.next(context);
+            await this.next(context);
         }
 
         public static bool CheckIfUserIsOnline(string userId)

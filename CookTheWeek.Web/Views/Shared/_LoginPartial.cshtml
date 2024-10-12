@@ -1,13 +1,20 @@
-﻿@if (User.GetId() != string.Empty && !User.IsAdmin())
-{
-    <partial name="_UserNavigationPartial"/>
+﻿@inject IUserContext UserContext
+@{
+    string userId = UserContext.UserId;
+    bool isAdmin = UserContext.IsAdmin;
+
+    if (userId != string.Empty && !isAdmin)
+    {
+        <partial name="_UserNavigationPartial" />
+    }
+    else if (userId != string.Empty && isAdmin)
+    {
+        <partial name="_AdminNavigationPartial" />
+    }
+    else
+    {
+        <partial name="_GuestNavigationPartial" />
+    }
 }
-else if(User.GetId() != string.Empty && User.IsAdmin())
-{
-    <partial name="_AdminNavigationPartial"/>
-}
-else
-{
-    <partial name="_GuestNavigationPartial"/>
-}
+
 

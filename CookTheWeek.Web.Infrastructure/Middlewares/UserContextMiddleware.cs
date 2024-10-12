@@ -16,27 +16,16 @@
             this.next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, IUserContext userContext)
+        public async Task Invoke(HttpContext context, IUserContext userContext)
         {
-            try
+           
+            if (context.User.Identity.IsAuthenticated)
             {
-                if (context.User.Identity?.IsAuthenticated ?? false)
-                {
-                    userContext.UserId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-                    userContext.IsAdmin = context.User?.IsInRole(AdminRoleName) ?? false;
-
-                }
+                userContext.UserId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+                userContext.IsAdmin = context.User?.IsInRole(AdminRoleName) ?? false;
+            }
               
-                await next(context);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Middleware error: {ex.Message}");
-                throw;
-            }
+            await next(context);
         }
-
     }
-
 }

@@ -1,8 +1,9 @@
 ﻿@model RecipeMineViewModel
+@inject IUserContext UserContext
 @{
     ViewData["Title"] = "My Recipes";
     string ownedRecipeHeading = "Added By You";
-    string userId = User.GetId();
+    string userId = UserContext.UserId;
 
 
     var likedByYouHeading = new PageHeadingViewModel

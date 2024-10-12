@@ -1,13 +1,21 @@
 ﻿namespace CookTheWeek.Data.Repositories
 {
+    using System.Threading;
+
     using CookTheWeek.Data.Models;
 
     public interface IMealplanRepository
     {
         /// <summary>
-        /// Returns a queryable collection of all mealplans in the database that can be filtered, sorted and materialized with any of the Async methods
+        /// Retrieves an <see cref="IQueryable{MealPlan}"/> representing the queryable 
+        /// collection of all meal plans from the database. 
+        /// The query is deferred, allowing further filtering and querying operations 
+        /// before execution.
         /// </summary>
-        /// <returns>A queryable collection of MealPlan</returns>
+        /// <returns>
+        /// An <see cref="IQueryable{MealPlan}"/> that represents the queryable collection 
+        /// of meal plans.
+        /// </returns>       
         IQueryable<MealPlan> GetAllQuery();
 
         /// <summary>
@@ -45,5 +53,18 @@
         /// <returns></returns>
         Task RemoveRangeAsync(ICollection<MealPlan> mealPlans);
 
+        /// <summary>
+        /// Asynchronously saves all tracked changes in the DbContext to the database, 
+        /// including any related entities that have been modified.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// A token that can be used to cancel the asynchronous operation.
+        /// If cancellation is requested, the save operation will be canceled, 
+        /// and an <see cref="OperationCanceledException"/> will be thrown.
+        /// </param>
+        /// <returns>
+        /// A task that represents the asynchronous save operation.
+        /// </returns>
+        Task SaveAsync(CancellationToken cancellationToken);
     }
 }

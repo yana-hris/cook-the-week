@@ -17,6 +17,7 @@
 
     using static Common.GeneralApplicationConstants;
     using static Common.ExceptionMessagesConstants;
+    using System.Threading;
 
     public class MealPlanService : IMealPlanService
     {
@@ -207,6 +208,39 @@
             }
 
             return mealplan;
+        }
+
+       
+        /// <inheritdoc/>
+        public async Task UpdateMealPlansStatusAsync(CancellationToken cancellationToken)
+        {
+            // Step 1: Retrieve active meal 
+            var mealPlans = await mealplanRepository
+                .GetAllQuery()
+                    .Include(mp => mp.Meals)
+                .Where(mp => !mp.IsFinished)
+                .ToListAsync(cancellationToken);
+
+            // Step 2: Iterate through the meal plans and update their status.
+            foreach (var mealPlan in mealPlans)
+            {
+                // Step 3: Check if the cancellation token has been requested
+                cancellationToken.ThrowIfCancellationRequested();
+
+                // Mark the meal plan as finished if older than 6 days
+                if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
+                {
+                    mealPlan.IsFinished = true;
+
+                    // Mark all meals in the meal plan as cooked.
+                    foreach (var meal in mealPlan.Meals)
+                    {
+                        meal.IsCooked = true;
+                    }
+                }
+            }
+
+            await mealplanRepository.SaveAsync(cancellationToken);
         }
     }
 }

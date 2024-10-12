@@ -1,5 +1,5 @@
 ﻿@using static CookTheWeek.Common.GeneralApplicationConstants
-
+@inject IUserContext UserContext
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -28,7 +28,7 @@
     {
         <script>
             @* Needed for the JS function for rendering Build Btn in some views *@
-            var currentUserId = "@User.GetId()"; 
+            var currentUserId = "@UserContext.UserId"; 
         </script>
     }
     else

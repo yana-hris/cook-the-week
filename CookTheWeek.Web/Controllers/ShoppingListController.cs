@@ -29,7 +29,7 @@
             try
             {
                 ShoppingListViewModel model = await this.shoppingListService
-                .TryGetShoppingListDataByMealPlanIdAsync(id);
+                                .TryGetShoppingListDataByMealPlanIdAsync(id);
                 ViewBag.ReturnUrl = returnUrl;
 
                 return View(model);
