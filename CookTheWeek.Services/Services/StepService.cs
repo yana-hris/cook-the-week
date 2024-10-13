@@ -9,44 +9,87 @@
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Step;
+    using Microsoft.Extensions.Logging;
 
     public class StepService : IStepService
     {
         private readonly IStepRepository stepRepository;
+        private readonly ILogger<StepService> logger;   
 
-        public StepService(IStepRepository stepRepository)
+        public StepService(IStepRepository stepRepository, 
+            ILogger<StepService> logger)
         {
             this.stepRepository = stepRepository;
+            this.logger = logger;
         }
 
        
         /// <inheritdoc/>
-        public async Task AddAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model)
+        public async Task AddByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model)
         {
             ICollection<Step> steps = model.Select
-                (s => new Step()
-                {
-                    Id = s.Id.Value,
-                    Description = s.Description,
-                }).ToList();    
+                (s => Create(recipeId, s))
+                .ToList();
 
-            await stepRepository.AddRangeAsync(steps);
+            stepRepository.AddRange(steps);
+            await stepRepository.SaveChangesAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task UpdateAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> stepsModel)
-        {
-            ICollection<Step> oldSteps = await GetAllByRecipeIdAsync(recipeId);
-            await stepRepository.DeleteRangeAsync(oldSteps);
+        
 
-            var newSteps = stepsModel
-                .Select(st => new Step()
+        /// <inheritdoc/>
+        public async Task UpdateByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> stepsModel)
+        {
+            ICollection<Step> existingSteps = await GetAllByRecipeIdAsync(recipeId);
+
+            ICollection<Step> newStepsToAdd = new HashSet<Step>();
+            ICollection<Step> stepsToDelete = new HashSet<Step>();
+
+            foreach (var step in stepsModel)
+            {
+                var existingStep = existingSteps.FirstOrDefault(s => s.Id == step.Id);
+
+                if (existingStep == null)
                 {
-                    Id = st.Id.Value,
-                    Description = st.Description,
-                }).ToList();
-            
-            await stepRepository.AddRangeAsync(newSteps);
+                    Step stepToAdd = Create(recipeId, step);
+                    newStepsToAdd.Add(stepToAdd);
+                }
+                else
+                {
+                    existingStep.Description = step.Description;    // On Save changes will be saved
+                }
+            }
+
+            foreach (var probableStepToRemove in existingSteps)
+            {
+                var existingStep = stepsModel.FirstOrDefault(s => s.Id == probableStepToRemove.Id);
+
+                if (existingStep == null)
+                {
+                    stepsToDelete.Add(probableStepToRemove);
+                }
+            }
+
+            try
+            {
+                if (newStepsToAdd.Count > 0)
+                {
+                    stepRepository.AddRange(newStepsToAdd);
+                }
+
+                if (stepsToDelete.Count > 0)
+                {
+                    stepRepository.DeleteRange(stepsToDelete);
+                }
+
+                await stepRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Database update of recipe steps for recipe with id {recipeId} failed." +
+                    $"Error Message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         
@@ -60,18 +103,11 @@
                 step.IsDeleted = true;
             }
 
-            await stepRepository.UpdateRangeAsync(stepsToUpdate);
+            await stepRepository.SaveChangesAsync();
         }
 
 
-        /// <inheritdoc/>
-        public async Task HardDeleteAllByRecipesIdAsync(Guid recipeId)
-        {
-            ICollection<Step> stepsToDelete = await GetAllByRecipeIdAsync(recipeId);
-
-            await stepRepository.DeleteRangeAsync(stepsToDelete);
-        }
-
+        
         /// <summary>
         /// Helper method to get a collection of all steps by a given recipe ID
         /// </summary>
@@ -79,9 +115,25 @@
         /// <returns></returns>
         private async Task<ICollection<Step>> GetAllByRecipeIdAsync(Guid recipeId)
         {
-            return await stepRepository.GetAllQuery()
+            return await stepRepository
+                .GetAllTrackedQuery()
                 .Where(s => s.RecipeId == recipeId)
                 .ToListAsync();
+        }
+
+        /// <summary>
+        /// Creates a single step by a given Step Form Model
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <param name="s"></param>
+        /// <returns>Step</returns>
+        private static Step Create(Guid recipeId, StepFormModel s)
+        {
+            return new Step()
+            {
+                RecipeId = recipeId,
+                Description = s.Description,
+            };
         }
 
     }

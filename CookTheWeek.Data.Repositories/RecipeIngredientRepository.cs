@@ -4,8 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Common.HelperMethods;
+    
     using CookTheWeek.Data.Models;
 
     public class RecipeIngredientRepository : IRecipeIngredientRepository
@@ -17,38 +16,27 @@
         }
 
         /// <inheritdoc/>
-        public IQueryable<RecipeIngredient> GetAllQuery()
+        public IQueryable<RecipeIngredient> GetAllTrackedQuery()
         {
             return dbContext.RecipesIngredients
-                .AsNoTracking()
                 .AsQueryable();
         }
 
         /// <inheritdoc/>
-        public async Task AddRangeAsync(ICollection<RecipeIngredient> recipeIngredients)
+        public void AddRangeWithoutSaveAsync(ICollection<RecipeIngredient> recipeIngredients)
         {
-            await this.dbContext.RecipesIngredients.AddRangeAsync(recipeIngredients);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.RecipesIngredients.AddRange(recipeIngredients);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateAsync(RecipeIngredient recipeIngredient)
-        {
-            dbContext.RecipesIngredients.Update(recipeIngredient);
-            await dbContext.SaveChangesAsync();
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteAsync(RecipeIngredient recipeIngredient)
-        {
-            dbContext.RecipesIngredients.Remove(recipeIngredient);
-            await dbContext.SaveChangesAsync();
-        }        
-        
-        /// <inheritdoc/>
-        public async Task DeleteRangeAsync(ICollection<RecipeIngredient> recipeIngredients)
+        public void DeleteRangeWithoutSave(ICollection<RecipeIngredient> recipeIngredients)
         {
             dbContext.RecipesIngredients.RemoveRange(recipeIngredients);
+        }
+
+        /// <inheritdoc/>
+        public async Task SaveChangesAsync()
+        {
             await dbContext.SaveChangesAsync();
         }
 
@@ -135,7 +123,7 @@
         {
             dbContext.Specifications.Remove(spec);
             await dbContext.SaveChangesAsync();
-        }        
+        }
 
         
     }

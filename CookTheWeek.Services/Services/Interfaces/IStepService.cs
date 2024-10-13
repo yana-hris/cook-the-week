@@ -10,7 +10,7 @@
         /// <param name="recipeId"></param>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task UpdateAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
+        Task UpdateByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
 
 
         /// <summary>
@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task AddAllByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
+        Task AddByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
 
         /// <summary>
         /// Doft deletes all steps of a given Recipe by its ID by setting their IsDeleted flag to true
@@ -26,13 +26,5 @@
         /// <param name="recipeId"></param>
         /// <returns></returns>
         Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
-
-        /// <summary>
-        /// Hard deletes all steps a given recipe by its recipe ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task HardDeleteAllByRecipesIdAsync(Guid id);
-        
     }
 }

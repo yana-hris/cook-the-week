@@ -5,29 +5,28 @@
     public interface IStepRepository
     {
         /// <summary>
-        /// Gets a queryable collection of all Steps, which can be filtered and materialized (awaited with any of the Async LINQ methods).
+        /// Gets a tracked queryable collection of all Steps, which can be filtered and materialized (awaited with any of the Async LINQ methods).
         /// </summary>
         /// <returns>A queryable collection of Steps</returns>
-        IQueryable<Step> GetAllQuery();
+        IQueryable<Step> GetAllTrackedQuery();
 
         /// <summary>
-        /// Adds a collection of steps to the database
+        /// Adds a collection of steps to the entity withour Saving changes
         /// </summary>
-        Task AddRangeAsync(ICollection<Step> steps);
-
+        /// <remarks>A consequent SaveChangesAsync() required to persist the changes in the database</remarks>
+        void AddRange(ICollection<Step> steps);
+        
         /// <summary>
-        /// Updates a collection of Steps in the database
-        /// </summary>
-        /// <param name="steps"></param>
-        /// <returns></returns>
-        Task UpdateRangeAsync(ICollection<Step> steps);
-
-        /// <summary>
-        /// Deletes a collection of Steps
+        /// Marks a collection of Steps for deletion withou persisting changes in the database
         /// </summary>
         /// <param name="recipeId">recipeId</param>
-        Task DeleteRangeAsync(ICollection<Step> steps);
+        ///<remarks>A consequent SaveChangesAsync() required to persist the changes in the database</remarks>
+        void DeleteRange(ICollection<Step> steps);
 
-        
+        /// <summary>
+        /// Persists the changes in the Database
+        /// </summary>
+        /// <returns></returns>
+        Task SaveChangesAsync();
     }
 }

@@ -5,41 +5,37 @@
     public interface IRecipeIngredientRepository
     {
         /// <summary>
-        /// Gets a queriable collection of recipe ingredients
+        /// Gets a queriable collection of tracked recipe ingredients 
+        /// which can be changed and persisted in the database when calling SaveChangesAsync() method
         /// </summary>
         /// <returns></returns>
-        IQueryable<RecipeIngredient> GetAllQuery();
+        IQueryable<RecipeIngredient> GetAllTrackedQuery();
 
         /// <summary>
-        /// Adds a collection of Recipe Ingredients to the database
+        /// Adds a collection of Recipe Ingredients to the database without calling SaveChangesAsync()
         /// </summary>
         /// <param name="recipeIngredients"></param>
         /// <returns></returns>
-        Task AddRangeAsync(ICollection<RecipeIngredient> recipeIngredients);
+        /// <remarks>Requires finalization of the changes by calling SaveChangesAsync()</remarks>
+        void AddRangeWithoutSaveAsync(ICollection<RecipeIngredient> recipeIngredients);
+
 
         /// <summary>
-        /// Updates a single Recipe Ingredient
-        /// </summary>
-        /// <param name="recipeIngredient"></param>
-        /// <returns></returns>
-        Task UpdateAsync(RecipeIngredient recipeIngredient);
-
-        /// <summary>
-        /// Deletes a single Recipe Ingredient
-        /// </summary>
-        /// <param name="recipeIngredient"></param>
-        /// <returns></returns>
-        Task DeleteAsync(RecipeIngredient recipeIngredient);
-
-        /// <summary>
-        /// Deletes a range of Recipe Ingredients
+        /// Deletes a range of Recipe Ingredients without Saving
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        Task DeleteRangeAsync(ICollection<RecipeIngredient> items);
+        /// <remarks>Requires finalization of the changes by calling SaveChangesAsync()</remarks>
 
-        
-        
+        void DeleteRangeWithoutSave(ICollection<RecipeIngredient> items);
+
+        /// <summary>
+        /// Persists changes in the database when using non-async Recipe Ingredient methods beforehand or if changing any tracked entities
+        /// </summary>
+        /// <returns></returns>
+        Task SaveChangesAsync();
+
+
         // FOR NESTED ENTITIES IN RECIPE INGREDIETS:
         // MEASURES
         /// <summary>
@@ -125,6 +121,6 @@
         /// <returns></returns>
         Task DeleteSpecAsync(Specification mespecasure);
 
-       
+        
     }
 }

@@ -95,7 +95,8 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         return new createIngredient(ingredient);
     }));
 
-    self.StepsErrors = ko.validation.group(self.Steps, {
+    self.StepsErrors = ko.validation.group
+    (self.Steps, {
         deep: true,
         live: true
     });
@@ -108,6 +109,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
     self.addStep = function () {
         
         let newStep = new createStep({
+            Id: '',
             Description: ''
         });
 
@@ -155,6 +157,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             RecipeCategoryId: self.RecipeCategoryId(),
             Steps: ko.utils.arrayMap(self.Steps(), function (step) {
                 return {
+                    Id: step.Id(), // Ensure that null Ids are preserved    
                     Description: step.Description()
                 };
             }),
@@ -482,6 +485,9 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
     function createStep(newStep) {
 
         let stepSelf = this;
+
+        // Observable for step Id, which could be null for new steps
+        stepSelf.Id = ko.observable(newStep.Id ? newStep.Id : null);
         
         stepSelf.Description = ko.observable(newStep.Description).extend({
             required: {
@@ -500,6 +506,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
 
         stepSelf.toJSON = function () {
             return {
+                Id: stepSelf.Id() || null, // Include Id, even if it's null
                 Description: stepSelf.Description() || null
             };
         };

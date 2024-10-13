@@ -4,8 +4,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
-
     using CookTheWeek.Data.Models;
 
     public class StepRepository : IStepRepository
@@ -18,31 +16,28 @@
 
 
         /// <inheritdoc/>
-        public IQueryable<Step> GetAllQuery()
+        public IQueryable<Step> GetAllTrackedQuery()
         {
             return dbContext.Steps
-                .AsNoTracking()
                 .AsQueryable();
         }
 
         /// <inheritdoc/>
-        public async Task AddRangeAsync(ICollection<Step> steps)
+        public void AddRange(ICollection<Step> steps)
         {
-            await dbContext.Steps.AddRangeAsync(steps);
-            await dbContext.SaveChangesAsync();
+            dbContext.Steps.AddRange(steps);
+        }
+
+        
+        /// <inheritdoc/>
+        public void DeleteRange(ICollection<Step> steps)
+        {
+            dbContext.Steps.RemoveRange(steps);
         }
 
         /// <inheritdoc/>
-        public async Task UpdateRangeAsync(ICollection<Step> steps)
+        public async Task SaveChangesAsync()
         {
-            dbContext.Steps.UpdateRange(steps);
-            await dbContext.SaveChangesAsync();
-        }
-                
-        /// <inheritdoc/>
-        public async Task DeleteRangeAsync(ICollection<Step> steps)
-        {
-            dbContext.Steps.RemoveRange(steps);
             await dbContext.SaveChangesAsync();
         }
         

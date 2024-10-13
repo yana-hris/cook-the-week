@@ -170,8 +170,8 @@
             }
 
             Recipe recipe = MapFromModelToRecipe(model, new Recipe());
-            string recipeId = await recipeRepository.AddAsync(recipe);
-            await ProcessRecipeIngredientsAsync(model);
+            string recipeId = await recipeRepository.AddAsync(recipe); 
+            await recipeIngredientService.EditAsync(recipe.Id, model.RecipeIngredients);
             await ProcessRecipeStepsAsync(Guid.Parse(recipeId), model);
             
             return OperationResult<string>.Success(recipeId);
@@ -206,7 +206,7 @@
             }
 
             recipe = MapFromModelToRecipe(model, recipe);
-            await ProcessRecipeIngredientsAsync(model);
+            await recipeIngredientService.EditAsync(recipe.Id, model.RecipeIngredients);
             await ProcessRecipeStepsAsync(model.Id, model);
 
             await recipeRepository.UpdateAsync(recipe);
@@ -517,83 +517,17 @@
 
             if (model is RecipeAddFormModel)
             {
-                await stepService.AddAllByRecipeIdAsync(recipeId, steps);
+                await stepService.AddByRecipeIdAsync(recipeId, steps);
             }
             else if (model is RecipeEditFormModel recipeEditFormModel)
             {
-                await stepService.UpdateAllByRecipeIdAsync(recipeId, steps);
+                await stepService.UpdateByRecipeIdAsync(recipeId, steps);
             }
             else
             {
                 logger.LogError($"Type cast error: Uable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(ProcessRecipeStepsAsync)}.");
                 throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
             }
-        }
-
-        /// <summary>
-        ///  A helper method to Add or Edit a recipe`s recipe ingredients. Works with both Add and Edit Recipe Form Models. Throws an exception in case of unsucessful cast
-        /// </summary>
-        /// <param name="recipe"></param>
-        /// <param name="ingredientsToAdd"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidCastException"></exception>
-        private async Task ProcessRecipeIngredientsAsync(IRecipeFormModel model)
-        {
-            ICollection<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
-            
-            foreach (var currentRecipeIngredient in model.RecipeIngredients)
-            {
-                // Complex logic allowing the user to add ingredients with the same name but different measure or specification type
-               if (UpdateAlreadyExistingRecipeIngredientQty(recipeIngredients, currentRecipeIngredient))
-                {
-                    continue;
-                }
-
-                var newRecipeIngredient = await recipeIngredientService.CreateRecipeIngredientForAddRecipeAsync(currentRecipeIngredient);
-                recipeIngredients.Add(newRecipeIngredient);
-            }
-
-            if (model is RecipeEditFormModel existingRecipe)
-            {
-                await this.recipeIngredientService.EditAsync(existingRecipe.Id, recipeIngredients);
-            }
-            else if (model is RecipeAddFormModel)
-            {
-                await recipeIngredientService.AddAsync(recipeIngredients);
-            }
-            else
-            {
-                logger.LogError($"Type cast error: Uable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(ProcessRecipeIngredientsAsync)}.");
-                throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
-            }
-        }
-
-        
-        /// <summary>
-        /// A helper method which checks for an existing ingredient id, already added to the recipe ingredients. If it finds one, it checks if the measure and specification are the same. If yes, updated the QTY.
-        /// </summary>
-        /// <remarks>The method processes the collection internally if the condition is met</remarks>
-        /// <param name="alreadyAdded"></param>
-        /// <param name="ingredient"></param>
-        /// <returns>true or false</returns>
-        private static bool UpdateAlreadyExistingRecipeIngredientQty(ICollection<RecipeIngredient> alreadyAdded,
-                                                             RecipeIngredientFormModel ingredient)
-        {
-            // Check if the ingredient is already added with the same measure and specification
-            var existingIngredient = alreadyAdded
-                .FirstOrDefault(ri => ri.IngredientId == ingredient.IngredientId &&
-                                      ri.MeasureId == ingredient.MeasureId &&
-                                      (ri.SpecificationId == ingredient.SpecificationId ||
-                                      (ri.SpecificationId == null && ingredient.SpecificationId == null)));
-
-            // Update the quantity if found
-            if (existingIngredient != null)
-            {
-                existingIngredient.Qty += ingredient.Qty.GetDecimalQtyValue();
-                return true;
-            }
-
-            return false;
         }
     }
 }

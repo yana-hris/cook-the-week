@@ -25,7 +25,7 @@
         /// <param name="model"></param>
         /// <returns>RecipeIngredient</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<RecipeIngredient> CreateRecipeIngredientForAddRecipeAsync(RecipeIngredientFormModel model);
+        Task<RecipeIngredient> CreateAsync(RecipeIngredientFormModel model);
 
         /// <summary>
         /// Updates the Recipe Ingredients of an existing recipe by deleting all old ingredients for this recipe and adding the new ingredients
@@ -33,22 +33,15 @@
         /// <param name="id"></param>
         /// <param name="newIngredients"></param>
         /// <returns></returns>
-        Task EditAsync(Guid id, ICollection<RecipeIngredient> newIngredients);
+        Task EditAsync(Guid id, ICollection<RecipeIngredientFormModel> newIngredients);
 
         /// <summary>
         /// Adds recipe ingredients upon creating a new recipe in the database
         /// </summary>
         /// <param name="addedIngredients"></param>
         /// <returns></returns>
-        Task AddAsync(ICollection<RecipeIngredient> addedIngredients);
-
-        /// <summary>
-        /// Deletes all recipeIngredients by a recipe id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task HardDeleteAllByRecipeIdAsync(Guid id);
-
+        Task AddAsync(ICollection<RecipeIngredientFormModel> addedIngredients);
+        
         /// <summary>
         /// Soft Deletes all recipe ingredients by a given recipe ID by setting their IsDeleted flag to true
         /// </summary>
