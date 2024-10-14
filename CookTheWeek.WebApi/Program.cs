@@ -15,8 +15,6 @@ namespace CookTheWeek.WebApi
     using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Web.Infrastructure.Extensions;
 
-    using static CookTheWeek.Common.GeneralApplicationConstants;
-
     public class Program
     {
         public static void Main(string[] args)
@@ -64,7 +62,7 @@ namespace CookTheWeek.WebApi
             {
                 options.AddPolicy("AllowDevelopment", policy =>
                 {
-                    policy.WithOrigins("https://localhost:7171")
+                    policy.WithOrigins("https://localhost:7170")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                     policy.WithOrigins("https://localhost:44311")

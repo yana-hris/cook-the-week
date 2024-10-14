@@ -68,7 +68,9 @@
         /// <inheritdoc/>      
         public async Task<ICollection<RecipeCategorySelectViewModel>> GetAllCategoriesAsync()
         {
-            ICollection<RecipeCategorySelectViewModel> all = await this.categoryRepository.GetAllQuery()
+            try
+            {
+                ICollection<RecipeCategorySelectViewModel> all = await this.categoryRepository.GetAllQuery()
                 .Select(c => new RecipeCategorySelectViewModel()
                 {
                     Id = c.Id,
@@ -76,7 +78,13 @@
                 })
                 .ToListAsync();
 
-            return all;
+                return all;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Recipe Categories Select View Model loading failed. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         /// <inheritdoc/>      
@@ -88,11 +96,19 @@
         /// <inheritdoc/>      
         public async Task<ICollection<string>> GetAllCategoryNamesAsync()
         {
-            ICollection<string> names = await this.categoryRepository.GetAllQuery()
+            try
+            {
+                ICollection<string> names = await this.categoryRepository.GetAllQuery()
                 .Select(c => c.Name)
                 .ToListAsync();
 
-            return names;
+                return names;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Recipe Categories Names loading failed. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         /// <inheritdoc/>      

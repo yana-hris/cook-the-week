@@ -13,7 +13,7 @@
     Guid recipeId = Model.Id;
     Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
-    bool isOwner = userId == Model.OwnerId;
+    bool isOwner = (userId != default && userId == Model.OwnerId);
 }
 
 
@@ -25,7 +25,7 @@
             {
                 bool isLiked = await this.LikesService.HasUserByIdLikedRecipeById(recipeId);
 
-                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
+                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
                     @if (isLiked)
                     {
                         <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>

@@ -14,9 +14,9 @@
         {
             Id = Guid.NewGuid();
 
-            this.RecipesIngredients = new List<RecipeIngredient>();
+            this.RecipesIngredients = new HashSet<RecipeIngredient>();
             this.FavouriteRecipes = new HashSet<FavouriteRecipe>();
-            this.Steps = new List<Step>();
+            this.Steps = new HashSet<Step>();
             this.Meals = new HashSet<Meal>();   
         }
 

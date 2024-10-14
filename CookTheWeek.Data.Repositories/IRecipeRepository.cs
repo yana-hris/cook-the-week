@@ -60,5 +60,11 @@
         /// <param name="recipe"></param>
         /// <returns></returns>
         Task DeleteAsync(Recipe recipe);
+
+        /// <summary>
+        /// Persists the changes in the database
+        /// </summary>
+        /// <returns></returns>
+        Task SaveChangesAsync();
     }
 }

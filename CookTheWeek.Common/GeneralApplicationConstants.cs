@@ -79,12 +79,12 @@
         public static readonly Dictionary<string, int[]> RecipeAndMealDetailedProductListCategoryDictionary = 
             new Dictionary<string, int[]>
         {
-            { "Meat, Diary Products &amp; Seafood", new int[] { 1, 2, 11 } },
-            { "Produce (Fruit &amp; Vegetables)", new int[] { 8, 9 } },
-            { "Pasta, Grains &amp; Bakery", new int[] { 4, 7 } },
+            { "Meat, Diary Products & Seafood", new int[] { 1, 2, 11 } },
+            { "Produce (Fruit & Vegetables)", new int[] { 8, 9 } },
+            { "Pasta, Grains & Bakery", new int[] { 4, 7 } },
             { "Beans, Lentils and Legumes", new int[] { 3 } },
-            { "Nuts, Seeds &amp; Others", new int[] { 12, 13 } },
-            { "Herbs, Spices, Oils &amp; Sauces", new int[] { 5, 6, 10 } }
+            { "Nuts, Seeds & Others", new int[] { 12, 13 } },
+            { "Herbs, Spices, Oils & Sauces", new int[] { 5, 6, 10 } }
         };
 
         // For Shopping List View:

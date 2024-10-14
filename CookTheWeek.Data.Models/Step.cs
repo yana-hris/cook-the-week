@@ -16,7 +16,6 @@
 
 
         [Comment("Recipe Key Identifier")]
-        [Required]
         [ForeignKey(nameof(Recipe))]
         public Guid RecipeId { get; set; }
         public Recipe Recipe { get; set; } = null!;

@@ -17,7 +17,7 @@
         /// <param name="userId"></param>
         /// <returns>A collection of RecipeAllViewModel</returns>
         /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
-        Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel); 
+        Task<ICollection<Recipe>> GetAllAsync(AllRecipesQueryModel queryModel); 
 
         /// <summary>
         /// Takes the model and validates further for any errors, if the model is correct, persists the Recipe in the database
@@ -43,19 +43,17 @@
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
         /// <returns>Recipe</returns>
-        Task<Recipe> GetByIdForDetailsAsync(Guid id);
+        Task<Recipe> GetForDetailsByIdAsync(Guid id);
                 
 
         /// <summary>
-        /// Creates a RecipeEditFormModel or throws exceptions if recipe is not found or is not owned by the current user
+        /// Returns a Recipe by a given Id or throws an exceptions if recipe is not found or is not owned by the current user
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="userId"></param>
-        /// <param name="isAdmin"></param>
-        /// <returns>RecipeEditFormModel</returns>
+        /// <returns>Recipe</returns>
         /// <exception cref="UnauthorizedUserException"></exception>
         /// <exception cref="RecordNotFoundException">rethrown</exception>
-        Task<RecipeEditFormModel> GetForEditByIdAsync(Guid id);
+        Task<Recipe> GetForEditByIdAsync(Guid id);
 
 
         /// <summary>
@@ -66,13 +64,7 @@
         /// <exception cref="UnauthorizedUserException"></exception>
         Task DeleteByIdAsync(Guid id);
 
-        /// <summary>
-        /// Returns a viewmodel collection of all recipes, added by a specific user by userId. 
-        /// Does not throw any exceptions.
-        /// </summary>
-        /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync(); 
-
+        
         /// <summary>
         /// Returns the number of recipes added by a given user
         /// </summary>
@@ -90,13 +82,13 @@
         /// Returns a collection of all Site Recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllSiteRecipesAsync();
+        Task<ICollection<Recipe>> GetAllSiteAsync();
 
         /// <summary>
         /// Returns a collection of all users` recipes
         /// </summary>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<RecipeAllViewModel>> GetAllNonSiteRecipesAsync();
+        Task<ICollection<Recipe>> GetAllNonSiteAsync();
 
         /// <summary>
         /// Returns a collection of Recipes by a list of their IDs

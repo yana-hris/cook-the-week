@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.SupplyItem;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.SupplyItem;
 
@@ -11,15 +12,25 @@
 
     public class IngredientAggregatorHelper : IIngredientAggregatorHelper
     {
-        public IEnumerable<ISupplyItemListModel<T>> AggregateIngredientsByCategory<T>(
-            List<SupplyItemServiceModel> ingredients,
-            IEnumerable<ISelectViewModel> measures,
-            IEnumerable<ISelectViewModel> specifications,
-            Dictionary<string, int[]> categoryDictionary
-            )
+        private readonly IRecipeIngredientService recipeIngredientService;
+
+        public IngredientAggregatorHelper(IRecipeIngredientService recipeIngredientService)
+        {
+            this.recipeIngredientService = recipeIngredientService;
+        }
+
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<ISupplyItemListModel<T>>> AggregateIngredientsByCategory<T>(
+                                                                        List<SupplyItemServiceModel> ingredients,
+                                                                        Dictionary<string, int[]> categoryDictionary)
             where T : ISupplyItemModel, new()
         {
             var ingredientsByCategories = new List<ISupplyItemListModel<T>>();
+
+            // Load from the DB existing measures and specs
+            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
+            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             // Preprocess measures and specifications into dictionaries for fast lookup
             var measureDict = measures.ToDictionary(m => m.Id, m => m.Name);
@@ -68,5 +79,30 @@
 
             return ingredientsByCategories;
         }
+
+
+       
+        /// <inheritdoc/>
+        public List<SupplyItemServiceModel> CreateAdjustedIngredientCollection(IEnumerable<RecipeIngredient> recipeIngredients, decimal servingSizeMultiplier)
+        {
+            var ingredients = recipeIngredients.Select(ri => new SupplyItemServiceModel()
+            {
+                CategoryId = ri.Ingredient.CategoryId,
+                Name = ri.Ingredient.Name,
+                Qty = ri.Qty * servingSizeMultiplier,
+                MeasureId = ri.MeasureId,
+                SpecificationId = ri.SpecificationId
+            }).ToList();
+
+            return ingredients;
+        }
+
+
+        /// <inheritdoc/>
+        public decimal CalculateServingSizeMultiplier(int desiredServingSize, int defaultServingSize)
+        {
+            return desiredServingSize * 1.0m / defaultServingSize * 1.0m;
+        }
+
     }
 }

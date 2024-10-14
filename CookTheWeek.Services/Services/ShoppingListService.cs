@@ -17,20 +17,17 @@
     public class ShoppingListService : IShoppingListService
     {
         private readonly IMealPlanService mealPlanService;
-        private readonly IRecipeIngredientService recipeIngredientService;
 
         private readonly IIngredientAggregatorHelper ingredientHelper;
         private readonly ILogger<ShoppingListService> logger;
 
         public ShoppingListService(IMealPlanService mealPlanService, 
             IIngredientAggregatorHelper ingredientHelper,
-            IRecipeIngredientService recipeIngredientService,
             ILogger<ShoppingListService> logger)
         {
             this.logger = logger;
             this.mealPlanService = mealPlanService;
-            this.ingredientHelper = ingredientHelper;
-            this.recipeIngredientService = recipeIngredientService; 
+            this.ingredientHelper = ingredientHelper; 
         }
 
         // TODO: move to viewmodel factory
@@ -56,7 +53,7 @@
                 int mealServings = meal.ServingSize;
                 int recipeServings = meal.Recipe.Servings;
 
-                decimal servingSizeMultiplier = mealServings * 1.0m / recipeServings * 1.0m;
+                decimal servingSizeMultiplier = ingredientHelper.CalculateServingSizeMultiplier(mealServings, recipeServings);
 
                 foreach (var ri in meal.Recipe.RecipesIngredients)
                 {
@@ -70,10 +67,10 @@
                     {
                         productDict[key] = new SupplyItemServiceModel
                         {
-                            Name = ri.Ingredient.Name,
                             CategoryId = ri.Ingredient.CategoryId,
-                            MeasureId = ri.MeasureId,
+                            Name = ri.Ingredient.Name,
                             Qty = ri.Qty * servingSizeMultiplier,
+                            MeasureId = ri.MeasureId,
                             SpecificationId = ri.SpecificationId
                         };
                     }
@@ -82,10 +79,7 @@
 
             var products = productDict.Values.ToList();
 
-            var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
-
-            model.ShopItemsByCategories = ingredientHelper.AggregateIngredientsByCategory<ShopItemViewModel>(products, measures, specifications, ShoppingListCategoryGroupDictionary);
+            model.ShopItemsByCategories = await ingredientHelper.AggregateIngredientsByCategory<ShopItemViewModel>(products, ShoppingListCategoryGroupDictionary);
 
             return model;
 

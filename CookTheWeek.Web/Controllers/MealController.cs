@@ -9,9 +9,9 @@
     public class MealController : BaseController
     {
         
-        private readonly IViewModelFactory viewModelFactory;
+        private readonly IMealViewModelFactory viewModelFactory;
 
-        public MealController(IViewModelFactory viewModelFactory,
+        public MealController(IMealViewModelFactory viewModelFactory,
             ILogger<MealController> logger) : base(logger) 
         {
             this.viewModelFactory = viewModelFactory;

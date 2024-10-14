@@ -118,7 +118,7 @@ namespace CookTheWeek.Web
             builder.Services.AddHttpContextAccessor();
             
             // TODO: uncomment Register the warm-up service
-            //builder.Services.AddHostedService<WarmUpService>();
+            builder.Services.AddHostedService<WarmUpService>();
 
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();

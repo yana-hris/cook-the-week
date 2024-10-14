@@ -1,24 +1,25 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
+    using CookTheWeek.Data.Models;
     using CookTheWeek.Web.ViewModels.Step;
+    using System.Collections.Generic;
 
     public interface IStepService
     {
         /// <summary>
-        /// Updates the steps of an existing recipe by deleting the old steps and adding the new ones to the database
+        /// Updates the steps of an existing Recipe
         /// </summary>
-        /// <param name="recipeId"></param>
+        /// <param name="id"></param>
         /// <param name="steps"></param>
         /// <returns></returns>
-        Task UpdateByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
-
+        Task<ICollection<Step>> UpdateAll(Guid id, List<StepFormModel> steps);
 
         /// <summary>
-        /// Adds new steps to a recipe from a collection of SteFormModel
+        /// Creates all Steps needed for adding a new Recipe by consuming the collection of Step model
         /// </summary>
         /// <param name="steps"></param>
-        /// <returns></returns>
-        Task AddByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model);
+        /// <returns>A collection of Steps</returns>
+        ICollection<Step> CreateAll(ICollection<StepFormModel> steps);
 
         /// <summary>
         /// Doft deletes all steps of a given Recipe by its ID by setting their IsDeleted flag to true
@@ -26,5 +27,7 @@
         /// <param name="recipeId"></param>
         /// <returns></returns>
         Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
+
+        
     }
 }

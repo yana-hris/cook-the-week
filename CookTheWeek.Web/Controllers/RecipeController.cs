@@ -19,12 +19,12 @@
     public class RecipeController : BaseController
     {
 
-        private readonly IViewModelFactory recipeViewModelFactory;
+        private readonly IRecipeViewModelFactory recipeViewModelFactory;
         private readonly IRecipeService recipeService;
         private readonly IDomainEventDispatcher domainEventDispatcher;
 
         public RecipeController(IRecipeService recipeService,
-            IViewModelFactory recipeViewModelFactory,
+            IRecipeViewModelFactory recipeViewModelFactory,
             IDomainEventDispatcher domainEventDispatcher,
             ILogger<RecipeController> logger) : base(logger)
         {
@@ -60,18 +60,35 @@
         [HttpGet]
         public async Task<IActionResult> Add(string returnUrl)
         {
-            var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();            
+            try
+            {
+                var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
 
-            SetViewData("Add Recipe", returnUrl ?? "/Recipe/All");
-            return View(model);
+                SetViewData("Add Recipe", returnUrl ?? "/Recipe/All");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Loading Recipe Add View failed.");
+                return HandleException(ex, nameof(Add), null);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
         {
-            
-            model = await this.recipeViewModelFactory.PreloadRecipeSelectOptionsToFormModel(model) as RecipeAddFormModel;
             string redirectUrl;
+
+            try
+            {
+                model = await this.recipeViewModelFactory.PopulateRecipeFormModelAsync(model) as RecipeAddFormModel;
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -87,7 +104,7 @@
                     string recipeId = result.Value;
                     TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
 
-                    return RedirectToAction(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl }));
+                    return Redirect(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl }));
                 }
                 else
                 {

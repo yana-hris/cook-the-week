@@ -4,30 +4,31 @@
 
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Services.Data.Factories;
 
     public class RecipeAdminController : BaseAdminController
     {
         private readonly IRecipeService recipeService;
         private readonly IUserService userService;
+        private readonly IRecipeViewModelFactory viewModelFactory;
 
         public RecipeAdminController(IRecipeService recipeService,
             IUserService userService,
+            IRecipeViewModelFactory viewModelFactory,
             ILogger<RecipeAdminController> logger) 
         : base(logger)
         {
             this.recipeService = recipeService;
+            this.viewModelFactory = viewModelFactory;
             this.userService = userService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Site()
+        public async Task<IActionResult> All()
         {
             try
             {
-                RecipeMineAdminViewModel model = new RecipeMineAdminViewModel();
-                model.SiteRecipes = await recipeService.GetAllSiteRecipesAsync();
-                model.UserRecipes = await recipeService.GetAllNonSiteRecipesAsync();
-
+                RecipeMineAdminViewModel model = await viewModelFactory.CreateAdminAllRecipesViewModelAsync();
                 ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 
                 if (!model.SiteRecipes.Any() && !model.UserRecipes.Any())
@@ -37,10 +38,9 @@
 
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.LogError("Site Recipes unsuccessfully loaded to View Model!");
-                return BadRequest();
+                return HandleException(ex, nameof(All), nameof(RecipeMineAdminViewModel), null);
             }
         }
 

@@ -106,5 +106,11 @@
             dbContext.Recipes.Remove(recipe);
             await dbContext.SaveChangesAsync();
         }
+
+        /// <inheritdoc/>
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

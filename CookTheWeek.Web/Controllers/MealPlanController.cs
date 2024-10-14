@@ -14,13 +14,13 @@
 
     public class MealPlanController : BaseController
     {
-        private readonly IViewModelFactory viewModelFactory;
+        private readonly IMealPlanViewModelFactory viewModelFactory;
         private readonly IMealPlanService mealPlanService;
         private readonly IValidationService validationService;
 
         public MealPlanController(IMealPlanService mealPlanService,
             IValidationService validationService,
-            IViewModelFactory viewModelFactory,
+            IMealPlanViewModelFactory viewModelFactory,
             ILogger<MealPlanController> logger) : base(logger)
         {
             this.mealPlanService = mealPlanService;

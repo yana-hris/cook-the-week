@@ -14,12 +14,10 @@
 
         [Comment("Key Identifier for Recipe")]
         [ForeignKey(nameof(Recipe))]
-        [Required]
         public Guid RecipeId { get; set; } 
 
         [Comment("Recipe")]
-        [Required]
-        public Recipe Recipe { get; set; } = null!;
+        public Recipe Recipe { get; set; }
 
         [Comment("Key Identifier for Ingredient")]
         [Required]

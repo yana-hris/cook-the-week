@@ -10,10 +10,10 @@
 
     public class MealPlanAdminController : BaseAdminController
     {
-        private readonly IViewModelFactory viewModelFactory;
+        private readonly IMealPlanViewModelFactory viewModelFactory;
 
         public MealPlanAdminController(
-            IViewModelFactory viewModelFactory,
+            IMealPlanViewModelFactory viewModelFactory,
             ILogger<MealPlanAdminController> logger) : base(logger) 
         {
             this.viewModelFactory = viewModelFactory;

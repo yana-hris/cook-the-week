@@ -17,7 +17,7 @@
         $('#generatePdfBtn').click(function (e) {
             e.preventDefault();
             // Navigate to the controller action URL to trigger download
-            window.location.href = '/ShoppingList/GeneratePdf?id=@Model.MealPlanId';
+            window.location.href = '/ShoppingList/GetShoppingListAsPdf?id=@Model.MealPlanId';
         });
     });
 </script>

@@ -12,16 +12,12 @@
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using CookTheWeek.Web.ViewModels.Step;
 
     using static Common.ExceptionMessagesConstants;
     using static Common.GeneralApplicationConstants;
-    using static Common.HelperMethods.CookingTimeHelper;
    
 
     public class RecipeService : IRecipeService
@@ -57,10 +53,13 @@
 
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllAsync(AllRecipesQueryModel queryModel)
+        public async Task<ICollection<Recipe>> GetAllAsync(AllRecipesQueryModel queryModel)
         {
-            
-            IQueryable<Recipe> recipesQuery = recipeRepository.GetAllQuery();
+
+            IQueryable<Recipe> recipesQuery = recipeRepository
+                .GetAllQuery()
+                .Include(r => r.Category)
+                .AsNoTracking();
 
             if (!recipesQuery.Any())
             {
@@ -130,33 +129,18 @@
             queryModel.TotalRecipes = recipesQuery.Count();
 
             
-            ICollection<RecipeAllViewModel> model = await recipesQuery
+            var recipes = await recipesQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
                 .Take(queryModel.RecipesPerPage)
-                .Select(r => new RecipeAllViewModel()
-                {
-                    Id = r.Id,
-                    OwnerId = r.OwnerId,
-                    ImageUrl = r.ImageUrl,
-                    Title = r.Title,
-                    Description = r.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = r.CategoryId,
-                        Name = r.Category.Name
-                    },
-                    Servings = r.Servings,
-                    CookingTime = FormatCookingTime(r.TotalTime)
-                })
                 .ToListAsync();
 
-            if (!model.Any())
+            if (recipes.Count == 0)
             {
                 logger.LogError("No recipes found by these critearia.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
 
-            return model;
+            return recipes;
            
         }
 
@@ -170,11 +154,19 @@
             }
 
             Recipe recipe = MapFromModelToRecipe(model, new Recipe());
-            string recipeId = await recipeRepository.AddAsync(recipe); 
-            await recipeIngredientService.EditAsync(recipe.Id, model.RecipeIngredients);
-            await ProcessRecipeStepsAsync(Guid.Parse(recipeId), model);
-            
-            return OperationResult<string>.Success(recipeId);
+            recipe.RecipesIngredients = recipeIngredientService.CreateAll(model.RecipeIngredients);
+            recipe.Steps = stepService.CreateAll(model.Steps);
+
+            try
+            {
+                string recipeId = await recipeRepository.AddAsync(recipe);
+                return OperationResult<string>.Success(recipeId);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Recipe creation failed. Error message: {ex.Message}. Error StackTrace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         /// <inheritdoc/>
@@ -206,15 +198,23 @@
             }
 
             recipe = MapFromModelToRecipe(model, recipe);
-            await recipeIngredientService.EditAsync(recipe.Id, model.RecipeIngredients);
-            await ProcessRecipeStepsAsync(model.Id, model);
+            recipe.RecipesIngredients = await recipeIngredientService.UpdateAll(recipe.Id, model.RecipeIngredients);
+            recipe.Steps = await stepService.UpdateAll(recipe.Id, model.Steps);
 
-            await recipeRepository.UpdateAsync(recipe);
-            return OperationResult.Success();
+            try
+            {
+                await recipeRepository.SaveChangesAsync();
+                return OperationResult.Success();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Recipe editting failed. Recipe Id: {recipe.Id}. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                throw;
+            }
         }
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetByIdForDetailsAsync(Guid id)
+        public async Task<Recipe> GetForDetailsByIdAsync(Guid id)
         {
             Recipe? recipe = await recipeRepository.GetByIdQuery(id) 
                 .Include(r => r.Owner)
@@ -263,7 +263,7 @@
         
        
         /// <inheritdoc/>
-        public async Task<RecipeEditFormModel> GetForEditByIdAsync(Guid id)
+        public async Task<Recipe> GetForEditByIdAsync(Guid id)
         {
             Recipe? recipe = await recipeRepository.GetByIdQuery(id)
                 .Include(r => r.Steps)
@@ -283,61 +283,7 @@
 
             validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId);
 
-            // TODO: Consider using Automapper
-            RecipeEditFormModel model = new RecipeEditFormModel()
-            {
-                Id = recipe.Id,
-                Title = recipe.Title,
-                Description = recipe.Description,
-                Steps = recipe.Steps.Select(s => new StepFormModel()
-                {
-                    Id = s.Id,
-                    Description = s.Description
-
-                }).ToList(),
-                Servings = recipe.Servings,
-                CookingTimeMinutes = (int)recipe.TotalTime.TotalMinutes,
-                ImageUrl = recipe.ImageUrl,
-                RecipeCategoryId = recipe.CategoryId,
-                RecipeIngredients = recipe.RecipesIngredients.Select(ri => new RecipeIngredientFormModel()
-                {
-                    IngredientId = ri.IngredientId,
-                    Name = ri.Ingredient.Name,
-                    Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty, ri.Measure.Name),
-                    MeasureId = ri.MeasureId,
-                    SpecificationId = ri.SpecificationId
-                }).ToList()
-            };
-
-            return model;
-        }
-
-        /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllAddedByUserIdAsync()
-        {
-            var recipes = await recipeRepository
-                .GetAllQuery()
-                .Where(r => r.OwnerId == userId)
-                .ToListAsync();
-            
-            // TODO: Consider using Automapper
-            ICollection<RecipeAllViewModel> model = recipes.Select(r => new RecipeAllViewModel()
-            {
-                Id = r.Id,
-                OwnerId = r.OwnerId,
-                ImageUrl = r.ImageUrl,
-                Title = r.Title,
-                Description = r.Description,
-                Category = new RecipeCategorySelectViewModel()
-                {
-                    Id = r.CategoryId,
-                    Name = r.Category.Name
-                },
-                Servings = r.Servings,
-                CookingTime = FormatCookingTime(r.TotalTime)
-            }).ToList();
-
-            return model;
+            return recipe;
         }
        
         /// <inheritdoc/>
@@ -359,53 +305,28 @@
         }
        
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllSiteRecipesAsync()
+        public async Task<ICollection<Recipe>> GetAllSiteAsync()
         {
-            List<RecipeAllViewModel> siteRecipes = await recipeRepository.GetAllQuery()
-                    .Where(r => r.IsSiteRecipe)
-                    .Select(r => new RecipeAllViewModel()
-                    {
-                        Id = r.Id,
-                        OwnerId = r.OwnerId,
-                        ImageUrl = r.ImageUrl,
-                        Title = r.Title,
-                        Description = r.Description,
-                        Category = new RecipeCategorySelectViewModel()
-                        {
-                            Id = r.CategoryId,
-                            Name = r.Category.Name
-                        },
-                        Servings = r.Servings,
-                        CookingTime = FormatCookingTime(r.TotalTime)
-                    }).ToListAsync();
+            var siteRecipes = await recipeRepository
+                .GetAllQuery()
+                .AsNoTracking()
+                .Where(r => r.IsSiteRecipe)
+                .ToListAsync();
 
             return siteRecipes;
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<RecipeAllViewModel>> GetAllNonSiteRecipesAsync()
+        public async Task<ICollection<Recipe>> GetAllNonSiteAsync()
         {
-            ICollection<RecipeAllViewModel> allUserRecipes = await recipeRepository.GetAllQuery()
+            var allUserRecipes = await recipeRepository
+                .GetAllQuery()
+                .AsNoTracking()
                 .Where(r => !r.IsSiteRecipe)
-                .Select(r => new RecipeAllViewModel()
-                {
-                    Id = r.Id,
-                    OwnerId = r.OwnerId,
-                    ImageUrl = r.ImageUrl,
-                    Title = r.Title,
-                    Description = r.Description,
-                    Category = new RecipeCategorySelectViewModel()
-                    {
-                        Id = r.CategoryId,
-                        Name = r.Category.Name
-                    },
-                    Servings = r.Servings,
-                    CookingTime = FormatCookingTime(r.TotalTime)
-                }).ToListAsync();
+                .ToListAsync();
 
             return allUserRecipes;
         }
-       
         
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(Guid recipeId)
@@ -504,30 +425,6 @@
 
         }
 
-        /// <summary>
-        /// A helper method to Add or Edit a recipe`s steps. Works with both Add and Edit Recipe Form Models. Throws an exception in case of unsucessful cast
-        /// </summary>
-        /// <param name="recipe"></param>
-        /// <param name="steps"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidCastException"></exception>
-        private async Task ProcessRecipeStepsAsync(Guid recipeId, IRecipeFormModel model)
-        {
-            var steps = model.Steps;
-
-            if (model is RecipeAddFormModel)
-            {
-                await stepService.AddByRecipeIdAsync(recipeId, steps);
-            }
-            else if (model is RecipeEditFormModel recipeEditFormModel)
-            {
-                await stepService.UpdateByRecipeIdAsync(recipeId, steps);
-            }
-            else
-            {
-                logger.LogError($"Type cast error: Uable to cast {model.GetType().Name} to {nameof(RecipeAddFormModel)} or {nameof(RecipeEditFormModel)} in method {nameof(ProcessRecipeStepsAsync)}.");
-                throw new InvalidCastException(InvalidCastExceptionMessages.RecipeAddOrEditModelUnsuccessfullyCasted);
-            }
-        }
+        
     }
 }

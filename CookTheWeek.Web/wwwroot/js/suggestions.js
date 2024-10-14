@@ -43,6 +43,7 @@ function renderSuggestionResults(results, search, container, inputForm) {
             a.classList.add('autocomplete-result', 'list-group-item', 'p-1'); // autocomplete used for init click event, other classes are from bootstrap
             a.style.fontSize = form_font;
             a.href = "#";
+            debugger;
             a.setAttribute("id", item.id); // used for click-Event to fill the form
             
             a.innerHTML = colorResults(item.name, search);
@@ -55,8 +56,21 @@ function renderSuggestionResults(results, search, container, inputForm) {
                 let ingredientName = item.name;
                 let ingredientId = item.id;  // Capture the ingredient ID
 
-                $(inputForm).val(ingredientName).trigger('change'); // Fill selected ingredient name to Input field
-                
+                // Get the Knockout.js context for the input field
+                let koContext = ko.dataFor(inputForm);
+
+                // Update the Knockout observables directly
+                if (koContext) {
+                    koContext.Name(ingredientName);  // Update the Name observable
+                    koContext.IngredientId(ingredientId);  // Update the IngredientId observable
+                }
+
+                //$(inputForm).val(ingredientName).trigger('change'); // Fill selected ingredient name to Input field
+
+                //// Find the corresponding hidden input for IngredientId and set its value
+                //let hiddenInput = $(inputForm).closest('.input-group').find('.ingredientId');
+                //hiddenInput.val(ingredientId).trigger('change'); // Update hidden field with IngredientId and trigger change event
+
 
                 // clear results div after a suggestion is clicked
                 $(container).empty();

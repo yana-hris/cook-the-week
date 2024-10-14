@@ -23,74 +23,101 @@
             this.logger = logger;
         }
 
-       
-        /// <inheritdoc/>
-        public async Task AddByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> model)
-        {
-            ICollection<Step> steps = model.Select
-                (s => Create(recipeId, s))
-                .ToList();
 
-            stepRepository.AddRange(steps);
-            await stepRepository.SaveChangesAsync();
+        /// <inheritdoc/>
+        public ICollection<Step> CreateAll(ICollection<StepFormModel> steps)
+        {
+            ICollection<Step> newSteps = new HashSet<Step>();
+
+            foreach (var stepModel in steps)
+            {
+                Step newStep = Create(null, stepModel);
+                newSteps.Add(newStep);
+            }
+
+            return newSteps;
         }
 
-        
-
         /// <inheritdoc/>
-        public async Task UpdateByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> stepsModel)
+        public async Task<ICollection<Step>> UpdateAll(Guid id, List<StepFormModel> updatedStepsModelCollection)
         {
-            ICollection<Step> existingSteps = await GetAllByRecipeIdAsync(recipeId);
+            ICollection<Step> oldSteps = await GetAllByRecipeIdAsync(id);
 
-            ICollection<Step> newStepsToAdd = new HashSet<Step>();
-            ICollection<Step> stepsToDelete = new HashSet<Step>();
-
-            foreach (var step in stepsModel)
+            HashSet<Step> updatedSteps = new HashSet<Step>();
+            
+            foreach (var stepModel in updatedStepsModelCollection)
             {
-                var existingStep = existingSteps.FirstOrDefault(s => s.Id == step.Id);
+                var existingStep = oldSteps.FirstOrDefault(s => s.Id == stepModel.Id);
 
                 if (existingStep == null)
                 {
-                    Step stepToAdd = Create(recipeId, step);
-                    newStepsToAdd.Add(stepToAdd);
+                    Step stepToAdd = Create(id, stepModel);
+                    updatedSteps.Add(stepToAdd);
                 }
                 else
                 {
-                    existingStep.Description = step.Description;    // On Save changes will be saved
+                    existingStep.Description = stepModel.Description;
+                    updatedSteps.Add(existingStep);
                 }
             }
 
-            foreach (var probableStepToRemove in existingSteps)
-            {
-                var existingStep = stepsModel.FirstOrDefault(s => s.Id == probableStepToRemove.Id);
-
-                if (existingStep == null)
-                {
-                    stepsToDelete.Add(probableStepToRemove);
-                }
-            }
-
-            try
-            {
-                if (newStepsToAdd.Count > 0)
-                {
-                    stepRepository.AddRange(newStepsToAdd);
-                }
-
-                if (stepsToDelete.Count > 0)
-                {
-                    stepRepository.DeleteRange(stepsToDelete);
-                }
-
-                await stepRepository.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Database update of recipe steps for recipe with id {recipeId} failed." +
-                    $"Error Message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                throw;
-            }
+            return updatedSteps;
         }
+
+        /// <inheritdoc/>
+        //public async Task UpdateByRecipeIdAsync(Guid recipeId, ICollection<StepFormModel> stepsModel)
+        //{
+        //    ICollection<Step> existingSteps = await GetAllByRecipeIdAsync(recipeId);
+
+        //    ICollection<Step> newStepsToAdd = new HashSet<Step>();
+        //    ICollection<Step> stepsToDelete = new HashSet<Step>();
+
+        //    foreach (var step in stepsModel)
+        //    {
+        //        var existingStep = existingSteps.FirstOrDefault(s => s.Id == step.Id);
+
+        //        if (existingStep == null)
+        //        {
+        //            Step stepToAdd = Create(recipeId, step);
+        //            newStepsToAdd.Add(stepToAdd);
+        //        }
+        //        else
+        //        {
+        //            existingStep.Description = step.Description;    // On Save changes will be saved
+        //        }
+        //    }
+
+        //    foreach (var probableStepToRemove in existingSteps)
+        //    {
+        //        var existingStep = stepsModel.FirstOrDefault(s => s.Id == probableStepToRemove.Id);
+
+        //        if (existingStep == null)
+        //        {
+        //            stepsToDelete.Add(probableStepToRemove);
+        //        }
+        //    }
+
+        //    try
+        //    {
+        //        if (newStepsToAdd.Count > 0)
+        //        {
+        //            stepRepository.AddRange(newStepsToAdd);
+        //        }
+
+        //        if (stepsToDelete.Count > 0)
+        //        {
+        //            stepRepository.DeleteRange(stepsToDelete);
+        //        }
+
+        //        await stepRepository.SaveChangesAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.LogError($"Database update of recipe steps for recipe with id {recipeId} failed." +
+        //            $"Error Message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+        //        throw;
+        //    }
+        //}
 
         
         /// <inheritdoc/>
@@ -125,16 +152,23 @@
         /// Creates a single step by a given Step Form Model
         /// </summary>
         /// <param name="recipeId"></param>
-        /// <param name="s"></param>
+        /// <param name="step"></param>
         /// <returns>Step</returns>
-        private static Step Create(Guid recipeId, StepFormModel s)
+        private static Step Create(Guid? recipeId, StepFormModel step)
         {
-            return new Step()
+            var newStep = new Step
             {
-                RecipeId = recipeId,
-                Description = s.Description,
+                Description = step.Description
             };
+
+            if (recipeId != null && recipeId != Guid.Empty)
+            {
+                newStep.RecipeId = recipeId.Value;
+            }
+
+            return newStep;
         }
 
+        
     }
 }

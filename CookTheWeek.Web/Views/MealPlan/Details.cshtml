@@ -140,13 +140,13 @@
     {
         <div class="row">
             <div class="col buttons">
-                <a asp-area="" asp-controller="ShoppingList" asp-action="Generate" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="btn btn-primary card-btn-width">
+                <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="btn btn-primary card-btn-width">
                     <i class="fas fa-shopping-basket"></i>&nbsp;List
                 </a>
                 <div class="d-flex gap-2">
                 @if (Model.IsFinished)
                 {
-                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id">
+                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
                         <i class="fa-solid fa-copy"></i>&nbsp;Repeat
                     </a>
                 }

@@ -17,13 +17,13 @@
         
         private readonly IMealPlanService mealPlanService;
         private readonly IValidationService validationService;
-        private readonly IViewModelFactory viewModelFactory;
+        private readonly IMealPlanViewModelFactory viewModelFactory;
         private readonly ILogger<MealPlanApiController> logger;
 
         public MealPlanApiController(
             IMealPlanService mealPlanService,
             IValidationService validationService,
-            IViewModelFactory viewModelFactory,
+            IMealPlanViewModelFactory viewModelFactory,
             ILogger<MealPlanApiController> logger)
         {
            

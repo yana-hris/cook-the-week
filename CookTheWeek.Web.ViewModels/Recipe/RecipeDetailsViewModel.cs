@@ -10,12 +10,6 @@
         public RecipeDetailsViewModel()
         {
             this.Steps = new List<StepViewModel>();
-            //this.DiaryMeatSeafood = new List<RecipeIngredientDetailsViewModel>();
-            //this.Produce = new List<RecipeIngredientDetailsViewModel>();
-            //this.Legumes = new List<RecipeIngredientDetailsViewModel>();
-            //this.PastaGrainsBakery = new List<RecipeIngredientDetailsViewModel>();
-            //this.OilsHerbsSpicesSweeteners = new List<RecipeIngredientDetailsViewModel>();
-            //this.NutsSeedsAndOthers = new List<RecipeIngredientDetailsViewModel>();
         }
         public string Id { get; set; } = null!;
         public string Title { get; set; } = null!;
@@ -34,11 +28,5 @@
 
         public IEnumerable<ISupplyItemListModel<RecipeIngredientDetailsViewModel>> RecipeIngredientsByCategories =
                                                 new List<SupplyItemListModel<RecipeIngredientDetailsViewModel>>();
-        //public ICollection<RecipeIngredientDetailsViewModel> DiaryMeatSeafood { get; set; }
-        //public ICollection<RecipeIngredientDetailsViewModel> Produce { get; set; }
-        //public ICollection<RecipeIngredientDetailsViewModel> Legumes { get; set; }
-        //public ICollection<RecipeIngredientDetailsViewModel> PastaGrainsBakery { get; set; }
-        //public ICollection<RecipeIngredientDetailsViewModel> OilsHerbsSpicesSweeteners { get; set; }
-        //public ICollection<RecipeIngredientDetailsViewModel> NutsSeedsAndOthers { get; set; }
     }
 }

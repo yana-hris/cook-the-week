@@ -5,6 +5,7 @@
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
 
     [Route("api/favouriteRecipe")]
     [ApiController]
