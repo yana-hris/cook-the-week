@@ -20,7 +20,6 @@ namespace CookTheWeek.Web
     using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Web.Infrastructure.BackgroundServices;
     using CookTheWeek.Web.Infrastructure.Extensions;
-    using CookTheWeek.Web.Infrastructure.HostedServices;
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
@@ -116,10 +115,7 @@ namespace CookTheWeek.Web
                 suffixes);
 
             builder.Services.AddHttpContextAccessor();
-            
-            // TODO: uncomment Register the warm-up service
-            builder.Services.AddHostedService<WarmUpService>();
-
+           
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 

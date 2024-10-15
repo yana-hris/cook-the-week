@@ -954,6 +954,15 @@ html .not-finished {
   --body-emphasis-color: var(--bs-primary);
   --meal-title-color: var(--bs-primary);
 }
+[data-bs-theme=light] #main-container a:not(.btn) {
+  color: var(--bs-primary) !important;
+}
+[data-bs-theme=light] #main-container a.autocomplete-result {
+  color: var(--bs-body-color) !important;
+}
+[data-bs-theme=light] #main-container a.color-result {
+  color: var(--bs-primary) !important;
+}
 [data-bs-theme=light] .subheading {
   color: var(--bs-primary);
 }
@@ -984,6 +993,9 @@ html .not-finished {
 }
 [data-bs-theme=dark] #main-container a:not(.btn) {
   color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] #main-container a.autocomplete-result {
+  color: var(--bs-body-color) !important;
 }
 [data-bs-theme=dark] .subheading {
   color: var(--bs-success);
@@ -1812,11 +1824,18 @@ html .not-finished {
 #add-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList {
   position: absolute;
   z-index: 1000;
+  padding-top: 8px;
   top: 29px;
-  left: 98px;
-  border-top: none;
-  max-height: 200px;
+  left: 94px;
+  max-height: calc(100vh - 100px);
+  width: 100%;
   overflow-y: auto;
+}
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList a, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList a {
+  color: var(--bs-body-color);
+}
+#add-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList a span.color-result, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .suggestionsList a span.color-result {
+  color: var(--bs-success) !important;
 }
 #add-recipe .card .card-body #ingredientsContainer .ingredient-row .flex-inside, #edit-recipe .card .card-body #ingredientsContainer .ingredient-row .flex-inside {
   display: flex;

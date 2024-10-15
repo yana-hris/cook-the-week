@@ -19,7 +19,7 @@
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using static CookTheWeek.Common.NotificationMessagesConstants;
+    using static CookTheWeek.Common.TempDataConstants;
 
     public class UserService : IUserService
     {

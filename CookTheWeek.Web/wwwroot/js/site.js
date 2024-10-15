@@ -253,7 +253,7 @@ function toggleAddRemoveBtn(btn) {
 
 // Gets the antiforgery token
 function getAntiForgeryToken() {
-    return $('input[name="__RequestVerificationToken"]').val();  
+    return $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
 }
 
 function buildMealPlan(event) {
@@ -273,28 +273,16 @@ function buildMealPlan(event) {
     
     
     $.ajax({
-        url: 'https://localhost:7279/api/mealplan/CreateMealPlanModel',
+        url: '/MealPlan/CreateMealPlanModel',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(model),        
+        headers: {
+            'RequestVerificationToken': getAntiForgeryToken()
+        },
+        data: JSON.stringify(model),
         success: function (response) {
-            // Send the model to the server to store in session
-            $.ajax({
-                url: 'https://localhost:7170/MealPlan/StoreMealPlanInSession',  // Action to store the model in session
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(response),
-                headers: {
-                    'RequestVerificationToken': getAntiForgeryToken()  // Include anti-forgery token
-                },
-                success: function () {
-                    // Redirect to the Add view after storing the model in session
-                    window.location.href = '/MealPlan/Add';
-                },
-                error: function (response) {
-                    console.log('Meal plan storing in session failed.', response);
-                }
-            });
+            // Redirect to the Add view and use TempData to store the model
+            window.location.href = '/MealPlan/Add';
         },
         error: function (xhr, status, error) {
             console.error('Error building the meal plan:', error);
@@ -361,7 +349,7 @@ export function reindexMealRows() {
     $('.meal-row').each(function (rowIndex) {
         
         $(this).find('input[id^="Meals_"], select[id^="Meals_"]').each(function (index, element) {
-            debugger
+            
             let idParts = element.id.split('__');
             console.log("Old id: " + idParts);
             let newId = 'Meals_' + rowIndex + '__' + idParts[1];

@@ -1,16 +1,20 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
    
     using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Factories;
+    using CookTheWeek.Services.Data.Models.MealPlan;
+    using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Extensions;
     using CookTheWeek.Web.ViewModels.MealPlan;
 
-    using static Common.NotificationMessagesConstants;
-    using static Common.EntityValidationConstants.MealPlanValidation;
+    using static CookTheWeek.Common.NotificationMessagesConstants;
+    using static CookTheWeek.Common.TempDataConstants;
+    using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
 
     public class MealPlanController : BaseController
     {
@@ -27,38 +31,62 @@
             this.validationService = validationService;
             this.viewModelFactory = viewModelFactory;
         }
-
+       
         [HttpPost]
-        public IActionResult StoreMealPlanInSession([FromBody] MealPlanAddFormModel model)
+        public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel model)
         {
-            // Store the model received from the API controller in the session
+            // Fast return in case of invalid data received
+            if (!ModelState.IsValid)
+            {
+                return LogAndReturnBadRequestWithModelState("Invalid service model received.");
+            }
+
+            // Perform additional validation
+            var validationResult = await ValidateMealPlanModelAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+                return LogAndReturnBadRequestWithModelState(string.Join(Environment.NewLine, validationResult.Errors));
+            }
+
+            // If model is valid, create the view model for Add view
             try
             {
-                HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", model);
-                return Ok();
+                MealPlanAddFormModel mealPlanModel = await this.viewModelFactory.CreateMealPlanAddFormModelAsync(model);
+
+                // Store the model in TempData for the next request
+                TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(mealPlanModel);
+                return Ok();  
             }
-            catch (Exception ex)
+            catch (RecordNotFoundException ex)
             {
-                logger.LogError($"Mealplan storing in session failed. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                return BadRequest(ex.Message);
+                logger.LogError($"MealPlanAddFormModel creation failed due to missing record. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return NotFound();
+            }
+            catch (Exception ex) when (ex is DataRetrievalException || ex is Exception)
+            {
+                logger.LogError(ex, "Error retrieving data.");
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet]
         public IActionResult Add(string? returnUrl = null)
         {
-            var mealPlanModel = HttpContext.Session.GetObjectFromJson<MealPlanAddFormModel>("MealPlanAddFormModel");
-
-            if (mealPlanModel == null)
+            // Retrieve the model from TempData
+            if (TempData[MealPlanStoredModel] != null)
             {
-                logger.LogError($"Mealplan retrieval from session failed.");
-                TempData[ErrorMessage] = "Building mealplan failed!";
+                var mealPlanModel = JsonConvert.DeserializeObject<MealPlanAddFormModel>(TempData[MealPlanStoredModel].ToString());
 
-                return Redirect(returnUrl ?? "/Home/Index"); // If session is empty
+                SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All");
+                return View(mealPlanModel);
             }
+            
+            // Fallback if meal plan was not found in TempData
+            logger.LogError($"Mealplan retrieval from TempData failed.");
+            TempData[ErrorMessage] = "Building meal plan failed!";
 
-            SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All");
-            return View(mealPlanModel);  
+            return Redirect(returnUrl ?? "/Recipe/All");
         }
 
         [HttpPost]
@@ -82,12 +110,17 @@
                     return View(model);
                 }
 
-                TempData["SubmissionSuccess"] = true;
+                TempData[SubmissionSuccess] = true;
                 TempData[SuccessMessage] = MealPlanSuccessfulSaveMessage;
 
-                HttpContext.Session.Remove("MealPlanAddFormModel");
+                if (result?.Value == null)
+                {
+                    // Log error or handle the issue accordingly
+                    logger.LogError("Result value is null.");
+                    return RedirectToAction("Mine", "MealPlan");
+                }
 
-                return RedirectToAction("Details", "MealPlan", new { result.Value, returnUrl });
+                return RedirectToAction("Details", "MealPlan", new { id = result.Value, returnUrl = returnUrl });
             }
             catch (RecordNotFoundException)
             {
@@ -168,7 +201,9 @@
 
                         if (result.IsValid)
                         {
-                            HttpContext.Session.SetObjectAsJson("MealPlanAddFormModel", copiedModel); // store in session
+
+                            // Store the model in TempData for the next request
+                            TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(copiedModel);
 
                             return RedirectToAction("Add", new { returnUrl });
                         }
@@ -257,7 +292,7 @@
                 HandleException(ex, nameof(Edit), model.Id);
             }
 
-            return Redirect(returnUrl ?? "/MealPlan/Mine");
+            return RedirectToAction("Details", "MealPlan", new { id = model.Id, returnUrl = returnUrl });
         }
 
         [HttpGet]
@@ -302,6 +337,38 @@
 
             // Redirect to the internal server error page with the exception message
             return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+        }
+
+        // Helper method for logging and returning bad request
+        private IActionResult LogAndReturnBadRequestWithModelState(string message)
+        {
+            logger.LogError(message);
+            return BadRequest(ModelState);
+        }
+
+        // Helper method for custom validation
+        private async Task<ValidationResult> ValidateMealPlanModelAsync(MealPlanServiceModel model)
+        {
+            var validationResult = await this.validationService.ValidateMealPlanServiceModelAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+                AddModelErrors(validationResult);
+            }
+
+            return validationResult;
+        }
+
+        // Helper method for adding model errors from the custom validation to the ModelState
+        private void AddModelErrors(ValidationResult validationResult)
+        {
+            if (!validationResult.IsValid && validationResult.Errors.Any())
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
         }
     }
 }

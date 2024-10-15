@@ -362,8 +362,7 @@
             return true;  // Category can be deleted
         }
 
-
-        // TODO: check!
+       
         // FAVOURITE RECIPE (LIKES)
         /// <inheritdoc/>   
         public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
@@ -383,11 +382,6 @@
             }
 
         }
-
-        
-
-
-
 
 
         // PRIVATE METHODS:
@@ -476,7 +470,7 @@
                 return false;
             }
 
-            if (DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
+            if (!DateTime.TryParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime _))
             {
                 return false;
             }

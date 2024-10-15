@@ -12,8 +12,9 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.User;
     
-    using static Common.GeneralApplicationConstants;
-    using static Common.NotificationMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.NotificationMessagesConstants;
+    using static CookTheWeek.Common.TempDataConstants;
 
     [AllowAnonymous]
     public class UserController : BaseController

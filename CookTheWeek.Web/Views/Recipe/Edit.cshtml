@@ -1,9 +1,9 @@
 ﻿@model RecipeEditFormModel
+@inject IUserContext UserContext
 @using Newtonsoft.Json
 @using static CookTheWeek.Common.GeneralApplicationConstants;
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages;
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationConstants;
-@inject IUserContext UserContext
 @{
     ViewData["Title"] = "Edit Recipe";
 
@@ -45,6 +45,7 @@
 
         <div class="card-body">
             <form id="edit-recipe-form">
+                @Html.AntiForgeryToken()
                 <input 
                     type="hidden" 
                     id="jsonData" 
@@ -382,7 +383,6 @@
         var qtyFractionOptions = @Html.Raw(qtyFractionOptionsString);
         const errorMessages = @Html.Raw(errorMessagesString);
         const validationConstants = @Html.Raw(validationConstantsString);
-        debugger;
         const returnUrl = '@ViewBag.ReturnUrl' || '/Recipe/All';
         
         // Create Regex URL pattern, corresponding to server-side regex

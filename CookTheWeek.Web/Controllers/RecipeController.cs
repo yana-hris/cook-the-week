@@ -155,10 +155,8 @@
 
         }
 
-        // TODO: Check how to add CSFR token in hidden input in view
-        // TODO: Check if it works as Json result not testes yet!
+       
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model, [FromQuery] string returnUrl)
         {
             if (model == null)

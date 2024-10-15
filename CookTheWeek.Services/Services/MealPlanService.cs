@@ -101,7 +101,7 @@
                 throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyAddedExceptionMessage);
             }
 
-            return OperationResult<string>.Success(newMealPlan.Id.ToString());
+            return OperationResult<string>.Success(id);
 
         }
 
@@ -131,7 +131,7 @@
                 .OrderByDescending(mp => mp.StartDate)
                 .ToListAsync();
 
-            if (userMealPlans == null || userMealPlans.Any())
+            if (userMealPlans == null || userMealPlans.Count == 0)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoMealplansFoundExceptionMessage, null);
             }

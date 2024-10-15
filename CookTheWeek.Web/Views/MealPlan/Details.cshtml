@@ -1,5 +1,6 @@
 ﻿@model MealPlanDetailsViewModel
 @using CookTheWeek.Common.HelperMethods
+@using static CookTheWeek.Common.TempDataConstants
 @inject IUserContext UserContext
 @{
     ViewData["Title"] = "Meal Plan Details";
@@ -24,7 +25,6 @@
             ViewBag.ReturnUrl = "/MealPlan/Mine";
         }
     }
-
 }
     
 <div id="details-mealplan" class="card-container">    
@@ -183,26 +183,36 @@
     </div>
 </div>
 
+@section Scripts {
+    <script type="module">
+        import { eraseUserLocalStorage } from '/js/site.js';
 
-<script>
-    $(document).ready(function () {
-        $('#removeBtn').on('click', function (e) {
-            e.preventDefault(); // Prevent the default link behavior
-            $('#confirmDeleteModal').modal('show');
-        });
+        @if (TempData[SubmissionSuccess] != null && (bool)TempData[SubmissionSuccess])
+        {
+            <text>eraseUserLocalStorage();</text>
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#removeBtn').on('click', function (e) {
+                e.preventDefault(); // Prevent the default link behavior
+                $('#confirmDeleteModal').modal('show');
+            });
 
-        // Close the modal when the "Cancel" button is clicked
-        $('#confirmDeleteModal .btn-primary').on('click', function () {
-            $('#confirmDeleteModal').modal('hide');
-        });
-
-        // Close the modal when clicking outside the modal area
-        $(document).on('click', function (e) {
-            if ($(e.target).closest('.modal-content').length === 0) {
+            // Close the modal when the "Cancel" button is clicked
+            $('#confirmDeleteModal .btn-primary').on('click', function () {
                 $('#confirmDeleteModal').modal('hide');
-            }
+            });
+
+            // Close the modal when clicking outside the modal area
+            $(document).on('click', function (e) {
+                if ($(e.target).closest('.modal-content').length === 0) {
+                    $('#confirmDeleteModal').modal('hide');
+                }
+            });
         });
-    });
-</script>
+    </script>
+}
+
 
 

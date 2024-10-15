@@ -1,19 +1,32 @@
-﻿$(document).on('keyup', '.ingredientName', suggestWords);
+﻿$(document).on('keyup', '.ingredientName', debounce(suggestWords, 300)); 
+
+// Initial resize when the page loads
+$(document).ready(function () {
+    resizeSuggestionContainers(); // Ensure the suggestion windows are sized correctly
+});
+
+// Event listener to trigger resizing when the viewport is resized
+$(window).on('resize', function () {
+    resizeSuggestionContainers();  // Recalculate the width of all suggestion windows
+});
+
 
 function suggestWords(event) {
     let inputValue = $(this).val();
     let suggestionsContainer = this.parentNode.querySelector("div.suggestionsList");
 
-    if (inputValue.length > 1) {
+    if (inputValue.length > 2) {
         $.ajax({
-            url: 'https://localhost:7279/api/recipeingredient/suggestions',
-            type: "get",
-            data: {
-                input: inputValue
-            },
+            url: '/RecipeIngredient/RenderSuggestions',
+            type: 'GET',
+            data: { input: inputValue },
             dataType: 'json',
             success: function (response) {
                 renderSuggestionResults(response, inputValue, suggestionsContainer, event.target);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching suggestions:', error);
+                $(suggestionsContainer).html('<div class="text-danger">Error fetching suggestions.</div>');
             }
         });
     } else {
@@ -22,99 +35,89 @@ function suggestWords(event) {
 }
 
 function renderSuggestionResults(results, search, container, inputForm) {
-    // delete unordered list from previous search result
-    $(container).empty();
+    $(container).empty();  // Clear previous suggestions
 
-    // get properties from input field
-    let form_font = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
-    let form_width = inputForm.offsetWidth;
-    
-    container.style.width = form_width.toString() + 'px';
+    let formFont = window.getComputedStyle(inputForm, null).getPropertyValue('font-size');
+    let formWidth = inputForm.offsetWidth;
+
+    container.style.width = formWidth + 'px';
 
     if (results.length > 0) {
-        // create ul and set classes
         let ul = document.createElement('UL');
-        ul.classList.add('list-group', 'mt-2');
+        ul.classList.add('list-group');
 
-        // create list of results and append to ul
-        results.map(function (item) {
-
+        results.forEach(item => {
             let a = document.createElement('A');
-            a.classList.add('autocomplete-result', 'list-group-item', 'p-1'); // autocomplete used for init click event, other classes are from bootstrap
-            a.style.fontSize = form_font;
+            a.classList.add('autocomplete-result', 'list-group-item', 'p-1');
+            a.style.fontSize = formFont;
             a.href = "#";
-            debugger;
-            a.setAttribute("id", item.id); // used for click-Event to fill the form
-            
+            a.setAttribute("id", item.id);
             a.innerHTML = colorResults(item.name, search);
 
-            // add Eventlistener for chosen renderResults
-            a.addEventListener("click", function (event) {
+            // Attach click event to fill the form
+            a.addEventListener("click", event => {
                 event.preventDefault();
                 event.stopPropagation();
-                
+
                 let ingredientName = item.name;
-                let ingredientId = item.id;  // Capture the ingredient ID
+                let ingredientId = item.id;
 
-                // Get the Knockout.js context for the input field
+                // Get Knockout context and update observables
                 let koContext = ko.dataFor(inputForm);
-
-                // Update the Knockout observables directly
                 if (koContext) {
-                    koContext.Name(ingredientName);  // Update the Name observable
-                    koContext.IngredientId(ingredientId);  // Update the IngredientId observable
+                    koContext.Name(ingredientName);
+                    koContext.IngredientId(ingredientId);
                 }
 
-                //$(inputForm).val(ingredientName).trigger('change'); // Fill selected ingredient name to Input field
-
-                //// Find the corresponding hidden input for IngredientId and set its value
-                //let hiddenInput = $(inputForm).closest('.input-group').find('.ingredientId');
-                //hiddenInput.val(ingredientId).trigger('change'); // Update hidden field with IngredientId and trigger change event
-
-
-                // clear results div after a suggestion is clicked
-                $(container).empty();
+                $(container).empty();  // Clear suggestions after selection
                 container.classList.add('invisible');
-
             });
-            ul.append(a);
+
+            ul.appendChild(a);
         });
-        
+
         container.append(ul);
         container.classList.remove('invisible');
-
-    }
-    else {
+    } else {
         container.classList.add('invisible');
-
     }
 }
-// create colored marked search strings
+
+// Debounce utility function to prevent too many requests
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+// Highlight the matching part of the suggestions
 function colorResults(string, search) {
-    let splitted = string.toLowerCase().split(search.toLowerCase());
+    // Escape any special characters in the search string for regex
+    const searchEscaped = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-    let sp = []; 
-    let start = 0; 
+    // Create a case-insensitive regular expression to match the search term
+    const regex = new RegExp(`(${searchEscaped})`, 'gi');
 
-    splitted.map(function (element, index) {
-        // empty string at the beginning
-        if (element == false) {
-            sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
-            start = start + search.length;
-        }
-        else if (index + 1 == splitted.length) {
-            sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
-        }
-        else {
-            sp.push("<span>" + string.slice(start, start + element.length) + "</span>");
-            start = start + element.length;
-            sp.push("<span class='text-success'>" + string.slice(start, start + search.length) + "</span>");
-            start = start + search.length;
-        }
+    // Replace matching parts of the string with a span that highlights it
+    return string.replace(regex, '<span class="color-result">$1</span>');
+}
+
+// Function to resize suggestion containers based on input field width
+function resizeSuggestionContainers() {
+    // Select all input fields with class 'ingredientName'
+    $('.ingredientName').each(function () {
+        let inputField = $(this);  // This is the input field
+        let suggestionsContainer = inputField.siblings('.suggestionsList');  // The suggestions list is a sibling
+
+        // Adjust the width of the suggestion container to match the input field width
+        let inputWidth = inputField.outerWidth();
+        suggestionsContainer.css('width', inputWidth + 'px');
     });
-    return sp.join('')
 }
 
 
 
-    
+
