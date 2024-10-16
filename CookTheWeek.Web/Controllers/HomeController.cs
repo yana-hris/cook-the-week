@@ -4,6 +4,7 @@ namespace CookTheWeek.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.Infrastructure.ActionFilters;
     using CookTheWeek.Web.ViewModels.Home;
 
     
@@ -24,7 +25,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpGet]
-        //[AdminRedirect("Index", "HomeAdmin")]
+        [AdminRedirect("Index", "HomeAdmin")]
         public IActionResult Index()
         {
             return View();

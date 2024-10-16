@@ -4,12 +4,11 @@
     ViewData["Title"] = "My Meal Plans";
 
     Guid userId = UserContext.UserId;
-    bool isAdmin = UserContext.IsAdmin;
 
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = "Review your active or rebuild your finished meal plans"
+        HeadingSecondary = "Review or rebuild your meal plans"
     };
 }
 <div id="meal-plans-mine" class="wide-contents-container">
@@ -51,7 +50,7 @@
                     <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
                     <td class="align-baseline">
                         <label>
-                            <a href="/MealPlan/Details/@mealPlan.Id" class="btn btn-outline-primary fixed-size-btn btn-icon-only">
+                            <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-outline-primary fixed-size-btn btn-icon-only">
                                 <i class="fas fa-th-list"></i>
                             </a>
                         </label>
@@ -64,14 +63,13 @@
                         </label>
                     </td>
                     <td class="align-baseline">
-                        <label>
-                        @if (mealPlan.IsFinished)
-                        {
-                            <a asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-primary fixed-size-btn btn-icon-only">
+                        <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" value="@mealPlan.Id" />
+                            <input type="hidden" name="returnUrl" value="/MealPlan/Mine" />
+                            <button type="submit" class="btn btn-primary fixed-size-btn btn-icon-only">
                                 <i class="fas fa-sync-alt"></i>
-                            </a>
-                        }
-                        </label>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

@@ -1,8 +1,9 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
-    using CookTheWeek.Services.Data.Models.RecipeIngredient;
-    using CookTheWeek.Services.Data.Services.Interfaces;
+    
     using Microsoft.AspNetCore.Mvc;
+
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class RecipeIngredientController : BaseController
     {
@@ -14,6 +15,11 @@
             this.ingredientService = ingredientService;
         }
 
+        /// <summary>
+        /// Provides ingredient suggestions based on the user's input string.
+        /// </summary>
+        /// <param name="input">The user input to base suggestions on.</param>
+        /// <returns>Returns a JSON array of suggestion words.</returns>
         [HttpGet]
         public async Task<IActionResult> RenderSuggestions(string input)
         {

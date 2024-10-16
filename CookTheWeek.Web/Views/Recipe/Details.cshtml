@@ -32,9 +32,9 @@
                         <div class="col-12">
                             <div class="img-container">
                                 <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                                @if (Model.IsSiteRecipe)
+                                @if (Model.IsSiteRecipe && !isAdmin)
                                 {
-                                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
                                         @if (Model.IsLikedByUser)
                                         {
                                             <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
@@ -47,9 +47,12 @@
                                 }
                                 else
                                 {
-                                    <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                                    if (!isAdmin)
+                                    {
+                                        <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                                    }
                                 }
-                                @if (userId != default)
+                                @if (userId != default && !isAdmin)
                                 {
                                     <div class="add-to-mealplan-container">
                                         <a data-recipeId="@Model.Id" class="plus fixed-size-btn btn btn-icon-only">

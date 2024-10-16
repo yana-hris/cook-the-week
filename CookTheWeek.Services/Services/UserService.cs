@@ -20,6 +20,7 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.TempDataConstants;
+    using Microsoft.IdentityModel.Tokens;
 
     public class UserService : IUserService
     {
@@ -226,9 +227,19 @@
         }
 
         /// <inheritdoc/>
-        public async Task<OperationResult> TyrConfirmEmailAsync(string code)
+        public async Task<OperationResult> TyrConfirmEmailAsync(string userConfirmedId, string code)
         {
-            var user = await userRepository.GetByIdAsync(userId);
+            // Ensure userId is not null or empty
+            if (string.IsNullOrEmpty(userConfirmedId))
+            {
+                logger.LogError("UserId is null or empty during email confirmation.");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    {"EmailConfirmationError", "UserId is missing." }
+                });
+            }
+
+            var user = await userRepository.GetByIdAsync(Guid.Parse(userConfirmedId));
 
             if (user == null)
             {

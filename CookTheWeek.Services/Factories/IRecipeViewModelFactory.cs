@@ -56,5 +56,11 @@
         /// <exception cref="DataRetrievalException"></exception>
         Task<IRecipeFormModel> PopulateRecipeFormModelAsync(IRecipeFormModel model);
         Task<RecipeMineAdminViewModel> CreateAdminAllRecipesViewModelAsync();
+
+        /// <summary>
+        /// Creates a collection of all site recipes of the RecipeAllViewModel for the Admin Recipe/Site view
+        /// </summary>
+        /// <returns></returns>
+        Task<ICollection<RecipeAllViewModel>> CreateAdminSiteRecipesViewModelAsync();
     }
 }

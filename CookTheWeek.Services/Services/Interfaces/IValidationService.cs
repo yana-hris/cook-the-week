@@ -19,13 +19,6 @@
         /// <returns>Validation result</returns>
         Task<ValidationResult> ValidateIngredientFormModelAsync(IIngredientFormModel model);
 
-        /// <summary>
-        /// Custom validation for recipes upon adding and editing Recipe: checks if the selected category and nested recipe ingredients are valid and exist in the database
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns>Validation Result</returns>
-        /// <remarks>Does not throw exceptions, returns the validation result and logs errors.</remarks>
-        Task<ValidationResult> ValidateRecipeFormModelAsync(IRecipeFormModel model);
        
         /// <summary>
         /// Validates if a user with the given email or username already exists and returns a Validation result, with a collection of all model errors (dictionary).
@@ -34,26 +27,8 @@
         /// <returns>ValidationResult</returns>
         Task<ValidationResult> ValidateRegisterUserModelAsync(RegisterFormModel model);
 
-        /// <summary>
-        /// Validates the service model data before creating a meal plan Add form model
-        /// </summary>
-        /// <param name="serviceModel"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        Task<ValidationResult> ValidateMealPlanServiceModelAsync(MealPlanServiceModel serviceModel);
-
-       /// <summary>
-       /// Validates MealPlanAddFormModel and MealPlanEditFormModel.
-       /// For both models checks if Meal collection is empty, if meals are valid recipes. In case of wrong recipeIds throws RecordNotFoundException.
-       /// In case of invalid selected Date (for meal) returns Validation Error.
-       /// </summary>
-       /// <param name="model"></param>
-       /// <returns>Validation Result</returns>
-       /// <exception cref="RecordNotFoundException"></exception>
-       /// <exception cref="UnauthorizedUserException"></exception>
-       /// <exception cref="ArgumentNullException"></exception>
-        Task<ValidationResult> ValidateMealPlanMealsAsync(IMealPlanFormModel model);
-
+        
+      
         /// <summary>
         /// A generic method to validate a given TCategory add or edit form model.
         /// Ensures that the category name does not already exist, and that the category to edit exists.
@@ -107,18 +82,7 @@
         /// <exception cref="UnauthorizedUserException"></exception>
         Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
 
-        /// <summary>
-        /// Validates if a user has the rights to access a given resource by the owner ID
-        /// </summary>
-        /// <param name="mealplanOwnerId">the resource OwnerId</param>
-        /// <exception cref="UnauthorizedUserException"></exception>
-        void ValidateUserIsResourceOwnerAsync(Guid mealplanOwnerId);
-
-        /// <summary>
-        /// Validates if a Recipe can be deleted by checking if it is included in any active MealPlans.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true or false</returns>
-        Task<bool> CanRecipeBeDeletedAsync(Guid id);
+        
+        
     }
 }

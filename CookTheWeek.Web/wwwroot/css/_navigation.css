@@ -3,20 +3,27 @@
   margin: 0 0;
 }
 #navigation #nav-container {
-  padding: 8px 40px 10px 40px;
-  max-width: 100% !important;
+  padding: 2px 40px;
+  max-width: 100%;
   /* Navigation Btn on small screens*/
   /* State when the navbar is collapsed */
   /* End of Nav Btn */
+}
+#navigation #nav-container .navbar-brand {
+  gap: 10px;
+  padding: 0;
+}
+#navigation #nav-container .navbar-brand .navbar-logo {
+  max-height: 60px;
+  width: auto;
 }
 #navigation #nav-container .navbar-brand:hover {
   color: var(--bs-navbar-hover-color);
   transition: 0.5s;
 }
 #navigation #nav-container #navcol-5 {
-  margin-left: 0;
+  margin: 0;
   padding-right: 0px;
-  margin-right: 0px;
 }
 #navigation #nav-container #navcol-5 #nav-list {
   color: rgba(255, 255, 255, 0.65);
@@ -32,14 +39,14 @@
   padding: 6px 16px;
 }
 #navigation #nav-container #navcol-5 li.nav-item .drop-down-item {
-  text-decoration: none !important;
-  color: #ffffff !important;
+  text-decoration: none;
+  color: #ffffff;
 }
 #navigation #nav-container #navcol-5 li.nav-item .drop-down-item:hover {
-  color: var(--bs-success) !important;
+  color: var(--bs-success);
 }
-#navigation #nav-container #navcol-5 li.nav-item .dropdown-item:active {
-  background-color: var(--bs-primary) !important;
+#navigation #nav-container #navcol-5 li.nav-item:active {
+  background-color: var(--bs-primary);
 }
 #navigation #nav-container #navcol-5 li.nav-item:hover {
   border: 1px solid var(--bs-primary);
@@ -56,13 +63,11 @@
   padding: 0;
 }
 #navigation #nav-container .navbar-toggler .toggler-icon {
-  display: block;
   position: absolute;
   height: 2px;
   width: 100%;
   background: var(--bs-white);
   border-radius: 1px;
-  opacity: 1;
   left: 0;
   transform: rotate(0deg);
   transition: 0.25s ease-in-out;
@@ -108,10 +113,14 @@
 
 @media only screen and (max-width: 767px) {
   .navbar-expand-md #nav-container {
-    padding: 8px 12px 8px 12px !important;
+    padding: 2px 12px !important;
     align-items: center !important;
     justify-content: space-between !important;
     display: flex !important;
+  }
+  .navbar-expand-md #nav-container .navbar-logo {
+    max-height: 45px; /* Set a height suitable for the logo */
+    width: auto; /* Automatically adjust the width to maintain aspect ratio */
   }
   .navbar-expand-md #nav-container #navcol-5 {
     position: absolute;

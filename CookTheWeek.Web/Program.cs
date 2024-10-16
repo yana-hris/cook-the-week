@@ -155,20 +155,8 @@ namespace CookTheWeek.Web
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
-
-            // Add session services
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
-                options.Cookie.HttpOnly = true;  // Make the session cookie HttpOnly for security
-                options.Cookie.IsEssential = true; // Ensure cookie is not affected by consent policies
-            });
-
             builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-
-            // Add distributed memory cache (used by session to store data)
-            builder.Services.AddDistributedMemoryCache();
-
+            
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
@@ -217,9 +205,6 @@ namespace CookTheWeek.Web
 
             // Authorization middleware
             app.UseAuthorization();
-            
-
-            app.UseSession();
 
             // Custom middleware for checking online users (requires user ID)
             app.EnableOnlineUsersCheck();

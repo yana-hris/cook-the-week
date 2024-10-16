@@ -1,57 +1,24 @@
-﻿@model RecipeMineAdminViewModel
+﻿@model ICollection<RecipeAllViewModel>
 @{
     ViewData["Title"] = "Site Recipes";
 
 
-    var siteHeading = new PageHeadingViewModel();
-    var userHeading = new PageHeadingViewModel();
-
-
-    if(Model.SiteRecipes.Any() && Model.UserRecipes.Any())
-    {
-        siteHeading.Subheading = "All Recipes";
-        siteHeading.HeadingSecondary = ViewData["Title"].ToString();
-        userHeading.HeadingSecondary = "User Recipes";
-    } else if (!Model.SiteRecipes.Any())
-    {
-        userHeading.Subheading = "All Recipes";
-        userHeading.HeadingSecondary = "User Recipes";
-    } else
-    {
-        siteHeading.Subheading = "All Recipes";
-        siteHeading.HeadingSecondary = ViewData["Title"].ToString();
-    }
-
+    var siteHeading = new PageHeadingViewModel
+        {
+            Subheading = ViewData["Title"].ToString()
+        };
 }
 
 <div class="wide-contents-container">
-    
-    @if (Model.SiteRecipes.Any())
-    {
-        <div class="row">
-            <partial name="_HeadingPartial" model="siteHeading" />
-        </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-            @foreach (var recipe in Model.SiteRecipes)
-            {
-                <partial name="_RecipeCardPartial" model="recipe" />
-            }
-        </div>  
-    }    
-            
-    @if (Model.UserRecipes.Any())
-    {
-        <div class="row">
-            <partial name="_HeadingPartial" model="userHeading" />
-        </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-            @foreach (var recipe in Model.UserRecipes)
-            {
-                <partial name="_RecipeCardPartial" model="recipe" />
-            }
-        </div>        
-    }
-        
+    <div class="row">
+        <partial name="_HeadingPartial" model="siteHeading" />
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+        @foreach (var recipe in Model)
+        {
+            <partial name="_RecipeCardPartial" model="recipe" />
+        }
+    </div>  
 </div>
 
 

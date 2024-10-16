@@ -27,14 +27,16 @@
         public static class  UnauthorizedExceptionMessages 
         {
             // RECIPE:
-            public const string RecipeEditAuthorizationExceptionMessage = "You do not have permission to edit this recipe.";
-            public const string RecipeDeleteAuthorizationMessage = "You do not have permission to delete this recipe.";
+            public const string RecipeAuthorizationExceptionMessage = "You do not have permission to edit or delete this recipe.";
+
 
             // USER:
             public const string UserNotLoggedInExceptionMessage = "You need to be logged in to proceed.";
 
             //MEAL PLAN:
             public const string MealplanEditAuthorizationExceptionMessage = "You do not have permission to edit/delete this meal plan.";
+
+            public const string MealPlanCreationAuthorizationExceptionMessage = "You are not the owner of this mealplan data.";
         }
 
         public static class  RecordNotFoundExceptionMessages
@@ -91,7 +93,9 @@
 
             public const string MealplanUnsuccessfullyCopiedExceptionMessage = "Mealplan cannot be copied due to missing recipes.";
 
-            
+            public const string MealPlanModelUnsuccessfullyCreatedExceptionMessage = "Mealplan cannot be created due to incorrect service data";
+
+
             // USER:
             public const string UserUnsuccessfullyCreatedExceptionMessage = "User creation failed.";
 
@@ -123,6 +127,8 @@
             public const string RecipeAddOrEditModelUnsuccessfullyCasted = "Failed to cast RecipeFormModel.";
 
             public const string IngredientAddOrEditModelUnsuccessfullyCasted = "Failed to cast IngredientFormModel.";
+
+            
         }
 
         public static class ArgumentNullExceptionMessages
@@ -132,6 +138,10 @@
             public const string RecipeNullExceptionMessage = "The Recipe is null";
 
             public const string UserNullExceptionMessage = "The User is null.";
+
+            public const string UserIdNullExceptionMessage = "The user ID is null";
+
+            public const string MealsArrayNullExceptionMessage = "The meals collection is empty";
         }
     }
 }

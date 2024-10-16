@@ -1,6 +1,7 @@
 ﻿@model MealPlanDetailsViewModel
 @using CookTheWeek.Common.HelperMethods
 @using static CookTheWeek.Common.TempDataConstants
+@using static CookTheWeek.Common.GeneralApplicationConstants
 @inject IUserContext UserContext
 @{
     ViewData["Title"] = "Meal Plan Details";
@@ -57,13 +58,32 @@
                             <!-- For each -->
                                 @for (int i = 0; i < Model.Meals.Count; i++)
                                 {
-                                    <tr class="meal-row">
+                                    var currentMeal = Model.Meals[i];
+                                    bool isCurrentMealDeleted = Guid.Parse(currentMeal.RecipeId) == DeletedRecipeId;
+
+                                    <tr class="meal-row @((isCurrentMealDeleted ? "table-secondary" : ""))">
                                         <th scope="row" class="border-0">
                                             <div class="meal-info">
-                                                <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                @if (isCurrentMealDeleted)
+                                                {
+                                                    <img src="~/img/deleted-recipe-placeholder-small.jpg" alt="Deleted Recipe Sample Image" width="70" class="img-fluid rounded shadow-sm">
+                                                }
+                                                else
+                                                {
+                                                    <img src="@Model.Meals[i].ImageUrl" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                }
+                                        
                                                 <div class="ml-3 d-inline-block align-middle">
                                                     <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
-                                                    <span class="category-text">@Model.Meals[i].CategoryName</span>
+                                                    @if (isCurrentMealDeleted)
+                                                    {
+                                                        <span class="category-text">N/A</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="category-text">@Model.Meals[i].CategoryName</span>
+                                                    }
+                                            
                                                 </div>
                                             </div>
                                         </th>
@@ -71,7 +91,7 @@
                                             <strong>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
-                                                    <input type="text" class="form-control text-style" value="@Model.Meals[i].Servings" readonly>
+                                                    <input type="text" class="form-control text-style @(isCurrentMealDeleted ? "deleted-input" : "")" value="@(isCurrentMealDeleted ? "N/A" : Model.Meals[i].Servings)" readonly>
                                                 </div>
                                             </strong>
                                         </td>
@@ -79,15 +99,31 @@
                                             <strong>
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                    <input type="text" class="form-control text-style" value="@Model.Meals[i].Date" readonly>
-                                                    <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                                    @if (isCurrentMealDeleted)
+                                                    {
+                                                        <input type="text" class="form-control text-style @(isCurrentMealDeleted ? "deleted-input" : "")" value="N/A" readonly>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" class="form-control text-style" value="@Model.Meals[i].Date" readonly>
+                                                        <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                                    }
                                                 </div>
                                             </strong>
                                         </td>
                                     <td class="border-0 align-middle">
-                                        <a asp-area="" asp-controller="Meal" asp-action="Details" asp-route-id="@Model.Meals[i].Id" class="btn btn-primary cook-btn btn-icon-only">
-                                            <i class="fa-solid fa-bowl-rice"></i>
-                                        </a>
+                                        @if (isCurrentMealDeleted)
+                                        {
+                                            <a href="#" class="btn btn-primary cook-btn btn-icon-only disabled">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-area="" asp-controller="Meal" asp-action="Details" asp-route-id="@Model.Meals[i].Id" class="btn btn-primary cook-btn btn-icon-only">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </a>
+                                        }
                                     </td>
                                     </tr>
                                 }

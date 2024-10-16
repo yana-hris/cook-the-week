@@ -23,22 +23,31 @@
         private readonly IUserService userService;
         private readonly IValidationService validationService;
         private readonly IMemoryCache memoryCache;
+        private readonly Guid userId;
         
 
         public UserController(IUserService userService,
                               IMemoryCache memoryCache,
+                              IUserContext userContext,
                               IValidationService validationService,
                               ILogger<UserController> logger) : base(logger)
         {
             this.validationService = validationService;
             this.userService = userService;
+            this.userId = userContext.UserId;
             this.memoryCache = memoryCache;
         }
 
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
+            
+            if (userId != Guid.Empty)
+            {
+                TempData[ErrorMessage] = "You are already registered and logged in!";
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -71,7 +80,7 @@
                     
                     string? callbackUrl = Url.Action(
                         "ConfirmedEmail", "User",
-                        new { userId = newUserId, code = token },
+                        new { userToConfirmId = newUserId, code = token },
                         Request.Scheme);
 
                     
@@ -101,11 +110,11 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmedEmail(string code)
+        public async Task<IActionResult> ConfirmedEmail(string userToConfirmId, string code)
         {
             try
             {
-                OperationResult result = await userService.TyrConfirmEmailAsync(code);
+                OperationResult result = await userService.TyrConfirmEmailAsync(userToConfirmId, code);
 
                 if (!result.Succeeded)
                 {
@@ -128,6 +137,13 @@
         [HttpGet]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
+            if (userId != Guid.Empty)
+            {
+                TempData[ErrorMessage] = "You are already logged in";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             

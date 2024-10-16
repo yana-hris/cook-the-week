@@ -15,20 +15,22 @@
     using static CookTheWeek.Common.NotificationMessagesConstants;
     using static CookTheWeek.Common.TempDataConstants;
     using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
+    using System.Text;
+    using CookTheWeek.Web.ViewModels.Meal;
 
     public class MealPlanController : BaseController
     {
         private readonly IMealPlanViewModelFactory viewModelFactory;
         private readonly IMealPlanService mealPlanService;
-        private readonly IValidationService validationService;
+        private readonly IMealPlanValidationService mealplanValidator;
 
         public MealPlanController(IMealPlanService mealPlanService,
-            IValidationService validationService,
+            IMealPlanValidationService mealplanValidator,
             IMealPlanViewModelFactory viewModelFactory,
             ILogger<MealPlanController> logger) : base(logger)
         {
             this.mealPlanService = mealPlanService;
-            this.validationService = validationService;
+            this.mealplanValidator = mealplanValidator;
             this.viewModelFactory = viewModelFactory;
         }
        
@@ -38,35 +40,36 @@
             // Fast return in case of invalid data received
             if (!ModelState.IsValid)
             {
-                return LogAndReturnBadRequestWithModelState("Invalid service model received.");
+                return LogAndReturnBadRequestWithModelState("Meal plan creation failed. Invalid Service model received.");
             }
 
             // Perform additional validation
-            var validationResult = await ValidateMealPlanModelAsync(model);
-
-            if (!validationResult.IsValid)
+            try
             {
-                return LogAndReturnBadRequestWithModelState(string.Join(Environment.NewLine, validationResult.Errors));
+                model = await mealplanValidator.CleanseAndValidateServiceModelAsync(model);
             }
-
+            catch (Exception ex)
+            {
+                logger.LogError($"Meal plan creation failed. Error message: {ex.Message}. Stacktrace: {ex.StackTrace}");
+                return BadRequest();
+            }
+            
             // If model is valid, create the view model for Add view
             try
             {
-                MealPlanAddFormModel mealPlanModel = await this.viewModelFactory.CreateMealPlanAddFormModelAsync(model);
-
-                // Store the model in TempData for the next request
+                MealPlanAddFormModel mealPlanModel = await viewModelFactory.CreateMealPlanAddFormModelAsync(model);
                 TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(mealPlanModel);
-                return Ok();  
+                return Ok();
             }
             catch (RecordNotFoundException ex)
             {
-                logger.LogError($"MealPlanAddFormModel creation failed due to missing record. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                return NotFound();
+                logger.LogError($"Meal plan creation failed. Invalid recipeId. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
+                return BadRequest();
             }
-            catch (Exception ex) when (ex is DataRetrievalException || ex is Exception)
+            catch (Exception ex)
             {
-                logger.LogError(ex, "Error retrieving data.");
-                return StatusCode(500, ex.Message);
+                logger.LogError($"Meal plan creation failed. Error message: {ex.Message}. Stacktrace: {ex.StackTrace}");
+                return StatusCode(500);
             }
         }
 
@@ -116,7 +119,7 @@
                 if (result?.Value == null)
                 {
                     // Log error or handle the issue accordingly
-                    logger.LogError("Result value is null.");
+                    logger.LogError("Adding meal plan failes. Result value for meal plan ID is null.");
                     return RedirectToAction("Mine", "MealPlan");
                 }
 
@@ -139,7 +142,7 @@
         {
             try
             {
-                ICollection<MealPlanAllViewModel> model = await viewModelFactory.CreateMyMealPlansViewModelAsync();
+                ICollection<MealPlanAllViewModel> model = await viewModelFactory.CreateMealPlansMineViewModelAsync();
                 return View(model);
                          
             }
@@ -195,27 +198,23 @@
                 {
                     MealPlanAddFormModel copiedModel = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanAddFormModel>(guidId);
 
-                    try
+                    bool hasDeletedRecipes = mealplanValidator.ValidateIfRecipesWereDeleted(copiedModel);
+                   
+                    if (hasDeletedRecipes)
                     {
-                        var result = await validationService.ValidateMealPlanMealsAsync(copiedModel);
-
-                        if (result.IsValid)
-                        {
-
-                            // Store the model in TempData for the next request
-                            TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(copiedModel);
-
-                            return RedirectToAction("Add", new { returnUrl });
-                        }
-
-                        TempData[ErrorMessage] = "Copying meal plan failed!";
+                        
+                        TempData["MissingRecipesMessage"] = "Some recipes in your meal plan could not be found and have been removed.";
                     }
-                    catch (RecordNotFoundException)
-                    {
-                        // TODO: think about how to exclude them and suggest the user a way to proceed
-                        TempData[ErrorMessage] = "Meal Plan cannot be copied due to unexisting Recipes.";
-                        return Redirect(returnUrl ?? "/MealPlan/Mine");
-                    }
+                       
+                    // Store the model in TempData for the next request
+                    TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(copiedModel);
+                    return RedirectToAction("Add", new { returnUrl });
+                   
+                }
+                catch(ArgumentNullException)
+                {
+                    TempData[ErrorMessage] = "Meal Plan cannot be copied due to unexisting Recipes.";
+                    return Redirect(returnUrl ?? "/MealPlan/Mine");
                 }
                 catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
                 {
@@ -225,10 +224,12 @@
                 {
                     return HandleException(ex, nameof(CopyMealPlan), guidId);
                 }
+
                 return Redirect(returnUrl ?? "/MealPlan/Mine");
             }
 
-            return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
+            TempData[ErrorMessage] = "Copying meal plan failed!";
+            return Redirect(returnUrl ?? "/MealPlan/Mine");
 
         }
         
@@ -279,8 +280,6 @@
                     AddCustomValidationErrorsToModelState(result.Errors);
                     return View(model);
                 }
-
-                TempData[SuccessMessage] = MealPlanSuccessfulEditMessage;
             }
             catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
             {
@@ -292,6 +291,7 @@
                 HandleException(ex, nameof(Edit), model.Id);
             }
 
+            TempData[SuccessMessage] = MealPlanSuccessfulEditMessage;
             return RedirectToAction("Details", "MealPlan", new { id = model.Id, returnUrl = returnUrl });
         }
 
@@ -346,18 +346,7 @@
             return BadRequest(ModelState);
         }
 
-        // Helper method for custom validation
-        private async Task<ValidationResult> ValidateMealPlanModelAsync(MealPlanServiceModel model)
-        {
-            var validationResult = await this.validationService.ValidateMealPlanServiceModelAsync(model);
-
-            if (!validationResult.IsValid)
-            {
-                AddModelErrors(validationResult);
-            }
-
-            return validationResult;
-        }
+       
 
         // Helper method for adding model errors from the custom validation to the ModelState
         private void AddModelErrors(ValidationResult validationResult)

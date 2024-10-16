@@ -20,8 +20,4 @@
     <ProjectReference Include="..\CookTheWeek.Data.Models\CookTheWeek.Data.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

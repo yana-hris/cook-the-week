@@ -23,18 +23,18 @@
         private readonly IMealplanRepository mealplanRepository;
 
         private readonly IMealService mealService;
-        private readonly IValidationService validationService;
+        private readonly IMealPlanValidationService mealplanValidator;
         private readonly ILogger<MealPlanService> logger;
         private readonly Guid userId;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
-            IValidationService validationService,
+            IMealPlanValidationService mealplanValidator,
             IUserContext userContext,
             ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
-            this.validationService = validationService;
+            this.mealplanValidator = mealplanValidator;
             this.mealService = mealService;
             this.userId = userContext.UserId;
             this.logger = logger;
@@ -69,7 +69,7 @@
         /// <inheritdoc/>
         public async Task<OperationResult<string>> TryAddMealPlanAsync(MealPlanAddFormModel model)
         {
-            var result = await validationService.ValidateMealPlanMealsAsync(model);
+            var result = await mealplanValidator.ValidateMealPlanFormModelAsync(model);
 
             if (!result.IsValid)
             {
@@ -110,7 +110,7 @@
         {
             MealPlan mealplan = await TryGetAsync(model.Id); // RecordNotFound, UnauthorizedException
 
-            var result = await validationService.ValidateMealPlanMealsAsync(model);
+            var result = await mealplanValidator.ValidateMealPlanFormModelAsync(model);
 
             if (!result.IsValid)
             {
@@ -127,6 +127,7 @@
         public async Task<ICollection<MealPlan>> GetAllMineAsync()
         {
             var userMealPlans = await mealplanRepository.GetAllQuery()
+                .Include(mp => mp.Meals)
                 .Where(mp => mp.OwnerId == userId)
                 .OrderByDescending(mp => mp.StartDate)
                 .ToListAsync();
@@ -169,7 +170,7 @@
         {
             MealPlan mealplan = await GetByIdAsync(id);
 
-            validationService.ValidateUserIsResourceOwnerAsync(mealplan.OwnerId);
+            mealplanValidator.ValidateUserIsMealPlanOwner(mealplan.OwnerId);
 
             return mealplan;
         }
@@ -193,21 +194,23 @@
 
 
         /// <summary>
-        /// Gets a single Meal Plan or throws an exception
+        /// Gets a single Meal Plan or throws an exception 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <remarks>Includes deleted recipes as reference for the user. Deleted recipe data will be shown as placeholder data</remarks>
         /// <exception cref="RecordNotFoundException"></exception>
         private async Task<MealPlan> GetByIdAsync(Guid id)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdQuery(id)
+                .IgnoreQueryFilters()  // Apply to the entire query, ignoring all global filters
                 .Include(mp => mp.Meals)
-                        .ThenInclude(m => m.Recipe)
-                            .ThenInclude(r => r.RecipesIngredients)
-                                .ThenInclude(ri => ri.Ingredient)
-                    .Include(mp => mp.Meals)
-                        .ThenInclude(m => m.Recipe)
-                            .ThenInclude(r => r.Category)
+                    .ThenInclude(m => m.Recipe)
+                        .ThenInclude(r => r.RecipesIngredients)
+                            .ThenInclude(ri => ri.Ingredient)
+                .Include(mp => mp.Meals)
+                    .ThenInclude(m => m.Recipe)
+                        .ThenInclude(r => r.Category)
                 .FirstOrDefaultAsync();
 
             if (mealplan == null)

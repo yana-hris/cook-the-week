@@ -286,6 +286,8 @@ function buildMealPlan(event) {
         },
         error: function (xhr, status, error) {
             console.error('Error building the meal plan:', error);
+            toastr.error("Meal plan creation failed! Try again later.");
+            window.location.href = '/Recipe/All';
         }
     });
 }
