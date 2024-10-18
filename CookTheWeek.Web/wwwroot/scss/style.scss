@@ -4,7 +4,7 @@
 @import '../lib/bootstrap/scss/mixins';
 @import 'variables';
 @import 'typography';
-@import 'navigation';
+@import 'nav';
 @import 'cookie-banner';
 @import 'theme-switcher';
 @import 'shared-styles';
@@ -216,7 +216,6 @@
         }
     }
 }
-
 
 @import 'admin-panel';
 @import 'admin-form-styles';
