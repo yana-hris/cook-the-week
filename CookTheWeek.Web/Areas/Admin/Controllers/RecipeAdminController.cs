@@ -31,9 +31,9 @@
                 RecipeMineAdminViewModel model = await viewModelFactory.CreateAdminAllRecipesViewModelAsync();
                 ViewBag.ReturnUrl = Request.Path + Request.QueryString;
 
-                if (!model.SiteRecipes.Any() && !model.UserRecipes.Any())
+                if (model.SiteRecipes.Count == 0 && model.UserRecipes.Count == 0)
                 {
-                    return RedirectToAction("None");
+                    return RedirectToAction(nameof(None));
                 }
 
                 return View(model);
@@ -45,9 +45,36 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> Site()
+        {
+            try
+            {
+                var model = await viewModelFactory.CreateAdminSiteRecipesViewModelAsync();
+                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
+
+                if (model.Count == 0)
+                {
+                    return RedirectToAction(nameof(None));
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Site), nameof(RecipeAllViewModel), null);
+            }
+        }
+
+        [HttpGet]
         public IActionResult None()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return Redirect(Url.Action("Add", "Recipe", new { area = "" }));
         }
     }
 }

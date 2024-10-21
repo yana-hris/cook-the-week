@@ -44,9 +44,10 @@
         /// If token or user are null, a Failure result is returned.
         /// Does not throw any exceptions, catches RecordNotFound and ArgumentNullExceptions from previous methods.
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="code"></param>
         /// <returns>The Operation Result (Success or Failure)</returns>
-        Task<OperationResult> TyrConfirmEmailAsync(string code);
+        Task<OperationResult> TyrConfirmEmailAsync(string userId, string code);
 
         /// <summary>
         /// Attempts to log the user in with a given password and handles the cases when the user is locked out

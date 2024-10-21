@@ -1,59 +1,5 @@
 [
   {
-    "ContainingType": "CookTheWeek.WebApi.Controllers.FavouriteRecipeApiController",
-    "Method": "ToggleFavourites",
-    "RelativePath": "api/favouriteRecipe/toggleFavourites",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "CookTheWeek.Services.Data.Models.FavouriteRecipe.FavouriteRecipeServiceModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 401
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 400
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 404
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 500
-      }
-    ]
-  },
-  {
     "ContainingType": "CookTheWeek.WebApi.Controllers.HealthApiController",
     "Method": "CheckHealth",
     "RelativePath": "api/health",
@@ -62,46 +8,6 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CookTheWeek.WebApi.Controllers.MealPlanApiController",
-    "Method": "CreateMealPlanModel",
-    "RelativePath": "api/mealplan/CreateMealPlanModel",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "CookTheWeek.Services.Data.Models.MealPlan.MealPlanServiceModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "CookTheWeek.Web.ViewModels.MealPlan.MealPlanAddFormModel",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 400
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 500
-      }
-    ]
   },
   {
     "ContainingType": "CookTheWeek.WebApi.Controllers.RecipeIngredientApiController",

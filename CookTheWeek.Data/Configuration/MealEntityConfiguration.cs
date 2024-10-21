@@ -14,17 +14,10 @@
                 .HasDefaultValue(false);
 
             builder
-                .Property(r => r.IsDeleted)
-                .HasDefaultValue(false);
-
-            builder
-                .HasQueryFilter(m => !m.IsDeleted);
-
-            builder
                 .HasOne(m => m.Recipe)
                 .WithMany(r => r.Meals)
                 .HasForeignKey(m => m.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(m => m.MealPlan)

@@ -4,7 +4,7 @@
 @import '../lib/bootstrap/scss/mixins';
 @import 'variables';
 @import 'typography';
-@import 'navigation';
+@import 'nav';
 @import 'cookie-banner';
 @import 'theme-switcher';
 @import 'shared-styles';
@@ -108,7 +108,6 @@
     --body-emphasis-color: var(--bs-primary);
     --meal-title-color: var(--bs-primary);
 
-
     .subheading {
         color: var(--bs-primary);
     }
@@ -138,8 +137,6 @@
     .step-number {
         color: var(--bs-success);
     }
-
-    
 }
 
 // Custom Light Theme settings
@@ -150,9 +147,10 @@
     --meal-title-color: var(--bs-light);
 
     #main-container {
-        a:not(.btn) {
+       /* a:not(.btn) {
             color: var(--bs-success) !important;
-        }
+        }*/
+        
     }
 
     .subheading {
@@ -218,7 +216,6 @@
         }
     }
 }
-
 
 @import 'admin-panel';
 @import 'admin-form-styles';

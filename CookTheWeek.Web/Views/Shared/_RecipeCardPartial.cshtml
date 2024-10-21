@@ -25,7 +25,7 @@
             {
                 bool isLiked = await this.LikesService.HasUserByIdLikedRecipeById(recipeId);
 
-                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
                     @if (isLiked)
                     {
                         <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>

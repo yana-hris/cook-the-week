@@ -30,7 +30,7 @@
         /// <param name="userId"></param>
         /// <returns>A collection of MealPlanAllViewModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<ICollection<MealPlanAllViewModel>> CreateMyMealPlansViewModelAsync();
+        Task<ICollection<MealPlanAllViewModel>> CreateMealPlansMineViewModelAsync();
 
         /// <summary>
         /// Retrieves all active meal plans and maps them to a collection of MealPlanAllAdminViewModel objects.

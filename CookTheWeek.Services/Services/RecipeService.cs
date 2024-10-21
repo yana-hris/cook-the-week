@@ -28,7 +28,7 @@
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IStepService stepService;
         
-        private readonly IValidationService validationService;
+        private readonly IRecipeValidationService recipeValidator;
         private readonly ILogger<RecipeService> logger;
         private readonly Guid userId;
         private readonly bool isAdmin;
@@ -38,17 +38,17 @@
             IRecipeIngredientService recipeIngredientService,
             ILogger<RecipeService> logger,
             IUserContext userContext,
-            IValidationService validationService)
+            IRecipeValidationService recipeValidator)
         {
             this.recipeRepository = recipeRepository;
             
+            this.logger = logger;
             this.recipeIngredientService = recipeIngredientService;
+            this.recipeValidator = recipeValidator;
             this.stepService = stepService;
 
-            this.validationService = validationService;
-            this.logger = logger;
-            this.userId = userContext.UserId;
-            this.isAdmin = userContext.IsAdmin; 
+            userId = userContext.UserId;
+            isAdmin = userContext.IsAdmin; 
         }
 
 
@@ -147,7 +147,7 @@
         /// <inheritdoc/>
         public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model)
         {
-            ValidationResult result = await validationService.ValidateRecipeFormModelAsync(model);
+            ValidationResult result = await recipeValidator.ValidateRecipeFormModelAsync(model);
             if (!result.IsValid)
             {
                 return OperationResult<string>.Failure(result.Errors);
@@ -172,7 +172,9 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model)
         {
-            Recipe? recipe = await recipeRepository
+            await recipeValidator.ValidateRecipeExistsAsync(model.Id);
+
+            Recipe recipe = await recipeRepository
                 .GetByIdQuery(model.Id) 
                 .Include(r => r.Steps)
                 .Include(r => r.RecipesIngredients)
@@ -181,16 +183,11 @@
                     .ThenInclude(ri => ri.Measure)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Specification)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
+            
+            recipeValidator.ValidateUserIsRecipeOwner(recipe.OwnerId); // UnauthorizedUserExc
 
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
-
-            validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId); // UnauthorizedUserExc
-
-            ValidationResult result = await validationService.ValidateRecipeFormModelAsync(model); // no exception
+            ValidationResult result = await recipeValidator.ValidateRecipeFormModelAsync(model); // no exception
 
             if (!result.IsValid)
             {
@@ -235,21 +232,15 @@
         /// <inheritdoc/>
         public async Task DeleteByIdAsync(Guid id)
         {
+            await recipeValidator.ValidateRecipeExistsAsync(id);
 
-            Recipe? recipeToDelete = await recipeRepository
+            Recipe recipeToDelete = await recipeRepository
                 .GetByIdQuery(id)
-                .FirstOrDefaultAsync();
-
-            if (recipeToDelete == null)
-            {
-                logger.LogError($"Record not found: {nameof(Recipe)} with ID {id} was not found.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
-
-            validationService.ValidateUserIsResourceOwnerAsync(recipeToDelete.OwnerId); // UnauthorizedUserExc
-
+                .FirstAsync();
             
-            bool isIncluded = await validationService.CanRecipeBeDeletedAsync(id);
+            recipeValidator.ValidateUserIsRecipeOwner(recipeToDelete.OwnerId); // UnauthorizedUserExc
+            
+            bool isIncluded = await recipeValidator.CanRecipeBeDeletedAsync(id);
 
             if (isIncluded)
             {
@@ -257,15 +248,16 @@
                 throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidRecipeOperationDueToMealPlansInclusionExceptionMessage);
             }
 
-            await SoftDeleteRecipeAsync(recipeToDelete);
-           
+            await SoftDeleteRecipeAsync(recipeToDelete);           
         }
         
        
         /// <inheritdoc/>
         public async Task<Recipe> GetForEditByIdAsync(Guid id)
         {
-            Recipe? recipe = await recipeRepository.GetByIdQuery(id)
+            await recipeValidator.ValidateRecipeExistsAsync(id);
+            
+            Recipe recipe = await recipeRepository.GetByIdQuery(id)
                 .Include(r => r.Steps)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Ingredient)
@@ -273,15 +265,10 @@
                     .ThenInclude(ri => ri.Measure)
                 .Include(ri => ri.RecipesIngredients)
                     .ThenInclude(ri => ri.Specification)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
-            if (recipe == null)
-            {
-                logger.LogError($"Recipe with id {id} not found.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
-
-            validationService.ValidateUserIsResourceOwnerAsync(recipe.OwnerId);
+            
+            recipeValidator.ValidateUserIsRecipeOwner(recipe.OwnerId);
 
             return recipe;
         }
@@ -331,15 +318,12 @@
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(Guid recipeId)
         {
-            Recipe? recipe =  await recipeRepository.GetByIdQuery(recipeId)
+            await recipeValidator.ValidateRecipeExistsAsync(recipeId);
+
+            Recipe recipe =  await recipeRepository.GetByIdQuery(recipeId)
                 .Include(r => r.Category)
-                .FirstOrDefaultAsync();
-
-            if (recipe == null)
-            {
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            }
-
+                .FirstAsync();
+            
             return recipe;
         }
 

@@ -1,13 +1,17 @@
-﻿<div id="build-btn-container" class="text-center py-2" style="display: none">
-    <a class="btn btn-build fixed-size-btn btn-icon-only" type="button" data-antiforgery-token="@Html.AntiForgeryToken()">
-        <i class="fa fa-check" aria-hidden="true"></i>
-    </a>
+﻿<div>
+    <div id="build-btn-container" class="text-center py-2" style="display: none">
+        <a class="btn btn-build fixed-size-btn btn-icon-only" id="build-meal-plan-btn" type="button">
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </a>
+    </div>
+    <!-- Anti-Forgery Token -->
+    <form id="antiForgeryForm">
+        @Html.AntiForgeryToken()
+    </form>
 </div>
 
-<!-- Anti-Forgery Token -->
-<form id="antiForgeryForm">
-    @Html.AntiForgeryToken()
-</form>
+
+
 
 
 

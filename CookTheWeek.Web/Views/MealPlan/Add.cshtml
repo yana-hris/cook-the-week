@@ -4,12 +4,12 @@
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
     int initialCount = Model.Meals.Count;
-    int? userPlansCount = await this.MealPlanService.MineCountAsync();
+    int? userPlansCount = await this.MealPlanService.MineCountAsync() + 1;
 
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = $"It's your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
+        HeadingSecondary = $"This is going to be your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
     };
     
     if (ViewBag.ReturnUrl == null)
@@ -17,6 +17,8 @@
         ViewBag.ReturnUrl = "/Recipe/All";
 
     }
+
+    var missingRecipesMessage = TempData["MissingRecipesMessage"];
 }
 <div id="add-mealplan" class="card-container">
     
@@ -190,13 +192,35 @@
         </div>
     </form>
 </div>
+<!-- Missing Recipes Modal -->
+@if (!string.IsNullOrEmpty(missingRecipesMessage?.ToString()))
+{
+    <div class="modal fade" id="missingRecipesModal" tabindex="-1" aria-labelledby="missingRecipesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="missingRecipesModalLabel">Important Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@missingRecipesMessage</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
     <script type="module">
-        import { reindexMealRows, removeRecipeFromLocalStorage, eraseUserLocalStorage } from '/js/site.js';
+        import { reindexMealRows, removeRecipeFromLocalStorage } from '/js/site.js';
 
         $(document).ready(function () {
 
+            // Reindex meals upon erasing
             let mealsIndex = '@initialCount';
 
             $(document).on('click', '.minus', function (event) {
@@ -214,22 +238,12 @@
 
                 removeRecipeFromLocalStorage(recipeId);
             });
-            
-            // Erase user local storage before successful form submit
-            $('#add-mealplan-form').on('submit', function (event) {
-                event.preventDefault();                 
-                var form = $(this);
 
-                if (form.valid()) { 
-                    
-                    eraseUserLocalStorage();
-                    
-                    form.off('submit');  // Remove the 'preventDefault' handler
-                    form.submit();       // Submit the form again
-                } else {
-                    toastr.error('Missing or incorrect data');
-                }
-            });
+            // Check if there is a message and trigger the modal
+            var hasMessage = '@missingRecipesMessage';
+            if (hasMessage) {
+                $('#missingRecipesModal').modal('show');
+            }
             
         });
 

@@ -47,6 +47,8 @@
             ];
 
         public const int GuidLength = 36;
+        public static readonly Guid DeletedRecipeId = new Guid("00000000-0000-0000-0000-000000000001");
+
         public const int RecipeCardTitleMaxLength = 50;
         public const int RecipeCardDescriptionMaxLength = 113;
 
@@ -79,12 +81,12 @@
         public static readonly Dictionary<string, int[]> RecipeAndMealDetailedProductListCategoryDictionary = 
             new Dictionary<string, int[]>
         {
-            { "Meat, Diary Products & Seafood", new int[] { 1, 2, 11 } },
-            { "Produce (Fruit & Vegetables)", new int[] { 8, 9 } },
-            { "Pasta, Grains & Bakery", new int[] { 4, 7 } },
+            { "Meat, Diary Products & Seafood", new int[] { 1, 11, 2 } },
+            { "Produce (Fruit & Vegetables)", new int[] { 9, 8 } },
+            { "Pasta, Grains & Bakery", new int[] { 7, 4 } },
             { "Beans, Lentils and Legumes", new int[] { 3 } },
             { "Nuts, Seeds & Others", new int[] { 12, 13 } },
-            { "Herbs, Spices, Oils & Sauces", new int[] { 5, 6, 10 } }
+            { "Herbs, Spices, Oils & Sauces", new int[] { 10, 5, 6 } }
         };
 
         // For Shopping List View:

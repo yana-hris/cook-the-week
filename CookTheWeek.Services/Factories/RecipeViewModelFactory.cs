@@ -243,6 +243,15 @@
             return model;
         }
 
+        /// <inheritdoc/>
+        public async Task<ICollection<RecipeAllViewModel>> CreateAdminSiteRecipesViewModelAsync()
+        {
+            ICollection<Recipe> siteRecipes = await recipeService.GetAllSiteAsync();
+            var model = MapRecipeCollectionToRecipeAllViewModelCollection(siteRecipes);
+
+            return model;
+        }
+
         // HELPER METHODS:
 
         /// <summary>
@@ -291,7 +300,7 @@
             }).ToList();
         }
 
-       
+        
     }
 
 }
