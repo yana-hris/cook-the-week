@@ -3,7 +3,6 @@
     using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.MealPlan;
 
     public interface IMealPlanValidationService

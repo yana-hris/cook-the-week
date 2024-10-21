@@ -4,38 +4,57 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     
+    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
 
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+
     public class FavouriteRecipeService : IFavouriteRecipeService
     {
         private readonly IFavouriteRecipeRepository favouriteRecipeRepository;
-        private readonly IValidationService validationService;
+        private readonly IRecipeValidationService recipeValidator;
+        private readonly ILogger<FavouriteRecipeService> logger;
         private readonly Guid userId;
 
         public FavouriteRecipeService(IFavouriteRecipeRepository favouriteRecipeRepository,
             IUserContext userContext,
-            IValidationService validationService)
+            ILogger<FavouriteRecipeService> logger,
+            IRecipeValidationService recipeValidator)
         {
             this.favouriteRecipeRepository = favouriteRecipeRepository;
-            this.validationService = validationService;    
+            this.recipeValidator = recipeValidator;
+            this.logger = logger;
             this.userId = userContext.UserId;   
         }
 
 
         /// <inheritdoc/>
-        public async Task TryToggleLikes(FavouriteRecipeServiceModel model)
+        public async Task TryToggleLikesAsync(FavouriteRecipeServiceModel model)
         {
-            await validationService.ValidateUserLikeForRecipe(model);
+            Guid serviceUserId = model.UserId;
+            Guid recipeId = model.RecipeId;
 
-            bool isAlreadyAdded = await HasUserByIdLikedRecipeById(model.RecipeId);
+            await recipeValidator.ValidateRecipeExistsAsync(recipeId);
 
-            if (isAlreadyAdded)
+            // Validate user authorization
+            if (userId != default &&
+                serviceUserId != default &&
+                userId != serviceUserId)
             {
-                await DeleteLikeAsync(model.RecipeId);
+                logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
+                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
+            }
+
+            var existingLike = await GetRecipeLikeIfExistsAsync(model.RecipeId);
+
+            if (existingLike != null)
+            {
+                await DeleteLikeAsync(existingLike);
             }
             else
             {
@@ -67,11 +86,9 @@
         }
 
         /// <inheritdoc/>
-        public async Task<bool> HasUserByIdLikedRecipeById(Guid recipeId)
+        public async Task<FavouriteRecipe?> GetRecipeLikeIfExistsAsync(Guid recipeId)
         {
-            var like = await favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
-
-            return like != null;    
+            return await favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
         }
 
         /// <inheritdoc/>
@@ -90,20 +107,7 @@
             }
         }
 
-        /// <inheritdoc/>
-        public async Task HardDeleteAllByRecipeIdAsync(Guid recipeId)
-        {
-            ICollection<FavouriteRecipe> likesByRecipeId = await GetAllByRecipeIdAsync(recipeId);
-
-            if (likesByRecipeId.Any())
-            {
-                await favouriteRecipeRepository.DeleteRangeAsync(likesByRecipeId);
-            }
-        }
-
         
-
-
 
 
 
@@ -123,20 +127,13 @@
         }
 
         /// <summary>
-        /// Deletes a user like for a specific recipe if it exists. Otherwise does nothing
+        /// Deletes a user like for a specific recipe
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="recipeId"></param>
+        /// <param name="FavouriteRecipe"></param>
         /// <returns></returns>
-        private async Task DeleteLikeAsync(Guid recipeId)
+        private async Task DeleteLikeAsync(FavouriteRecipe like)
         {
-            
-            FavouriteRecipe? like = await favouriteRecipeRepository.GetByIdAsync(userId, recipeId);
-
-            if (like != null)
-            {
-                await favouriteRecipeRepository.DeleteAsync(like);
-            }
+            await favouriteRecipeRepository.DeleteAsync(like);
         }
 
         /// <summary>

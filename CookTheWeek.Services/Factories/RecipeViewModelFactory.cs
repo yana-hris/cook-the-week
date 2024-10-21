@@ -161,7 +161,7 @@
 
 
             model.IsLikedByUser = await SafeExecuteAsync(
-            async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
+            async () => (await this.favouriteRecipeService.GetRecipeLikeIfExistsAsync(recipeId) != null),
             DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
             );
 

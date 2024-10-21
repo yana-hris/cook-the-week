@@ -4,8 +4,6 @@
 
     using CookTheWeek.Data.Models.Interfaces;
     using CookTheWeek.Data.Repositories;
-    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
-    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.User;
@@ -70,17 +68,6 @@
         /// <param name="id"></param>
         /// <returns>true or false</returns>
         Task<bool> CanIngredientBeDeletedAsync(int id);
-
-        /// <summary>
-        /// Takes a Service model of a recipe like and validates it. Checks for empty enttries, non-existing recipe or unmacthing userId. Throws exceptions.
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="recipeId"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="RecordNotFoundException"></exception>
-        /// <exception cref="UnauthorizedUserException"></exception>
-        Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model);
 
         
         

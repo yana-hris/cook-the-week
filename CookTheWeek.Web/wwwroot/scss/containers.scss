@@ -1,0 +1,75 @@
+﻿@import '../lib/bootstrap/scss/mixins';
+
+// Custom containers
+.wide-contents-container {
+    @include make-container();
+    max-width: 1296px;
+    margin-top: -1rem;
+}
+
+.list-container {
+    @include make-container();
+    max-width: 1040px;
+}
+
+.card-outer-container {
+    @include make-container();
+    max-width: 900px;
+    margin-top: -1rem;
+}
+
+// Container for meal-details, add-meal, edit-meal
+.card-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 860px;
+    padding: 2rem;
+    position: relative;
+}
+
+// Container for shopping list details
+.shopping-list-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 793px;
+    padding: 2.4rem;
+}
+
+.contact-form-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 520px;
+    margin-top: 1.2rem;
+    padding: 2rem 3rem;
+    background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
+}
+
+.form-container {
+    @include make-container();
+    @extend .card-border-style;
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    max-width: 500px;
+    padding: 2rem;
+    background-color: var(--bs-body-bg);
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+}
+
+// Media queries for custom containers
+@media (max-width: 900px) {
+    .card-outer-container {
+        margin-top: -30px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .card-container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}

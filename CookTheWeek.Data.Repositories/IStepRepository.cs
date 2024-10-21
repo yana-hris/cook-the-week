@@ -10,19 +10,7 @@
         /// <returns>A queryable collection of Steps</returns>
         IQueryable<Step> GetAllTrackedQuery();
 
-        /// <summary>
-        /// Adds a collection of steps to the entity withour Saving changes
-        /// </summary>
-        /// <remarks>A consequent SaveChangesAsync() required to persist the changes in the database</remarks>
-        void AddRange(ICollection<Step> steps);
         
-        /// <summary>
-        /// Marks a collection of Steps for deletion withou persisting changes in the database
-        /// </summary>
-        /// <param name="recipeId">recipeId</param>
-        ///<remarks>A consequent SaveChangesAsync() required to persist the changes in the database</remarks>
-        void DeleteRange(ICollection<Step> steps);
-
         /// <summary>
         /// Persists the changes in the Database
         /// </summary>
