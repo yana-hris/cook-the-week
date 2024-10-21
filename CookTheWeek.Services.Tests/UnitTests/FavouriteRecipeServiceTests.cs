@@ -5,6 +5,7 @@
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
@@ -13,8 +14,6 @@
     using CookTheWeek.Services.Tests.TestHelpers;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using CookTheWeek.Data;
-    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class FavouriteRecipeServiceTests 
