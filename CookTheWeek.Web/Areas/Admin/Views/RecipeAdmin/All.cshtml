@@ -1,0 +1,58 @@
+﻿@model RecipeMineAdminViewModel
+@{
+    ViewData["Title"] = "All Site Recipes";
+
+
+    var siteRecipes = new PageHeadingViewModel
+    {
+        Subheading = "SITE"
+    };
+
+    var userRecipes = new PageHeadingViewModel();
+
+
+    if (Model.SiteRecipes.Count > 0)
+    {
+        userRecipes.Subheading = "USER";
+
+    }
+
+}
+
+<div class="wide-contents-container">
+    <div class="row">
+        <div class="container">
+            @if (Model.UserRecipes.Any())
+            {
+                <div class="row">
+                    <partial name="_HeadingPartial" model="userRecipes" />
+                </div>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
+                    @foreach (var recipe in Model.UserRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+
+            }
+            @if (Model.SiteRecipes.Any())
+            {
+                <div class="row">
+                    <partial name="_HeadingPartial" model="siteRecipes" />
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    @foreach (var recipe in Model.SiteRecipes)
+                    {
+                        <partial name="_RecipeCardPartial" model="recipe" />
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -2,104 +2,40 @@
 @import '../lib/bootstrap/scss/variables';
 @import '../lib/bootstrap/scss/variables-dark';
 @import '../lib/bootstrap/scss/mixins';
+
+// Custom variables and base styles
 @import 'variables';
 @import 'typography';
-@import 'navigation';
+@import 'shared-styles';
+@import 'icons-style';
+@import 'containers';
+
+// Components
+@import 'nav';
 @import 'cookie-banner';
 @import 'theme-switcher';
-@import 'shared-styles';
 @import 'btn-style';
-@import 'icons-style';
 @import 'recipe-card';
 
+// Admin panel
+@import 'admin-panel';
+@import 'admin-form-styles';
 
-@mixin make-container($padding-x: $container-padding-x) {
-    width: 100%;
-    padding-right: $padding-x;
-    padding-left: $padding-x;
-    margin-right: auto;
-    margin-left: auto;
-}
+// Pages
+@import 'home-index';
+@import 'how-it-works';
+@import 'all-recipes';
+@import 'recipes-mine';
+@import 'about';
+@import 'details';
+@import 'meal-plan';
+@import 'recipe-form';
+@import 'shopping-list';
+@import 'meal-plans-mine';
+@import 'user-profile';
+@import 'contact-us';
+@import 'error';
 
-// Custom containers
-.wide-contents-container {
-    @include make-container();
-
-    max-width: 1296px;
-    margin-top: -1rem;
-}
-
-.list-container {
-    @include make-container();
-
-    max-width: 1040px;
-}
-.card-outer-container {
-    @include make-container();
-
-    max-width: 900px;
-    margin-top: -1rem;
-}
-
-// container for meal-details, add-meal, edit-meal
-.card-container {
-    @include make-container();
-    @extend .card-border-style;
-    max-width: 860px;
-    padding: 2rem;
-    position: relative;
-   
-}
-
-// container for shopping list details
-.shopping-list-container {
-    @include make-container();
-    @extend .card-border-style;
-    max-width: 793px;
-    padding: 2.4rem;
-}
-.contact-form-container {
-    @include make-container();
-    @extend .card-border-style;
-    max-width: 520px;
-    margin-top: 1.2rem;
-    padding: 2rem 3rem;
-    background: rgb(180,227,61);
-    background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
-}
-
-.form-container {
-    @include make-container();
-    @extend .card-border-style;
-
-    position: absolute;
-    top: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-
-    max-width: 500px;
-    padding: 2rem;
-    background-color: var(--bs-body-bg);
-    border: none;
-    border-radius: 2px;
-
-    text-align: center;
-}
-
-// Media queries for custom containers
-@media (max-width: 900px) {
-    .card-outer-container {
-        margin-top: -30px !important;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .card-container {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
-}
 
 // Custom Light Theme settings
 [data-bs-theme="light"] {
@@ -107,7 +43,6 @@
     --body-color: var(--bs-dark);
     --body-emphasis-color: var(--bs-primary);
     --meal-title-color: var(--bs-primary);
-
 
     .subheading {
         color: var(--bs-primary);
@@ -138,8 +73,6 @@
     .step-number {
         color: var(--bs-success);
     }
-
-    
 }
 
 // Custom Light Theme settings
@@ -150,9 +83,10 @@
     --meal-title-color: var(--bs-light);
 
     #main-container {
-        a:not(.btn) {
+       /* a:not(.btn) {
             color: var(--bs-success) !important;
-        }
+        }*/
+        
     }
 
     .subheading {
@@ -220,21 +154,7 @@
 }
 
 
-@import 'admin-panel';
-@import 'admin-form-styles';
-@import 'home-index';
-@import 'how-it-works';
-@import 'all-recipes';
-@import 'recipes-mine';
-@import 'about';
-@import 'details';
-@import 'meal-plan';
-@import 'recipe-form';
-@import 'shopping-list';
-@import 'meal-plans-mine';
-@import 'user-profile';
-@import 'contact-us';
-@import 'error';
+
 @import '../lib/bootstrap/scss/bootstrap';
 
 

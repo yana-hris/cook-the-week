@@ -59,13 +59,7 @@
 
         }
 
-        /// <inheritdoc/>
-        public async Task RemoveRangeAsync(ICollection<MealPlan> mealPlans)
-        {
-            this.dbContext.MealPlans.RemoveRange(mealPlans);
-            await this.dbContext.SaveChangesAsync();
-        }
-
+       
         /// <inheritdoc/>
         public async Task SaveAsync(CancellationToken cancellationToken)
         {

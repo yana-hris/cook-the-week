@@ -13,8 +13,8 @@
     };
 }
 
-<div id="recipe-details-container" class="card-outer-container">    
-    <partial name="_HeadingPartial" model="headingModel"/>
+<div id="recipe-details-container" class="card-container">    
+    <partial name="_HeadingPartial" model="headingModel" class="mb-2"/>
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -32,9 +32,9 @@
                         <div class="col-12">
                             <div class="img-container">
                                 <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                                @if (Model.IsSiteRecipe)
+                                @if (Model.IsSiteRecipe && !isAdmin)
                                 {
-                                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId', '@userId')">
+                                    <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
                                         @if (Model.IsLikedByUser)
                                         {
                                             <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
@@ -47,9 +47,12 @@
                                 }
                                 else
                                 {
-                                    <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                                    if (!isAdmin)
+                                    {
+                                        <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                                    }
                                 }
-                                @if (userId != default)
+                                @if (userId != default && !isAdmin)
                                 {
                                     <div class="add-to-mealplan-container">
                                         <a data-recipeId="@Model.Id" class="plus fixed-size-btn btn btn-icon-only">
@@ -61,74 +64,77 @@
                         </div>
                         
                     </div>
-                    <div class="row p-4 pt-3 pb-2">
-                        <div class="col col-12 col-md-6">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-list me-2"></i>                                
-                                <span class="list-item-start">Type: </span>
-                                <span class="list-item-content"> @Model.CategoryName</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-utensils me-2"></i>
-                                <span class="list-item-start">Serves: </span>
-                                <span class="list-item-content"> @Model.Servings</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-hourglass-start me-2"></i>
-                                <span class="list-item-start">Ready in: </span>
-                                <span class="list-item-content"> @Model.TotalTime</span>
-                            </div>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 pt-3 pb-1">
+                        <div class="col d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-list me-2"></i>      
+                            <span class="list-item-content"> @Model.CategoryName</span>
                         </div>
-                        <div class="col col-12 col-md-6">                        
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-calendar-plus me-2"></i>
-                                <span class="list-item-start">Added on: </span>
-                                <span class="list-item-content"> @Model.CreatedOn</span>
-                            </div>
+                        <div class="col d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-utensils me-2"></i>
+                            <span class="list-item-content"> For @Model.Servings</span>
+                        </div>
+                        <div class="col d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-hourglass-start me-2"></i>
+                            <span class="list-item-content"> Ready in @Model.TotalTime</span>
+                        </div>
+                                           
+                        <div class="col d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-calendar-plus me-2"></i>
+                            <span class="list-item-content"> on @Model.CreatedOn</span>
+                        </div>
 
-                            @if (!Model.IsSiteRecipe)
+                        @if (!Model.IsSiteRecipe)
+                        {
+                            <div class="col d-flex align-items-center mb-1">
+                                <i class="fa-solid fa-at me-2"></i>
+                            @if (!isAdmin)
                             {
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fa-solid fa-at me-2"></i>
-                                    <span class="list-item-start">Added by: </span>
-                                    <span class="list-item-content"> @Model.CreatedBy</span>
-                                </div>
+                                    <span class="list-item-content"> by you</span>
                             }
                             else
                             {
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fa-solid fa-heart me-2"></i>
-                                    @if (Model.LikesCount > 0)
-                                    {
-                                        <span class="list-item-start">Liked by: </span>
-                                        <span class="list-item-content"> @Model.LikesCount users</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="list-item-content">This recipe hasn't been liked yet</span>
-                                    }
-
-                                </div>
+                                    <span class="list-item-content"> by @Model.CreatedBy</span>
                             }
-                           
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-bowl-rice me-2"></i>
-                                @if (Model.CookedCount > 0)
+                               
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col d-flex align-items-center mb-1">
+                                <i class="fa-solid fa-heart me-2"></i>
+                                @if (Model.LikesCount == 1)
                                 {
-                                    <span class="list-item-start">Cooked: </span>
-                                    <span class="list-item-content"> @Model.CookedCount times</span>
+                                    <span class="list-item-content"> by @Model.LikesCount user</span>
+                                }
+                                else if (Model.LikesCount > 1)
+                                {
+                                    <span class="list-item-content"> by @Model.LikesCount users</span>
                                 }
                                 else
                                 {
-                                    <span class="list-item-content">No one has cooked this recipe yet</span>
+                                    <span class="list-item-content">Be the first to like</span>
                                 }
+
                             </div>
+                        }
+                           
+                        <div class="col d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-bowl-rice me-2"></i>
+                            @if (Model.CookedCount > 0)
+                            {
+                                <span class="list-item-content"> @Model.CookedCount times cooked</span>
+                            }
+                            else
+                            {
+                                <span class="list-item-content">Be the first to cook</span>
+                            }
                         </div>
+                       
                     </div>
-                    <div class="row p-4 pt-0">
-                        <div class="col col-12">
+                    <hr />
+                    <div class="row pt-1">
+                        
                             <p class="recipe-description">@Model.Description</p>
-                        </div>                              
                     </div>
                     
                 </div>

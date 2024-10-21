@@ -94,7 +94,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<MealPlanAllViewModel>> CreateMyMealPlansViewModelAsync()
+        public async Task<ICollection<MealPlanAllViewModel>> CreateMealPlansMineViewModelAsync()
         {
             var userMealplans = await mealplanService.GetAllMineAsync();
 
@@ -132,6 +132,11 @@
         {
             MealPlan mealplan = await mealplanService.TryGetAsync(id);
 
+            if (mealplan.Meals == null || mealplan.Meals.Count == 0)
+            {
+                throw new ArgumentNullException(ArgumentNullExceptionMessages.MealsArrayNullExceptionMessage);
+            }
+
             if (typeof(TFormModel) == typeof(MealPlanAddFormModel))
             {
                 return (TFormModel)(object)MapMealPlanToAddModel(mealplan);
@@ -150,30 +155,38 @@
             // Retrieve the recipe from database
             if (Guid.TryParse(meal.RecipeId, out Guid guidMealId))
             {
-                Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
-
-                MealAddFormModel model = new MealAddFormModel()
+                try
                 {
-                    RecipeId = recipe.Id,
-                    Title = recipe.Title,
-                    Servings = recipe.Servings,
-                    ImageUrl = recipe.ImageUrl,
-                    CategoryName = recipe.Category.Name,
-                };
+                    Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
 
-                // Make sure all select menus are filled with data
-                if (model.SelectDates == null || model.SelectDates.Count() == 0)
-                {
-                    model.SelectDates = DateGenerator.GenerateNext7Days();
+                    MealAddFormModel model = new MealAddFormModel()
+                    {
+                        RecipeId = recipe.Id,
+                        Title = recipe.Title,
+                        Servings = recipe.Servings,
+                        ImageUrl = recipe.ImageUrl,
+                        CategoryName = recipe.Category.Name,
+                    };
+
+                    // Make sure all select menus are filled with data
+                    if (model.SelectDates == null || model.SelectDates.Count() == 0)
+                    {
+                        model.SelectDates = DateGenerator.GenerateNext7Days();
+                    }
+
+                    if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
+                    {
+                        model.SelectServingOptions = ServingsOptions;
+                    }
+                    model.Date = model.SelectDates!.First();
+
+                    return model;
                 }
-
-                if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
+                catch (RecordNotFoundException)
                 {
-                    model.SelectServingOptions = ServingsOptions;
+                    logger.LogError($"Invalid recipeId, old, inexisting or deleted recipe.");
+                    throw;
                 }
-                model.Date = model.SelectDates!.First();
-
-                return model;
             }
 
             throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);

@@ -40,6 +40,8 @@
         border: 1px solid var(--bs-primary);
     }
 
+
+
     .row {
         padding-bottom: 1rem;
 
@@ -84,6 +86,9 @@
             font-weight: 300;
         }
 
+        .deleted-style {
+            opacity: 0.5 !important;
+        }
 
         .meal-row {
             position: relative;
@@ -149,7 +154,6 @@
 
         #collapseSummary .card-body {
             color: $very-dark-green-text-color;
-            
         }
 
         .inner-padding.statistics-list {
@@ -179,44 +183,44 @@
         .collapse {
             margin-bottom: 1rem;
         }
-    }
+    }    
 }
 
-    @media screen and (max-width: 660px) {
-        #add-mealplan, #details-mealplan, #edit-mealplan {
+@media screen and (max-width: 660px) {
+    #add-mealplan, #details-mealplan, #edit-mealplan {
 
-            .heading-pill {
-                font-size: 18px !important;
+        .heading-pill {
+            font-size: 18px !important;
+        }
+
+        .text-uppercase {
+            font-size: 10px !important;
+        }
+
+        .meal-info {
+            gap: 3px !important;
+
+            img {
+                max-width: 40px !important;
             }
 
-            .text-uppercase {
-                font-size: 10px !important;
+            .meal-title {
+                font-size: 14px !important;
             }
 
-            .meal-info {
-                gap: 3px !important;
+            .category-text {
+                font-size: 12px !important;
+            }
+        }
 
-                img {
-                    max-width: 40px !important;
-                }
-
-                .meal-title {
-                    font-size: 14px !important;
-                }
-
-                .category-text {
-                    font-size: 12px !important;
-                }
+        .input-group {
+            .input-group-text {
+                display: none;
             }
 
-            .input-group {
-                .input-group-text {
-                    display: none;
-                }
-
-                .text-style {
-                    font-size: 11px !important;
-                }
+            .text-style {
+                font-size: 11px !important;
             }
         }
     }
+}

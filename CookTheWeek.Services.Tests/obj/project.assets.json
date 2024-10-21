@@ -4505,8 +4505,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "CookTheWeek.Data >= 1.0.0",
       "CookTheWeek.Data.Models >= 1.0.0",
+      "CookTheWeek.Data.Repositories >= 1.0.0",
       "CookTheWeek.Services.Data >= 1.0.0",
       "CookTheWeek.Services.Data.Models >= 1.0.0",
       "CookTheWeek.Web.ViewModels >= 1.0.0",
@@ -4556,8 +4556,8 @@
             "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\CookTheWeek.Data.Models.csproj": {
               "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Models\\CookTheWeek.Data.Models.csproj"
             },
-            "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\CookTheWeek.Data.csproj": {
-              "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data\\CookTheWeek.Data.csproj"
+            "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Repositories\\CookTheWeek.Data.Repositories.csproj": {
+              "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Data.Repositories\\CookTheWeek.Data.Repositories.csproj"
             },
             "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Data.Models\\CookTheWeek.Services.Data.Models.csproj": {
               "projectPath": "D:\\CODING\\Softuni\\All Courses\\WEB\\CookTheWeek\\CookTheWeek.Services.Data.Models\\CookTheWeek.Services.Data.Models.csproj"

@@ -14,7 +14,7 @@
         /// RecordNotFoundException (if recipe does not exist)
         /// UnauthorizedUserException (if user is not logged in or if id-s do not match)</remarks>
         /// <returns>Task or throws an exception</returns>
-        Task TryToggleLikes(FavouriteRecipeServiceModel model);
+        Task TryToggleLikesAsync(FavouriteRecipeServiceModel model);
 
         /// <summary>
         /// Gets a collection of the ids of all recipes, liked by the current user
@@ -27,7 +27,7 @@
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns>true or false</returns>
-        Task<bool> HasUserByIdLikedRecipeById(Guid recipeId);
+        Task<FavouriteRecipe?> GetRecipeLikeIfExistsAsync(Guid recipeId);
 
         /// <summary>
         /// Returns the total count of likes for a recipe by Id or 0
@@ -35,11 +35,12 @@
         /// <returns>int or 0</returns>
         Task<int?> GetRecipeTotalLikesAsync(Guid recipeId);
 
-
+       
         /// <summary>
-        /// Deletes all likes for all users by a given recipe id from the favourite-recipe table. If there are no likes - does nothing.
+        /// Sets all liked recipes isDeleted tag to true
         /// </summary>
-        Task HardDeleteAllByRecipeIdAsync(Guid recipeId);
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
         Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
     }
 }

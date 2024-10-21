@@ -1,8 +1,9 @@
 ﻿#theme-container {
     position: absolute;
-    top: 60px;
-    right: 10px;
+    top: 65px;
+    right: 12px;
     z-index: 100;
+    
 
     .theme-switcher {
         position: relative;
@@ -20,9 +21,16 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
+    #theme-container {
+        right: 20px;
+        top: 68px;
+    }
+}
+
+@media (min-width: 1200px) {
     #theme-container {
         right: 40px;
-        top: 68px;
+        top: 70px;
     }
 }

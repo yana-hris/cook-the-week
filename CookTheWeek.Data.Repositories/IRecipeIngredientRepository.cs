@@ -11,24 +11,7 @@
         /// <returns></returns>
         IQueryable<RecipeIngredient> GetAllTrackedQuery();
 
-        /// <summary>
-        /// Adds a collection of Recipe Ingredients to the database without calling SaveChangesAsync()
-        /// </summary>
-        /// <param name="recipeIngredients"></param>
-        /// <returns></returns>
-        /// <remarks>Requires finalization of the changes by calling SaveChangesAsync()</remarks>
-        void AddRangeWithoutSaveAsync(ICollection<RecipeIngredient> recipeIngredients);
-
-
-        /// <summary>
-        /// Deletes a range of Recipe Ingredients without Saving
-        /// </summary>
-        /// <param name="items"></param>
-        /// <returns></returns>
-        /// <remarks>Requires finalization of the changes by calling SaveChangesAsync()</remarks>
-
-        void DeleteRangeWithoutSave(ICollection<RecipeIngredient> items);
-
+        
         /// <summary>
         /// Persists changes in the database when using non-async Recipe Ingredient methods beforehand or if changing any tracked entities
         /// </summary>

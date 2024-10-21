@@ -98,7 +98,7 @@
             {
                 foreach (var meal in mealsToDelete)
                 {
-                    meal.IsDeleted = true;
+                    meal.RecipeId = DeletedRecipeId;
                 }
 
                 await mealRepository.UpdateRangeAsync(mealsToDelete);

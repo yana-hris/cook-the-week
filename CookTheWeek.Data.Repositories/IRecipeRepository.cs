@@ -38,22 +38,8 @@
         /// <param name="recipe"></param>
         /// <returns></returns>
         Task UpdateAsync(Recipe recipe);
+
         
-
-        /// <summary>
-        /// Updates a range of Recipes all at once
-        /// </summary>
-        /// <param name="recipes"></param>
-        /// <returns></returns>
-        Task UpdateAllAsync(ICollection<Recipe> recipes);
-
-        /// <summary>
-        /// Sets the flag IsDeleted to true
-        /// </summary>
-        /// <param name="recipe"></param>
-        /// <returns></returns>
-        Task SoftDeleteAsync(Recipe recipe);
-
         /// <summary>
         /// Hard deletes the Recipe from the database
         /// </summary>

@@ -1874,6 +1874,20 @@
             {
                 new()
                 {
+                    Id = DeletedRecipeId,
+                    OwnerId = Guid.Parse(DeletedUserId),
+                    Title = "Deleted Recipe",
+                    Description = "This recipe has been deleted.",
+                    Servings = 0,
+                    TotalTime = TimeSpan.Zero,  
+                    ImageUrl = "https://st2.depositphotos.com/1575949/9102/v/450/depositphotos_91022654-stock-illustration-removed-red-stamp-text.jpg",
+                    CategoryId = 1,
+                    IsSiteRecipe = false,
+                    IsDeleted = true
+
+                },
+                new()
+                {
                     Id = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     OwnerId = Guid.Parse(AdminUserId),
                     Title = "Moussaka",

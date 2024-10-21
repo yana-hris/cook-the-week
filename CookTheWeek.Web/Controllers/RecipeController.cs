@@ -35,7 +35,7 @@
 
 
         [AllowAnonymous]
-        //[AdminRedirect("Site", "RecipeAdmin")]
+        [AdminRedirect("All", "RecipeAdmin")]
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
@@ -155,10 +155,8 @@
 
         }
 
-        // TODO: Check how to add CSFR token in hidden input in view
-        // TODO: Check if it works as Json result not testes yet!
+       
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Edit([FromBody] RecipeEditFormModel model, [FromQuery] string returnUrl)
         {
             if (model == null)
@@ -283,10 +281,15 @@
                 {
                     return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
                 }
-                catch (Exception ex) when (ex is UnauthorizedUserException || ex is InvalidOperationException)
+                catch(UnauthorizedUserException ex)
                 {
-                    TempData[WarningMessage] = ex.Message;
-                    return RedirectToAction("Details", "Recipe", new { id });
+                    TempData[ErrorMessage] = ex.Message;
+                    return Redirect(returnUrl);
+                }
+                catch (InvalidOperationException)
+                {
+                    TempData[ErrorMessage] = "This Recipe cannot be deleted as it is included in active Meal Plans";
+                    return Redirect(returnUrl);
                 }
                 catch (Exception ex)
                 {

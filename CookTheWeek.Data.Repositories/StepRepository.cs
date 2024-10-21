@@ -23,19 +23,6 @@
         }
 
         /// <inheritdoc/>
-        public void AddRange(ICollection<Step> steps)
-        {
-            dbContext.Steps.AddRange(steps);
-        }
-
-        
-        /// <inheritdoc/>
-        public void DeleteRange(ICollection<Step> steps)
-        {
-            dbContext.Steps.RemoveRange(steps);
-        }
-
-        /// <inheritdoc/>
         public async Task SaveChangesAsync()
         {
             await dbContext.SaveChangesAsync();

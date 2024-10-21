@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20241011121054_SeedDatabase")]
+    [Migration("20241016115927_SeedDatabase")]
     partial class SeedDatabase
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace CookTheWeek.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -98,15 +98,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("72ed6dd1-7c97-4af7-ab79-fc72e4a53b16"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c427131b-7393-4bfb-ab8f-1ad28c7f050e",
+                            ConcurrencyStamp = "660f9a0a-7bb6-4685-b3d2-6426ec121deb",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPG/MsRlwtbCY9C3JYgHuJF2glmQpW7ghxinDe5X4uz6iBmVv0/u9+aTnHSsI4uI+g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDT7AZf+yfjFIsxyUvJENdfa6ELK1Qm/fAoII2dCHRAurpVm02KSpz7MHXBm26ZRPg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "49f90f4d-35ab-4827-b41a-dadc86dce46d",
+                            SecurityStamp = "4a07882f-4bc8-46b4-be5b-7a5cfb190d29",
                             TwoFactorEnabled = false,
                             UserName = "adminUser"
                         },
@@ -114,15 +114,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a76cfe66-e21d-4183-9473-688eaf74ae80",
+                            ConcurrencyStamp = "b83350f8-8057-4154-8b60-e559bf220fd5",
                             Email = "appUser@yahoo.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "APPUSER@YAHOO.COM",
                             NormalizedUserName = "APPUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPCH4KcwZjOnvcAFR3Ha1F40RPE1rIIPJOT3IbHfHU/Ms2dUI+YtkuVhMTRCo4mNhw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ1ImOMJeWPaLR8zXkhH86ikz2z4JCOCjNfh/MjWtueLZEV2qbMB5cuFC8mqCPKgpg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae6aecd5-80ff-4be4-b806-628270b63ff7",
+                            SecurityStamp = "a4245049-0670-443b-b0a4-3276bd49b41c",
                             TwoFactorEnabled = false,
                             UserName = "appUser"
                         },
@@ -130,15 +130,15 @@ namespace CookTheWeek.Data.Migrations
                         {
                             Id = new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "994d2a01-cb34-46d2-924e-1a2bf830c6f7",
+                            ConcurrencyStamp = "6d1a96fa-ce9a-4d31-9942-9aa996a393a5",
                             Email = "deletedUser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "DELETEDUSER@GMAIL.COM",
                             NormalizedUserName = "DELETEDUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIgPPtgF7g7w5mBkVScywnmzJVjHPK8rSpLpQz4PXseOYK9VKOYcUfpD18zn61U/zg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO9NFpEq3UbK4+Hi2jlMVWjs9/OKYxzshHpKD8zmMgeaMiUKghvrT5RE2+jqpugD6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0cf840a7-7ccf-471b-8606-ae08da832071",
+                            SecurityStamp = "6996cfa6-0c19-48c1-adc1-4c11718d2268",
                             TwoFactorEnabled = false,
                             UserName = "deletedUser"
                         });
@@ -1896,12 +1896,6 @@ namespace CookTheWeek.Data.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Meal completion Identifier");
 
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasComment("Soft Delete the Meal when the Recipe is deleted");
-
                     b.Property<Guid>("MealPlanId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Meal Plan Key Identifier");
@@ -1931,7 +1925,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 1,
                             CookDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = true,
-                            IsDeleted = false,
                             MealPlanId = new Guid("d74c7ca3-9a16-480c-9127-622919a93c72"),
                             RecipeId = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
                             ServingSize = 10
@@ -1941,7 +1934,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 2,
                             CookDate = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = true,
-                            IsDeleted = false,
                             MealPlanId = new Guid("d74c7ca3-9a16-480c-9127-622919a93c72"),
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
                             ServingSize = 4
@@ -1951,7 +1943,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 3,
                             CookDate = new DateTime(2024, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = true,
-                            IsDeleted = false,
                             MealPlanId = new Guid("d74c7ca3-9a16-480c-9127-622919a93c72"),
                             RecipeId = new Guid("27664df3-cb8d-4ff6-a2cf-da0745a17531"),
                             ServingSize = 6
@@ -1961,7 +1952,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 4,
                             CookDate = new DateTime(2024, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = true,
-                            IsDeleted = false,
                             MealPlanId = new Guid("80b65919-165a-4f21-b1bf-42ae7e724351"),
                             RecipeId = new Guid("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                             ServingSize = 4
@@ -1971,7 +1961,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 5,
                             CookDate = new DateTime(2024, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = false,
-                            IsDeleted = false,
                             MealPlanId = new Guid("80b65919-165a-4f21-b1bf-42ae7e724351"),
                             RecipeId = new Guid("25c6718c-b53b-4092-9454-d6999355f12d"),
                             ServingSize = 10
@@ -1981,7 +1970,6 @@ namespace CookTheWeek.Data.Migrations
                             Id = 6,
                             CookDate = new DateTime(2024, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCooked = false,
-                            IsDeleted = false,
                             MealPlanId = new Guid("80b65919-165a-4f21-b1bf-42ae7e724351"),
                             RecipeId = new Guid("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                             ServingSize = 2
@@ -2205,6 +2193,20 @@ namespace CookTheWeek.Data.Migrations
                         });
 
                     b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            CategoryId = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "This recipe has been deleted.",
+                            ImageUrl = "https://st2.depositphotos.com/1575949/9102/v/450/depositphotos_91022654-stock-illustration-removed-red-stamp-text.jpg",
+                            IsDeleted = true,
+                            IsSiteRecipe = false,
+                            OwnerId = new Guid("ddbaeab3-10d6-4993-be38-59cd03967107"),
+                            Servings = 0,
+                            Title = "Deleted Recipe",
+                            TotalTime = new TimeSpan(0, 0, 0, 0, 0)
+                        },
                         new
                         {
                             Id = new Guid("11112341-30e4-473f-b93a-d0352b978a84"),
@@ -3753,7 +3755,7 @@ namespace CookTheWeek.Data.Migrations
                     b.HasOne("CookTheWeek.Data.Models.MealPlan", "MealPlan")
                         .WithMany("Meals")
                         .HasForeignKey("MealPlanId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")

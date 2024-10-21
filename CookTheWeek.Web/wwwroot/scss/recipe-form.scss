@@ -21,11 +21,21 @@
                     .suggestionsList {
                         position: absolute;
                         z-index: 1000;
+                        padding-top: 8px;
                         top: 29px;
-                        left: 98px;
-                        border-top: none;
-                        max-height: 200px;
+                        left: 94px;
+
+                        max-height: calc(100vh - 100px);
+                        width: 100%;
                         overflow-y: auto;
+
+                        a {
+                            color: var(--bs-body-color);
+
+                            span.color-result {
+                                color: var(--bs-success) !important;
+                            }
+                        }
                     }
 
                     .flex-inside {

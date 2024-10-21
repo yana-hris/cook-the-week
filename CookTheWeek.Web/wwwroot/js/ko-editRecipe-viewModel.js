@@ -223,13 +223,16 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         if (isValid) {
 
             var jsonData = JSON.stringify(self.toJSON());
-            debugger;
+            var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
             console.log('Submitting data:', jsonData);
             
             $.ajax({
                 url: '/Recipe/Edit?returnUrl=' + encodeURIComponent(returnUrl), 
                 type: 'POST',
                 contentType: 'application/json',
+                headers: {
+                    'RequestVerificationToken': antiForgeryToken  // Include the anti-forgery token in the headers
+                },
                 data: jsonData, 
                 success: function (response) {
                     if (response.success && response.redirectUrl) { 

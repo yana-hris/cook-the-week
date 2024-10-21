@@ -161,7 +161,7 @@
 
 
             model.IsLikedByUser = await SafeExecuteAsync(
-            async () => await this.favouriteRecipeService.HasUserByIdLikedRecipeById(recipeId),
+            async () => (await this.favouriteRecipeService.GetRecipeLikeIfExistsAsync(recipeId) != null),
             DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
             );
 
@@ -243,6 +243,15 @@
             return model;
         }
 
+        /// <inheritdoc/>
+        public async Task<ICollection<RecipeAllViewModel>> CreateAdminSiteRecipesViewModelAsync()
+        {
+            ICollection<Recipe> siteRecipes = await recipeService.GetAllSiteAsync();
+            var model = MapRecipeCollectionToRecipeAllViewModelCollection(siteRecipes);
+
+            return model;
+        }
+
         // HELPER METHODS:
 
         /// <summary>
@@ -291,7 +300,7 @@
             }).ToList();
         }
 
-       
+        
     }
 
 }
