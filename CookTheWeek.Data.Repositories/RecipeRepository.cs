@@ -4,13 +4,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
-    using CookTheWeek.Common.Exceptions;
+    
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
-
     public class RecipeRepository : IRecipeRepository
     {
         private readonly CookTheWeekDbContext dbContext;
@@ -48,27 +45,6 @@
             return dbContext.Recipes
                 .Where(r => r.Id == id)
                 .AsQueryable();
-
-            //    .Include(r => r.Owner)
-            //    .Include(r => r.Steps)
-            //    .Include(r => r.Category)
-            //    .Include(r => r.RecipesIngredients)
-            //        .ThenInclude(ri => ri.Ingredient)
-            //            .ThenInclude(i => i.Category)
-            //    .Include(r => r.RecipesIngredients)
-            //        .ThenInclude(ri => ri.Measure)
-            //    .Include(r => r.RecipesIngredients)
-            //        .ThenInclude(ri => ri.Specification)
-            //    .Include(r => r.Meals)
-            //    .Include(r => r.FavouriteRecipes)
-            //    .FirstOrDefaultAsync(r => r.Id == id);
-
-            //if (recipe == null)
-            //{
-            //    throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-            //}
-            
-            //return recipe;
         }
 
         /// <inheritdoc/>
@@ -85,21 +61,7 @@
                 .AnyAsync(r => r.Id == id);
         }
 
-        /// <inheritdoc/>
-        public async Task UpdateAllAsync(ICollection<Recipe> recipes)
-        {
-            dbContext.Recipes.UpdateRange(recipes);
-            await dbContext.SaveChangesAsync();
-        }
-
-        /// <inheritdoc/>
-        public async Task SoftDeleteAsync(Recipe recipe)
-        {
-            recipe.IsDeleted = true;
-            dbContext.Recipes.Update(recipe);
-            await dbContext.SaveChangesAsync();
-        }
-
+        
         /// <inheritdoc/>
         public async Task DeleteAsync(Recipe recipe)
         {

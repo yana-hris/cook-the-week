@@ -5,6 +5,8 @@
     .card {
         // reuse card tabs style, padding, border back-btn and footer btns
         @extend .card-custom-style-with-back-btn;
+        border: none;
+        box-shadow: none !important;
 
         .card-body {
             padding: 0;
@@ -70,26 +72,32 @@
                 }
             }
 
-            i.fa-solid {
-                line-height: 1.7;
-                vertical-align: middle;
-                font-size: 17px;
+            .recipe-description {
             }
 
+            .list-item-start,
+            .list-item-content {
+                line-height: 1.7; /* Ensure text elements have consistent line-height */
+            }
+
+            i.fa-solid {
+                font-size: 17px;
+                display: inline-block;
+                vertical-align: middle; /* Ensure the icon aligns with the text */
+            }
+
+           
             .list-item-start {
-                line-height: 1.7;
-                font-weight: 600;
+                font-weight: 700;
                 margin-right: 0.5rem;
                 font-size: 17px;
-                vertical-align: middle;
             }
 
             .list-item-content {
-                line-height: 1.7;
+                font-family: "Libre Baskerville", serif;
                 font-weight: 400;
-                font-style: italic;
                 font-size: 17px;
-                vertical-align: middle;
+                padding-top: 3px;
             }
 
             .ingredient-heading {

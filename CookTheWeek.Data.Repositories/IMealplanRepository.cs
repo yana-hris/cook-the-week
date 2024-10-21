@@ -46,13 +46,7 @@
         /// <returns></returns>
         Task RemoveAsync(MealPlan mealPlan);
 
-        /// <summary>
-        /// Deletes a collection of meal plans
-        /// </summary>
-        /// <param name="mealPlans"></param>
-        /// <returns></returns>
-        Task RemoveRangeAsync(ICollection<MealPlan> mealPlans);
-
+        
         /// <summary>
         /// Asynchronously saves all tracked changes in the DbContext to the database, 
         /// including any related entities that have been modified.

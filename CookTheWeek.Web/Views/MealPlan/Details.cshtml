@@ -61,7 +61,7 @@
                                     var currentMeal = Model.Meals[i];
                                     bool isCurrentMealDeleted = Guid.Parse(currentMeal.RecipeId) == DeletedRecipeId;
 
-                                    <tr class="meal-row @((isCurrentMealDeleted ? "table-secondary" : ""))">
+                                    <tr class="meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
                                         <th scope="row" class="border-0">
                                             <div class="meal-info">
                                                 @if (isCurrentMealDeleted)
@@ -74,13 +74,15 @@
                                                 }
                                         
                                                 <div class="ml-3 d-inline-block align-middle">
-                                                    <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
+                                                    
                                                     @if (isCurrentMealDeleted)
                                                     {
+                                                        <a href="#" style="pointer-events: none; color: gray;"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
                                                         <span class="category-text">N/A</span>
                                                     }
                                                     else
                                                     {
+                                                        <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
                                                         <span class="category-text">@Model.Meals[i].CategoryName</span>
                                                     }
                                             

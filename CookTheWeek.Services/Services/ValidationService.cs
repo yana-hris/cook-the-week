@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Services.Data.Services
 {
-    using System.Globalization;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,6 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Models.Interfaces;
     using CookTheWeek.Data.Repositories;
-    using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
@@ -23,7 +21,6 @@
     public class ValidationService : IValidationService
     {
         private readonly IRecipeRepository recipeRepository;
-        private readonly IRecipeValidationService recipeValidotor;
         private readonly IUserRepository userRepository;
         private readonly IIngredientRepository ingredientRepository;
         private readonly ICategoryRepository<IngredientCategory> ingredientCategoryRepository;
@@ -38,13 +35,11 @@
             IIngredientRepository ingredientRepository,
             ICategoryRepository<IngredientCategory> ingredientCategoryRepository,
             IUserContext userContext,
-            IRecipeValidationService recipeValidator,
             ILogger<ValidationService> logger)
         {
             this.recipeRepository = recipeRepository;
             this.userRepository = userRepository;
             this.ingredientRepository = ingredientRepository;
-            this.recipeValidotor = recipeValidator;
            
             this.ingredientCategoryRepository = ingredientCategoryRepository;
             this.logger = logger;
@@ -158,7 +153,7 @@
                 int? existingCategoryId = await categoryRepository.GetIdByNameAsync(editModel.Name);
 
                 // If a category with the same name exists but it is not the current one being edited
-                if (existingCategoryId.HasValue && existingCategoryId.Value != editModel.Id)
+                if ((existingCategoryId.HasValue && existingCategoryId.Value != default) && existingCategoryId.Value != editModel.Id)
                 {
                     AddValidationError(result, nameof(editModel.Name), CategoryValidation.CategoryExistsErrorMessage);
                 }
@@ -167,7 +162,7 @@
             {
                 // Adding scenario: Check if a category with the same name already exists
                 int? existingCategoryId = await categoryRepository.GetIdByNameAsync(model.Name);
-                if (existingCategoryId.HasValue)
+                if (existingCategoryId.HasValue && existingCategoryId.Value != default)
                 {
                     AddValidationError(result, nameof(model.Name), CategoryValidation.CategoryExistsErrorMessage);
                 }
@@ -183,7 +178,7 @@
         where TCategory : class, ICategory, new()
         where TDependency : class
         {
-            // Step 1: Check if the category exists
+            // Check if the category exists
             var category = await categoryRepository.GetByIdAsync(categoryId);
             if (category == null)
             {
@@ -191,7 +186,7 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.CategoryNotFoundExceptionMessage, null);
             }
 
-            // Step 2: Check if the category has dependencies using the generic HasDependenciesAsync method
+            // Check if the category has dependencies using the generic HasDependenciesAsync method
             bool hasDependencies = await categoryRepository.HasDependenciesAsync<TDependency>(categoryId);
 
             if (hasDependencies)
@@ -204,25 +199,7 @@
         }
 
        
-        // FAVOURITE RECIPE (LIKES)
-        /// <inheritdoc/>   
-        public async Task ValidateUserLikeForRecipe(FavouriteRecipeServiceModel model)
-        {
-            Guid serviceUserId = model.UserId;
-            Guid recipeId = model.RecipeId;
-
-            await recipeValidotor.ValidateRecipeExistsAsync(recipeId);
-
-            // Validate user authorization
-            if (userId != default  &&
-                serviceUserId != default &&
-                userId != serviceUserId)
-            {
-                logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
-            }
-        }
-
+       
 
         // PRIVATE METHODS:
         

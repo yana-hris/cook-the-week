@@ -22,18 +22,8 @@
                 .AsQueryable();
         }
 
-        /// <inheritdoc/>
-        public void AddRangeWithoutSaveAsync(ICollection<RecipeIngredient> recipeIngredients)
-        {
-            dbContext.RecipesIngredients.AddRange(recipeIngredients);
-        }
-
-        /// <inheritdoc/>
-        public void DeleteRangeWithoutSave(ICollection<RecipeIngredient> recipeIngredients)
-        {
-            dbContext.RecipesIngredients.RemoveRange(recipeIngredients);
-        }
-
+        
+       
         /// <inheritdoc/>
         public async Task SaveChangesAsync()
         {

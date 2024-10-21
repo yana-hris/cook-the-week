@@ -22,7 +22,7 @@
         {
             try
             {
-                await favouriteRecipeService.TryToggleLikes(model);
+                await favouriteRecipeService.TryToggleLikesAsync(model);
                 return Json(new { success = true });
             }
             catch (ArgumentNullException ex)
