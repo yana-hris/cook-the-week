@@ -86,9 +86,7 @@
             font-weight: 300;
         }
 
-        .deleted-style {
-            opacity: 0.5 !important;
-        }
+        
 
         .meal-row {
             position: relative;
@@ -141,6 +139,10 @@
                 display: flex;
                 justify-content: center;
             }
+        }
+
+        .meal-row.deleted-style {
+            opacity: 70%;
         }
 
         .tip-start {

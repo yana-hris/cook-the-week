@@ -1663,6 +1663,9 @@ html #main-container .external-login-button img {
   display: flex;
   justify-content: center;
 }
+#add-mealplan .row .meal-row.deleted-style, #details-mealplan .row .meal-row.deleted-style, #edit-mealplan .row .meal-row.deleted-style {
+  opacity: 70%;
+}
 #add-mealplan .row .tip-start, #details-mealplan .row .tip-start, #edit-mealplan .row .tip-start {
   text-decoration: underline;
   font-weight: 600;

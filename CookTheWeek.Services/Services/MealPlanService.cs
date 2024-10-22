@@ -45,6 +45,7 @@
         {
             ICollection<MealPlan> activeMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => !mp.IsFinished)
+                .Include(mp => mp.Meals)
                 .Include(mp => mp.Owner)
                 .OrderBy(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)
@@ -58,6 +59,7 @@
         {
             ICollection<MealPlan> finishedMealPlans = await mealplanRepository.GetAllQuery()
                 .Where(mp => mp.IsFinished == true)
+                .Include(mp => mp.Meals)
                 .Include(mp => mp.Owner)
                 .OrderByDescending(mp => mp.StartDate)
                 .ThenBy(mp => mp.Name)

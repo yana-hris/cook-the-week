@@ -66,7 +66,7 @@
                                             <div class="meal-info">
                                                 @if (isCurrentMealDeleted)
                                                 {
-                                                    <img src="~/img/deleted-recipe-placeholder-small.jpg" alt="Deleted Recipe Sample Image" width="70" class="img-fluid rounded shadow-sm">
+                                                    <img src="~/img/compressed_deleted_recipe.png" alt="Deleted Recipe Sample Image" width="70" class="img-fluid rounded shadow-sm">
                                                 }
                                                 else
                                                 {
@@ -82,7 +82,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="/Recipe/Details/@Model.Meals[i].RecipeId"><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
+                                                        <a asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Meals[i].RecipeId" asp-route-returnUrl="/MealPlan/Details/@Model.Id" ><h5 class="meal-title">@Model.Meals[i].Title</h5></a>
                                                         <span class="category-text">@Model.Meals[i].CategoryName</span>
                                                     }
                                             
