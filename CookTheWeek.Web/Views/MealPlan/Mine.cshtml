@@ -17,56 +17,49 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th><label>Name</label></th>
-                <th><label>Start Date</label></th>
-                <th><label>End Date</label></th>
-                <th><label>Status</label></th>
-                <th><label>Total Meals</label></th>
-                <th><label>Details</label></th>
-                <th><label>Shopping List</label></th>
-                <th><label>Build Again</label></th>
+                <th class="text-start">Name</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Total Meals</th>
+                <th class="text-center">Details</th>
+                <th class="text-center">Shopping List</th>
+                <th class="text-center">Build Again</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var mealPlan in Model)
             {
                 <tr>
-                    <td class="align-baseline">@mealPlan.Name</td>
-                    <td class="align-baseline"><label>@mealPlan.StartDate</label></td>
-                    <td class="align-baseline"><label>@mealPlan.EndDate</label></td>
-                    <td class="align-baseline">
-                        <lablel>
-                            @if (mealPlan.IsFinished)
-                            {
-                                <i class="fa-solid fa-flag-checkered finished"></i>
-                            }
-                            else
-                            {
-                                <i class="fa-solid fa-flag-checkered not-finished"></i>
-                            }
-                        </lablel>
+                    <td class="text-start align-middle">@mealPlan.Name</td>
+                    <td class="text-center align-middle">@mealPlan.StartDate</td>
+                    <td class="text-center align-middle">@mealPlan.EndDate</td>
+                    <td class="text-center align-middle">
+                    @if (mealPlan.IsFinished)
+                    {
+                        <i class="fas fa-calendar-check finished"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-calendar-times not-finished"></i>
+                    }
                     </td>
-
-                    <td class="align-baseline"><label>@mealPlan.MealsCount</label></td>
-                    <td class="align-baseline">
-                        <label>
-                            <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-outline-primary fixed-size-btn btn-icon-only">
-                                <i class="fas fa-th-list"></i>
-                            </a>
-                        </label>
+                    <td class="text-center align-middle">@mealPlan.MealsCount</td>
+                    <td class="text-center align-middle">
+                        <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-outline-primary">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
                     </td>
-                    <td class="align-baseline">
-                        <label>
-                            <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-outline-primary fixed-size-btn btn-icon-only">
-                                <i class="fas fa-shopping-basket"></i>
-                            </a>
-                        </label>
+                    <td class="text-center align-middle">
+                        <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@mealPlan.Id" asp-route-returnUrl="/MealPlan/Mine" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-basket"></i>
+                        </a>
                     </td>
-                    <td class="align-baseline">
+                    <td class="text-center align-middle">
                         <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post" class="d-inline">
                             <input type="hidden" name="mealPlanId" value="@mealPlan.Id" />
                             <input type="hidden" name="returnUrl" value="/MealPlan/Mine" />
-                            <button type="submit" class="btn btn-primary fixed-size-btn btn-icon-only">
+                            <button type="submit" class="btn btn-outline-primary">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
                         </form>

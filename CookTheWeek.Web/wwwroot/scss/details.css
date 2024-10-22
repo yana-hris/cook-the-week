@@ -1,4 +1,4 @@
-﻿.card-border-style, .card-custom-style-with-back-btn, #recipe-details-container .card, #meal-cook-container .card {
+﻿.card-border-style {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
@@ -37,7 +37,10 @@
   }
 }
 .card-custom-style-with-back-btn, #recipe-details-container .card, #meal-cook-container .card {
-  margin-top: -10px !important;
+  margin-top: -0.9rem !important;
+}
+.card-custom-style-with-back-btn .card-header, #recipe-details-container .card .card-header, #meal-cook-container .card .card-header {
+  font-size: 1.1rem;
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link, #recipe-details-container .card .card-header .nav-item .nav-link, #meal-cook-container .card .card-header .nav-item .nav-link {
   color: var(--bs-success);
@@ -55,9 +58,9 @@
   color: var(--bs-body-color) !important;
   border: 1px solid var(--bs-body-bg) !important;
 }
-.card-custom-style-with-back-btn .card-header .back-button, #recipe-details-container .card .card-header .back-button, #meal-cook-container .card .card-header .back-button {
+.card-custom-style-with-back-btn .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button {
   position: absolute;
-  top: 5px;
+  top: 7px;
   right: 7px;
   z-index: 15;
 }
@@ -79,7 +82,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .card-custom-style-with-back-btn .back-button, #recipe-details-container .card .back-button, #meal-cook-container .card .back-button {
+  .card-custom-style-with-back-btn .card-back-button, #recipe-details-container .card .card-back-button, #meal-cook-container .card .card-back-button {
     height: 34px !important;
     width: 42px !important;
     top: 2px;
@@ -90,7 +93,7 @@
   position: relative;
 }
 #recipe-details-container .card, #meal-cook-container .card {
-  border: none;
+  border: none !important;
   box-shadow: none !important;
 }
 #recipe-details-container .card .card-body, #meal-cook-container .card .card-body {
@@ -146,26 +149,37 @@
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only {
   position: relative;
 }
-#recipe-details-container .card .card-body .list-item-start,
-#recipe-details-container .card .card-body .list-item-content, #meal-cook-container .card .card-body .list-item-start,
-#meal-cook-container .card .card-body .list-item-content {
-  line-height: 1.7; /* Ensure text elements have consistent line-height */
+#recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
 }
-#recipe-details-container .card .card-body i.fa-solid, #meal-cook-container .card .card-body i.fa-solid {
-  font-size: 17px;
-  display: inline-block;
-  vertical-align: middle; /* Ensure the icon aligns with the text */
+#recipe-details-container .card .card-body .features-row .icon-container, #meal-cook-container .card .card-body .features-row .icon-container {
+  width: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--bs-success);
+  line-height: 1.3rem;
 }
-#recipe-details-container .card .card-body .list-item-start, #meal-cook-container .card .card-body .list-item-start {
-  font-weight: 700;
-  margin-right: 0.5rem;
-  font-size: 17px;
+#recipe-details-container .card .card-body .features-row .icon-container .fa, #meal-cook-container .card .card-body .features-row .icon-container .fa {
+  font-size: 1rem;
 }
-#recipe-details-container .card .card-body .list-item-content, #meal-cook-container .card .card-body .list-item-content {
+#recipe-details-container .card .card-body .features-row .list-item-content, #meal-cook-container .card .card-body .features-row .list-item-content {
   font-family: "Libre Baskerville", serif;
-  font-weight: 400;
-  font-size: 17px;
-  padding-top: 3px;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  display: flex;
+  align-items: center;
+  padding-top: 2px;
+}
+#recipe-details-container .card .card-body .newspaper-column, #meal-cook-container .card .card-body .newspaper-column {
+  column-count: 2;
+  column-gap: 1.4rem;
+  column-rule: 1px solid #ccc;
+  text-align: justify;
+}
+#recipe-details-container .card .card-body .newspaper-column .recipe-description, #meal-cook-container .card .card-body .newspaper-column .recipe-description {
+  font-weight: 300;
 }
 #recipe-details-container .card .card-body .ingredient-heading, #meal-cook-container .card .card-body .ingredient-heading {
   font-size: 16px;
@@ -188,6 +202,12 @@
 }
 
 @media screen and (max-width: 768px) {
+  #recipe-details-container .newspaper-column, #meal-cook-container .newspaper-column {
+    column-count: 1 !important;
+  }
+  #recipe-details-container .newspaper-column .recipe-description, #meal-cook-container .newspaper-column .recipe-description {
+    font-weight: 400 !important;
+  }
   #recipe-details-container .back-button, #meal-cook-container .back-button {
     height: 34px !important;
     width: 42px !important;

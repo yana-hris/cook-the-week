@@ -5,7 +5,7 @@
     .card {
         // reuse card tabs style, padding, border back-btn and footer btns
         @extend .card-custom-style-with-back-btn;
-        border: none;
+        border: none !important;
         box-shadow: none !important;
 
         .card-body {
@@ -72,33 +72,45 @@
                 }
             }
 
-            .recipe-description {
+            .features-row {
+                background-color: var(--bs-primary);
+                color: var(--bs-white);
+
+                .icon-container {
+                    width: 1.3rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: var(--bs-success);
+                    line-height: 1.3rem;
+
+                    .fa {
+                        font-size: 1rem;
+                    }
+                }
+
+                .list-item-content {
+                    font-family: "Libre Baskerville", serif;
+                    font-size: 1rem;
+                    line-height: 1.3rem;
+                    display: flex;
+                    align-items: center;
+                    padding-top: 2px;
+                }
+            }
+            // Separate text in newspaper columns
+            .newspaper-column {
+                column-count: 2;
+                column-gap: 1.4rem;
+                column-rule: 1px solid #ccc;
+                text-align: justify;
+
+                .recipe-description {
+                    font-weight: 300;
+                }
             }
 
-            .list-item-start,
-            .list-item-content {
-                line-height: 1.7; /* Ensure text elements have consistent line-height */
-            }
 
-            i.fa-solid {
-                font-size: 17px;
-                display: inline-block;
-                vertical-align: middle; /* Ensure the icon aligns with the text */
-            }
-
-           
-            .list-item-start {
-                font-weight: 700;
-                margin-right: 0.5rem;
-                font-size: 17px;
-            }
-
-            .list-item-content {
-                font-family: "Libre Baskerville", serif;
-                font-weight: 400;
-                font-size: 17px;
-                padding-top: 3px;
-            }
 
             .ingredient-heading {
                 font-size: 16px;
@@ -131,7 +143,15 @@
 
 @media screen and (max-width: 768px) {
     #recipe-details-container, #meal-cook-container {
-                
+
+        .newspaper-column {
+            column-count: 1 !important;
+
+            .recipe-description {
+                font-weight: 400 !important;
+            }
+        }
+
         .back-button {
             height: 34px !important;
             width: 42px !important;

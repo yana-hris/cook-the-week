@@ -64,36 +64,46 @@
                         </div>
                         
                     </div>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 pt-3 pb-1">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 p-3 features-row">
                         <div class="col d-flex align-items-center mb-1">
-                            <i class="fa-solid fa-list me-2"></i>      
-                            <span class="list-item-content"> @Model.CategoryName</span>
+                            <span class="icon-container me-2">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
+                            <span class="list-item-content">@Model.CategoryName</span>
                         </div>
                         <div class="col d-flex align-items-center mb-1">
-                            <i class="fa-solid fa-utensils me-2"></i>
-                            <span class="list-item-content"> For @Model.Servings</span>
+                            <span class="icon-container me-2">
+                                <i class="fa-solid fa-utensils"></i>
+                            </span>
+                            <span class="list-item-content">For @Model.Servings</span>
                         </div>
                         <div class="col d-flex align-items-center mb-1">
-                            <i class="fa-solid fa-hourglass-start me-2"></i>
-                            <span class="list-item-content"> Ready in @Model.TotalTime</span>
+                            <span class="icon-container me-2">
+                                <i class="fa-solid fa-hourglass-start"></i>
+                            </span>
+                            <span class="list-item-content">Ready in @Model.TotalTime</span>
                         </div>
                                            
                         <div class="col d-flex align-items-center mb-1">
-                            <i class="fa-solid fa-calendar-plus me-2"></i>
-                            <span class="list-item-content"> on @Model.CreatedOn</span>
+                            <span class="icon-container me-2">
+                                <i class="fa-solid fa-calendar-plus"></i>
+                            </span>
+                            <span class="list-item-content">On @Model.CreatedOn</span>
                         </div>
 
                         @if (!Model.IsSiteRecipe)
                         {
                             <div class="col d-flex align-items-center mb-1">
-                                <i class="fa-solid fa-at me-2"></i>
+                                <span class="icon-container me-2">
+                                    <i class="fa-solid fa-at"></i>
+                                </span>
                             @if (!isAdmin)
                             {
-                                    <span class="list-item-content"> by you</span>
+                                    <span class="list-item-content">By you</span>
                             }
                             else
                             {
-                                    <span class="list-item-content"> by @Model.CreatedBy</span>
+                                    <span class="list-item-content">By @Model.CreatedBy</span>
                             }
                                
                             </div>
@@ -101,14 +111,16 @@
                         else
                         {
                             <div class="col d-flex align-items-center mb-1">
-                                <i class="fa-solid fa-heart me-2"></i>
+                                <span class="icon-container me-2">
+                                    <i class="fa-solid fa-heart"></i>
+                                </span>
                                 @if (Model.LikesCount == 1)
                                 {
-                                    <span class="list-item-content"> by @Model.LikesCount user</span>
+                                    <span class="list-item-content">By @Model.LikesCount user</span>
                                 }
                                 else if (Model.LikesCount > 1)
                                 {
-                                    <span class="list-item-content"> by @Model.LikesCount users</span>
+                                    <span class="list-item-content">By @Model.LikesCount users</span>
                                 }
                                 else
                                 {
@@ -119,10 +131,12 @@
                         }
                            
                         <div class="col d-flex align-items-center mb-1">
-                            <i class="fa-solid fa-bowl-rice me-2"></i>
+                            <span class="icon-container me-2">
+                                <i class="fa-solid fa-bowl-rice"></i>
+                            </span>
                             @if (Model.CookedCount > 0)
                             {
-                                <span class="list-item-content"> @Model.CookedCount times cooked</span>
+                                <span class="list-item-content">@Model.CookedCount times cooked</span>
                             }
                             else
                             {
@@ -131,15 +145,14 @@
                         </div>
                        
                     </div>
-                    <hr />
-                    <div class="row pt-1">
-                        
+                    <div class="row mt-2 mb-4">
+                        <div class="newspaper-column">
                             <p class="recipe-description">@Model.Description</p>
+                        </div>
                     </div>
-                    
                 </div>
                 <div id="ingredients" class="tab-pane fade" role="tabpanel" aria-labelledby="ingredients-tab">
-                    <div class="row g-3 p-4">
+                    <div class="row p-2 g-1">
                         
                         @foreach (var category in Model.RecipeIngredientsByCategories)
                         {

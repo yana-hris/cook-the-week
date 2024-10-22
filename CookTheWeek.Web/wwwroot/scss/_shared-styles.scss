@@ -15,7 +15,6 @@
 // for background image cover
 .image-overlay {
     margin: 0 auto;
-    
     background-size: cover;
     position: fixed;
     top: 50px; // because of nav
@@ -45,10 +44,11 @@
 // style for adding custom card tab colors, custom border, shade, btn and footer settings
 .card-custom-style-with-back-btn {
 
-    @extend .card-border-style;
-    margin-top: -10px !important;
+    //@extend .card-border-style;
+    margin-top: -0.9rem !important;
 
     .card-header {
+        font-size: 1.1rem;
 
         .nav-item {
 
@@ -73,9 +73,9 @@
             }
         }
 
-        .back-button {
+        .card-back-button {
             position: absolute;
-            top: 5px;
+            top: 7px;
             right: 7px;
             z-index: 15;
         }
@@ -111,7 +111,7 @@
 
     .card-custom-style-with-back-btn {
 
-        .back-button {
+        .card-back-button {
             height: 34px !important;
             width: 42px !important;
             top: 2px;
