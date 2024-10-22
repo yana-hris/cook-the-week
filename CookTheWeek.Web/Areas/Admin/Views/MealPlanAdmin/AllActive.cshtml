@@ -10,39 +10,35 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th><label>Id</label></th>
-                    <th><label>Name</label></th>
-                    <th><label>Owner</label></th>
-                    <th><label>Start Date</label></th>
-                    <th><label>End Date</label></th>
-                    <th><label>Total Meals</label></th>
-                    <th><label>View Details</label></th>
-                    <th><label>View Shopping List</label></th>
+                    <th class="text-start">Id</th>
+                    <th class="text-start">Name</th>
+                    <th class="text-start">Owner</th>
+                    <th class="text-center">Start Date</th>
+                    <th class="text-center">End Date</th>
+                    <th class="text-center">Total Meals</th>
+                    <th class="text-center">View Details</th>
+                    <th class="text-center">View Shopping List</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var mealPlan in Model)
                 {
                     <tr>
-                        <td class="align-baseline">@mealPlan.Id</td>
-                        <td class="align-baseline">@mealPlan.Name</td>
-                        <td class="align-baseline">@mealPlan.OwnerUsername</td>
-                        <td class="align-baseline">@mealPlan.StartDate</td>
-                        <td class="align-baseline">@mealPlan.EndDate</td>
-                        <td class="align-baseline">@mealPlan.MealsCount</td>
-                        <td class="align-baseline">
-                            <label>
-                                <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-primary">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                </a>
-                            </label>
+                        <td class="text-start align-middle">@mealPlan.Id</td>
+                        <td class="text-start align-middle">@mealPlan.Name</td>
+                        <td class="text-start align-middle">@mealPlan.OwnerUsername</td>
+                        <td class="text-center align-middle">@mealPlan.StartDate</td>
+                        <td class="text-center align-middle">@mealPlan.EndDate</td>
+                        <td class="text-center align-middle">@mealPlan.MealsCount</td>
+                        <td class="text-center align-middle">
+                            <a asp-area="" asp-controller="MealPlan" asp-action="Details" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-primary">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            </a>
                         </td>
-                        <td class="align-baseline">
-                            <label>
-                                <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-danger">
-                                    <i class="fas fa-shopping-basket"></i>
-                                </a>
-                            </label>
+                        <td class="text-center align-middle">
+                            <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@mealPlan.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-primary">
+                                <i class="fas fa-shopping-basket"></i>
+                            </a>
                         </td>
                     </tr>
                 }
