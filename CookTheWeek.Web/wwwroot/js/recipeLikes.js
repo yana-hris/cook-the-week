@@ -2,7 +2,6 @@
 function toggleFavourites(event, recipeId) {
     event.preventDefault();
     event.stopPropagation();
-    debugger;
 
     // Change the state of the btn & icon
     toggleLikeButton(event);
@@ -14,11 +13,16 @@ function toggleFavourites(event, recipeId) {
         UserId: currentUserId
     }
 
+    var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
     $.ajax({
         url: url,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),
+        headers: {
+            "RequestVerificationToken": antiForgeryToken // Include the token in the request headers
+        },
 
         success: function (response) {
             toastr.success("Your preference is saved!");

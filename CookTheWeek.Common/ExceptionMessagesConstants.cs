@@ -86,6 +86,9 @@
             // INGREDIENT:
             public const string IngredientCannotBeDeletedExceptionMessage = "Ingredient is included in Recipes and cannot be deleted.";
 
+            // MEAL:
+            public const string InvalidMealCookExceptionMessage = "Meal cannot be cooked twice.";
+
             // MEALPLAN:
             public const string MealplanUnsuccessfullyAddedExceptionMessage = "Something went wrong and the mealplan was not added to the Database.";
 

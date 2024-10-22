@@ -39,5 +39,10 @@ namespace CookTheWeek.Data.Repositories
         /// <param name="recipeId"></param>
         Task RemoveRangeAsync(ICollection<Meal> meals);
 
+        /// <summary>
+        /// Saves changes
+        /// </summary>
+        /// <returns></returns>
+        Task SaveChangesAsync();
     }
 }

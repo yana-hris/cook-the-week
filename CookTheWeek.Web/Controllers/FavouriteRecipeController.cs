@@ -17,7 +17,6 @@
         }
 
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> ToggleFavourites([FromBody]FavouriteRecipeServiceModel model)
         {
             try

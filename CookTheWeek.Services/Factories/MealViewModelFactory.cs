@@ -9,6 +9,8 @@
     using CookTheWeek.Web.ViewModels.Step;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
+
     public class MealViewModelFactory : IMealViewModelFactory
     {
         private readonly IRecipeService recipeService;
@@ -46,8 +48,10 @@
                 Title = meal.Recipe.Title,
                 ImageUrl = meal.Recipe.ImageUrl,
                 Description = meal.Recipe.Description,
-                CookingTime = meal.Recipe.TotalTime,
+                CookingTime = FormatCookingTime(meal.Recipe.TotalTime),
+                CookingDate = meal.CookDate.ToString(MealDateFormat),
                 CategoryName = meal.Recipe.Category.Name,
+                IsCooked = meal.IsCooked,
                 CookingSteps = meal.Recipe.Steps.Select(st => new StepViewModel
                 {
                     Id = st.Id,

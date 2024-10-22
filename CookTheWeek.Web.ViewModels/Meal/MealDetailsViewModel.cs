@@ -22,10 +22,14 @@
 
         public int ServingSize { get; set; }
 
-        public TimeSpan CookingTime { get; set; }
+        public string CookingTime { get; set; } = null!;
+
+        public string CookingDate { get; set; } = null!;
 
         public string CategoryName { get; set; } = null!;
         
+        public bool IsCooked { get; set; }
+
         public List<StepViewModel> CookingSteps { get; set; }
 
         public IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> IngredientsByCategories { get; set; }

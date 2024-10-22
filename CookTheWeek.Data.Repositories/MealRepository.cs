@@ -17,7 +17,7 @@
         /// <inheritdoc/>
         public IQueryable<Meal> GetAllQuery()
         {
-            return this.dbContext
+            return dbContext
                 .Meals
                 .AsNoTracking()
                 .AsQueryable();
@@ -26,7 +26,7 @@
         /// <inheritdoc/>
         public async Task<Meal?> GetByIdAsync(int id)
         {
-            Meal? meal = await this.dbContext
+            Meal? meal = await dbContext
                 .Meals
                 .Where(m => m.Id == id)
                     .Include(m => m.Recipe)
@@ -44,8 +44,8 @@
         /// <inheritdoc/>
         public async Task AddRangeAsync(ICollection<Meal> meals)
         {
-            await this.dbContext.Meals.AddRangeAsync(meals);
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.Meals.AddRangeAsync(meals);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>
@@ -58,8 +58,14 @@
         /// <inheritdoc/>
         public async Task RemoveRangeAsync(ICollection<Meal> meals)
         {
-            this.dbContext.Meals.RemoveRange(meals);
-            await this.dbContext.SaveChangesAsync();
+            dbContext.Meals.RemoveRange(meals);
+            await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
         }
     }
 }

@@ -57,5 +57,11 @@
         /// <returns></returns>
         Task HardDeleteAllByRecipeIdAsync(Guid recipeId);
 
+        /// <summary>
+        /// Marks a meal as cooked
+        /// </summary>
+        /// <param name="mealId"></param>
+        /// <returns></returns>
+        Task TryMarkAsCooked(int mealId);
     }
 }

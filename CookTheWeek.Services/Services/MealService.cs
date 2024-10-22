@@ -76,6 +76,26 @@
                 .CountAsync();
         }
 
+        /// <inheritdoc/>
+        public async Task TryMarkAsCooked(int mealId)
+        {
+            Meal? meal = await mealRepository.GetByIdAsync(mealId);
+
+            if (meal == null)
+            {
+                logger.LogError($"Meal cooking failed. Meal with id {mealId} was not found in the database");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
+            }
+
+            if (meal.IsCooked)
+            {
+                logger.LogError($"Meal cooking failed. Meal with id {mealId} is already cooked.");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidMealCookExceptionMessage);
+            }
+
+            meal.IsCooked = true;
+            await mealRepository.SaveChangesAsync();
+        }
 
         /// <inheritdoc/>
         public async Task HardDeleteAllByMealPlanIdAsync(Guid mealplanId)
@@ -132,5 +152,7 @@
                 .Where(m => m.RecipeId == recipeId)
                 .ToListAsync();
         }
+
+        
     }
 }

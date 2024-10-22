@@ -5,24 +5,29 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Services.Data.Services.Interfaces;
 
     public class MealController : BaseController
     {
         
         private readonly IMealViewModelFactory viewModelFactory;
+        private readonly IMealService mealService;
 
         public MealController(IMealViewModelFactory viewModelFactory,
+            IMealService mealService,
             ILogger<MealController> logger) : base(logger) 
         {
             this.viewModelFactory = viewModelFactory;
+            this.mealService = mealService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string? returnUrl)
         {
             try
             {
                 MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id);
+                SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine");
                 return View(model);
             }
             catch (RecordNotFoundException ex)
@@ -35,6 +40,21 @@
             }
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Cook(int mealId)
+        {
+            try
+            {
+                await mealService.TryMarkAsCooked(mealId);
+                return Ok(); 
+            }
+            catch (RecordNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
 
         /// <summary>
         /// Helper method to log error message and return a custom Internal Server Error page
