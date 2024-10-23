@@ -2,11 +2,11 @@
 function toggleFavourites(event, recipeId) {
     event.preventDefault();
     event.stopPropagation();
-
+    debugger;
     // Change the state of the btn & icon
     toggleLikeButton(event);
 
-    let url = '/FavouriteRecipe/ToggleFavourites'; //'https://localhost:7279/api/favouriteRecipe/toggleFavourites';
+    let url = '/FavouriteRecipe/ToggleFavourites'; 
 
     var data = {
         RecipeId: recipeId,

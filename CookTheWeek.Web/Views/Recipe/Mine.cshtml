@@ -25,6 +25,7 @@
 }
 
 <div class="wide-contents-container">
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="container">                    
             @if (Model.FavouriteRecipes.Any())

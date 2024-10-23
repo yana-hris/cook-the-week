@@ -1,8 +1,11 @@
 ﻿function cookMeal(event, mealId) {
-    event.PreventDefault();
-    event.StopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
 
     debugger;
+    var data = {
+        mealId: mealId
+    }
 
     var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 
@@ -10,12 +13,14 @@
 
     $.ajax({
         url: url,
-        method: 'POST',
+        method: 'GET',
+        contentType: 'application/json',
+        //data: JSON.stringify(data),
         headers: {
             "RequestVerificationToken": antiForgeryToken // Include the token in the request headers
         },
         success: function (response) {
-            toastr.info("Meal marked as cooked!");
+            toastr.success("Meal marked as cooked!");
             hideCookBtn(event);
         },
         error: function (xhr, status, error) {

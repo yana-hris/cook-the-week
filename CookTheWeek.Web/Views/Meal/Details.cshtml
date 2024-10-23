@@ -6,11 +6,15 @@
                 Subheading = "Meal Details",
                 HeadingSecondary = $"Cooking {Model.Title} for {Model.ServingSize}"
             };
+
+    int mealId = Model.Id;
 }
 
 <div id="meal-cook-container" class="card-container">
     <partial name="_HeadingPartial" model="headingModel" />
-    <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+    <!-- Just this -->
+    @Html.AntiForgeryToken()
+
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -28,14 +32,14 @@
                         <div class="col-12">
                             <div class="img-container">
                                 <img class="img-fluid image" alt="Meal Image" src="@Model.ImageUrl">
+
                                 @if (!Model.IsCooked)
                                 {
                                     <div class="cook-meal-container">
-                                        <a class="cook-meal-button plus fixed-size-btn btn btn-icon-only" onclick="cookMeal(event, '@Model.Id')" data-bs-toggle="tooltip" data-bs-placement="top">
-                                            <i class="fas fa-utensils" title="Mark as Cooked"></i>
-                                        </a>
+                                        <button class="cook-meal-button plus fixed-size-btn btn btn-icon-only" onclick="cookMeal(event, '@mealId')" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
+                                            <i class="fas fa-utensils"></i>
+                                        </button>
                                     </div>
-                                    
                                 }
                             </div>
                         </div>

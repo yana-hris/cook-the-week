@@ -41,18 +41,26 @@
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Cook(int mealId)
+        [HttpGet]
+        public async Task<IActionResult> Cook([FromQuery]int? mealId)
         {
             try
             {
-                await mealService.TryMarkAsCooked(mealId);
-                return Ok(); 
+                if (mealId.HasValue && mealId != default)
+                {
+                    await mealService.TryMarkAsCooked(mealId.Value);
+                    return Ok();
+                }
+
+                logger.LogError($"MealId is null.");
             }
-            catch (RecordNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
+                logger.LogError($"An error occured: {ex.Message}. Error stacktrace: {ex.StackTrace}");
+                
             }
+
+            return BadRequest();
         }
 
 

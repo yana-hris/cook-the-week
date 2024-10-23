@@ -15,7 +15,7 @@
 
 <div id="recipe-details-container" class="card-container">    
     <partial name="_HeadingPartial" model="headingModel" class="mb-2"/>
-    <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
