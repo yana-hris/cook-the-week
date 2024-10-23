@@ -185,9 +185,14 @@
                 <div class="d-flex gap-2">
                 @if (Model.IsFinished)
                 {
-                    <button class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
-                        <i class="fa-solid fa-copy"></i>&nbsp;Repeat
-                    </button>
+                    <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post">
+                        <input type="hidden" name="mealPlanId" value="@Model.Id" />
+                        <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
+
+                        <button type="submit" class="btn btn-secondary card-btn-width">
+                            <i class="fa-solid fa-copy"></i>&nbsp;Repeat
+                        </button>
+                    </form>
                 }
                 else
                 {
