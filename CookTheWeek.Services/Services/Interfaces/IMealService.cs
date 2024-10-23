@@ -10,11 +10,11 @@
     {  
 
         /// <summary>
-        /// Transforms a collection of MealAddFormModel into a collection of Meals and adds them to the database
+        /// Transforms a collection of MealAddFormModel into a collection of Meals and returns it
         /// </summary>
         /// <param name="meals"></param>
-        /// <returns></returns>
-        Task AddAllAsync(ICollection<MealAddFormModel> meals);
+        /// <returns>A collection of Meal</returns>
+        ICollection<Meal> CreateMealsAsync(ICollection<MealAddFormModel> meals);
 
        
         /// <summary>
@@ -32,30 +32,13 @@
         /// <param name="recipeId"></param>
         /// <returns>int or 0</returns>
         Task<int?> GetAllMealsCountByRecipeIdAsync(Guid recipeId);
-
         
-        /// <summary>
-        /// Deletes all meals, included in a specific meal plan (by id)
-        /// </summary>
-        /// <param name="id">Meal Plan Id</param>
-        /// <returns></returns>
-        Task HardDeleteAllByMealPlanIdAsync(Guid mealplanId);
-
-
         /// <summary>
         /// Soft deletes all meals by a given recipe ID by settings their IsDeleted flag to true
         /// </summary>
         /// <param name="recipeId"></param>
         /// <returns></returns>
         Task SoftDeleteAllByRecipeIdAsync(Guid recipeId);
-
-
-        /// <summary>
-        /// Deletes all meals, cooked by a specific recipe Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task HardDeleteAllByRecipeIdAsync(Guid recipeId);
 
         /// <summary>
         /// Marks a meal as cooked

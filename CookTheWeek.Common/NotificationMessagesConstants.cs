@@ -18,5 +18,6 @@
         public const string IsAdmin = "IsAdmin";
         public const string MealPlanStoredModel = "MealPlanAddFormModel";
         public const string SubmissionSuccess = "SubmissionSuccess";
+        public const string MissingRecipesMessage = "MissingRecipesMessage";
     }
 }

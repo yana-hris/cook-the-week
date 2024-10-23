@@ -2,7 +2,6 @@
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @{
     ViewData["Title"] = "Edit Meal Plan";
-    int initialCount = Model.Meals.Count;
 
     var headingModel = new PageHeadingViewModel
     {
@@ -196,12 +195,11 @@
     <partial name="_JQueryValidationPartial.cshtml" />
     <script type="module">
         import { reindexMealRows } from '/js/site.js';
-
-        let mealsIndex = '@initialCount';
-
+        debugger;
+        
         $(document).ready(function () {
             $(document).on('click', '.minus', function (event) {
-                
+                debugger
                 let mealsCount = $('.meal-row').length;
 
                 if (mealsCount === 1) {
@@ -210,7 +208,6 @@
                     return false;
                 }
                 $(this).closest('.meal-row').remove();
-                mealsIndex--;
                 reindexMealRows();
 
             });            

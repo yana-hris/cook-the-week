@@ -58,13 +58,13 @@
 
         
         [HttpGet]
-        public async Task<IActionResult> Add(string returnUrl)
+        public async Task<IActionResult> Add()
         {
             try
             {
                 var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
 
-                SetViewData("Add Recipe", returnUrl ?? "/Recipe/All");
+                SetViewData("Add Recipe", "/Recipe/All");
                 return View(model);
             }
             catch (Exception ex)
@@ -75,7 +75,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl)
+        public async Task<IActionResult> Add(RecipeAddFormModel model)
         {
             string redirectUrl;
 
@@ -92,24 +92,24 @@
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAddViewWithModelErrors(model!, returnUrl);
+                return RedirectToAddViewWithModelErrors(model!);
             }
 
             try
             {
                 var result = await recipeService.TryAddRecipeAsync(model!);
 
-                if (result.Succeeded)
+                if (result.Succeeded && result.Value != default)
                 {
                     string recipeId = result.Value;
                     TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
 
-                    return Redirect(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl }));
+                    return Redirect(Url.Action("Details", "Recipe", new { id = recipeId }));
                 }
                 else
                 {
                     AddCustomValidationErrorsToModelState(result.Errors);
-                    return RedirectToAddViewWithModelErrors(model, returnUrl);
+                    return RedirectToAddViewWithModelErrors(model);
                 }
             }
             catch (Exception ex) // Handle ArgumentNull, InvalidCast and all other exceptions but deliver message
@@ -311,10 +311,10 @@
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model, string? returnUrl)
+        private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model)
         {
             StoreServerErrorsInTempData();
-            SetViewData("Add Recipe", returnUrl ?? "Home/Index");
+            SetViewData("Add Recipe", "/Recipe/All");
             return View(model);
         }
 

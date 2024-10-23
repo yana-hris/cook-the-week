@@ -1,8 +1,7 @@
 ﻿@model ICollection<MealPlanAllViewModel>
 @inject IUserContext UserContext
 @{
-    ViewData["Title"] = "My Meal Plans";
-
+    
     Guid userId = UserContext.UserId;
 
     var headingModel = new PageHeadingViewModel
@@ -59,7 +58,7 @@
                         <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post" class="d-inline">
                             <input type="hidden" name="mealPlanId" value="@mealPlan.Id" />
                             <input type="hidden" name="returnUrl" value="/MealPlan/Mine" />
-                            <button type="submit" class="btn btn-outline-primary">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
                         </form>

@@ -138,11 +138,12 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine(string? returnUrl)
         {
             try
             {
                 ICollection<MealPlanAllViewModel> model = await viewModelFactory.CreateMealPlansMineViewModelAsync();
+                SetViewData("My Meal Plans", returnUrl ?? "/Recipe/All");
                 return View(model);
                          
             }
@@ -165,13 +166,14 @@
         [HttpGet]
         public async Task<IActionResult> Details(string id, string? returnUrl = null)
         {
+            
             if (id.TryToGuid(out Guid guidId))
             {
                 try
                 {
                     MealPlanDetailsViewModel model = await this.viewModelFactory.CreateMealPlanDetailsViewModelAsync(guidId);
 
-                    ViewBag.ReturnUrl = returnUrl;
+                    SetViewData("Meal Plan Details", returnUrl ?? "/MealPlan/Mine");
                     return View(model);
                 }
                 catch (RecordNotFoundException)
@@ -202,8 +204,7 @@
                    
                     if (hasDeletedRecipes)
                     {
-                        
-                        TempData["MissingRecipesMessage"] = "Some recipes in your meal plan could not be found and have been removed.";
+                        TempData[MissingRecipesMessage] = "Some recipes in your meal plan could not be found and have been removed.";
                     }
                        
                     // Store the model in TempData for the next request

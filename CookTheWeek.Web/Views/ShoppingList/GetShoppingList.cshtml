@@ -1,8 +1,4 @@
 ﻿@model ShoppingListViewModel
-@{
-    ViewData["Title"] = "Shopping List";
-}
-
 <div id="shopping-list" class="shopping-list-container">
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
     <a id="generatePdfBtn" class="btn btn-primary plus btn-icon-only fixed-size-btn">

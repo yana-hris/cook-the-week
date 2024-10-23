@@ -33,8 +33,7 @@
                 {
                     ShoppingListViewModel model = await this.shoppingListService
                                     .TryGetShoppingListDataByMealPlanIdAsync(guidId);
-                    ViewBag.ReturnUrl = returnUrl;
-
+                    SetViewData("Shopping List", returnUrl ?? "/MealPlan/Mine");
                     return View(model);
                 }
                 catch (RecordNotFoundException ex)

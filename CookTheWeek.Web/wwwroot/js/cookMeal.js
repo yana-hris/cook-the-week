@@ -31,7 +31,7 @@
 }
 
 function hideCookBtn(button) {
-    debugger;
+    
     if (!button) {
         console.error("Event or currentTarget is null or undefined");
         return;

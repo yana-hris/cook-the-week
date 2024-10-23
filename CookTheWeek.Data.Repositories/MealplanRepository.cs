@@ -4,8 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
-
+    
     using CookTheWeek.Data.Models;
 
     public class MealplanRepository : IMealplanRepository
@@ -43,14 +42,7 @@
             string mealPlanId = mealPlan.Id.ToString();
             return mealPlanId;
         }
-
-        /// <inheritdoc/>
-        public async Task UpdateAsync(MealPlan mealPlan)
-        {
-            this.dbContext.MealPlans.Update(mealPlan);
-            await dbContext.SaveChangesAsync();
-        }
-
+        
         /// <inheritdoc/>
         public async Task RemoveAsync(MealPlan mealPlan)
         {
@@ -61,7 +53,7 @@
 
        
         /// <inheritdoc/>
-        public async Task SaveAsync(CancellationToken cancellationToken)
+        public async Task SaveAsync(CancellationToken cancellationToken = default)
         {
             // Save all tracked changes (including related entities like meals)
             await dbContext.SaveChangesAsync(cancellationToken);

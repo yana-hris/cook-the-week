@@ -33,23 +33,23 @@
 
 
         /// <inheritdoc/>
-        public async Task AddAllAsync(ICollection<MealAddFormModel> meals)
+        public ICollection<Meal> CreateMealsAsync(ICollection<MealAddFormModel> model)
         {
-            ICollection<Meal> newMeals = new List<Meal>();
+            ICollection<Meal> meals = new List<Meal>();
 
-            foreach (var meal in meals)
+            foreach (var modelMeal in model)
             {
-                Meal newMeal = new Meal()
+                Meal meal = new Meal()
                 {
-                    RecipeId = meal.RecipeId,
-                    ServingSize = meal.Servings,
-                    CookDate = DateTime.ParseExact(meal.Date, MealDateFormat, CultureInfo.InvariantCulture),
+                    RecipeId = modelMeal.RecipeId,
+                    ServingSize = modelMeal.Servings,
+                    CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 };
 
-                newMeals.Add(newMeal);
+                meals.Add(meal);
             }
 
-            await mealRepository.AddRangeAsync(newMeals);
+            return meals;
         }
 
 
@@ -97,18 +97,7 @@
             await mealRepository.SaveChangesAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task HardDeleteAllByMealPlanIdAsync(Guid mealplanId)
-        {
-            var mealsToDelete = await mealRepository.GetAllQuery()
-                .Where(m => m.MealPlanId == mealplanId)
-                .ToListAsync();
-
-            await mealRepository.RemoveRangeAsync(mealsToDelete);
-
-        }
-       
-
+        
         /// <inheritdoc/>
         public async Task SoftDeleteAllByRecipeIdAsync(Guid recipeId)
         {
@@ -124,20 +113,7 @@
                 await mealRepository.UpdateRangeAsync(mealsToDelete);
             }
         }
-
-
-        /// <inheritdoc/> // TODO: Check if will be used at all..
-        public async Task HardDeleteAllByRecipeIdAsync(Guid recipeId)
-        {
-            ICollection<Meal> mealsToDelete = await GetAllByRecipeIdAsync(recipeId);
-
-            if (mealsToDelete.Any())
-            {
-                await mealRepository.RemoveRangeAsync(mealsToDelete);
-            }
-        }
-
-
+        
         // HELPER METHODS:
 
         /// <summary>

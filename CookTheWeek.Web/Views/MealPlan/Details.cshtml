@@ -4,7 +4,6 @@
 @using static CookTheWeek.Common.GeneralApplicationConstants
 @inject IUserContext UserContext
 @{
-    ViewData["Title"] = "Meal Plan Details";
     Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
     bool isOwner = Model.OwnerId == userId;
@@ -92,7 +91,9 @@
                                         <td class="border-0 align-middle">
                                             <strong>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                                    </span>
                                                     <input type="text" class="form-control text-style @(isCurrentMealDeleted ? "deleted-input" : "")" value="@(isCurrentMealDeleted ? "N/A" : Model.Meals[i].Servings)" readonly>
                                                 </div>
                                             </strong>
@@ -122,7 +123,7 @@
                                         }
                                         else
                                         {
-                                            <a asp-area="" asp-controller="Meal" asp-action="Details" asp-route-id="@Model.Meals[i].Id" class="btn btn-primary cook-btn btn-icon-only">
+                                        <a asp-area="" asp-controller="Meal" asp-action="Details" asp-route-id="@Model.Meals[i].Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="btn btn-primary cook-btn btn-icon-only">
                                                 <i class="fa-solid fa-bowl-rice"></i>
                                             </a>
                                         }
@@ -184,14 +185,18 @@
                 <div class="d-flex gap-2">
                 @if (Model.IsFinished)
                 {
-                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                    <button class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
                         <i class="fa-solid fa-copy"></i>&nbsp;Repeat
-                    </a>
+                    </button>
                 }
                 else
                 {
-                    <partial name="_EditMealPlanBtnPartial" />
-                    <partial name="_RemoveBtnPartial" />
+                    <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                        <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit
+                    </a>
+                    <a id="removeBtn" class="btn btn-danger card-btn-width">
+                        <i class="fa-solid fa-trash-can"></i>&nbsp;Remove
+                    </a>
                 }
                         
                 </div>

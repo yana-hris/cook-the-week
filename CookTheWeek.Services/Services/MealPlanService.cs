@@ -188,10 +188,9 @@
         private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
         {
             mealplan.Name = model.Name;
-            await mealplanRepository.UpdateAsync(mealplan);
+            mealplan.Meals = mealService.CreateMealsAsync(model.Meals);
 
-            await mealService.HardDeleteAllByMealPlanIdAsync(model.Id);
-            await mealService.AddAllAsync(model.Meals);
+            await mealplanRepository.SaveAsync(CancellationToken.None);
         }
 
 

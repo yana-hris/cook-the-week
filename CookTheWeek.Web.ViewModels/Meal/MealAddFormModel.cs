@@ -15,9 +15,7 @@
             this.SelectServingOptions = ServingsOptions;
         }
 
-        //[Required]
-        //public int Id { get; set; }
-
+        
         [Required]
         public Guid RecipeId { get; set; }
 

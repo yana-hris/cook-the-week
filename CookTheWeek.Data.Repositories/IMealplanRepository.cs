@@ -31,14 +31,7 @@
         /// <param name="mealPlan"></param>
         /// <returns>the newly created MealPlan Id as string</returns>
         Task<string> AddAsync(MealPlan mealPlan);
-
-        /// <summary>
-        /// Updates an existing meal plan
-        /// </summary>
-        /// <param name="mealPlan"></param>
-        /// <returns></returns>
-        Task UpdateAsync(MealPlan mealPlan);
-
+        
         /// <summary>
         /// Deletes a single meal plan
         /// </summary>
