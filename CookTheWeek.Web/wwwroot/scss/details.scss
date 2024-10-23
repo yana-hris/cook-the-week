@@ -69,6 +69,14 @@
                     .btn-icon-only {
                         position: relative;
                     }
+
+                    .fas {
+                        color: white;
+
+                        &:hover {
+                            color: var(--bs-primary);
+                        }
+                    }
                 }
             }
 

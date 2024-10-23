@@ -2,7 +2,6 @@
 function toggleFavourites(event, recipeId) {
     event.preventDefault();
     event.stopPropagation();
-    debugger;
     // Change the state of the btn & icon
     toggleLikeButton(event);
 

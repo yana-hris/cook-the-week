@@ -41,18 +41,18 @@
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Cook([FromQuery]int? mealId)
+        [HttpPost]
+        public async Task<IActionResult> Cook(int id)
         {
             try
             {
-                if (mealId.HasValue && mealId != default)
+                if (id != default)
                 {
-                    await mealService.TryMarkAsCooked(mealId.Value);
+                    await mealService.TryMarkAsCooked(id);
                     return Ok();
-                }
-
+                }                
                 logger.LogError($"MealId is null.");
+
             }
             catch (Exception ex)
             {

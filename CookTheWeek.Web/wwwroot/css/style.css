@@ -1516,6 +1516,12 @@ html #main-container .external-login-button img {
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #recipe-details-container .card .card-body .img-container .cook-meal-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .cook-meal-container .btn-icon-only {
   position: relative;
 }
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas {
+  color: white;
+}
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas:hover, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas:hover {
+  color: var(--bs-primary);
+}
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
   background-color: var(--bs-primary);
   color: var(--bs-white);
