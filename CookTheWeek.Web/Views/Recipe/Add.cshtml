@@ -43,7 +43,9 @@
                     <button class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</button>
                 </li>
             </ul>
-            <partial name="_BackBtnPartial" />
+            <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="btn btn-primary card-back-button fixed-size-btn btn-icon-only">
+                <i class="fa-solid fa-angles-left"></i>
+            </a>
         </div>
         
         <div class="card-body">

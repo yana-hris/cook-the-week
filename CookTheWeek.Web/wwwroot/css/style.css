@@ -322,8 +322,11 @@ html .btn-icon-only::before {
   z-index: 0;
   transition: background-color 0.3s ease;
 }
-html .btn-icon-only .fa {
+html .btn-icon-only.btn-primary .fa {
   color: white; /* Icon color */
+}
+html .btn-icon-only.btn-primary .fa:hover {
+  color: var(--bs-primary);
 }
 html .plus, html .minus {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
@@ -331,26 +334,32 @@ html .plus, html .minus {
 html .plus:hover, html .minus:hover {
   box-shadow: none;
 }
+html .plus .fa {
+  color: var(--bs-white);
+}
 html .plus::before {
-  background-color: var(--bs-primary);
   color: #fff;
+  background-color: var(--bs-primary);
   border: 2px solid var(--bs-primary);
+}
+html .plus:hover::before {
+  background-color: #fff;
+  border: 2px solid var(--bs-primary);
+}
+html .plus:hover .fa {
+  color: var(--bs-primary);
+}
+html .minus .fa {
+  color: var(--bs-white);
 }
 html .minus::before {
   background-color: var(--bs-danger);
   color: #fff;
   border: 2px solid var(--bs-danger);
 }
-html .plus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-primary);
-}
 html .minus:hover::before {
   background-color: #fff;
   border: 2px solid var(--bs-danger) !important;
-}
-html .plus:hover .fa {
-  color: var(--bs-primary);
 }
 html .minus:hover .fa {
   color: var(--bs-danger);
@@ -359,9 +368,6 @@ html .fa-user-circle {
   color: var(--bs-success);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--bs-primary);
-}
-html .fa-flag-checkered {
-  font-size: 24px;
 }
 html .finished {
   color: var(--bs-danger);
@@ -868,9 +874,12 @@ html #main-container .btn-outline-danger:hover {
 }
 html #main-container .btn-outline-primary {
   border: 1px solid var(--bs-primary);
+  color: var(--bs-primary);
 }
 html #main-container .btn-outline-primary:hover {
   border: 1px solid var(--bs-primary);
+  color: var(--bs-white);
+  background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build {
   background-color: var(--bs-primary);
@@ -1111,7 +1120,7 @@ html #main-container .external-login-button img {
 
 #hero {
   margin: 0 auto;
-  background: url("/img/pexels-dana-tentis-691114.jpg") no-repeat center center;
+  background: url("/img/hero-large-1980.webp") no-repeat center center;
   background-size: cover;
   position: fixed;
   top: 60px;
@@ -1132,6 +1141,18 @@ html #main-container .external-login-button img {
 #hero #hero-text-background .text-container p {
   font-size: 18px;
   font-weight: 400;
+}
+@media (max-width: 1200px) {
+  #hero {
+    background: url("/img/hero-medium-1200.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  #hero {
+    background: url("/img/hero-small-768.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 [data-bs-theme=light] #hero-text-background {

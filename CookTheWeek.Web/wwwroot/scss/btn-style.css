@@ -84,9 +84,12 @@ html #main-container .btn-outline-danger:hover {
 }
 html #main-container .btn-outline-primary {
   border: 1px solid var(--bs-primary);
+  color: var(--bs-primary);
 }
 html #main-container .btn-outline-primary:hover {
   border: 1px solid var(--bs-primary);
+  color: var(--bs-white);
+  background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build {
   background-color: var(--bs-primary);

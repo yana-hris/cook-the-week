@@ -21,8 +21,11 @@ html .btn-icon-only::before {
   z-index: 0;
   transition: background-color 0.3s ease;
 }
-html .btn-icon-only .fa {
+html .btn-icon-only.btn-primary .fa {
   color: white; /* Icon color */
+}
+html .btn-icon-only.btn-primary .fa:hover {
+  color: var(--bs-primary);
 }
 html .plus, html .minus {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
@@ -30,26 +33,32 @@ html .plus, html .minus {
 html .plus:hover, html .minus:hover {
   box-shadow: none;
 }
+html .plus .fa {
+  color: var(--bs-white);
+}
 html .plus::before {
-  background-color: var(--bs-primary);
   color: #fff;
+  background-color: var(--bs-primary);
   border: 2px solid var(--bs-primary);
+}
+html .plus:hover::before {
+  background-color: #fff;
+  border: 2px solid var(--bs-primary);
+}
+html .plus:hover .fa {
+  color: var(--bs-primary);
+}
+html .minus .fa {
+  color: var(--bs-white);
 }
 html .minus::before {
   background-color: var(--bs-danger);
   color: #fff;
   border: 2px solid var(--bs-danger);
 }
-html .plus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-primary);
-}
 html .minus:hover::before {
   background-color: #fff;
   border: 2px solid var(--bs-danger) !important;
-}
-html .plus:hover .fa {
-  color: var(--bs-primary);
 }
 html .minus:hover .fa {
   color: var(--bs-danger);
@@ -58,9 +67,6 @@ html .fa-user-circle {
   color: var(--bs-success);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--bs-primary);
-}
-html .fa-flag-checkered {
-  font-size: 24px;
 }
 html .finished {
   color: var(--bs-danger);

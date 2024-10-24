@@ -1,6 +1,6 @@
 ﻿#hero {
   margin: 0 auto;
-  background: url("/img/pexels-dana-tentis-691114.jpg") no-repeat center center;
+  background: url("/img/hero-large-1980.webp") no-repeat center center;
   background-size: cover;
   position: fixed;
   top: 60px;
@@ -21,6 +21,18 @@
 #hero #hero-text-background .text-container p {
   font-size: 18px;
   font-weight: 400;
+}
+@media (max-width: 1200px) {
+  #hero {
+    background: url("/img/hero-medium-1200.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  #hero {
+    background: url("/img/hero-small-768.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 [data-bs-theme=light] #hero-text-background {
