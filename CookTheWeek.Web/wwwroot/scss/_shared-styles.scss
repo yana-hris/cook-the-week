@@ -4,7 +4,17 @@
 }
 
 .food-background {
-    background: url('/img/pexels-ella-olsson-572949-1640773.jpg') no-repeat center center;
+    background: url('/img/background-food-large.webp') no-repeat center center;
+
+    @media (max-width: 1200px) {
+        background: url('/img/background-food-medium.webp') no-repeat center center;
+        background-size: cover;
+    }
+
+    @media (max-width: 768px) {
+        background: url('/img/background-food-small-1024.webp') no-repeat center center;
+        background-size: cover;
+    }
 }
 
 
@@ -44,7 +54,6 @@
 // style for adding custom card tab colors, custom border, shade, btn and footer settings
 .card-custom-style-with-back-btn {
 
-    //@extend .card-border-style;
     margin-top: -0.9rem !important;
 
     .card-header {

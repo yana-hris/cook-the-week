@@ -202,7 +202,7 @@
          <div class="card-footer">
             <div class="col text-center">
                 <div class="buttons">
-                        <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-secondary card-btn-width text-center" type="button">
+                        <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/Recipe/Details/@Model.Id" class="btn btn-secondary card-btn-width text-center" type="button">
                         Edit
                     </a>
                     <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-recipe-id="@Model.Id" class="btn btn-danger text-center card-btn-width" type="button">

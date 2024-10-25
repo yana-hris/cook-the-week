@@ -22,7 +22,9 @@
                 <li class="nav-item"><a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false"><span>Ingredients</span></a></li>
                 <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
             </ul>
-            <partial name="_BackBtnPartial" />
+            <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("MealPlan", "Mine"))" class="btn btn-primary card-back-button fixed-size-btn btn-icon-only">
+                <i class="fa-solid fa-angles-left"></i>
+            </a>
         </div>
 
         <div class="card-body p-0" id="meal-details">

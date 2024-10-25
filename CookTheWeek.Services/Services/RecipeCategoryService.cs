@@ -98,9 +98,10 @@
         {
             try
             {
-                ICollection<string> names = await this.categoryRepository.GetAllQuery()
-                .Select(c => c.Name)
-                .ToListAsync();
+                ICollection<string> names = await this.categoryRepository
+                    .GetAllQuery()
+                    .Select(c => c.Name)
+                    .ToListAsync();
 
                 return names;
             }

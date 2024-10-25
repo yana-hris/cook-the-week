@@ -3,7 +3,19 @@
 }
 
 .food-background {
-  background: url("/img/pexels-ella-olsson-572949-1640773.jpg") no-repeat center center;
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 .change-pass, .info-message {

@@ -20,7 +20,9 @@
         /// <inheritdoc/> 
         public IQueryable<TCategory> GetAllQuery()
         {
-            return dbContext.Set<TCategory>().AsNoTracking().AsQueryable();
+            return dbContext.Set<TCategory>()
+                .AsNoTracking()
+                .AsQueryable();
         }
 
         /// <inheritdoc/> 

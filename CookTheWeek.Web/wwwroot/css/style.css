@@ -213,7 +213,19 @@ html body footer #links-container a:hover {
 }
 
 .food-background {
-  background: url("/img/pexels-ella-olsson-572949-1640773.jpg") no-repeat center center;
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 .change-pass, .info-message {
@@ -1150,7 +1162,7 @@ html #main-container .external-login-button img {
 }
 @media (max-width: 768px) {
   #hero {
-    background: url("/img/hero-small-768.webp") no-repeat center center;
+    background: url("/img/hero-small-768-1024.webp") no-repeat center center;
     background-size: cover;
   }
 }
@@ -1391,7 +1403,19 @@ html #main-container .external-login-button img {
 }
 
 .food-background {
-  background: url("/img/pexels-ella-olsson-572949-1640773.jpg") no-repeat center center;
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 .change-pass, .info-message {
@@ -1788,7 +1812,19 @@ html #main-container .external-login-button img {
 }
 
 .food-background {
-  background: url("/img/pexels-ella-olsson-572949-1640773.jpg") no-repeat center center;
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
 }
 
 .change-pass, .info-message {
@@ -2049,12 +2085,23 @@ html #main-container .external-login-button img {
 }
 
 .error-image {
-  background: url("/img/istockphoto-154163177-2048x2048.jpg") no-repeat center center;
+  background: url("/img/error-background-large.webp") no-repeat center center;
 }
 .error-image .form-container {
   top: 40% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
+}
+@media (max-width: 1200px) {
+  .error-image {
+    background: url("/img/error-background-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .error-image {
+    background: url("/img/error-background-small.webp") no-repeat center center;
+  }
 }
 
 [data-bs-theme=light] {
