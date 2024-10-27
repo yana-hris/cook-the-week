@@ -74,16 +74,20 @@
                 Name = mealPlan.Name,
                 OwnerId = mealPlan.OwnerId,
                 IsFinished = mealPlan.IsFinished,
-                Meals = mealPlan.Meals.Select(mpm => new MealViewModel()
-                {
-                    Id = mpm.Id.ToString(),
-                    RecipeId = mpm.RecipeId.ToString(),
-                    Title = mpm.Recipe.Title,
-                    Servings = mpm.ServingSize,
-                    ImageUrl = mpm.Recipe.ImageUrl,
-                    CategoryName = mpm.Recipe.Category.Name,
-                    Date = mpm.CookDate.ToString(MealDateFormat),
-                }).ToList(),
+                Meals = mealPlan.Meals
+                    .OrderBy(mpm => mpm.CookDate)
+                    .Select(mpm => new MealViewModel()
+                    {
+                        Id = mpm.Id.ToString(),
+                        RecipeId = mpm.RecipeId.ToString(),
+                        Title = mpm.Recipe.Title,
+                        Servings = mpm.ServingSize,
+                        ImageUrl = mpm.Recipe.ImageUrl,
+                        CategoryName = mpm.Recipe.Category.Name,
+                        IsCooked = mpm.IsCooked,
+                        DayOfTheWeek = mpm.CookDate.ToString("ddd"),
+                        Date = mpm.CookDate.ToString(MealDateFormat),
+                    }).ToList(),
                 TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),
                 TotalCookingDays = mealPlan.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
                 TotalIngredients = mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),

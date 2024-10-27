@@ -1,25 +1,167 @@
-﻿html .btn {
+﻿html {
+  /*.btn-icon-only {
+      @include button-base();
+      @include flex-center();
+      position: relative;
+
+      i {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      &::before {
+          content: "";*/ /* A pseudo-element for the background */
+  /*position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 0;
+          width: 100%;
+          height: 100%;
+          transition: background-color 0.3s ease;
+      }
+  }*/
+}
+html .btn {
   border: none;
   border-radius: 2px;
-  cursor: pointer;
   opacity: 1;
+  cursor: pointer;
   transition: all 0.3s ease-in;
 }
 html .btn:hover {
   border: none;
 }
-html .btn-icon-only {
-  position: relative;
+html .cook-meal-button {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2px;
+  position: relative;
 }
-html .btn-icon-only i.fa, html .btn-icon-only i.fas {
+html .cook-meal-button:hover {
+  border: none;
+}
+html .cook-meal-button i, html .cook-meal-button .fa, html .cook-meal-button .fas {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .cook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .cook-meal-button:hover i, html .cook-meal-button:hover .fa, html .cook-meal-button:hover .fas {
+  color: var(--bs-primary);
+}
+html .cook-meal-button:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-primary);
+}
+html .plus {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+html .plus:hover {
+  border: none;
+}
+html .plus i, html .plus .fa, html .plus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .plus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .plus:hover i, html .plus:hover .fa, html .plus:hover .fas {
+  color: var(--bs-primary);
+}
+html .plus:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-primary);
+}
+html .plus:hover {
+  box-shadow: none;
+}
+html .minus {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+html .minus:hover {
+  border: none;
+}
+html .minus i, html .minus .fa, html .minus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .minus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  border: 2px solid var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .minus:hover i, html .minus:hover .fa, html .minus:hover .fas {
+  color: var(--bs-danger);
+}
+html .minus:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-danger);
+}
+html .minus:hover {
+  box-shadow: none;
 }
 html .nav-btn, html .nav-dropdown-btn {
   display: flex;
@@ -27,9 +169,9 @@ html .nav-btn, html .nav-dropdown-btn {
   justify-content: center;
 }
 html .nav-btn:hover {
-  background-color: var(--bs-primary) !important;
   color: var(--bs-white) !important;
   border-color: var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
   transition: 0.5s;
 }
 html #main-container .search-btn {
@@ -41,37 +183,37 @@ html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
 }
 html #main-container .card-btn-width {
-  font-size: 1.4rem;
   display: inline-block;
   width: 9rem;
   padding: 0.8rem, 1.2rem;
+  font-size: 1.4rem;
 }
 html #main-container .btn-primary {
-  color: var(--bs-white);
   border: 1px solid var(--bs-primary);
+  color: var(--bs-white);
 }
 html #main-container .btn-primary:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-white);
-  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary {
+  border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
-  border: 1px solid var(--bs-success);
 }
 html #main-container .btn-secondary:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
-  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-danger {
   border: 1px solid var(--bs-danger);
 }
 html #main-container .btn-danger:hover {
+  border: 1px solid var(--bs-light);
   color: var(--bs-danger);
   background-color: var(--bs-light);
-  border: 1px solid var(--bs-light);
 }
 html #main-container .btn-light {
   border: 1px solid var(--bs-light);
@@ -92,17 +234,17 @@ html #main-container .btn-outline-primary:hover {
   background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build {
-  background-color: var(--bs-primary);
   border: 2px solid var(--bs-primary);
+  background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build:hover {
-  background-color: var(--bs-body-bg);
   border: 2px solid var(--bs-primary);
+  background-color: var(--bs-body-bg);
 }
 html #main-container #build-btn-container .btn-build:hover .fa {
   color: var(--bs-primary);
 }
-html #main-container .fixed-size-btn {
+html #main-container .fixed-size-btn, html #main-container .cook-meal-button {
   height: 40px;
   width: 44px;
   font-size: 22px;
@@ -116,8 +258,8 @@ html #main-container .card-back-button {
   color: var(--bs-success);
 }
 html #main-container .card-back-button:hover {
-  background-color: var(--bs-primary);
   color: var(--bs-body-bg);
+  background-color: var(--bs-primary);
 }
 html #main-container .btn.close {
   color: var(--bs-success);
@@ -127,14 +269,14 @@ html #main-container .btn.close:hover {
 }
 html #main-container .external-login-button {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 14px;
+  align-items: center;
   padding: 8px;
-  background-color: #f8f9fa;
   border: 1px solid #ddd;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
+  background-color: #f8f9fa;
   transition: background-color 0.3s, border-color 0.3s;
 }
 html #main-container .external-login-button:active {
@@ -154,13 +296,13 @@ html #main-container .external-login-button img {
 
 @media (min-width: 992px) {
   #build-btn-container {
-    bottom: 26px !important;
     right: 43px !important;
+    bottom: 26px !important;
   }
 }
 @media (min-width: 769px) {
   #build-btn-container {
-    bottom: 45px;
     right: 13px;
+    bottom: 45px;
   }
 }

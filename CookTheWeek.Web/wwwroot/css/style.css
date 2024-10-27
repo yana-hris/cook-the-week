@@ -311,6 +311,102 @@ html body footer #links-container a:hover {
     font-size: 18px;
   }
 }
+html {
+  /*.btn-icon-only.btn-primary .fa {
+      color: white;*/ /* Icon color */
+  /*&:hover {
+          color: var(--bs-primary);
+      }
+  }*/
+  /*@mixin icon-button-with-shadow($main-color) {
+      box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+          box-shadow: none;
+      }
+
+      i {
+          color: var(--bs-white);
+          transition: color 0.3s ease;
+      }
+
+      &::before {
+          content: "";
+          color: var(--bs-white);
+          background-color: $main-color;
+          border: 2px solid $main-color;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+
+      &:hover::before {
+          background-color: var(--bs-white);
+          border: 2px solid $main-color;
+      }
+
+      &:hover {
+          i {
+              color: $main-color;
+          }
+      }
+  }*/
+  /*.plus, .minus {
+      box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+
+
+      &:hover {
+          box-shadow: none;
+      }
+  }*/
+  /*.plus {
+
+      @include icon-button-with-shadow(var(--bs-primary));*/
+  /* .fa {
+       color: var(--bs-white);
+   }
+
+   &::before {
+       color: #fff;
+       background-color: var(--bs-primary);
+       border: 2px solid var(--bs-primary);
+   }
+
+   &:hover::before {
+       background-color: #fff;
+       border: 2px solid var(--bs-primary);
+   }
+
+   &:hover {
+       .fa {
+           color: var(--bs-primary);
+       }
+   }*/
+  /*}
+
+  .minus {
+      @include icon-button-with-shadow(var(--bs-danger));*/
+  /*.fa {
+      color: var(--bs-white);
+  }
+
+  &::before {
+      background-color: var(--bs-danger);
+      color: #fff;
+      border: 2px solid var(--bs-danger);
+  }
+
+  &:hover::before {
+      background-color: #fff;
+      border: 2px solid var(--bs-danger) !important;
+  }
+
+  &:hover {
+      .fa {
+          color: var(--bs-danger);
+      }
+  }*/
+  /*}*/
+}
 html .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
@@ -323,58 +419,6 @@ html .not-liked-icon {
 }
 html .not-liked-icon:hover {
   color: red;
-}
-html .btn-icon-only::before {
-  content: ""; /* A pseudo-element for the background */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  transition: background-color 0.3s ease;
-}
-html .btn-icon-only.btn-primary .fa {
-  color: white; /* Icon color */
-}
-html .btn-icon-only.btn-primary .fa:hover {
-  color: var(--bs-primary);
-}
-html .plus, html .minus {
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-}
-html .plus:hover, html .minus:hover {
-  box-shadow: none;
-}
-html .plus .fa {
-  color: var(--bs-white);
-}
-html .plus::before {
-  color: #fff;
-  background-color: var(--bs-primary);
-  border: 2px solid var(--bs-primary);
-}
-html .plus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-primary);
-}
-html .plus:hover .fa {
-  color: var(--bs-primary);
-}
-html .minus .fa {
-  color: var(--bs-white);
-}
-html .minus::before {
-  background-color: var(--bs-danger);
-  color: #fff;
-  border: 2px solid var(--bs-danger);
-}
-html .minus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-danger) !important;
-}
-html .minus:hover .fa {
-  color: var(--bs-danger);
 }
 html .fa-user-circle {
   color: var(--bs-success);
@@ -431,10 +475,10 @@ html .not-finished {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  position: relative;
   max-width: 860px;
   padding: 2rem;
   padding-top: 1rem;
-  position: relative;
 }
 
 .shopping-list-container {
@@ -478,10 +522,10 @@ html .not-finished {
   z-index: 1;
   max-width: 500px;
   padding: 2rem;
-  background-color: var(--bs-body-bg);
   border: none;
   border-radius: 2px;
   text-align: center;
+  background-color: var(--bs-body-bg);
 }
 
 @media (max-width: 900px) {
@@ -800,28 +844,170 @@ nav #nav-container .collapsed .bottom-bar {
     top: 70px;
   }
 }
+html {
+  /*.btn-icon-only {
+      @include button-base();
+      @include flex-center();
+      position: relative;
+
+      i {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      &::before {
+          content: "";*/ /* A pseudo-element for the background */
+  /*position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 0;
+          width: 100%;
+          height: 100%;
+          transition: background-color 0.3s ease;
+      }
+  }*/
+}
 html .btn {
   border: none;
   border-radius: 2px;
-  cursor: pointer;
   opacity: 1;
+  cursor: pointer;
   transition: all 0.3s ease-in;
 }
 html .btn:hover {
   border: none;
 }
-html .btn-icon-only {
-  position: relative;
+html .cook-meal-button {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2px;
+  position: relative;
 }
-html .btn-icon-only i.fa, html .btn-icon-only i.fas {
+html .cook-meal-button:hover {
+  border: none;
+}
+html .cook-meal-button i, html .cook-meal-button .fa, html .cook-meal-button .fas {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .cook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .cook-meal-button:hover i, html .cook-meal-button:hover .fa, html .cook-meal-button:hover .fas {
+  color: var(--bs-primary);
+}
+html .cook-meal-button:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-primary);
+}
+html .plus {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+html .plus:hover {
+  border: none;
+}
+html .plus i, html .plus .fa, html .plus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .plus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .plus:hover i, html .plus:hover .fa, html .plus:hover .fas {
+  color: var(--bs-primary);
+}
+html .plus:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-primary);
+}
+html .plus:hover {
+  box-shadow: none;
+}
+html .minus {
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+html .minus:hover {
+  border: none;
+}
+html .minus i, html .minus .fa, html .minus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+html .minus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  border: 2px solid var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .minus:hover i, html .minus:hover .fa, html .minus:hover .fas {
+  color: var(--bs-danger);
+}
+html .minus:hover::before {
+  background-color: #fff;
+  border-color: var(--bs-danger);
+}
+html .minus:hover {
+  box-shadow: none;
 }
 html .nav-btn, html .nav-dropdown-btn {
   display: flex;
@@ -829,9 +1015,9 @@ html .nav-btn, html .nav-dropdown-btn {
   justify-content: center;
 }
 html .nav-btn:hover {
-  background-color: var(--bs-primary) !important;
   color: var(--bs-white) !important;
   border-color: var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
   transition: 0.5s;
 }
 html #main-container .search-btn {
@@ -843,37 +1029,37 @@ html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
 }
 html #main-container .card-btn-width {
-  font-size: 1.4rem;
   display: inline-block;
   width: 9rem;
   padding: 0.8rem, 1.2rem;
+  font-size: 1.4rem;
 }
 html #main-container .btn-primary {
-  color: var(--bs-white);
   border: 1px solid var(--bs-primary);
+  color: var(--bs-white);
 }
 html #main-container .btn-primary:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-white);
-  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-secondary {
+  border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
-  border: 1px solid var(--bs-success);
 }
 html #main-container .btn-secondary:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
-  border: 1px solid var(--bs-primary);
 }
 html #main-container .btn-danger {
   border: 1px solid var(--bs-danger);
 }
 html #main-container .btn-danger:hover {
+  border: 1px solid var(--bs-light);
   color: var(--bs-danger);
   background-color: var(--bs-light);
-  border: 1px solid var(--bs-light);
 }
 html #main-container .btn-light {
   border: 1px solid var(--bs-light);
@@ -894,17 +1080,17 @@ html #main-container .btn-outline-primary:hover {
   background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build {
-  background-color: var(--bs-primary);
   border: 2px solid var(--bs-primary);
+  background-color: var(--bs-primary);
 }
 html #main-container #build-btn-container .btn-build:hover {
-  background-color: var(--bs-body-bg);
   border: 2px solid var(--bs-primary);
+  background-color: var(--bs-body-bg);
 }
 html #main-container #build-btn-container .btn-build:hover .fa {
   color: var(--bs-primary);
 }
-html #main-container .fixed-size-btn {
+html #main-container .fixed-size-btn, html #main-container .cook-meal-button {
   height: 40px;
   width: 44px;
   font-size: 22px;
@@ -918,8 +1104,8 @@ html #main-container .card-back-button {
   color: var(--bs-success);
 }
 html #main-container .card-back-button:hover {
-  background-color: var(--bs-primary);
   color: var(--bs-body-bg);
+  background-color: var(--bs-primary);
 }
 html #main-container .btn.close {
   color: var(--bs-success);
@@ -929,14 +1115,14 @@ html #main-container .btn.close:hover {
 }
 html #main-container .external-login-button {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 14px;
+  align-items: center;
   padding: 8px;
-  background-color: #f8f9fa;
   border: 1px solid #ddd;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
+  background-color: #f8f9fa;
   transition: background-color 0.3s, border-color 0.3s;
 }
 html #main-container .external-login-button:active {
@@ -956,14 +1142,14 @@ html #main-container .external-login-button img {
 
 @media (min-width: 992px) {
   #build-btn-container {
-    bottom: 26px !important;
     right: 43px !important;
+    bottom: 26px !important;
   }
 }
 @media (min-width: 769px) {
   #build-btn-container {
-    bottom: 45px;
     right: 13px;
+    bottom: 45px;
   }
 }
 .recipe-container {
@@ -1655,39 +1841,49 @@ html #main-container .external-login-button img {
 #add-mealplan thead th, #details-mealplan thead th, #edit-mealplan thead th {
   text-align: center;
 }
-#add-mealplan .left-pill, #details-mealplan .left-pill, #edit-mealplan .left-pill {
-  color: var(--bs-primary);
-  background-color: var(--bs-body-bg);
-  border: 1px solid var(--bs-primary);
+#add-mealplan thead th .no-wrap-text, #details-mealplan thead th .no-wrap-text, #edit-mealplan thead th .no-wrap-text {
+  white-space: nowrap;
 }
-#add-mealplan .right-pill, #details-mealplan .right-pill, #edit-mealplan .right-pill {
-  color: var(--bs-body-bg);
-  background-color: var(--bs-primary);
-  border: 1px solid var(--bs-primary);
+#add-mealplan tr td .text-style, #details-mealplan tr td .text-style, #edit-mealplan tr td .text-style {
+  font-family: "Libre Baskerville", serif;
+  font-size: 16px;
 }
 #add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 1rem;
 }
+#add-mealplan .row .table-header-pill, #details-mealplan .row .table-header-pill, #edit-mealplan .row .table-header-pill {
+  background-color: var(--bs-primary);
+  border-radius: 2px;
+  padding: 8px 16px;
+  color: var(--bs-white);
+  font-weight: bold;
+  text-transform: uppercase;
+}
 #add-mealplan .row .card, #details-mealplan .row .card, #edit-mealplan .row .card {
-  border-color: var(--bs-primary);
+  border: none;
 }
 #add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
-  border: 1px solid var(--bs-primary);
-  text-transform: uppercase;
   font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
   padding: 0.8rem 1.25rem;
-  margin-bottom: 8px;
+  border: 1px solid var(--bs-primary);
+}
+#add-mealplan .row .left-pill, #details-mealplan .row .left-pill, #edit-mealplan .row .left-pill {
+  color: var(--bs-primary);
+  background-color: var(--bs-body-bg);
+}
+#add-mealplan .row .right-pill, #details-mealplan .row .right-pill, #edit-mealplan .row .right-pill {
+  color: var(--bs-body-bg);
+  background-color: var(--bs-primary);
+}
+#add-mealplan .row #collapseTips li, #details-mealplan .row #collapseTips li, #edit-mealplan .row #collapseTips li {
+  margin-bottom: 0.6rem;
+  font-weight: 300;
 }
 #add-mealplan .row #collapseSummary .card, #details-mealplan .row #collapseSummary .card, #edit-mealplan .row #collapseSummary .card {
-  background-color: var(--bs-success) !important;
-  border: none !important;
-}
-#add-mealplan .row .no-wrap-text, #details-mealplan .row .no-wrap-text, #edit-mealplan .row .no-wrap-text {
-  white-space: nowrap;
-}
-#add-mealplan .row .text-style, #details-mealplan .row .text-style, #edit-mealplan .row .text-style {
-  font-family: "Libre Baskerville", serif;
-  font-size: 16px;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
 }
 #add-mealplan .row .meal-plan-name-text, #details-mealplan .row .meal-plan-name-text, #edit-mealplan .row .meal-plan-name-text {
   font-size: 16px;
@@ -1696,36 +1892,68 @@ html #main-container .external-login-button img {
 #add-mealplan .row .meal-plan-name-text .example-names, #details-mealplan .row .meal-plan-name-text .example-names, #edit-mealplan .row .meal-plan-name-text .example-names {
   font-weight: 600;
 }
-#add-mealplan .row li, #details-mealplan .row li, #edit-mealplan .row li {
-  margin-bottom: 10px;
-  font-weight: 300;
-}
 #add-mealplan .row .meal-row, #details-mealplan .row .meal-row, #edit-mealplan .row .meal-row {
   position: relative;
+  /*img {
+      object-fit: cover;
+      width: 28%;
+      max-width: 80px;
+      min-width: 50px;
+      display: block;
+      height: 5rem;
+      border-radius: 2px;
+  }*/
 }
 #add-mealplan .row .meal-row .meal-info, #details-mealplan .row .meal-row .meal-info, #edit-mealplan .row .meal-row .meal-info {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 0.5rem;
 }
-#add-mealplan .row .meal-row img, #details-mealplan .row .meal-row img, #edit-mealplan .row .meal-row img {
-  object-fit: cover;
-  width: 28%;
-  max-width: 80px;
-  min-width: 50px;
-  display: block;
+#add-mealplan .row .meal-row .meal-info .meal-image, #details-mealplan .row .meal-row .meal-info .meal-image, #edit-mealplan .row .meal-row .meal-info .meal-image {
+  width: 5rem;
   height: 5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+#add-mealplan .row .meal-row .meal-info .meal-image img, #details-mealplan .row .meal-row .meal-info .meal-image img, #edit-mealplan .row .meal-row .meal-info .meal-image img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  flex-grow: 1;
+  overflow: hidden;
+}
+#add-mealplan .row .meal-row .button-container, #details-mealplan .row .meal-row .button-container, #edit-mealplan .row .meal-row .button-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 #add-mealplan .row .meal-row .meal-title, #details-mealplan .row .meal-row .meal-title, #edit-mealplan .row .meal-row .meal-title {
   font-family: "Libre Baskerville", serif;
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: 500;
-  line-height: 1;
-  margin-bottom: 0;
-  color: var(--meal-title-color);
+  margin-bottom: 0.25rem;
 }
 #add-mealplan .row .meal-row .meal-title:hover, #details-mealplan .row .meal-row .meal-title:hover, #edit-mealplan .row .meal-row .meal-title:hover {
   text-decoration: underline;
+}
+#add-mealplan .row .meal-row .meal-stats, #details-mealplan .row .meal-row .meal-stats, #edit-mealplan .row .meal-row .meal-stats {
+  color: var(--bs-primary);
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+#add-mealplan .row .meal-row .meal-stats i::before, #details-mealplan .row .meal-row .meal-stats i::before, #edit-mealplan .row .meal-row .meal-stats i::before {
+  margin-right: 0.25rem;
+}
+#add-mealplan .row .meal-row .meal-stats span.separator, #details-mealplan .row .meal-row .meal-stats span.separator, #edit-mealplan .row .meal-row .meal-stats span.separator {
+  margin: 0 0.5rem;
+}
+#add-mealplan .row .meal-row .meal-stats span.icon-text, #details-mealplan .row .meal-row .meal-stats span.icon-text, #edit-mealplan .row .meal-row .meal-stats span.icon-text {
+  margin-right: 0.25rem;
 }
 #add-mealplan .row .meal-row select, #add-mealplan .row .meal-row .text-style, #details-mealplan .row .meal-row select, #details-mealplan .row .meal-row .text-style, #edit-mealplan .row .meal-row select, #edit-mealplan .row .meal-row .text-style {
   font-family: "Libre Baskerville", serif;
@@ -1754,28 +1982,27 @@ html #main-container .external-login-button img {
 #add-mealplan .row .statistics-message, #details-mealplan .row .statistics-message, #edit-mealplan .row .statistics-message {
   padding: 40px 10px;
 }
-#add-mealplan .row #collapseSummary .card-body, #details-mealplan .row #collapseSummary .card-body, #edit-mealplan .row #collapseSummary .card-body {
-  color: #121706;
-}
-#add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
-  padding: 20px 30px !important;
-  background-color: var(--bs-success);
+#add-mealplan .row .statistics-list li, #details-mealplan .row .statistics-list li, #edit-mealplan .row .statistics-list li {
+  display: flex;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  align-items: center;
   color: var(--bs-primary);
 }
-#add-mealplan .row .inner-padding.statistics-list .statistics, #details-mealplan .row .inner-padding.statistics-list .statistics, #edit-mealplan .row .inner-padding.statistics-list .statistics {
-  font-weight: 700;
-  text-transform: capitalize;
+#add-mealplan .row .statistics-list li .icon, #details-mealplan .row .statistics-list li .icon, #edit-mealplan .row .statistics-list li .icon {
+  margin-right: 0.6rem;
+  font-size: 1.2rem;
   color: var(--bs-primary);
 }
-#add-mealplan .row .inner-padding.statistics-list .statistics-value, #details-mealplan .row .inner-padding.statistics-list .statistics-value, #edit-mealplan .row .inner-padding.statistics-list .statistics-value {
-  font-weight: 400;
-  font-style: italic;
+#add-mealplan .row .statistics-list li .stat-title, #details-mealplan .row .statistics-list li .stat-title, #edit-mealplan .row .statistics-list li .stat-title {
+  margin-right: 0.3rem;
+  font-weight: bold;
 }
 #add-mealplan .row .buttons, #details-mealplan .row .buttons, #edit-mealplan .row .buttons {
-  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1rem;
 }
 #add-mealplan .row .collapse, #details-mealplan .row .collapse, #edit-mealplan .row .collapse {
   margin-bottom: 1rem;
@@ -1791,9 +2018,6 @@ html #main-container .external-login-button img {
   #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
     gap: 3px !important;
   }
-  #add-mealplan .meal-info img, #details-mealplan .meal-info img, #edit-mealplan .meal-info img {
-    max-width: 40px !important;
-  }
   #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
     font-size: 14px !important;
   }
@@ -1807,6 +2031,20 @@ html #main-container .external-login-button img {
     font-size: 11px !important;
   }
 }
+[data-bs-theme=dark] .collapse .card, [data-bs-theme=dark] .card-body {
+  border: none !important;
+}
+[data-bs-theme=dark] .left-pill {
+  border-color: var(--bs-success) !important;
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .statistics-list li {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .statistics-list li .icon {
+  color: var(--bs-success) !important;
+}
+
 .card-border-style, .card-container, .shopping-list-container, .contact-form-container, .form-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
@@ -2138,11 +2376,6 @@ html #main-container .external-login-button img {
   --body-emphasis-color: var(--bs-success);
   --meal-title-color: var(--bs-light);
 }
-[data-bs-theme=dark] #main-container {
-  /* a:not(.btn) {
-       color: var(--bs-success) !important;
-   }*/
-}
 [data-bs-theme=dark] .subheading {
   color: var(--bs-success);
 }
@@ -2172,14 +2405,6 @@ html #main-container .external-login-button img {
   border: 1px solid var(--bs-primary) !important;
 }
 [data-bs-theme=dark] .card.recipe-card {
-  border: none !important;
-}
-[data-bs-theme=dark] .left-pill {
-  border-color: var(--bs-success) !important;
-  color: var(--bs-success) !important;
-}
-[data-bs-theme=dark] #collapseSummary .card-body {
-  color: var(--bs-primary) !important;
   border: none !important;
 }
 [data-bs-theme=dark] .image-overlay .external-login-button {

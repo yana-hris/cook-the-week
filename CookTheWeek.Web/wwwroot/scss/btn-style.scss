@@ -1,31 +1,113 @@
-﻿html {
+﻿
+html {
     // reset all btns
-    .btn {
+    @mixin button-base {
         border: none;
         border-radius: 2px;
-        cursor: pointer;
         opacity: 1;
+        cursor: pointer;
         transition: all 0.3s ease-in;
 
         &:hover {
             border: none;
         }
     }
-    // align single icon centrally in a btn
-    .btn-icon-only {
-        position: relative;
+
+    @mixin flex-center {
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 2px;
+    }
 
-        i.fa, i.fas {
+    .btn {
+        @include button-base();
+    }
+    // align single icon centrally in a btn
+
+    @mixin icon-button($main-color) {
+        @include button-base();
+        @include flex-center();
+        position: relative;
+
+        i, .fa, .fas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff; // default icon color
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-color: $main-color;
+            border: 2px solid $main-color;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        &:hover {
+            i, .fa, .fas {
+                color: $main-color;
+            }
+
+            &::before {
+                background-color: #fff;
+                border-color: $main-color;
+            }
+        }
+    }
+
+    @mixin button-box-shadow-effect {
+        box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
+    .cook-meal-button {
+        @include icon-button(var(--bs-primary));
+        @extend .fixed-size-btn;
+    }
+
+    .plus {
+        @include icon-button(var(--bs-primary));
+        @include button-box-shadow-effect();
+    }
+
+    .minus {
+        @include icon-button(var(--bs-danger));
+        @include button-box-shadow-effect();
+    }
+    /*.btn-icon-only {
+        @include button-base();
+        @include flex-center();
+        position: relative;
+
+        i {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-    }
+
+        &::before {
+            content: "";*/ /* A pseudo-element for the background */
+    /*position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            transition: background-color 0.3s ease;
+        }
+    }*/
 
 
     .nav-btn, .nav-dropdown-btn {
@@ -35,9 +117,9 @@
     }
 
     .nav-btn:hover {
-        background-color: var(--bs-primary) !important;
         color: var(--bs-white) !important;
         border-color: var(--bs-dark) !important;
+        background-color: var(--bs-primary) !important;
         transition: 0.5s;
     }
 
@@ -54,44 +136,42 @@
         }
         // card btns style, spacing and size
         .card-btn-width {
-            font-size: 1.4rem;
             display: inline-block;
             width: 9rem;
             padding: 0.8rem, 1.2rem;
+            font-size: 1.4rem;
         }
         // dark green btn for main site functionality
         .btn-primary {
-            color: var(--bs-white);
             border: 1px solid var(--bs-primary);
+            color: var(--bs-white);
 
             &:hover {
+                border: 1px solid var(--bs-primary);
                 color: var(--bs-primary);
                 background-color: var(--bs-white);
-                border: 1px solid var(--bs-primary);
             }
         }
-
         // light-green btn
         .btn-secondary {
+            border: 1px solid var(--bs-success);
             color: var(--bs-primary);
             background-color: var(--bs-success);
-            border: 1px solid var(--bs-success);
 
             &:hover {
+                border: 1px solid var(--bs-primary);
                 color: var(--bs-success);
                 background-color: var(--bs-primary);
-                border: 1px solid var(--bs-primary);
             }
         }
-
         // remove btns style on hover
         .btn-danger {
             border: 1px solid var(--bs-danger);
 
             &:hover {
+                border: 1px solid var(--bs-light);
                 color: var(--bs-danger);
                 background-color: var(--bs-light);
-                border: 1px solid var(--bs-light);
             }
         }
 
@@ -111,8 +191,6 @@
             border: 1px solid var(--bs-primary);
             color: var(--bs-primary);
 
-
-
             &:hover {
                 border: 1px solid var(--bs-primary);
                 color: var(--bs-white);
@@ -122,16 +200,16 @@
 
         #build-btn-container {
             .btn-build {
-                background-color: var(--bs-primary);
                 border: 2px solid var(--bs-primary);
+                background-color: var(--bs-primary);
 
                 &:hover {
+                    border: 2px solid var(--bs-primary);
+                    background-color: var(--bs-body-bg);
+
                     .fa {
                         color: var(--bs-primary);
                     }
-
-                    background-color: var(--bs-body-bg);
-                    border: 2px solid var(--bs-primary);
                 }
             }
         }
@@ -152,8 +230,8 @@
             color: var(--bs-success);
 
             &:hover {
-                background-color: var(--bs-primary);   
                 color: var(--bs-body-bg);
+                background-color: var(--bs-primary);
             }
         }
         // modal window close (X) btn
@@ -165,17 +243,19 @@
             }
         }
 
+
+
         .external-login-button {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 14px;
+            align-items: center;
             padding: 8px;
-            background-color: #f8f9fa; // light
-
             border: 1px solid #ddd;
+            font-size: 14px;
             text-align: center;
             text-decoration: none;
+            background-color: #f8f9fa; // light
+
             transition: background-color 0.3s, border-color 0.3s;
 
             &:active {
@@ -201,14 +281,14 @@
 
 @media (min-width: 992px) {
     #build-btn-container {
-        bottom: 26px !important;
         right: 43px !important;
+        bottom: 26px !important;
     }
 }
 
 @media (min-width: 769px) {
     #build-btn-container {
-        bottom: 45px;
         right: 13px;
+        bottom: 45px;
     }
 }
