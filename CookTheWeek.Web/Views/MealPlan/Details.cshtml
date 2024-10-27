@@ -42,7 +42,7 @@
                             Meal
                         </th>
                         <th scope="col" class="col-1">
-                            Cook
+                            Cooked
                         </th>
                     </tr>
                 </thead>
@@ -91,15 +91,24 @@
                             <div class="button-container">
                                 @if (isCurrentMealDeleted)
                                 {
-                                    <a href="#" class="btn btn-primary cook-btn btn-icon-only disabled">
+                                    <a href="#" class="cook-btn disabled">
                                         <i class="fa-solid fa-check"></i>
                                     </a>
                                 }
                                 else
                                 {
+                                    @if (!currentMeal.IsCooked)
+                                    {
                                     <button class="cook-meal-button" onclick="cookMeal(event, '@currentMeal.Id')" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
-                                        <i class="fas fa-utensils"></i>
-                                    </button>
+                                        <i class="fa-solid fa-check not-cooked"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="cook-meal-button" disabled>
+                                            <i class="fa-solid fa-check cooked"></i>
+                                        </button>
+                                    }
                                 }
                                
                             </div>
@@ -179,17 +188,17 @@
                                     <input type="hidden" name="mealPlanId" value="@Model.Id" />
                                     <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
 
-                                    <button type="submit" class="btn btn-secondary card-btn-width">
+                                    <button type="submit" class="copy-mealplan-button">
                                         <i class="fa-solid fa-copy"></i>&nbsp;Repeat
                                     </button>
                                 </form>
                             }
                             else
                             {
-                                <a class="btn btn-secondary card-btn-width" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                                <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
                                     <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit
                                 </a>
-                                <a id="removeBtn" class="btn btn-danger card-btn-width">
+                                <a id="removeBtn" class="delete-button">
                                     <i class="fa-solid fa-trash-can"></i>&nbsp;Remove
                                 </a>
                             }

@@ -81,29 +81,34 @@
             }
 
             .features-row {
-                background-color: var(--bs-primary);
+                padding: 1rem 0.5rem;
                 color: var(--bs-white);
+                background-color: var(--bs-primary);
 
-                .icon-container {
-                    width: 1.3rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--bs-success);
-                    line-height: 1.3rem;
+                .col {
+                    margin-bottom: 0.3rem;
 
-                    .fa {
-                        font-size: 1rem;
+                    .icon-container {
+                        width: 1.3rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: var(--bs-success);
+                        line-height: 1.3rem;
+
+                        .fa {
+                            font-size: 1rem;
+                        }
                     }
-                }
 
-                .list-item-content {
-                    font-family: "Libre Baskerville", serif;
-                    font-size: 1rem;
-                    line-height: 1.3rem;
-                    display: flex;
-                    align-items: center;
-                    padding-top: 2px;
+                    .list-item-content {
+                        font-family: "Libre Baskerville", serif;
+                        font-size: 1rem;
+                        line-height: 1.3rem;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 2px;
+                    }
                 }
             }
             // Separate text in newspaper columns

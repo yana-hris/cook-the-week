@@ -166,13 +166,14 @@
         <div aria-label="Page navigation" id="pagination-buttons" class="position-fixed">
             <ul class="pagination d-flex justify-content-end align-items-center">
                 <li class="page-item">
-                    <a class="btn btn-primary btn-icon-only fixed-size-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                    <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
                        asp-action="All"
                        asp-route-currentPage="@previousPage"
                        asp-route-category="@Model.Category"
                        asp-route-searchTerm="@Model.SearchString"
-                       asp-route-sorting="@((int)Model.RecipeSorting)">
+                       asp-route-sorting="@((int)Model.RecipeSorting)"
+                       aria-disabled="@(Model.CurrentPage == 1 ? true : false)">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                 </li>
@@ -181,14 +182,14 @@
                     !Model.Recipes.Any();
                 }
                 <li class="page-item">
-                    <a class="btn btn-primary btn-icon-only fixed-size-btn
-        @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                    <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
                        asp-action="All"
                        asp-route-currentPage="@(Model.CurrentPage + 1)"
                        asp-route-category="@Model.Category"
                        asp-route-searchTerm="@Model.SearchString"
-                       asp-route-sorting="@((int)Model.RecipeSorting)">
+                       asp-route-sorting="@((int)Model.RecipeSorting)"
+                       aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                 </li>

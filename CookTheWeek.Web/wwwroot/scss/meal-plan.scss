@@ -24,8 +24,16 @@
         text-align: start !important;
     }
 
+    .info-pill {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        padding: 0.8rem 1.25rem;
+        border: 1px solid var(--bs-primary);
+    }
+
     thead th {
-        text-align: center;
+        @extend .info-pill;
 
         .no-wrap-text {
             white-space: nowrap;
@@ -33,6 +41,8 @@
     }
 
     tr td {
+        border-bottom: none;
+
         .text-style {
             font-family: 'Libre Baskerville', serif;
             font-size: 16px;
@@ -45,27 +55,11 @@
     .row {
         padding-bottom: 1rem;
 
-        .table-header-pill {
-            background-color: var(--bs-primary);
-            border-radius: 2px;
-            padding: 8px 16px;
-            color: var(--bs-white);
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        
         .card {
             border: none;
         }
 
-        .info-pill {
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            padding: 0.8rem 1.25rem;
-            border: 1px solid var(--bs-primary);
-        }
+
 
         .left-pill {
             color: var(--bs-primary);
@@ -217,10 +211,8 @@
         .statistics-list li {
             display: flex;
             margin-bottom: 1rem;
-
             font-weight: normal;
             align-items: center;
-
             color: var(--bs-primary);
 
             .icon {
@@ -239,7 +231,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-top: 1rem;
         }
 
@@ -289,6 +280,20 @@
     .collapse .card, .card-body {
         border: none !important;
     }
+
+    .info-pill {
+        color: var(--bs-success) !important;
+    }
+    
+    .meal-title a, span {
+        color: var(--bs-success) !important;
+
+        &:active {
+            color: var(--bs-success) !important;
+        }
+    }
+
+
 
     .left-pill {
         border-color: var(--bs-success) !important;

@@ -168,10 +168,14 @@
   color: var(--bs-primary);
 }
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
-  background-color: var(--bs-primary);
+  padding: 1rem 0.5rem;
   color: var(--bs-white);
+  background-color: var(--bs-primary);
 }
-#recipe-details-container .card .card-body .features-row .icon-container, #meal-cook-container .card .card-body .features-row .icon-container {
+#recipe-details-container .card .card-body .features-row .col, #meal-cook-container .card .card-body .features-row .col {
+  margin-bottom: 0.3rem;
+}
+#recipe-details-container .card .card-body .features-row .col .icon-container, #meal-cook-container .card .card-body .features-row .col .icon-container {
   width: 1.3rem;
   display: flex;
   justify-content: center;
@@ -179,10 +183,10 @@
   color: var(--bs-success);
   line-height: 1.3rem;
 }
-#recipe-details-container .card .card-body .features-row .icon-container .fa, #meal-cook-container .card .card-body .features-row .icon-container .fa {
+#recipe-details-container .card .card-body .features-row .col .icon-container .fa, #meal-cook-container .card .card-body .features-row .col .icon-container .fa {
   font-size: 1rem;
 }
-#recipe-details-container .card .card-body .features-row .list-item-content, #meal-cook-container .card .card-body .features-row .list-item-content {
+#recipe-details-container .card .card-body .features-row .col .list-item-content, #meal-cook-container .card .card-body .features-row .col .list-item-content {
   font-family: "Libre Baskerville", serif;
   font-size: 1rem;
   line-height: 1.3rem;

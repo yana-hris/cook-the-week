@@ -1,100 +1,4 @@
-﻿html {
-  /*.btn-icon-only.btn-primary .fa {
-      color: white;*/ /* Icon color */
-  /*&:hover {
-          color: var(--bs-primary);
-      }
-  }*/
-  /*@mixin icon-button-with-shadow($main-color) {
-      box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-
-      &:hover {
-          box-shadow: none;
-      }
-
-      i {
-          color: var(--bs-white);
-          transition: color 0.3s ease;
-      }
-
-      &::before {
-          content: "";
-          color: var(--bs-white);
-          background-color: $main-color;
-          border: 2px solid $main-color;
-          transition: background-color 0.3s ease, border-color 0.3s ease;
-      }
-
-      &:hover::before {
-          background-color: var(--bs-white);
-          border: 2px solid $main-color;
-      }
-
-      &:hover {
-          i {
-              color: $main-color;
-          }
-      }
-  }*/
-  /*.plus, .minus {
-      box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-
-
-      &:hover {
-          box-shadow: none;
-      }
-  }*/
-  /*.plus {
-
-      @include icon-button-with-shadow(var(--bs-primary));*/
-  /* .fa {
-       color: var(--bs-white);
-   }
-
-   &::before {
-       color: #fff;
-       background-color: var(--bs-primary);
-       border: 2px solid var(--bs-primary);
-   }
-
-   &:hover::before {
-       background-color: #fff;
-       border: 2px solid var(--bs-primary);
-   }
-
-   &:hover {
-       .fa {
-           color: var(--bs-primary);
-       }
-   }*/
-  /*}
-
-  .minus {
-      @include icon-button-with-shadow(var(--bs-danger));*/
-  /*.fa {
-      color: var(--bs-white);
-  }
-
-  &::before {
-      background-color: var(--bs-danger);
-      color: #fff;
-      border: 2px solid var(--bs-danger);
-  }
-
-  &:hover::before {
-      background-color: #fff;
-      border: 2px solid var(--bs-danger) !important;
-  }
-
-  &:hover {
-      .fa {
-          color: var(--bs-danger);
-      }
-  }*/
-  /*}*/
-}
-html .liked-icon {
+﻿html .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: darkred;
@@ -115,6 +19,9 @@ html .fa-user-circle {
 html .finished {
   color: var(--bs-danger);
 }
-html .not-finished {
+html .not-finished, html .cooked {
   color: var(--bs-primary);
+}
+html .not-cooked {
+  color: lightgrey;
 }
