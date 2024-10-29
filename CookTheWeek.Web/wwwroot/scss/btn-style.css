@@ -3,22 +3,22 @@
   cursor: pointer;
   transition: all 0.3s ease-in;
 }
-html .btn-primary, html .browse-recipes-btn {
+html .btn-primary, html .signup-button, html .browse-recipes-btn {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-html .btn-primary:hover, html .browse-recipes-btn:hover {
+html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
 }
-html .btn-secondary, html .edit-button, html .copy-mealplan-button, html .save-button {
+html .btn-secondary, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button {
   border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
 }
-html .btn-secondary:hover, html .edit-button:hover, html .copy-mealplan-button:hover, html .save-button:hover {
+html .btn-secondary:hover, html .edit-button:hover, html .copy-mealplan-button:hover, html .save-button:hover, html .add-recipe-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
@@ -33,6 +33,16 @@ html .btn-danger:hover, html .delete-button:hover {
   color: var(--bs-danger);
   background-color: var(--bs-light);
 }
+html .btn-light, html .learnmore-button {
+  color: var(--bs-dark);
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-light);
+}
+html .btn-light:hover, html .learnmore-button:hover {
+  color: var(--bs-light);
+  background-color: var(--bs-dark);
+  border: 1px solid var(--bs-dark);
+}
 html .disabled {
   opacity: 0.6 !important;
 }
@@ -41,12 +51,12 @@ html .fixed-size-btn, html #main-container .card-back-button, html #main-contain
   width: 44px;
   font-size: 22px;
 }
-html .remove-btn-size {
+html .remove-btn-size, html .remove-item-button {
   height: 36px;
   width: 36px;
   font-size: 24px;
 }
-html .card-btn-width, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .browse-recipes-btn {
+html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
@@ -177,7 +187,7 @@ html .plus:hover {
 html .plus:hover {
   border: 2px solid var(--bs-primary);
 }
-html .minus {
+html .minus, html .remove-item-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -189,7 +199,7 @@ html .minus {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
-html .minus i, html .minus .fa, html .minus .fas {
+html .minus i, html .remove-item-button i, html .minus .fa, html .remove-item-button .fa, html .minus .fas, html .remove-item-button .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -197,7 +207,7 @@ html .minus i, html .minus .fa, html .minus .fas {
   color: #fff;
   z-index: 1;
 }
-html .minus::before {
+html .minus::before, html .remove-item-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -208,19 +218,19 @@ html .minus::before {
   background-color: var(--bs-danger);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html .minus:hover {
+html .minus:hover, html .remove-item-button:hover {
   border: 2px solid #fff;
 }
-html .minus:hover i, html .minus:hover .fa, html .minus:hover .fas {
+html .minus:hover i, html .remove-item-button:hover i, html .minus:hover .fa, html .remove-item-button:hover .fa, html .minus:hover .fas, html .remove-item-button:hover .fas {
   color: var(--bs-danger);
 }
-html .minus:hover::before {
+html .minus:hover::before, html .remove-item-button:hover::before {
   background-color: #fff;
 }
-html .minus:hover {
+html .minus:hover, html .remove-item-button:hover {
   box-shadow: none;
 }
-html .minus:hover {
+html .minus:hover, html .remove-item-button:hover {
   border: 2px solid var(--bs-danger);
 }
 html .nav-btn, html .nav-dropdown-btn {
@@ -242,13 +252,16 @@ html .browse-recipes-btn {
   justify-content: center;
   align-items: center;
 }
-html .edit-button, html .copy-mealplan-button, html .save-button {
+html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+html .add-recipe-button {
+  width: 10rem;
 }
 html .delete-button {
   border-radius: 2px;
@@ -258,6 +271,15 @@ html .delete-button {
   justify-content: center;
   align-items: center;
 }
+html .signup-button, html .learnmore-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem !important;
+}
 html #main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
   font-weight: bolder;
@@ -265,9 +287,6 @@ html #main-container .search-btn {
 }
 html #main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
-}
-html #main-container .btn-light {
-  border: 1px solid var(--bs-light);
 }
 html #main-container .btn-outline-danger {
   border: 1px solid var(--bs-danger);
@@ -430,12 +449,6 @@ html #main-container .external-login-button img {
   margin-right: 8px;
 }
 
-/*@media (min-width: 769px) {
-    #build-btn-container {
-        right: 13px !important;
-        bottom: 45px !important;
-    }
-}*/
 @media (min-width: 992px) {
   #build-btn-container {
     right: 20px !important;

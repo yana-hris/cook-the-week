@@ -102,6 +102,18 @@ html {
         }
     }
 
+    .btn-light {
+        color: var(--bs-dark);
+        background-color: var(--bs-light);
+        border: 1px solid var(--bs-light);
+
+        &:hover {
+            color: var(--bs-light);
+            background-color: var(--bs-dark);
+            border: 1px solid var(--bs-dark);
+        }
+    }
+
     .disabled {
         opacity: 0.6 !important;
     }
@@ -123,7 +135,7 @@ html {
         padding: 0.5rem 1.0rem;
         font-size: 1.4rem;
     }
-
+    // Reusable buttons
     .back-button-main {
         @include icon-button(var(--bs-body-bg), var(--bs-primary), 1px);
         @extend .fixed-size-btn;
@@ -175,11 +187,15 @@ html {
         @extend .btn-primary;
     }
 
-    .edit-button, .copy-mealplan-button, .save-button {
+    .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
         @include button-base();
         @include flex-center();
         @extend .card-btn-width;
         @extend .btn-secondary;
+    }
+
+    .add-recipe-button {
+        width: 10rem;
     }
 
     .delete-button {
@@ -187,6 +203,26 @@ html {
         @include flex-center();
         @extend .card-btn-width;
         @extend .btn-danger;
+    }
+
+    .remove-item-button {
+        @extend .minus;
+        @extend .remove-btn-size; //btn remove-btn-size btn-icon-only minus
+    }
+
+    .signup-button, .learnmore-button {
+        @include button-base();
+        @include flex-center();
+        @extend .card-btn-width;
+        width: 10rem !important;
+    }
+
+    .signup-button {
+        @extend .btn-primary;
+    }
+
+    .learnmore-button {
+        @extend .btn-light;
     }
 
     #main-container {
@@ -202,9 +238,7 @@ html {
         }
         // remove btns style on hover
 
-        .btn-light {
-            border: 1px solid var(--bs-light);
-        }
+
 
         .btn-outline-danger {
             border: 1px solid var(--bs-danger);
@@ -241,8 +275,8 @@ html {
             @include icon-button(var(--bs-primary), var(--bs-success), 0px);
             @extend .fixed-size-btn;
         }
-        // modal window close (X) btn
-        .btn.close {
+
+        .btn.close { // modal window close (X) btn
             color: var(--bs-success);
 
             &:hover {
@@ -281,13 +315,6 @@ html {
         }
     }
 }
-
-/*@media (min-width: 769px) {
-    #build-btn-container {
-        right: 13px !important;
-        bottom: 45px !important;
-    }
-}*/
 
 @media (min-width: 992px) {
     #build-btn-container {

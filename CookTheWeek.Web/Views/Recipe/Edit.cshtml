@@ -183,7 +183,7 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center p-2">
                                             <div class="add-step-btn-container d-flex justify-content-center align-items-top adjust-btn-position">
-                                                <button class="btn btn-icon-only remove-btn-size minus" type="button" data-bind="click: $parent.removeStep">
+                                                <button class="remove-item-button" type="button" data-bind="click: $parent.removeStep">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </button>
                                             </div>
@@ -325,7 +325,7 @@
                                         </div>
                                         <div class="col col-2 col-lg-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
                                             <a data-bind="click: $parent.removeIngredient" 
-                                               class="btn remove-btn-size btn-icon-only minus">
+                                               class="remove-item-button">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -358,7 +358,7 @@
                     <!-- SUBMIT FORM BTN -->
                     <button 
                         data-bind="click: submitForm" 
-                        class="btn btn-secondary card-btn-width" 
+                        class="save-button" 
                         form="edit-recipe-form" 
                         type="submit">Save
                     </button>
