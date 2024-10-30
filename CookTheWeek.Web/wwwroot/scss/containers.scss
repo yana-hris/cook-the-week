@@ -3,6 +3,7 @@
 // Custom containers
 .wide-contents-container {
     @include make-container();
+
     max-width: 1296px;
     margin-top: -1rem;
 }
@@ -15,21 +16,24 @@
 
 .card-outer-container {
     @include make-container();
-
+    @extend .card-style;
     max-width: 900px;
-    margin-top: -1rem;
+    max-height: calc(100vh - 100px);
+    margin-top: 2rem;
+    padding: 1rem 2rem 3rem 2rem;
+    
 }
 
 // Container for meal-details, add-meal, edit-meal
 .card-container {
     @include make-container();
     @extend .card-border-style;
+    @extend .card-style;
 
     position: relative;
 
     max-width: 860px;
     padding: 2rem;
-    padding-top: 1rem;
 }
 
 // Container for shopping list details

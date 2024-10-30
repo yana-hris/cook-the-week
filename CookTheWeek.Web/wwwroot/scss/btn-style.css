@@ -3,12 +3,12 @@
   cursor: pointer;
   transition: all 0.3s ease-in;
 }
-html .btn-primary, html .signup-button, html .browse-recipes-btn {
+html .btn-primary, html .signup-button, html .browse-recipes-btn, html .shopping-list-btn {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover {
+html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover, html .shopping-list-btn:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
@@ -56,7 +56,7 @@ html .remove-btn-size, html .remove-item-button {
   width: 36px;
   font-size: 24px;
 }
-html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn {
+html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn, html .shopping-list-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
@@ -244,7 +244,7 @@ html .nav-btn:hover {
   background-color: var(--bs-primary) !important;
   transition: background-color 0.3s ease;
 }
-html .browse-recipes-btn {
+html .browse-recipes-btn, html .shopping-list-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;

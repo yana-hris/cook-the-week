@@ -2,6 +2,12 @@
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.card-style {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }

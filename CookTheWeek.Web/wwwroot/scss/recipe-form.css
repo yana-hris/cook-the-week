@@ -2,6 +2,12 @@
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.card-style {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -143,7 +149,7 @@
 }
 #add-recipe .card .card-body hr, #edit-recipe .card .card-body hr {
   border-top: 3px dashed var(--bs-body-color);
-  margin: 10px 0;
+  margin: 0.5rem 0;
 }
 
 @media (min-width: 768px) {

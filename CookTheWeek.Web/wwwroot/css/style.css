@@ -212,6 +212,12 @@ html body footer #links-container a:hover {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.card-style, .card-container, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -371,7 +377,9 @@ html .not-cooked {
   margin-right: auto;
   margin-left: auto;
   max-width: 900px;
-  margin-top: -1rem;
+  max-height: calc(100vh - 100px);
+  margin-top: 2rem;
+  padding: 1rem 2rem 3rem 2rem;
 }
 
 .card-container {
@@ -385,7 +393,6 @@ html .not-cooked {
   position: relative;
   max-width: 860px;
   padding: 2rem;
-  padding-top: 1rem;
 }
 
 .shopping-list-container {
@@ -756,12 +763,12 @@ html .btn {
   cursor: pointer;
   transition: all 0.3s ease-in;
 }
-html .btn-primary, html .signup-button, html .browse-recipes-btn {
+html .btn-primary, html .signup-button, html .browse-recipes-btn, html .shopping-list-btn {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover {
+html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover, html .shopping-list-btn:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
@@ -809,7 +816,7 @@ html .remove-btn-size, html .remove-item-button {
   width: 36px;
   font-size: 24px;
 }
-html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn {
+html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn, html .shopping-list-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.4rem;
@@ -997,7 +1004,7 @@ html .nav-btn:hover {
   background-color: var(--bs-primary) !important;
   transition: background-color 0.3s ease;
 }
-html .browse-recipes-btn {
+html .browse-recipes-btn, html .shopping-list-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1644,6 +1651,12 @@ html #main-container .external-login-button img {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.card-style, .card-outer-container, .card-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -2110,6 +2123,12 @@ html #main-container .external-login-button img {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.card-style, .card-outer-container, .card-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -2251,7 +2270,7 @@ html #main-container .external-login-button img {
 }
 #add-recipe .card .card-body hr, #edit-recipe .card .card-body hr {
   border-top: 3px dashed var(--bs-body-color);
-  margin: 10px 0;
+  margin: 0.5rem 0;
 }
 
 @media (min-width: 768px) {
@@ -5452,7 +5471,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, html .browse-recipes-btn, html .signup-button {
+.btn-primary, html .browse-recipes-btn, html .shopping-list-btn, html .signup-button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
