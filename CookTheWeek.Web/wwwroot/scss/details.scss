@@ -1,12 +1,17 @@
 ﻿@import 'shared-styles';
-#recipe-details-container, #meal-cook-container {
-    position: relative;
 
+#recipe-details-container, #meal-cook-container {
+
+    .heading-secondary {
+        font-size: 1.6rem !important;
+    }
+    
     .card {
         // reuse card tabs style, padding, border back-btn and footer btns
         @extend .card-custom-style-with-back-btn;
-        border: none !important;
-        box-shadow: none !important;
+        //border: none !important;
+        //box-shadow: none !important;
+        //position: relative;
 
         .card-body {
             padding: 0;
@@ -22,6 +27,11 @@
                 .meal-title-style {
                     text-decoration: underline;
                 }
+            }
+
+            .tip-start {
+                text-decoration: underline;
+                font-weight: 600;
             }
 
             .img-container {

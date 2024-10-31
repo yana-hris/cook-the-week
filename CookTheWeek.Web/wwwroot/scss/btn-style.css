@@ -59,7 +59,9 @@ html .remove-btn-size, html .remove-item-button {
 html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn, html .shopping-list-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 html .back-button-main {
   border-radius: 2px;
@@ -70,7 +72,7 @@ html .back-button-main {
   align-items: center;
   position: relative;
   border: 1px solid var(--bs-body-bg);
-  border: 1px solid var(--bs-primary) !important;
+  border-radius: 2px;
 }
 html .back-button-main i, html .back-button-main .fa, html .back-button-main .fas {
   position: absolute;
@@ -93,6 +95,7 @@ html .back-button-main::before {
 }
 html .back-button-main:hover {
   border: 1px solid var(--bs-primary);
+  border-radius: 2px;
 }
 html .back-button-main:hover i, html .back-button-main:hover .fa, html .back-button-main:hover .fas {
   color: var(--bs-body-bg);
@@ -101,45 +104,7 @@ html .back-button-main:hover::before {
   background-color: var(--bs-primary);
 }
 html .back-button-main:hover {
-  border: 1px solid var(--bs-body-bg);
-}
-html .cook-meal-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 1px solid var(--bs-body-bg);
-}
-html .cook-meal-button i, html .cook-meal-button .fa, html .cook-meal-button .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-primary);
-  z-index: 1;
-}
-html .cook-meal-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-body-bg);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-html .cook-meal-button:hover {
   border: 1px solid var(--bs-primary);
-}
-html .cook-meal-button:hover i, html .cook-meal-button:hover .fa, html .cook-meal-button:hover .fas {
-  color: var(--bs-body-bg);
-}
-html .cook-meal-button:hover::before {
-  background-color: var(--bs-primary);
 }
 html .plus {
   border-radius: 2px;
@@ -150,6 +115,7 @@ html .plus {
   align-items: center;
   position: relative;
   border: 2px solid var(--bs-primary);
+  border-radius: 2px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
@@ -174,6 +140,7 @@ html .plus::before {
 }
 html .plus:hover {
   border: 2px solid #fff;
+  border-radius: 2px;
 }
 html .plus:hover i, html .plus:hover .fa, html .plus:hover .fas {
   color: var(--bs-primary);
@@ -187,6 +154,54 @@ html .plus:hover {
 html .plus:hover {
   border: 2px solid var(--bs-primary);
 }
+html .cook-meal-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+html .cook-meal-button i, html .cook-meal-button .fa, html .cook-meal-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+html .cook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html .cook-meal-button:hover {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+html .cook-meal-button:hover i, html .cook-meal-button:hover .fa, html .cook-meal-button:hover .fas {
+  color: var(--bs-primary);
+}
+html .cook-meal-button:hover::before {
+  background-color: #fff;
+}
+html .cook-meal-button:hover {
+  box-shadow: none;
+}
+html .cook-meal-button:hover {
+  border: 2px solid var(--bs-primary);
+}
 html .minus, html .remove-item-button {
   border-radius: 2px;
   cursor: pointer;
@@ -196,6 +211,7 @@ html .minus, html .remove-item-button {
   align-items: center;
   position: relative;
   border: 2px solid var(--bs-danger);
+  border-radius: 2px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
@@ -220,6 +236,7 @@ html .minus::before, html .remove-item-button::before {
 }
 html .minus:hover, html .remove-item-button:hover {
   border: 2px solid #fff;
+  border-radius: 2px;
 }
 html .minus:hover i, html .remove-item-button:hover i, html .minus:hover .fa, html .remove-item-button:hover .fa, html .minus:hover .fas, html .remove-item-button:hover .fas {
   color: var(--bs-danger);
@@ -309,6 +326,7 @@ html #main-container .pagination-btn {
   align-items: center;
   position: relative;
   border: 1px solid var(--bs-primary);
+  border-radius: 2px;
   border: 1px solid var(--bs-primary) !important;
 }
 html #main-container .pagination-btn i, html #main-container .pagination-btn .fa, html #main-container .pagination-btn .fas {
@@ -332,6 +350,7 @@ html #main-container .pagination-btn::before {
 }
 html #main-container .pagination-btn:hover {
   border: 1px solid var(--bs-body-bg);
+  border-radius: 2px;
 }
 html #main-container .pagination-btn:hover i, html #main-container .pagination-btn:hover .fa, html #main-container .pagination-btn:hover .fas {
   color: var(--bs-primary);
@@ -348,6 +367,7 @@ html #main-container .btn-build {
   align-items: center;
   position: relative;
   border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
   border: 2px solid var(--bs-primary) !important;
 }
 html #main-container .btn-build i, html #main-container .btn-build .fa, html #main-container .btn-build .fas {
@@ -371,6 +391,7 @@ html #main-container .btn-build::before {
 }
 html #main-container .btn-build:hover {
   border: 2px solid var(--bs-primary);
+  border-radius: 2px;
 }
 html #main-container .btn-build:hover i, html #main-container .btn-build:hover .fa, html #main-container .btn-build:hover .fas {
   color: var(--bs-body-bg);
@@ -387,6 +408,7 @@ html #main-container .card-back-button {
   align-items: center;
   position: relative;
   border: 0px solid var(--bs-primary);
+  border-radius: 2px;
 }
 html #main-container .card-back-button i, html #main-container .card-back-button .fa, html #main-container .card-back-button .fas {
   position: absolute;
@@ -409,6 +431,7 @@ html #main-container .card-back-button::before {
 }
 html #main-container .card-back-button:hover {
   border: 0px solid var(--bs-success);
+  border-radius: 2px;
 }
 html #main-container .card-back-button:hover i, html #main-container .card-back-button:hover .fa, html #main-container .card-back-button:hover .fas {
   color: var(--bs-primary);
@@ -451,7 +474,8 @@ html #main-container .external-login-button img {
 
 @media (min-width: 992px) {
   #build-btn-container {
+    position: fixed;
     right: 20px !important;
-    bottom: 26px !important;
+    bottom: 10px !important;
   }
 }

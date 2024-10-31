@@ -1955,7 +1955,7 @@
                 {
                     Id = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     OwnerId = Guid.Parse(AdminUserId),
-                    Title = "Overnight Oats (prepare the night beofre)",
+                    Title = "Overnight Oats (prepare the night before)",
                     Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                   
                     Servings = 2,
@@ -2103,31 +2103,31 @@
                 {
                     Id = 16,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    Description = "1. Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
+                    Description = "Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
                 },
                 new Step()
                 {
                     Id = 17,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    Description = "2. Add the minced meat while constantly mixing",
+                    Description = "Add the minced meat while constantly mixing",
                 },
                 new Step()
                 {
                     Id = 18,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    Description = "3. Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
+                    Description = "Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
                 },
                 new Step()
                 {
                     Id = 19,
-                    Description = "4. Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
+                    Description = "Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                 },
                 new Step()
                 {
                     Id = 20,
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    Description = "5. Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
+                    Description = "Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
                 },
                 new Step()
                 {

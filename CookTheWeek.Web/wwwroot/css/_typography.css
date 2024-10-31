@@ -5,8 +5,14 @@
   --card-label-text-color: #121706;
   --btn-secondary-hover-color: #2a2e1f;
 }
+:root * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 :root body {
   position: relative;
+  overflow: hidden;
   margin: 0 auto;
   background-color: var(--body-bg);
 }
@@ -77,6 +83,7 @@ html body #main-container {
   margin: 0 auto;
   padding: 91px 12px;
   position: relative;
+  overflow-y: auto;
   min-height: 100vh;
 }
 html body #main-container .pagination {

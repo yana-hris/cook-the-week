@@ -13,28 +13,41 @@
 
     max-width: 1040px;
 }
-
+// Scrolling container with hidden scrollbar
 .card-outer-container {
     @include make-container();
     @extend .card-style;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: 900px;
-    max-height: calc(100vh - 100px);
-    margin-top: 2rem;
+    max-height: 80vh;
     padding: 1rem 2rem 3rem 2rem;
-    
+    overflow-y: scroll;
+    scrollbar-width: none; // Hide scrollbar for Firefox 
+    -ms-overflow-style: none; // Hide scrollbar for IE and Edge
+
+    &::-webkit-scrollbar {
+        display: none; // Hide scrollbar for WebKit browsers
+    }
 }
 
-// Container for meal-details, add-meal, edit-meal
-.card-container {
-    @include make-container();
+// Container for meal-details, add-meal, edit-meal => Scrolling container with hidden scrollbar
+/*.card-container {
+    @extend .card-outer-container;
     @extend .card-border-style;
-    @extend .card-style;
+    //@extend .card-style;*/
 
-    position: relative;
-
-    max-width: 860px;
+    /*position: absolute;
+    top: 0;
+    left: 0;
+*/
+    /*max-width: 860px;
+    height: 100%;
     padding: 2rem;
-}
+}*/
 
 // Container for shopping list details
 .shopping-list-container {
@@ -79,13 +92,14 @@
 // Media queries for custom containers
 @media (max-width: 900px) {
     .card-outer-container {
-        margin-top: -30px;
-        padding-left: 0;
-        padding-right: 0;
+        //margin-top: -30px;
+        //top: 80px !important;
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
     }
 
-    .card-container {
+    /*.card-container {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
-    }
+    }*/
 }

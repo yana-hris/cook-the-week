@@ -335,7 +335,7 @@ export function removeRecipeFromLocalStorage(recipeId) {
         }
 
     } else {
-        toastr.error(`Error: Recipe not found in meal plan`);
+        console.log(`Error: Recipe not found in meal plan`); // If recipe comes from rebuilding a meal plan...
         return;
     }
 

@@ -22,11 +22,11 @@
     string missingRecipesMessage = TempData[MissingRecipesMessage]?.ToString() ?? string.Empty;
 }
 <div id="add-mealplan" class="image-overlay food-background">
-    <div class="card-container">
-
-        <partial name="_HeadingPartial" model="headingModel" />
-        <partial name="_BackBtnPartial" />
-
+    <div class="card-outer-container">
+        <div class="header-container">
+            <partial name="_HeadingPartial" model="headingModel" />
+            <partial name="_BackBtnPartial" />
+        </div>
         <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
             <div class="row">
@@ -203,7 +203,7 @@
                 <div class="col-lg-6">
                     <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
                         <div class="info-pill left-pill pill">
-                            Tips
+                            Show Tips
                         </div>
                     </a>
                     <div class="collapse" id="collapseTips">
@@ -268,7 +268,7 @@
         $(document).ready(function () {
 
             // Reindex meals upon erasing
-            $(document).on('click', '.minus', function (event) {
+            $(document).on('click', '.remove-item-button', function (event) {
 
                 const recipeId = this.dataset.recipeid;
                 let mealsCount = $('.meal-row').length;

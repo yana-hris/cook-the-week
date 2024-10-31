@@ -26,22 +26,25 @@
         }
     }
 }
-<div id="details-mealplan" class="image-overlay food-background">
-    <div class="card-container">
-        <partial name="_HeadingPartial" model="headingModel" />
-        <partial name="_BackBtnPartial" />
+
+<div id="details-mealplan" class="image-overlay food-background">    
+    <div class="card-outer-container">
+        <div class="header-container">
+            <partial name="_HeadingPartial" model="headingModel" />
+            <partial name="_BackBtnPartial" />
+        </div>        
         @Html.AntiForgeryToken()
-        <div class="row">
+        <div class="row mealplan-table-row">
             <div class="col-lg-12">
                 <!-- Meal Plan table header with pill style -->
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" class="col-11">
+                            <th scope="col" class="col-10">
                                 Meal
                             </th>
-                            <th scope="col" class="col-1">
-                                Cooked
+                            <th scope="col" class="col-2 text-end">
+                                Cooked?
                             </th>
                         </tr>
                     </thead>
@@ -121,7 +124,7 @@
                     <div class="col-lg-6">
                         <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
                             <div class="info-pill left-pill pill">
-                                Tips
+                                Show Tips
                             </div>
                         </a>
 
@@ -139,7 +142,7 @@
                     <div class="col-lg-6">
                         <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
                             <div class="info-pill right-pill pill">
-                                Summary
+                                View Summary
                             </div>
                         </a>
 
@@ -230,7 +233,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 @section Scripts {

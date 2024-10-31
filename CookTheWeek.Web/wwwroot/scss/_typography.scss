@@ -6,9 +6,18 @@
     --card-label-text-color: #121706;
     --btn-secondary-hover-color: #2a2e1f;
 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
         position: relative;
+        overflow: hidden;
+
         margin: 0 auto;
+
         background-color: var(--body-bg);
 
         #build-btn-container {
@@ -51,6 +60,7 @@ html {
     font-size: 14px;
     position: relative;
     min-height: 100%;
+
     $link-decoration: none;
 
     body {
@@ -93,6 +103,7 @@ html {
             margin: 0 auto;
             padding: 91px 12px;
             position: relative;
+            overflow-y: auto;
             min-height: 100vh;
 
             .pagination {
@@ -155,7 +166,7 @@ html {
                 font-family: "Libre Baskerville", serif;
             }
         }
-        
+
         footer {
             position: relative;
             z-index: 5000;
@@ -185,7 +196,6 @@ html {
                 }
             }
         }
-        
     }
 }
 

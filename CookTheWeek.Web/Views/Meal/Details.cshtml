@@ -10,7 +10,7 @@
     int mealId = Model.Id;
 }
 <div id="meal-cook-container" class="image-overlay food-background">
-    <div class="card-container">
+    <div class="card-outer-container">
         <partial name="_HeadingPartial" model="headingModel" />
         <!-- Just this -->
         @Html.AntiForgeryToken()
@@ -27,7 +27,7 @@
                 </a>
             </div>
 
-            <div class="card-body p-0" id="meal-details">
+            <div class="card-body" id="meal-details">
                 <div id="info-content" class="tab-content g-3">
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row g-0">
