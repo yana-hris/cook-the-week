@@ -60,9 +60,10 @@ html body a {
 html body input.form-control, html body textarea.form-control, html body .form-select {
   border: 1px solid var(--bs-primary);
   color: var(--bs-body-color);
+  border-radius: 2px;
 }
 html body input.form-control:focus, html body textarea.form-control:focus, html body .form-select:focus {
-  box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
+  box-shadow: 0 0 0 0.125rem rgba(180, 227, 61, 0.3);
 }
 html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body .form-select::placeholder {
   font-size: 15px;
@@ -91,7 +92,7 @@ html body #main-container .pagination {
   gap: 5px;
 }
 html body #main-container .input-group span.input-group-text {
-  font-size: 15px !important;
+  font-size: 0.9rem !important;
   font-weight: 500;
   background-color: var(--bs-primary);
   color: var(--bs-white);
@@ -100,8 +101,8 @@ html body #main-container .input-group span.input-group-text {
 html body #main-container span.small.text-danger {
   display: block;
   text-align: start;
-  font-size: 14px;
-  margin-left: 3px;
+  font-size: 0.8rem;
+  margin-left: 0.19rem;
 }
 html body #main-container .custom-link {
   color: var(--bs-primary) !important;
@@ -217,6 +218,12 @@ html body footer #links-container a:hover {
 }
 .card-border-style, .form-container, .contact-form-container, .shopping-list-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .card-style, .card-outer-container {
@@ -1689,6 +1696,12 @@ html #main-container .external-login-button img {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
 .card-style, .card-outer-container {
   background-color: var(--bs-body-bg);
   border-radius: 2px;
@@ -1930,6 +1943,127 @@ html #main-container .external-login-button img {
     font-size: 18px;
   }
 }
+.card-border-style, .shopping-list-container, .contact-form-container, .form-container {
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+.food-background {
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+
+.change-pass, .info-message {
+  top: 10% !important;
+}
+
+.image-overlay {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  padding: 1.5rem !important;
+  background-size: cover;
+}
+.image-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -10;
+}
+
+@media (min-width: 768px) {
+  .image-overlay {
+    top: 4% !important;
+  }
+}
+.card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
+  margin-top: -0.9rem !important;
+}
+.card-custom-style-with-back-btn .card-header, #add-recipe .card .card-header, #edit-recipe .card .card-header, #recipe-details-container .card .card-header, #meal-cook-container .card .card-header {
+  font-size: 1.1rem;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link, #add-recipe .card .card-header .nav-item .nav-link, #edit-recipe .card .card-header .nav-item .nav-link, #recipe-details-container .card .card-header .nav-item .nav-link, #meal-cook-container .card .card-header .nav-item .nav-link {
+  color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
+  color: var(--bs-primary) !important;
+  background-color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
+  font-weight: bolder;
+  color: var(--bs-body-color) !important;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active:hover, #add-recipe .card .card-header .nav-item .nav-link.active:hover, #edit-recipe .card .card-header .nav-item .nav-link.active:hover, #recipe-details-container .card .card-header .nav-item .nav-link.active:hover, #meal-cook-container .card .card-header .nav-item .nav-link.active:hover {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+  border: 1px solid var(--bs-body-bg) !important;
+}
+.card-custom-style-with-back-btn .card-header .card-back-button, #add-recipe .card .card-header .card-back-button, #edit-recipe .card .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 15;
+}
+.card-custom-style-with-back-btn .card-body .tab-pane, #add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane, #recipe-details-container .card .card-body .tab-pane, #meal-cook-container .card .card-body .tab-pane {
+  min-height: 50vh;
+}
+.card-custom-style-with-back-btn .card-footer .buttons, #add-recipe .card .card-footer .buttons, #edit-recipe .card .card-footer .buttons, #recipe-details-container .card .card-footer .buttons, #meal-cook-container .card .card-footer .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button, #add-recipe .card .card-footer .buttons html .edit-button, #edit-recipe .card .card-footer .buttons html .edit-button, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button, html #add-recipe .card .card-footer .buttons .edit-button, #add-recipe html .card .card-footer .buttons .edit-button, html #edit-recipe .card .card-footer .buttons .edit-button, #edit-recipe html .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons html .edit-button, html #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons html .edit-button, html #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button, #add-recipe .card .card-footer .buttons html .copy-mealplan-button, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, html #add-recipe .card .card-footer .buttons .copy-mealplan-button, #add-recipe html .card .card-footer .buttons .copy-mealplan-button, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons html .save-button, #add-recipe .card .card-footer .buttons html .save-button, #edit-recipe .card .card-footer .buttons html .save-button, html .card-custom-style-with-back-btn .card-footer .buttons .save-button, html #add-recipe .card .card-footer .buttons .save-button, #add-recipe html .card .card-footer .buttons .save-button, html #edit-recipe .card .card-footer .buttons .save-button, #edit-recipe html .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons html .save-button, html #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons html .save-button, html #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button, #add-recipe .card .card-footer .buttons html .add-recipe-button, #edit-recipe .card .card-footer .buttons html .add-recipe-button, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, html #add-recipe .card .card-footer .buttons .add-recipe-button, #add-recipe html .card .card-footer .buttons .add-recipe-button, html #edit-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe html .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons html .add-recipe-button, html #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons html .add-recipe-button, html #meal-cook-container .card .card-footer .buttons .add-recipe-button {
+  border: 1px solid var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button:hover, #add-recipe .card .card-footer .buttons html .edit-button:hover, #edit-recipe .card .card-footer .buttons html .edit-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, html #add-recipe .card .card-footer .buttons .edit-button:hover, #add-recipe html .card .card-footer .buttons .edit-button:hover, html #edit-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe html .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons html .edit-button:hover, html #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons html .edit-button:hover, html #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, html #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #add-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .save-button:hover, #add-recipe .card .card-footer .buttons html .save-button:hover, #edit-recipe .card .card-footer .buttons html .save-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, html #add-recipe .card .card-footer .buttons .save-button:hover, #add-recipe html .card .card-footer .buttons .save-button:hover, html #edit-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe html .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons html .save-button:hover, html #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons html .save-button:hover, html #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button:hover, #add-recipe .card .card-footer .buttons html .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons html .add-recipe-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, html #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #add-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe html .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons html .add-recipe-button:hover, html #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons html .add-recipe-button:hover, html #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
+  border: 1px solid var(--bs-success) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .card-custom-style-with-back-btn .card-back-button, #add-recipe .card .card-back-button, #edit-recipe .card .card-back-button, #recipe-details-container .card .card-back-button, #meal-cook-container .card .card-back-button {
+    height: 34px !important;
+    width: 42px !important;
+    top: 2px;
+    font-size: 18px;
+  }
+}
+#add-mealplan, #details-mealplan, #edit-mealplan {
+  /*    p {
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+  }*/
+}
 #add-mealplan .heading-secondary, #details-mealplan .heading-secondary, #edit-mealplan .heading-secondary {
   font-size: 1.6rem !important;
 }
@@ -1938,103 +2072,99 @@ html #main-container .external-login-button img {
 }
 #add-mealplan .header-container .back-btn-container, #details-mealplan .header-container .back-btn-container, #edit-mealplan .header-container .back-btn-container {
   position: absolute;
-  top: 24px;
+  top: 22px;
   right: 0;
-}
-#add-mealplan p, #details-mealplan p, #edit-mealplan p {
-  margin-top: 0;
-  margin-bottom: 0.25rem;
-}
-#add-mealplan .input-group-text, #add-mealplan thead th, #details-mealplan .input-group-text, #details-mealplan thead th, #edit-mealplan .input-group-text, #edit-mealplan thead th {
-  color: var(--bs-body-bg) !important;
-  background-color: var(--bs-primary) !important;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px !important;
-  font-weight: bold;
-}
-#add-mealplan thead th:nth-child(1), #details-mealplan thead th:nth-child(1), #edit-mealplan thead th:nth-child(1) {
-  text-align: start !important;
-}
-#add-mealplan .info-pill, #add-mealplan thead th, #details-mealplan .info-pill, #details-mealplan thead th, #edit-mealplan .info-pill, #edit-mealplan thead th {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  padding: 0.8rem 1.25rem;
-  border: 1px solid var(--bs-primary);
-}
-#add-mealplan thead th .no-wrap-text, #details-mealplan thead th .no-wrap-text, #edit-mealplan thead th .no-wrap-text {
-  white-space: nowrap;
-}
-#add-mealplan tr td, #details-mealplan tr td, #edit-mealplan tr td {
-  border-bottom: none;
-}
-#add-mealplan tr td .text-style, #details-mealplan tr td .text-style, #edit-mealplan tr td .text-style {
-  font-family: "Libre Baskerville", serif;
-  font-size: 16px;
 }
 #add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 1rem;
 }
-#add-mealplan .row .card, #details-mealplan .row .card, #edit-mealplan .row .card {
-  border: none;
-}
-#add-mealplan .row .left-pill, #details-mealplan .row .left-pill, #edit-mealplan .row .left-pill {
-  color: var(--bs-primary);
-  background-color: var(--bs-body-bg);
-}
-#add-mealplan .row .right-pill, #details-mealplan .row .right-pill, #edit-mealplan .row .right-pill {
-  color: var(--bs-body-bg);
-  background-color: var(--bs-primary);
-}
-#add-mealplan .row .tips-pill, #details-mealplan .row .tips-pill, #edit-mealplan .row .tips-pill {
-  color: var(--bs-body-bg);
+#add-mealplan .info-pill, #add-mealplan .tips-pill, #add-mealplan .summary-pill, #add-mealplan #details-mealplan .tips-pill, #details-mealplan #add-mealplan .tips-pill, #add-mealplan #details-mealplan .summary-pill, #details-mealplan #add-mealplan .summary-pill, #add-mealplan #edit-mealplan .tips-pill, #edit-mealplan #add-mealplan .tips-pill, #add-mealplan #edit-mealplan .summary-pill, #edit-mealplan #add-mealplan .summary-pill, #add-mealplan .table thead th, #add-mealplan #details-mealplan .table thead th, #details-mealplan .table thead #add-mealplan th, #add-mealplan #edit-mealplan .table thead th, #edit-mealplan .table thead #add-mealplan th, #add-mealplan .name .name-label-text, #details-mealplan .info-pill, #details-mealplan .tips-pill, #details-mealplan .summary-pill, #details-mealplan #edit-mealplan .tips-pill, #edit-mealplan #details-mealplan .tips-pill, #details-mealplan #edit-mealplan .summary-pill, #edit-mealplan #details-mealplan .summary-pill, #details-mealplan #add-mealplan .table thead th, #add-mealplan .table thead #details-mealplan th, #details-mealplan .table thead th, #details-mealplan #edit-mealplan .table thead th, #edit-mealplan .table thead #details-mealplan th, #details-mealplan .name .name-label-text, #edit-mealplan .info-pill, #edit-mealplan .tips-pill, #edit-mealplan .summary-pill, #edit-mealplan #add-mealplan .table thead th, #add-mealplan .table thead #edit-mealplan th, #edit-mealplan #details-mealplan .table thead th, #details-mealplan .table thead #edit-mealplan th, #edit-mealplan .table thead th, #edit-mealplan .name .name-label-text {
+  padding: 0.8rem 1.25rem;
+  margin-bottom: 0.5rem;
   background-color: var(--bs-primary);
   border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+  text-align: start;
+  text-transform: uppercase;
+  color: var(--bs-body-bg);
+  font-weight: bold;
 }
-#add-mealplan .row .tips-pill:hover, #details-mealplan .row .tips-pill:hover, #edit-mealplan .row .tips-pill:hover {
-  color: var(--bs-primary);
-  background-color: var(--bs-body-bg);
+#add-mealplan .name, #details-mealplan .name, #edit-mealplan .name {
+  display: flex;
+  align-items: center;
   border: 1px solid var(--bs-primary);
-}
-#add-mealplan .row #collapseTips .tip-container, #details-mealplan .row #collapseTips .tip-container, #edit-mealplan .row #collapseTips .tip-container {
-  padding: 1.5rem;
-  padding-bottom: 3rem;
-  color: var(--bs-primary);
-  background-color: var(--bs-success);
-  text-align: center;
   border-radius: 2px;
 }
-#add-mealplan .row #collapseTips .tip-container i, #details-mealplan .row #collapseTips .tip-container i, #edit-mealplan .row #collapseTips .tip-container i {
-  color: var(--bs-primary);
-  font-size: 1.6rem;
+#add-mealplan .name .name-label-text, #details-mealplan .name .name-label-text, #edit-mealplan .name .name-label-text {
+  display: inline-block;
+  padding: 0.65rem 1.25rem;
+  margin-bottom: 0;
 }
-#add-mealplan .row #collapseTips .tip-container .tip-heading, #details-mealplan .row #collapseTips .tip-container .tip-heading, #edit-mealplan .row #collapseTips .tip-container .tip-heading {
+#add-mealplan .name input.form-control, #details-mealplan .name input.form-control, #edit-mealplan .name input.form-control {
+  padding: 0.65rem 1.25rem;
+  border: none;
+}
+#add-mealplan .name-suggestions, #details-mealplan .name-suggestions, #edit-mealplan .name-suggestions {
+  margin-top: -0.2rem;
+  padding-top: 0;
+}
+#add-mealplan .name-suggestions a, #details-mealplan .name-suggestions a, #edit-mealplan .name-suggestions a {
+  font-size: 0.8rem;
+  margin-top: 0;
+}
+#add-mealplan .name-suggestions .collapse, #details-mealplan .name-suggestions .collapse, #edit-mealplan .name-suggestions .collapse {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+#add-mealplan .name-suggestions .collapse .suggestion-category, #details-mealplan .name-suggestions .collapse .suggestion-category, #edit-mealplan .name-suggestions .collapse .suggestion-category {
+  margin-bottom: 1rem;
+}
+#add-mealplan .name-suggestions .collapse .suggestion-category h5, #add-mealplan .name-suggestions .collapse .suggestion-category .h5, #details-mealplan .name-suggestions .collapse .suggestion-category h5, #details-mealplan .name-suggestions .collapse .suggestion-category .h5, #edit-mealplan .name-suggestions .collapse .suggestion-category h5, #edit-mealplan .name-suggestions .collapse .suggestion-category .h5 {
   font-weight: bold;
-  font-size: 1.2rem;
-  padding-top: 0.7rem;
-  padding-bottom: 0.5rem;
-  text-decoration: none;
+  color: #2d6b2f;
+  margin-bottom: 1rem;
 }
-#add-mealplan .row #collapseTips .tip-container .tip-text, #details-mealplan .row #collapseTips .tip-container .tip-text, #edit-mealplan .row #collapseTips .tip-container .tip-text {
-  font-weight: normal;
+#add-mealplan .name-suggestions .collapse .suggestion-category p, #details-mealplan .name-suggestions .collapse .suggestion-category p, #edit-mealplan .name-suggestions .collapse .suggestion-category p {
+  margin: 0;
+  padding: 0.25rem 0;
+  color: #333;
+  cursor: pointer;
+}
+#add-mealplan .name-suggestions .collapse .suggestion-category p:hover, #details-mealplan .name-suggestions .collapse .suggestion-category p:hover, #edit-mealplan .name-suggestions .collapse .suggestion-category p:hover {
+  color: #2d6b2f;
+}
+#add-mealplan .table, #details-mealplan .table, #edit-mealplan .table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+#add-mealplan .table thead, #details-mealplan .table thead, #edit-mealplan .table thead {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+#add-mealplan .table thead th .no-wrap-text, #details-mealplan .table thead th .no-wrap-text, #edit-mealplan .table thead th .no-wrap-text {
+  white-space: nowrap;
+}
+#add-mealplan .table thead th:first-child, #details-mealplan .table thead th:first-child, #edit-mealplan .table thead th:first-child {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+#add-mealplan .table thead th:last-child, #details-mealplan .table thead th:last-child, #edit-mealplan .table thead th:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+#add-mealplan .table tr td, #details-mealplan .table tr td, #edit-mealplan .table tr td {
+  border-bottom: none;
+}
+#add-mealplan .table tr td .text-style, #details-mealplan .table tr td .text-style, #edit-mealplan .table tr td .text-style {
+  font-family: "Libre Baskerville", serif;
   font-size: 1rem;
 }
-#add-mealplan .row #collapseTips li, #details-mealplan .row #collapseTips li, #edit-mealplan .row #collapseTips li {
-  margin-bottom: 0.6rem;
-  font-weight: 300;
-}
-#add-mealplan .row #collapseSummary .card, #details-mealplan .row #collapseSummary .card, #edit-mealplan .row #collapseSummary .card {
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-}
-#add-mealplan .row .meal-plan-name-text, #details-mealplan .row .meal-plan-name-text, #edit-mealplan .row .meal-plan-name-text {
-  font-size: 16px;
-  font-weight: 400;
-}
-#add-mealplan .row .meal-plan-name-text .example-names, #details-mealplan .row .meal-plan-name-text .example-names, #edit-mealplan .row .meal-plan-name-text .example-names {
-  font-weight: 600;
-}
-#add-mealplan .row .meal-row, #details-mealplan .row .meal-row, #edit-mealplan .row .meal-row {
+#add-mealplan .table tr.meal-row, #details-mealplan .table tr.meal-row, #edit-mealplan .table tr.meal-row {
   position: relative;
   /*img {
       object-fit: cover;
@@ -2045,13 +2175,18 @@ html #main-container .external-login-button img {
       height: 5rem;
       border-radius: 2px;
   }*/
+  /*.category-text {
+      font-size: 14px;
+      font-weight: 400;
+      font-style: italic;
+  }*/
 }
-#add-mealplan .row .meal-row .meal-info, #details-mealplan .row .meal-row .meal-info, #edit-mealplan .row .meal-row .meal-info {
+#add-mealplan .table tr.meal-row .meal-info, #details-mealplan .table tr.meal-row .meal-info, #edit-mealplan .table tr.meal-row .meal-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-#add-mealplan .row .meal-row .meal-info .meal-image, #details-mealplan .row .meal-row .meal-info .meal-image, #edit-mealplan .row .meal-row .meal-info .meal-image {
+#add-mealplan .table tr.meal-row .meal-info .meal-image, #details-mealplan .table tr.meal-row .meal-info .meal-image, #edit-mealplan .table tr.meal-row .meal-info .meal-image {
   width: 5rem;
   height: 5rem;
   overflow: hidden;
@@ -2061,7 +2196,7 @@ html #main-container .external-login-button img {
   flex-grow: 0;
   flex-shrink: 0;
 }
-#add-mealplan .row .meal-row .meal-info .meal-image img, #details-mealplan .row .meal-row .meal-info .meal-image img, #edit-mealplan .row .meal-row .meal-info .meal-image img {
+#add-mealplan .table tr.meal-row .meal-info .meal-image img, #details-mealplan .table tr.meal-row .meal-info .meal-image img, #edit-mealplan .table tr.meal-row .meal-info .meal-image img {
   max-width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2069,98 +2204,146 @@ html #main-container .external-login-button img {
   flex-grow: 1;
   overflow: hidden;
 }
-#add-mealplan .row .meal-row .button-container, #details-mealplan .row .meal-row .button-container, #edit-mealplan .row .meal-row .button-container {
+#add-mealplan .table tr.meal-row .button-container, #details-mealplan .table tr.meal-row .button-container, #edit-mealplan .table tr.meal-row .button-container {
   display: flex;
   align-items: center;
   justify-content: end;
 }
-#add-mealplan .row .meal-row .meal-title, #details-mealplan .row .meal-row .meal-title, #edit-mealplan .row .meal-row .meal-title {
+#add-mealplan .table tr.meal-row .meal-title, #details-mealplan .table tr.meal-row .meal-title, #edit-mealplan .table tr.meal-row .meal-title {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
-#add-mealplan .row .meal-row .meal-title:hover, #details-mealplan .row .meal-row .meal-title:hover, #edit-mealplan .row .meal-row .meal-title:hover {
+#add-mealplan .table tr.meal-row .meal-title:hover, #details-mealplan .table tr.meal-row .meal-title:hover, #edit-mealplan .table tr.meal-row .meal-title:hover {
   text-decoration: underline;
 }
-#add-mealplan .row .meal-row .meal-stats, #details-mealplan .row .meal-row .meal-stats, #edit-mealplan .row .meal-row .meal-stats {
+#add-mealplan .table tr.meal-row .meal-stats, #details-mealplan .table tr.meal-row .meal-stats, #edit-mealplan .table tr.meal-row .meal-stats {
   color: var(--bs-primary);
   font-size: 0.9rem;
   font-weight: normal;
 }
-#add-mealplan .row .meal-row .meal-stats i::before, #details-mealplan .row .meal-row .meal-stats i::before, #edit-mealplan .row .meal-row .meal-stats i::before {
+#add-mealplan .table tr.meal-row .meal-stats i::before, #details-mealplan .table tr.meal-row .meal-stats i::before, #edit-mealplan .table tr.meal-row .meal-stats i::before {
   margin-right: 0.25rem;
 }
-#add-mealplan .row .meal-row .meal-stats span.separator, #details-mealplan .row .meal-row .meal-stats span.separator, #edit-mealplan .row .meal-row .meal-stats span.separator {
+#add-mealplan .table tr.meal-row .meal-stats span.separator, #details-mealplan .table tr.meal-row .meal-stats span.separator, #edit-mealplan .table tr.meal-row .meal-stats span.separator {
   margin: 0 0.5rem;
 }
-#add-mealplan .row .meal-row .meal-stats span.icon-text, #details-mealplan .row .meal-row .meal-stats span.icon-text, #edit-mealplan .row .meal-row .meal-stats span.icon-text {
+#add-mealplan .table tr.meal-row .meal-stats span.icon-text, #details-mealplan .table tr.meal-row .meal-stats span.icon-text, #edit-mealplan .table tr.meal-row .meal-stats span.icon-text {
   margin-right: 0.25rem;
 }
-#add-mealplan .row .meal-row select, #add-mealplan .row .meal-row .text-style, #details-mealplan .row .meal-row select, #details-mealplan .row .meal-row .text-style, #edit-mealplan .row .meal-row select, #edit-mealplan .row .meal-row .text-style {
+#add-mealplan .table tr.meal-row select, #add-mealplan .table tr.meal-row .text-style, #details-mealplan .table tr.meal-row select, #details-mealplan .table tr.meal-row .text-style, #edit-mealplan .table tr.meal-row select, #edit-mealplan .table tr.meal-row .text-style {
   font-family: "Libre Baskerville", serif;
   font-size: 0.9rem;
 }
-#add-mealplan .row .meal-row .category-text, #details-mealplan .row .meal-row .category-text, #edit-mealplan .row .meal-row .category-text {
-  font-size: 14px;
-  font-weight: 400;
-  font-style: italic;
-}
-#add-mealplan .row .meal-row .cook-btn, #details-mealplan .row .meal-row .cook-btn, #edit-mealplan .row .meal-row .cook-btn {
+#add-mealplan .table tr.meal-row .cook-btn, #details-mealplan .table tr.meal-row .cook-btn, #edit-mealplan .table tr.meal-row .cook-btn {
   height: 2.1rem;
   font-size: 1.4rem;
 }
-#add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
+#add-mealplan .table tr.meal-row .remove-btn-container, #details-mealplan .table tr.meal-row .remove-btn-container, #edit-mealplan .table tr.meal-row .remove-btn-container {
   display: flex;
   justify-content: center;
 }
-#add-mealplan .row .meal-row.deleted-style, #details-mealplan .row .meal-row.deleted-style, #edit-mealplan .row .meal-row.deleted-style {
+#add-mealplan .table tr.meal-row.deleted-style, #details-mealplan .table tr.meal-row.deleted-style, #edit-mealplan .table tr.meal-row.deleted-style {
   opacity: 70%;
 }
-#add-mealplan .row .statistics-message, #details-mealplan .row .statistics-message, #edit-mealplan .row .statistics-message {
-  padding: 40px 10px;
-}
-#add-mealplan .row .statistics-list li, #details-mealplan .row .statistics-list li, #edit-mealplan .row .statistics-list li {
-  display: flex;
+#add-mealplan .collapse, #details-mealplan .collapse, #edit-mealplan .collapse {
   margin-bottom: 1rem;
-  font-weight: normal;
-  align-items: center;
-  color: var(--bs-primary);
 }
-#add-mealplan .row .statistics-list li .icon, #details-mealplan .row .statistics-list li .icon, #edit-mealplan .row .statistics-list li .icon {
-  margin-right: 0.6rem;
-  font-size: 1.2rem;
+#add-mealplan #collapseTips .tip-container, #details-mealplan #collapseTips .tip-container, #edit-mealplan #collapseTips .tip-container {
+  padding: 1.5rem;
+  padding-bottom: 3rem;
+  background-color: #c5e96a;
+  text-align: center;
   color: var(--bs-primary);
+  border-radius: 2px;
+  cursor: pointer;
 }
-#add-mealplan .row .statistics-list li .stat-title, #details-mealplan .row .statistics-list li .stat-title, #edit-mealplan .row .statistics-list li .stat-title {
-  margin-right: 0.3rem;
+#add-mealplan #collapseTips .tip-container i, #details-mealplan #collapseTips .tip-container i, #edit-mealplan #collapseTips .tip-container i {
+  color: var(--bs-primary);
+  font-size: 1.6rem;
+}
+#add-mealplan #collapseTips .tip-container .tip-heading, #details-mealplan #collapseTips .tip-container .tip-heading, #edit-mealplan #collapseTips .tip-container .tip-heading {
   font-weight: bold;
+  font-size: 1.2rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.5rem;
+  text-decoration: none;
 }
-#add-mealplan .row .buttons, #details-mealplan .row .buttons, #edit-mealplan .row .buttons {
+#add-mealplan #collapseTips .tip-container .tip-text, #details-mealplan #collapseTips .tip-container .tip-text, #edit-mealplan #collapseTips .tip-container .tip-text {
+  font-weight: normal;
+  font-size: 1rem;
+}
+#add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover {
+  background-color: var(--bs-success);
+}
+#add-mealplan #collapseSummary .stats-container, #details-mealplan #collapseSummary .stats-container, #edit-mealplan #collapseSummary .stats-container {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item, #details-mealplan #collapseSummary .stats-container .stat-item, #edit-mealplan #collapseSummary .stats-container .stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 1px solid var(--bs-light);
+  border-radius: 2px;
+  color: var(--bs-primary);
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-icon, #details-mealplan #collapseSummary .stats-container .stat-item .stat-icon, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-icon i, #details-mealplan #collapseSummary .stats-container .stat-item .stat-icon i, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-icon i {
+  font-size: 2.4rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  line-height: 1.2;
+  margin-top: 0;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number {
+  font-family: "Libre Baskerville", serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content {
+  font-weight: normal;
+  font-size: 0.9rem;
+  margin-top: -5px;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item:hover, #details-mealplan #collapseSummary .stats-container .stat-item:hover, #edit-mealplan #collapseSummary .stats-container .stat-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#add-mealplan .buttons, #details-mealplan .buttons, #edit-mealplan .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
 }
-#add-mealplan .row .collapse, #details-mealplan .row .collapse, #edit-mealplan .row .collapse {
-  margin-bottom: 1rem;
-}
 
 @media screen and (max-width: 660px) {
-  #add-mealplan .heading-pill, #details-mealplan .heading-pill, #edit-mealplan .heading-pill {
-    font-size: 18px !important;
-  }
   #add-mealplan .text-uppercase, #details-mealplan .text-uppercase, #edit-mealplan .text-uppercase {
     font-size: 10px !important;
   }
   #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
     gap: 3px !important;
+    /*.category-text {
+        font-size: 12px !important;
+    }*/
   }
   #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
     font-size: 14px !important;
-  }
-  #add-mealplan .meal-info .category-text, #details-mealplan .meal-info .category-text, #edit-mealplan .meal-info .category-text {
-    font-size: 12px !important;
   }
   #add-mealplan .input-group .input-group-text, #details-mealplan .input-group .input-group-text, #edit-mealplan .input-group .input-group-text {
     display: none;
@@ -2175,15 +2358,17 @@ html #main-container .external-login-button img {
   }
   .header-container .back-btn-container {
     position: absolute;
-    top: 33px;
+    top: 5px !important;
     right: 0;
   }
 }
-[data-bs-theme=dark] .collapse .card, [data-bs-theme=dark] .card-body {
-  border: none !important;
+[data-bs-theme=dark] .info-pill, [data-bs-theme=dark] #add-mealplan .name .name-label-text, #add-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #details-mealplan .name .name-label-text, #details-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #edit-mealplan .name .name-label-text, #edit-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #add-mealplan .table thead th, #add-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #details-mealplan .table thead th, #details-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #edit-mealplan .table thead th, #edit-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #add-mealplan .tips-pill, #add-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #add-mealplan .summary-pill, #add-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #details-mealplan .tips-pill, #details-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #details-mealplan .summary-pill, #details-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #edit-mealplan .tips-pill, #edit-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #edit-mealplan .summary-pill, #edit-mealplan [data-bs-theme=dark] .summary-pill {
+  color: var(--bs-body-bg) !important;
 }
-[data-bs-theme=dark] .info-pill, [data-bs-theme=dark] #add-mealplan thead th, #add-mealplan thead [data-bs-theme=dark] th, [data-bs-theme=dark] #details-mealplan thead th, #details-mealplan thead [data-bs-theme=dark] th, [data-bs-theme=dark] #edit-mealplan thead th, #edit-mealplan thead [data-bs-theme=dark] th {
-  color: var(--bs-success) !important;
+[data-bs-theme=dark] .stat-item {
+  color: var(--bs-body-bg) !important;
+  border: 1px solid var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
 }
 [data-bs-theme=dark] .meal-info .meal-title a, [data-bs-theme=dark] .meal-info span {
   color: var(--bs-white) !important;
@@ -2191,19 +2376,15 @@ html #main-container .external-login-button img {
 [data-bs-theme=dark] .meal-info .meal-title a:active, [data-bs-theme=dark] .meal-info span:active {
   color: var(--bs-white) !important;
 }
-[data-bs-theme=dark] .left-pill {
-  border-color: var(--bs-success) !important;
-  color: var(--bs-success) !important;
-}
-[data-bs-theme=dark] .statistics-list li {
-  color: var(--bs-success) !important;
-}
-[data-bs-theme=dark] .statistics-list li .icon {
-  color: var(--bs-success) !important;
-}
 
 .card-border-style, .shopping-list-container, .contact-form-container, .form-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+.hover-state, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .card-style, .card-outer-container {

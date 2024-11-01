@@ -34,7 +34,7 @@
             <partial name="_BackBtnPartial" />
         </div>        
         @Html.AntiForgeryToken()
-        <div class="row mealplan-table-row">
+        <div class="row">
             <div class="col-lg-12">
                 <!-- Meal Plan table header with pill style -->
                 <table class="table">
@@ -121,57 +121,67 @@
                 </table>
                 <div class="row">
 
-                    <div class="col-lg-6">
-                        <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
-                            <div class="info-pill left-pill pill">
-                                Show Tips
-                            </div>
-                        </a>
-
-                        <div class="collapse" id="collapseTips">
-                            <div class="card card-body">
-                                <ul class="list-unstyled">
-                                    <li><span class="tip-start">Weekly Structure:</span> Your meal plan is structured for a week, consisting of 7 days. Consider planning your meals accordingly to cover each day of the week.</li>
-                                    <li><span class="tip-start">Customizable Portions:</span> Meals can be sized according to your needs and preferences. Feel free to adjust portion sizes based on factors such as appetite, dietary goals, and nutritional requirements.</li>
-                                    <li><span class="tip-start">Matched Shopping List:</span> Your shopping list will match the portion sizes of your chosen meals, making your grocery shopping efficient and minimizing waste.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
-                            <div class="info-pill right-pill pill">
+                            <div class="card-header-pills summary-pill">
                                 View Summary
                             </div>
                         </a>
 
                         <div class="collapse" id="collapseSummary">
-                            <div class="card card-body">
-                                <ul class="list-unstyled statistics-list">
-                                    <li>
-                                        <i class="fa-solid fa-bowl-rice icon"></i>
-                                        <span class="stat-title">Meals included:</span> @Model.Meals.Count
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-utensils icon"></i>
-                                        <span class="stat-title">Total servings:</span> @Model.TotalServings
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-clock icon"></i>
-                                        <span class="stat-title">Total Cooking Time:</span> @($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-cart-shopping icon"></i>
-                                        <span class="stat-title">Total ingredients:</span> @Model.TotalIngredients
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-calendar icon"></i>
-                                        <span class="stat-title">Total cooking days:</span> @Model.TotalCookingDays
-                                    </li>
-                                </ul>
-                            </div>
+                            <div class="stats-container d-flex">
 
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fa-solid fa-bowl-rice"></i>
+                                    </div>
+                                    <div class="stat-text">
+                                        <span class="stat-number">@Model.Meals.Count</span>
+                                        <span class="stat-content">meals</span>
+                                    </div>                                    
+                                </div>
+
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fa-solid fa-utensils stat-icon"></i>
+                                    </div>
+                                    <div class="stat-text">
+                                        <span class="stat-number">@Model.TotalServings</span>
+                                        <span class="stat-content">total servings</span>
+                                    </div>                                    
+                                </div>
+
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fa-solid fa-clock stat-icon"></i>
+                                    </div>
+                                    <div class="stat-text">
+                                        <span class="stat-number">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span>
+                                        <span class="stat-content">time cooking</span>
+                                    </div>                                    
+                                </div>
+
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fa-solid fa-cart-shopping stat-icon"></i>
+                                    </div>
+                                    <div class="stat-text">
+                                        <span class="stat-number">@Model.TotalIngredients</span>
+                                        <span class="stat-content">ingredients used</span>
+                                    </div>                                    
+                                </div>
+
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fa-solid fa-calendar stat-icon"></i>
+                                    </div>
+                                    <div class="stat-text">
+                                        <span class="stat-number">@Model.TotalCookingDays</span>
+                                        <span class="stat-content">days cooking</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
                         </div>
 
                     </div>

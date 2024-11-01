@@ -73,9 +73,10 @@ html {
         input.form-control, textarea.form-control, .form-select {
             border: 1px solid var(--bs-primary);
             color: var(--bs-body-color);
+            border-radius: 2px;
 
             &:focus {
-                box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
+                box-shadow: 0 0 0 0.125rem rgba(180, 227, 61, 0.3);
             }
 
             &::placeholder {
@@ -113,7 +114,7 @@ html {
             .input-group {
 
                 span.input-group-text {
-                    font-size: 15px !important;
+                    font-size: 0.9rem !important;
                     font-weight: 500;
                     background-color: var(--bs-primary);
                     color: var(--bs-white);
@@ -125,8 +126,8 @@ html {
             span.small.text-danger {
                 display: block;
                 text-align: start;
-                font-size: 14px;
-                margin-left: 3px;
+                font-size: 0.8rem;
+                margin-left: 0.19rem;
             }
 
             .custom-link {

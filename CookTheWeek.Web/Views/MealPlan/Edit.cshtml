@@ -27,21 +27,32 @@
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
             <div class="row pt-2">
                 <div class="col-12">
-                    <div class="col-lg-6 pb-2">
-                        <div class="input-group">
-                            <span class="input-group-text">Name</span>
+                    <div class="col-lg-6 pb-0 mb-0">
+                        <div class="input-group name">
+                            <span class="name-label-text">Name</span>
                             <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
                         </div>
                         <span asp-validation-for="Name" class="small text-danger"></span>
                     </div>
                     <div class="name-suggestions">
-                        <p>
-                            <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
-                                Being short on names? Click <strong>here</strong> for some examples
-                            </a>
-                        </p>
+                        <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
+                            Being short on names? Click <strong>here</strong> for some examples
+                        </a>
                         <div class="collapse" id="collapseNames">
-                            <div class="card card-body">
+                            <h4>Suggested Names</h4>
+                            <div class="suggestion-category">
+                                <h5>Weekly Themes</h5>
+                                <p>Healthy Week Ahead</p>
+                                <p>Quick & Easy Meals</p>
+                                <!-- More items... -->
+                            </div>
+                            <div class="suggestion-category">
+                                <h5>Cuisine-Based</h5>
+                                <p>Italian Feast Week</p>
+                                <p>Mexican Fiesta</p>
+                                <!-- More items... -->
+                            </div>
+                            @* <div class="p-2">
                                 <ul class="list-unstyled inner-padding">
                                     <li>
                                         <span class="tip-start">Veggie Vibes Weekly:</span> Perfect for a week without any meat.
@@ -57,7 +68,7 @@
                                     </li>
                                 </ul>
 
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 </div>
@@ -153,7 +164,7 @@
 
                 <div class="col-12">
                     <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
-                        <div class="pill info-pill tips-pill text-center">
+                        <div class="pill info-pill tips-pill">
                             Show Tips
                         </div>
                     </a>
@@ -218,11 +229,10 @@
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
     <script type="module">
-        import { reindexMealRows } from '/js/site.js';
-        debugger;
+        import { reindexMealRows } from '/js/site.js';        
         
         $(document).ready(function () {
-            $(document).on('click', '.minus', function (event) {
+            $(document).on('click', '.remove-item-button', function (event) {
                 debugger
                 let mealsCount = $('.meal-row').length;
 
