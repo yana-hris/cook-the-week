@@ -22,10 +22,10 @@
             <partial name="_HeadingPartial" model="headingModel" />
             <partial name="_BackBtnPartial" />
         </div>
-
+        
         <form id="edit-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
-            <div class="row pt-2">
+            <div class="row pt-3">
                 <div class="col-12">
                     <div class="col-lg-6 pb-0 mb-0">
                         <div class="input-group name">

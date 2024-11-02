@@ -16,6 +16,11 @@
         }
     }
 
+    .add-line {
+        border-bottom: 2px solid #4CAF50; /* Green accent color for a fresh, food-related look */
+    }
+
+
     .no-wrap-text {
         white-space: nowrap;
     }
@@ -34,6 +39,14 @@
         text-transform: uppercase;
         color: var(--bs-body-bg);
         font-weight: bold;
+    }
+
+    .name-inviting-message {
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        color: var(--bs-primary);
     }
 
     .name {
@@ -245,7 +258,13 @@
         }
 
         tr.meal-row.deleted-style {
-            opacity: 70%;
+            opacity: 65%;
+
+            .meal-title {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
 
@@ -405,6 +424,14 @@
 }
 
 [data-bs-theme="dark"] {
+
+    .name-inviting-message {
+        color: var(--bs-success) !important;
+    }
+
+    hr {
+        color: var(--bs-success) !important;
+    }
 
     .names-container, .tip-container {
         background-color: lighten($primary, 10%) !important;

@@ -158,6 +158,13 @@ html body footer #links-container a:hover {
   color: var(--bs-light) !important;
   text-decoration: underline;
 }
+html body .modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2000;
+}
 
 @media (min-width: 631px) {
   footer #links-container {
@@ -2069,6 +2076,9 @@ html #main-container .external-login-button img {
   top: 22px;
   right: 0;
 }
+#add-mealplan .add-line, #details-mealplan .add-line, #edit-mealplan .add-line {
+  border-bottom: 2px solid #4CAF50; /* Green accent color for a fresh, food-related look */
+}
 #add-mealplan .no-wrap-text, #details-mealplan .no-wrap-text, #edit-mealplan .no-wrap-text {
   white-space: nowrap;
 }
@@ -2085,6 +2095,13 @@ html #main-container .external-login-button img {
   text-transform: uppercase;
   color: var(--bs-body-bg);
   font-weight: bold;
+}
+#add-mealplan .name-inviting-message, #details-mealplan .name-inviting-message, #edit-mealplan .name-inviting-message {
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--bs-primary);
 }
 #add-mealplan .name, #details-mealplan .name, #edit-mealplan .name {
   display: flex;
@@ -2245,7 +2262,10 @@ html #main-container .external-login-button img {
   justify-content: center;
 }
 #add-mealplan .table tr.meal-row.deleted-style, #details-mealplan .table tr.meal-row.deleted-style, #edit-mealplan .table tr.meal-row.deleted-style {
-  opacity: 70%;
+  opacity: 65%;
+}
+#add-mealplan .table tr.meal-row.deleted-style .meal-title:hover, #details-mealplan .table tr.meal-row.deleted-style .meal-title:hover, #edit-mealplan .table tr.meal-row.deleted-style .meal-title:hover {
+  text-decoration: none;
 }
 #add-mealplan .collapse, #details-mealplan .collapse, #edit-mealplan .collapse {
   margin-bottom: 1rem;
@@ -2358,6 +2378,12 @@ html #main-container .external-login-button img {
     top: 5px !important;
     right: 0;
   }
+}
+[data-bs-theme=dark] .name-inviting-message {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] hr {
+  color: var(--bs-success) !important;
 }
 [data-bs-theme=dark] .names-container, [data-bs-theme=dark] .tip-container {
   background-color: #3e8c40 !important;
