@@ -16,6 +16,10 @@
         }
     }
 
+    .no-wrap-text {
+        white-space: nowrap;
+    }
+
     .row {
         padding-bottom: 1rem;
     }
@@ -39,13 +43,17 @@
         .name-label-text {
             @extend .info-pill;
             display: inline-block;
-            padding: 0.65rem 1.25rem;
+            padding: 0.6rem 1.25rem;
             margin-bottom: 0;
         }
 
         input.form-control {
             padding: 0.65rem 1.25rem;
             border: none;
+
+            &::placeholder {
+                color: darken($primary, 20%);
+            }
         }
 
         border: 1px solid var(--bs-primary);
@@ -62,14 +70,16 @@
         }
 
         .names-container {
-            background-color: lighten($success, 10%);            
+            background-color: lighten($success, 10%);
             padding: 1rem;
+            margin-top: 1rem;
             border-radius: 2px;
             color: var(--bs-primary);
 
             h4 {
-                font-size: 1.1rem;
                 margin-bottom: 0.9rem;
+                font-size: 1.1rem;
+                font-weight: bold;
             }
 
             hr {
@@ -106,27 +116,21 @@
         border-spacing: 0;
 
         thead {
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
 
             th {
                 @extend .info-pill;
+                border: 1px solid var(--bs-primary);
+                border-radius: 0;
+            }
 
-                .no-wrap-text {
-                    white-space: nowrap;
-                }
+            th:first-child {
+                border-top-left-radius: 2px;
+                border-bottom-left-radius: 2px;
+            }
 
-                &:first-child {
-                    border-top-left-radius: 2px;
-                    border-bottom-left-radius: 2px;
-                }
-
-                &:last-child {
-                    border-top-right-radius: 2px;
-                    border-bottom-right-radius: 2px;
-                }
+            th:last-child {
+                border-top-right-radius: 2px;
+                border-bottom-right-radius: 2px;
             }
         }
 
@@ -136,8 +140,18 @@
                 border-bottom: none;
 
                 .text-style {
-                    font-family: 'Libre Baskerville', serif;
+                    //font-family: 'Libre Baskerville', serif;
                     font-size: 1rem;
+                }
+
+                .table-input-style {
+                    .input-group-text {
+                        color: var(--bs-body-bg);
+                    }
+
+                    .input-group-text, .form-control, .form-select {
+                        border: 1px solid var(--bs-primary);
+                    }
                 }
             }
         }
@@ -176,55 +190,48 @@
                 align-items: center;
                 justify-content: end;
             }
-            /*img {
-        object-fit: cover;
-        width: 28%;
-        max-width: 80px;
-        min-width: 50px;
-        display: block;
-        height: 5rem;
-        border-radius: 2px;
-    }*/
 
-            .meal-title {
-                font-family: 'Libre Baskerville', serif;
-                font-size: 1.2rem;
-                font-weight: 500;
-                margin-bottom: 0.25rem;
+            .meal-content {
 
-                &:hover {
-                    text-decoration: underline;
+                .meal-title {
+                    font-family: 'Libre Baskerville', serif;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    margin-bottom: 0.25rem;
+
+                    a {
+                        color: darken($primary, 15%);
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                        color: darken($primary, 15%);
+                    }
+                }
+
+                .meal-stats {
+                    color: var(--bs-primary);
+                    font-size: 0.9rem;
+                    font-weight: normal;
+
+                    i::before {
+                        margin-right: 0.25rem;
+                    }
+
+                    span.separator {
+                        margin: 0 0.5rem;
+                    }
+
+                    span.icon-text {
+                        margin-right: 0.25rem;
+                    }
+                }
+                // TODO: Change
+                select, .text-style {
+                    font-family: "Libre Baskerville", serif;
+                    font-size: 0.9rem;
                 }
             }
-            // For details view:
-            .meal-stats {
-                color: var(--bs-primary);
-                font-size: 0.9rem;
-                font-weight: normal;
-
-                i::before {
-                    margin-right: 0.25rem;
-                }
-
-                span.separator {
-                    margin: 0 0.5rem;
-                }
-
-                span.icon-text {
-                    margin-right: 0.25rem;
-                }
-            }
-            // TODO: Change
-            select, .text-style {
-                font-family: "Libre Baskerville", serif;
-                font-size: 0.9rem;
-            }
-            // Delete?
-            /*.category-text {
-            font-size: 14px;
-            font-weight: 400;
-            font-style: italic;
-        }*/
 
             .cook-btn {
                 height: 2.1rem;
@@ -292,6 +299,7 @@
         .stats-container {
             flex-wrap: wrap;
             align-items: center;
+            justify-content: space-between;
             gap: 0.6rem;
 
             .stat-item {
@@ -366,14 +374,10 @@
         .meal-info {
             gap: 3px !important;
 
-
             .meal-title {
                 font-size: 14px !important;
             }
 
-            /*.category-text {
-                font-size: 12px !important;
-            }*/
         }
 
         .input-group {
@@ -407,10 +411,14 @@
         color: var(--bs-body-bg) !important;
     }
 
+    .name input::placeholder {
+        color: lighten($success, 25%) !important;
+    }
+
     .name-suggestions a {
         color: var(--bs-success) !important;
     }
-    
+
     .info-pill {
         color: var(--bs-body-bg) !important;
     }
@@ -421,13 +429,13 @@
         background-color: var(--bs-primary) !important;
     }
 
-    .meal-info {
-        .meal-title a, span {
-            color: var(--bs-white) !important;
+    .meal-content span,
+    .meal-title a {
+        color: lighten($success, 25%) !important;
+    }
 
-            &:active {
-                color: var(--bs-white) !important;
-            }
-        }
+    .meal-title:hover {
+        text-decoration: underline;
+        color: lighten($success, 25%) !important;
     }
 }

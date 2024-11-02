@@ -61,7 +61,7 @@
                                             <img src="@(isCurrentMealDeleted ? "/img/compressed_deleted_recipe.png" : currentMeal.ImageUrl)" alt="Meal Image">
                                         </div>
 
-                                        <div>
+                                        <div class="meal-content">
                                             <h5 class="meal-title">
                                                 @if (isCurrentMealDeleted)
                                                 {
@@ -69,7 +69,11 @@
                                                 }
                                                 else
                                                 {
-                                                    <a asp-area="" asp-controller="Meal" asp-action="Details" asp-route-id="@currentMeal.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">@Model.Meals[i].Title</a>
+                                                    <a asp-area="" 
+                                                    asp-controller="Meal" 
+                                                    asp-action="Details" 
+                                                    asp-route-id="@currentMeal.Id" 
+                                                    asp-route-returnUrl="/MealPlan/Details/@Model.Id">@currentMeal.Title</a>
 
                                                 }
                                             </h5>

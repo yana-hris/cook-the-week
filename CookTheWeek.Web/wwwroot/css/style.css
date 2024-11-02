@@ -2069,6 +2069,9 @@ html #main-container .external-login-button img {
   top: 22px;
   right: 0;
 }
+#add-mealplan .no-wrap-text, #details-mealplan .no-wrap-text, #edit-mealplan .no-wrap-text {
+  white-space: nowrap;
+}
 #add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
   padding-bottom: 1rem;
 }
@@ -2091,12 +2094,15 @@ html #main-container .external-login-button img {
 }
 #add-mealplan .name .name-label-text, #details-mealplan .name .name-label-text, #edit-mealplan .name .name-label-text {
   display: inline-block;
-  padding: 0.65rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   margin-bottom: 0;
 }
 #add-mealplan .name input.form-control, #details-mealplan .name input.form-control, #edit-mealplan .name input.form-control {
   padding: 0.65rem 1.25rem;
   border: none;
+}
+#add-mealplan .name input.form-control::placeholder, #details-mealplan .name input.form-control::placeholder, #edit-mealplan .name input.form-control::placeholder {
+  color: #0f2210;
 }
 #add-mealplan .name-suggestions, #details-mealplan .name-suggestions, #edit-mealplan .name-suggestions {
   margin-top: -0.2rem;
@@ -2109,12 +2115,14 @@ html #main-container .external-login-button img {
 #add-mealplan .name-suggestions .names-container, #details-mealplan .name-suggestions .names-container, #edit-mealplan .name-suggestions .names-container {
   background-color: #c5e96a;
   padding: 1rem;
+  margin-top: 1rem;
   border-radius: 2px;
   color: var(--bs-primary);
 }
 #add-mealplan .name-suggestions .names-container h4, #add-mealplan .name-suggestions .names-container .h4, #details-mealplan .name-suggestions .names-container h4, #details-mealplan .name-suggestions .names-container .h4, #edit-mealplan .name-suggestions .names-container h4, #edit-mealplan .name-suggestions .names-container .h4 {
-  font-size: 1.1rem;
   margin-bottom: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 #add-mealplan .name-suggestions .names-container hr, #details-mealplan .name-suggestions .names-container hr, #edit-mealplan .name-suggestions .names-container hr {
   color: var(--bs-primary);
@@ -2142,14 +2150,9 @@ html #main-container .external-login-button img {
   border-collapse: separate;
   border-spacing: 0;
 }
-#add-mealplan .table thead, #details-mealplan .table thead, #edit-mealplan .table thead {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-#add-mealplan .table thead th .no-wrap-text, #details-mealplan .table thead th .no-wrap-text, #edit-mealplan .table thead th .no-wrap-text {
-  white-space: nowrap;
+#add-mealplan .table thead th, #details-mealplan .table thead th, #edit-mealplan .table thead th {
+  border: 1px solid var(--bs-primary);
+  border-radius: 0;
 }
 #add-mealplan .table thead th:first-child, #details-mealplan .table thead th:first-child, #edit-mealplan .table thead th:first-child {
   border-top-left-radius: 2px;
@@ -2163,25 +2166,16 @@ html #main-container .external-login-button img {
   border-bottom: none;
 }
 #add-mealplan .table tr td .text-style, #details-mealplan .table tr td .text-style, #edit-mealplan .table tr td .text-style {
-  font-family: "Libre Baskerville", serif;
   font-size: 1rem;
+}
+#add-mealplan .table tr td .table-input-style .input-group-text, #details-mealplan .table tr td .table-input-style .input-group-text, #edit-mealplan .table tr td .table-input-style .input-group-text {
+  color: var(--bs-body-bg);
+}
+#add-mealplan .table tr td .table-input-style .input-group-text, #add-mealplan .table tr td .table-input-style .form-control, #add-mealplan .table tr td .table-input-style .form-select, #details-mealplan .table tr td .table-input-style .input-group-text, #details-mealplan .table tr td .table-input-style .form-control, #details-mealplan .table tr td .table-input-style .form-select, #edit-mealplan .table tr td .table-input-style .input-group-text, #edit-mealplan .table tr td .table-input-style .form-control, #edit-mealplan .table tr td .table-input-style .form-select {
+  border: 1px solid var(--bs-primary);
 }
 #add-mealplan .table tr.meal-row, #details-mealplan .table tr.meal-row, #edit-mealplan .table tr.meal-row {
   position: relative;
-  /*img {
-      object-fit: cover;
-      width: 28%;
-      max-width: 80px;
-      min-width: 50px;
-      display: block;
-      height: 5rem;
-      border-radius: 2px;
-  }*/
-  /*.category-text {
-      font-size: 14px;
-      font-weight: 400;
-      font-style: italic;
-  }*/
 }
 #add-mealplan .table tr.meal-row .meal-info, #details-mealplan .table tr.meal-row .meal-info, #edit-mealplan .table tr.meal-row .meal-info {
   display: flex;
@@ -2211,30 +2205,34 @@ html #main-container .external-login-button img {
   align-items: center;
   justify-content: end;
 }
-#add-mealplan .table tr.meal-row .meal-title, #details-mealplan .table tr.meal-row .meal-title, #edit-mealplan .table tr.meal-row .meal-title {
+#add-mealplan .table tr.meal-row .meal-content .meal-title, #details-mealplan .table tr.meal-row .meal-content .meal-title, #edit-mealplan .table tr.meal-row .meal-content .meal-title {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
-#add-mealplan .table tr.meal-row .meal-title:hover, #details-mealplan .table tr.meal-row .meal-title:hover, #edit-mealplan .table tr.meal-row .meal-title:hover {
-  text-decoration: underline;
+#add-mealplan .table tr.meal-row .meal-content .meal-title a, #details-mealplan .table tr.meal-row .meal-content .meal-title a, #edit-mealplan .table tr.meal-row .meal-content .meal-title a {
+  color: #173418;
 }
-#add-mealplan .table tr.meal-row .meal-stats, #details-mealplan .table tr.meal-row .meal-stats, #edit-mealplan .table tr.meal-row .meal-stats {
+#add-mealplan .table tr.meal-row .meal-content .meal-title:hover, #details-mealplan .table tr.meal-row .meal-content .meal-title:hover, #edit-mealplan .table tr.meal-row .meal-content .meal-title:hover {
+  text-decoration: underline;
+  color: #173418;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-stats, #details-mealplan .table tr.meal-row .meal-content .meal-stats, #edit-mealplan .table tr.meal-row .meal-content .meal-stats {
   color: var(--bs-primary);
   font-size: 0.9rem;
   font-weight: normal;
 }
-#add-mealplan .table tr.meal-row .meal-stats i::before, #details-mealplan .table tr.meal-row .meal-stats i::before, #edit-mealplan .table tr.meal-row .meal-stats i::before {
+#add-mealplan .table tr.meal-row .meal-content .meal-stats i::before, #details-mealplan .table tr.meal-row .meal-content .meal-stats i::before, #edit-mealplan .table tr.meal-row .meal-content .meal-stats i::before {
   margin-right: 0.25rem;
 }
-#add-mealplan .table tr.meal-row .meal-stats span.separator, #details-mealplan .table tr.meal-row .meal-stats span.separator, #edit-mealplan .table tr.meal-row .meal-stats span.separator {
+#add-mealplan .table tr.meal-row .meal-content .meal-stats span.separator, #details-mealplan .table tr.meal-row .meal-content .meal-stats span.separator, #edit-mealplan .table tr.meal-row .meal-content .meal-stats span.separator {
   margin: 0 0.5rem;
 }
-#add-mealplan .table tr.meal-row .meal-stats span.icon-text, #details-mealplan .table tr.meal-row .meal-stats span.icon-text, #edit-mealplan .table tr.meal-row .meal-stats span.icon-text {
+#add-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text, #details-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text, #edit-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text {
   margin-right: 0.25rem;
 }
-#add-mealplan .table tr.meal-row select, #add-mealplan .table tr.meal-row .text-style, #details-mealplan .table tr.meal-row select, #details-mealplan .table tr.meal-row .text-style, #edit-mealplan .table tr.meal-row select, #edit-mealplan .table tr.meal-row .text-style {
+#add-mealplan .table tr.meal-row .meal-content select, #add-mealplan .table tr.meal-row .meal-content .text-style, #details-mealplan .table tr.meal-row .meal-content select, #details-mealplan .table tr.meal-row .meal-content .text-style, #edit-mealplan .table tr.meal-row .meal-content select, #edit-mealplan .table tr.meal-row .meal-content .text-style {
   font-family: "Libre Baskerville", serif;
   font-size: 0.9rem;
 }
@@ -2281,6 +2279,7 @@ html #main-container .external-login-button img {
 #add-mealplan #collapseSummary .stats-container, #details-mealplan #collapseSummary .stats-container, #edit-mealplan #collapseSummary .stats-container {
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0.6rem;
 }
 #add-mealplan #collapseSummary .stats-container .stat-item, #details-mealplan #collapseSummary .stats-container .stat-item, #edit-mealplan #collapseSummary .stats-container .stat-item {
@@ -2339,9 +2338,6 @@ html #main-container .external-login-button img {
   }
   #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
     gap: 3px !important;
-    /*.category-text {
-        font-size: 12px !important;
-    }*/
   }
   #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
     font-size: 14px !important;
@@ -2367,6 +2363,9 @@ html #main-container .external-login-button img {
   background-color: #3e8c40 !important;
   color: var(--bs-body-bg) !important;
 }
+[data-bs-theme=dark] .name input::placeholder {
+  color: #dff3ac !important;
+}
 [data-bs-theme=dark] .name-suggestions a {
   color: var(--bs-success) !important;
 }
@@ -2378,11 +2377,13 @@ html #main-container .external-login-button img {
   border: 1px solid var(--bs-dark) !important;
   background-color: var(--bs-primary) !important;
 }
-[data-bs-theme=dark] .meal-info .meal-title a, [data-bs-theme=dark] .meal-info span {
-  color: var(--bs-white) !important;
+[data-bs-theme=dark] .meal-content span,
+[data-bs-theme=dark] .meal-title a {
+  color: #dff3ac !important;
 }
-[data-bs-theme=dark] .meal-info .meal-title a:active, [data-bs-theme=dark] .meal-info span:active {
-  color: var(--bs-white) !important;
+[data-bs-theme=dark] .meal-title:hover {
+  text-decoration: underline;
+  color: #dff3ac !important;
 }
 
 .card-border-style, .shopping-list-container, .contact-form-container, .form-container {
