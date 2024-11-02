@@ -2058,12 +2058,6 @@ html #main-container .external-login-button img {
     font-size: 18px;
   }
 }
-#add-mealplan, #details-mealplan, #edit-mealplan {
-  /*    p {
-      margin-top: 0;
-      margin-bottom: 0.25rem;
-  }*/
-}
 #add-mealplan .heading-secondary, #details-mealplan .heading-secondary, #edit-mealplan .heading-secondary {
   font-size: 1.6rem !important;
 }
@@ -2112,29 +2106,37 @@ html #main-container .external-login-button img {
   font-size: 0.8rem;
   margin-top: 0;
 }
-#add-mealplan .name-suggestions .collapse, #details-mealplan .name-suggestions .collapse, #edit-mealplan .name-suggestions .collapse {
-  background-color: #f5f5f5;
+#add-mealplan .name-suggestions .names-container, #details-mealplan .name-suggestions .names-container, #edit-mealplan .name-suggestions .names-container {
+  background-color: #c5e96a;
   padding: 1rem;
-  border: 1px solid #dcdcdc;
-  border-radius: 5px;
-  margin-top: 10px;
+  border-radius: 2px;
+  color: var(--bs-primary);
 }
-#add-mealplan .name-suggestions .collapse .suggestion-category, #details-mealplan .name-suggestions .collapse .suggestion-category, #edit-mealplan .name-suggestions .collapse .suggestion-category {
-  margin-bottom: 1rem;
+#add-mealplan .name-suggestions .names-container h4, #add-mealplan .name-suggestions .names-container .h4, #details-mealplan .name-suggestions .names-container h4, #details-mealplan .name-suggestions .names-container .h4, #edit-mealplan .name-suggestions .names-container h4, #edit-mealplan .name-suggestions .names-container .h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.9rem;
 }
-#add-mealplan .name-suggestions .collapse .suggestion-category h5, #add-mealplan .name-suggestions .collapse .suggestion-category .h5, #details-mealplan .name-suggestions .collapse .suggestion-category h5, #details-mealplan .name-suggestions .collapse .suggestion-category .h5, #edit-mealplan .name-suggestions .collapse .suggestion-category h5, #edit-mealplan .name-suggestions .collapse .suggestion-category .h5 {
+#add-mealplan .name-suggestions .names-container hr, #details-mealplan .name-suggestions .names-container hr, #edit-mealplan .name-suggestions .names-container hr {
+  color: var(--bs-primary);
+}
+#add-mealplan .name-suggestions .names-container .category-container, #details-mealplan .name-suggestions .names-container .category-container, #edit-mealplan .name-suggestions .names-container .category-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category {
+  padding: 0.6rem 1rem 1.6rem 0.6rem;
+  text-align: start;
+}
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5 {
   font-weight: bold;
-  color: #2d6b2f;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
 }
-#add-mealplan .name-suggestions .collapse .suggestion-category p, #details-mealplan .name-suggestions .collapse .suggestion-category p, #edit-mealplan .name-suggestions .collapse .suggestion-category p {
-  margin: 0;
-  padding: 0.25rem 0;
-  color: #333;
-  cursor: pointer;
-}
-#add-mealplan .name-suggestions .collapse .suggestion-category p:hover, #details-mealplan .name-suggestions .collapse .suggestion-category p:hover, #edit-mealplan .name-suggestions .collapse .suggestion-category p:hover {
-  color: #2d6b2f;
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category p, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category p, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category p {
+  font-weight: normal;
+  font-size: 1rem;
 }
 #add-mealplan .table, #details-mealplan .table, #edit-mealplan .table {
   border-collapse: separate;
@@ -2260,7 +2262,6 @@ html #main-container .external-login-button img {
   cursor: pointer;
 }
 #add-mealplan #collapseTips .tip-container i, #details-mealplan #collapseTips .tip-container i, #edit-mealplan #collapseTips .tip-container i {
-  color: var(--bs-primary);
   font-size: 1.6rem;
 }
 #add-mealplan #collapseTips .tip-container .tip-heading, #details-mealplan #collapseTips .tip-container .tip-heading, #edit-mealplan #collapseTips .tip-container .tip-heading {
@@ -2361,6 +2362,13 @@ html #main-container .external-login-button img {
     top: 5px !important;
     right: 0;
   }
+}
+[data-bs-theme=dark] .names-container, [data-bs-theme=dark] .tip-container {
+  background-color: #3e8c40 !important;
+  color: var(--bs-body-bg) !important;
+}
+[data-bs-theme=dark] .name-suggestions a {
+  color: var(--bs-success) !important;
 }
 [data-bs-theme=dark] .info-pill, [data-bs-theme=dark] #add-mealplan .name .name-label-text, #add-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #details-mealplan .name .name-label-text, #details-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #edit-mealplan .name .name-label-text, #edit-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #add-mealplan .table thead th, #add-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #details-mealplan .table thead th, #details-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #edit-mealplan .table thead th, #edit-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #add-mealplan .tips-pill, #add-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #add-mealplan .summary-pill, #add-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #details-mealplan .tips-pill, #details-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #details-mealplan .summary-pill, #details-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #edit-mealplan .tips-pill, #edit-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #edit-mealplan .summary-pill, #edit-mealplan [data-bs-theme=dark] .summary-pill {
   color: var(--bs-body-bg) !important;

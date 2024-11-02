@@ -59,7 +59,7 @@
         /// <param name="meal"></param>
         /// <remarks>May throw a RecordNotFoundException due to usage of GetByIdAsync method.</remarks>
         /// <returns>MealAddFormModel</returns>
-        Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
+        Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
 
 
     }

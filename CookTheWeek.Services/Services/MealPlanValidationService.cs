@@ -183,7 +183,7 @@
         /// </summary>
         /// <param name="meal">the meal form model to check for validation errors</param>
         /// <returns>true or false</returns>
-        private static bool ValidateMealDates(MealAddFormModel meal)
+        private static bool ValidateMealDates(MealFormModel meal)
         {
             if (!meal.SelectDates.Contains(meal.Date))
             {

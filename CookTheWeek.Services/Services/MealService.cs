@@ -33,7 +33,7 @@
 
 
         /// <inheritdoc/>
-        public ICollection<Meal> CreateMealsAsync(ICollection<MealAddFormModel> model)
+        public ICollection<Meal> CreateMealsAsync(ICollection<MealFormModel> model)
         {
             ICollection<Meal> meals = new List<Meal>();
 

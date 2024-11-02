@@ -15,11 +15,6 @@
             right: 0;
         }
     }
-    // Delete?
-    /*    p {
-        margin-top: 0;
-        margin-bottom: 0.25rem;
-    }*/
 
     .row {
         padding-bottom: 1rem;
@@ -66,30 +61,40 @@
             margin-top: 0;
         }
 
-        .collapse {
-            background-color: #f5f5f5;
+        .names-container {
+            background-color: lighten($success, 10%);            
             padding: 1rem;
-            border: 1px solid #dcdcdc;
-            border-radius: 5px;
-            margin-top: 10px;
+            border-radius: 2px;
+            color: var(--bs-primary);
 
-            .suggestion-category {
-                margin-bottom: 1rem;
+            h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.9rem;
+            }
 
-                h5 {
-                    font-weight: bold;
-                    color: #2d6b2f;
-                    margin-bottom: 1rem;
-                }
+            hr {
+                color: var(--bs-primary);
+            }
 
-                p {
-                    margin: 0;
-                    padding: 0.25rem 0;
-                    color: #333;
-                    cursor: pointer;
+            .category-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
 
-                    &:hover {
-                        color: #2d6b2f;
+                .suggestion-category {
+                    padding: 0.6rem 1rem 1.6rem 0.6rem;
+                    text-align: start;
+
+                    h5 {
+                        font-weight: bold;
+                        margin-bottom: 0.3rem;
+                    }
+
+                    p {
+                        font-weight: normal;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -260,7 +265,6 @@
             cursor: pointer;
 
             i {
-                color: var(--bs-primary);
                 font-size: 1.6rem;
             }
 
@@ -398,6 +402,15 @@
 
 [data-bs-theme="dark"] {
 
+    .names-container, .tip-container {
+        background-color: lighten($primary, 10%) !important;
+        color: var(--bs-body-bg) !important;
+    }
+
+    .name-suggestions a {
+        color: var(--bs-success) !important;
+    }
+    
     .info-pill {
         color: var(--bs-body-bg) !important;
     }

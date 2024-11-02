@@ -6,6 +6,6 @@
     {
         string Name { get;set; }
         DateTime StartDate { get; set; }
-        IList<MealAddFormModel> Meals { get; set; }
+        IList<MealFormModel> Meals { get; set; }
     }
 }
