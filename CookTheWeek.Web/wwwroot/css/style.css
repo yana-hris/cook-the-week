@@ -834,7 +834,7 @@ html .btn-light:hover, html .learnmore-button:hover {
 html .disabled {
   opacity: 0.6 !important;
 }
-html .fixed-size-btn, html #main-container .card-back-button, html #main-container .btn-build, html #main-container .pagination-btn, html .cook-meal-button, html .back-button-main {
+html .fixed-size-btn, html #main-container .card-back-button, html #main-container .btn-build, html #main-container .pagination-btn, html .cook-meal-button, html .back-button-main, html .download-btn {
   height: 40px;
   width: 44px;
   font-size: 22px;
@@ -851,7 +851,7 @@ html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-
   text-transform: uppercase;
   font-weight: bold;
 }
-html .back-button-main {
+html .back-button-main, html .download-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -862,7 +862,7 @@ html .back-button-main {
   border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
 }
-html .back-button-main i, html .back-button-main .fa, html .back-button-main .fas {
+html .back-button-main i, html .back-button-main .fa, html .back-button-main .fas, html .download-btn i, html .download-btn .fa, html .download-btn .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -870,7 +870,7 @@ html .back-button-main i, html .back-button-main .fa, html .back-button-main .fa
   color: var(--bs-primary);
   z-index: 1;
 }
-html .back-button-main::before {
+html .back-button-main::before, html .download-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -881,17 +881,17 @@ html .back-button-main::before {
   background-color: var(--bs-body-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html .back-button-main:hover {
+html .back-button-main:hover, html .download-btn:hover {
   border: 1px solid var(--bs-primary);
   border-radius: 2px;
 }
-html .back-button-main:hover i, html .back-button-main:hover .fa, html .back-button-main:hover .fas {
+html .back-button-main:hover i, html .back-button-main:hover .fa, html .back-button-main:hover .fas, html .download-btn:hover i, html .download-btn:hover .fa, html .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
-html .back-button-main:hover::before {
+html .back-button-main:hover::before, html .download-btn:hover::before {
   background-color: var(--bs-primary);
 }
-html .back-button-main:hover {
+html .back-button-main:hover, html .download-btn:hover {
   border: 1px solid var(--bs-primary);
 }
 html .plus {

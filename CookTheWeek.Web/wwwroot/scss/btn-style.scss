@@ -140,18 +140,15 @@ html {
         font-weight: bold;
     }
     // Reusable buttons
-    .back-button-main {
+    .back-button-main, .download-btn {
         @include icon-button(var(--bs-body-bg), var(--bs-primary), 1px);
         @extend .fixed-size-btn;
-        //border: 1px solid var(--bs-primary) !important;
-
+        
         &:hover {
             border: 1px solid var(--bs-primary);
         }
     }
-
-
-
+   
     .plus {
         @include icon-button(var(--bs-primary), #fff, 2px);
         @include button-box-shadow-effect();
