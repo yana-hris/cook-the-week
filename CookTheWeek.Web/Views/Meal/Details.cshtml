@@ -37,11 +37,21 @@
 
                                     @if (!Model.IsCooked)
                                     {
-                                        <div class="cook-meal-container">
-                                            <button class="cook-meal-button" onclick="cookMeal(event, '@mealId')" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
-                                                <i class="fas fa-utensils"></i>
+                                        <div class="button-container">
+                                            <button class="cook-meal-button" 
+                                                    onclick="cookMeal(event, '@mealId')" 
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top" 
+                                                    title="Mark as Cooked">
+                                                <i class="fa-solid fa-calendar-xmark"></i>
                                             </button>
                                         </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                                            <i class="fa-solid fa-calendar-check"></i>
+                                        </span>
                                     }
                                 </div>
                             </div>

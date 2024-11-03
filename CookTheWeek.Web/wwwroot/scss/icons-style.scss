@@ -1,37 +1,42 @@
-﻿html {
-    // like icon styling
-    .liked-icon {
+﻿@import 'btn-style';
+
+// like icon styling
+.liked-icon {
+    color: red;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: darkred;
+}
+
+.not-liked-icon {
+    color: lightgray;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #222222;
+
+    &:hover {
         color: red;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: darkred;
-    }
-
-    .not-liked-icon {
-        color: lightgray;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #222222;
-
-        &:hover {
-            color: red;
-        }
-    }
-
-    // owned recipe style
-    .fa-user-circle {
-        color: var(--bs-success);
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: var(--bs-primary);
-    }
-
-    .finished {
-        color: var(--bs-danger);
-    }
-
-    .not-finished, .cooked {
-        color: var(--bs-primary);
-    }
-
-    .not-cooked {
-        color: lightgrey;
     }
 }
+
+.cooked-icon {
+    @include icon-button(var(--bs-primary), var(--bs-body-bg), 2px, false);
+    @extend .fixed-size-btn;
+}
+// owned recipe style
+.fa-user-circle {
+    color: var(--bs-success);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--bs-primary);
+}
+
+.finished {
+    color: var(--bs-danger);
+}
+
+.not-finished {
+    color: var(--bs-primary);
+}
+
+.inactive {
+    color: lightgrey;
+}
+

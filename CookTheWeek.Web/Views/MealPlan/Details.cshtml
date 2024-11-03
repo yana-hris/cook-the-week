@@ -96,23 +96,25 @@
                                     <div class="button-container">
                                         @if (isCurrentMealDeleted)
                                         {
-                                            <a href="#" class="cook-btn disabled">
-                                                <i class="fa-solid fa-check"></i>
-                                            </a>
+                                            <!-- Cooked Icon -->
+                                            <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                                                <i class="fa-solid fa-calendar-check inactive"></i>
+                                            </span>
                                         }
                                         else
                                         {
                                             @if (!currentMeal.IsCooked)
                                             {
                                                 <button class="cook-meal-button" onclick="cookMeal(event, '@currentMeal.Id')" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
-                                                    <i class="fa-solid fa-check not-cooked"></i>
+                                                    <i class="fa-solid fa-calendar-xmark"></i>
                                                 </button>
                                             }
                                             else
                                             {
-                                                <button class="cook-meal-button disabled">
-                                                    <i class="fa-solid fa-check cooked"></i>
-                                                </button>
+                                                <!-- Cooked Icon -->
+                                                <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                                                    <i class="fa-solid fa-calendar-check"></i>
+                                                </span>
                                             }
                                         }
 

@@ -204,7 +204,7 @@
                    
                     if (hasDeletedRecipes)
                     {
-                        TempData[MissingRecipesMessage] = "Some recipes in your meal plan could not be found and have been removed.";
+                        TempData[MissingRecipesMessage] = "Some recipes in your meal plan could not be found and will be removed.";
                     }
                        
                     // Store the model in TempData for the next request

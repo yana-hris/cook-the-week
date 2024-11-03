@@ -7,7 +7,7 @@
     }
 
     var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
-    var containerDiv = $(event.currentTarget).closest('.cook-meal-container');
+    var containerDiv = $(event.currentTarget).closest('.button-container');
 
     let url = `/Meal/Cook`;
 
@@ -20,7 +20,7 @@
         },
         success: function (response) {
             toastr.success("Meal marked as cooked!");
-            hideCookBtn(containerDiv);
+            changeBtnIcon(containerDiv);
         },
         error: function (xhr, status, error) {
             // Handle error response, e.g., display an error message
@@ -30,12 +30,14 @@
     });
 }
 
-function hideCookBtn(button) {
+function changeBtnIcon(button) {
     
     if (!button) {
         console.error("Event or currentTarget is null or undefined");
         return;
     }
     const $button = $(button);
-    $button.hide();
+    $button.html(` <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                       <i class="fa-solid fa-calendar-check"></i>
+                   </span>`);
 }

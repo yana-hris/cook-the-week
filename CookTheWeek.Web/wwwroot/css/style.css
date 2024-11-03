@@ -323,10 +323,10 @@ html body .modal-dialog {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button, #add-recipe .card .card-footer .buttons html .edit-button, #edit-recipe .card .card-footer .buttons html .edit-button, #recipe-details-container .card .card-footer .buttons html .edit-button, #meal-cook-container .card .card-footer .buttons html .edit-button, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button, html #add-recipe .card .card-footer .buttons .edit-button, #add-recipe html .card .card-footer .buttons .edit-button, html #edit-recipe .card .card-footer .buttons .edit-button, #edit-recipe html .card .card-footer .buttons .edit-button, html #recipe-details-container .card .card-footer .buttons .edit-button, #recipe-details-container html .card .card-footer .buttons .edit-button, html #meal-cook-container .card .card-footer .buttons .edit-button, #meal-cook-container html .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button, #add-recipe .card .card-footer .buttons html .copy-mealplan-button, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, html #add-recipe .card .card-footer .buttons .copy-mealplan-button, #add-recipe html .card .card-footer .buttons .copy-mealplan-button, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container html .card .card-footer .buttons .copy-mealplan-button, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container html .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons html .save-button, #add-recipe .card .card-footer .buttons html .save-button, #edit-recipe .card .card-footer .buttons html .save-button, #recipe-details-container .card .card-footer .buttons html .save-button, #meal-cook-container .card .card-footer .buttons html .save-button, html .card-custom-style-with-back-btn .card-footer .buttons .save-button, html #add-recipe .card .card-footer .buttons .save-button, #add-recipe html .card .card-footer .buttons .save-button, html #edit-recipe .card .card-footer .buttons .save-button, #edit-recipe html .card .card-footer .buttons .save-button, html #recipe-details-container .card .card-footer .buttons .save-button, #recipe-details-container html .card .card-footer .buttons .save-button, html #meal-cook-container .card .card-footer .buttons .save-button, #meal-cook-container html .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button, #add-recipe .card .card-footer .buttons html .add-recipe-button, #edit-recipe .card .card-footer .buttons html .add-recipe-button, #recipe-details-container .card .card-footer .buttons html .add-recipe-button, #meal-cook-container .card .card-footer .buttons html .add-recipe-button, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, html #add-recipe .card .card-footer .buttons .add-recipe-button, #add-recipe html .card .card-footer .buttons .add-recipe-button, html #edit-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe html .card .card-footer .buttons .add-recipe-button, html #recipe-details-container .card .card-footer .buttons .add-recipe-button, #recipe-details-container html .card .card-footer .buttons .add-recipe-button, html #meal-cook-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container html .card .card-footer .buttons .add-recipe-button {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button:hover, #add-recipe .card .card-footer .buttons html .edit-button:hover, #edit-recipe .card .card-footer .buttons html .edit-button:hover, #recipe-details-container .card .card-footer .buttons html .edit-button:hover, #meal-cook-container .card .card-footer .buttons html .edit-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, html #add-recipe .card .card-footer .buttons .edit-button:hover, #add-recipe html .card .card-footer .buttons .edit-button:hover, html #edit-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe html .card .card-footer .buttons .edit-button:hover, html #recipe-details-container .card .card-footer .buttons .edit-button:hover, #recipe-details-container html .card .card-footer .buttons .edit-button:hover, html #meal-cook-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container html .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, html #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #add-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container html .card .card-footer .buttons .copy-mealplan-button:hover, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container html .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .save-button:hover, #add-recipe .card .card-footer .buttons html .save-button:hover, #edit-recipe .card .card-footer .buttons html .save-button:hover, #recipe-details-container .card .card-footer .buttons html .save-button:hover, #meal-cook-container .card .card-footer .buttons html .save-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, html #add-recipe .card .card-footer .buttons .save-button:hover, #add-recipe html .card .card-footer .buttons .save-button:hover, html #edit-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe html .card .card-footer .buttons .save-button:hover, html #recipe-details-container .card .card-footer .buttons .save-button:hover, #recipe-details-container html .card .card-footer .buttons .save-button:hover, html #meal-cook-container .card .card-footer .buttons .save-button:hover, #meal-cook-container html .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button:hover, #add-recipe .card .card-footer .buttons html .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons html .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons html .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons html .add-recipe-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, html #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #add-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container html .card .card-footer .buttons .add-recipe-button:hover, html #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container html .card .card-footer .buttons .add-recipe-button:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -338,31 +338,564 @@ html body .modal-dialog {
     font-size: 18px;
   }
 }
-html .liked-icon {
+.btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.btn-primary, .signup-button, .browse-recipes-btn, .shopping-list-btn {
+  border: 1px solid var(--bs-primary);
+  background-color: var(--bs-primary);
+  color: var(--bs-body-bg);
+}
+.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover {
+  border: 1px solid var(--bs-primary);
+  color: var(--bs-primary);
+  background-color: var(--bs-body-bg);
+}
+
+.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+  border: 1px solid var(--bs-success);
+  color: var(--bs-primary);
+  background-color: var(--bs-success);
+}
+.btn-secondary:hover, .edit-button:hover, .copy-mealplan-button:hover, .save-button:hover, .add-recipe-button:hover {
+  border: 1px solid var(--bs-primary);
+  color: var(--bs-success);
+  background-color: var(--bs-primary);
+}
+
+.btn-danger, .delete-button {
+  border: 1px solid var(--bs-danger);
+  color: var(--bs-white);
+  background-color: var(--bs-danger);
+}
+.btn-danger:hover, .delete-button:hover {
+  border: 1px solid var(--bs-light);
+  color: var(--bs-danger);
+  background-color: var(--bs-light);
+}
+
+.btn-light, .learnmore-button {
+  color: var(--bs-dark);
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-light);
+}
+.btn-light:hover, .learnmore-button:hover {
+  color: var(--bs-light);
+  background-color: var(--bs-dark);
+  border: 1px solid var(--bs-dark);
+}
+
+.disabled {
+  opacity: 0.6 !important;
+}
+
+.fixed-size-btn, .cooked-icon, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .cook-meal-button, .plus, .back-button-main, .download-btn {
+  height: 40px;
+  width: 44px;
+  font-size: 22px;
+}
+
+.remove-btn-size, .remove-item-button {
+  height: 36px;
+  width: 36px;
+  font-size: 24px;
+}
+
+.card-btn-width, .signup-button, .learnmore-button, .delete-button, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .browse-recipes-btn, .shopping-list-btn {
+  width: 9rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.back-button-main, .download-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas, .download-btn i, .download-btn .fa, .download-btn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-primary);
+  z-index: 1;
+}
+.back-button-main::before, .download-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-body-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover, .download-btn:hover {
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas, .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+.back-button-main:hover::before, .download-btn:hover::before {
+  background-color: var(--bs-primary);
+}
+.back-button-main:hover, .download-btn:hover {
+  border: 1px solid var(--bs-primary);
+}
+
+.plus {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.plus i, .plus .fa, .plus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+.plus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.plus:hover {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.plus:hover i, .plus:hover .fa, .plus:hover .fas {
+  color: var(--bs-primary);
+}
+.plus:hover::before {
+  background-color: #fff;
+}
+.plus:hover {
+  box-shadow: none;
+}
+.plus:hover {
+  border: 2px solid var(--bs-primary);
+}
+
+.cook-meal-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-danger);
+  border-radius: 2px;
+  /*border: 2px solid var(--bs-danger);*/
+}
+.cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+.cook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.cook-meal-button:hover i, .cook-meal-button:hover .fa, .cook-meal-button:hover .fas {
+  color: var(--bs-danger);
+}
+.cook-meal-button:hover::before {
+  background-color: var(--bs-body-bg);
+}
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-danger);
+}
+
+.minus, .remove-item-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-danger);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.minus i, .remove-item-button i, .minus .fa, .remove-item-button .fa, .minus .fas, .remove-item-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+.minus::before, .remove-item-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.minus:hover, .remove-item-button:hover {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.minus:hover i, .remove-item-button:hover i, .minus:hover .fa, .remove-item-button:hover .fa, .minus:hover .fas, .remove-item-button:hover .fas {
+  color: var(--bs-danger);
+}
+.minus:hover::before, .remove-item-button:hover::before {
+  background-color: #fff;
+}
+.minus:hover, .remove-item-button:hover {
+  box-shadow: none;
+}
+.minus:hover, .remove-item-button:hover {
+  border: 2px solid var(--bs-danger);
+}
+
+.nav-btn, .nav-dropdown-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn:hover {
+  color: var(--bs-white) !important;
+  border-color: var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
+  transition: background-color 0.3s ease;
+}
+
+.browse-recipes-btn, .shopping-list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-recipe-button {
+  width: 10rem;
+}
+
+.delete-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-button, .learnmore-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem !important;
+}
+
+#main-container .search-btn {
+  border: 1px solid var(--bs-primary) !important;
+  font-weight: bolder;
+  color: var(--bs-success) !important;
+}
+#main-container .search-btn:hover {
+  border: 1px solid var(--bs-primary) !important;
+}
+#main-container .btn-outline-danger {
+  border: 1px solid var(--bs-danger);
+}
+#main-container .btn-outline-danger:hover {
+  border: 1px solid var(--bs-danger);
+}
+#main-container .btn-outline-primary {
+  border: 1px solid var(--bs-primary);
+}
+#main-container .btn-outline-primary:hover {
+  border: 1px solid var(--bs-primary);
+}
+#main-container .pagination-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+  border: 1px solid var(--bs-primary) !important;
+}
+#main-container .pagination-btn i, #main-container .pagination-btn .fa, #main-container .pagination-btn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+#main-container .pagination-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .pagination-btn:hover {
+  border: 1px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+#main-container .pagination-btn:hover i, #main-container .pagination-btn:hover .fa, #main-container .pagination-btn:hover .fas {
+  color: var(--bs-primary);
+}
+#main-container .pagination-btn:hover::before {
+  background-color: var(--bs-body-bg);
+}
+#main-container .btn-build {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+  border: 2px solid var(--bs-primary) !important;
+}
+#main-container .btn-build i, #main-container .btn-build .fa, #main-container .btn-build .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-primary);
+  z-index: 1;
+}
+#main-container .btn-build::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-body-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .btn-build:hover {
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+}
+#main-container .btn-build:hover i, #main-container .btn-build:hover .fa, #main-container .btn-build:hover .fas {
+  color: var(--bs-body-bg);
+}
+#main-container .btn-build:hover::before {
+  background-color: var(--bs-primary);
+}
+#main-container .card-back-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 0px solid var(--bs-primary);
+  border-radius: 2px;
+}
+#main-container .card-back-button i, #main-container .card-back-button .fa, #main-container .card-back-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-success);
+  z-index: 1;
+}
+#main-container .card-back-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .card-back-button:hover {
+  border: 0px solid var(--bs-success);
+  border-radius: 2px;
+}
+#main-container .card-back-button:hover i, #main-container .card-back-button:hover .fa, #main-container .card-back-button:hover .fas {
+  color: var(--bs-primary);
+}
+#main-container .card-back-button:hover::before {
+  background-color: var(--bs-success);
+}
+#main-container .btn.close {
+  color: var(--bs-success);
+}
+#main-container .btn.close:hover {
+  color: var(--bs-white);
+}
+#main-container .external-login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+#main-container .external-login-button:active {
+  background-color: #d6d8db;
+}
+#main-container .external-login-button:hover {
+  border: 1px solid var(--bs-body-color);
+}
+#main-container .external-login-button .external-login-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+#main-container .external-login-button img {
+  margin-right: 8px;
+}
+
+@media (min-width: 992px) {
+  #build-btn-container {
+    position: fixed;
+    right: 20px !important;
+    bottom: 10px !important;
+  }
+}
+.liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: darkred;
 }
-html .not-liked-icon {
+
+.not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #222222;
 }
-html .not-liked-icon:hover {
+.not-liked-icon:hover {
   color: red;
 }
-html .fa-user-circle {
+
+.cooked-icon {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+}
+.cooked-icon i, .cooked-icon .fa, .cooked-icon .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+.cooked-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.fa-user-circle {
   color: var(--bs-success);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--bs-primary);
 }
-html .finished {
+
+.finished {
   color: var(--bs-danger);
 }
-html .not-finished, html .cooked {
+
+.not-finished {
   color: var(--bs-primary);
 }
-html .not-cooked {
+
+.inactive {
   color: lightgrey;
 }
 
@@ -757,8 +1290,8 @@ nav #nav-container .collapsed .bottom-bar {
 
 #theme-container {
   position: absolute;
-  top: 65px;
-  right: 12px;
+  top: 70px;
+  right: 5px;
   z-index: 100;
 }
 #theme-container .theme-switcher {
@@ -774,84 +1307,99 @@ nav #nav-container .collapsed .bottom-bar {
   text-decoration: none;
 }
 
+@media (min-width: 768px) {
+  #theme-container {
+    top: 65px;
+    right: 6px;
+  }
+}
 @media (min-width: 992px) {
   #theme-container {
+    top: 70px;
     right: 20px;
-    top: 68px;
   }
 }
 @media (min-width: 1200px) {
   #theme-container {
-    right: 40px;
     top: 70px;
+    right: 40px;
   }
 }
-html .btn {
+.btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
 }
-html .btn-primary, html .signup-button, html .browse-recipes-btn, html .shopping-list-btn {
+
+.btn-primary, .browse-recipes-btn, .shopping-list-btn, .signup-button {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-html .btn-primary:hover, html .signup-button:hover, html .browse-recipes-btn:hover, html .shopping-list-btn:hover {
+.btn-primary:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover, .signup-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
 }
-html .btn-secondary, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button {
+
+.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
   border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
 }
-html .btn-secondary:hover, html .edit-button:hover, html .copy-mealplan-button:hover, html .save-button:hover, html .add-recipe-button:hover {
+.btn-secondary:hover, .edit-button:hover, .copy-mealplan-button:hover, .save-button:hover, .add-recipe-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
 }
-html .btn-danger, html .delete-button {
+
+.btn-danger, .delete-button {
   border: 1px solid var(--bs-danger);
   color: var(--bs-white);
   background-color: var(--bs-danger);
 }
-html .btn-danger:hover, html .delete-button:hover {
+.btn-danger:hover, .delete-button:hover {
   border: 1px solid var(--bs-light);
   color: var(--bs-danger);
   background-color: var(--bs-light);
 }
-html .btn-light, html .learnmore-button {
+
+.btn-light, .learnmore-button {
   color: var(--bs-dark);
   background-color: var(--bs-light);
   border: 1px solid var(--bs-light);
 }
-html .btn-light:hover, html .learnmore-button:hover {
+.btn-light:hover, .learnmore-button:hover {
   color: var(--bs-light);
   background-color: var(--bs-dark);
   border: 1px solid var(--bs-dark);
 }
-html .disabled {
+
+.disabled {
   opacity: 0.6 !important;
 }
-html .fixed-size-btn, html #main-container .card-back-button, html #main-container .btn-build, html #main-container .pagination-btn, html .cook-meal-button, html .back-button-main, html .download-btn {
+
+.fixed-size-btn, .back-button-main, .download-btn, .plus, .cook-meal-button, .minus, .remove-item-button, #main-container .pagination-btn, #main-container .btn-build, #main-container .card-back-button, .cooked-icon {
   height: 40px;
   width: 44px;
   font-size: 22px;
 }
-html .remove-btn-size, html .remove-item-button {
+
+.remove-btn-size, .remove-item-button {
   height: 36px;
   width: 36px;
   font-size: 24px;
 }
-html .card-btn-width, html .signup-button, html .learnmore-button, html .delete-button, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button, html .browse-recipes-btn, html .shopping-list-btn {
+
+.card-btn-width, .browse-recipes-btn, .shopping-list-btn, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .delete-button, .signup-button, .learnmore-button {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: bold;
 }
-html .back-button-main, html .download-btn {
+
+.back-button-main, .download-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -862,7 +1410,7 @@ html .back-button-main, html .download-btn {
   border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
 }
-html .back-button-main i, html .back-button-main .fa, html .back-button-main .fas, html .download-btn i, html .download-btn .fa, html .download-btn .fas {
+.back-button-main i, .back-button-main .fa, .back-button-main .fas, .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -870,7 +1418,7 @@ html .back-button-main i, html .back-button-main .fa, html .back-button-main .fa
   color: var(--bs-primary);
   z-index: 1;
 }
-html .back-button-main::before, html .download-btn::before {
+.back-button-main::before, .download-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -881,20 +1429,21 @@ html .back-button-main::before, html .download-btn::before {
   background-color: var(--bs-body-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html .back-button-main:hover, html .download-btn:hover {
+.back-button-main:hover, .download-btn:hover {
   border: 1px solid var(--bs-primary);
   border-radius: 2px;
 }
-html .back-button-main:hover i, html .back-button-main:hover .fa, html .back-button-main:hover .fas, html .download-btn:hover i, html .download-btn:hover .fa, html .download-btn:hover .fas {
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas, .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
-html .back-button-main:hover::before, html .download-btn:hover::before {
+.back-button-main:hover::before, .download-btn:hover::before {
   background-color: var(--bs-primary);
 }
-html .back-button-main:hover, html .download-btn:hover {
+.back-button-main:hover, .download-btn:hover {
   border: 1px solid var(--bs-primary);
 }
-html .plus {
+
+.plus {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -907,7 +1456,7 @@ html .plus {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
-html .plus i, html .plus .fa, html .plus .fas {
+.plus i, .plus .fa, .plus .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -915,7 +1464,7 @@ html .plus i, html .plus .fa, html .plus .fas {
   color: #fff;
   z-index: 1;
 }
-html .plus::before {
+.plus::before {
   content: "";
   position: absolute;
   top: 0;
@@ -926,71 +1475,24 @@ html .plus::before {
   background-color: var(--bs-primary);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html .plus:hover {
+.plus:hover {
   border: 2px solid #fff;
   border-radius: 2px;
 }
-html .plus:hover i, html .plus:hover .fa, html .plus:hover .fas {
+.plus:hover i, .plus:hover .fa, .plus:hover .fas {
   color: var(--bs-primary);
 }
-html .plus:hover::before {
+.plus:hover::before {
   background-color: #fff;
 }
-html .plus:hover {
+.plus:hover {
   box-shadow: none;
 }
-html .plus:hover {
+.plus:hover {
   border: 2px solid var(--bs-primary);
 }
-html .cook-meal-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-primary);
-  border-radius: 2px;
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-html .cook-meal-button i, html .cook-meal-button .fa, html .cook-meal-button .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  z-index: 1;
-}
-html .cook-meal-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-html .cook-meal-button:hover {
-  border: 2px solid #fff;
-  border-radius: 2px;
-}
-html .cook-meal-button:hover i, html .cook-meal-button:hover .fa, html .cook-meal-button:hover .fas {
-  color: var(--bs-primary);
-}
-html .cook-meal-button:hover::before {
-  background-color: #fff;
-}
-html .cook-meal-button:hover {
-  box-shadow: none;
-}
-html .cook-meal-button:hover {
-  border: 2px solid var(--bs-primary);
-}
-html .minus, html .remove-item-button {
+
+.cook-meal-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1000,18 +1502,17 @@ html .minus, html .remove-item-button {
   position: relative;
   border: 2px solid var(--bs-danger);
   border-radius: 2px;
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
+  /*border: 2px solid var(--bs-danger);*/
 }
-html .minus i, html .remove-item-button i, html .minus .fa, html .remove-item-button .fa, html .minus .fas, html .remove-item-button .fas {
+.cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
+  color: var(--bs-body-bg);
   z-index: 1;
 }
-html .minus::before, html .remove-item-button::before {
+.cook-meal-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1022,34 +1523,83 @@ html .minus::before, html .remove-item-button::before {
   background-color: var(--bs-danger);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html .minus:hover, html .remove-item-button:hover {
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.cook-meal-button:hover i, .cook-meal-button:hover .fa, .cook-meal-button:hover .fas {
+  color: var(--bs-danger);
+}
+.cook-meal-button:hover::before {
+  background-color: var(--bs-body-bg);
+}
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-danger);
+}
+
+.minus, .remove-item-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-danger);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.minus i, .remove-item-button i, .minus .fa, .remove-item-button .fa, .minus .fas, .remove-item-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+.minus::before, .remove-item-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.minus:hover, .remove-item-button:hover {
   border: 2px solid #fff;
   border-radius: 2px;
 }
-html .minus:hover i, html .remove-item-button:hover i, html .minus:hover .fa, html .remove-item-button:hover .fa, html .minus:hover .fas, html .remove-item-button:hover .fas {
+.minus:hover i, .remove-item-button:hover i, .minus:hover .fa, .remove-item-button:hover .fa, .minus:hover .fas, .remove-item-button:hover .fas {
   color: var(--bs-danger);
 }
-html .minus:hover::before, html .remove-item-button:hover::before {
+.minus:hover::before, .remove-item-button:hover::before {
   background-color: #fff;
 }
-html .minus:hover, html .remove-item-button:hover {
+.minus:hover, .remove-item-button:hover {
   box-shadow: none;
 }
-html .minus:hover, html .remove-item-button:hover {
+.minus:hover, .remove-item-button:hover {
   border: 2px solid var(--bs-danger);
 }
-html .nav-btn, html .nav-dropdown-btn {
+
+.nav-btn, .nav-dropdown-btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-html .nav-btn:hover {
+
+.nav-btn:hover {
   color: var(--bs-white) !important;
   border-color: var(--bs-dark) !important;
   background-color: var(--bs-primary) !important;
   transition: background-color 0.3s ease;
 }
-html .browse-recipes-btn, html .shopping-list-btn {
+
+.browse-recipes-btn, .shopping-list-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1057,7 +1607,8 @@ html .browse-recipes-btn, html .shopping-list-btn {
   justify-content: center;
   align-items: center;
 }
-html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button {
+
+.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1065,10 +1616,12 @@ html .edit-button, html .copy-mealplan-button, html .save-button, html .add-reci
   justify-content: center;
   align-items: center;
 }
-html .add-recipe-button {
+
+.add-recipe-button {
   width: 10rem;
 }
-html .delete-button {
+
+.delete-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1076,7 +1629,8 @@ html .delete-button {
   justify-content: center;
   align-items: center;
 }
-html .signup-button, html .learnmore-button {
+
+.signup-button, .learnmore-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1085,27 +1639,28 @@ html .signup-button, html .learnmore-button {
   align-items: center;
   width: 10rem !important;
 }
-html #main-container .search-btn {
+
+#main-container .search-btn {
   border: 1px solid var(--bs-primary) !important;
   font-weight: bolder;
   color: var(--bs-success) !important;
 }
-html #main-container .search-btn:hover {
+#main-container .search-btn:hover {
   border: 1px solid var(--bs-primary) !important;
 }
-html #main-container .btn-outline-danger {
+#main-container .btn-outline-danger {
   border: 1px solid var(--bs-danger);
 }
-html #main-container .btn-outline-danger:hover {
+#main-container .btn-outline-danger:hover {
   border: 1px solid var(--bs-danger);
 }
-html #main-container .btn-outline-primary {
+#main-container .btn-outline-primary {
   border: 1px solid var(--bs-primary);
 }
-html #main-container .btn-outline-primary:hover {
+#main-container .btn-outline-primary:hover {
   border: 1px solid var(--bs-primary);
 }
-html #main-container .pagination-btn {
+#main-container .pagination-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1117,7 +1672,7 @@ html #main-container .pagination-btn {
   border-radius: 2px;
   border: 1px solid var(--bs-primary) !important;
 }
-html #main-container .pagination-btn i, html #main-container .pagination-btn .fa, html #main-container .pagination-btn .fas {
+#main-container .pagination-btn i, #main-container .pagination-btn .fa, #main-container .pagination-btn .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1125,7 +1680,7 @@ html #main-container .pagination-btn i, html #main-container .pagination-btn .fa
   color: var(--bs-body-bg);
   z-index: 1;
 }
-html #main-container .pagination-btn::before {
+#main-container .pagination-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1136,17 +1691,17 @@ html #main-container .pagination-btn::before {
   background-color: var(--bs-primary);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html #main-container .pagination-btn:hover {
+#main-container .pagination-btn:hover {
   border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
 }
-html #main-container .pagination-btn:hover i, html #main-container .pagination-btn:hover .fa, html #main-container .pagination-btn:hover .fas {
+#main-container .pagination-btn:hover i, #main-container .pagination-btn:hover .fa, #main-container .pagination-btn:hover .fas {
   color: var(--bs-primary);
 }
-html #main-container .pagination-btn:hover::before {
+#main-container .pagination-btn:hover::before {
   background-color: var(--bs-body-bg);
 }
-html #main-container .btn-build {
+#main-container .btn-build {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1158,7 +1713,7 @@ html #main-container .btn-build {
   border-radius: 2px;
   border: 2px solid var(--bs-primary) !important;
 }
-html #main-container .btn-build i, html #main-container .btn-build .fa, html #main-container .btn-build .fas {
+#main-container .btn-build i, #main-container .btn-build .fa, #main-container .btn-build .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1166,7 +1721,7 @@ html #main-container .btn-build i, html #main-container .btn-build .fa, html #ma
   color: var(--bs-primary);
   z-index: 1;
 }
-html #main-container .btn-build::before {
+#main-container .btn-build::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1177,17 +1732,17 @@ html #main-container .btn-build::before {
   background-color: var(--bs-body-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html #main-container .btn-build:hover {
+#main-container .btn-build:hover {
   border: 2px solid var(--bs-primary);
   border-radius: 2px;
 }
-html #main-container .btn-build:hover i, html #main-container .btn-build:hover .fa, html #main-container .btn-build:hover .fas {
+#main-container .btn-build:hover i, #main-container .btn-build:hover .fa, #main-container .btn-build:hover .fas {
   color: var(--bs-body-bg);
 }
-html #main-container .btn-build:hover::before {
+#main-container .btn-build:hover::before {
   background-color: var(--bs-primary);
 }
-html #main-container .card-back-button {
+#main-container .card-back-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -1198,7 +1753,7 @@ html #main-container .card-back-button {
   border: 0px solid var(--bs-primary);
   border-radius: 2px;
 }
-html #main-container .card-back-button i, html #main-container .card-back-button .fa, html #main-container .card-back-button .fas {
+#main-container .card-back-button i, #main-container .card-back-button .fa, #main-container .card-back-button .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1206,7 +1761,7 @@ html #main-container .card-back-button i, html #main-container .card-back-button
   color: var(--bs-success);
   z-index: 1;
 }
-html #main-container .card-back-button::before {
+#main-container .card-back-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1217,23 +1772,23 @@ html #main-container .card-back-button::before {
   background-color: var(--bs-primary);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-html #main-container .card-back-button:hover {
+#main-container .card-back-button:hover {
   border: 0px solid var(--bs-success);
   border-radius: 2px;
 }
-html #main-container .card-back-button:hover i, html #main-container .card-back-button:hover .fa, html #main-container .card-back-button:hover .fas {
+#main-container .card-back-button:hover i, #main-container .card-back-button:hover .fa, #main-container .card-back-button:hover .fas {
   color: var(--bs-primary);
 }
-html #main-container .card-back-button:hover::before {
+#main-container .card-back-button:hover::before {
   background-color: var(--bs-success);
 }
-html #main-container .btn.close {
+#main-container .btn.close {
   color: var(--bs-success);
 }
-html #main-container .btn.close:hover {
+#main-container .btn.close:hover {
   color: var(--bs-white);
 }
-html #main-container .external-login-button {
+#main-container .external-login-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1245,18 +1800,18 @@ html #main-container .external-login-button {
   background-color: #f8f9fa;
   transition: background-color 0.3s, border-color 0.3s;
 }
-html #main-container .external-login-button:active {
+#main-container .external-login-button:active {
   background-color: #d6d8db;
 }
-html #main-container .external-login-button:hover {
+#main-container .external-login-button:hover {
   border: 1px solid var(--bs-body-color);
 }
-html #main-container .external-login-button .external-login-icon {
+#main-container .external-login-button .external-login-icon {
   width: 20px;
   height: 20px;
   vertical-align: middle;
 }
-html #main-container .external-login-button img {
+#main-container .external-login-button img {
   margin-right: 8px;
 }
 
@@ -1285,33 +1840,28 @@ html #main-container .external-login-button img {
   overflow: hidden;
   /*border: 1px solid var(--bs-primary);*/
   border: none;
+  border-radius: 2px;
   box-shadow: 0 0.3rem 0.6rem rgba(46, 105, 48, 0.03);
   transition: all 0.4s;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
   height: 13rem;
-  object-fit: cover;
   width: 100%;
+  object-fit: cover;
 }
 .recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-user-circle {
   position: absolute;
   top: 8px;
   left: 10px;
-  font-size: 24px;
   z-index: 2;
+  font-size: 24px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
-  display: inline-block;
   position: absolute;
-  bottom: 8px;
   right: 10px;
+  bottom: 8px;
   z-index: 2;
-}
-.recipe-container .recipe-card .image-container .add-to-mealplan-container .btn-icon-only {
-  position: relative;
-  display: inline-block;
-  transition: background-color 0.3s ease;
 }
 .recipe-container .recipe-card .card-body {
   background-color: var(--bs-body-bg) !important;
@@ -1335,7 +1885,6 @@ html #main-container .external-login-button img {
   margin-top: 0.25rem;
   margin-bottom: 0.125rem;
   text-decoration: underline;
-  transition: color 0.4s ease, background-color 0.4s ease;
 }
 .recipe-container .recipe-card .card-body .recipe-info {
   margin-top: 0.125rem;
@@ -1363,7 +1912,7 @@ html #main-container .external-login-button img {
 }
 .recipe-container .recipe-card:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(46, 105, 48, 0.2);
+  box-shadow: 0 0.6rem 1.2rem rgba(46, 105, 48, 0.1);
 }
 
 #admin-container {
@@ -1799,10 +2348,10 @@ html #main-container .external-login-button img {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button, #add-recipe .card .card-footer .buttons html .edit-button, #edit-recipe .card .card-footer .buttons html .edit-button, #recipe-details-container .card .card-footer .buttons html .edit-button, #meal-cook-container .card .card-footer .buttons html .edit-button, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button, html #add-recipe .card .card-footer .buttons .edit-button, #add-recipe html .card .card-footer .buttons .edit-button, html #edit-recipe .card .card-footer .buttons .edit-button, #edit-recipe html .card .card-footer .buttons .edit-button, html #recipe-details-container .card .card-footer .buttons .edit-button, #recipe-details-container html .card .card-footer .buttons .edit-button, html #meal-cook-container .card .card-footer .buttons .edit-button, #meal-cook-container html .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button, #add-recipe .card .card-footer .buttons html .copy-mealplan-button, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, html #add-recipe .card .card-footer .buttons .copy-mealplan-button, #add-recipe html .card .card-footer .buttons .copy-mealplan-button, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container html .card .card-footer .buttons .copy-mealplan-button, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container html .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons html .save-button, #add-recipe .card .card-footer .buttons html .save-button, #edit-recipe .card .card-footer .buttons html .save-button, #recipe-details-container .card .card-footer .buttons html .save-button, #meal-cook-container .card .card-footer .buttons html .save-button, html .card-custom-style-with-back-btn .card-footer .buttons .save-button, html #add-recipe .card .card-footer .buttons .save-button, #add-recipe html .card .card-footer .buttons .save-button, html #edit-recipe .card .card-footer .buttons .save-button, #edit-recipe html .card .card-footer .buttons .save-button, html #recipe-details-container .card .card-footer .buttons .save-button, #recipe-details-container html .card .card-footer .buttons .save-button, html #meal-cook-container .card .card-footer .buttons .save-button, #meal-cook-container html .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button, #add-recipe .card .card-footer .buttons html .add-recipe-button, #edit-recipe .card .card-footer .buttons html .add-recipe-button, #recipe-details-container .card .card-footer .buttons html .add-recipe-button, #meal-cook-container .card .card-footer .buttons html .add-recipe-button, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, html #add-recipe .card .card-footer .buttons .add-recipe-button, #add-recipe html .card .card-footer .buttons .add-recipe-button, html #edit-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe html .card .card-footer .buttons .add-recipe-button, html #recipe-details-container .card .card-footer .buttons .add-recipe-button, #recipe-details-container html .card .card-footer .buttons .add-recipe-button, html #meal-cook-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container html .card .card-footer .buttons .add-recipe-button {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button:hover, #add-recipe .card .card-footer .buttons html .edit-button:hover, #edit-recipe .card .card-footer .buttons html .edit-button:hover, #recipe-details-container .card .card-footer .buttons html .edit-button:hover, #meal-cook-container .card .card-footer .buttons html .edit-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, html #add-recipe .card .card-footer .buttons .edit-button:hover, #add-recipe html .card .card-footer .buttons .edit-button:hover, html #edit-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe html .card .card-footer .buttons .edit-button:hover, html #recipe-details-container .card .card-footer .buttons .edit-button:hover, #recipe-details-container html .card .card-footer .buttons .edit-button:hover, html #meal-cook-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container html .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, html #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #add-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container html .card .card-footer .buttons .copy-mealplan-button:hover, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container html .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .save-button:hover, #add-recipe .card .card-footer .buttons html .save-button:hover, #edit-recipe .card .card-footer .buttons html .save-button:hover, #recipe-details-container .card .card-footer .buttons html .save-button:hover, #meal-cook-container .card .card-footer .buttons html .save-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, html #add-recipe .card .card-footer .buttons .save-button:hover, #add-recipe html .card .card-footer .buttons .save-button:hover, html #edit-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe html .card .card-footer .buttons .save-button:hover, html #recipe-details-container .card .card-footer .buttons .save-button:hover, #recipe-details-container html .card .card-footer .buttons .save-button:hover, html #meal-cook-container .card .card-footer .buttons .save-button:hover, #meal-cook-container html .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button:hover, #add-recipe .card .card-footer .buttons html .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons html .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons html .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons html .add-recipe-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, html #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #add-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container html .card .card-footer .buttons .add-recipe-button:hover, html #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container html .card .card-footer .buttons .add-recipe-button:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -2050,10 +2599,10 @@ html #main-container .external-login-button img {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button, #add-recipe .card .card-footer .buttons html .edit-button, #edit-recipe .card .card-footer .buttons html .edit-button, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button, html #add-recipe .card .card-footer .buttons .edit-button, #add-recipe html .card .card-footer .buttons .edit-button, html #edit-recipe .card .card-footer .buttons .edit-button, #edit-recipe html .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons html .edit-button, html #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons html .edit-button, html #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button, #add-recipe .card .card-footer .buttons html .copy-mealplan-button, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, html #add-recipe .card .card-footer .buttons .copy-mealplan-button, #add-recipe html .card .card-footer .buttons .copy-mealplan-button, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons html .save-button, #add-recipe .card .card-footer .buttons html .save-button, #edit-recipe .card .card-footer .buttons html .save-button, html .card-custom-style-with-back-btn .card-footer .buttons .save-button, html #add-recipe .card .card-footer .buttons .save-button, #add-recipe html .card .card-footer .buttons .save-button, html #edit-recipe .card .card-footer .buttons .save-button, #edit-recipe html .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons html .save-button, html #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons html .save-button, html #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button, #add-recipe .card .card-footer .buttons html .add-recipe-button, #edit-recipe .card .card-footer .buttons html .add-recipe-button, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, html #add-recipe .card .card-footer .buttons .add-recipe-button, #add-recipe html .card .card-footer .buttons .add-recipe-button, html #edit-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe html .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons html .add-recipe-button, html #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons html .add-recipe-button, html #meal-cook-container .card .card-footer .buttons .add-recipe-button {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button:hover, #add-recipe .card .card-footer .buttons html .edit-button:hover, #edit-recipe .card .card-footer .buttons html .edit-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, html #add-recipe .card .card-footer .buttons .edit-button:hover, #add-recipe html .card .card-footer .buttons .edit-button:hover, html #edit-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe html .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons html .edit-button:hover, html #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons html .edit-button:hover, html #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, html #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #add-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .save-button:hover, #add-recipe .card .card-footer .buttons html .save-button:hover, #edit-recipe .card .card-footer .buttons html .save-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, html #add-recipe .card .card-footer .buttons .save-button:hover, #add-recipe html .card .card-footer .buttons .save-button:hover, html #edit-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe html .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons html .save-button:hover, html #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons html .save-button:hover, html #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button:hover, #add-recipe .card .card-footer .buttons html .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons html .add-recipe-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, html #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #add-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe html .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons html .add-recipe-button:hover, html #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons html .add-recipe-button:hover, html #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -2115,7 +2664,7 @@ html #main-container .external-login-button img {
   margin-bottom: 0;
 }
 #add-mealplan .name input.form-control, #details-mealplan .name input.form-control, #edit-mealplan .name input.form-control {
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem;
   border: none;
 }
 #add-mealplan .name input.form-control::placeholder, #details-mealplan .name input.form-control::placeholder, #edit-mealplan .name input.form-control::placeholder {
@@ -2148,7 +2697,7 @@ html #main-container .external-login-button img {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 #add-mealplan .name-suggestions .names-container .category-container .suggestion-category, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category {
@@ -2299,7 +2848,7 @@ html #main-container .external-login-button img {
 #add-mealplan #collapseSummary .stats-container, #details-mealplan #collapseSummary .stats-container, #edit-mealplan #collapseSummary .stats-container {
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 0.6rem;
 }
 #add-mealplan #collapseSummary .stats-container .stat-item, #details-mealplan #collapseSummary .stats-container .stat-item, #edit-mealplan #collapseSummary .stats-container .stat-item {
@@ -2369,7 +2918,7 @@ html #main-container .external-login-button img {
     font-size: 11px !important;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1043px) {
   .header-container {
     position: relative;
   }
@@ -2512,10 +3061,10 @@ html #main-container .external-login-button img {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button, #add-recipe .card .card-footer .buttons html .edit-button, #edit-recipe .card .card-footer .buttons html .edit-button, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button, html #add-recipe .card .card-footer .buttons .edit-button, #add-recipe html .card .card-footer .buttons .edit-button, html #edit-recipe .card .card-footer .buttons .edit-button, #edit-recipe html .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons html .edit-button, html #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons html .edit-button, html #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button, #add-recipe .card .card-footer .buttons html .copy-mealplan-button, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, html #add-recipe .card .card-footer .buttons .copy-mealplan-button, #add-recipe html .card .card-footer .buttons .copy-mealplan-button, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons html .save-button, #add-recipe .card .card-footer .buttons html .save-button, #edit-recipe .card .card-footer .buttons html .save-button, html .card-custom-style-with-back-btn .card-footer .buttons .save-button, html #add-recipe .card .card-footer .buttons .save-button, #add-recipe html .card .card-footer .buttons .save-button, html #edit-recipe .card .card-footer .buttons .save-button, #edit-recipe html .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons html .save-button, html #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons html .save-button, html #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button, #add-recipe .card .card-footer .buttons html .add-recipe-button, #edit-recipe .card .card-footer .buttons html .add-recipe-button, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, html #add-recipe .card .card-footer .buttons .add-recipe-button, #add-recipe html .card .card-footer .buttons .add-recipe-button, html #edit-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe html .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons html .add-recipe-button, html #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons html .add-recipe-button, html #meal-cook-container .card .card-footer .buttons .add-recipe-button {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons html .edit-button:hover, #add-recipe .card .card-footer .buttons html .edit-button:hover, #edit-recipe .card .card-footer .buttons html .edit-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, html #add-recipe .card .card-footer .buttons .edit-button:hover, #add-recipe html .card .card-footer .buttons .edit-button:hover, html #edit-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe html .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons html .edit-button:hover, html #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons html .edit-button:hover, html #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons html .copy-mealplan-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, html #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #add-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, html #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe html .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons html .copy-mealplan-button:hover, html #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .save-button:hover, #add-recipe .card .card-footer .buttons html .save-button:hover, #edit-recipe .card .card-footer .buttons html .save-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, html #add-recipe .card .card-footer .buttons .save-button:hover, #add-recipe html .card .card-footer .buttons .save-button:hover, html #edit-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe html .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons html .save-button:hover, html #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons html .save-button:hover, html #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons html .add-recipe-button:hover, #add-recipe .card .card-footer .buttons html .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons html .add-recipe-button:hover, html .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, html #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #add-recipe html .card .card-footer .buttons .add-recipe-button:hover, html #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe html .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons html .add-recipe-button:hover, html #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons html .add-recipe-button:hover, html #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -5770,7 +6319,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, html .browse-recipes-btn, html .shopping-list-btn, html .signup-button {
+.btn-primary, .browse-recipes-btn, .shopping-list-btn, .signup-button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -5787,7 +6336,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary, html .edit-button, html .copy-mealplan-button, html .save-button, html .add-recipe-button {
+.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #f8b324;
   --bs-btn-border-color: #f8b324;
@@ -5855,7 +6404,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #ffc107;
 }
 
-.btn-danger, html .delete-button {
+.btn-danger, .delete-button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #DA0505;
   --bs-btn-border-color: #DA0505;
@@ -5872,7 +6421,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #DA0505;
 }
 
-.btn-light, html .learnmore-button {
+.btn-light, .learnmore-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #FBE2B4;
   --bs-btn-border-color: #FBE2B4;

@@ -94,7 +94,7 @@ window.onload = function () {
 function updateRecipeBtns() {
     let userMealPlans = getUserLocalStorage() || [];
 
-    const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .btn');
+    const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .mealplan-toggle-btn');
 
     if (userHasMealPlans()) {
         userMealPlans = JSON.parse(userMealPlans);
