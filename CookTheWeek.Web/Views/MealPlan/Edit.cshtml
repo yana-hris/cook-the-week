@@ -97,6 +97,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <input type="hidden" asp-for="@Model.StartDate" />
                             <!-- For each -->
                             @if (Model.Meals.Count > 0)
                             {

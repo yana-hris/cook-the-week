@@ -54,13 +54,13 @@
 
 
         /// <inheritdoc/>
-        public async Task<Meal> GetByIdAsync(int mealId)
+        public async Task<Meal> GetByIdAsync(int id)
         {
-            Meal? meal = await mealRepository.GetByIdAsync(mealId);
+            Meal? meal = await mealRepository.GetByIdAsync(id);
 
             if (meal == null)
             {
-                logger.LogError($"Meal with id {mealId} not found in the database. Error occured in method {nameof(GetByIdAsync)} in MealService.");
+                logger.LogError($"Meal with id {id} not found in the database. Error occured in method {nameof(GetByIdAsync)} in MealService.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
             }
 
@@ -77,19 +77,19 @@
         }
 
         /// <inheritdoc/>
-        public async Task TryMarkAsCooked(int mealId)
+        public async Task TryMarkAsCooked(int id)
         {
-            Meal? meal = await mealRepository.GetByIdAsync(mealId);
+            Meal? meal = await mealRepository.GetByIdAsync(id);
 
             if (meal == null)
             {
-                logger.LogError($"Meal cooking failed. Meal with id {mealId} was not found in the database");
+                logger.LogError($"Marking meal as cooked failed. Meal with id {id} was not found in the database.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
             }
 
             if (meal.IsCooked)
             {
-                logger.LogError($"Meal cooking failed. Meal with id {mealId} is already cooked.");
+                logger.LogError($"Meal meal as cooked failed. Meal with id {id} is already cooked.");
                 throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidMealCookExceptionMessage);
             }
 
@@ -97,7 +97,28 @@
             await mealRepository.SaveChangesAsync();
         }
 
-        
+        /// <inheritdoc/>
+        public async Task TryMarkUncooked(int id)
+        {
+            Meal? meal = await mealRepository.GetByIdAsync(id);
+
+            if (meal == null)
+            {
+                logger.LogError($"Marking meal uncooked failed. Meal with id {id} was not found in the database.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealNotFoundExceptionMessage, null);
+            }
+
+            if (!meal.IsCooked)
+            {
+                logger.LogError($"Marking meal uncooked failed. Meal with id {id} is not cooked yet.");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.InvalidMealCookExceptionMessage);
+            }
+
+            meal.IsCooked= false;
+            await mealRepository.SaveChangesAsync();
+        }
+
+
         /// <inheritdoc/>
         public async Task SoftDeleteAllByRecipeIdAsync(Guid recipeId)
         {
@@ -129,6 +150,6 @@
                 .ToListAsync();
         }
 
-        
+       
     }
 }

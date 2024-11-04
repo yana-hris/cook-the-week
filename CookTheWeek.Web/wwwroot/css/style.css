@@ -6,45 +6,48 @@
   --card-label-text-color: #121706;
   --btn-secondary-hover-color: #2a2e1f;
 }
-:root * {
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-:root .no-scroll {
+
+.no-scroll {
   overflow: hidden !important;
 }
-:root body {
+
+body {
   position: relative;
   overflow: hidden;
   margin: 0 auto;
   background-color: var(--body-bg);
 }
-:root body #build-btn-container {
+body #build-btn-container {
   position: fixed;
   bottom: 54px;
   right: 30px;
   z-index: 10000;
 }
-:root body .subheading {
+body .subheading {
+  margin-bottom: 0.2rem;
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.65px;
-  margin-bottom: 0.2rem;
 }
-:root body .heading-secondary {
+body .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
   margin-bottom: 0.5rem;
 }
-:root body .accent-heading {
+body .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-:root body #pagination-buttons {
+body #pagination-buttons {
   bottom: 17px;
   right: 57px;
   z-index: 10000;
@@ -56,70 +59,80 @@ html {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
 }
-html body a {
+
+body {
+  position: relative;
+  margin: 0 auto;
+  background-color: var(--body-bg);
+}
+
+a {
   text-decoration: none;
   color: var(--bs-primary);
 }
-html body input.form-control, html body textarea.form-control, html body .form-select {
+
+input.form-control, textarea.form-control, .form-select {
   border: 1px solid var(--bs-primary);
   color: var(--bs-body-color);
   border-radius: 2px;
 }
-html body input.form-control:focus, html body textarea.form-control:focus, html body .form-select:focus {
+input.form-control:focus, textarea.form-control:focus, .form-select:focus {
   box-shadow: 0 0 0 0.125rem rgba(180, 227, 61, 0.3);
 }
-html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body .form-select::placeholder {
+input.form-control::placeholder, textarea.form-control::placeholder, .form-select::placeholder {
   font-size: 15px;
   color: var(--bs-body-color);
   opacity: 0.7;
 }
-html body .form-check-input {
+
+.form-check-input {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
-html body .form-check-input:checked {
+.form-check-input:checked {
   color: var(--bs-body-color);
   background-color: var(--bs-primary);
 }
-html body .form-check-input:focus {
+.form-check-input:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
 }
-html body #main-container {
+
+#main-container {
   margin: 0 auto;
   padding: 91px 12px;
   position: relative;
   overflow-y: auto;
   min-height: 100vh;
 }
-html body #main-container .pagination {
+#main-container .pagination {
   gap: 5px;
 }
-html body #main-container .input-group span.input-group-text {
+#main-container .input-group span.input-group-text {
   font-size: 0.9rem !important;
   font-weight: 500;
   background-color: var(--bs-primary);
   color: var(--bs-white);
   border: 1px solid var(--bs-primary);
 }
-html body #main-container span.small.text-danger {
+#main-container span.small.text-danger {
   display: block;
   text-align: start;
   font-size: 0.8rem;
   margin-left: 0.19rem;
 }
-html body #main-container .custom-link {
+#main-container .custom-link {
   color: var(--bs-primary) !important;
   text-decoration: underline;
 }
-html body #main-container .custom-link:hover {
+#main-container .custom-link:hover {
   color: var(--bs-success) !important;
   cursor: pointer;
   text-decoration: none;
 }
-html body #main-container .heading-container {
+#main-container .heading-container {
   margin-left: 2px;
 }
-html body #main-container .subheading {
+#main-container .subheading {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
@@ -127,41 +140,43 @@ html body #main-container .subheading {
   letter-spacing: 0.65px;
   margin-bottom: 0.1rem;
 }
-html body #main-container .heading-secondary {
+#main-container .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
   margin-bottom: 1rem;
 }
-html body #main-container .accent-heading {
+#main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-html body footer {
+
+footer {
   position: relative;
   z-index: 5000;
   font-weight: 300;
   font-size: 13px;
 }
-html body footer #links-container {
+footer #links-container {
   flex-direction: column;
 }
-html body footer #links-container .footer-padding {
+footer #links-container .footer-padding {
   padding: 1rem;
 }
-html body footer #links-container .footer-border {
+footer #links-container .footer-border {
   border: none;
 }
-html body footer #links-container a {
+footer #links-container a {
   text-decoration: none;
   color: var(--bs-white);
   cursor: pointer;
 }
-html body footer #links-container a:hover {
+footer #links-container a:hover {
   color: var(--bs-light) !important;
   text-decoration: underline;
 }
-html body .modal-dialog {
+
+.modal-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -341,503 +356,6 @@ html body .modal-dialog {
     font-size: 18px;
   }
 }
-.btn {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-}
-
-.btn-primary, .signup-button, .browse-recipes-btn, .shopping-list-btn {
-  border: 1px solid var(--bs-primary);
-  background-color: var(--bs-primary);
-  color: var(--bs-body-bg);
-}
-.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover {
-  border: 1px solid var(--bs-primary);
-  color: var(--bs-primary);
-  background-color: var(--bs-body-bg);
-}
-
-.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
-  border: 1px solid var(--bs-success);
-  color: var(--bs-primary);
-  background-color: var(--bs-success);
-}
-.btn-secondary:hover, .edit-button:hover, .copy-mealplan-button:hover, .save-button:hover, .add-recipe-button:hover {
-  border: 1px solid var(--bs-primary);
-  color: var(--bs-success);
-  background-color: var(--bs-primary);
-}
-
-.btn-danger, .delete-button {
-  border: 1px solid var(--bs-danger);
-  color: var(--bs-white);
-  background-color: var(--bs-danger);
-}
-.btn-danger:hover, .delete-button:hover {
-  border: 1px solid var(--bs-light);
-  color: var(--bs-danger);
-  background-color: var(--bs-light);
-}
-
-.btn-light, .learnmore-button {
-  color: var(--bs-dark);
-  background-color: var(--bs-light);
-  border: 1px solid var(--bs-light);
-}
-.btn-light:hover, .learnmore-button:hover {
-  color: var(--bs-light);
-  background-color: var(--bs-dark);
-  border: 1px solid var(--bs-dark);
-}
-
-.disabled {
-  opacity: 0.6 !important;
-}
-
-.fixed-size-btn, .cooked-icon, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .cook-meal-button, .plus, .back-button-main, .download-btn {
-  height: 40px;
-  width: 44px;
-  font-size: 22px;
-}
-
-.remove-btn-size, .remove-item-button {
-  height: 36px;
-  width: 36px;
-  font-size: 24px;
-}
-
-.card-btn-width, .signup-button, .learnmore-button, .delete-button, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .browse-recipes-btn, .shopping-list-btn {
-  width: 9rem;
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.back-button-main, .download-btn {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 1px solid var(--bs-body-bg);
-  border-radius: 2px;
-}
-.back-button-main i, .back-button-main .fa, .back-button-main .fas, .download-btn i, .download-btn .fa, .download-btn .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-primary);
-  z-index: 1;
-}
-.back-button-main::before, .download-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-body-bg);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-.back-button-main:hover, .download-btn:hover {
-  border: 1px solid var(--bs-primary);
-  border-radius: 2px;
-}
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas, .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
-  color: var(--bs-body-bg);
-}
-.back-button-main:hover::before, .download-btn:hover::before {
-  background-color: var(--bs-primary);
-}
-.back-button-main:hover, .download-btn:hover {
-  border: 1px solid var(--bs-primary);
-}
-
-.plus {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-primary);
-  border-radius: 2px;
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-.plus i, .plus .fa, .plus .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  z-index: 1;
-}
-.plus::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-.plus:hover {
-  border: 2px solid #fff;
-  border-radius: 2px;
-}
-.plus:hover i, .plus:hover .fa, .plus:hover .fas {
-  color: var(--bs-primary);
-}
-.plus:hover::before {
-  background-color: #fff;
-}
-.plus:hover {
-  box-shadow: none;
-}
-.plus:hover {
-  border: 2px solid var(--bs-primary);
-}
-
-.cook-meal-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-danger);
-  border-radius: 2px;
-  /*border: 2px solid var(--bs-danger);*/
-}
-.cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-body-bg);
-  z-index: 1;
-}
-.cook-meal-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-danger);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-.cook-meal-button:hover {
-  border: 2px solid var(--bs-body-bg);
-  border-radius: 2px;
-}
-.cook-meal-button:hover i, .cook-meal-button:hover .fa, .cook-meal-button:hover .fas {
-  color: var(--bs-danger);
-}
-.cook-meal-button:hover::before {
-  background-color: var(--bs-body-bg);
-}
-.cook-meal-button:hover {
-  border: 2px solid var(--bs-danger);
-}
-
-.minus, .remove-item-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-danger);
-  border-radius: 2px;
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-.minus i, .remove-item-button i, .minus .fa, .remove-item-button .fa, .minus .fas, .remove-item-button .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  z-index: 1;
-}
-.minus::before, .remove-item-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-danger);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-.minus:hover, .remove-item-button:hover {
-  border: 2px solid #fff;
-  border-radius: 2px;
-}
-.minus:hover i, .remove-item-button:hover i, .minus:hover .fa, .remove-item-button:hover .fa, .minus:hover .fas, .remove-item-button:hover .fas {
-  color: var(--bs-danger);
-}
-.minus:hover::before, .remove-item-button:hover::before {
-  background-color: #fff;
-}
-.minus:hover, .remove-item-button:hover {
-  box-shadow: none;
-}
-.minus:hover, .remove-item-button:hover {
-  border: 2px solid var(--bs-danger);
-}
-
-.nav-btn, .nav-dropdown-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.nav-btn:hover {
-  color: var(--bs-white) !important;
-  border-color: var(--bs-dark) !important;
-  background-color: var(--bs-primary) !important;
-  transition: background-color 0.3s ease;
-}
-
-.browse-recipes-btn, .shopping-list-btn {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.add-recipe-button {
-  width: 10rem;
-}
-
-.delete-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup-button, .learnmore-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 10rem !important;
-}
-
-#main-container .search-btn {
-  border: 1px solid var(--bs-primary) !important;
-  font-weight: bolder;
-  color: var(--bs-success) !important;
-}
-#main-container .search-btn:hover {
-  border: 1px solid var(--bs-primary) !important;
-}
-#main-container .btn-outline-danger {
-  border: 1px solid var(--bs-danger);
-}
-#main-container .btn-outline-danger:hover {
-  border: 1px solid var(--bs-danger);
-}
-#main-container .btn-outline-primary {
-  border: 1px solid var(--bs-primary);
-}
-#main-container .btn-outline-primary:hover {
-  border: 1px solid var(--bs-primary);
-}
-#main-container .pagination-btn {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 1px solid var(--bs-primary);
-  border-radius: 2px;
-  border: 1px solid var(--bs-primary) !important;
-}
-#main-container .pagination-btn i, #main-container .pagination-btn .fa, #main-container .pagination-btn .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-body-bg);
-  z-index: 1;
-}
-#main-container .pagination-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#main-container .pagination-btn:hover {
-  border: 1px solid var(--bs-body-bg);
-  border-radius: 2px;
-}
-#main-container .pagination-btn:hover i, #main-container .pagination-btn:hover .fa, #main-container .pagination-btn:hover .fas {
-  color: var(--bs-primary);
-}
-#main-container .pagination-btn:hover::before {
-  background-color: var(--bs-body-bg);
-}
-#main-container .btn-build {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-body-bg);
-  border-radius: 2px;
-  border: 2px solid var(--bs-primary) !important;
-}
-#main-container .btn-build i, #main-container .btn-build .fa, #main-container .btn-build .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-primary);
-  z-index: 1;
-}
-#main-container .btn-build::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-body-bg);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#main-container .btn-build:hover {
-  border: 2px solid var(--bs-primary);
-  border-radius: 2px;
-}
-#main-container .btn-build:hover i, #main-container .btn-build:hover .fa, #main-container .btn-build:hover .fas {
-  color: var(--bs-body-bg);
-}
-#main-container .btn-build:hover::before {
-  background-color: var(--bs-primary);
-}
-#main-container .card-back-button {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 0px solid var(--bs-primary);
-  border-radius: 2px;
-}
-#main-container .card-back-button i, #main-container .card-back-button .fa, #main-container .card-back-button .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-success);
-  z-index: 1;
-}
-#main-container .card-back-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#main-container .card-back-button:hover {
-  border: 0px solid var(--bs-success);
-  border-radius: 2px;
-}
-#main-container .card-back-button:hover i, #main-container .card-back-button:hover .fa, #main-container .card-back-button:hover .fas {
-  color: var(--bs-primary);
-}
-#main-container .card-back-button:hover::before {
-  background-color: var(--bs-success);
-}
-#main-container .btn.close {
-  color: var(--bs-success);
-}
-#main-container .btn.close:hover {
-  color: var(--bs-white);
-}
-#main-container .external-login-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  text-align: center;
-  text-decoration: none;
-  background-color: #f8f9fa;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-#main-container .external-login-button:active {
-  background-color: #d6d8db;
-}
-#main-container .external-login-button:hover {
-  border: 1px solid var(--bs-body-color);
-}
-#main-container .external-login-button .external-login-icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-}
-#main-container .external-login-button img {
-  margin-right: 8px;
-}
-
-@media (min-width: 992px) {
-  #build-btn-container {
-    position: fixed;
-    right: 20px !important;
-    bottom: 10px !important;
-  }
-}
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
@@ -851,37 +369,6 @@ html body .modal-dialog {
 }
 .not-liked-icon:hover {
   color: red;
-}
-
-.cooked-icon {
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 2px solid var(--bs-primary);
-  border-radius: 2px;
-}
-.cooked-icon i, .cooked-icon .fa, .cooked-icon .fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--bs-body-bg);
-  z-index: 1;
-}
-.cooked-icon::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: var(--bs-primary);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .fa-user-circle {
@@ -1334,12 +821,12 @@ nav #nav-container .collapsed .bottom-bar {
   transition: all 0.3s ease-in;
 }
 
-.btn-primary, .browse-recipes-btn, .shopping-list-btn, .signup-button {
+.btn-primary, .signup-button, .browse-recipes-btn, .shopping-list-btn {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-.btn-primary:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover, .signup-button:hover {
+.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
@@ -1382,7 +869,7 @@ nav #nav-container .collapsed .bottom-bar {
   opacity: 0.6 !important;
 }
 
-.fixed-size-btn, .back-button-main, .download-btn, .plus, .cook-meal-button, .minus, .remove-item-button, #main-container .pagination-btn, #main-container .btn-build, #main-container .card-back-button, .cooked-icon {
+.fixed-size-btn, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .uncook-meal-button, .cook-meal-button, .plus, .back-button-main, .download-btn {
   height: 40px;
   width: 44px;
   font-size: 22px;
@@ -1394,7 +881,7 @@ nav #nav-container .collapsed .bottom-bar {
   font-size: 24px;
 }
 
-.card-btn-width, .browse-recipes-btn, .shopping-list-btn, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .delete-button, .signup-button, .learnmore-button {
+.card-btn-width, .signup-button, .learnmore-button, .delete-button, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .browse-recipes-btn, .shopping-list-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
@@ -1505,7 +992,6 @@ nav #nav-container .collapsed .bottom-bar {
   position: relative;
   border: 2px solid var(--bs-danger);
   border-radius: 2px;
-  /*border: 2px solid var(--bs-danger);*/
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -1538,6 +1024,51 @@ nav #nav-container .collapsed .bottom-bar {
 }
 .cook-meal-button:hover {
   border: 2px solid var(--bs-danger);
+}
+
+.uncook-meal-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+  border: 2px solid var(--bs-primary);
+}
+.uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+.uncook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.uncook-meal-button:hover {
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.uncook-meal-button:hover i, .uncook-meal-button:hover .fa, .uncook-meal-button:hover .fas {
+  color: var(--bs-primary);
+}
+.uncook-meal-button:hover::before {
+  background-color: var(--bs-body-bg);
+}
+.uncook-meal-button:hover {
+  border: 2px solid var(--bs-primary) !important;
 }
 
 .minus, .remove-item-button {

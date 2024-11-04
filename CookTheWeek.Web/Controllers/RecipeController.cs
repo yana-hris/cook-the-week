@@ -77,17 +77,23 @@
         [HttpPost]
         public async Task<IActionResult> Add(RecipeAddFormModel model)
         {
-            string redirectUrl;
+            if (model == null)
+            {
+                return HandleException(new ArgumentNullException(nameof(model)), nameof(Add));
+            }
 
             try
             {
-                model = await this.recipeViewModelFactory.PopulateRecipeFormModelAsync(model) as RecipeAddFormModel;
+                model = (RecipeAddFormModel) await recipeViewModelFactory.PopulateRecipeFormModelAsync(model);
                 
+                if (model == null)
+                {
+                    return HandleException(new InvalidOperationException("Failed to populate RecipeAddFormModel."), nameof(Add));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return HandleException(ex, nameof(Add));
             }
 
             if (!ModelState.IsValid)
@@ -112,7 +118,7 @@
                     return RedirectToAddViewWithModelErrors(model);
                 }
             }
-            catch (Exception ex) // Handle ArgumentNull, InvalidCast and all other exceptions but deliver message
+            catch (Exception ex) 
             {
                 return HandleException(ex, nameof(Add), null);
             }
@@ -164,6 +170,15 @@
                 logger.LogError("Unsuccessful model binding from ko.JSON to RecipeEditFormModel");
                 TempData[ErrorMessage] = "Error: please try again!";
                 return BadRequest(new { success = false});
+            }
+
+            try
+            {
+                model = (RecipeEditFormModel)await recipeViewModelFactory.PopulateRecipeFormModelAsync(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Edit), model.Id);
             }
 
             if (!ModelState.IsValid)
@@ -345,11 +360,13 @@
         /// <returns></returns>
         private IActionResult HandleException(Exception ex, string actionName, Guid? recipeId = null)
         {
+            // Log the full exception details for internal reference
             var recipeIdInfo = recipeId != default ? $"Recipe ID: {recipeId.ToString()}" : "No Recipe ID";
             logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {recipeIdInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
 
-            // Redirect to the internal server error page with the exception message
-            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+            // Redirect to a custom error page with a generic error message
+            string userFriendlyMessage = "An unexpected error occurred. Please try again later.";
+            return RedirectToAction("InternalServerError", "Home", new { message = userFriendlyMessage });
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@import 'btn-style';
-
+﻿
 // like icon styling
 .liked-icon {
     color: red;
@@ -17,10 +16,6 @@
     }
 }
 
-.cooked-icon {
-    @include icon-button(var(--bs-primary), var(--bs-body-bg), 2px, false);
-    @extend .fixed-size-btn;
-}
 // owned recipe style
 .fa-user-circle {
     color: var(--bs-success);

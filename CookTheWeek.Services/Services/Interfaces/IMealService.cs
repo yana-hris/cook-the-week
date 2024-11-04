@@ -20,10 +20,10 @@
         /// <summary>
         /// Gets the Meal (including all its ingredients) by a given id or throws an Exception
         /// </summary>
-        /// <param name="mealId"></param>
+        /// <param name="id"></param>
         /// <returns>Meal</returns>
         /// <exception cref="RecordNotFoundException"></exception>
-        Task<Meal> GetByIdAsync(int mealId);
+        Task<Meal> GetByIdAsync(int id);
 
 
         /// <summary>
@@ -43,8 +43,15 @@
         /// <summary>
         /// Marks a meal as cooked
         /// </summary>
-        /// <param name="mealId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task TryMarkAsCooked(int mealId);
+        Task TryMarkAsCooked(int id);
+
+        /// <summary>
+        /// Unmarks a meal as cooked
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task TryMarkUncooked(int id);
     }
 }

@@ -15,8 +15,7 @@
     using static CookTheWeek.Common.NotificationMessagesConstants;
     using static CookTheWeek.Common.TempDataConstants;
     using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
-    using System.Text;
-    using CookTheWeek.Web.ViewModels.Meal;
+    using CookTheWeek.Common.HelperMethods;
 
     public class MealPlanController : BaseController
     {
@@ -204,7 +203,7 @@
                    
                     if (hasDeletedRecipes)
                     {
-                        TempData[MissingRecipesMessage] = "Some recipes in your meal plan could not be found and will be removed.";
+                        TempData[MissingRecipesMessage] = MissingRecipesMessageText;
                     }
                        
                     // Store the model in TempData for the next request
@@ -267,6 +266,11 @@
         {
             SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
 
+            if (model == null || model.StartDate == default)
+            {
+                return HandleException(new ArgumentNullException(nameof(model)), nameof(Edit));
+            }
+            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);      
 
             if (!ModelState.IsValid)
             {
@@ -290,7 +294,7 @@
             }
             catch (Exception ex)
             {
-                HandleException(ex, nameof(Edit), model.Id);
+                return HandleException(ex, nameof(Edit), model.Id);
             }
 
             TempData[SuccessMessage] = MealPlanSuccessfulEditMessage;
@@ -336,9 +340,10 @@
         {
             var mealPlanInfo = mealPlanId != default ? $"Mealplan ID: {mealPlanId.ToString()}" : "No mealplan ID";
             logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, {mealPlanInfo}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
-
-            // Redirect to the internal server error page with the exception message
-            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+                        
+            // Redirect to a custom error page with a generic error message
+            string userFriendlyMessage = "An unexpected error occurred. Please try again later.";
+            return RedirectToAction("InternalServerError", "Home", new { message = userFriendlyMessage });
         }
 
         // Helper method for logging and returning bad request

@@ -162,16 +162,23 @@
 
 .cook-meal-button {
     @include icon-button(var(--bs-danger), var(--bs-body-bg), 2px);
-    //@include button-box-shadow-effect();
     @extend .fixed-size-btn;
-    /*border: 2px solid var(--bs-danger);*/
 
     &:hover {
         border: 2px solid var(--bs-danger);
     }
 }
 
-    
+
+.uncook-meal-button { //.cooked-icon
+    @include icon-button(var(--bs-primary), var(--bs-body-bg), 2px);
+    @extend .fixed-size-btn;
+    border: 2px solid var(--bs-primary);
+
+    &:hover {
+        border: 2px solid var(--bs-primary) !important;
+    }
+}
 
 .minus {
     @include icon-button(var(--bs-danger), #fff, 2px);

@@ -94,27 +94,26 @@
 
                                 <td class="align-middle text-end">
                                     <div class="button-container">
+                                        <!-- Cook / Uncook Button -->
                                         @if (isCurrentMealDeleted)
                                         {
-                                            <!-- Cooked Icon -->
-                                            <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
-                                                <i class="fa-solid fa-calendar-check inactive"></i>
-                                            </span>
+                                            <button class="meal-button uncook-meal-button disabled">
+                                                <i class="fa-solid fa-calendar-check"></i>
+                                            </button>
                                         }
                                         else
                                         {
                                             @if (!currentMeal.IsCooked)
                                             {
-                                                <button class="cook-meal-button" onclick="cookMeal(event, '@currentMeal.Id')" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
+                                                <button class="meal-button cook-meal-button" data-meal-id="@currentMeal.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
                                                     <i class="fa-solid fa-calendar-xmark"></i>
                                                 </button>
                                             }
                                             else
                                             {
-                                                <!-- Cooked Icon -->
-                                                <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                                                <button class="meal-button uncook-meal-button" data-meal-id="@currentMeal.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark Uncooked">
                                                     <i class="fa-solid fa-calendar-check"></i>
-                                                </span>
+                                                </button>
                                             }
                                         }
 
@@ -277,9 +276,38 @@
                     $('#confirmDeleteModal').modal('hide');
                 }
             });
+
+            // Initialize tooltips for all meal buttons once
+            $('[data-bs-toggle="tooltip"]').tooltip();
+
+            $('.meal-button').each(function () {
+                debugger;
+                const $button = $(this);
+                const mealId = $button.data('meal-id');
+                console.log(`Meal Id: ${mealId}`);
+                $button.off('click');
+
+                if ($button.hasClass('cook-meal-button')) {
+                    // Attach cookMeal event
+                    $button.on('click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        cookMeal($button, mealId);
+                    });
+                } else if ($button.hasClass('uncook-meal-button')) {
+                    // Attach unCookMeal event
+                    $button.on('click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        unCookMeal($button, mealId);
+                    });
+                }
+            });
         });
     </script>
-    <script src="~/js/cookMeal.js"></script>
+    <script src="~/js/mealFunctions.js"></script>
 }
 
 

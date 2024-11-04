@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CookTheWeek.Data.Repositories")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+385a69c3de2a276d6cc786864da69c0768a0d8d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26a0f6671e9e719399995de2b16a708b216e3aa1")]
 [assembly: System.Reflection.AssemblyProductAttribute("CookTheWeek.Data.Repositories")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CookTheWeek.Data.Repositories")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

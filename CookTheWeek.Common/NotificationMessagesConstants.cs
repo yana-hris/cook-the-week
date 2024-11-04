@@ -11,6 +11,7 @@
 
         public const string SuccessfulEmailSentMessage = "Thank you for your message. We will get back to you soon.";
         public const string UnsuccessfulEmailSentMessage = "Error sending email. Please try again later.";
+        public const string MissingRecipesMessageText = "Some recipes in your meal plan could not be found and will be removed.";
     }
 
     public static class TempDataConstants
