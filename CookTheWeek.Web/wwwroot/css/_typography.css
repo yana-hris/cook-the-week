@@ -10,6 +10,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root .no-scroll {
+  overflow: hidden !important;
+}
 :root body {
   position: relative;
   overflow: hidden;
@@ -18,8 +21,8 @@
 }
 :root body #build-btn-container {
   position: fixed;
-  bottom: 24px;
-  right: 10px;
+  bottom: 54px;
+  right: 30px;
   z-index: 10000;
 }
 :root body .subheading {
@@ -47,10 +50,10 @@
 }
 
 html {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
   position: relative;
   min-height: 100%;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
 }
 html body a {
   text-decoration: none;

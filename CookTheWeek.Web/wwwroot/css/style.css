@@ -11,6 +11,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root .no-scroll {
+  overflow: hidden !important;
+}
 :root body {
   position: relative;
   overflow: hidden;
@@ -19,8 +22,8 @@
 }
 :root body #build-btn-container {
   position: fixed;
-  bottom: 24px;
-  right: 10px;
+  bottom: 54px;
+  right: 30px;
   z-index: 10000;
 }
 :root body .subheading {
@@ -48,10 +51,10 @@
 }
 
 html {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
   position: relative;
   min-height: 100%;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
 }
 html body a {
   text-decoration: none;
@@ -3461,7 +3464,7 @@ nav #nav-container .collapsed .bottom-bar {
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
   --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0;
+  --bs-border-radius: 2px;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
   --bs-border-radius-xl: 1rem;
@@ -8963,7 +8966,7 @@ textarea.form-control-lg {
   color: var(--bs-btn-close-color);
   background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
   border: 0;
-  border-radius: 0;
+  border-radius: 2px;
   opacity: var(--bs-btn-close-opacity);
 }
 .btn-close:hover {

@@ -105,6 +105,8 @@
                                     var currentMeal = Model.Meals[i];
 
                                     <tr class="meal-row">
+                                        <!-- Hidden input for meal ID -->
+                                        <input type="hidden" asp-for="Meals[i].Id" />
                                         <td scope="row" class="border-0">
                                             <div class="meal-info">
                                                 <div class="meal-image">

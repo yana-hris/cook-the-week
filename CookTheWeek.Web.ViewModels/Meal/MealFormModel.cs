@@ -1,9 +1,7 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Meal
 {
     using System.ComponentModel.DataAnnotations;
-
-    using Common.HelperMethods;
-
+    
     using static Common.EntityValidationConstants.MealValidation;
     using static Common.EntityValidationConstants.RecipeValidation;
 
@@ -11,7 +9,7 @@
     {
         public MealFormModel()
         {
-            this.SelectDates = DateGenerator.GenerateNext7Days();
+            this.SelectDates = new string[7];
             this.SelectServingOptions = ServingsOptions;
         }
 
