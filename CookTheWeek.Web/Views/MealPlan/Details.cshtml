@@ -27,7 +27,7 @@
     }
 }
 
-<div id="details-mealplan" class="image-overlay food-background">    
+<div id="details-mealplan">    
     <div class="card-outer-container">
         <div class="header-container">
             <partial name="_HeadingPartial" model="headingModel" />
@@ -97,7 +97,7 @@
                                         <!-- Cook / Uncook Button -->
                                         @if (isCurrentMealDeleted)
                                         {
-                                            <button class="meal-button uncook-meal-button disabled">
+                                            <button class="meal-button uncook-meal-button disabled" disabled>
                                                 <i class="fa-solid fa-calendar-check"></i>
                                             </button>
                                         }
@@ -284,7 +284,6 @@
                 debugger;
                 const $button = $(this);
                 const mealId = $button.data('meal-id');
-                console.log(`Meal Id: ${mealId}`);
                 $button.off('click');
 
                 if ($button.hasClass('cook-meal-button')) {

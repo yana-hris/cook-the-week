@@ -12,229 +12,232 @@
         HeadingSecondary = Model.Title
     };
 }
-<partial name="_BuildBtnPartial" />
-<div id="recipe-details-container" class="image-overlay food-background">
+<div id="recipe-details-container">
+    <partial name="_BuildBtnPartial" />
+    
     <div class="card-outer-container">
-        <partial name="_HeadingPartial" model="headingModel" class="mb-2" />
-        @Html.AntiForgeryToken()
-        <div class="card">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Info</a></li>
-                    <li class="nav-item"><a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</a></li>
-                    <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
-                </ul>
-                <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="card-back-button">
-                    <i class="fa-solid fa-angles-left"></i>
-                </a>
-            </div>
+            <partial name="_HeadingPartial" model="headingModel" class="mb-2" />
+            @Html.AntiForgeryToken()
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Info</a></li>
+                        <li class="nav-item"><a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</a></li>
+                        <li class="nav-item"><a class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</a></li>
+                    </ul>
+                    <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="card-back-button">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </a>
+                </div>
 
-            <div class="card-body p-0" id="recipe-details">
-                <div id="info-content" class="tab-content g-3">
-                    <div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="info-tab">
-                        <div class="row g-0">
-                            <div class="col-12">
-                                <div class="img-container">
-                                    <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
-                                    @if (Model.IsSiteRecipe && !isAdmin)
-                                    {
-                                        <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
-                                            @if (Model.IsLikedByUser)
-                                            {
-                                                <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="fas fa-heart not-liked-icon" data-toggle="tooltip" title="Add to Favorites"></i>
-                                            }
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        if (!isAdmin)
+                <div class="card-body p-0" id="recipe-details">
+                    <div id="info-content" class="tab-content g-3">
+                        <div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="info-tab">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <div class="img-container">
+                                        <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
+                                        @if (Model.IsSiteRecipe && !isAdmin)
                                         {
-                                            <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
-                                        }
-                                    }
-                                    @if (userId != default && !isAdmin)
-                                    {
-                                        <div class="add-to-mealplan-container">
-                                            <a data-recipeId="@Model.Id" class="mealplan-toggle-btn plus">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
+                                                @if (Model.IsLikedByUser)
+                                                {
+                                                    <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fas fa-heart not-liked-icon" data-toggle="tooltip" title="Add to Favorites"></i>
+                                                }
                                             </a>
-                                        </div>
-                                    }
+                                        }
+                                        else
+                                        {
+                                            if (!isAdmin)
+                                            {
+                                                <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                                            }
+                                        }
+                                        @if (userId != default && !isAdmin)
+                                        {
+                                            <div class="add-to-mealplan-container">
+                                                <a data-recipeId="@Model.Id" class="mealplan-toggle-btn plus">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 features-row">
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-list"></i>
-                                </span>
-                                <span class="list-item-content">@Model.CategoryName</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-utensils"></i>
-                                </span>
-                                <span class="list-item-content">For @Model.Servings</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-hourglass-start"></i>
-                                </span>
-                                <span class="list-item-content">Ready in @Model.TotalTime</span>
-                            </div>
-
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-calendar-plus"></i>
-                                </span>
-                                <span class="list-item-content">On @Model.CreatedOn</span>
-                            </div>
-
-                            @if (!Model.IsSiteRecipe)
-                            {
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 features-row">
                                 <div class="col d-flex align-items-center">
                                     <span class="icon-container me-2">
-                                        <i class="fa-solid fa-at"></i>
+                                        <i class="fa-solid fa-list"></i>
                                     </span>
-                                    @if (!isAdmin)
-                                    {
-                                        <span class="list-item-content">By you</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="list-item-content">By @Model.CreatedBy</span>
-                                    }
-
+                                    <span class="list-item-content">@Model.CategoryName</span>
                                 </div>
-                            }
-                            else
-                            {
                                 <div class="col d-flex align-items-center">
                                     <span class="icon-container me-2">
-                                        <i class="fa-solid fa-heart"></i>
+                                        <i class="fa-solid fa-utensils"></i>
                                     </span>
-                                    @if (Model.LikesCount == 1)
-                                    {
-                                        <span class="list-item-content">By @Model.LikesCount user</span>
-                                    }
-                                    else if (Model.LikesCount > 1)
-                                    {
-                                        <span class="list-item-content">By @Model.LikesCount users</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="list-item-content">Be the first to like</span>
-                                    }
-
+                                    <span class="list-item-content">For @Model.Servings</span>
                                 </div>
-                            }
+                                <div class="col d-flex align-items-center">
+                                    <span class="icon-container me-2">
+                                        <i class="fa-solid fa-hourglass-start"></i>
+                                    </span>
+                                    <span class="list-item-content">Ready in @Model.TotalTime</span>
+                                </div>
 
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-bowl-rice"></i>
-                                </span>
-                                @if (Model.CookedCount > 0)
+                                <div class="col d-flex align-items-center">
+                                    <span class="icon-container me-2">
+                                        <i class="fa-solid fa-calendar-plus"></i>
+                                    </span>
+                                    <span class="list-item-content">On @Model.CreatedOn</span>
+                                </div>
+
+                                @if (!Model.IsSiteRecipe)
                                 {
-                                    <span class="list-item-content">@Model.CookedCount times cooked</span>
+                                    <div class="col d-flex align-items-center">
+                                        <span class="icon-container me-2">
+                                            <i class="fa-solid fa-at"></i>
+                                        </span>
+                                        @if (!isAdmin)
+                                        {
+                                            <span class="list-item-content">By you</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="list-item-content">By @Model.CreatedBy</span>
+                                        }
+
+                                    </div>
                                 }
                                 else
                                 {
-                                    <span class="list-item-content">Be the first to cook</span>
-                                }
-                            </div>
-
-                        </div>
-                        <div class="row mt-2 mb-4">
-                            <div class="newspaper-column">
-                                <p class="recipe-description">@Model.Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="ingredients" class="tab-pane fade" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <div class="row p-2 g-1">
-
-                            @foreach (var category in Model.RecipeIngredientsByCategories)
-                            {
-                                if (category.SupplyItems.Count > 0)
-                                {
-                                    <div class="col col-12 col-sm-6 col-lg-4">
-                                        <p class="ingredient-heading">@category.Title</p>
-                                        <ul class="list-unstyled">
-                                            @foreach (var item in category.SupplyItems)
-                                            {
-                                                <li>@Html.Raw(item.Qty) <span class="units-styler">@item.Measure</span> @item.Name <span class="units-styler">@item.Specification</span></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                }
-                            }
-
-                        </div>
-                    </div>
-                    <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row py-4">
-                            <div class="col">
-                                @for (int i = 0; i < Model.Steps.Count; i++)
-                                {
-                                    string currentStepText = Model.Steps[i].Description;
-                                    <div class="row mb-2 d-flex align-items-start">
-                                        @if (i > 0)
+                                    <div class="col d-flex align-items-center">
+                                        <span class="icon-container me-2">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </span>
+                                        @if (Model.LikesCount == 1)
                                         {
-                                            <hr class="steps-delimeter" />
+                                            <span class="list-item-content">By @Model.LikesCount user</span>
                                         }
-                                        <div class="col-auto">
-                                            <div class="step-number">@(i + 1)</div>
-                                        </div>
-                                        <div class="col">@currentStepText</div>
+                                        else if (Model.LikesCount > 1)
+                                        {
+                                            <span class="list-item-content">By @Model.LikesCount users</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="list-item-content">Be the first to like</span>
+                                        }
+
                                     </div>
                                 }
+
+                                <div class="col d-flex align-items-center">
+                                    <span class="icon-container me-2">
+                                        <i class="fa-solid fa-bowl-rice"></i>
+                                    </span>
+                                    @if (Model.CookedCount > 0)
+                                    {
+                                        <span class="list-item-content">@Model.CookedCount times cooked</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="list-item-content">Be the first to cook</span>
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="row mt-2 mb-4">
+                                <div class="newspaper-column">
+                                    <p class="recipe-description">@Model.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ingredients" class="tab-pane fade" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <div class="row p-2 g-1">
+
+                                @foreach (var category in Model.RecipeIngredientsByCategories)
+                                {
+                                    if (category.SupplyItems.Count > 0)
+                                    {
+                                        <div class="col col-12 col-sm-6 col-lg-4">
+                                            <p class="ingredient-heading">@category.Title</p>
+                                            <ul class="list-unstyled">
+                                                @foreach (var item in category.SupplyItems)
+                                                {
+                                                    <li>@Html.Raw(item.Qty) <span class="units-styler">@item.Measure</span> @item.Name <span class="units-styler">@item.Specification</span></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                        <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
+                            <div class="row py-4">
+                                <div class="col">
+                                    @for (int i = 0; i < Model.Steps.Count; i++)
+                                    {
+                                        string currentStepText = Model.Steps[i].Description;
+                                        <div class="row mb-2 d-flex align-items-start">
+                                            @if (i > 0)
+                                            {
+                                                <hr class="steps-delimeter" />
+                                            }
+                                            <div class="col-auto">
+                                                <div class="step-number">@(i + 1)</div>
+                                            </div>
+                                            <div class="col">@currentStepText</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (isAdmin || !Model.IsSiteRecipe)
+                {
+                    <div class="card-footer">
+                        <div class="col text-center">
+                            <div class="buttons">
+                                <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/Recipe/Details/@Model.Id" class="edit-button" type="button">
+                                    Edit
+                                </a>
+                                <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-recipe-id="@Model.Id" class="delete-button" type="button">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Modal HTML -->
+            <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content text-center">
+                        <div class="modal-body d-flex flex-column aling-items-center justify-content-center gap-2">
+                            <span><i class="fa-solid fa-triangle-exclamation"></i></span>
+                            <h2>Are you sure?</h2>
+                            <p>This action cannot be undone. </p>
+                            <div class="buttons d-flex flex-column gap-2">
+                                <a asp-area="" asp-controller="Recipe" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-danger w-100 text-center">
+                                    Delete
+                                </a>
+                                <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @if (isAdmin || !Model.IsSiteRecipe)
-            {
-                <div class="card-footer">
-                    <div class="col text-center">
-                        <div class="buttons">
-                            <a asp-area="" asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/Recipe/Details/@Model.Id" class="edit-button" type="button">
-                                Edit
-                            </a>
-                            <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-recipe-id="@Model.Id" class="delete-button" type="button">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
-        
-        <!-- Modal HTML -->
-        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content text-center">
-                    <div class="modal-body d-flex flex-column aling-items-center justify-content-center gap-2">
-                        <span><i class="fa-solid fa-triangle-exclamation"></i></span>
-                        <h2>Are you sure?</h2>
-                        <p>This action cannot be undone. </p>
-                        <div class="buttons d-flex flex-column gap-2">
-                            <a asp-area="" asp-controller="Recipe" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-danger w-100 text-center">
-                                Delete
-                            </a>
-                            <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
+
 
 @section Scripts {
     <script src="~/js/recipeLikes.js"></script>

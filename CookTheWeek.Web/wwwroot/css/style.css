@@ -13,21 +13,24 @@
   box-sizing: border-box;
 }
 
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 .no-scroll {
   overflow: hidden !important;
 }
 
 body {
   position: relative;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto;
   margin: 0 auto;
   background-color: var(--body-bg);
-}
-body #build-btn-container {
-  position: fixed;
-  bottom: 54px;
-  right: 30px;
-  z-index: 10000;
 }
 body .subheading {
   margin-bottom: 0.2rem;
@@ -46,11 +49,6 @@ body .heading-secondary {
 }
 body .accent-heading {
   font-family: "Libre Baskerville", serif;
-}
-body #pagination-buttons {
-  bottom: 17px;
-  right: 57px;
-  z-index: 10000;
 }
 
 html {
@@ -108,11 +106,13 @@ input.form-control::placeholder, textarea.form-control::placeholder, .form-selec
   gap: 5px;
 }
 #main-container .input-group span.input-group-text {
+  padding: 0.5rem 1rem;
   font-size: 0.9rem !important;
   font-weight: 500;
   background-color: var(--bs-primary);
   color: var(--bs-white);
   border: 1px solid var(--bs-primary);
+  border-radius: 2px;
 }
 #main-container span.small.text-danger {
   display: block;
@@ -222,12 +222,6 @@ footer #links-container a:hover {
     padding: 0 2rem !important;
   }
 }
-@media (min-width: 992px) {
-  #pagination-buttons {
-    bottom: 18px !important;
-    right: 69px !important;
-  }
-}
 @media (min-width: 1200px) {
   html {
     font-size: 16px !important;
@@ -257,6 +251,18 @@ footer #links-container a:hover {
   overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -286,6 +292,8 @@ footer #links-container a:hover {
   margin: 0 auto;
   padding: 1.5rem !important;
   background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -298,11 +306,12 @@ footer #links-container a:hover {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -1349,11 +1358,30 @@ nav #nav-container .collapsed .bottom-bar {
   margin-right: 8px;
 }
 
+#pagination-buttons {
+  position: fixed;
+  bottom: 17px;
+  right: 57px;
+  z-index: 10000;
+}
+
+#build-btn-container {
+  position: fixed;
+  right: 10px;
+  bottom: 25px;
+  z-index: 10000;
+}
+
 @media (min-width: 992px) {
   #build-btn-container {
     position: fixed;
-    right: 20px !important;
-    bottom: 10px !important;
+    right: 21px !important;
+    bottom: 26px !important;
+  }
+  #pagination-buttons {
+    position: fixed;
+    bottom: 18px !important;
+    right: 69px !important;
   }
 }
 .recipe-container {
@@ -1798,6 +1826,18 @@ nav #nav-container .collapsed .bottom-bar {
   overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -1827,6 +1867,8 @@ nav #nav-container .collapsed .bottom-bar {
   margin: 0 auto;
   padding: 1.5rem !important;
   background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -1839,11 +1881,12 @@ nav #nav-container .collapsed .bottom-bar {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -1948,20 +1991,11 @@ nav #nav-container .collapsed .bottom-bar {
   font-size: 28px;
   z-index: 2;
 }
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .cook-meal-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .cook-meal-container {
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .button-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .button-container {
   position: absolute;
   bottom: 16px;
   right: 17px;
   z-index: 2;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #recipe-details-container .card .card-body .img-container .cook-meal-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .cook-meal-container .btn-icon-only {
-  position: relative;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas {
-  color: white;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas:hover, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas:hover {
-  color: var(--bs-primary);
 }
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
   padding: 1rem 0.5rem;
@@ -2049,6 +2083,18 @@ nav #nav-container .collapsed .bottom-bar {
   overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -2078,6 +2124,8 @@ nav #nav-container .collapsed .bottom-bar {
   margin: 0 auto;
   padding: 1.5rem !important;
   background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -2090,11 +2138,12 @@ nav #nav-container .collapsed .bottom-bar {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -2511,6 +2560,18 @@ nav #nav-container .collapsed .bottom-bar {
   overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -2540,6 +2601,8 @@ nav #nav-container .collapsed .bottom-bar {
   margin: 0 auto;
   padding: 1.5rem !important;
   background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -2552,11 +2615,12 @@ nav #nav-container .collapsed .bottom-bar {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -2983,11 +3047,11 @@ nav #nav-container .collapsed .bottom-bar {
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: inherit;
-  --bs-link-color: #0d6efd;
-  --bs-link-color-rgb: 13, 110, 253;
-  --bs-link-decoration: underline;
-  --bs-link-hover-color: #0a58ca;
-  --bs-link-hover-color-rgb: 10, 88, 202;
+  --bs-link-color: #2e6930;
+  --bs-link-color-rgb: 46, 105, 48;
+  --bs-link-decoration: none;
+  --bs-link-hover-color: #173418;
+  --bs-link-hover-color-rgb: 23, 52, 24;
   --bs-code-color: #d63384;
   --bs-highlight-color: #212529;
   --bs-highlight-bg: #fff3cd;
@@ -3238,7 +3302,7 @@ sup {
 
 a {
   color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
@@ -5801,7 +5865,6 @@ textarea.form-control-lg {
   line-height: var(--bs-btn-line-height);
   color: var(--bs-btn-color);
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -6342,7 +6405,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: transparent;
   --bs-btn-box-shadow: 0 0 0 #000;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:focus-visible {
   color: var(--bs-btn-color);
@@ -6664,7 +6727,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: var(--bs-dropdown-link-color);
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -6839,7 +6901,6 @@ textarea.form-control-lg {
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
   color: var(--bs-nav-link-color);
-  text-decoration: none;
   background: none;
   border: 0;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
@@ -7000,7 +7061,6 @@ textarea.form-control-lg {
   margin-right: var(--bs-navbar-brand-margin-end);
   font-size: var(--bs-navbar-brand-font-size);
   color: var(--bs-navbar-brand-color);
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-brand:hover, .navbar-brand:focus {
@@ -7772,7 +7832,6 @@ textarea.form-control-lg {
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
   color: var(--bs-pagination-color);
-  text-decoration: none;
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -8115,7 +8174,6 @@ textarea.form-control-lg {
   display: block;
   padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
   color: var(--bs-list-group-color);
-  text-decoration: none;
   background-color: var(--bs-list-group-bg);
   border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
 }

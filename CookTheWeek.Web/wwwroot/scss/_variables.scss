@@ -61,3 +61,6 @@ $nav-tabs-link-active-color: var(--bs-primary);
 $nav-tabs-link-hover-color: var(--bs-primary);
 
 $border-radius: 2px;
+$link-decoration: none;
+$link-color: $primary; 
+$link-hover-color: darken($link-color, 15%);

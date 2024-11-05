@@ -70,23 +70,11 @@
                     z-index: 2;
                 }
 
-                .add-to-mealplan-container, .cook-meal-container {
+                .add-to-mealplan-container, .button-container {
                     position: absolute;
                     bottom: 16px;
                     right: 17px;
                     z-index: 2;
-
-                    .btn-icon-only {
-                        position: relative;
-                    }
-
-                    .fas {
-                        color: white;
-
-                        &:hover {
-                            color: var(--bs-primary);
-                        }
-                    }
                 }
             }
 

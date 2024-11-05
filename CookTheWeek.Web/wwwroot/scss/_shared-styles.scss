@@ -15,6 +15,19 @@
     overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+    /*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+    /*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+    /*&::-webkit-scrollbar {
+        width: 0px;*/ /* Effectively hides scrollbar width */
+        /*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+    /*}
+}*/
+
 .food-background {
     background: url('/img/background-food-large.webp') no-repeat center center;
 
@@ -45,6 +58,8 @@
     margin: 0 auto;
     padding: 1.5rem !important;
     background-size: cover;
+    background-attachment: fixed;
+    z-index: -11;
 
     &::after {
         content: '';
@@ -57,12 +72,12 @@
         z-index: -10;
     }
 }
-
+/* CHECK
 @media (min-width: 768px) {
     .image-overlay {
         top: 4% !important;
     }
-}
+}*/
 
 // style for adding custom card tab colors, custom border, shade, btn and footer settings
 .card-custom-style-with-back-btn {

@@ -532,10 +532,29 @@
   margin-right: 8px;
 }
 
+#pagination-buttons {
+  position: fixed;
+  bottom: 17px;
+  right: 57px;
+  z-index: 10000;
+}
+
+#build-btn-container {
+  position: fixed;
+  right: 10px;
+  bottom: 25px;
+  z-index: 10000;
+}
+
 @media (min-width: 992px) {
   #build-btn-container {
     position: fixed;
-    right: 20px !important;
-    bottom: 10px !important;
+    right: 21px !important;
+    bottom: 26px !important;
+  }
+  #pagination-buttons {
+    position: fixed;
+    bottom: 18px !important;
+    right: 69px !important;
   }
 }

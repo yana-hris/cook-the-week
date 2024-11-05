@@ -31,10 +31,20 @@
         /// </summary>
         /// <param name="title">The View Title</param>
         /// <param name="returnUrl">The ReturnUrl</param>
-        protected void SetViewData(string title, string returnUrl)
+        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default, string? pageScrollClass = default)
         {
             ViewData["Title"] = title;
             ViewBag.ReturnUrl = returnUrl;
+
+            if (backgroundClass != default)
+            {
+                ViewData["BackgroundClass"] = backgroundClass;
+            }
+
+            if (pageScrollClass != default)
+            {
+                ViewData["PageScrollClass"] = pageScrollClass;
+            }
         }
 
     }

@@ -163,7 +163,7 @@
     <!-- Pagination buttons -->
     @if(shouldDisplayPagination)
     {
-        <div aria-label="Page navigation" id="pagination-buttons" class="position-fixed">
+        <div aria-label="Page navigation" id="pagination-buttons">
             <ul class="pagination d-flex justify-content-end align-items-center">
                 <li class="page-item">
                     <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"

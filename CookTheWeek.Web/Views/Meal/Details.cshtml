@@ -9,10 +9,9 @@
 
     int mealId = Model.Id;
 }
-<div id="meal-cook-container" class="image-overlay food-background">
+<div id="meal-cook-container">
     <div class="card-outer-container">
         <partial name="_HeadingPartial" model="headingModel" />
-        <!-- Just this -->
         @Html.AntiForgeryToken()
 
         <div class="card">
@@ -34,25 +33,30 @@
                             <div class="col-12">
                                 <div class="img-container">
                                     <img class="img-fluid image" alt="Meal Image" src="@Model.ImageUrl">
-
+                                    <div class="button-container">
                                     @if (!Model.IsCooked)
                                     {
-                                        <div class="button-container">
-                                            <button class="cook-meal-button" 
-                                                    onclick="cookMeal(event, '@mealId')" 
-                                                    data-bs-toggle="tooltip" 
-                                                    data-bs-placement="top" 
-                                                    title="Mark as Cooked">
+                                        
+                                            <button class="meal-button cook-meal-button" 
+                                            data-meal-id="@Model.Id" 
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            title="Mark as Cooked">
                                                 <i class="fa-solid fa-calendar-xmark"></i>
                                             </button>
-                                        </div>
+                                        
                                     }
                                     else
                                     {
-                                        <span class="cooked-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Cooked">
+                                        <button class="meal-button uncook-meal-button" 
+                                        data-meal-id="@Model.Id" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top" 
+                                        title="Mark Uncooked">
                                             <i class="fa-solid fa-calendar-check"></i>
-                                        </span>
+                                        </button>
                                     }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -150,5 +154,30 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/cookMeal.js"></script>
+    <script src="~/js/mealFunctions.js"></script>
+    <script>
+        $(document).ready(function () {
+            const $button = $('.meal-button');
+            const mealId = $button.data('meal-id');
+            $button.tooltip();
+
+            if($button.hasClass('cook-meal-button')) {
+                $button.on('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+
+                    cookMeal($button, mealId);
+                })
+            } else if ($button.hasClass('uncook-meal-button')) {
+                $button.on('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    unCookMeal($button, mealId);
+                });
+            }
+
+        });
+    </script>
 }

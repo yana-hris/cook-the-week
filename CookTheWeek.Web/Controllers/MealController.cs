@@ -27,7 +27,7 @@
             try
             {
                 MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id);
-                SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine");
+                SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
                 return View(model);
             }
             catch (RecordNotFoundException ex)

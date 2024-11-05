@@ -27,7 +27,8 @@
         ? JsonConvert.DeserializeObject<Dictionary<string, string[]>>(TempData["ServerErrors"].ToString())
         : new Dictionary<string, string[]>();
 }
-<div id="add-recipe" class="image-overlay food-background">
+
+<div id="add-recipe">
     <div class="card-outer-container">
         <partial name="_HeadingPartial" model="headingModel" />
 

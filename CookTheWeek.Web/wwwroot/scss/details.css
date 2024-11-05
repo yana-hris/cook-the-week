@@ -14,6 +14,18 @@
   overflow-y: auto;
 }
 
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -43,6 +55,8 @@
   margin: 0 auto;
   padding: 1.5rem !important;
   background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -55,11 +69,12 @@
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -164,20 +179,11 @@
   font-size: 28px;
   z-index: 2;
 }
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .cook-meal-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .cook-meal-container {
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .button-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .button-container {
   position: absolute;
   bottom: 16px;
   right: 17px;
   z-index: 2;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #recipe-details-container .card .card-body .img-container .cook-meal-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .cook-meal-container .btn-icon-only {
-  position: relative;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas {
-  color: white;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas:hover, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas:hover {
-  color: var(--bs-primary);
 }
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
   padding: 1rem 0.5rem;

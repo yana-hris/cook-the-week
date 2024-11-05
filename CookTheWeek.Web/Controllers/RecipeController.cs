@@ -64,7 +64,7 @@
             {
                 var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
 
-                SetViewData("Add Recipe", "/Recipe/All");
+                SetViewData("Add Recipe", "/Recipe/All", "image-overlay food-background");
                 return View(model);
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@
                 try
                 {
                     RecipeEditFormModel model = await this.recipeViewModelFactory.CreateRecipeEditFormModelAsync(guidId);
-                    ViewBag.ReturnUrl = returnUrl;
+                    SetViewData("Edit Recipe", returnUrl, "image-overlay food-background");
                     return View(model);
                 }
                 catch (RecordNotFoundException ex)
@@ -228,7 +228,8 @@
                 try
                 {
                     RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(guidId);
-                    SetViewData("Recipe Details", returnUrl ?? "/Recipe/All");
+                    
+                    SetViewData("Recipe Details", returnUrl ?? "/Recipe/All", "image-overlay food-background");
                     return View(model);
                 }
                 catch (RecordNotFoundException ex)
@@ -329,7 +330,7 @@
         private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model)
         {
             StoreServerErrorsInTempData();
-            SetViewData("Add Recipe", "/Recipe/All");
+            SetViewData("Add Recipe", "/Recipe/All", "image-overlay food-background");
             return View(model);
         }
 

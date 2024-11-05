@@ -80,7 +80,7 @@
             {
                 var mealPlanModel = JsonConvert.DeserializeObject<MealPlanAddFormModel>(TempData[MealPlanStoredModel].ToString());
 
-                SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All");
+                SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All", "image-overlay food-background");
                 return View(mealPlanModel);
             }
             
@@ -106,7 +106,7 @@
 
                 if (!result.Succeeded)
                 {
-                    SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All");
+                    SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All" , "image-overlay food-background");
                     AddCustomValidationErrorsToModelState(result.Errors);
 
                     return View(model);
@@ -172,7 +172,7 @@
                 {
                     MealPlanDetailsViewModel model = await this.viewModelFactory.CreateMealPlanDetailsViewModelAsync(guidId);
 
-                    SetViewData("Meal Plan Details", returnUrl ?? "/MealPlan/Mine");
+                    SetViewData("Meal Plan Details", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
                     return View(model);
                 }
                 catch (RecordNotFoundException)
@@ -242,7 +242,7 @@
                 try
                 {
                     MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(guidId);
-                    SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
+                    SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
                     return View(model);
                 }
                 catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
@@ -264,7 +264,7 @@
         [HttpPost]
         public async Task<IActionResult> Edit(MealPlanEditFormModel model, string? returnUrl)
         {
-            SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine");
+            SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
 
             if (model == null || model.StartDate == default)
             {
