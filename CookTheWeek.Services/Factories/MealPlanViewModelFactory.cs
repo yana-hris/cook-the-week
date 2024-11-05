@@ -51,12 +51,12 @@
 
             if (model.Meals == null)
             {
-                model.Meals = new List<MealAddFormModel>();
+                model.Meals = new List<MealFormModel>();
             }
 
             foreach (var meal in serviceModel.Meals)
             {
-                MealAddFormModel currentMeal = await CreateMealAddFormModelAsync(meal);
+                MealFormModel currentMeal = await CreateMealAddFormModelAsync(meal);
                 model.Meals.Add(currentMeal);
             }
 
@@ -74,16 +74,20 @@
                 Name = mealPlan.Name,
                 OwnerId = mealPlan.OwnerId,
                 IsFinished = mealPlan.IsFinished,
-                Meals = mealPlan.Meals.Select(mpm => new MealViewModel()
-                {
-                    Id = mpm.Id.ToString(),
-                    RecipeId = mpm.RecipeId.ToString(),
-                    Title = mpm.Recipe.Title,
-                    Servings = mpm.ServingSize,
-                    ImageUrl = mpm.Recipe.ImageUrl,
-                    CategoryName = mpm.Recipe.Category.Name,
-                    Date = mpm.CookDate.ToString(MealDateFormat),
-                }).ToList(),
+                Meals = mealPlan.Meals
+                    .OrderBy(mpm => mpm.CookDate)
+                    .Select(mpm => new MealViewModel()
+                    {
+                        Id = mpm.Id.ToString(),
+                        RecipeId = mpm.RecipeId.ToString(),
+                        Title = mpm.Recipe.Title,
+                        Servings = mpm.ServingSize,
+                        ImageUrl = mpm.Recipe.ImageUrl,
+                        CategoryName = mpm.Recipe.Category.Name,
+                        IsCooked = mpm.IsCooked,
+                        DayOfTheWeek = mpm.CookDate.ToString("ddd"),
+                        Date = mpm.CookDate.ToString(MealDateFormat),
+                    }).ToList(),
                 TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),
                 TotalCookingDays = mealPlan.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
                 TotalIngredients = mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
@@ -150,7 +154,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<MealAddFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
+        public async Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
         {
             // Retrieve the recipe from database
             if (Guid.TryParse(meal.RecipeId, out Guid guidMealId))
@@ -159,7 +163,7 @@
                 {
                     Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
 
-                    MealAddFormModel model = new MealAddFormModel()
+                    MealFormModel model = new MealFormModel()
                     {
                         RecipeId = recipe.Id,
                         Title = recipe.Title,
@@ -226,7 +230,27 @@
             {
                 Name = mealplan.Name,
                 StartDate = mealplan.StartDate,
-                Meals = mealplan.Meals.Select(mpm => new MealAddFormModel()
+            };
+
+            if (model is MealPlanEditFormModel editModel)
+            {
+                editModel.Meals = mealplan.Meals.Select(mpm => new MealFormModel()
+                {
+                    Id = mpm.Id,
+                    RecipeId = mpm.RecipeId,
+                    Title = mpm.Recipe.Title,
+                    Servings = mpm.ServingSize,
+                    ImageUrl = mpm.Recipe.ImageUrl,
+                    CategoryName = mpm.Recipe.Category.Name,
+                    Date = mpm.CookDate.ToString(MealDateFormat),
+                    SelectServingOptions = ServingsOptions
+                }).ToList();
+                editModel.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+                return (T)(IMealPlanFormModel)editModel;
+            }
+            else
+            {
+                model.Meals = mealplan.Meals.Select(mpm => new MealFormModel()
                 {
                     RecipeId = mpm.RecipeId,
                     Title = mpm.Recipe.Title,
@@ -235,8 +259,8 @@
                     CategoryName = mpm.Recipe.Category.Name,
                     Date = mpm.CookDate.ToString(MealDateFormat),
                     SelectServingOptions = ServingsOptions
-                }).ToList(),
-            };
+                }).ToList();
+            }
 
             model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
             return model;

@@ -11,7 +11,7 @@
     {
         public MealPlanEditFormModel()
         {
-            this.Meals = new List<MealAddFormModel>();
+            this.Meals = new List<MealFormModel>();
         }
 
         [Required]
@@ -22,7 +22,7 @@
         public string Name { get; set; } = null!;
 
         public DateTime StartDate { get; set; }
-        public IList<MealAddFormModel> Meals { get; set; }
+        public IList<MealFormModel> Meals { get; set; }
 
 
     }

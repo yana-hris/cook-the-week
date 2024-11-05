@@ -11,7 +11,7 @@ public class MealPlanAddFormModel : IMealPlanFormModel
 {
     public MealPlanAddFormModel()
     {
-        this.Meals = new List<MealAddFormModel>();
+        this.Meals = new List<MealFormModel>();
         this.StartDate = DateTime.Now;  
     }
 
@@ -21,6 +21,6 @@ public class MealPlanAddFormModel : IMealPlanFormModel
     public DateTime StartDate { get; set; }
 
     [Required]
-    public IList<MealAddFormModel> Meals { get; set; } = null!;
+    public IList<MealFormModel> Meals { get; set; } = null!;
     
 }

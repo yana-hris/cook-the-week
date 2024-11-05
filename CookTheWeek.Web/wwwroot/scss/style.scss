@@ -81,14 +81,7 @@
     --body-color: var(--bs-white);
     --body-emphasis-color: var(--bs-success);
     --meal-title-color: var(--bs-light);
-
-    #main-container {
-       /* a:not(.btn) {
-            color: var(--bs-success) !important;
-        }*/
-        
-    }
-
+    
     .subheading {
         color: var(--bs-success);
     }
@@ -128,19 +121,7 @@
     .card.recipe-card {
         border: none !important;
     }
-
-    .left-pill {
-        border-color: var(--bs-success) !important;
-        color: var(--bs-success) !important;
-    }
-
-   
-
-    #collapseSummary .card-body {
-        color: var(--bs-primary) !important;
-        border: none !important;
-    }
-
+    
     .image-overlay {
         .external-login-button {
             color: var(--bs-body-color) !important;
@@ -152,8 +133,6 @@
         }
     }
 }
-
-
 
 @import '../lib/bootstrap/scss/bootstrap';
 

@@ -1,109 +1,37 @@
-﻿html {
-    // like icon styling
-    .liked-icon {
+﻿
+// like icon styling
+.liked-icon {
+    color: red;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: darkred;
+}
+
+.not-liked-icon {
+    color: lightgray;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #222222;
+
+    &:hover {
         color: red;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: darkred;
-    }
-
-    .not-liked-icon {
-        color: lightgray;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #222222;
-    }
-
-    .not-liked-icon:hover {
-        color: red;
-    }
-
-
-    .btn-icon-only::before {
-        content: ""; /* A pseudo-element for the background */
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-icon-only.btn-primary .fa {
-        color: white; /* Icon color */
-
-        &:hover {
-            color: var(--bs-primary);
-        }
-    }
-
-    .plus, .minus {
-        box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-
-
-
-        &:hover {
-            box-shadow: none;
-        }
-    }
-
-    .plus {
-        .fa {
-            color: var(--bs-white);
-        }
-
-        &::before {
-            color: #fff;
-            background-color: var(--bs-primary);
-            border: 2px solid var(--bs-primary);
-        }
-
-        &:hover::before {
-            background-color: #fff;
-            border: 2px solid var(--bs-primary);
-        }
-
-        &:hover {
-            .fa {
-                color: var(--bs-primary);
-            }
-        }
-    }
-
-    .minus {
-
-        .fa {
-            color: var(--bs-white);
-        }
-
-        &::before {
-            background-color: var(--bs-danger);
-            color: #fff;
-            border: 2px solid var(--bs-danger);
-        }
-
-        &:hover::before {
-            background-color: #fff;
-            border: 2px solid var(--bs-danger) !important;
-        }
-
-        &:hover {
-            .fa {
-                color: var(--bs-danger);
-            }
-        }
-    }
-    // owned recipe style
-    .fa-user-circle {
-        color: var(--bs-success);
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: var(--bs-primary);
-    }
-
-    .finished {
-        color: var(--bs-danger);
-    }
-
-    .not-finished {
-        color: var(--bs-primary);
     }
 }
+
+// owned recipe style
+.fa-user-circle {
+    color: var(--bs-success);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--bs-primary);
+}
+
+.finished {
+    color: var(--bs-danger);
+}
+
+.not-finished {
+    color: var(--bs-primary);
+}
+
+.inactive {
+    color: lightgrey;
+}
+

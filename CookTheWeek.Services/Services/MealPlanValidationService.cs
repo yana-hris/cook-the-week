@@ -139,7 +139,7 @@
                     }
                 }
 
-                if (!ValidateMealDates(meal))
+                if (!ValidateMealDates(meal, meals.First().SelectDates))
                 {
                     logger.LogError($"Meal plan form model add/edit failed. Invalid meal date: {meal.Date} for meal with recipeId {meal.RecipeId}");
                     AddValidationError(result, $"Meals[{i}].{nameof(meal.Date)}", MealValidation.DateRangeErrorMessage);
@@ -183,9 +183,9 @@
         /// </summary>
         /// <param name="meal">the meal form model to check for validation errors</param>
         /// <returns>true or false</returns>
-        private static bool ValidateMealDates(MealAddFormModel meal)
+        private static bool ValidateMealDates(MealFormModel meal, string[] selectDates)
         {
-            if (!meal.SelectDates.Contains(meal.Date))
+            if (!selectDates.Contains(meal.Date))
             {
                 return false;
             }

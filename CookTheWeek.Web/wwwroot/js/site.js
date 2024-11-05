@@ -94,7 +94,7 @@ window.onload = function () {
 function updateRecipeBtns() {
     let userMealPlans = getUserLocalStorage() || [];
 
-    const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .btn');
+    const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .mealplan-toggle-btn');
 
     if (userHasMealPlans()) {
         userMealPlans = JSON.parse(userMealPlans);
@@ -335,7 +335,7 @@ export function removeRecipeFromLocalStorage(recipeId) {
         }
 
     } else {
-        toastr.error(`Error: Recipe not found in meal plan`);
+        console.log(`Error: Recipe not found in meal plan`); // If recipe comes from rebuilding a meal plan...
         return;
     }
 

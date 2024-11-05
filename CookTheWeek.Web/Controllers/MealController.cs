@@ -27,7 +27,7 @@
             try
             {
                 MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id);
-                SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine");
+                SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
                 return View(model);
             }
             catch (RecordNotFoundException ex)
@@ -63,6 +63,24 @@
             return BadRequest();
         }
 
+        public async Task<IActionResult> Uncook(int id)
+        {
+            try
+            {
+                if (id != default)
+                {
+                    await mealService.TryMarkUncooked(id);
+                    return Ok();
+                }
+                logger.LogError($"MealId is null");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured: {ex.Message}. Error stacktrace: {ex.StackTrace}");
+            }
+
+            return BadRequest();
+        }
 
         /// <summary>
         /// Helper method to log error message and return a custom Internal Server Error page
@@ -76,8 +94,9 @@
         {
             logger.LogError($"Unexpected error occurred while processing the request. Action: {actionName}, MealId: {mealId}. Error message: {ex.Message}. StackTrace: {ex.StackTrace}");
 
-            // Redirect to the internal server error page with the exception message
-            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+            // Redirect to a custom error page with a generic error message
+            string userFriendlyMessage = "An unexpected error occurred. Please try again later.";
+            return RedirectToAction("InternalServerError", "Home", new { message = userFriendlyMessage });
         }
     }
 }

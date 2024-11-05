@@ -1,3 +1,5 @@
-﻿<a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="btn btn-outline-primary fixed-size-btn btn-icon-only">
-    <i class="fa-solid fa-angles-left"></i> 
-</a>
+﻿<div class="back-btn-container">
+    <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="back-button-main">
+        <i class="fa-solid fa-angles-left"></i>
+    </a>
+</div>

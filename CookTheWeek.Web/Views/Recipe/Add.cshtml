@@ -16,7 +16,7 @@
 
     if (userId != default && !isAdmin)
     {
-        headingModel.HeadingSecondary = "Add your favorite recipe to your personal collection";
+        headingModel.HeadingSecondary = "Save your favorite recipes in your personal collection";
     } 
     
     var qtyFractionOptionsString = JsonConvert.SerializeObject(QtyFractionOptions);
@@ -27,350 +27,336 @@
         ? JsonConvert.DeserializeObject<Dictionary<string, string[]>>(TempData["ServerErrors"].ToString())
         : new Dictionary<string, string[]>();
 }
-<div class="card-outer-container" id="add-recipe">
-    <partial name="_HeadingPartial" model="headingModel" />
-    
-    <div class="card">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" id="recipe" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Recipe Details</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</button>
-                </li>
-            </ul>
-            <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="btn btn-primary card-back-button fixed-size-btn btn-icon-only">
-                <i class="fa-solid fa-angles-left"></i>
-            </a>
-        </div>
-        
-        <div class="card-body">
-            <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
-                <div id="info-content" class="tab-content g-3">
-                    <!-- TAB RECIPE DETAILS -->
-                    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                        <div class="row">
-                            <div class="col col-12 col-md-8 col-xl-9 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Title</span>
-                                    <input 
-                                        asp-for="Title"
-                                        data-bind="value: Title"
-                                        class="form-control"
-                                        placeholder="Name it.."
-                                        type="text" />
-                                </div>
-                                <span class="small text-danger"
-                                      data-bind="validationMessage: Title">
-                                </span>
-                            </div>
-                            <div class="col col-12 col-md-4 col-xl-3 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Servs</span>
-                                    <select 
-                                        class="form-select" 
-                                        asp-for="Servings"
-                                        data-bind="value: Servings, valueUpdate: 'afterkeydown'">
-                                        <option value="">Choose</option>
-                                        @foreach (var option in @Model.ServingsOptions!)
-                                        {
-                                            <option value="@option">@option</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span data-bind="validationMessage: Servings"
-                                      class="small text-danger">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-12 col-md-7 col-xl-8 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Description</span>
-                                    <textarea 
-                                        asp-for="Description"
-                                        data-bind="value: Description"
-                                        rows="3" 
-                                        class="form-control"
-                                        placeholder="Would be great to know more about this recipe.."></textarea>
-                                </div>
-                                <span class="small text-danger"
-                                      data-bind="validationMessage: Description">
-                                </span>
-                            </div>
-                            <div class="col col-12 col-md-5 col-xl-4 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Ready For</span>
-                                    <input 
-                                        asp-for="CookingTimeMinutes"
-                                        data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
-                                        class="form-control"
-                                        placeholder="minutes"
-                                        type="number"
-                                        />
-                                </div>
-                                <span data-bind="validationMessage: CookingTimeMinutes"
-                                      class="small text-danger">
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-12 col-md-6 col-xl-7 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Image URL</span>
-                                    <input 
-                                        asp-for="ImageUrl"
-                                        data-bind="value: ImageUrl"
-                                        class="form-control"
-                                        placeholder="Your image link here..."
-                                        type="url" />
-                                </div>
-                                <span 
-                                    data-bind="validationMessage: ImageUrl"
-                                    class="small text-danger">
-                                </span>
-                            </div>
-                            <div class="col col-12 col-md-6 col-xl-5 p-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Meal Type</span>
-                                    <select 
-                                        asp-for="RecipeCategoryId"
-                                        data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'"
-                                        class="form-select">
-                                        <option value="">Choose</option>
-                                        @foreach (var category in @Model.Categories!)
-                                        {
-                                            <option value="@category.Id">@category.Name</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span data-bind="validationMessage: RecipeCategoryId"
-                                      class="small text-danger">
-                                </span>
-                            </div>
 
+<div id="add-recipe">
+    <div class="card-outer-container">
+        <partial name="_HeadingPartial" model="headingModel" />
+
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="recipe" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Recipe Details</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="ingredients-tab" data-bs-toggle="tab" data-bs-target="#ingredients" type="button" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false">Instructions</button>
+                    </li>
+                </ul>
+                <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="card-back-button">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
+            </div>
+
+            <div class="card-body">
+                <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                    <div id="info-content" class="tab-content g-3">
+                        <!-- TAB RECIPE DETAILS -->
+                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                            <div class="row">
+                                <div class="col col-12 col-md-8 col-xl-9 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Title</span>
+                                        <input asp-for="Title"
+                                               data-bind="value: Title"
+                                               class="form-control"
+                                               placeholder="Name it.."
+                                               type="text" />
+                                    </div>
+                                    <span class="small text-danger"
+                                          data-bind="validationMessage: Title">
+                                    </span>
+                                </div>
+                                <div class="col col-12 col-md-4 col-xl-3 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Servs</span>
+                                        <select class="form-select"
+                                                asp-for="Servings"
+                                                data-bind="value: Servings, valueUpdate: 'afterkeydown'">
+                                            <option value="">Choose</option>
+                                            @foreach (var option in @Model.ServingsOptions!)
+                                            {
+                                                <option value="@option">@option</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <span data-bind="validationMessage: Servings"
+                                          class="small text-danger">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12 col-md-7 col-xl-8 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Description</span>
+                                        <textarea asp-for="Description"
+                                                  data-bind="value: Description"
+                                                  rows="3"
+                                                  class="form-control"
+                                                  placeholder="Would be great to know more about this recipe.."></textarea>
+                                    </div>
+                                    <span class="small text-danger"
+                                          data-bind="validationMessage: Description">
+                                    </span>
+                                </div>
+                                <div class="col col-12 col-md-5 col-xl-4 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Ready For</span>
+                                        <input asp-for="CookingTimeMinutes"
+                                               data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
+                                               class="form-control"
+                                               placeholder="minutes"
+                                               type="number" />
+                                    </div>
+                                    <span data-bind="validationMessage: CookingTimeMinutes"
+                                          class="small text-danger">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12 col-md-6 col-xl-7 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Image URL</span>
+                                        <input asp-for="ImageUrl"
+                                               data-bind="value: ImageUrl"
+                                               class="form-control"
+                                               placeholder="Your image link here..."
+                                               type="url" />
+                                    </div>
+                                    <span data-bind="validationMessage: ImageUrl"
+                                          class="small text-danger">
+                                    </span>
+                                </div>
+                                <div class="col col-12 col-md-6 col-xl-5 p-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Meal Type</span>
+                                        <select asp-for="RecipeCategoryId"
+                                                data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'"
+                                                class="form-select">
+                                            <option value="">Choose</option>
+                                            @foreach (var category in @Model.Categories!)
+                                            {
+                                                <option value="@category.Id">@category.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <span data-bind="validationMessage: RecipeCategoryId"
+                                          class="small text-danger">
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                    <!-- TAB INSTRUCTIONS -->
-                    <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div id="instructions-content" class="tab-content">
-                            <div id="instructionsContainer">
-                                <div id="instructionsList" data-bind="foreach: Steps">
-                                   
-                                    <div class="row instructions-row">
-                                        <div class="col p-2">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Step</span>
-                                                <textarea data-bind="value: Description,
+                        <!-- TAB INSTRUCTIONS -->
+                        <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
+                            <div id="instructions-content" class="tab-content">
+                                <div id="instructionsContainer">
+                                    <div id="instructionsList" data-bind="foreach: Steps">
+
+                                        <div class="row instructions-row">
+                                            <div class="col p-2">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Step</span>
+                                                    <textarea data-bind="value: Description,
                                                                      attr: { name: 'Steps[' + $index() + '].Description' },
                                                                      deferValidation: Description"
-                                                          class="form-control" 
-                                                          rows="3" placeholder="Tell us how to cook..">
+                                                              class="form-control"
+                                                              rows="3" placeholder="Tell us how to cook..">
                                                 </textarea>
-                                            </div>
-                                            <span data-bind="validationMessage: Description"
-                                                  class="small text-danger">
-                                            </span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center p-2">
-                                            <div class="add-step-btn-container d-flex justify-content-center align-items-center adjust-btn-position">
-                                                <button class="btn remove-btn-size btn-icon-only minus" type="button" data-bind="click: $parent.removeStep">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <!-- Add Step Btn -->
-                                <div class="row mt-3">
-                                    <!-- Empty column to push the button to the end -->
-                                    <div class="col-6 p-2"></div>
-                                    <div class="col-6 text-end p-2">
-                                        <a id="add-step" class="btn btn-secondary" data-bind="click: addStep">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Step
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- TAB INGREDIENTS -->
-                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <div id="ingredients-content" class="tab-content">
-                            <div id="ingredientsContainer" class="row">
-                                <div id="ingredientList" data-bind="foreach: RecipeIngredients">
-                                    <!-- USING KNOCKOUTJS DATA BINDING -->
-                                    <div class="row ingredient-row">
-                                        <div class="col col-6 col-lg-4 p-2">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Ingredient</span>
-                                                <input data-bind="value: Name,
-                                                                  validationElement: Name,
-                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Name' },
-                                                                  deferValidation: Name"
-                                                       class="form-control ingredientName"
-                                                       type="text"
-                                                       placeholder="Start typing.."
-                                                       autocomplete="off" />
-                                                <div class="suggestionsList invisible">
                                                 </div>
-                                                <input type="hidden"
-                                                       data-bind="value: IngredientId,
-                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].IngredientId' },
-                                                                  deferValidation: IngredientId"
-                                                       class="ingredientId" />
-                                            </div>
-                                            <span data-bind="validationMessage: IngredientId"
-                                                  class="small text-danger">
-                                            </span>
-                                        </div>
-                                        <!-- COMPLEX QUANTITY INPUT -->
-                                        <div class="col col-6 col-lg-3 qty-row p-2">
-                                            <!--  DECIMAL INPUT -->
-                                            <div class="decimal-qty-input" data-bind="style: { display: showFractionsDiv() ? 'none' : 'block'}">
-                                                <div class="input-group flex-inside">
-                                                    <span class="input-group-text">Qty</span>
-                                                    <input type="number"
-                                                           data-bind="value: Qty().QtyDecimal,
-                                                                  validationElement: Qty().QtyDecimal,
-                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyDecimal' },
-                                                                  valueUpdate: 'afterkeydown'"
-                                                           class="form-control qty-decimal"
-                                                           placeholder="0.00" />
-                                                </div>
-                                                <span data-bind="validationMessage: Qty().QtyDecimal"
+                                                <span data-bind="validationMessage: Description"
                                                       class="small text-danger">
                                                 </span>
                                             </div>
-                                            <!-- FRACTIONAL / WHOLE NUMBER INPUT -->
-                                            <div data-bind="style: { display: showFractionsDiv() ? 'block' : 'none' }"
-                                                 class="fraction-qty-inputs">
-                                                <div class="input-group flex-inside">
-                                                    <span class="input-group-text">Qty</span>
-                                                    <input type="number"
-                                                           data-val="true"
-                                                           data-bind="value: Qty().QtyWhole,
+                                            <div class="col-auto d-flex align-items-center p-2">
+                                                <div class="add-step-btn-container d-flex justify-content-center align-items-center adjust-btn-position">
+                                                    <button class="remove-item-button" type="button" data-bind="click: $parent.removeStep">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Add Step Btn -->
+                                    <div class="row mt-3">
+                                        <div class="col-6 offset-6 d-flex align-items-center justify-content-end">
+                                            <a id="add-step" class="btn btn-secondary" data-bind="click: addStep">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i> ADD STEP
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TAB INGREDIENTS -->
+                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <div id="ingredients-content" class="tab-content">
+                                <div id="ingredientsContainer">
+                                    <div id="ingredientList" data-bind="foreach: RecipeIngredients">
+                                        <!-- USING KNOCKOUTJS DATA BINDING -->
+                                        <div class="row ingredient-row">
+                                            <div class="col col-6 col-lg-4 p-2">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Ingredient</span>
+                                                    <input data-bind="value: Name,
+                                                                  validationElement: Name,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Name' },
+                                                                  deferValidation: Name"
+                                                           class="form-control ingredientName"
+                                                           type="text"
+                                                           placeholder="Start typing.."
+                                                           autocomplete="off" />
+                                                    <div class="suggestionsList invisible">
+                                                    </div>
+                                                    <input type="hidden"
+                                                           data-bind="value: IngredientId,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].IngredientId' },
+                                                                  deferValidation: IngredientId"
+                                                           class="ingredientId" />
+                                                </div>
+                                                <span data-bind="validationMessage: IngredientId"
+                                                      class="small text-danger">
+                                                </span>
+                                            </div>
+                                            <!-- COMPLEX QUANTITY INPUT -->
+                                            <div class="col col-6 col-lg-3 qty-row p-2">
+                                                <!--  DECIMAL INPUT -->
+                                                <div class="decimal-qty-input" data-bind="style: { display: showFractionsDiv() ? 'none' : 'block'}">
+                                                    <div class="input-group flex-inside">
+                                                        <span class="input-group-text">Qty</span>
+                                                        <input type="number"
+                                                               data-bind="value: Qty().QtyDecimal,
+                                                                  validationElement: Qty().QtyDecimal,
+                                                                  attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyDecimal' },
+                                                                  valueUpdate: 'afterkeydown'"
+                                                               class="form-control qty-decimal"
+                                                               placeholder="0.00" />
+                                                    </div>
+                                                    <span data-bind="validationMessage: Qty().QtyDecimal"
+                                                          class="small text-danger">
+                                                    </span>
+                                                </div>
+                                                <!-- FRACTIONAL / WHOLE NUMBER INPUT -->
+                                                <div data-bind="style: { display: showFractionsDiv() ? 'block' : 'none' }"
+                                                     class="fraction-qty-inputs">
+                                                    <div class="input-group flex-inside">
+                                                        <span class="input-group-text">Qty</span>
+                                                        <input type="number"
+                                                               data-val="true"
+                                                               data-bind="value: Qty().QtyWhole,
                                                                   validationElement: Qty().QtyWhole,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyWhole' },
                                                                   valueUpdate: 'afterkeydown'"
-                                                           class="form-control qty qty-whole"
-                                                           placeholder="0" />
-                                                    <select data-val="true"
-                                                            data-bind="value: Qty().QtyFraction,
+                                                               class="form-control qty qty-whole"
+                                                               placeholder="0" />
+                                                        <select data-val="true"
+                                                                data-bind="value: Qty().QtyFraction,
                                                                    validationElement: Qty().QtyFraction,
                                                                    attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyFraction' },
                                                                    valueUpdate: 'afterkeydown'"
-                                                            class="form-select qty qty-fraction">
-                                                        <option value="">Frac</option>
-                                                        @foreach (var option in QtyFractionOptions)
-                                                        {
-                                                            <option value="@option.Key">@option.Key</option>
-                                                        }
-                                                    </select>
+                                                                class="form-select qty qty-fraction">
+                                                            <option value="">Frac</option>
+                                                            @foreach (var option in QtyFractionOptions)
+                                                            {
+                                                                <option value="@option.Key">@option.Key</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <span data-bind="validationMessage: Qty().QtyFraction" class="small text-danger"></span>
+                                                    <span data-bind="validationMessage: Qty().QtyWhole" class="small text-danger"></span>
                                                 </div>
-                                                <span data-bind="validationMessage: Qty().QtyFraction" class="small text-danger"></span>
-                                                <span data-bind="validationMessage: Qty().QtyWhole" class="small text-danger"></span>
-                                            </div>      
-                                            
-                                            <!-- INPUT SWITCHER -->
-                                            <div class="form-check form-switch">
-                                                <input 
-                                                    type="checkbox" 
-                                                    class="form-check-input show-fraction-checkbox"
-                                                    data-bind="click: switchQtyUnit, checked: isChecked"
-                                                    />
-                                                <label class="form-check-label">Use Fractions</label>
+
+                                                <!-- INPUT SWITCHER -->
+                                                <div class="form-check form-switch">
+                                                    <input type="checkbox"
+                                                           class="form-check-input show-fraction-checkbox"
+                                                           data-bind="click: switchQtyUnit, checked: isChecked" />
+                                                    <label class="form-check-label">Use Fractions</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col col-5 col-lg-2 p-2">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Unit</span>
-                                                    <select 
-                                                        name="RecipeIngredients[<span data-bind='text: $index()'></span>].MeasureId"
-                                                        data-bind="value: MeasureId,
+                                            <div class="col col-5 col-lg-2 p-2">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Unit</span>
+                                                    <select name="RecipeIngredients[<span data-bind='text: $index()'></span>].MeasureId"
+                                                            data-bind="value: MeasureId,
                                                                    validationElement: MeasureId,
                                                                    attr: { name: 'RecipeIngredients[' + $index() + '].MeasureId' },
                                                                    deferValidation: MeasureId,
                                                                    valueUpdate: 'afterkeydown'"
-                                                        class="form-select">
+                                                            class="form-select">
                                                         <option value="">Unit</option>
                                                         @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                         {
                                                             <option value="@measure.Id">@measure.Name</option>
                                                         }
                                                     </select>
+                                                </div>
+                                                <span data-bind="validationMessage: MeasureId"
+                                                      class="small text-danger">
+                                                </span>
                                             </div>
-                                            <span 
-                                                data-bind="validationMessage: MeasureId"
-                                                class="small text-danger">
-                                            </span>
-                                        </div>
-                                        <div class="col col-5 col-lg-2 p-2">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Note</span>
-                                                <select 
-                                                    data-bind="value: SpecificationId, 
+                                            <div class="col col-5 col-lg-2 p-2">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Note</span>
+                                                    <select data-bind="value: SpecificationId,
                                                                attr: {name: 'RecipeIngredients[' + $index() + '].SpecificationId' },
                                                                valueUpdate: 'afterkeydown'"
-                                                    class="form-select">
-                                                    <option value="">Type</option>
-                                                    @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
-                                                    {
-                                                        <option value="@specification.Id">@specification.Name</option>
-                                                    }
-                                                </select>
+                                                            class="form-select">
+                                                        <option value="">Type</option>
+                                                        @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
+                                                        {
+                                                            <option value="@specification.Id">@specification.Name</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col col-2 col-lg-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
+                                                <a data-bind="click: $parent.removeIngredient"
+                                                   class="remove-item-button">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="col col-2 col-lg-1 p-2 d-flex justify-content-center align-items-top adjust-btn-position">
-                                            <a data-bind="click: $parent.removeIngredient"
-                                               class="btn btn-icon-only minus remove-btn-size">
-                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                        <hr>
+                                    </div>
+                                    <!-- Add Ingredient Btn -->
+                                    <div class="row mt-3">
+                                        <div class="col-6 offset-6 d-flex align-items-center justify-content-end">
+                                            <a data-bind="click: addIngredient"
+                                               id="add-ingredient"
+                                               class="btn btn-secondary"
+                                               type="button">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i> ADD INGREDIENT
                                             </a>
                                         </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <!-- Add Ingredient Btn -->
-                                <div class="row justify-content-end mt-3">
-                                    <div class="col-6">
-                                        <!-- Empty column to push the button to the end -->
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <a data-bind="click: addIngredient"
-                                           id="add-ingredient"
-                                           class="btn btn-secondary"
-                                           type="button">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Ingredient
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col buttons justify-content-center">
-                    <!-- SUBMIT FORM BTN -->
-                    <button 
-                        id="add-recipe-button"
-                        form="add-recipe-form" 
-                        class="btn btn-secondary card-btn-width" 
-                        type="submit">Add Recipe
-                    </button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col buttons justify-content-center">
+                        <!-- SUBMIT FORM BTN -->
+                        <button id="add-recipe-button"
+                                form="add-recipe-form"
+                                class="add-recipe-button"
+                                type="submit">
+                            Add Recipe
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
-    
+
+    </div>
 </div>
+
 
 @section Scripts {
     <partial name="_KnockoutPartial.cshtml" />

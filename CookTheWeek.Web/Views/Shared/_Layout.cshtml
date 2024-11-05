@@ -38,13 +38,15 @@
         </script>
     }
 </head>
-<body>    
+<body>
     <partial name="_NotificationsPartial" />
     <partial name="_NavigationManagerPartial" />
     <partial name="_ThemeSwitcherPartial" />
     <partial name="_CookieConsentPartial" />
-    <div id="main-container">       
-            @RenderBody()
+    <div id="main-container">
+        <div class="@ViewData["PageScrollClass"] @ViewData["BackgroundClass"]">
+        </div>
+        @RenderBody()
     </div>
     <partial name="_FooterPartial" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    

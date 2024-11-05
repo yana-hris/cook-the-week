@@ -2,6 +2,30 @@
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.hover-state {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -23,14 +47,16 @@
 }
 
 .image-overlay {
-  margin: 0 auto;
-  background-size: cover;
   position: fixed;
   top: 50px;
   left: 0;
   height: 100vh;
   width: 100vw;
+  margin: 0 auto;
   padding: 1.5rem !important;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -43,11 +69,12 @@
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card {
   margin-top: -0.9rem !important;
 }
@@ -102,7 +129,7 @@
   }
 }
 #add-recipe .heading-secondary, #edit-recipe .heading-secondary {
-  font-size: 1.9rem !important;
+  font-size: 1.7rem !important;
 }
 #add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane {
   min-height: 30vh;
@@ -143,11 +170,11 @@
 }
 #add-recipe .card .card-body hr, #edit-recipe .card .card-body hr {
   border-top: 3px dashed var(--bs-body-color);
-  margin: 10px 0;
+  margin: 0.5rem 0;
 }
 
 @media (min-width: 768px) {
   hr {
-    margin: 1rem 0 !important;
+    margin: 0.75rem 0 !important;
   }
 }

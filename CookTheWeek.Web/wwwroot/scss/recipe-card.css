@@ -16,33 +16,28 @@
   overflow: hidden;
   /*border: 1px solid var(--bs-primary);*/
   border: none;
+  border-radius: 2px;
   box-shadow: 0 0.3rem 0.6rem rgba(46, 105, 48, 0.03);
   transition: all 0.4s;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
   height: 13rem;
-  object-fit: cover;
   width: 100%;
+  object-fit: cover;
 }
 .recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-user-circle {
   position: absolute;
   top: 8px;
   left: 10px;
-  font-size: 24px;
   z-index: 2;
+  font-size: 24px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
-  display: inline-block;
   position: absolute;
-  bottom: 8px;
   right: 10px;
+  bottom: 8px;
   z-index: 2;
-}
-.recipe-container .recipe-card .image-container .add-to-mealplan-container .btn-icon-only {
-  position: relative;
-  display: inline-block;
-  transition: background-color 0.3s ease;
 }
 .recipe-container .recipe-card .card-body {
   background-color: var(--bs-body-bg) !important;
@@ -66,7 +61,6 @@
   margin-top: 0.25rem;
   margin-bottom: 0.125rem;
   text-decoration: underline;
-  transition: color 0.4s ease, background-color 0.4s ease;
 }
 .recipe-container .recipe-card .card-body .recipe-info {
   margin-top: 0.125rem;
@@ -94,5 +88,5 @@
 }
 .recipe-container .recipe-card:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(46, 105, 48, 0.2);
+  box-shadow: 0 0.6rem 1.2rem rgba(46, 105, 48, 0.1);
 }

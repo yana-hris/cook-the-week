@@ -1,214 +1,365 @@
-﻿html {
-    // reset all btns
-    .btn {
-        border: none;
-        border-radius: 2px;
-        cursor: pointer;
-        opacity: 1;
-        transition: all 0.3s ease-in;
+﻿// reset all btns
+@mixin button-base {
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin icon-button($main-color, $icon-color: #fff, $border-width: 1px, $hover-effect: true) {
+    @include button-base();
+    @include flex-center();
+    position: relative;
+    border: $border-width solid $main-color; // Apply the border directly to the button
+    border-radius: 2px;
+
+    i, .fa, .fas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $icon-color;
+        z-index: 1;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: $main-color;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+
+    @if $hover-effect == true {
+        &:hover {
+            border: $border-width solid $icon-color;
+            border-radius: 2px;
+
+            i, .fa, .fas {
+                color: $main-color;
+            }
+
+            &::before {
+                background-color: $icon-color;
+            }
+        }
+    }
+}
+
+@mixin button-box-shadow-effect {
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: none;
+    }
+}
+    
+.btn {
+    @include button-base();
+}
+
+.btn-primary {
+    border: 1px solid var(--bs-primary);
+    background-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+
+    &:hover {
+        border: 1px solid var(--bs-primary);
+        color: var(--bs-primary);
+        background-color: var(--bs-body-bg);
+    }
+}
+
+.btn-secondary {
+    border: 1px solid var(--bs-success);
+    color: var(--bs-primary);
+    background-color: var(--bs-success);
+
+    &:hover {
+        border: 1px solid var(--bs-primary);
+        color: var(--bs-success);
+        background-color: var(--bs-primary);
+    }
+}
+
+.btn-danger {
+    border: 1px solid var(--bs-danger);
+    color: var(--bs-white);
+    background-color: var(--bs-danger);
+
+    &:hover {
+        border: 1px solid var(--bs-light);
+        color: var(--bs-danger);
+        background-color: var(--bs-light);
+    }
+}
+
+.btn-light {
+    color: var(--bs-dark);
+    background-color: var(--bs-light);
+    border: 1px solid var(--bs-light);
+
+    &:hover {
+        color: var(--bs-light);
+        background-color: var(--bs-dark);
+        border: 1px solid var(--bs-dark);
+    }
+}
+
+.disabled {
+    opacity: 0.6 !important;
+}
+
+.fixed-size-btn {
+    height: 40px;
+    width: 44px;
+    font-size: 22px;
+}
+
+.remove-btn-size {
+    height: 36px;
+    width: 36px;
+    font-size: 24px;
+}
+
+.card-btn-width {
+    width: 9rem;
+    padding: 0.5rem 1.0rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+// Reusable buttons
+.back-button-main, .download-btn {
+    @include icon-button(var(--bs-body-bg), var(--bs-primary), 1px);
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 1px solid var(--bs-primary);
+    }
+}
+
+.plus { //@* plus fixed-size-btn btn btn-icon-only *@
+    @include icon-button(var(--bs-primary), #fff, 2px);
+    @include button-box-shadow-effect();
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 2px solid var(--bs-primary);
+    }
+}
+
+.cook-meal-button {
+    @include icon-button(var(--bs-danger), var(--bs-body-bg), 2px);
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 2px solid var(--bs-danger);
+    }
+}
+
+
+.uncook-meal-button { //.cooked-icon
+    @include icon-button(var(--bs-primary), var(--bs-body-bg), 2px);
+    @extend .fixed-size-btn;
+    border: 2px solid var(--bs-primary);
+
+    &:hover {
+        border: 2px solid var(--bs-primary) !important;
+    }
+}
+
+.minus {
+    @include icon-button(var(--bs-danger), #fff, 2px);
+    @include button-box-shadow-effect();
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 2px solid var(--bs-danger);
+    }
+}
+
+.nav-btn, .nav-dropdown-btn {
+    @include flex-center();
+}
+
+.nav-btn:hover {
+    color: var(--bs-white) !important;
+    border-color: var(--bs-dark) !important;
+    background-color: var(--bs-primary) !important;
+    transition: background-color 0.3s ease;
+}
+
+.browse-recipes-btn, .shopping-list-btn {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-primary;
+}
+
+.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-secondary;
+}
+
+.add-recipe-button {
+    width: 10rem;
+}
+
+.delete-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-danger;
+}
+
+.remove-item-button {
+    @extend .minus;
+    @extend .remove-btn-size; //btn remove-btn-size btn-icon-only minus
+}
+
+.signup-button, .learnmore-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    width: 10rem !important;
+}
+
+.signup-button {
+    @extend .btn-primary;
+}
+
+.learnmore-button {
+    @extend .btn-light;
+}
+
+#main-container {
+    // all recipes view: search btn
+    .search-btn {
+        border: 1px solid var(--bs-primary) !important;
+        font-weight: bolder;
+        color: var(--bs-success) !important;
 
         &:hover {
-            border: none;
-        }
-    }
-    // align single icon centrally in a btn
-    .btn-icon-only {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 2px;
-
-        i.fa, i.fas {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-
-    .nav-btn, .nav-dropdown-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .nav-btn:hover {
-        background-color: var(--bs-primary) !important;
-        color: var(--bs-white) !important;
-        border-color: var(--bs-dark) !important;
-        transition: 0.5s;
-    }
-
-    #main-container {
-        // all recipes view: search btn
-        .search-btn {
             border: 1px solid var(--bs-primary) !important;
-            font-weight: bolder;
-            color: var(--bs-success) !important;
-
-            &:hover {
-                border: 1px solid var(--bs-primary) !important;
-            }
-        }
-        // card btns style, spacing and size
-        .card-btn-width {
-            font-size: 1.4rem;
-            display: inline-block;
-            width: 9rem;
-            padding: 0.8rem, 1.2rem;
-        }
-        // dark green btn for main site functionality
-        .btn-primary {
-            color: var(--bs-white);
-            border: 1px solid var(--bs-primary);
-
-            &:hover {
-                color: var(--bs-primary);
-                background-color: var(--bs-white);
-                border: 1px solid var(--bs-primary);
-            }
-        }
-
-        // light-green btn
-        .btn-secondary {
-            color: var(--bs-primary);
-            background-color: var(--bs-success);
-            border: 1px solid var(--bs-success);
-
-            &:hover {
-                color: var(--bs-success);
-                background-color: var(--bs-primary);
-                border: 1px solid var(--bs-primary);
-            }
-        }
-
-        // remove btns style on hover
-        .btn-danger {
-            border: 1px solid var(--bs-danger);
-
-            &:hover {
-                color: var(--bs-danger);
-                background-color: var(--bs-light);
-                border: 1px solid var(--bs-light);
-            }
-        }
-
-        .btn-light {
-            border: 1px solid var(--bs-light);
-        }
-
-        .btn-outline-danger {
-            border: 1px solid var(--bs-danger);
-
-            &:hover {
-                border: 1px solid var(--bs-danger);
-            }
-        }
-
-        .btn-outline-primary {
-            border: 1px solid var(--bs-primary);
-            color: var(--bs-primary);
-
-
-
-            &:hover {
-                border: 1px solid var(--bs-primary);
-                color: var(--bs-white);
-                background-color: var(--bs-primary);
-            }
-        }
-
-        #build-btn-container {
-            .btn-build {
-                background-color: var(--bs-primary);
-                border: 2px solid var(--bs-primary);
-
-                &:hover {
-                    .fa {
-                        color: var(--bs-primary);
-                    }
-
-                    background-color: var(--bs-body-bg);
-                    border: 2px solid var(--bs-primary);
-                }
-            }
-        }
-
-        .fixed-size-btn {
-            height: 40px;
-            width: 44px;
-            font-size: 22px;
-        }
-
-        .remove-btn-size {
-            height: 36px;
-            width: 36px;
-            font-size: 24px;
-        }
-
-        .card-back-button {
-            color: var(--bs-success);
-
-            &:hover {
-                background-color: var(--bs-primary);   
-                color: var(--bs-body-bg);
-            }
-        }
-        // modal window close (X) btn
-        .btn.close {
-            color: var(--bs-success);
-
-            &:hover {
-                color: var(--bs-white);
-            }
-        }
-
-        .external-login-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            padding: 8px;
-            background-color: #f8f9fa; // light
-
-            border: 1px solid #ddd;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s, border-color 0.3s;
-
-            &:active {
-                background-color: #d6d8db;
-            }
-
-            &:hover {
-                border: 1px solid var(--bs-body-color);
-            }
-
-            .external-login-icon {
-                width: 20px;
-                height: 20px;
-                vertical-align: middle;
-            }
-
-            img {
-                margin-right: 8px;
-            }
         }
     }
+    // remove btns style on hover
+
+
+
+    .btn-outline-danger {
+        border: 1px solid var(--bs-danger);
+
+        &:hover {
+            border: 1px solid var(--bs-danger);
+        }
+    }
+
+    .btn-outline-primary {
+        border: 1px solid var(--bs-primary);
+        //color: var(--bs-primary);
+
+        &:hover {
+            border: 1px solid var(--bs-primary);
+            //color: var(--bs-white);
+            //background-color: var(--bs-primary);
+        }
+    }
+
+    .pagination-btn {
+        @include icon-button(var(--bs-primary), var(--bs-body-bg), 1px);
+        @extend .fixed-size-btn;
+        border: 1px solid var(--bs-primary) !important;
+    }
+
+    .btn-build {
+        @include icon-button(var(--bs-body-bg), var(--bs-primary), 2px);
+        @extend .fixed-size-btn;
+        border: 2px solid var(--bs-primary) !important;
+    }
+
+    .card-back-button {
+        @include icon-button(var(--bs-primary), var(--bs-success), 0px);
+        @extend .fixed-size-btn;
+    }
+
+    .btn.close { // modal window close (X) btn
+        color: var(--bs-success);
+
+        &:hover {
+            color: var(--bs-white);
+        }
+    }
+
+    .external-login-button {
+        @include flex-center();
+        padding: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #f8f9fa; // light
+
+        transition: background-color 0.3s, border-color 0.3s;
+
+        &:active {
+            background-color: #d6d8db;
+        }
+
+        &:hover {
+            border: 1px solid var(--bs-body-color);
+        }
+
+        .external-login-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        img {
+            margin-right: 8px;
+        }
+    }
+}
+
+#pagination-buttons {
+    position: fixed;
+    bottom: 17px;
+    right: 57px;
+    z-index: 10000;
+}
+
+#build-btn-container {
+    position: fixed;
+    right: 10px;
+    bottom: 25px;
+    z-index: 10000;
 }
 
 @media (min-width: 992px) {
     #build-btn-container {
+        position: fixed;
+        right: 21px !important;
         bottom: 26px !important;
-        right: 43px !important;
+    }
+    #pagination-buttons {
+        position: fixed;
+        bottom: 18px !important;
+        right: 69px !important;
     }
 }
 
-@media (min-width: 769px) {
-    #build-btn-container {
-        bottom: 45px;
-        right: 13px;
-    }
-}

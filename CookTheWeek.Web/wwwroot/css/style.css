@@ -6,109 +6,133 @@
   --card-label-text-color: #121706;
   --btn-secondary-hover-color: #2a2e1f;
 }
-:root body {
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+body {
   position: relative;
+  height: 100%;
+  overflow: auto;
   margin: 0 auto;
   background-color: var(--body-bg);
 }
-:root body #build-btn-container {
-  position: fixed;
-  bottom: 25px;
-  right: 10px;
-  z-index: 10000;
-}
-:root body .subheading {
+body .subheading {
+  margin-bottom: 0.2rem;
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.65px;
-  margin-bottom: 0.2rem;
 }
-:root body .heading-secondary {
+body .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
   margin-bottom: 0.5rem;
 }
-:root body .accent-heading {
+body .accent-heading {
   font-family: "Libre Baskerville", serif;
-}
-:root body #pagination-buttons {
-  bottom: 17px;
-  right: 57px;
-  z-index: 10000;
 }
 
 html {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
   position: relative;
   min-height: 100%;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
 }
-html body a {
+
+body {
+  position: relative;
+  margin: 0 auto;
+  background-color: var(--body-bg);
+}
+
+a {
   text-decoration: none;
   color: var(--bs-primary);
 }
-html body input.form-control, html body textarea.form-control, html body .form-select {
+
+input.form-control, textarea.form-control, .form-select {
   border: 1px solid var(--bs-primary);
   color: var(--bs-body-color);
+  border-radius: 2px;
 }
-html body input.form-control:focus, html body textarea.form-control:focus, html body .form-select:focus {
-  box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
+input.form-control:focus, textarea.form-control:focus, .form-select:focus {
+  box-shadow: 0 0 0 0.125rem rgba(180, 227, 61, 0.3);
 }
-html body input.form-control::placeholder, html body textarea.form-control::placeholder, html body .form-select::placeholder {
+input.form-control::placeholder, textarea.form-control::placeholder, .form-select::placeholder {
   font-size: 15px;
   color: var(--bs-body-color);
   opacity: 0.7;
 }
-html body .form-check-input {
+
+.form-check-input {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
-html body .form-check-input:checked {
+.form-check-input:checked {
   color: var(--bs-body-color);
   background-color: var(--bs-primary);
 }
-html body .form-check-input:focus {
+.form-check-input:focus {
   box-shadow: 0 0 0 0.25rem rgba(180, 227, 61, 0.3);
 }
-html body #main-container {
+
+#main-container {
   margin: 0 auto;
   padding: 91px 12px;
   position: relative;
+  overflow-y: auto;
   min-height: 100vh;
 }
-html body #main-container .pagination {
+#main-container .pagination {
   gap: 5px;
 }
-html body #main-container .input-group span.input-group-text {
-  font-size: 15px !important;
+#main-container .input-group span.input-group-text {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem !important;
   font-weight: 500;
   background-color: var(--bs-primary);
   color: var(--bs-white);
   border: 1px solid var(--bs-primary);
+  border-radius: 2px;
 }
-html body #main-container span.small.text-danger {
+#main-container span.small.text-danger {
   display: block;
   text-align: start;
-  font-size: 14px;
-  margin-left: 3px;
+  font-size: 0.8rem;
+  margin-left: 0.19rem;
 }
-html body #main-container .custom-link {
+#main-container .custom-link {
   color: var(--bs-primary) !important;
   text-decoration: underline;
 }
-html body #main-container .custom-link:hover {
+#main-container .custom-link:hover {
   color: var(--bs-success) !important;
   cursor: pointer;
   text-decoration: none;
 }
-html body #main-container .heading-container {
+#main-container .heading-container {
   margin-left: 2px;
 }
-html body #main-container .subheading {
+#main-container .subheading {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
@@ -116,39 +140,48 @@ html body #main-container .subheading {
   letter-spacing: 0.65px;
   margin-bottom: 0.1rem;
 }
-html body #main-container .heading-secondary {
+#main-container .heading-secondary {
   font-family: "Libre Baskerville", serif;
   font-size: 2rem;
   line-height: 1.2;
   text-transform: capitalize;
   margin-bottom: 1rem;
 }
-html body #main-container .accent-heading {
+#main-container .accent-heading {
   font-family: "Libre Baskerville", serif;
 }
-html body footer {
+
+footer {
   position: relative;
   z-index: 5000;
   font-weight: 300;
   font-size: 13px;
 }
-html body footer #links-container {
+footer #links-container {
   flex-direction: column;
 }
-html body footer #links-container .footer-padding {
+footer #links-container .footer-padding {
   padding: 1rem;
 }
-html body footer #links-container .footer-border {
+footer #links-container .footer-border {
   border: none;
 }
-html body footer #links-container a {
+footer #links-container a {
   text-decoration: none;
   color: var(--bs-white);
   cursor: pointer;
 }
-html body footer #links-container a:hover {
+footer #links-container a:hover {
   color: var(--bs-light) !important;
   text-decoration: underline;
+}
+
+.modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2000;
 }
 
 @media (min-width: 631px) {
@@ -189,12 +222,6 @@ html body footer #links-container a:hover {
     padding: 0 2rem !important;
   }
 }
-@media (min-width: 992px) {
-  #pagination-buttons {
-    bottom: 18px !important;
-    right: 93px !important;
-  }
-}
 @media (min-width: 1200px) {
   html {
     font-size: 16px !important;
@@ -208,10 +235,34 @@ html body footer #links-container a:hover {
     display: none !important;
   }
 }
-.card-border-style, .form-container, .contact-form-container, .shopping-list-container, .card-container {
+.card-border-style, .form-container, .contact-form-container, .shopping-list-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -233,14 +284,16 @@ html body footer #links-container a:hover {
 }
 
 .image-overlay {
-  margin: 0 auto;
-  background-size: cover;
   position: fixed;
   top: 50px;
   left: 0;
   height: 100vh;
   width: 100vw;
+  margin: 0 auto;
   padding: 1.5rem !important;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -253,11 +306,12 @@ html body footer #links-container a:hover {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -296,10 +350,10 @@ html body footer #links-container a:hover {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -311,81 +365,37 @@ html body footer #links-container a:hover {
     font-size: 18px;
   }
 }
-html .liked-icon {
+.liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: darkred;
 }
-html .not-liked-icon {
+
+.not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #222222;
 }
-html .not-liked-icon:hover {
+.not-liked-icon:hover {
   color: red;
 }
-html .btn-icon-only::before {
-  content: ""; /* A pseudo-element for the background */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  transition: background-color 0.3s ease;
-}
-html .btn-icon-only.btn-primary .fa {
-  color: white; /* Icon color */
-}
-html .btn-icon-only.btn-primary .fa:hover {
-  color: var(--bs-primary);
-}
-html .plus, html .minus {
-  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
-}
-html .plus:hover, html .minus:hover {
-  box-shadow: none;
-}
-html .plus .fa {
-  color: var(--bs-white);
-}
-html .plus::before {
-  color: #fff;
-  background-color: var(--bs-primary);
-  border: 2px solid var(--bs-primary);
-}
-html .plus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-primary);
-}
-html .plus:hover .fa {
-  color: var(--bs-primary);
-}
-html .minus .fa {
-  color: var(--bs-white);
-}
-html .minus::before {
-  background-color: var(--bs-danger);
-  color: #fff;
-  border: 2px solid var(--bs-danger);
-}
-html .minus:hover::before {
-  background-color: #fff;
-  border: 2px solid var(--bs-danger) !important;
-}
-html .minus:hover .fa {
-  color: var(--bs-danger);
-}
-html .fa-user-circle {
+
+.fa-user-circle {
   color: var(--bs-success);
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--bs-primary);
 }
-html .finished {
+
+.finished {
   color: var(--bs-danger);
 }
-html .not-finished {
+
+.not-finished {
   color: var(--bs-primary);
+}
+
+.inactive {
+  color: lightgrey;
 }
 
 .wide-contents-container {
@@ -419,24 +429,33 @@ html .not-finished {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   max-width: 900px;
-  margin-top: -1rem;
+  max-height: 80vh;
+  padding: 1rem 2rem 3rem 2rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.card-outer-container::-webkit-scrollbar {
+  display: none;
 }
 
-.card-container {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 860px;
-  padding: 2rem;
-  padding-top: 1rem;
-  position: relative;
-}
-
+/*.card-container {
+    @extend .card-outer-container;
+    @extend .card-border-style;
+    //@extend .card-style;*/
+/*position: absolute;
+    top: 0;
+    left: 0;
+*/
+/*max-width: 860px;
+    height: 100%;
+    padding: 2rem;
+}*/
 .shopping-list-container {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -478,22 +497,21 @@ html .not-finished {
   z-index: 1;
   max-width: 500px;
   padding: 2rem;
-  background-color: var(--bs-body-bg);
   border: none;
   border-radius: 2px;
   text-align: center;
+  background-color: var(--bs-body-bg);
 }
 
 @media (max-width: 900px) {
   .card-outer-container {
-    margin-top: -30px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
   }
-  .card-container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
+  /*.card-container {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+  }*/
 }
 nav {
   padding: 0 !important;
@@ -771,8 +789,8 @@ nav #nav-container .collapsed .bottom-bar {
 
 #theme-container {
   position: absolute;
-  top: 65px;
-  right: 12px;
+  top: 70px;
+  right: 5px;
   z-index: 100;
 }
 #theme-container .theme-switcher {
@@ -788,182 +806,582 @@ nav #nav-container .collapsed .bottom-bar {
   text-decoration: none;
 }
 
+@media (min-width: 768px) {
+  #theme-container {
+    top: 65px;
+    right: 6px;
+  }
+}
 @media (min-width: 992px) {
   #theme-container {
+    top: 70px;
     right: 20px;
-    top: 68px;
   }
 }
 @media (min-width: 1200px) {
   #theme-container {
-    right: 40px;
     top: 70px;
+    right: 40px;
   }
 }
-html .btn {
-  border: none;
+.btn {
   border-radius: 2px;
   cursor: pointer;
-  opacity: 1;
   transition: all 0.3s ease-in;
 }
-html .btn:hover {
-  border: none;
-}
-html .btn-icon-only {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 2px;
-}
-html .btn-icon-only i.fa, html .btn-icon-only i.fas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-html .nav-btn, html .nav-dropdown-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-html .nav-btn:hover {
-  background-color: var(--bs-primary) !important;
-  color: var(--bs-white) !important;
-  border-color: var(--bs-dark) !important;
-  transition: 0.5s;
-}
-html #main-container .search-btn {
-  border: 1px solid var(--bs-primary) !important;
-  font-weight: bolder;
-  color: var(--bs-success) !important;
-}
-html #main-container .search-btn:hover {
-  border: 1px solid var(--bs-primary) !important;
-}
-html #main-container .card-btn-width {
-  font-size: 1.4rem;
-  display: inline-block;
-  width: 9rem;
-  padding: 0.8rem, 1.2rem;
-}
-html #main-container .btn-primary {
-  color: var(--bs-white);
+
+.btn-primary, .signup-button, .browse-recipes-btn, .shopping-list-btn {
   border: 1px solid var(--bs-primary);
+  background-color: var(--bs-primary);
+  color: var(--bs-body-bg);
 }
-html #main-container .btn-primary:hover {
+.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
-  background-color: var(--bs-white);
-  border: 1px solid var(--bs-primary);
+  background-color: var(--bs-body-bg);
 }
-html #main-container .btn-secondary {
+
+.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+  border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
-  border: 1px solid var(--bs-success);
 }
-html #main-container .btn-secondary:hover {
+.btn-secondary:hover, .edit-button:hover, .copy-mealplan-button:hover, .save-button:hover, .add-recipe-button:hover {
+  border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
-  border: 1px solid var(--bs-primary);
 }
-html #main-container .btn-danger {
+
+.btn-danger, .delete-button {
   border: 1px solid var(--bs-danger);
+  color: var(--bs-white);
+  background-color: var(--bs-danger);
 }
-html #main-container .btn-danger:hover {
+.btn-danger:hover, .delete-button:hover {
+  border: 1px solid var(--bs-light);
   color: var(--bs-danger);
+  background-color: var(--bs-light);
+}
+
+.btn-light, .learnmore-button {
+  color: var(--bs-dark);
   background-color: var(--bs-light);
   border: 1px solid var(--bs-light);
 }
-html #main-container .btn-light {
-  border: 1px solid var(--bs-light);
+.btn-light:hover, .learnmore-button:hover {
+  color: var(--bs-light);
+  background-color: var(--bs-dark);
+  border: 1px solid var(--bs-dark);
 }
-html #main-container .btn-outline-danger {
-  border: 1px solid var(--bs-danger);
+
+.disabled {
+  opacity: 0.6 !important;
 }
-html #main-container .btn-outline-danger:hover {
-  border: 1px solid var(--bs-danger);
-}
-html #main-container .btn-outline-primary {
-  border: 1px solid var(--bs-primary);
-  color: var(--bs-primary);
-}
-html #main-container .btn-outline-primary:hover {
-  border: 1px solid var(--bs-primary);
-  color: var(--bs-white);
-  background-color: var(--bs-primary);
-}
-html #main-container #build-btn-container .btn-build {
-  background-color: var(--bs-primary);
-  border: 2px solid var(--bs-primary);
-}
-html #main-container #build-btn-container .btn-build:hover {
-  background-color: var(--bs-body-bg);
-  border: 2px solid var(--bs-primary);
-}
-html #main-container #build-btn-container .btn-build:hover .fa {
-  color: var(--bs-primary);
-}
-html #main-container .fixed-size-btn {
+
+.fixed-size-btn, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .uncook-meal-button, .cook-meal-button, .plus, .back-button-main, .download-btn {
   height: 40px;
   width: 44px;
   font-size: 22px;
 }
-html #main-container .remove-btn-size {
+
+.remove-btn-size, .remove-item-button {
   height: 36px;
   width: 36px;
   font-size: 24px;
 }
-html #main-container .card-back-button {
-  color: var(--bs-success);
+
+.card-btn-width, .signup-button, .learnmore-button, .delete-button, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .browse-recipes-btn, .shopping-list-btn {
+  width: 9rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
-html #main-container .card-back-button:hover {
-  background-color: var(--bs-primary);
+
+.back-button-main, .download-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas, .download-btn i, .download-btn .fa, .download-btn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-primary);
+  z-index: 1;
+}
+.back-button-main::before, .download-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-body-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover, .download-btn:hover {
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas, .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
-html #main-container .btn.close {
+.back-button-main:hover::before, .download-btn:hover::before {
+  background-color: var(--bs-primary);
+}
+.back-button-main:hover, .download-btn:hover {
+  border: 1px solid var(--bs-primary);
+}
+
+.plus {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.plus i, .plus .fa, .plus .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+.plus::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.plus:hover {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.plus:hover i, .plus:hover .fa, .plus:hover .fas {
+  color: var(--bs-primary);
+}
+.plus:hover::before {
+  background-color: #fff;
+}
+.plus:hover {
+  box-shadow: none;
+}
+.plus:hover {
+  border: 2px solid var(--bs-primary);
+}
+
+.cook-meal-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-danger);
+  border-radius: 2px;
+}
+.cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+.cook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.cook-meal-button:hover i, .cook-meal-button:hover .fa, .cook-meal-button:hover .fas {
+  color: var(--bs-danger);
+}
+.cook-meal-button:hover::before {
+  background-color: var(--bs-body-bg);
+}
+.cook-meal-button:hover {
+  border: 2px solid var(--bs-danger);
+}
+
+.uncook-meal-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+  border: 2px solid var(--bs-primary);
+}
+.uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+.uncook-meal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.uncook-meal-button:hover {
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+.uncook-meal-button:hover i, .uncook-meal-button:hover .fa, .uncook-meal-button:hover .fas {
+  color: var(--bs-primary);
+}
+.uncook-meal-button:hover::before {
+  background-color: var(--bs-body-bg);
+}
+.uncook-meal-button:hover {
+  border: 2px solid var(--bs-primary) !important;
+}
+
+.minus, .remove-item-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-danger);
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.minus i, .remove-item-button i, .minus .fa, .remove-item-button .fa, .minus .fas, .remove-item-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 1;
+}
+.minus::before, .remove-item-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-danger);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.minus:hover, .remove-item-button:hover {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.minus:hover i, .remove-item-button:hover i, .minus:hover .fa, .remove-item-button:hover .fa, .minus:hover .fas, .remove-item-button:hover .fas {
+  color: var(--bs-danger);
+}
+.minus:hover::before, .remove-item-button:hover::before {
+  background-color: #fff;
+}
+.minus:hover, .remove-item-button:hover {
+  box-shadow: none;
+}
+.minus:hover, .remove-item-button:hover {
+  border: 2px solid var(--bs-danger);
+}
+
+.nav-btn, .nav-dropdown-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn:hover {
+  color: var(--bs-white) !important;
+  border-color: var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
+  transition: background-color 0.3s ease;
+}
+
+.browse-recipes-btn, .shopping-list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-recipe-button {
+  width: 10rem;
+}
+
+.delete-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-button, .learnmore-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem !important;
+}
+
+#main-container .search-btn {
+  border: 1px solid var(--bs-primary) !important;
+  font-weight: bolder;
+  color: var(--bs-success) !important;
+}
+#main-container .search-btn:hover {
+  border: 1px solid var(--bs-primary) !important;
+}
+#main-container .btn-outline-danger {
+  border: 1px solid var(--bs-danger);
+}
+#main-container .btn-outline-danger:hover {
+  border: 1px solid var(--bs-danger);
+}
+#main-container .btn-outline-primary {
+  border: 1px solid var(--bs-primary);
+}
+#main-container .btn-outline-primary:hover {
+  border: 1px solid var(--bs-primary);
+}
+#main-container .pagination-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+  border: 1px solid var(--bs-primary) !important;
+}
+#main-container .pagination-btn i, #main-container .pagination-btn .fa, #main-container .pagination-btn .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-body-bg);
+  z-index: 1;
+}
+#main-container .pagination-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .pagination-btn:hover {
+  border: 1px solid var(--bs-body-bg);
+  border-radius: 2px;
+}
+#main-container .pagination-btn:hover i, #main-container .pagination-btn:hover .fa, #main-container .pagination-btn:hover .fas {
+  color: var(--bs-primary);
+}
+#main-container .pagination-btn:hover::before {
+  background-color: var(--bs-body-bg);
+}
+#main-container .btn-build {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--bs-body-bg);
+  border-radius: 2px;
+  border: 2px solid var(--bs-primary) !important;
+}
+#main-container .btn-build i, #main-container .btn-build .fa, #main-container .btn-build .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-primary);
+  z-index: 1;
+}
+#main-container .btn-build::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-body-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .btn-build:hover {
+  border: 2px solid var(--bs-primary);
+  border-radius: 2px;
+}
+#main-container .btn-build:hover i, #main-container .btn-build:hover .fa, #main-container .btn-build:hover .fas {
+  color: var(--bs-body-bg);
+}
+#main-container .btn-build:hover::before {
+  background-color: var(--bs-primary);
+}
+#main-container .card-back-button {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 0px solid var(--bs-primary);
+  border-radius: 2px;
+}
+#main-container .card-back-button i, #main-container .card-back-button .fa, #main-container .card-back-button .fas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bs-success);
+  z-index: 1;
+}
+#main-container .card-back-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: var(--bs-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#main-container .card-back-button:hover {
+  border: 0px solid var(--bs-success);
+  border-radius: 2px;
+}
+#main-container .card-back-button:hover i, #main-container .card-back-button:hover .fa, #main-container .card-back-button:hover .fas {
+  color: var(--bs-primary);
+}
+#main-container .card-back-button:hover::before {
+  background-color: var(--bs-success);
+}
+#main-container .btn.close {
   color: var(--bs-success);
 }
-html #main-container .btn.close:hover {
+#main-container .btn.close:hover {
   color: var(--bs-white);
 }
-html #main-container .external-login-button {
+#main-container .external-login-button {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 14px;
+  align-items: center;
   padding: 8px;
-  background-color: #f8f9fa;
   border: 1px solid #ddd;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
+  background-color: #f8f9fa;
   transition: background-color 0.3s, border-color 0.3s;
 }
-html #main-container .external-login-button:active {
+#main-container .external-login-button:active {
   background-color: #d6d8db;
 }
-html #main-container .external-login-button:hover {
+#main-container .external-login-button:hover {
   border: 1px solid var(--bs-body-color);
 }
-html #main-container .external-login-button .external-login-icon {
+#main-container .external-login-button .external-login-icon {
   width: 20px;
   height: 20px;
   vertical-align: middle;
 }
-html #main-container .external-login-button img {
+#main-container .external-login-button img {
   margin-right: 8px;
+}
+
+#pagination-buttons {
+  position: fixed;
+  bottom: 17px;
+  right: 57px;
+  z-index: 10000;
+}
+
+#build-btn-container {
+  position: fixed;
+  right: 10px;
+  bottom: 25px;
+  z-index: 10000;
 }
 
 @media (min-width: 992px) {
   #build-btn-container {
+    position: fixed;
+    right: 21px !important;
     bottom: 26px !important;
-    right: 43px !important;
   }
-}
-@media (min-width: 769px) {
-  #build-btn-container {
-    bottom: 45px;
-    right: 13px;
+  #pagination-buttons {
+    position: fixed;
+    bottom: 18px !important;
+    right: 69px !important;
   }
 }
 .recipe-container {
@@ -984,33 +1402,28 @@ html #main-container .external-login-button img {
   overflow: hidden;
   /*border: 1px solid var(--bs-primary);*/
   border: none;
+  border-radius: 2px;
   box-shadow: 0 0.3rem 0.6rem rgba(46, 105, 48, 0.03);
   transition: all 0.4s;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
   height: 13rem;
-  object-fit: cover;
   width: 100%;
+  object-fit: cover;
 }
 .recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-user-circle {
   position: absolute;
   top: 8px;
   left: 10px;
-  font-size: 24px;
   z-index: 2;
+  font-size: 24px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
-  display: inline-block;
   position: absolute;
-  bottom: 8px;
   right: 10px;
+  bottom: 8px;
   z-index: 2;
-}
-.recipe-container .recipe-card .image-container .add-to-mealplan-container .btn-icon-only {
-  position: relative;
-  display: inline-block;
-  transition: background-color 0.3s ease;
 }
 .recipe-container .recipe-card .card-body {
   background-color: var(--bs-body-bg) !important;
@@ -1034,7 +1447,6 @@ html #main-container .external-login-button img {
   margin-top: 0.25rem;
   margin-bottom: 0.125rem;
   text-decoration: underline;
-  transition: color 0.4s ease, background-color 0.4s ease;
 }
 .recipe-container .recipe-card .card-body .recipe-info {
   margin-top: 0.125rem;
@@ -1062,7 +1474,7 @@ html #main-container .external-login-button img {
 }
 .recipe-container .recipe-card:hover {
   transform: translateY(-0.3rem);
-  box-shadow: 0 0.6rem 1.6rem rgba(46, 105, 48, 0.2);
+  box-shadow: 0 0.6rem 1.2rem rgba(46, 105, 48, 0.1);
 }
 
 #admin-container {
@@ -1398,10 +1810,34 @@ html #main-container .external-login-button img {
     margin-bottom: 2.2rem;
   }
 }
-.card-border-style, .card-container, .shopping-list-container, .contact-form-container, .form-container {
+.card-border-style, .shopping-list-container, .contact-form-container, .form-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -1423,14 +1859,16 @@ html #main-container .external-login-button img {
 }
 
 .image-overlay {
-  margin: 0 auto;
-  background-size: cover;
   position: fixed;
   top: 50px;
   left: 0;
   height: 100vh;
   width: 100vw;
+  margin: 0 auto;
   padding: 1.5rem !important;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -1443,11 +1881,12 @@ html #main-container .external-login-button img {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -1486,10 +1925,10 @@ html #main-container .external-login-button img {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -1501,12 +1940,8 @@ html #main-container .external-login-button img {
     font-size: 18px;
   }
 }
-#recipe-details-container, #meal-cook-container {
-  position: relative;
-}
-#recipe-details-container .card, #meal-cook-container .card {
-  border: none !important;
-  box-shadow: none !important;
+#recipe-details-container .heading-secondary, #meal-cook-container .heading-secondary {
+  font-size: 1.6rem !important;
 }
 #recipe-details-container .card .card-body, #meal-cook-container .card .card-body {
   padding: 0;
@@ -1520,6 +1955,10 @@ html #main-container .external-login-button img {
 }
 #recipe-details-container .card .card-body .recipe-title .meal-title-style, #recipe-details-container .card .card-body .meal-title .meal-title-style, #meal-cook-container .card .card-body .recipe-title .meal-title-style, #meal-cook-container .card .card-body .meal-title .meal-title-style {
   text-decoration: underline;
+}
+#recipe-details-container .card .card-body .tip-start, #meal-cook-container .card .card-body .tip-start {
+  text-decoration: underline;
+  font-weight: 600;
 }
 #recipe-details-container .card .card-body .img-container, #meal-cook-container .card .card-body .img-container {
   position: relative;
@@ -1552,26 +1991,21 @@ html #main-container .external-login-button img {
   font-size: 28px;
   z-index: 2;
 }
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .cook-meal-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .cook-meal-container {
+#recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .button-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .button-container {
   position: absolute;
   bottom: 16px;
   right: 17px;
   z-index: 2;
 }
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #recipe-details-container .card .card-body .img-container .cook-meal-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .btn-icon-only, #meal-cook-container .card .card-body .img-container .cook-meal-container .btn-icon-only {
-  position: relative;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas {
-  color: white;
-}
-#recipe-details-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #recipe-details-container .card .card-body .img-container .cook-meal-container .fas:hover, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container .fas:hover, #meal-cook-container .card .card-body .img-container .cook-meal-container .fas:hover {
-  color: var(--bs-primary);
-}
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
-  background-color: var(--bs-primary);
+  padding: 1rem 0.5rem;
   color: var(--bs-white);
+  background-color: var(--bs-primary);
 }
-#recipe-details-container .card .card-body .features-row .icon-container, #meal-cook-container .card .card-body .features-row .icon-container {
+#recipe-details-container .card .card-body .features-row .col, #meal-cook-container .card .card-body .features-row .col {
+  margin-bottom: 0.3rem;
+}
+#recipe-details-container .card .card-body .features-row .col .icon-container, #meal-cook-container .card .card-body .features-row .col .icon-container {
   width: 1.3rem;
   display: flex;
   justify-content: center;
@@ -1579,10 +2013,10 @@ html #main-container .external-login-button img {
   color: var(--bs-success);
   line-height: 1.3rem;
 }
-#recipe-details-container .card .card-body .features-row .icon-container .fa, #meal-cook-container .card .card-body .features-row .icon-container .fa {
+#recipe-details-container .card .card-body .features-row .col .icon-container .fa, #meal-cook-container .card .card-body .features-row .col .icon-container .fa {
   font-size: 1rem;
 }
-#recipe-details-container .card .card-body .features-row .list-item-content, #meal-cook-container .card .card-body .features-row .list-item-content {
+#recipe-details-container .card .card-body .features-row .col .list-item-content, #meal-cook-container .card .card-body .features-row .col .list-item-content {
   font-family: "Libre Baskerville", serif;
   font-size: 1rem;
   line-height: 1.3rem;
@@ -1633,184 +2067,34 @@ html #main-container .external-login-button img {
     font-size: 18px;
   }
 }
-#add-mealplan #backBtn, #details-mealplan #backBtn, #edit-mealplan #backBtn {
-  position: absolute;
-  top: 33px;
-  right: 33px;
-}
-#add-mealplan p, #details-mealplan p, #edit-mealplan p {
-  margin-top: 0;
-  margin-bottom: 0.25rem;
-}
-#add-mealplan .input-group-text, #add-mealplan thead th, #details-mealplan .input-group-text, #details-mealplan thead th, #edit-mealplan .input-group-text, #edit-mealplan thead th {
-  color: var(--bs-body-bg) !important;
-  background-color: var(--bs-primary) !important;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px !important;
-  font-weight: bold;
-}
-#add-mealplan thead th:nth-child(1), #details-mealplan thead th:nth-child(1), #edit-mealplan thead th:nth-child(1) {
-  text-align: start !important;
-}
-#add-mealplan thead th, #details-mealplan thead th, #edit-mealplan thead th {
-  text-align: center;
-}
-#add-mealplan .left-pill, #details-mealplan .left-pill, #edit-mealplan .left-pill {
-  color: var(--bs-primary);
-  background-color: var(--bs-body-bg);
-  border: 1px solid var(--bs-primary);
-}
-#add-mealplan .right-pill, #details-mealplan .right-pill, #edit-mealplan .right-pill {
-  color: var(--bs-body-bg);
-  background-color: var(--bs-primary);
-  border: 1px solid var(--bs-primary);
-}
-#add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
-  padding-bottom: 1rem;
-}
-#add-mealplan .row .card, #details-mealplan .row .card, #edit-mealplan .row .card {
-  border-color: var(--bs-primary);
-}
-#add-mealplan .row .info-pill, #details-mealplan .row .info-pill, #edit-mealplan .row .info-pill {
-  border: 1px solid var(--bs-primary);
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.8rem 1.25rem;
-  margin-bottom: 8px;
-}
-#add-mealplan .row #collapseSummary .card, #details-mealplan .row #collapseSummary .card, #edit-mealplan .row #collapseSummary .card {
-  background-color: var(--bs-success) !important;
-  border: none !important;
-}
-#add-mealplan .row .no-wrap-text, #details-mealplan .row .no-wrap-text, #edit-mealplan .row .no-wrap-text {
-  white-space: nowrap;
-}
-#add-mealplan .row .text-style, #details-mealplan .row .text-style, #edit-mealplan .row .text-style {
-  font-family: "Libre Baskerville", serif;
-  font-size: 16px;
-}
-#add-mealplan .row .meal-plan-name-text, #details-mealplan .row .meal-plan-name-text, #edit-mealplan .row .meal-plan-name-text {
-  font-size: 16px;
-  font-weight: 400;
-}
-#add-mealplan .row .meal-plan-name-text .example-names, #details-mealplan .row .meal-plan-name-text .example-names, #edit-mealplan .row .meal-plan-name-text .example-names {
-  font-weight: 600;
-}
-#add-mealplan .row li, #details-mealplan .row li, #edit-mealplan .row li {
-  margin-bottom: 10px;
-  font-weight: 300;
-}
-#add-mealplan .row .meal-row, #details-mealplan .row .meal-row, #edit-mealplan .row .meal-row {
-  position: relative;
-}
-#add-mealplan .row .meal-row .meal-info, #details-mealplan .row .meal-row .meal-info, #edit-mealplan .row .meal-row .meal-info {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-#add-mealplan .row .meal-row img, #details-mealplan .row .meal-row img, #edit-mealplan .row .meal-row img {
-  object-fit: cover;
-  width: 28%;
-  max-width: 80px;
-  min-width: 50px;
-  display: block;
-  height: 5rem;
-}
-#add-mealplan .row .meal-row .meal-title, #details-mealplan .row .meal-row .meal-title, #edit-mealplan .row .meal-row .meal-title {
-  font-family: "Libre Baskerville", serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1;
-  margin-bottom: 0;
-  color: var(--meal-title-color);
-}
-#add-mealplan .row .meal-row .meal-title:hover, #details-mealplan .row .meal-row .meal-title:hover, #edit-mealplan .row .meal-row .meal-title:hover {
-  text-decoration: underline;
-}
-#add-mealplan .row .meal-row select, #add-mealplan .row .meal-row .text-style, #details-mealplan .row .meal-row select, #details-mealplan .row .meal-row .text-style, #edit-mealplan .row .meal-row select, #edit-mealplan .row .meal-row .text-style {
-  font-family: "Libre Baskerville", serif;
-  font-size: 14px;
-}
-#add-mealplan .row .meal-row .category-text, #details-mealplan .row .meal-row .category-text, #edit-mealplan .row .meal-row .category-text {
-  font-size: 14px;
-  font-weight: 400;
-  font-style: italic;
-}
-#add-mealplan .row .meal-row .cook-btn, #details-mealplan .row .meal-row .cook-btn, #edit-mealplan .row .meal-row .cook-btn {
-  height: 2.1rem;
-  font-size: 1.4rem;
-}
-#add-mealplan .row .meal-row .remove-btn-container, #details-mealplan .row .meal-row .remove-btn-container, #edit-mealplan .row .meal-row .remove-btn-container {
-  display: flex;
-  justify-content: center;
-}
-#add-mealplan .row .meal-row.deleted-style, #details-mealplan .row .meal-row.deleted-style, #edit-mealplan .row .meal-row.deleted-style {
-  opacity: 70%;
-}
-#add-mealplan .row .tip-start, #details-mealplan .row .tip-start, #edit-mealplan .row .tip-start {
-  text-decoration: underline;
-  font-weight: 600;
-}
-#add-mealplan .row .statistics-message, #details-mealplan .row .statistics-message, #edit-mealplan .row .statistics-message {
-  padding: 40px 10px;
-}
-#add-mealplan .row #collapseSummary .card-body, #details-mealplan .row #collapseSummary .card-body, #edit-mealplan .row #collapseSummary .card-body {
-  color: #121706;
-}
-#add-mealplan .row .inner-padding.statistics-list, #details-mealplan .row .inner-padding.statistics-list, #edit-mealplan .row .inner-padding.statistics-list {
-  padding: 20px 30px !important;
-  background-color: var(--bs-success);
-  color: var(--bs-primary);
-}
-#add-mealplan .row .inner-padding.statistics-list .statistics, #details-mealplan .row .inner-padding.statistics-list .statistics, #edit-mealplan .row .inner-padding.statistics-list .statistics {
-  font-weight: 700;
-  text-transform: capitalize;
-  color: var(--bs-primary);
-}
-#add-mealplan .row .inner-padding.statistics-list .statistics-value, #details-mealplan .row .inner-padding.statistics-list .statistics-value, #edit-mealplan .row .inner-padding.statistics-list .statistics-value {
-  font-weight: 400;
-  font-style: italic;
-}
-#add-mealplan .row .buttons, #details-mealplan .row .buttons, #edit-mealplan .row .buttons {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#add-mealplan .row .collapse, #details-mealplan .row .collapse, #edit-mealplan .row .collapse {
-  margin-bottom: 1rem;
-}
-
-@media screen and (max-width: 660px) {
-  #add-mealplan .heading-pill, #details-mealplan .heading-pill, #edit-mealplan .heading-pill {
-    font-size: 18px !important;
-  }
-  #add-mealplan .text-uppercase, #details-mealplan .text-uppercase, #edit-mealplan .text-uppercase {
-    font-size: 10px !important;
-  }
-  #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
-    gap: 3px !important;
-  }
-  #add-mealplan .meal-info img, #details-mealplan .meal-info img, #edit-mealplan .meal-info img {
-    max-width: 40px !important;
-  }
-  #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
-    font-size: 14px !important;
-  }
-  #add-mealplan .meal-info .category-text, #details-mealplan .meal-info .category-text, #edit-mealplan .meal-info .category-text {
-    font-size: 12px !important;
-  }
-  #add-mealplan .input-group .input-group-text, #details-mealplan .input-group .input-group-text, #edit-mealplan .input-group .input-group-text {
-    display: none;
-  }
-  #add-mealplan .input-group .text-style, #details-mealplan .input-group .text-style, #edit-mealplan .input-group .text-style {
-    font-size: 11px !important;
-  }
-}
-.card-border-style, .card-container, .shopping-list-container, .contact-form-container, .form-container {
+.card-border-style, .shopping-list-container, .contact-form-container, .form-container {
   box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
 }
 
+.hover-state, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
 .food-background {
   background: url("/img/background-food-large.webp") no-repeat center center;
 }
@@ -1832,14 +2116,16 @@ html #main-container .external-login-button img {
 }
 
 .image-overlay {
-  margin: 0 auto;
-  background-size: cover;
   position: fixed;
   top: 50px;
   left: 0;
   height: 100vh;
   width: 100vw;
+  margin: 0 auto;
   padding: 1.5rem !important;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
 }
 .image-overlay::after {
   content: "";
@@ -1852,11 +2138,12 @@ html #main-container .external-login-button img {
   z-index: -10;
 }
 
+/* CHECK
 @media (min-width: 768px) {
-  .image-overlay {
-    top: 4% !important;
-  }
-}
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
 .card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
   margin-top: -0.9rem !important;
 }
@@ -1895,10 +2182,487 @@ html #main-container .external-login-button img {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
   border: 1px solid var(--bs-success);
 }
-.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover {
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
+  border: 1px solid var(--bs-success) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .card-custom-style-with-back-btn .card-back-button, #add-recipe .card .card-back-button, #edit-recipe .card .card-back-button, #recipe-details-container .card .card-back-button, #meal-cook-container .card .card-back-button {
+    height: 34px !important;
+    width: 42px !important;
+    top: 2px;
+    font-size: 18px;
+  }
+}
+#add-mealplan .heading-secondary, #details-mealplan .heading-secondary, #edit-mealplan .heading-secondary {
+  font-size: 1.6rem !important;
+}
+#add-mealplan .header-container, #details-mealplan .header-container, #edit-mealplan .header-container {
+  position: relative;
+}
+#add-mealplan .header-container .back-btn-container, #details-mealplan .header-container .back-btn-container, #edit-mealplan .header-container .back-btn-container {
+  position: absolute;
+  top: 22px;
+  right: 0;
+}
+#add-mealplan .add-line, #details-mealplan .add-line, #edit-mealplan .add-line {
+  border-bottom: 2px solid #4CAF50; /* Green accent color for a fresh, food-related look */
+}
+#add-mealplan .no-wrap-text, #details-mealplan .no-wrap-text, #edit-mealplan .no-wrap-text {
+  white-space: nowrap;
+}
+#add-mealplan .row, #details-mealplan .row, #edit-mealplan .row {
+  padding-bottom: 1rem;
+}
+#add-mealplan .info-pill, #add-mealplan .tips-pill, #add-mealplan .summary-pill, #add-mealplan #details-mealplan .tips-pill, #details-mealplan #add-mealplan .tips-pill, #add-mealplan #details-mealplan .summary-pill, #details-mealplan #add-mealplan .summary-pill, #add-mealplan #edit-mealplan .tips-pill, #edit-mealplan #add-mealplan .tips-pill, #add-mealplan #edit-mealplan .summary-pill, #edit-mealplan #add-mealplan .summary-pill, #add-mealplan .table thead th, #add-mealplan #details-mealplan .table thead th, #details-mealplan .table thead #add-mealplan th, #add-mealplan #edit-mealplan .table thead th, #edit-mealplan .table thead #add-mealplan th, #add-mealplan .name .name-label-text, #details-mealplan .info-pill, #details-mealplan .tips-pill, #details-mealplan .summary-pill, #details-mealplan #edit-mealplan .tips-pill, #edit-mealplan #details-mealplan .tips-pill, #details-mealplan #edit-mealplan .summary-pill, #edit-mealplan #details-mealplan .summary-pill, #details-mealplan #add-mealplan .table thead th, #add-mealplan .table thead #details-mealplan th, #details-mealplan .table thead th, #details-mealplan #edit-mealplan .table thead th, #edit-mealplan .table thead #details-mealplan th, #details-mealplan .name .name-label-text, #edit-mealplan .info-pill, #edit-mealplan .tips-pill, #edit-mealplan .summary-pill, #edit-mealplan #add-mealplan .table thead th, #add-mealplan .table thead #edit-mealplan th, #edit-mealplan #details-mealplan .table thead th, #details-mealplan .table thead #edit-mealplan th, #edit-mealplan .table thead th, #edit-mealplan .name .name-label-text {
+  padding: 0.8rem 1.25rem;
+  margin-bottom: 0.5rem;
+  background-color: var(--bs-primary);
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+  text-align: start;
+  text-transform: uppercase;
+  color: var(--bs-body-bg);
+  font-weight: bold;
+}
+#add-mealplan .name-inviting-message, #details-mealplan .name-inviting-message, #edit-mealplan .name-inviting-message {
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--bs-primary);
+}
+#add-mealplan .name, #details-mealplan .name, #edit-mealplan .name {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--bs-primary);
+  border-radius: 2px;
+}
+#add-mealplan .name .name-label-text, #details-mealplan .name .name-label-text, #edit-mealplan .name .name-label-text {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  margin-bottom: 0;
+}
+#add-mealplan .name input.form-control, #details-mealplan .name input.form-control, #edit-mealplan .name input.form-control {
+  padding: 0.65rem;
+  border: none;
+}
+#add-mealplan .name input.form-control::placeholder, #details-mealplan .name input.form-control::placeholder, #edit-mealplan .name input.form-control::placeholder {
+  color: #0f2210;
+}
+#add-mealplan .name-suggestions, #details-mealplan .name-suggestions, #edit-mealplan .name-suggestions {
+  margin-top: -0.2rem;
+  padding-top: 0;
+}
+#add-mealplan .name-suggestions a, #details-mealplan .name-suggestions a, #edit-mealplan .name-suggestions a {
+  font-size: 0.8rem;
+  margin-top: 0;
+}
+#add-mealplan .name-suggestions .names-container, #details-mealplan .name-suggestions .names-container, #edit-mealplan .name-suggestions .names-container {
+  background-color: #c5e96a;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 2px;
+  color: var(--bs-primary);
+}
+#add-mealplan .name-suggestions .names-container h4, #add-mealplan .name-suggestions .names-container .h4, #details-mealplan .name-suggestions .names-container h4, #details-mealplan .name-suggestions .names-container .h4, #edit-mealplan .name-suggestions .names-container h4, #edit-mealplan .name-suggestions .names-container .h4 {
+  margin-bottom: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+#add-mealplan .name-suggestions .names-container hr, #details-mealplan .name-suggestions .names-container hr, #edit-mealplan .name-suggestions .names-container hr {
+  color: var(--bs-primary);
+}
+#add-mealplan .name-suggestions .names-container .category-container, #details-mealplan .name-suggestions .names-container .category-container, #edit-mealplan .name-suggestions .names-container .category-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category {
+  padding: 0.6rem 1rem 1.6rem 0.6rem;
+  text-align: start;
+}
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5 {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+#add-mealplan .name-suggestions .names-container .category-container .suggestion-category p, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category p, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category p {
+  font-weight: normal;
+  font-size: 1rem;
+}
+#add-mealplan .table, #details-mealplan .table, #edit-mealplan .table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+#add-mealplan .table thead th, #details-mealplan .table thead th, #edit-mealplan .table thead th {
+  border: 1px solid var(--bs-primary);
+  border-radius: 0;
+}
+#add-mealplan .table thead th:first-child, #details-mealplan .table thead th:first-child, #edit-mealplan .table thead th:first-child {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+#add-mealplan .table thead th:last-child, #details-mealplan .table thead th:last-child, #edit-mealplan .table thead th:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+#add-mealplan .table tr td, #details-mealplan .table tr td, #edit-mealplan .table tr td {
+  border-bottom: none;
+}
+#add-mealplan .table tr td .text-style, #details-mealplan .table tr td .text-style, #edit-mealplan .table tr td .text-style {
+  font-size: 1rem;
+}
+#add-mealplan .table tr td .table-input-style .input-group-text, #details-mealplan .table tr td .table-input-style .input-group-text, #edit-mealplan .table tr td .table-input-style .input-group-text {
+  color: var(--bs-body-bg);
+}
+#add-mealplan .table tr td .table-input-style .input-group-text, #add-mealplan .table tr td .table-input-style .form-control, #add-mealplan .table tr td .table-input-style .form-select, #details-mealplan .table tr td .table-input-style .input-group-text, #details-mealplan .table tr td .table-input-style .form-control, #details-mealplan .table tr td .table-input-style .form-select, #edit-mealplan .table tr td .table-input-style .input-group-text, #edit-mealplan .table tr td .table-input-style .form-control, #edit-mealplan .table tr td .table-input-style .form-select {
+  border: 1px solid var(--bs-primary);
+}
+#add-mealplan .table tr.meal-row, #details-mealplan .table tr.meal-row, #edit-mealplan .table tr.meal-row {
+  position: relative;
+}
+#add-mealplan .table tr.meal-row .meal-info, #details-mealplan .table tr.meal-row .meal-info, #edit-mealplan .table tr.meal-row .meal-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+#add-mealplan .table tr.meal-row .meal-info .meal-image, #details-mealplan .table tr.meal-row .meal-info .meal-image, #edit-mealplan .table tr.meal-row .meal-info .meal-image {
+  width: 5rem;
+  height: 5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+#add-mealplan .table tr.meal-row .meal-info .meal-image img, #details-mealplan .table tr.meal-row .meal-info .meal-image img, #edit-mealplan .table tr.meal-row .meal-info .meal-image img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  flex-grow: 1;
+  overflow: hidden;
+}
+#add-mealplan .table tr.meal-row .button-container, #details-mealplan .table tr.meal-row .button-container, #edit-mealplan .table tr.meal-row .button-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-title, #details-mealplan .table tr.meal-row .meal-content .meal-title, #edit-mealplan .table tr.meal-row .meal-content .meal-title {
+  font-family: "Libre Baskerville", serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-title a, #details-mealplan .table tr.meal-row .meal-content .meal-title a, #edit-mealplan .table tr.meal-row .meal-content .meal-title a {
+  color: #173418;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-title:hover, #details-mealplan .table tr.meal-row .meal-content .meal-title:hover, #edit-mealplan .table tr.meal-row .meal-content .meal-title:hover {
+  text-decoration: underline;
+  color: #173418;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-stats, #details-mealplan .table tr.meal-row .meal-content .meal-stats, #edit-mealplan .table tr.meal-row .meal-content .meal-stats {
+  color: var(--bs-primary);
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-stats i::before, #details-mealplan .table tr.meal-row .meal-content .meal-stats i::before, #edit-mealplan .table tr.meal-row .meal-content .meal-stats i::before {
+  margin-right: 0.25rem;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-stats span.separator, #details-mealplan .table tr.meal-row .meal-content .meal-stats span.separator, #edit-mealplan .table tr.meal-row .meal-content .meal-stats span.separator {
+  margin: 0 0.5rem;
+}
+#add-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text, #details-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text, #edit-mealplan .table tr.meal-row .meal-content .meal-stats span.icon-text {
+  margin-right: 0.25rem;
+}
+#add-mealplan .table tr.meal-row .meal-content select, #add-mealplan .table tr.meal-row .meal-content .text-style, #details-mealplan .table tr.meal-row .meal-content select, #details-mealplan .table tr.meal-row .meal-content .text-style, #edit-mealplan .table tr.meal-row .meal-content select, #edit-mealplan .table tr.meal-row .meal-content .text-style {
+  font-family: "Libre Baskerville", serif;
+  font-size: 0.9rem;
+}
+#add-mealplan .table tr.meal-row .cook-btn, #details-mealplan .table tr.meal-row .cook-btn, #edit-mealplan .table tr.meal-row .cook-btn {
+  height: 2.1rem;
+  font-size: 1.4rem;
+}
+#add-mealplan .table tr.meal-row .remove-btn-container, #details-mealplan .table tr.meal-row .remove-btn-container, #edit-mealplan .table tr.meal-row .remove-btn-container {
+  display: flex;
+  justify-content: center;
+}
+#add-mealplan .table tr.meal-row.deleted-style, #details-mealplan .table tr.meal-row.deleted-style, #edit-mealplan .table tr.meal-row.deleted-style {
+  opacity: 65%;
+}
+#add-mealplan .table tr.meal-row.deleted-style .meal-title:hover, #details-mealplan .table tr.meal-row.deleted-style .meal-title:hover, #edit-mealplan .table tr.meal-row.deleted-style .meal-title:hover {
+  text-decoration: none;
+}
+#add-mealplan .collapse, #details-mealplan .collapse, #edit-mealplan .collapse {
+  margin-bottom: 1rem;
+}
+#add-mealplan #collapseTips .tip-container, #details-mealplan #collapseTips .tip-container, #edit-mealplan #collapseTips .tip-container {
+  padding: 1.5rem;
+  padding-bottom: 3rem;
+  background-color: #c5e96a;
+  text-align: center;
+  color: var(--bs-primary);
+  border-radius: 2px;
+  cursor: pointer;
+}
+#add-mealplan #collapseTips .tip-container i, #details-mealplan #collapseTips .tip-container i, #edit-mealplan #collapseTips .tip-container i {
+  font-size: 1.6rem;
+}
+#add-mealplan #collapseTips .tip-container .tip-heading, #details-mealplan #collapseTips .tip-container .tip-heading, #edit-mealplan #collapseTips .tip-container .tip-heading {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.5rem;
+  text-decoration: none;
+}
+#add-mealplan #collapseTips .tip-container .tip-text, #details-mealplan #collapseTips .tip-container .tip-text, #edit-mealplan #collapseTips .tip-container .tip-text {
+  font-weight: normal;
+  font-size: 1rem;
+}
+#add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover {
+  background-color: var(--bs-success);
+}
+#add-mealplan #collapseSummary .stats-container, #details-mealplan #collapseSummary .stats-container, #edit-mealplan #collapseSummary .stats-container {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.6rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item, #details-mealplan #collapseSummary .stats-container .stat-item, #edit-mealplan #collapseSummary .stats-container .stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 1px solid var(--bs-light);
+  border-radius: 2px;
+  color: var(--bs-primary);
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-icon, #details-mealplan #collapseSummary .stats-container .stat-item .stat-icon, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-icon i, #details-mealplan #collapseSummary .stats-container .stat-item .stat-icon i, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-icon i {
+  font-size: 2.4rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  line-height: 1.2;
+  margin-top: 0;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-number {
+  font-family: "Libre Baskerville", serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0rem;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content, #details-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content, #edit-mealplan #collapseSummary .stats-container .stat-item .stat-text span.stat-content {
+  font-weight: normal;
+  font-size: 0.9rem;
+  margin-top: -5px;
+}
+#add-mealplan #collapseSummary .stats-container .stat-item:hover, #details-mealplan #collapseSummary .stats-container .stat-item:hover, #edit-mealplan #collapseSummary .stats-container .stat-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#add-mealplan .buttons, #details-mealplan .buttons, #edit-mealplan .buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 660px) {
+  #add-mealplan .text-uppercase, #details-mealplan .text-uppercase, #edit-mealplan .text-uppercase {
+    font-size: 10px !important;
+  }
+  #add-mealplan .meal-info, #details-mealplan .meal-info, #edit-mealplan .meal-info {
+    gap: 3px !important;
+  }
+  #add-mealplan .meal-info .meal-title, #details-mealplan .meal-info .meal-title, #edit-mealplan .meal-info .meal-title {
+    font-size: 14px !important;
+  }
+  #add-mealplan .input-group .input-group-text, #details-mealplan .input-group .input-group-text, #edit-mealplan .input-group .input-group-text {
+    display: none;
+  }
+  #add-mealplan .input-group .text-style, #details-mealplan .input-group .text-style, #edit-mealplan .input-group .text-style {
+    font-size: 11px !important;
+  }
+}
+@media (min-width: 1043px) {
+  .header-container {
+    position: relative;
+  }
+  .header-container .back-btn-container {
+    position: absolute;
+    top: 5px !important;
+    right: 0;
+  }
+}
+[data-bs-theme=dark] .name-inviting-message {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] hr {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .names-container, [data-bs-theme=dark] .tip-container {
+  background-color: #3e8c40 !important;
+  color: var(--bs-body-bg) !important;
+}
+[data-bs-theme=dark] .name input::placeholder {
+  color: #dff3ac !important;
+}
+[data-bs-theme=dark] .name-suggestions a {
+  color: var(--bs-success) !important;
+}
+[data-bs-theme=dark] .info-pill, [data-bs-theme=dark] #add-mealplan .name .name-label-text, #add-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #details-mealplan .name .name-label-text, #details-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #edit-mealplan .name .name-label-text, #edit-mealplan .name [data-bs-theme=dark] .name-label-text, [data-bs-theme=dark] #add-mealplan .table thead th, #add-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #details-mealplan .table thead th, #details-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #edit-mealplan .table thead th, #edit-mealplan .table thead [data-bs-theme=dark] th, [data-bs-theme=dark] #add-mealplan .tips-pill, #add-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #add-mealplan .summary-pill, #add-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #details-mealplan .tips-pill, #details-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #details-mealplan .summary-pill, #details-mealplan [data-bs-theme=dark] .summary-pill, [data-bs-theme=dark] #edit-mealplan .tips-pill, #edit-mealplan [data-bs-theme=dark] .tips-pill, [data-bs-theme=dark] #edit-mealplan .summary-pill, #edit-mealplan [data-bs-theme=dark] .summary-pill {
+  color: var(--bs-body-bg) !important;
+}
+[data-bs-theme=dark] .stat-item {
+  color: var(--bs-body-bg) !important;
+  border: 1px solid var(--bs-dark) !important;
+  background-color: var(--bs-primary) !important;
+}
+[data-bs-theme=dark] .meal-content span,
+[data-bs-theme=dark] .meal-title a {
+  color: #dff3ac !important;
+}
+[data-bs-theme=dark] .meal-title:hover {
+  text-decoration: underline;
+  color: #dff3ac !important;
+}
+
+.card-border-style, .shopping-list-container, .contact-form-container, .form-container {
+  box-shadow: 10px 15px 20px 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+.hover-state, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan #collapseTips .tip-container:hover, #edit-mealplan #collapseTips .tip-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card-style, .card-outer-container {
+  background-color: var(--bs-body-bg);
+  border-radius: 2px;
+  overflow-y: auto;
+}
+
+/*.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;*/ /* Ensures scrolling is enabled */
+/*scrollbar-width: none;*/ /* Hides scrollbar in Firefox */
+/*-ms-overflow-style: none;*/ /* Hides scrollbar in Internet Explorer and Edge */
+/*&::-webkit-scrollbar {
+    width: 0px;*/ /* Effectively hides scrollbar width */
+/*background: transparent;*/ /* Sets the background of the scrollbar to transparent */
+/*}
+}*/
+.food-background {
+  background: url("/img/background-food-large.webp") no-repeat center center;
+}
+@media (max-width: 1200px) {
+  .food-background {
+    background: url("/img/background-food-medium.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .food-background {
+    background: url("/img/background-food-small-1024.webp") no-repeat center center;
+    background-size: cover;
+  }
+}
+
+.change-pass, .info-message {
+  top: 10% !important;
+}
+
+.image-overlay {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  padding: 1.5rem !important;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -11;
+}
+.image-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -10;
+}
+
+/* CHECK
+@media (min-width: 768px) {
+    .image-overlay {
+        top: 4% !important;
+    }
+}*/
+.card-custom-style-with-back-btn, #add-recipe .card, #edit-recipe .card, #recipe-details-container .card, #meal-cook-container .card {
+  margin-top: -0.9rem !important;
+}
+.card-custom-style-with-back-btn .card-header, #add-recipe .card .card-header, #edit-recipe .card .card-header, #recipe-details-container .card .card-header, #meal-cook-container .card .card-header {
+  font-size: 1.1rem;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link, #add-recipe .card .card-header .nav-item .nav-link, #edit-recipe .card .card-header .nav-item .nav-link, #recipe-details-container .card .card-header .nav-item .nav-link, #meal-cook-container .card .card-header .nav-item .nav-link {
+  color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover {
+  color: var(--bs-primary) !important;
+  background-color: var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active, #add-recipe .card .card-header .nav-item .nav-link.active, #edit-recipe .card .card-header .nav-item .nav-link.active, #recipe-details-container .card .card-header .nav-item .nav-link.active, #meal-cook-container .card .card-header .nav-item .nav-link.active {
+  font-weight: bolder;
+  color: var(--bs-body-color) !important;
+}
+.card-custom-style-with-back-btn .card-header .nav-item .nav-link.active:hover, #add-recipe .card .card-header .nav-item .nav-link.active:hover, #edit-recipe .card .card-header .nav-item .nav-link.active:hover, #recipe-details-container .card .card-header .nav-item .nav-link.active:hover, #meal-cook-container .card .card-header .nav-item .nav-link.active:hover {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+  border: 1px solid var(--bs-body-bg) !important;
+}
+.card-custom-style-with-back-btn .card-header .card-back-button, #add-recipe .card .card-header .card-back-button, #edit-recipe .card .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 15;
+}
+.card-custom-style-with-back-btn .card-body .tab-pane, #add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane, #recipe-details-container .card .card-body .tab-pane, #meal-cook-container .card .card-body .tab-pane {
+  min-height: 50vh;
+}
+.card-custom-style-with-back-btn .card-footer .buttons, #add-recipe .card .card-footer .buttons, #edit-recipe .card .card-footer .buttons, #recipe-details-container .card .card-footer .buttons, #meal-cook-container .card .card-footer .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary, #add-recipe .card .card-footer .buttons .btn-secondary, #edit-recipe .card .card-footer .buttons .btn-secondary, #recipe-details-container .card .card-footer .buttons .btn-secondary, #meal-cook-container .card .card-footer .buttons .btn-secondary, .card-custom-style-with-back-btn .card-footer .buttons .edit-button, #add-recipe .card .card-footer .buttons .edit-button, #edit-recipe .card .card-footer .buttons .edit-button, #recipe-details-container .card .card-footer .buttons .edit-button, #meal-cook-container .card .card-footer .buttons .edit-button, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button, #add-recipe .card .card-footer .buttons .copy-mealplan-button, #edit-recipe .card .card-footer .buttons .copy-mealplan-button, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button, .card-custom-style-with-back-btn .card-footer .buttons .save-button, #add-recipe .card .card-footer .buttons .save-button, #edit-recipe .card .card-footer .buttons .save-button, #recipe-details-container .card .card-footer .buttons .save-button, #meal-cook-container .card .card-footer .buttons .save-button, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button {
+  border: 1px solid var(--bs-success);
+}
+.card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .copy-mealplan-button:hover, #add-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #edit-recipe .card .card-footer .buttons .copy-mealplan-button:hover, #recipe-details-container .card .card-footer .buttons .copy-mealplan-button:hover, #meal-cook-container .card .card-footer .buttons .copy-mealplan-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .save-button:hover, #add-recipe .card .card-footer .buttons .save-button:hover, #edit-recipe .card .card-footer .buttons .save-button:hover, #recipe-details-container .card .card-footer .buttons .save-button:hover, #meal-cook-container .card .card-footer .buttons .save-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover {
   border: 1px solid var(--bs-success) !important;
 }
 
@@ -1911,7 +2675,7 @@ html #main-container .external-login-button img {
   }
 }
 #add-recipe .heading-secondary, #edit-recipe .heading-secondary {
-  font-size: 1.9rem !important;
+  font-size: 1.7rem !important;
 }
 #add-recipe .card .card-body .tab-pane, #edit-recipe .card .card-body .tab-pane {
   min-height: 30vh;
@@ -1952,12 +2716,12 @@ html #main-container .external-login-button img {
 }
 #add-recipe .card .card-body hr, #edit-recipe .card .card-body hr {
   border-top: 3px dashed var(--bs-body-color);
-  margin: 10px 0;
+  margin: 0.5rem 0;
 }
 
 @media (min-width: 768px) {
   hr {
-    margin: 1rem 0 !important;
+    margin: 0.75rem 0 !important;
   }
 }
 #shopping-list {
@@ -2138,11 +2902,6 @@ html #main-container .external-login-button img {
   --body-emphasis-color: var(--bs-success);
   --meal-title-color: var(--bs-light);
 }
-[data-bs-theme=dark] #main-container {
-  /* a:not(.btn) {
-       color: var(--bs-success) !important;
-   }*/
-}
 [data-bs-theme=dark] .subheading {
   color: var(--bs-success);
 }
@@ -2172,14 +2931,6 @@ html #main-container .external-login-button img {
   border: 1px solid var(--bs-primary) !important;
 }
 [data-bs-theme=dark] .card.recipe-card {
-  border: none !important;
-}
-[data-bs-theme=dark] .left-pill {
-  border-color: var(--bs-success) !important;
-  color: var(--bs-success) !important;
-}
-[data-bs-theme=dark] #collapseSummary .card-body {
-  color: var(--bs-primary) !important;
   border: none !important;
 }
 [data-bs-theme=dark] .image-overlay .external-login-button {
@@ -2296,11 +3047,11 @@ html #main-container .external-login-button img {
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: inherit;
-  --bs-link-color: #0d6efd;
-  --bs-link-color-rgb: 13, 110, 253;
-  --bs-link-decoration: underline;
-  --bs-link-hover-color: #0a58ca;
-  --bs-link-hover-color-rgb: 10, 88, 202;
+  --bs-link-color: #2e6930;
+  --bs-link-color-rgb: 46, 105, 48;
+  --bs-link-decoration: none;
+  --bs-link-hover-color: #173418;
+  --bs-link-hover-color-rgb: 23, 52, 24;
   --bs-code-color: #d63384;
   --bs-highlight-color: #212529;
   --bs-highlight-bg: #fff3cd;
@@ -2308,7 +3059,7 @@ html #main-container .external-login-button img {
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
   --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0;
+  --bs-border-radius: 2px;
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
   --bs-border-radius-xl: 1rem;
@@ -2551,7 +3302,7 @@ sup {
 
 a {
   color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
@@ -5114,7 +5865,6 @@ textarea.form-control-lg {
   line-height: var(--bs-btn-line-height);
   color: var(--bs-btn-color);
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -5166,7 +5916,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary {
+.btn-primary, .browse-recipes-btn, .shopping-list-btn, .signup-button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -5183,7 +5933,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary {
+.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #f8b324;
   --bs-btn-border-color: #f8b324;
@@ -5251,7 +6001,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #ffc107;
 }
 
-.btn-danger {
+.btn-danger, .delete-button {
   --bs-btn-color: #fff;
   --bs-btn-bg: #DA0505;
   --bs-btn-border-color: #DA0505;
@@ -5268,7 +6018,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #DA0505;
 }
 
-.btn-light {
+.btn-light, .learnmore-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #FBE2B4;
   --bs-btn-border-color: #FBE2B4;
@@ -5655,7 +6405,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: transparent;
   --bs-btn-box-shadow: 0 0 0 #000;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:focus-visible {
   color: var(--bs-btn-color);
@@ -5977,7 +6727,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: var(--bs-dropdown-link-color);
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -6152,7 +6901,6 @@ textarea.form-control-lg {
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
   color: var(--bs-nav-link-color);
-  text-decoration: none;
   background: none;
   border: 0;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
@@ -6313,7 +7061,6 @@ textarea.form-control-lg {
   margin-right: var(--bs-navbar-brand-margin-end);
   font-size: var(--bs-navbar-brand-font-size);
   color: var(--bs-navbar-brand-color);
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-brand:hover, .navbar-brand:focus {
@@ -7085,7 +7832,6 @@ textarea.form-control-lg {
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
   color: var(--bs-pagination-color);
-  text-decoration: none;
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -7428,7 +8174,6 @@ textarea.form-control-lg {
   display: block;
   padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
   color: var(--bs-list-group-color);
-  text-decoration: none;
   background-color: var(--bs-list-group-bg);
   border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
 }
@@ -7810,7 +8555,7 @@ textarea.form-control-lg {
   color: var(--bs-btn-close-color);
   background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
   border: 0;
-  border-radius: 0;
+  border-radius: 2px;
   opacity: var(--bs-btn-close-opacity);
 }
 .btn-close:hover {
