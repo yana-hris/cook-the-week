@@ -1,4 +1,4 @@
-﻿namespace CookTheWeek.Web.ViewModels.Partial_View_Models
+﻿namespace CookTheWeek.Web.ViewModels.PartialViewModels
 {    
     public class PageHeadingViewModel
     {

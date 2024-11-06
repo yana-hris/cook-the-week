@@ -1,0 +1,21 @@
+﻿@model ModalViewModel
+
+<div class="modal fade" id="reusbaleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header position-relative">
+                <div class="heading-container d-flex flex-column">
+                    <i class="@Model.IconClass"></i>
+                    <p class="modal-title" id="modalLabel">@Model.Title</p>
+                </div>               
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Model.Content</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="ok-btn" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

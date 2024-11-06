@@ -121,6 +121,66 @@ input.form-control, textarea.form-control, .form-select {
         gap: 5px;
     }
 
+    .modal-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -80%) !important;
+        z-index: 2000;
+        min-width: 380px;
+
+        .modal-content {
+            text-align: center;
+            padding: 0.65rem;
+            border-radius: 2px;
+
+            .modal-header {
+                position: relative;
+                justify-content: center !important;
+                border-bottom: none;
+
+                .heading-container {
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+
+                    p {
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    }
+
+                    i {
+                        font-size: 4rem;
+                    }
+
+                    .warning {
+                        color: var(--bs-warning);
+                    }
+
+                    .error {
+                        color: var(--bs-danger);
+                    }
+                }
+
+                .btn-close {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                }
+            }
+
+            .modal-body {
+                text-align: center;
+                font-size: 1.2rem;
+            }
+
+            .modal-footer {
+                justify-content: center;
+                border-top: none;
+            }
+        }
+    }
+
     .input-group {
 
         span.input-group-text {
@@ -210,13 +270,7 @@ footer {
     }
 }
 
-.modal-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) !important;
-    z-index: 2000;
-}
+
     
 
 

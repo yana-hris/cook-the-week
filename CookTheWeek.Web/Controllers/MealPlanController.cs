@@ -94,9 +94,11 @@
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] MealPlanAddFormModel model, string? returnUrl = null)
         {
+            SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All", "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
-                SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All");
+                model = viewModelFactory.AddMealCookSelectDates(model);
                 return View(model);
             }
 
@@ -106,9 +108,8 @@
 
                 if (!result.Succeeded)
                 {
-                    SetViewData("Add Meal Plan", returnUrl ?? "/Recipe/All" , "image-overlay food-background");
+                    model = viewModelFactory.AddMealCookSelectDates(model);
                     AddCustomValidationErrorsToModelState(result.Errors);
-
                     return View(model);
                 }
 
@@ -203,7 +204,7 @@
                    
                     if (hasDeletedRecipes)
                     {
-                        TempData[MissingRecipesMessage] = MissingRecipesMessageText;
+                        TempData[MissingRecipesMessage] = true;
                     }
                        
                     // Store the model in TempData for the next request
@@ -270,10 +271,11 @@
             {
                 return HandleException(new ArgumentNullException(nameof(model)), nameof(Edit));
             }
-            model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);      
+                
 
             if (!ModelState.IsValid)
             {
+                model = viewModelFactory.AddMealCookSelectDates(model);
                 return View(model);
             }
 
@@ -283,6 +285,7 @@
 
                 if (!result.Succeeded)
                 {
+                    model = viewModelFactory.AddMealCookSelectDates(model);
                     AddCustomValidationErrorsToModelState(result.Errors);
                     return View(model);
                 }

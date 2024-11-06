@@ -4,6 +4,7 @@
 @using static CookTheWeek.Common.Extensions.NumberExtensions
 @using static CookTheWeek.Common.GeneralApplicationConstants
 @using static CookTheWeek.Common.TempDataConstants
+@using static CookTheWeek.Common.NotificationMessagesConstants
 @{
     int? userPlansCount = await this.MealPlanService.MineCountAsync() + 1;
 
@@ -19,7 +20,15 @@
 
     }
 
-    string missingRecipesMessage = TempData[MissingRecipesMessage]?.ToString() ?? string.Empty;
+    bool missingRecipes = TempData[MissingRecipesMessage] as bool? ?? false;
+
+    var missingRecipesModalModel = new ModalViewModel
+    {
+        Title = MissingRecipesModalHeading,
+        Content = MissingRecipesModalContent,
+        IconClass = MissingRecipesModalIconClass
+    };
+
 }
 <div id="add-mealplan">
     <div class="card-outer-container">
@@ -292,24 +301,9 @@
     </div>
 </div>
 <!-- Missing Recipes Modal -->
-@if (!string.IsNullOrEmpty(missingRecipesMessage))
+@if (missingRecipes)
 {
-    <div class="modal fade" id="missingRecipesModal" tabindex="-1" aria-labelledby="missingRecipesModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="missingRecipesModalLabel">Important Notice</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>@missingRecipesMessage</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   <partial name="_InfoModalPartial" model="@missingRecipesModalModel"/>
 }
 
 
@@ -337,10 +331,9 @@
                 removeRecipeFromLocalStorage(recipeId);
             });
 
-            // Check if there is a message and trigger the modal
-            var hasMessage = '@missingRecipesMessage';
-            if (hasMessage) {
-                $('#missingRecipesModal').modal('show');
+            // Check if there is a message and trigger the modal            
+            if ('@missingRecipes') {
+                $('#reusbaleModal').modal('show');
             }
 
             // Removing deleted recipes rows before submitting form (in the case of copying an old mealplan)

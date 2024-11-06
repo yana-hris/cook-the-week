@@ -23,6 +23,8 @@ bld/
 *.dll
 *.pdb
 *.exe
+!wwwroot/rotativa/wkhtmltopdf.exe
+
 
 # Visual Studio cache/options directories and files
 .vs/

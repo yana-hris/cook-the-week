@@ -61,6 +61,12 @@
         /// <returns>MealAddFormModel</returns>
         Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
 
-
+        /// <summary>
+        /// Adds Select Dates for cooking meals in all instances of IMealPlanFormModel
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <returns>the model itself</returns>
+        T AddMealCookSelectDates<T>(T model) where T : IMealPlanFormModel;
     }
 }

@@ -16,6 +16,7 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.EntityValidationConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using CookTheWeek.Common.HelperMethods;
 
     public class MealPlanValidationService : IMealPlanValidationService
     {
@@ -138,6 +139,8 @@
                         throw; // process the error in add controller action
                     }
                 }
+
+                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
 
                 if (!ValidateMealDates(meal, meals.First().SelectDates))
                 {

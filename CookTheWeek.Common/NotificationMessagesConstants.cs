@@ -11,7 +11,11 @@
 
         public const string SuccessfulEmailSentMessage = "Thank you for your message. We will get back to you soon.";
         public const string UnsuccessfulEmailSentMessage = "Error sending email. Please try again later.";
-        public const string MissingRecipesMessageText = "Some recipes in your meal plan could not be found and will be removed.";
+
+        // Modal text for missing recipes
+        public const string MissingRecipesModalHeading = "Meal Plan Copied with Missing Recipes";
+        public const string MissingRecipesModalContent = "Some recipes in your meal plan could not be found and will be removed.";
+        public const string MissingRecipesModalIconClass = "fa-solid fa-triangle-exclamation warning";
     }
 
     public static class TempDataConstants

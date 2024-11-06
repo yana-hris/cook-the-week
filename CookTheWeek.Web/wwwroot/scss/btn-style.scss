@@ -141,7 +141,8 @@
     font-weight: bold;
 }
 // Reusable buttons
-.back-button-main, .download-btn {
+.back-button-main, 
+.download-btn {
     @include icon-button(var(--bs-body-bg), var(--bs-primary), 1px);
     @extend .fixed-size-btn;
 
@@ -150,7 +151,7 @@
     }
 }
 
-.plus { //@* plus fixed-size-btn btn btn-icon-only *@
+.plus {
     @include icon-button(var(--bs-primary), #fff, 2px);
     @include button-box-shadow-effect();
     @extend .fixed-size-btn;
@@ -190,7 +191,8 @@
     }
 }
 
-.nav-btn, .nav-dropdown-btn {
+.nav-btn, 
+.nav-dropdown-btn {
     @include flex-center();
 }
 
@@ -201,14 +203,19 @@
     transition: background-color 0.3s ease;
 }
 
-.browse-recipes-btn, .shopping-list-btn {
+.browse-recipes-btn, 
+.shopping-list-btn, 
+.ok-btn {
     @include button-base();
     @include flex-center();
     @extend .card-btn-width;
     @extend .btn-primary;
 }
 
-.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+.edit-button, 
+.copy-mealplan-button, 
+.save-button, 
+.add-recipe-button {
     @include button-base();
     @include flex-center();
     @extend .card-btn-width;
@@ -231,7 +238,8 @@
     @extend .remove-btn-size; //btn remove-btn-size btn-icon-only minus
 }
 
-.signup-button, .learnmore-button {
+.signup-button, 
+.learnmore-button {
     @include button-base();
     @include flex-center();
     @extend .card-btn-width;

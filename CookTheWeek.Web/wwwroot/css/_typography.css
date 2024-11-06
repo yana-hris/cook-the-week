@@ -104,6 +104,55 @@ input.form-control::placeholder, textarea.form-control::placeholder, .form-selec
 #main-container .pagination {
   gap: 5px;
 }
+#main-container .modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%) !important;
+  z-index: 2000;
+  min-width: 380px;
+}
+#main-container .modal-dialog .modal-content {
+  text-align: center;
+  padding: 0.65rem;
+  border-radius: 2px;
+}
+#main-container .modal-dialog .modal-content .modal-header {
+  position: relative;
+  justify-content: center !important;
+  border-bottom: none;
+}
+#main-container .modal-dialog .modal-content .modal-header .heading-container {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+#main-container .modal-dialog .modal-content .modal-header .heading-container p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+#main-container .modal-dialog .modal-content .modal-header .heading-container i {
+  font-size: 4rem;
+}
+#main-container .modal-dialog .modal-content .modal-header .heading-container .warning {
+  color: var(--bs-warning);
+}
+#main-container .modal-dialog .modal-content .modal-header .heading-container .error {
+  color: var(--bs-danger);
+}
+#main-container .modal-dialog .modal-content .modal-header .btn-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+#main-container .modal-dialog .modal-content .modal-body {
+  text-align: center;
+  font-size: 1.2rem;
+}
+#main-container .modal-dialog .modal-content .modal-footer {
+  justify-content: center;
+  border-top: none;
+}
 #main-container .input-group span.input-group-text {
   padding: 0.5rem 1rem;
   font-size: 0.9rem !important;
@@ -173,14 +222,6 @@ footer #links-container a {
 footer #links-container a:hover {
   color: var(--bs-light) !important;
   text-decoration: underline;
-}
-
-.modal-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) !important;
-  z-index: 2000;
 }
 
 @media (min-width: 631px) {

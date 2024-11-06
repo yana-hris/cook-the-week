@@ -4,23 +4,33 @@
   transition: all 0.3s ease-in;
 }
 
-.btn-primary, .signup-button, .browse-recipes-btn, .shopping-list-btn {
+.btn-primary, .signup-button, .browse-recipes-btn,
+.shopping-list-btn,
+.ok-btn {
   border: 1px solid var(--bs-primary);
   background-color: var(--bs-primary);
   color: var(--bs-body-bg);
 }
-.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover, .shopping-list-btn:hover {
+.btn-primary:hover, .signup-button:hover, .browse-recipes-btn:hover,
+.shopping-list-btn:hover,
+.ok-btn:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-primary);
   background-color: var(--bs-body-bg);
 }
 
-.btn-secondary, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+.btn-secondary, .edit-button,
+.copy-mealplan-button,
+.save-button,
+.add-recipe-button {
   border: 1px solid var(--bs-success);
   color: var(--bs-primary);
   background-color: var(--bs-success);
 }
-.btn-secondary:hover, .edit-button:hover, .copy-mealplan-button:hover, .save-button:hover, .add-recipe-button:hover {
+.btn-secondary:hover, .edit-button:hover,
+.copy-mealplan-button:hover,
+.save-button:hover,
+.add-recipe-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-success);
   background-color: var(--bs-primary);
@@ -52,7 +62,8 @@
   opacity: 0.6 !important;
 }
 
-.fixed-size-btn, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .uncook-meal-button, .cook-meal-button, .plus, .back-button-main, .download-btn {
+.fixed-size-btn, #main-container .card-back-button, #main-container .btn-build, #main-container .pagination-btn, .minus, .remove-item-button, .uncook-meal-button, .cook-meal-button, .plus, .back-button-main,
+.download-btn {
   height: 40px;
   width: 44px;
   font-size: 22px;
@@ -64,7 +75,13 @@
   font-size: 24px;
 }
 
-.card-btn-width, .signup-button, .learnmore-button, .delete-button, .edit-button, .copy-mealplan-button, .save-button, .add-recipe-button, .browse-recipes-btn, .shopping-list-btn {
+.card-btn-width, .signup-button,
+.learnmore-button, .delete-button, .edit-button,
+.copy-mealplan-button,
+.save-button,
+.add-recipe-button, .browse-recipes-btn,
+.shopping-list-btn,
+.ok-btn {
   width: 9rem;
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
@@ -72,7 +89,8 @@
   font-weight: bold;
 }
 
-.back-button-main, .download-btn {
+.back-button-main,
+.download-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -83,7 +101,10 @@
   border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas, .download-btn i, .download-btn .fa, .download-btn .fas {
+.back-button-main i, .back-button-main .fa, .back-button-main .fas,
+.download-btn i,
+.download-btn .fa,
+.download-btn .fas {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -91,7 +112,8 @@
   color: var(--bs-primary);
   z-index: 1;
 }
-.back-button-main::before, .download-btn::before {
+.back-button-main::before,
+.download-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -102,17 +124,23 @@
   background-color: var(--bs-body-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover, .download-btn:hover {
+.back-button-main:hover,
+.download-btn:hover {
   border: 1px solid var(--bs-primary);
   border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas, .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
+.download-btn:hover i,
+.download-btn:hover .fa,
+.download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
-.back-button-main:hover::before, .download-btn:hover::before {
+.back-button-main:hover::before,
+.download-btn:hover::before {
   background-color: var(--bs-primary);
 }
-.back-button-main:hover, .download-btn:hover {
+.back-button-main:hover,
+.download-btn:hover {
   border: 1px solid var(--bs-primary);
 }
 
@@ -303,7 +331,8 @@
   border: 2px solid var(--bs-danger);
 }
 
-.nav-btn, .nav-dropdown-btn {
+.nav-btn,
+.nav-dropdown-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -316,7 +345,9 @@
   transition: background-color 0.3s ease;
 }
 
-.browse-recipes-btn, .shopping-list-btn {
+.browse-recipes-btn,
+.shopping-list-btn,
+.ok-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -325,7 +356,10 @@
   align-items: center;
 }
 
-.edit-button, .copy-mealplan-button, .save-button, .add-recipe-button {
+.edit-button,
+.copy-mealplan-button,
+.save-button,
+.add-recipe-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;
@@ -347,7 +381,8 @@
   align-items: center;
 }
 
-.signup-button, .learnmore-button {
+.signup-button,
+.learnmore-button {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease-in;

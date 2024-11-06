@@ -25,7 +25,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetShoppingList(string id, string returnUrl = null)
+        public async Task<IActionResult> GetShoppingList(string id, string? returnUrl = null)
         {
             if (id.TryToGuid(out Guid guidId))
             {

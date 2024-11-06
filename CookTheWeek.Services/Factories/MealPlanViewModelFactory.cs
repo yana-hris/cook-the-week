@@ -60,6 +60,19 @@
                 model.Meals.Add(currentMeal);
             }
 
+            model = AddMealCookSelectDates(model);
+
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public T AddMealCookSelectDates<T>(T model) where T : IMealPlanFormModel
+        {
+            if (model.Meals.Any())
+            {
+                model.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
+            }
+
             return model;
         }
 
