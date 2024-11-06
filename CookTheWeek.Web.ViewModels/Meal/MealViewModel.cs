@@ -15,6 +15,9 @@
 
         public string CategoryName { get; set; } = null!;
 
+        public string DayOfTheWeek { get; set; } = null!;
         public string Date { get; set; } = null!;
+
+        public bool IsCooked { get; set; }
     }
 }

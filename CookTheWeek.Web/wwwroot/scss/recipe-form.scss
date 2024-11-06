@@ -2,7 +2,7 @@
 
 #add-recipe, #edit-recipe {
     .heading-secondary {
-        font-size: 1.9rem !important;
+        font-size: 1.7rem !important;
     }
 
     .card {
@@ -65,7 +65,7 @@
 
             hr {
                 border-top: 3px dashed var(--bs-body-color);
-                margin: 10px 0;
+                margin: 0.5rem 0;
             }
         }
     }
@@ -73,6 +73,6 @@
 
 @media (min-width:768px) {
     hr {
-        margin: 1rem 0 !important;
+        margin: 0.75rem 0 !important;
     }
 }

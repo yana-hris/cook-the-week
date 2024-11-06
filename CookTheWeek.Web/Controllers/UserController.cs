@@ -537,8 +537,9 @@
         {
             logger.LogError($"Error in User Action: {actionName}. Error message: {ex.Message}. Error StackTrace: {ex.StackTrace}", ex);
 
-            // Redirect to the internal server error page with the exception message
-            return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
+            // Redirect to a custom error page with a generic error message
+            string userFriendlyMessage = "An unexpected error occurred. Please try again later.";
+            return RedirectToAction("InternalServerError", "Home", new { message = userFriendlyMessage });
 
         }
 

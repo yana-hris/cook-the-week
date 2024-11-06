@@ -1,12 +1,17 @@
 ﻿@import 'shared-styles';
-#recipe-details-container, #meal-cook-container {
-    position: relative;
 
+#recipe-details-container, #meal-cook-container {
+
+    .heading-secondary {
+        font-size: 1.6rem !important;
+    }
+    
     .card {
         // reuse card tabs style, padding, border back-btn and footer btns
         @extend .card-custom-style-with-back-btn;
-        border: none !important;
-        box-shadow: none !important;
+        //border: none !important;
+        //box-shadow: none !important;
+        //position: relative;
 
         .card-body {
             padding: 0;
@@ -22,6 +27,11 @@
                 .meal-title-style {
                     text-decoration: underline;
                 }
+            }
+
+            .tip-start {
+                text-decoration: underline;
+                font-weight: 600;
             }
 
             .img-container {
@@ -60,50 +70,43 @@
                     z-index: 2;
                 }
 
-                .add-to-mealplan-container, .cook-meal-container {
+                .add-to-mealplan-container, .button-container {
                     position: absolute;
                     bottom: 16px;
                     right: 17px;
                     z-index: 2;
-
-                    .btn-icon-only {
-                        position: relative;
-                    }
-
-                    .fas {
-                        color: white;
-
-                        &:hover {
-                            color: var(--bs-primary);
-                        }
-                    }
                 }
             }
 
             .features-row {
-                background-color: var(--bs-primary);
+                padding: 1rem 0.5rem;
                 color: var(--bs-white);
+                background-color: var(--bs-primary);
 
-                .icon-container {
-                    width: 1.3rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--bs-success);
-                    line-height: 1.3rem;
+                .col {
+                    margin-bottom: 0.3rem;
 
-                    .fa {
-                        font-size: 1rem;
+                    .icon-container {
+                        width: 1.3rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: var(--bs-success);
+                        line-height: 1.3rem;
+
+                        .fa {
+                            font-size: 1rem;
+                        }
                     }
-                }
 
-                .list-item-content {
-                    font-family: "Libre Baskerville", serif;
-                    font-size: 1rem;
-                    line-height: 1.3rem;
-                    display: flex;
-                    align-items: center;
-                    padding-top: 2px;
+                    .list-item-content {
+                        font-family: "Libre Baskerville", serif;
+                        font-size: 1rem;
+                        line-height: 1.3rem;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 2px;
+                    }
                 }
             }
             // Separate text in newspaper columns
