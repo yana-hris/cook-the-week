@@ -153,6 +153,10 @@ input.form-control::placeholder, textarea.form-control::placeholder, .form-selec
   justify-content: center;
   border-top: none;
 }
+#main-container .modal-dialog .modal-content .modal-footer.two-buttons {
+  justify-content: space-between;
+  gap: 1rem;
+}
 #main-container .input-group span.input-group-text {
   padding: 0.5rem 1rem;
   font-size: 0.9rem !important;

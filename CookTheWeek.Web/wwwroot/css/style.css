@@ -154,6 +154,10 @@ input.form-control::placeholder, textarea.form-control::placeholder, .form-selec
   justify-content: center;
   border-top: none;
 }
+#main-container .modal-dialog .modal-content .modal-footer.two-buttons {
+  justify-content: space-between;
+  gap: 1rem;
+}
 #main-container .input-group span.input-group-text {
   padding: 0.5rem 1rem;
   font-size: 0.9rem !important;
@@ -402,6 +406,11 @@ footer #links-container a:hover {
 #edit-recipe .card .card-footer .buttons .save-button,
 #recipe-details-container .card .card-footer .buttons .save-button,
 #meal-cook-container .card .card-footer .buttons .save-button,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn,
+#add-recipe .card .card-footer .buttons .cancel-btn,
+#edit-recipe .card .card-footer .buttons .cancel-btn,
+#recipe-details-container .card .card-footer .buttons .cancel-btn,
+#meal-cook-container .card .card-footer .buttons .cancel-btn,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button,
 #add-recipe .card .card-footer .buttons .add-recipe-button,
 #edit-recipe .card .card-footer .buttons .add-recipe-button,
@@ -420,6 +429,11 @@ footer #links-container a:hover {
 #edit-recipe .card .card-footer .buttons .save-button:hover,
 #recipe-details-container .card .card-footer .buttons .save-button:hover,
 #meal-cook-container .card .card-footer .buttons .save-button:hover,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn:hover,
+#add-recipe .card .card-footer .buttons .cancel-btn:hover,
+#edit-recipe .card .card-footer .buttons .cancel-btn:hover,
+#recipe-details-container .card .card-footer .buttons .cancel-btn:hover,
+#meal-cook-container .card .card-footer .buttons .cancel-btn:hover,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover,
 #add-recipe .card .card-footer .buttons .add-recipe-button:hover,
 #edit-recipe .card .card-footer .buttons .add-recipe-button:hover,
@@ -919,6 +933,7 @@ nav #nav-container .collapsed .bottom-bar {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button {
   border: 1px solid var(--bs-success);
   color: var(--bs-primary);
@@ -927,6 +942,7 @@ nav #nav-container .collapsed .bottom-bar {
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .save-button:hover,
+.cancel-btn:hover,
 .add-recipe-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-success);
@@ -976,6 +992,7 @@ nav #nav-container .collapsed .bottom-bar {
 .learnmore-button, .delete-button, .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button, .browse-recipes-btn,
 .shopping-list-btn,
 .ok-btn {
@@ -1256,6 +1273,7 @@ nav #nav-container .collapsed .bottom-bar {
 .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button {
   border-radius: 2px;
   cursor: pointer;
@@ -2042,6 +2060,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button,
 #recipe-details-container .card .card-footer .buttons .save-button,
 #meal-cook-container .card .card-footer .buttons .save-button,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn,
+#add-recipe .card .card-footer .buttons .cancel-btn,
+#edit-recipe .card .card-footer .buttons .cancel-btn,
+#recipe-details-container .card .card-footer .buttons .cancel-btn,
+#meal-cook-container .card .card-footer .buttons .cancel-btn,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button,
 #add-recipe .card .card-footer .buttons .add-recipe-button,
 #edit-recipe .card .card-footer .buttons .add-recipe-button,
@@ -2060,6 +2083,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button:hover,
 #recipe-details-container .card .card-footer .buttons .save-button:hover,
 #meal-cook-container .card .card-footer .buttons .save-button:hover,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn:hover,
+#add-recipe .card .card-footer .buttons .cancel-btn:hover,
+#edit-recipe .card .card-footer .buttons .cancel-btn:hover,
+#recipe-details-container .card .card-footer .buttons .cancel-btn:hover,
+#meal-cook-container .card .card-footer .buttons .cancel-btn:hover,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover,
 #add-recipe .card .card-footer .buttons .add-recipe-button:hover,
 #edit-recipe .card .card-footer .buttons .add-recipe-button:hover,
@@ -2329,6 +2357,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button,
 #recipe-details-container .card .card-footer .buttons .save-button,
 #meal-cook-container .card .card-footer .buttons .save-button,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn,
+#add-recipe .card .card-footer .buttons .cancel-btn,
+#edit-recipe .card .card-footer .buttons .cancel-btn,
+#recipe-details-container .card .card-footer .buttons .cancel-btn,
+#meal-cook-container .card .card-footer .buttons .cancel-btn,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button,
 #add-recipe .card .card-footer .buttons .add-recipe-button,
 #edit-recipe .card .card-footer .buttons .add-recipe-button,
@@ -2347,6 +2380,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button:hover,
 #recipe-details-container .card .card-footer .buttons .save-button:hover,
 #meal-cook-container .card .card-footer .buttons .save-button:hover,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn:hover,
+#add-recipe .card .card-footer .buttons .cancel-btn:hover,
+#edit-recipe .card .card-footer .buttons .cancel-btn:hover,
+#recipe-details-container .card .card-footer .buttons .cancel-btn:hover,
+#meal-cook-container .card .card-footer .buttons .cancel-btn:hover,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover,
 #add-recipe .card .card-footer .buttons .add-recipe-button:hover,
 #edit-recipe .card .card-footer .buttons .add-recipe-button:hover,
@@ -2836,6 +2874,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button,
 #recipe-details-container .card .card-footer .buttons .save-button,
 #meal-cook-container .card .card-footer .buttons .save-button,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn,
+#add-recipe .card .card-footer .buttons .cancel-btn,
+#edit-recipe .card .card-footer .buttons .cancel-btn,
+#recipe-details-container .card .card-footer .buttons .cancel-btn,
+#meal-cook-container .card .card-footer .buttons .cancel-btn,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button,
 #add-recipe .card .card-footer .buttons .add-recipe-button,
 #edit-recipe .card .card-footer .buttons .add-recipe-button,
@@ -2854,6 +2897,11 @@ nav #nav-container .collapsed .bottom-bar {
 #edit-recipe .card .card-footer .buttons .save-button:hover,
 #recipe-details-container .card .card-footer .buttons .save-button:hover,
 #meal-cook-container .card .card-footer .buttons .save-button:hover,
+.card-custom-style-with-back-btn .card-footer .buttons .cancel-btn:hover,
+#add-recipe .card .card-footer .buttons .cancel-btn:hover,
+#edit-recipe .card .card-footer .buttons .cancel-btn:hover,
+#recipe-details-container .card .card-footer .buttons .cancel-btn:hover,
+#meal-cook-container .card .card-footer .buttons .cancel-btn:hover,
 .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover,
 #add-recipe .card .card-footer .buttons .add-recipe-button:hover,
 #edit-recipe .card .card-footer .buttons .add-recipe-button:hover,
@@ -6134,6 +6182,7 @@ textarea.form-control-lg {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #f8b324;

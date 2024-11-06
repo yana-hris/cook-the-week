@@ -16,6 +16,11 @@
         public const string MissingRecipesModalHeading = "Meal Plan Copied with Missing Recipes";
         public const string MissingRecipesModalContent = "Some recipes in your meal plan could not be found and will be removed.";
         public const string MissingRecipesModalIconClass = "fa-solid fa-triangle-exclamation warning";
+
+        // Modal text for delete confirmation
+        public const string DeleteModalHeading = "Confirm Delete";
+        public const string DeleteModalIconClass = "fa-solid fa-triangle-exclamation error";
+        
     }
 
     public static class TempDataConstants

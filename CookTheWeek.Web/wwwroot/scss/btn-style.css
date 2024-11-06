@@ -22,6 +22,7 @@
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button {
   border: 1px solid var(--bs-success);
   color: var(--bs-primary);
@@ -30,6 +31,7 @@
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .save-button:hover,
+.cancel-btn:hover,
 .add-recipe-button:hover {
   border: 1px solid var(--bs-primary);
   color: var(--bs-success);
@@ -79,6 +81,7 @@
 .learnmore-button, .delete-button, .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button, .browse-recipes-btn,
 .shopping-list-btn,
 .ok-btn {
@@ -359,6 +362,7 @@
 .edit-button,
 .copy-mealplan-button,
 .save-button,
+.cancel-btn,
 .add-recipe-button {
   border-radius: 2px;
   cursor: pointer;

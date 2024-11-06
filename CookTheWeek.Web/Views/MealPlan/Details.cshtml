@@ -2,6 +2,7 @@
 @using CookTheWeek.Common.HelperMethods
 @using static CookTheWeek.Common.TempDataConstants
 @using static CookTheWeek.Common.GeneralApplicationConstants
+@using static CookTheWeek.Common.NotificationMessagesConstants
 @inject IUserContext UserContext
 @{
     Guid userId = UserContext.UserId;
@@ -214,7 +215,12 @@
                                     <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
                                         <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit
                                     </a>
-                                    <a id="removeBtn" class="delete-button">
+                                    <a id="removeBtn" class="delete-button"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#confirmDeleteModal"
+                                       data-controller="MealPlan"
+                                       data-action="Delete"
+                                       data-id="@Model.Id">
                                         <i class="fa-solid fa-trash-can"></i>&nbsp;Remove
                                     </a>
                                 }
@@ -227,14 +233,24 @@
         </div>
     </div>
     @* Modal for Delete *@
-    <div id="confirmDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    @{
+        var deleteModalModel = new ModalViewModel
+            {
+                Title = DeleteModalHeading,
+                Content = $"Are you sure you want to delete meal plan \"{Model.Name}\"?",
+                IconClass = DeleteModalIconClass
+            };
+    }
+    <partial name="_ConfirmDeleteModalPartial" model="deleteModalModel"/>
+
+   @*  <div id="confirmDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete meal plan @Model.Name?
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
@@ -246,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> *@
 </div>
 
 @section Scripts {
@@ -260,22 +276,24 @@
     </script>
     <script>
         $(document).ready(function () {
-            $('#removeBtn').on('click', function (e) {
-                e.preventDefault(); // Prevent the default link behavior
-                $('#confirmDeleteModal').modal('show');
-            });
+            // $('#removeBtn').on('click', function (e) {
+            //     e.preventDefault(); // Prevent the default link behavior
+            //     $('#confirmDeleteModal').modal('show');
+            // });
 
             // Close the modal when the "Cancel" button is clicked
-            $('#confirmDeleteModal .btn-primary').on('click', function () {
-                $('#confirmDeleteModal').modal('hide');
-            });
+            // $('#confirmDeleteModal .cancel-btn').on('click', function () {
+            //     $('#confirmDeleteModal').modal('hide');
+            // });
 
-            // Close the modal when clicking outside the modal area
-            $(document).on('click', function (e) {
-                if ($(e.target).closest('.modal-content').length === 0) {
-                    $('#confirmDeleteModal').modal('hide');
-                }
-            });
+            
+
+            // // Close the modal when clicking outside the modal area
+            // $(document).on('click', function (e) {
+            //     if ($(e.target).closest('.modal-content').length === 0) {
+            //         $('#confirmDeleteModal').modal('hide');
+            //     }
+            // });
 
             // Initialize tooltips for all meal buttons once
             $('[data-bs-toggle="tooltip"]').tooltip();

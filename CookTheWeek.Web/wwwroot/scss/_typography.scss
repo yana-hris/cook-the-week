@@ -178,6 +178,11 @@ input.form-control, textarea.form-control, .form-select {
                 justify-content: center;
                 border-top: none;
             }
+
+            .modal-footer.two-buttons {
+                justify-content: space-between;
+                gap: 1rem;
+            }
         }
     }
 

@@ -215,6 +215,7 @@
 .edit-button, 
 .copy-mealplan-button, 
 .save-button, 
+.cancel-btn,
 .add-recipe-button {
     @include button-base();
     @include flex-center();
