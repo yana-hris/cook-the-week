@@ -1,0 +1,109 @@
+﻿
+// CUSTOM COLORS:
+$dark-green: #2e6930;
+$light-green: #B4E33D;
+$orange: #f8b324;
+$off-green: #82a583;
+$yellow: #ffc107;
+$red: #DA0505;
+$light-grey: #FBE2B4;
+$dark-grey: #212529;
+$white: #fff;
+
+
+$breakfast-yellow: #FFEB3B;
+$soup-orange: #FFA500;
+$dessert-pink: #FF69B4;
+$main-dish-red: #B22222;
+$dark-dirty-green: #485b18;
+$very-dark-green: #121706;
+$very-light-green: #f8fcec;
+$light-gradient-green: #bce650;
+$dark-gradient-green: #7e9f2b;
+
+// THEME CUSTOM COLORS:
+$primary: $dark-green;
+$secondary: $off-green;
+$success: $light-green;
+$warning: $orange;
+$danger: $red;
+$light: $light-grey;
+$dark: $dark-grey;
+
+$primary-400: tint-color($primary, 20%);
+$success-400: tint-color($success, 20%);
+
+// BODY DEFAULT COLORS:
+$light-body-bg: $white;
+$light-body-color: $dark;
+
+$dark-body-bg: $dark;
+$dark-body-color: $white;
+
+$body-color: $light-body-color;
+$body-bg: $light-body-bg;
+
+// NAVIGATION OVVERIDES:
+$navbar-light-color: $primary;
+$navbar-hover-color: $success;
+
+$nav-link-color: $success;
+$nav-link-hover-color: $white;
+
+$navbar-dark-color: $white;
+$navbar-dark-hover-color: $success;
+
+$dropdown-link-active-bg: $primary;
+$dropdown-link-active-color: $white;
+
+$dropdown-dark-color: $white;
+$dropdown-dark-link-color: $white;
+$dropdown-dark-link-hover-color: $success;
+
+// CARD-OVERRIDES:
+$card-cap-bg: $primary;
+$card-cap-color: $success;
+$card-bg: $body-bg;
+$nav-tabs-link-active-color: $primary;
+$nav-tabs-link-hover-color: $primary;
+
+
+// To use and maybe customize:
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$primary-text-emphasis: shade-color($primary, 60%) !default;
+$success-text-emphasis: shade-color($success, 60%) !default;
+$primary-bg-subtle: tint-color($primary, 80%) !default;
+$success-bg-subtle: tint-color($success, 80%) !default;
+$primary-border-subtle: tint-color($primary, 60%) !default;
+$success-border-subtle: tint-color($success, 60%) !default;
+$body-color: $gray-900 !default;
+$body-bg: $white !default;
+$body-color: $gray-900 !default;
+$body-bg: $white !default;
+
+$body-secondary-color: rgba($body-color, .75) !default;
+$body-secondary-bg: $gray-200 !default;
+
+$body-tertiary-color: rgba($body-color, .5) !default;
+$body-tertiary-bg: $gray-100 !default;
+
+$body-emphasis-color: $black !default;
+
+
+// OTHER DEFAULT OVERRIDES:
+$border-radius: 2px;
+$link-decoration: none;
+$link-color: $primary;
+$link-hover-color: $primary-text-emphasis;
+$btn-transition: all 0.3s ease-in;

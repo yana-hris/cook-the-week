@@ -20,10 +20,10 @@
 
 <div class="wide-contents-container">
     <partial name="_HeadingPartial" model="headingModel" />
-    <div class="row">
+    <div class="row text-center filter-container">
         <form id="all-recipes-form" method="get" class="pb-1">
             @Html.AntiForgeryToken()
-            <div class="row justify-content-center justify-content-sm-between align-items-center gy-2 gx-0">
+            <div class="row align-items-center justify-content-between g-3">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first">
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
@@ -47,7 +47,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-4 order-md-2">
+                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
                     <div class="input-group">
                         <span class="input-group-text">Filter</span>
                         <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />

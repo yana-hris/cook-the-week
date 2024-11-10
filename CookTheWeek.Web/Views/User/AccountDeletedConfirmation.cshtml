@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Account Deleted";
 }
-<div id="user-account-deleted" class="image-overlay food-background">
-    <div class="form-container info-message">
+<div id="user-account-deleted">
+    <div class="form-container">
         <h5 class="text-center text-uppercase mb-4 text-danger">Your account has been successfully deleted</h5>        
 
         <p class="text-center mb-1">We're sorry to see you go, but we respect your decision. All your data has been permanently removed from our system. If you ever decide to return, you'll need to create a new account.</p>
@@ -12,13 +12,13 @@
 
         <div class="row g-2 my-2 mb-3">
             <div class="col-4">
-                <a href="@Url.Action("Login", "User")" class="btn btn-primary w-100 text-center">SignIn</a>
+                <a href="@Url.Action("Login", "User")" class="login-btn">SignIn</a>
             </div>
             <div class="col-4">
-                <a href="@Url.Action("Register", "User")" class="btn btn-danger w-100 text-center">Create Account</a>
+                <a href="@Url.Action("Register", "User")" class="register-btn">Create Account</a>
             </div>
             <div class="col-4">
-                <a href="@Url.Action("Index", "Home")" class="btn btn-secondary w-100 text-center">Back to Home</a>
+                <a href="@Url.Action("Index", "Home")" class="back-to-home-btn">Back to Home</a>
             </div>
         </div>
 

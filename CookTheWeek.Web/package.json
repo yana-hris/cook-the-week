@@ -2,5 +2,12 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
     "bootstrap": "^5.3.2"
+  },
+  "devDependencies": {
+    "sass": "^1.80.6"
+  },
+  "scripts": {
+    "sass:build": "sass scss/style.scss:wwwroot/css/style.css",
+    "sass:watch": "sass --watch scss/style.scss:wwwroot/css/style.css"
   }
 }

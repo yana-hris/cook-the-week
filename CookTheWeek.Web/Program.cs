@@ -168,8 +168,7 @@ namespace CookTheWeek.Web
 
             // Register the SendGrid EmailSender service
             builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
-
-
+                        
             WebApplication app = builder.Build();
 
             if (app.Environment.IsDevelopment())

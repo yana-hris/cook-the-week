@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Confirmed Email";
 }
-<div id="user-email-confirmation" class="image-overlay food-background">
-    <div class="form-container info-message">
+<div id="user-email-confirmation">
+    <div class="form-container">
         <h5 class="text-center text-uppercase mb-4 text-success">Successful Email Confirmation</h5>
 
         <p class="text-center mb-4">            
@@ -13,10 +13,10 @@
 
         <div class="row g-2 my-2 mb-3">
             <div class="col-6">
-                <a href="@Url.Action("Profile", "User")" class="btn btn-light w-100 text-center">Your Profile</a>
+                <a href="@Url.Action("Profile", "User")" class="profile-btn">Your Profile</a>
             </div>
             <div class="col-6">
-                <a href="@Url.Action("All", "Recipe")" class="btn btn-primary w-100 text-center">Browse Recipes</a>
+                <a href="@Url.Action("All", "Recipe")" class="browse-btn">Browse Recipes</a>
             </div>            
         </div>
 

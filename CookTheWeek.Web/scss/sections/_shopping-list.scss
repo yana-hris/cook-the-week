@@ -1,0 +1,55 @@
+﻿@import '../components/colors';
+@import '../components/theme-defaults';
+
+#shopping-list {
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    section#shopping-list-section {
+
+        #heading-container {
+            margin-bottom: 12px;
+
+            h2 {
+                font-family: "Libre Baskerville", serif;
+            }
+
+            .dates {
+                font-weight: 400;
+                font-size: 14px;
+
+                .date {
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .container {
+            p.ingredient-heading {
+                font-size: 16px;
+                text-decoration: underline;
+                font-weight: 500;
+                margin-bottom: 2px;
+            }
+
+            li {
+                .units-styler {
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    #generatePdfBtn {
+        position: absolute;
+        top: 33px;
+        right: 84px;
+    }
+    
+    #backBtn {
+        position: absolute;
+        top: 33px;
+        right: 33px;
+        border-radius: 2px;
+    }
+}

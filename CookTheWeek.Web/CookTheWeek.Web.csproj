@@ -15,19 +15,53 @@
   </PropertyGroup>
  
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-    <Content Remove="sassconfig.json" />
     <Content Remove="wwwroot\js\suggestions.js" />
-    <Content Remove="wwwroot\scss\admin-form-styles.scss" />
-    <Content Remove="wwwroot\scss\_shared-styles.scss" />
-    <Content Remove="wwwroot\scss\_variables.scss" />
+    <Content Remove="scss\admin-form-styles.scss" />
+    <Content Remove="scss\_custom.scss" />
+    <Content Remove="scss\_shared-styles.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\js\suggestions.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\scss\admin-form-styles.scss" />
-    <_ContentIncludedByDefault Remove="wwwroot\scss\_shared-styles.scss" />
-    <_ContentIncludedByDefault Remove="wwwroot\scss\_variables.scss" />
+    <_ContentIncludedByDefault Remove="scss\admin-form-styles.scss" />
+    <_ContentIncludedByDefault Remove="scss\_shared-styles.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="scss\components\_buttons.scss" />
+    <Content Include="scss\components\_card.scss" />
+    <Content Include="scss\components\_containers.scss" />
+    <Content Include="scss\components\_icons.css" />
+    <Content Include="scss\components\_icons.min.css" />
+    <Content Include="scss\components\_icons.scss" />
+    <Content Include="scss\components\_mixins.scss" />
+    <Content Include="scss\components\_theme-defaults.scss" />
+    <Content Include="scss\components\_typography.scss" />
+    <Content Include="scss\sections\_about.css" />
+    <Content Include="scss\sections\_about.min.css" />
+    <Content Include="scss\sections\_about.scss" />
+    <Content Include="scss\sections\_admin.css" />
+    <Content Include="scss\sections\_admin.min.css" />
+    <Content Include="scss\sections\_admin.scss" />
+    <Content Include="scss\sections\_collections.scss" />
+    <Content Include="scss\sections\_contact.scss" />
+    <Content Include="scss\sections\_cookies.scss" />
+    <Content Include="scss\sections\_footer.scss" />
+    <Content Include="scss\sections\_home-index.scss" />
+    <Content Include="scss\sections\_how-it-works.css" />
+    <Content Include="scss\sections\_how-it-works.min.css" />
+    <Content Include="scss\sections\_how-it-works.scss" />
+    <Content Include="scss\sections\_mealplan.scss" />
+    <Content Include="scss\sections\_navbar.scss" />
+    <Content Include="scss\sections\_recipe.scss" />
+    <Content Include="scss\sections\_shopping-list.css" />
+    <Content Include="scss\sections\_shopping-list.min.css" />
+    <Content Include="scss\sections\_shopping-list.scss" />
+    <Content Include="scss\sections\_user.scss" />
+    <Content Include="scss\style.css" />
+    <Content Include="scss\style.scss" />
+    <Content Include="scss\components\_colors.css" />
+    <Content Include="scss\components\_colors.min.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,8 +97,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="compilerconfig.json" />
-    <None Include="sassconfig.json" />
     <None Include="wwwroot\js\suggestions.js" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-grid.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-reboot.scss" />
@@ -158,13 +190,14 @@
     <None Include="wwwroot\lib\bootstrap\scss\_utilities.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_variables-dark.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_variables.scss" />
-    <None Include="wwwroot\scss\admin-form-styles.scss" />
-    <None Include="wwwroot\scss\_shared-styles.scss" />
-    <None Include="wwwroot\scss\_variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="scss\components\_colors.scss" />
   </ItemGroup>
 
 </Project>

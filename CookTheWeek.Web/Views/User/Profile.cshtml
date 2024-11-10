@@ -10,70 +10,80 @@
 }
 <div class="card-outer-container" id="user-profile">
     <partial name="_HeadingPartial" model="headingModel" />
-    <div class="container d-flex gap-0 p-0 align-items-stretch justify-content-center h-100">
+    <div class="card-container h-100 d-flex align-items-stretch justify-content-center">
         
         <img src="~/img/user-profile-food.webp"
                 alt="Prepared Meal Image"
                 class="card-img img-fluid" />
-        <div class="container profile-container d-flex flex-column align-items-center justify-content-around">
-            <div class="container info-container pb-2">                
-                <h4 class="form-heading text-uppercase">
-                    User data
-                </h4>
-                @if(!Model.HasPassword)
-                {
-                    <p class="small text-danger">You don't have a password set up for your account. Click the button below to create one.</p>
-                }
-                else
-                {
-                    <p class="small">You have a password set up for your account.</p>
-                }
+        <div class="profile-container d-flex flex-column align-items-center justify-content-start">
+            <div class="container info-container mb-4">   
                 <div class="row">
-                    <div class="col-md-6 my-2">                        
-                        <h5 class="text-transform">
-                            <i class="fas fa-user text-primary"></i> Username:
+                    <div class=" stat col-md-6 my-2">                        
+                        <h5>
+                            <i class="fas fa-user"></i> Username
                         </h5>
-                        <p>@Model.UserName</p>                        
+                        <p class="info-style">@Model.UserName</p>
                     </div>
                     <div class="col-md-6 my-2">
-                        <h5 class="text-transform">
-                            <i class="fas fa-envelope text-primary"></i> Email:
+                        <h5>
+                            <i class="fas fa-envelope"></i> Email
                         </h5>
-                        <p>@Model.Email</p>                       
+                        <p class="info-style">@Model.Email</p>                       
                     </div>
-                    <div class="col-6 my-2">
+                    <div class="col-12 col-md-6 my-2">
                         @if(Model.HasPassword)
                         {
-                            <a href="@Url.Action("ChangePassword", "User")" class="btn btn-primary w-100 text-center">Change Password</a>
+                            <button href="@Url.Action("ChangePassword", "User")" class="change-password">Change Password</button>
                         }
                         else
                         {
-                            <a href="@Url.Action("SetPassword", "User")" class="btn btn-primary w-100 text-center">Set Password</a>
+                            <button href="@Url.Action("SetPassword", "User")" class="set-password-btn">Set Password</button>
                         }
 
                     </div>
-                    <div class="col-6 my-2">
-                        <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-outline-danger text-center w-100 text-center" type="button">
+                    <div class="col-12 col-md-6 my-2">
+                        <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="delete-account-btn" type="button">
                             Delete Account
                         </button>
-                       @*  <a href="@Url.Action("DeleteAccount", "User")" class="btn btn-outline-danger w-100 text-center">Delete Account</a> *@
+                       
                     </div>
                 </div>
-
+                <div class="row">
+                    @if (!Model.HasPassword)
+                    {
+                        <p class="small text-danger">You don't have a password set up for your account. You can create one here.</p>
+                    }
+                    @* else
+                    {
+                        <p class="small">You have a password set up for your account.</p>
+                    } *@
+                </div>
             </div>
-            <div class="container actions-container py-2">                
+            <div class="container actions-container mb-2">                
                 <h5>
-                    Explore User collections
+                    Explore your collections
                 </h5>
-                <div class="row py-2">                    
-                    <div class="col-6 mb-4 d-block">
-                        <a href="@Url.Action("Mine", "Recipe")" class="btn btn-outline-primary w-100 text-center">Your Recipes</a>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-2">
+                        <h5>
+                            <i class="fa-solid fa-folder"></i> @Model.RecipesCount Recipe(s)
+                        </h5>
                     </div>
-                    <div class="col-6 mb-4">
-                        <a href="@Url.Action("Mine", "MealPlan")" class="btn btn-light w-100 text-center">Your Meal Plans</a>
+                    <div class="col-12 col-md-6 my-2">
+                        <h5>
+                            <i class="fa-solid fa-inbox"></i> @Model.MealplansCount Mealplan(s)
+                        </h5>
                     </div>
-                </div>                
-
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-4">
+                        <a href="@Url.Action("Mine", "Recipe")" class="user-recipes-btn">To Recipes</a>
+                    </div>
+                    <div class="col-12 col-md-6 mb-4">
+                        <a href="@Url.Action("Mine", "MealPlan")" class="user-mealplans-btn">To Mealplans</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
          

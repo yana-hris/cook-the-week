@@ -1,0 +1,79 @@
+﻿@import '../components/colors';
+@import '../components/theme-defaults';
+
+#about-container {
+    .row {
+        margin-bottom: 3rem;
+
+        .text-container {
+
+            p {
+                margin-bottom: 1.5rem;
+                line-height: 1.8;
+                font-weight: 400;
+            }
+
+            p:first-child {
+                text-indent: 2rem;
+            }
+        }
+
+        .rows-container {
+            gap: 1rem;
+        }
+
+        div.row {
+            margin-bottom: 1rem;
+        }        
+    }
+
+    .thank-message-row {
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+
+        .message-container {
+            padding: 2rem 3rem;
+            border: 1px solid $primary;
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+
+            .quote {
+                font-size: 1.5em;
+                font-style: italic;
+                margin-bottom: 10px;
+            }
+
+            .author {
+                font-size: 1.1em;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .thank-message {
+                font-size: 1em;
+            }
+        }
+    }
+
+    .spacer {
+        margin-bottom: 4.2rem;
+    }
+}
+
+
+@media (max-width: 568px) {
+    #about-container {
+
+        .row {
+
+            .image-row {
+                margin-bottom: 1rem !important;
+            }
+        }
+
+        .spacer {
+            margin-bottom: 2.2rem;
+        }        
+    }
+}
+

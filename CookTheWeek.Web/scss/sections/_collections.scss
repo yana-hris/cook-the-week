@@ -1,0 +1,163 @@
+﻿@import '../components/colors';
+@import '../components/theme-defaults';
+
+.wide-contents-container {
+
+    .filter-container {
+        display: flex;
+        align-items: center;
+        padding: 0.6rem;
+        padding-top: 0.9rem;
+        margin: 1.5rem 0;
+        background-color: $success-400;
+        border-radius: $border-radius;
+        border-color: 1px solid $primary-bg-subtle;
+
+        span.input-group-text {
+            text-transform: uppercase;
+            font-weight: bold !important;
+            font-size: 1.1rem !important;
+            color: var(--bs-body-bg) !important;
+        }
+
+        input, textarea, select {
+            border-color: $primary-400 !important;
+            background-color: var(--bs-body-bg) !important;
+        }
+
+    }
+
+    .recipe-container {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .modal-overlay {
+        display: none; /* Hidden by default */
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+        backdrop-filter: blur(30px); /* Adjust blur level */
+
+        z-index: 1040;
+    }
+
+    .modal {
+        z-index: 1500;
+        top: 25%;
+
+        .modal-dialog {
+            width: 80%;
+            min-width: 450px;
+            height: 50%;
+            min-height: 370px;
+            margin: auto;
+
+            .modal-content {
+                width: 100%;
+                position: relative;
+                border-radius: 0;
+
+                .modal-header {
+                    background-color: $primary;
+                    color: $success;
+                    border-radius: 0;
+                }
+
+                .modal-title {
+                    font-size: 1.4rem;
+                }
+
+                p {
+                    margin: 1rem 1.6rem;
+                    line-height: 1.6;
+                    text-align: center;
+                }
+
+                .close.btn {
+                    position: absolute;
+                    right: 0.5rem;
+                    height: 40px;
+                    width: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .fa {
+                        font-size: 24px;
+                    }
+                }
+
+                .modal-footer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                }
+            }
+        }
+    }
+    /* Show the overlay when the modal is open */
+    .modal.show + .modal-overlay {
+        display: block;
+    }
+}
+
+// used to be recipe-mine
+#recipe-container {
+    max-width: 1300px;
+    padding: 0 10px;
+
+    .collection-heading {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    #favourite-recipes, #owned-recipes {
+        overflow-x: auto;
+        height: 300px;
+
+        .row.d-flex {
+            height: 100%;
+        }
+    }
+}
+
+// mealplan collections
+#meal-plans-mine {
+    max-width: 1200px;
+
+    .fas {
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    #no-meal-plans-message-container {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+}
+
+
+
+@media (max-width: 573px) {
+    .wide-contents-container {
+        padding: 0 40px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    #meal-plans-mine {
+        #no-meal-plans-message-container {
+            margin-top: 50px !important;
+        }
+    }
+}
+

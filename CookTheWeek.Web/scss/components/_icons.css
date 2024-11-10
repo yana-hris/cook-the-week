@@ -1,0 +1,32 @@
+﻿.liked-icon {
+  color: red;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: darkred;
+}
+
+.not-liked-icon {
+  color: lightgray;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #222222;
+}
+.not-liked-icon:hover {
+  color: red;
+}
+
+.fa-user-circle {
+  color: $success;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: $primary;
+}
+
+.finished {
+  color: $danger;
+}
+
+.not-finished {
+  color: $primary;
+}
+
+.inactive {
+  color: lightgrey;
+}

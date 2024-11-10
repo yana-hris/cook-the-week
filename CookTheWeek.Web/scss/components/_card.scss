@@ -1,0 +1,222 @@
+﻿@import 'colors';
+@import 'theme-defaults';
+
+.card-border-style {
+    box-shadow: 10px 15px 20px 0.5rem rgba(0,0,0, 0.06);
+}
+
+.card-style {
+    background-color: var(--bs-body-bg);
+    border-radius: 2px;
+    overflow-y: auto;
+}
+
+// style for adding custom card tab colors, custom border, shade, btn and footer settings
+.card-custom-style-with-back-btn {
+    margin-top: -0.8rem !important; // for heading to be stacked
+    background-color: var(--bs-body-bg);
+    border: 1px solid $primary-border-subtle;
+
+    .card-header {
+        font-size: 1.1rem;
+        border-bottom: none;
+
+        .nav-item {
+            border: none;
+
+            .nav-link {
+                border: none;
+                margin-bottom: 0;
+                color: $success;
+                background-color: $primary;
+
+                &:hover {
+                    color: $primary !important;
+                    background-color: $success;
+                }
+            }
+
+            .nav-link.active {
+                font-weight: bolder;
+                background-color: var(--bs-body-bg);
+                color: var(--bs-body-color) !important;
+
+
+                &:hover {
+                    background-color: var(--bs-body-bg) !important;
+                    color: var(--bs-body-color) !important;
+                }
+            }
+        }
+
+        .card-back-button {
+            position: absolute;
+            height: 34px;
+            width: 42px;
+            top: 5px;
+            right: 7px;
+            z-index: 15;
+
+            font-size: 18px;
+        }
+    }
+
+    .card-body {
+
+        .tab-pane {
+            min-height: 50vh;
+        }
+    }
+
+    .card-footer {
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+
+            .btn-secondary {
+                border: 1px solid $success;
+
+                &:hover {
+                    border: 1px solid $success !important;
+                }
+            }
+        }
+    }
+}
+
+// recipe card
+.recipe-container {
+    flex-grow: 0;
+
+    .recipe-details-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .recipe-card {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        border: none;
+        border-radius: 2px;
+        box-shadow: 0 0.3rem 0.6rem rgba(46,105,48, 0.03);
+        transition: all 0.4s;
+
+        .image-container {
+            .card-img-top {
+                display: block;
+                height: 13rem;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .liked-icon, .not-liked-icon, .fa-user-circle {
+                position: absolute;
+                top: 8px;
+                left: 10px;
+                z-index: 2;
+                font-size: 24px;
+            }
+
+            .add-to-mealplan-container {
+                position: absolute;
+                right: 10px;
+                bottom: 8px;
+                z-index: 2;
+            }
+        }
+
+        .card-body {
+            background-color: var(--bs-body-bg) !important;
+            padding: 0.65rem !important;
+            padding-top: 0.3rem !important;
+
+            .recipe-details-link {
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    bottom: 0px;
+                    left: 0px;
+                    z-index: 1;
+                }
+
+                .recipe-title {
+                    font-family: 'Libre Baskerville', serif;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: var(--bs-body-color);
+                    margin-top: 0.25rem;
+                    margin-bottom: 0.125rem;
+                    text-decoration: underline;
+                    //transition: color 0.3s ease, background-color 0.3s ease;
+                }
+            }
+
+
+
+            .recipe-info {
+                margin-top: 0.125rem;
+                margin-bottom: 0.4rem;
+
+                .material-icons.card-icon {
+                    font-size: 16px;
+                    margin-bottom: 2px;
+                }
+
+                .icon-text {
+                    font-size: 14px;
+                    font-family: "Libre Baskerville", serif;
+                }
+
+                span.badge {
+                    display: inline-block;
+                    font-size: 13px;
+                    padding: 3px 6px;
+                    border-radius: 2px;
+                    width: auto;
+                }
+            }
+
+            .recipe-description {
+                font-weight: 400;
+                font-size: 15px;
+                padding-bottom: 1rem;
+            }
+
+            hr {
+                color: $primary-border-subtle;
+            }
+        }
+
+
+        &:hover {
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.6rem 1.2rem rgba(46,105,48,0.1);
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .card-custom-style-with-back-btn {
+
+        .card-back-button {
+            height: 38px !important;
+            top: 6px !important;
+            right: 7px;
+            font-size: 20px !important;
+        }
+    }
+}

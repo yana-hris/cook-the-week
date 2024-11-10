@@ -1,0 +1,143 @@
+﻿@import 'colors';
+@import 'typography';
+
+// Default light theme (set in :root)
+:root {
+    --bs-body-bg: #{$light-body-bg};
+    --bs-body-color: #{$light-body-color};
+}
+
+// Custom Light Theme settings
+[data-bs-theme="light"] {
+
+    .subheading {
+        color: $primary;
+    }
+
+    .input-group {
+
+        select, input, textarea {
+            background-color: var(--bg-body-bg);
+            color: var(--bs-body-color) !important;
+
+            &::placeholder {
+                font-size: 16px;
+                color: var(--bs-body-color) !important;
+                opacity: 0.7;
+            }
+        }
+    }
+
+    .form-check-label {
+        color: $primary !important;
+    }
+
+    .heading-tertiary {
+        color: $primary;
+    }
+
+    .step-number {
+        color: $success;
+    }
+}
+
+// Custom Dark Theme settings
+[data-bs-theme="dark"] {
+    --bs-body-bg: #{$dark-body-bg};
+    --bs-body-color: #{$dark-body-color};
+
+    .subheading {
+        color: $success;
+    }
+
+    .form-check-label {
+        color: $success !important;
+    }
+
+    .form-check-input {
+        background-color: $primary !important;
+        color: $success !important;
+
+        &:checked {
+            color: $primary-400 !important;
+            background-color: $success !important;
+            border: 1px solid $light;
+        }
+    }
+
+    .heading-tertiary {
+        color: $light;
+    }
+
+    .step-number {
+        color: $light;
+        opacity: 0.7;
+    }
+
+    button.nav-link.active {
+        color: $white !important;
+    }
+
+    .card {
+        border: 1px solid $primary-400 !important;
+    }
+
+    .card.recipe-card {
+        border: none !important;
+    }
+
+    span.input-group-text,
+    input.form-control,
+    textarea.form-control,
+    .form-select {
+        border: 1px solid $primary-400 !important;
+    }
+
+    .filter-container {
+        background-color: $primary !important;
+        padding-left: 0 !important;
+
+        span.input-group-text {
+            border-color: $primary !important;
+            padding-left: 0 !important;
+            padding-right: 0.8rem !important;
+        }
+
+        input, textarea, select {
+            border-color: $primary !important;
+        }
+
+        .search-btn {
+            background-color: $success !important;
+            border-color: $primary !important;
+
+            &:hover {
+                color: var(--bs-body-bg) !important;
+                background-color: $success-400 !important;
+            }
+
+        }
+    }
+    // External Login btns
+    .external-login-button {
+        color: $body-secondary-bg !important;
+        background-color: $body-secondary-color !important;
+        border: 1px solid $body-secondary-bg !important;
+        border-radius: 2px;
+
+        &:hover {
+            border: 1px solid $body-secondary-color !important;
+            transition: all 0.3s;
+        }
+    }
+    // Custom links
+    .custom-link {
+        color: $success !important;
+        text-decoration: underline;
+
+        &:hover {
+            color: $success-text-emphasis !important;
+            cursor: pointer;
+        }
+    }
+}

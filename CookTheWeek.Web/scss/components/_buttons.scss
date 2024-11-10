@@ -1,0 +1,409 @@
+﻿@import 'colors';
+@import 'theme-defaults';
+@import 'mixins';
+@import 'typography';
+
+.btn {
+    @include button-base();
+}
+
+.btn-primary {
+    border: 1px solid $primary;
+    background-color: $primary;
+    color: var(--bs-body-bg);
+
+    &:hover {
+        border: 1px solid $primary;
+        color: $primary;
+        background-color: var(--bs-body-bg);
+    }
+}
+
+.btn-secondary {
+    border: 1px solid $success;
+    color: $primary;
+    background-color: $success;
+
+    &:hover {
+        border: 1px solid $primary;
+        color: $success;
+        background-color: $primary;
+    }
+}
+
+.btn-danger {
+    border: 1px solid $danger;
+    color: $white;
+    background-color: $danger;
+
+    &:hover {
+        border: 1px solid $light;
+        color: $danger;
+        background-color: $light;
+    }
+}
+
+.btn-light {
+    color: $dark;
+    background-color: $light;
+    border: 1px solid $light;
+
+    &:hover {
+        color: $light;
+        background-color: $dark;
+        border: 1px solid $dark;
+    }
+}
+
+.disabled {
+    opacity: 0.6 !important;
+}
+
+.fixed-size-btn {
+    height: 40px;
+    width: 44px;
+    font-size: 22px;
+}
+
+.remove-btn-size {
+    height: 36px;
+    width: 36px;
+    font-size: 24px;
+}
+
+.card-btn-width {
+    width: 9rem;
+    padding: 0.5rem 1.0rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+// Reusable buttons
+.back-button-main,
+.download-btn {
+    @include icon-button(var(--bs-body-bg), $primary, 1px);
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 1px solid $primary;
+    }
+}
+
+.plus {
+    @include icon-button($primary, #fff, 2px);
+    @include button-box-shadow-effect();
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 2px solid $primary;
+    }
+}
+
+.cook-meal-button {
+    @include icon-button($danger, var(--bs-body-bg), 2px);
+    @extend .fixed-size-btn;
+
+    &:hover {
+        border: 2px solid $danger;
+    }
+}
+
+
+.uncook-meal-button { //.cooked-icon
+    @include icon-button($primary, var(--bs-body-bg), 2px);
+    @extend .fixed-size-btn;
+    border: 2px solid $primary;
+
+    &:hover {
+        border: 2px solid $primary !important;
+    }
+}
+
+.minus {
+    @include icon-button($danger, #fff, 2px);
+    @include button-box-shadow-effect();
+    @extend .fixed-size-btn;
+
+    &::before {
+        border-radius: 0;
+    }
+
+    &:hover {
+        border: 2px solid $danger;
+    }
+}
+
+.nav-btn,
+.nav-dropdown-btn {
+    @include flex-center();
+}
+
+.nav-btn:hover {
+    color: $white !important;
+    border-color: $dark !important;
+    background-color: $primary !important;
+    transition: background-color 0.3s ease;
+}
+
+.browse-recipes-btn,
+.shopping-list-btn,
+.ok-btn {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-primary;
+}
+
+.edit-button,
+.copy-mealplan-button,
+.save-button,
+.cancel-btn,
+.add-recipe-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-secondary;
+}
+
+.add-recipe-button {
+    width: 10rem;
+}
+
+.delete-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    @extend .btn-danger;
+}
+
+.add-ingredient-btn,
+.add-step-btn {
+    @include button-base();
+    @extend .btn-secondary;
+    border: 1px solid $primary-border-subtle;
+    padding: 0.4rem 1.25rem;
+}
+
+.remove-item-button {
+    @extend .minus;
+    @extend .remove-btn-size; //btn remove-btn-size btn-icon-only minus
+}
+
+.signup-button,
+.learnmore-button {
+    @include button-base();
+    @include flex-center();
+    @extend .card-btn-width;
+    width: 10rem !important;
+}
+
+.signup-button {
+    @extend .btn-primary;
+}
+
+.learnmore-button {
+    @extend .btn-light;
+}
+
+.login-btn,
+.browse-btn,
+.set-password-btn {
+    @include button-lg-style();
+    @extend .btn-primary;
+}
+
+.user-recipes-btn {
+    @include button-sm-style();
+    @extend .btn-primary;
+}
+
+.register-btn,
+.reset-password-btn,
+.change-password {
+    @include button-sm-style();
+    @extend .btn-danger;
+}
+
+.back-to-home-btn,
+.user-mealplans-btn {
+    @include button-sm-style();
+    @extend .btn-secondary;
+}
+
+.profile-btn,
+.delete-account-btn {
+    @include button-sm-style();
+    @extend .btn-outline-danger;
+}
+
+#theme-container {
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    z-index: 100;
+
+
+    .theme-switcher {
+        position: relative;
+
+        .btn-link {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            border-radius: 10px;
+            padding: 0 5px;
+        }
+
+        .dropdown-toggle {
+            text-decoration: none;
+        }
+    }
+}
+
+#main-container {
+    // all recipes view: search btn
+    .search-btn {
+        text-transform: uppercase;
+        font-weight: bold !important;
+        font-size: 1.1rem;
+        color: var(--bs-body-bg) !important;
+        background-color: $primary;
+        border-color: $primary;
+        border-radius: $border-radius;
+
+        &:hover {
+            background-color: $primary-400;
+            border-color: $primary-border-subtle;
+            color: $primary;
+            @extend .hover-state;
+        }
+       
+    }
+    // remove btns style on hover
+
+    .btn-outline-danger {
+        border: 1px solid $danger;
+        color: $danger;
+        background-color: var(--bs-body-bg);
+
+        &:hover {
+            border: 1px solid $danger;
+            color: var(--bs-body-bg);
+            background-color: $danger;
+        }
+    }
+
+    .btn-outline-primary {
+        border: 1px solid $primary;
+        color: $primary;
+
+        &:hover {
+            border: 1px solid $primary;
+            color: $white;
+            background-color: $primary;
+        }
+    }
+
+    .pagination-btn {
+        @include icon-button($primary, var(--bs-body-bg), 1px);
+        @extend .fixed-size-btn;
+        border: 1px solid $primary !important;
+    }
+
+    .btn-build {
+        @include icon-button(var(--bs-body-bg), $primary, 2px);
+        @extend .fixed-size-btn;
+        border: 2px solid $primary !important;
+    }
+
+    .card-back-button {
+        @include icon-button($primary, $success, 0px);
+        @extend .fixed-size-btn;
+        border-radius: $border-radius;
+    }
+
+    .btn.close { // modal window close (X) btn
+        color: $success;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    .external-login-button {
+        @include flex-center();
+        padding: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #f8f9fa; // light
+
+        transition: all 0.3s;
+
+        &:active {
+            background-color: #d6d8db;
+        }
+
+        &:hover {
+            border: 1px solid var(--bs-body-color);
+        }
+
+        .external-login-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        img {
+            margin-right: 8px;
+        }
+    }
+}
+
+#pagination-buttons {
+    position: fixed;
+    bottom: 17px;
+    right: 57px;
+    z-index: 10000;
+}
+
+#build-btn-container {
+    position: fixed;
+    right: 10px;
+    bottom: 25px;
+    z-index: 10000;
+}
+
+@media (min-width: 768px) {
+    #theme-container {
+        top: 65px;
+        right: 6px;
+    }
+}
+
+
+@media (min-width: 992px) {
+    #build-btn-container {
+        position: fixed;
+        right: 21px !important;
+        bottom: 26px !important;
+    }
+
+    #pagination-buttons {
+        position: fixed;
+        bottom: 18px !important;
+        right: 69px !important;
+    }
+
+    #theme-container {
+        top: 70px;
+        right: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #theme-container {
+        top: 70px;
+        right: 40px;
+    }
+}

@@ -15,7 +15,6 @@
     using static CookTheWeek.Common.NotificationMessagesConstants;
     using static CookTheWeek.Common.TempDataConstants;
     using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
-    using CookTheWeek.Common.HelperMethods;
 
     public class MealPlanController : BaseController
     {

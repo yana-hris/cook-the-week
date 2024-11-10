@@ -20,7 +20,6 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.TempDataConstants;
-    using Microsoft.IdentityModel.Tokens;
 
     public class UserService : IUserService
     {
@@ -61,8 +60,14 @@
         }
         public async Task<UserProfileViewModel> GetUserProfileDetailsAsync()
         {
-            
-            ApplicationUser? user = await userRepository.GetByIdAsync(userId);
+
+            var user = await userRepository
+                .GetAllQuery()
+                .Include(u => u.Recipes)
+                .Include(u => u.FavoriteRecipes)
+                .Include(u => u.MealPlans)
+                .Where(u => u.Id == userId)
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -72,11 +77,16 @@
 
             bool hasPassword = await userManager.HasPasswordAsync(user);
 
+            int recipes = user.Recipes.Count + user.FavoriteRecipes.Count;
+            int mealplans = user.MealPlans.Count;
+
             return new UserProfileViewModel
             {
                 UserName = user.UserName!,
                 Email = user.Email!,
-                HasPassword = hasPassword
+                HasPassword = hasPassword,
+                RecipesCount = recipes,
+                MealplansCount = mealplans
             };
         }
 

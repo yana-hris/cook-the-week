@@ -1,0 +1,80 @@
+﻿@import 'colors';
+@import 'theme-defaults';
+@import 'typography';
+@import '../../wwwroot/lib/bootstrap/scss/mixins';
+
+// Custom containers
+.wide-contents-container {
+    @include make-container();
+    max-width: 1296px;
+    margin-top: -1rem;
+}
+
+.list-container {
+    @include make-container();
+    max-width: 1040px;
+}
+// Scrolling container with hidden scrollbar
+.card-outer-container {
+    @include make-container();
+    @extend .card-style;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 900px;
+    max-height: 80vh;
+    padding: 1rem 2rem 3rem 2rem;
+    overflow-y: scroll;
+    scrollbar-width: none; // Hide scrollbar for Firefox
+    -ms-overflow-style: none; // Hide scrollbar for IE and Edge
+
+    &::-webkit-scrollbar {
+        display: none; // Hide scrollbar for WebKit browsers
+    }
+}
+
+// Container for shopping list details
+.shopping-list-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 793px;
+    padding: 2.4rem;
+}
+
+.contact-form-container {
+    @include make-container();
+    @extend .card-border-style;
+    max-width: 520px;
+    margin-top: 1.2rem;
+    padding: 2rem 3rem;
+    background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
+}
+
+.form-container {
+    @include make-container();
+    @extend .card-border-style;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    overflow-y: auto;
+    max-height: 80vh;
+    max-width: 520px;
+    padding: 2rem 3rem;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    background-color: var(--bs-body-bg);
+
+    @extend .hide-scrollbar;
+}
+
+// Media queries for custom containers
+@media (max-width: 900px) {
+    .card-outer-container {
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+}

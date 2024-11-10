@@ -1,0 +1,72 @@
+﻿@import '../components/colors';
+@import '../components/theme-defaults';
+
+footer {
+    position: relative;
+    z-index: 5000;
+    font-weight: 300;
+    font-size: 13px;
+
+    #links-container {
+        flex-direction: column;
+
+        .footer-padding {
+            padding: 1rem;
+        }
+
+        .footer-border {
+            border: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: $white;
+            cursor: pointer;
+
+            &:hover {
+                color: $light !important;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 631px) {
+
+    footer {
+
+        #links-container {
+            flex-direction: row !important;
+
+            .footer-border {
+                border-right: 1px solid $white !important;
+            }
+
+            .footer-padding {
+                padding: 0 1rem !important;
+            }
+        }
+    }
+
+    .fixed-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+    }
+}
+
+
+@media (min-width: 887px) {
+    footer {
+        font-size: 14px;
+
+        #links-container {
+            flex-direction: row !important;
+
+            .footer-padding {
+                padding: 0 2rem !important;
+            }
+        }
+    }
+}

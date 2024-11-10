@@ -48,12 +48,15 @@
                 TempData[ErrorMessage] = "You are already registered and logged in!";
                 return RedirectToAction("Index", "Home");
             }
+            SetViewData("Register", null, "image-overlay food-background");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
+            SetViewData("Register", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model); 
@@ -106,6 +109,7 @@
         public IActionResult EmailConfirmationInfo(string email)
         {
             ViewBag.Email = email;
+            
             return View();
         }
 
@@ -146,18 +150,21 @@
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            
+
             LoginFormModel model = new LoginFormModel()
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = returnUrl ?? "/Recipe/All"
             };
             
+            SetViewData("Login", model.ReturnUrl, "image-overlay food-background");
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
+            SetViewData("Login", model.ReturnUrl, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);

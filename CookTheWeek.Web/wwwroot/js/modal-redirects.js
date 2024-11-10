@@ -11,7 +11,7 @@
             const id = triggerBtn.getAttribute('data-id');
             const returnUrl = triggerBtn.getAttribute('data-returnurl');
 
-            const url = `/${controller}/${action}/${id}`;
+            let url = `/${controller}/${action}/${id}`;
 
             if (returnUrl) {
                 url += `?returnUrl=${encodeURIComponent(returnUrl)}`;

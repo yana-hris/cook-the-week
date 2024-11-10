@@ -1,0 +1,91 @@
+﻿@import 'colors';
+@import '../../wwwroot/lib/bootstrap/scss/buttons';
+
+// reset all btns
+@mixin button-base {
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: $btn-transition;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-lg-style($width: 100%) {
+    @include button-base();
+    width: $width;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+@mixin button-sm-style($width: 100%) {
+    @include button-base();
+    width: $width;
+    display: block;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+@mixin icon-button($main-color, $icon-color: #fff, $border-width: 1px, $hover-effect: true) {
+    @include button-base();
+    @include flex-center();
+    position: relative;
+    border: $border-width solid $main-color; 
+
+
+    i, .fa, .fas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $icon-color;
+        z-index: 1;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: $main-color;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+
+    @if $hover-effect == true {
+        &:hover {
+            border: $border-width solid $icon-color;
+            border-radius: 2px;
+
+            i, .fa, .fas {
+                color: $main-color;
+            }
+
+            &::before {
+                background-color: $icon-color;
+            }
+        }
+    }
+}
+
+@mixin button-box-shadow-effect {
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: none;
+    }
+}
+

@@ -4,11 +4,11 @@
     ViewData["Title"] = "Register";
 }
 
-<div id="user-register" class="image-overlay food-background">
+<div id="user-register">
     <div class="form-container">
         <h2 class="text-capitalize mb-1">@ViewData["Title"]</h2>
+        <h6 class="text-uppercase mb-4">Create a new account</h6>
         <form method="post" asp-action="Register" asp-controller="User">
-            <h6 class="text-uppercase mb-4">Create a new account</h6>
             
             @* <div asp-validation-summary="ModelOnly" class="small text-danger"></div> *@
             <div class="small text-danger">
@@ -75,7 +75,7 @@
             </div>
             
             <div class="mb-3">
-                <button type="submit" class="btn btn-danger w-100 text-center">Register</button>
+                <button type="submit" class="register-btn">Register</button>
             </div>
             
             <p class="small py-3">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>

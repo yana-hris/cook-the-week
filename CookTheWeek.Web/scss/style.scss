@@ -1,0 +1,32 @@
+﻿@import '../wwwroot/lib/bootstrap/scss/functions';
+
+@import 'components/colors';
+
+@import '../wwwroot/lib/bootstrap/scss/variables';
+@import '../wwwroot/lib/bootstrap/scss/variables-dark';
+@import '../wwwroot/lib/bootstrap/scss/mixins';
+
+@import 'components/theme-defaults';
+@import 'components/mixins';
+@import 'components/typography'; // includes shared-styles
+@import 'components/containers';
+@import 'components/buttons'; // includes theme-switcher btn
+@import 'components/icons';
+@import 'components/card';
+
+
+@import 'sections/navbar';
+@import 'sections/footer';
+@import 'sections/cookies';
+@import 'sections/about';
+@import 'sections/admin';
+@import 'sections/collections';
+@import 'sections/home-index';
+@import 'sections/mealplan';
+@import 'sections/recipe';
+@import 'sections/contact';
+@import 'sections/how-it-works';
+@import 'sections/shopping-list';
+@import 'sections/user';
+
+@import '../wwwroot/lib/bootstrap/scss/bootstrap';

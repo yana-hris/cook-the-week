@@ -215,7 +215,7 @@
                                     <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
                                         <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit
                                     </a>
-                                    <a id="removeBtn" class="delete-button"
+                                    <a class="delete-button"
                                        data-bs-toggle="modal"
                                        data-bs-target="#confirmDeleteModal"
                                        data-controller="MealPlan"
@@ -242,27 +242,6 @@
             };
     }
     <partial name="_ConfirmDeleteModalPartial" model="deleteModalModel"/>
-
-   @*  <div id="confirmDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                    <a id="confirmDeleteBtn"
-                       asp-controller="MealPlan"
-                       asp-action="Delete"
-                       asp-route-id="@Model.Id"
-                       class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div> *@
 </div>
 
 @section Scripts {
@@ -276,25 +255,6 @@
     </script>
     <script>
         $(document).ready(function () {
-            // $('#removeBtn').on('click', function (e) {
-            //     e.preventDefault(); // Prevent the default link behavior
-            //     $('#confirmDeleteModal').modal('show');
-            // });
-
-            // Close the modal when the "Cancel" button is clicked
-            // $('#confirmDeleteModal .cancel-btn').on('click', function () {
-            //     $('#confirmDeleteModal').modal('hide');
-            // });
-
-            
-
-            // // Close the modal when clicking outside the modal area
-            // $(document).on('click', function (e) {
-            //     if ($(e.target).closest('.modal-content').length === 0) {
-            //         $('#confirmDeleteModal').modal('hide');
-            //     }
-            // });
-
             // Initialize tooltips for all meal buttons once
             $('[data-bs-toggle="tooltip"]').tooltip();
 
