@@ -1,30 +1,39 @@
-﻿
-@model AllRecipesFilteredAndPagedViewModel
+﻿@model AllRecipesFilteredAndPagedViewModel
 @inject IUserContext UserContext
-@using static CookTheWeek.Common.GeneralApplicationConstants;
 @{
+
     Guid userId = UserContext.UserId;
-    bool isAdmin = UserContext.IsAdmin;
+    bool hasActiveMealplan = UserContext.HasActiveMealplan;
 
     var headingModel = new PageHeadingViewModel
     {
-        Subheading = "Browse Recipes"
+        Subheading = "Browse Recipes",
+        HeadingSecondary = "Find delicious recipes to cook this week"
     };
 
-    if (!isAdmin)
-    {
-        headingModel.HeadingSecondary = "Find delicious recipes to cook this week";
-    }
+    bool justLoggedIn = TempData[JustLoggedIn] as bool? ?? false;
+    bool showModal = justLoggedIn || userId == default;
 
+    if (showModal && hasActiveMealplan)
+    {
+        if (Model.ActiveMealPlan != null)
+        {
+            Model.ActiveMealPlan.HasActiveMealPlan = hasActiveMealplan;
+            Model.ActiveMealPlan.UserId = userId;
+            Model.ActiveMealPlan.JustLoggedIn = justLoggedIn;
+        }       
+    }
 }
 
-<div class="wide-contents-container">
+<div class="wide-contents-container has-build-btn">
     <partial name="_HeadingPartial" model="headingModel" />
+
+    <!-- Search and Filter panel -->
     <div class="row text-center filter-container">
         <form id="all-recipes-form" method="get" class="pb-1">
             @Html.AntiForgeryToken()
-            <div class="row align-items-center justify-content-between g-3">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first">
+            <div class="row align-items-center justify-content-between g-0 gy-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
                         <select asp-for="Category" class="form-select">
@@ -54,7 +63,7 @@
                         <button type="submit" value="Search" class="btn btn-primary search-btn" form="all-recipes-form">Search</button>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
+                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
                     <div class="input-group">
                         <span class="input-group-text">Per Pg</span>
                         <select asp-for="RecipesPerPage" class="form-select">
@@ -71,6 +80,7 @@
     </div>
     <partial name="_BuildBtnPartial" />
 
+    <!-- Recipes Container -->
     <div class="row">        
         <div class="container">
             @if (!Model.Recipes.Any())
@@ -88,68 +98,7 @@
             }
         </div>
     </div>
-    <!-- Modal Overlay WELCOME MESSAGE -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                
-                @if (userId == default)
-                {
-                    <div class="modal-header d-flex justify-content-center">
-                        <h2 class="modal-title" id="welcomeModalLabel">Welcome to Cook-The-Week</h2>
-                        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Discover a world of culinary inspiration right at your fingertips. Explore our diverse collection of recipes and start imagining your perfect meal plan.
-                        </p>
-                        <p>
-                            Sign up today to unlock the full experience and effortlessly add your favorite recipes to a personalized meal plan. 
-                        </p>                
-                    </div>
-                }
-                else
-                {
-                    <div class="modal-header d-flex justify-content-center">
-                        <h2 class="modal-title" id="welcomeModalLabel">Tailor Your Meal Plan Now</h2>
-                        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Browse Our Recipes section and craft your ideal meal plan by simply clicking 'Add to Meal Plan' on your favorite recipes.
-                        </p>                            
-                        <p>
-                            Once saved, your Meal Plans can be reused and tailored to your current needs. Find out more on Meal Plans Section!
-                        </p>
-                    </div>
-                }
-                              
-                <div class="modal-footer">
-                    @if (userId == default)
-                    {
-                        <a asp-area="" asp-action="Login" asp-controller="User" class="btn btn-primary card-btn-width">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Log In
-                        </a>
-                        <a asp-area="" asp-action="Register" asp-controller="User" class="btn btn-outline-danger card-btn-width">Sign Up</a>
-                    }
-                    else
-                    {
-                        <a asp-area="" asp-action="All" asp-controller="Recipe" asp-route-returnUrl="ViewBag.ReturnUrl" class="btn btn-primary card-btn-width">
-                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
-                        </a>
-                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="btn btn-outline-danger card-btn-width">Your Plans</a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+    
     @{
         int previousPage = Model.CurrentPage - 1;
         if (previousPage < 1)
@@ -196,30 +145,23 @@
             </ul>
         </div>
     }
-    
+    <!-- Modal -->
+    <partial name="_WelcomeModalPartial" model="@Model.ActiveMealPlan"/>   
 </div>
-@section Scripts {    
-    <script src="~/js/recipeLikes.js"></script>
-    <script>        
-        $(document).ready(function () {
-            var isUserAdmin = '@isAdmin';
-            var justLoggedIn = '@(TempData[JustLoggedIn] != null ? "true" : "false")';
 
-            if (!currentUserId || (isUserAdmin == 'False' && justLoggedIn === "true")) {
+@section Scripts {    
+    <script type="module">
+        import { attachToggleFavouritesHandler } from '/js/recipeLikes.js';
+
+        $(document).ready(function () {            
+            if ('@showModal' === "True") {  
+                
+                console.log("Showing modal...");
                 $('#welcomeModal').modal('show');
             } 
 
-            $('#welcomeModal').on('show.bs.modal', function (e) {
-                $('#modalOverlay').show();
-            });
-
-            $('#welcomeModal').on('hidden.bs.modal', function (e) {
-                $('#modalOverlay').hide();
-            });
-
-            $('#welcomeModal').on('click', '[data-dismiss="modal"]', function (e) {
-                $('#welcomeModal').modal('hide');
-            });
+            debugger;
+            attachToggleFavouritesHandler();
         });
     </script>
 

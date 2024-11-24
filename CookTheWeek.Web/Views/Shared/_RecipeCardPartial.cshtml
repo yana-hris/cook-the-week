@@ -25,7 +25,7 @@
             {
                 bool isLiked = await this.LikesService.GetRecipeLikeIfExistsAsync(recipeId) != null;
 
-                <a class="add-to-favourites-button" onclick="toggleFavourites(event, '@recipeId')">
+                <a class="add-to-favourites-button" data-recipe-id="@Model.Id">
                     @if (isLiked)
                     {
                         <i class="fas fa-heart liked-icon" data-toggle="tooltip" title="Remove from Favorites"></i>
@@ -37,7 +37,7 @@
                 </a>
             } else if(isOwner && !isAdmin)
             {
-                <i class="fa fa-user-circle" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                <i class="fa-solid fa-bookmark"></i>                
             }
             @if(userId != default && !isAdmin)
             {
@@ -54,9 +54,9 @@
             </a>
             <div class="d-flex align-items-center justify-content-between recipe-info">
                     <span class="badge @BadgeColorHelper.GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>                    
-                    <div class="d-flex align-items-center justify-content-center g-1">
-                        <i class="material-icons card-icon">timer</i>
-                        <span class="icon-text">&nbsp;@Model.CookingTime</span>
+                    <div class="d-flex align-items-center justify-content-center time">
+                    <i class="fa-solid fa-stopwatch"></i>
+                        <span class="icon-text">@Model.CookingTime</span>
                     </div>
                 </div>
             

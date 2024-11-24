@@ -20,7 +20,7 @@
 }
 
 .btn-secondary {
-    border: 1px solid $success;
+    border: 1px solid $primary-border-subtle;
     color: $primary;
     background-color: $success;
 
@@ -71,13 +71,6 @@
     font-size: 24px;
 }
 
-.card-btn-width {
-    width: 9rem;
-    padding: 0.5rem 1.0rem;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    font-weight: bold;
-}
 // Reusable buttons
 .back-button-main,
 .download-btn {
@@ -106,6 +99,16 @@
     &:hover {
         border: 2px solid $danger;
     }
+}
+
+.not-cooked-meal-icon {
+    @include icon-button($danger, #fff, 2px, false);
+    @extend .fixed-size-btn;
+}
+
+.cooked-meal-icon {
+    @include icon-button($primary, #fff, 2px, false);
+    @extend .fixed-size-btn;
 }
 
 
@@ -145,34 +148,30 @@
     transition: background-color 0.3s ease;
 }
 
-.browse-recipes-btn,
+
 .shopping-list-btn,
+.save-button,
+.mealplan-details-btn,
 .ok-btn {
-    @include button-base();
-    @include flex-center();
-    @extend .card-btn-width;
+    @include button-with-icon-and-text-cenetered();
     @extend .btn-primary;
 }
 
 .edit-button,
 .copy-mealplan-button,
-.save-button,
 .cancel-btn,
-.add-recipe-button {
-    @include button-base();
-    @include flex-center();
-    @extend .card-btn-width;
+.browse-recipes-btn {
+    @include button-with-icon-and-text-cenetered();
     @extend .btn-secondary;
 }
 
-.add-recipe-button {
-    width: 10rem;
+.add-recipe-button, .edit-recipe-btn {
+    @include button-with-icon-and-text-cenetered(10rem);
+    @extend .btn-secondary;
 }
 
 .delete-button {
-    @include button-base();
-    @include flex-center();
-    @extend .card-btn-width;
+    @include button-with-icon-and-text-cenetered();
     @extend .btn-danger;
 }
 
@@ -180,23 +179,23 @@
 .add-step-btn {
     @include button-base();
     @extend .btn-secondary;
-    border: 1px solid $primary-border-subtle;
     padding: 0.4rem 1.25rem;
 }
 
 .remove-item-button {
     @extend .minus;
-    @extend .remove-btn-size; //btn remove-btn-size btn-icon-only minus
+    @extend .remove-btn-size; 
 }
 
 .signup-button,
 .learnmore-button {
-    @include button-base();
-    @include flex-center();
-    @extend .card-btn-width;
-    width: 10rem !important;
+    @include button-with-icon-and-text-cenetered(11rem);
 }
 
+.user-mealplans-btn {
+    @include button-with-icon-and-text-cenetered(10rem);
+    @extend .btn-danger;
+}
 .signup-button {
     @extend .btn-primary;
 }
@@ -212,20 +211,37 @@
     @extend .btn-primary;
 }
 
+.join-now-btn,
+.login-modal-btn {
+    @include button-sm-style();
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.join-now-btn {
+    @extend .btn-danger;
+}
+
+.login-modal-btn {
+    @extend .btn-secondary;     
+}
+
+.register-btn,
+.reset-password-btn {
+    @include button-lg-style();
+    @extend .btn-danger;
+}
 .user-recipes-btn {
     @include button-sm-style();
     @extend .btn-primary;
 }
 
-.register-btn,
-.reset-password-btn,
 .change-password {
     @include button-sm-style();
     @extend .btn-danger;
 }
 
-.back-to-home-btn,
-.user-mealplans-btn {
+.back-to-home-btn {
     @include button-sm-style();
     @extend .btn-secondary;
 }
@@ -238,23 +254,36 @@
 
 #theme-container {
     position: absolute;
-    top: 70px;
-    right: 5px;
+    top: 75px;
+    right: 3px;
     z-index: 100;
 
 
     .theme-switcher {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .btn-link {
+            margin: 0;
+            padding: 0 8px;         
+            vertical-align: middle;
             background-color: var(--bs-body-bg);
-            color: var(--bs-body-color);
             border-radius: 10px;
-            padding: 0 5px;
+            color: var(--bs-body-color);
+
+            svg {
+                vertical-align: middle;
+            }
         }
 
         .dropdown-toggle {
             text-decoration: none;
+
+            &::after {
+                vertical-align: middle;
+            }
         }
     }
 }
@@ -264,7 +293,7 @@
     .search-btn {
         text-transform: uppercase;
         font-weight: bold !important;
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: var(--bs-body-bg) !important;
         background-color: $primary;
         border-color: $primary;
@@ -321,19 +350,11 @@
         border-radius: $border-radius;
     }
 
-    .btn.close { // modal window close (X) btn
-        color: $success;
-
-        &:hover {
-            color: $white;
-        }
-    }
-
     .external-login-button {
         @include flex-center();
         padding: 8px;
         border: 1px solid #ddd;
-        font-size: 14px;
+        font-size: 13px;
         text-align: center;
         text-decoration: none;
         background-color: #f8f9fa; // light
@@ -364,14 +385,14 @@
     position: fixed;
     bottom: 17px;
     right: 57px;
-    z-index: 10000;
+    z-index: 100;
 }
 
 #build-btn-container {
     position: fixed;
     right: 10px;
     bottom: 25px;
-    z-index: 10000;
+    z-index: 100;
 }
 
 @media (min-width: 768px) {

@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
+    using CookTheWeek.Common;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Events.Dispatchers;
     using CookTheWeek.Services.Data.Events;
@@ -41,7 +42,8 @@
         {
             try
             {
-                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel);
+                bool justLoggedIn = TempData.Peek(TempDataConstants.JustLoggedIn) as bool? ?? false;
+                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, justLoggedIn);
 
                 SetViewData("All Recipes", Request.Path + Request.QueryString);
                 return View(model);

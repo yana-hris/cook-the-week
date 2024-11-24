@@ -1,8 +1,9 @@
 ﻿@model ICollection<MealPlanAllViewModel>
 @inject IUserContext UserContext
 @{
-    
+
     Guid userId = UserContext.UserId;
+    bool hasActiveMealplan = UserContext.HasActiveMealplan;
 
     var headingModel = new PageHeadingViewModel
     {
@@ -23,7 +24,10 @@
                 <th class="text-center">Total Meals</th>
                 <th class="text-center">Details</th>
                 <th class="text-center">Shopping List</th>
-                <th class="text-center">Build Again</th>
+                @if(!hasActiveMealplan)
+                {
+                    <th class="text-center">Build Again</th>                    
+                }
             </tr>
         </thead>
         <tbody>
@@ -54,15 +58,18 @@
                             <i class="fas fa-shopping-basket"></i>
                         </a>
                     </td>
-                    <td class="text-center align-middle">
-                        <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post" class="d-inline">
-                            <input type="hidden" name="mealPlanId" value="@mealPlan.Id" />
-                            <input type="hidden" name="returnUrl" value="/MealPlan/Mine" />
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                        </form>
-                    </td>
+                    @if (!hasActiveMealplan)
+                    {
+                        <td class="text-center align-middle">
+                            <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post" class="d-inline">
+                                <input type="hidden" name="mealPlanId" value="@mealPlan.Id" />
+                                <input type="hidden" name="returnUrl" value="/MealPlan/Mine" />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    }                    
                 </tr>
             }
         </tbody>

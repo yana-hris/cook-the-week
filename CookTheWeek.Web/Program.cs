@@ -1,5 +1,7 @@
 namespace CookTheWeek.Web
 {
+
+    using Hangfire;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -119,6 +121,15 @@ namespace CookTheWeek.Web
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 
+            // Add Hangfire for scheduled jobs (mealplan claims update)
+            builder.Services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(connectionString));
+            builder.Services.AddHangfireServer();
+
+
             builder.Services.AddMemoryCache();
             builder.Services.AddResponseCaching();
 
@@ -175,6 +186,7 @@ namespace CookTheWeek.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
             }
             else
             {
@@ -207,6 +219,10 @@ namespace CookTheWeek.Web
 
             // Custom middleware for checking online users (requires user ID)
             app.EnableOnlineUsersCheck();
+
+            // Optional: Use Hangfire Dashboard for job monitoring
+            app.UseHangfireDashboard("/hangfire");
+            app.RegisterRecurringJobs();
 
             app.MapControllerRoute(
                 name: $"{AdminAreaName}",

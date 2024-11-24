@@ -109,7 +109,7 @@
         public IActionResult EmailConfirmationInfo(string email)
         {
             ViewBag.Email = email;
-            
+            SetViewData("Email Confirmation Info", null, "image-overlay food-background");
             return View();
         }
 
@@ -129,6 +129,7 @@
                 TempData[JustLoggedIn] = true;
                 this.memoryCache.Remove(UsersCacheKey);
 
+                SetViewData("Confirmed Email", null, "image-overlay food-background");
                 return View();
 
             }
@@ -249,6 +250,7 @@
         [HttpGet]
         public IActionResult AccessDeniedPathInfo()
         {
+            SetViewData("Access Denied", null, "image-overlay food-background");
             return View();
         }
 
@@ -289,6 +291,7 @@
             try
             {
                 UserProfileViewModel model = await this.userService.GetUserProfileDetailsAsync();
+                SetViewData("Profile", null, "image-overlay food-background");
                 return View(model);
             }
             catch (RecordNotFoundException ex)
@@ -301,12 +304,15 @@
         public IActionResult ForgotPassword()
         {
             ForgotPasswordFormModel model = new ForgotPasswordFormModel();
+            SetViewData("Forgot Password", null, "image-overlay food-background");
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordFormModel model)
         {
+            SetViewData("Forgot Password", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -354,12 +360,15 @@
         [HttpGet]
         public IActionResult ForgotPasswordConfirmation()
         {
+            SetViewData("Forgot Password Confirmation", null, "image-overlay food-background");
             return View();
         }
 
         [HttpGet]
         public IActionResult ResetPassword(string token, string email)
         {
+            SetViewData("Reset Password", null, "image-overlay food-background");
+
             if (token == null || email == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -375,8 +384,11 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ResetPassword(ResetPasswordFormModel model)
         {
+            SetViewData("Reset Password", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -398,15 +410,17 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ResetPasswordConfirmation()
         {
+            SetViewData("Reset Password Confirmation", null, "image-overlay food-background");
             return View();
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult ChangePassword()
         {
+            SetViewData("Change Password", null, "image-overlay food-background");
             return View();
         }
 
@@ -415,6 +429,8 @@
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordFormModel model)
         {
+            SetViewData("Change Password", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -452,6 +468,7 @@
         [Authorize]
         public IActionResult SetPassword()
         {
+            SetViewData("Set Password", null, "image-overlay food-background");
             return View();
         }
 
@@ -459,6 +476,8 @@
         [Authorize]
         public async Task<IActionResult> SetPassword(SetPasswordFormModel model)
         {
+            SetViewData("Set Password", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -492,6 +511,7 @@
         [HttpGet]
         public IActionResult ConfirmationFailed()
         {
+            SetViewData("Confirmation Failed", null, "image-overlay food-background");
             return View();
         }
 
@@ -532,6 +552,7 @@
         [HttpGet]
         public IActionResult AccountDeletedConfirmation()
         {
+            SetViewData("Account Deleted Confirmation", null, "image-overlay food-background");
             return View();
         }
         

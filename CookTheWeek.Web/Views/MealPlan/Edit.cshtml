@@ -1,5 +1,6 @@
 ﻿@model MealPlanEditFormModel
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
+@using static CookTheWeek.Common.GeneralApplicationConstants
 @{
     ViewData["Title"] = "Edit Meal Plan";
 
@@ -19,7 +20,15 @@
 <div id="edit-mealplan">
     <div class="card-outer-container">
         <div class="header-container">
-            <partial name="_HeadingPartial" model="headingModel" />
+            <partial name="_HeadingSmallPartial" model="headingModel" />
+            <div class="status-container d-flex align-items-center justify-content-between">
+                <div class="meal-plan-dates">
+                    <span class="label">Duration:</span> @(@Model.StartDate.ToString(MealPlanDateFormat)) to @Model.StartDate.AddDays(6).ToString(MealPlanDateFormat)
+                </div>
+                <div class="meal-plan-status meal-plan-finished-false">
+                    Active
+                </div>
+            </div>
             <partial name="_BackBtnPartial" />
         </div>
         
@@ -42,7 +51,6 @@
                             <h4>Looking for the perfect meal plan name? 
                                 Discover our curated selection to find inspiration for your dietary goals, 
                                 weekly vibe, or seasonal cravings!</h4>
-                            <hr />
                             <div class="category-container">
                                 <div class="suggestion-category">
                                     <h5>Weekly Themes</h5>
@@ -199,9 +207,9 @@
                                     <i class="fa-solid fa-calendar-week"></i>
                                     <span class="tip-heading">Weekly Structure</span>
                                     <span class="tip-text">
-                                        Plan your meals for a 7-day week. 
-                                        Organize your dishes to cover each day effectively
-                                        and avoid last-minute decisions.
+                                        Plan your meals for the next 7 days.
+                                        Organize each day with a well-planned dish 
+                                        to reduce stress and avoid last-minute choices.
                                     </span>
                                 </div>
                             </div>
@@ -210,8 +218,8 @@
                                     <i class="fa-solid fa-scale-unbalanced"></i>
                                     <span class="tip-heading">Customizable Portions</span>
                                     <span class="tip-text">
-                                        Adjust portion sizes to suit your needs, appetite, 
-                                        and dietary goals, ensuring every meal is just right for you.
+                                        Customize servings to match your family size or specific needs, 
+                                        ensuring each meal fits you perfectly.
                                     </span>
                                 </div>
                             </div>
@@ -220,8 +228,8 @@
                                     <i class="fa-solid fa-cart-plus"></i>
                                     <span class="tip-heading">Smart Shopping List</span>
                                     <span class="tip-text">
-                                        Get a tailored shopping list based on your chosen meals, 
-                                        optimizing your grocery shopping and reducing waste.
+                                        Get a customized list based on your meals,
+                                        ensuring efficient shopping that reduces waste and maximizes value.
                                     </span>
                                 </div>
                             </div>
@@ -232,13 +240,15 @@
                 </div>
                
             </div>
-            <div class="row">
+            <div class="row buttons-row">
                 <div class="col buttons">
                     <a asp-area="" asp-controller="Recipe" asp-action="All" class="browse-recipes-btn">
-                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Recipes
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <span class="btn-text">Recipes</span>
                     </a>
                     <button form="edit-mealplan-form" class="save-button" type="submit">
-                        <i class="fas fa-th-list"></i>&nbsp;Save
+                        <i class="fas fa-th-list"></i>
+                        <span class="btn-text">Save</span>
                     </button>
                 </div>
             </div>

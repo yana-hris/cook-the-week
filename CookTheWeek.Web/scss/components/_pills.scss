@@ -1,0 +1,67 @@
+﻿@import 'colors';
+@import 'theme-defaults';
+
+// The pills container general setup
+.pills-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    gap: 0.25rem;
+    border-radius: $border-radius-small;
+    background-color: var(--pill-container-bg-color);
+}
+
+// Individual pill setup
+.pill-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 1.4rem;
+    border-radius: $pill-border-radius;
+    gap: 0.3rem;
+    color: var(--bs-body-bg);
+    background-color: var(--pill-bg-color);
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+}
+
+.pill-icon {
+    width: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        font-size: 2.6rem;
+    }
+}
+
+// Inside pill test set-up
+.pill-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    line-height: 1;
+    margin-top: 0;
+    
+}
+
+.pill-number {
+    font-family: $font-family-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+.pill-text {
+    font-weight: normal;
+    font-size: 1rem;
+    margin-bottom: 0;
+    margin-top: -2px;
+}

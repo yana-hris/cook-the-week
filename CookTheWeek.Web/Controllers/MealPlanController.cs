@@ -7,31 +7,34 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Factories;
     using CookTheWeek.Services.Data.Models.MealPlan;
-    using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Extensions;
+    using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.MealPlan;
 
+    using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
     using static CookTheWeek.Common.NotificationMessagesConstants;
     using static CookTheWeek.Common.TempDataConstants;
-    using static CookTheWeek.Common.EntityValidationConstants.MealPlanValidation;
 
     public class MealPlanController : BaseController
     {
         private readonly IMealPlanViewModelFactory viewModelFactory;
         private readonly IMealPlanService mealPlanService;
         private readonly IMealPlanValidationService mealplanValidator;
+        private readonly bool hasActiveMealplan;
 
         public MealPlanController(IMealPlanService mealPlanService,
             IMealPlanValidationService mealplanValidator,
             IMealPlanViewModelFactory viewModelFactory,
+            IUserContext userContext,
             ILogger<MealPlanController> logger) : base(logger)
         {
             this.mealPlanService = mealPlanService;
             this.mealplanValidator = mealplanValidator;
             this.viewModelFactory = viewModelFactory;
+            this.hasActiveMealplan = userContext.HasActiveMealplan;
         }
-       
+
         [HttpPost]
         public async Task<IActionResult> CreateMealPlanModel([FromBody] MealPlanServiceModel model)
         {
@@ -51,13 +54,31 @@
                 logger.LogError($"Meal plan creation failed. Error message: {ex.Message}. Stacktrace: {ex.StackTrace}");
                 return BadRequest();
             }
+
+            // Check if the user has an active meal plan or not (Add or Edit model)
+
             
-            // If model is valid, create the view model for Add view
             try
             {
-                MealPlanAddFormModel mealPlanModel = await viewModelFactory.CreateMealPlanAddFormModelAsync(model);
-                TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(mealPlanModel);
-                return Ok();
+                IMealPlanFormModel resultModel;
+                string redirectUrl;
+
+                if (hasActiveMealplan)
+                {
+                    Guid existingId = await mealPlanService.GetActiveIdAsync();
+                    resultModel = (MealPlanEditFormModel) await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(existingId, model.Meals);
+                    redirectUrl = "/MealPlan/Edit";
+                }
+                else
+                {
+                    resultModel = (MealPlanAddFormModel) await viewModelFactory.CreateMealPlanAddFormModelAsync(model);
+                    redirectUrl = "/MealPlan/Add";
+                }
+
+                TempData[MealPlanStoredModel] = JsonConvert.SerializeObject(resultModel);
+                return Json(new { success = true, redirectUrl = redirectUrl });
+
+
             }
             catch (RecordNotFoundException ex)
             {
@@ -121,7 +142,7 @@
                     logger.LogError("Adding meal plan failes. Result value for meal plan ID is null.");
                     return RedirectToAction("Mine", "MealPlan");
                 }
-
+                
                 return RedirectToAction("Details", "MealPlan", new { id = result.Value, returnUrl = returnUrl });
             }
             catch (RecordNotFoundException)
@@ -235,26 +256,37 @@
         
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id, string? returnUrl)
+        public async Task<IActionResult> Edit(string? id = null, string? returnUrl = null)
         {
-            if (id.TryToGuid(out Guid guidId))
+            if (TempData[MealPlanStoredModel] != null)
             {
-                try
-                {
-                    MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(guidId);
-                    SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
-                    return View(model);
-                }
-                catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
-                {
-                    TempData[ErrorMessage] = ex.Message;
-                }
-                catch (Exception ex)
-                {
-                    return HandleException(ex, nameof(Edit), guidId);
-                }
+                var mealPlanModel = JsonConvert.DeserializeObject<MealPlanEditFormModel>(TempData[MealPlanStoredModel].ToString());
 
-                return Redirect(returnUrl ?? "/MealPlan/Mine");
+                SetViewData("Edit Meal Plan", returnUrl ?? "/Recipe/All", "image-overlay food-background");
+                return View(mealPlanModel);
+            }
+
+            if (id != default)
+            {
+                if (id.TryToGuid(out Guid guidId))
+                {
+                    try
+                    {
+                        MealPlanEditFormModel model = await viewModelFactory.CreateMealPlanFormModelAsync<MealPlanEditFormModel>(guidId);
+                        SetViewData("Edit Meal Plan", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
+                        return View(model);
+                    }
+                    catch (Exception ex) when (ex is RecordNotFoundException || ex is UnauthorizedUserException)
+                    {
+                        TempData[ErrorMessage] = ex.Message;
+                    }
+                    catch (Exception ex)
+                    {
+                        return HandleException(ex, nameof(Edit), guidId);
+                    }
+
+                    return Redirect(returnUrl ?? "/MealPlan/Mine");
+                }
             }
 
             return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
@@ -300,6 +332,7 @@
             }
 
             TempData[SuccessMessage] = MealPlanSuccessfulEditMessage;
+            TempData[SubmissionSuccess] = true;
             return RedirectToAction("Details", "MealPlan", new { id = model.Id, returnUrl = returnUrl });
         }
 
@@ -321,7 +354,6 @@
                 {
                     HandleException(ex, nameof(Delete), guidId);
                 }
-
                 return RedirectToAction("Mine");
             }
 
@@ -355,18 +387,5 @@
             return BadRequest(ModelState);
         }
 
-       
-
-        // Helper method for adding model errors from the custom validation to the ModelState
-        private void AddModelErrors(ValidationResult validationResult)
-        {
-            if (!validationResult.IsValid && validationResult.Errors.Any())
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.Key, error.Value);
-                }
-            }
-        }
     }
 }

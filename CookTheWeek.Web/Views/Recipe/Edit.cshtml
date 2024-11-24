@@ -18,7 +18,7 @@
 
     if (userId != default && !isAdmin)
     {
-        headingModel.HeadingSecondary = $"Edit \"{Model.Title}\"";
+        headingModel.HeadingSecondary = $"{Model.Title}";
     }
 
     var qtyFractionOptionsString = JsonConvert.SerializeObject(QtyFractionOptions);
@@ -28,7 +28,7 @@
 }
 <div id="edit-recipe">
     <div class="card-outer-container">
-        <partial name="_HeadingPartial" model="headingModel" />
+        <partial name="_HeadingSmallPartial" model="headingModel" />
 
         <div class="card">
             <div class="card-header">
@@ -275,13 +275,14 @@
                                             </div>
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Unit</span>
+                                                    @* <span class="input-group-text">Unit</span> *@
                                                     <select data-bind="value: MeasureId,
                                                                    validationElement: MeasureId,
                                                                    deferValidation: MeasureId,
                                                                    valueUpdate: 'afterkeydown'"
-                                                            class="form-select">
-                                                        <option value="">Unit</option>
+                                                            class="form-select"
+                                                            aria-label="Unit">
+                                                        <option value="" disabled selected>Unit</option>
                                                         @foreach (var measure in @Model.RecipeIngredients!.First().Measures!)
                                                         {
                                                             <option value="@measure.Id">@measure.Name</option>
@@ -294,10 +295,11 @@
                                             </div>
                                             <div class="col col-5 col-lg-2 p-2">
                                                 <div class="input-group">
-                                                    <span class="input-group-text">Note</span>
+                                                    @* <span class="input-group-text">Note</span> *@
                                                     <select data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
+                                                            aria-label="Note"
                                                             class="form-select">
-                                                        <option value="">Type</option>
+                                                        <option value="" disabled selected>Note</option>
                                                         @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
                                                         {
                                                             <option value="@specification.Id">@specification.Name</option>
@@ -336,7 +338,7 @@
                     <div class="col buttons justify-content-center">
                         <!-- SUBMIT FORM BTN -->
                         <button data-bind="click: submitForm"
-                                class="save-button"
+                                class="edit-recipe-btn"
                                 form="edit-recipe-form"
                                 type="submit">
                             Save

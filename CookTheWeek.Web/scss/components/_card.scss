@@ -1,21 +1,20 @@
 ﻿@import 'colors';
+@import 'icons';
 @import 'theme-defaults';
+@import 'typography';
 
-.card-border-style {
-    box-shadow: 10px 15px 20px 0.5rem rgba(0,0,0, 0.06);
-}
 
 .card-style {
     background-color: var(--bs-body-bg);
-    border-radius: 2px;
+    border-radius: $border-radius;
     overflow-y: auto;
 }
 
 // style for adding custom card tab colors, custom border, shade, btn and footer settings
 .card-custom-style-with-back-btn {
-    margin-top: -0.8rem !important; // for heading to be stacked
     background-color: var(--bs-body-bg);
     border: 1px solid $primary-border-subtle;
+    
 
     .card-header {
         font-size: 1.1rem;
@@ -56,7 +55,6 @@
             top: 5px;
             right: 7px;
             z-index: 15;
-
             font-size: 18px;
         }
     }
@@ -90,11 +88,15 @@
 // recipe card
 .recipe-container {
     flex-grow: 0;
+    background-color: var(--bs-body-bg);
+    border: none;
 
     .recipe-details-link {
         display: block;
+        border: none;
         text-decoration: none;
         color: inherit;
+        background-color: var(--bs-body-bg);
 
         &:hover {
             text-decoration: none;
@@ -106,11 +108,12 @@
         width: 100%;
         height: auto;
         overflow: hidden;
-        border: none;
-        border-radius: 2px;
-        box-shadow: 0 0.3rem 0.6rem rgba(46,105,48, 0.03);
-        transition: all 0.4s;
+        border: 1px solid var(--card-border-color);
+        border-radius: $medium-border-radius;
+        box-shadow: var(--card-box-shadow);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
 
+       
         .image-container {
             .card-img-top {
                 display: block;
@@ -119,12 +122,18 @@
                 object-fit: cover;
             }
 
-            .liked-icon, .not-liked-icon, .fa-user-circle {
+            .liked-icon, .not-liked-icon, .fa-bookmark {
                 position: absolute;
                 top: 8px;
                 left: 10px;
                 z-index: 2;
-                font-size: 24px;
+                font-size: 26px;
+            }
+
+            .fa-bookmark {
+                top: -8px;
+                left: 12px;
+                font-size: 40px;
             }
 
             .add-to-mealplan-container {
@@ -136,12 +145,13 @@
         }
 
         .card-body {
-            background-color: var(--bs-body-bg) !important;
+            height: 13rem;
             padding: 0.65rem !important;
             padding-top: 0.3rem !important;
+            background-color: var(--bs-body-bg) !important;
 
             .recipe-details-link {
-
+                
                 &::before {
                     content: "";
                     position: absolute;
@@ -153,57 +163,119 @@
                 }
 
                 .recipe-title {
-                    font-family: 'Libre Baskerville', serif;
+                    font-family: $font-family-serif;
                     font-size: 18px;
                     font-weight: 500;
                     color: var(--bs-body-color);
                     margin-top: 0.25rem;
                     margin-bottom: 0.125rem;
+                    transition: color 0.3s ease, background-color 0.3s ease;
+                }
+
+                &:hover {
                     text-decoration: underline;
-                    //transition: color 0.3s ease, background-color 0.3s ease;
                 }
             }
 
-
-
             .recipe-info {
-                margin-top: 0.125rem;
+                margin-top: 0;
                 margin-bottom: 0.4rem;
+                font-family: $font-family-sans-serif;
 
-                .material-icons.card-icon {
-                    font-size: 16px;
-                    margin-bottom: 2px;
+                .time {
+                    gap: 5px;
+                    font-size: 15px;
+                    font-family: $font-family-serif;
+
+                    .icon-text {
+                        margin-top: 2px; // fix icon and text alignment
+                    }
+                }
+                // Custom badge color styles classes
+                .bg-breakfast-yellow {
+                    background-color: $breakfast-yellow;
+                    color: $dark;
                 }
 
-                .icon-text {
-                    font-size: 14px;
-                    font-family: "Libre Baskerville", serif;
+                .bg-soup-orange {
+                    background-color: $soup-orange;
+                    color: $dark;
+                }
+
+                .bg-salad-green {
+                    background-color: $salad-green;
+                    color: $white;
+                }
+
+                .bg-main-dish-red {
+                    background-color: $main-dish-red;
+                    color: $white;
+                }
+
+                .bg-appetizer-green {
+                    background-color: $appetizer-green;
+                    color: $dark;
+                }
+
+                .bg-dessert-pink {
+                    background-color: $dessert-pink;
+                    color: $dark;
+                }
+
+                .bg-white {
+                    background-color: $white;
+                    color: $dark;
                 }
 
                 span.badge {
                     display: inline-block;
-                    font-size: 13px;
-                    padding: 3px 6px;
-                    border-radius: 2px;
+                    font-size: 15px;
+                    padding: 3px 10px 1px 10px;
+                    border-radius: $border-radius-small;
                     width: auto;
                 }
             }
 
             .recipe-description {
                 font-weight: 400;
-                font-size: 15px;
+                font-size: 17px;
                 padding-bottom: 1rem;
-            }
-
-            hr {
-                color: $primary-border-subtle;
             }
         }
 
 
         &:hover {
             transform: translateY(-0.3rem);
-            box-shadow: 0 0.6rem 1.2rem rgba(46,105,48,0.1);
+            box-shadow: var(--card-box-shadow-hover);
+        }
+    }
+}
+
+.admin-card {
+    border-color: $primary;
+    color: var(--bs-body-color) !important;
+    background-color: var(--bs-body-bg) !important;
+
+    .card-body {
+        padding: 25px 8px;
+
+        .big-number {
+            font-size: 52px;
+        }
+
+        .card-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+
+            a {
+                border-radius: $border-radius-small;
+                padding: 2px 16px 4px;
+                text-decoration: none;
+                white-space: nowrap;
+            }
         }
     }
 }

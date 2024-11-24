@@ -1,11 +1,11 @@
 ﻿@import '../components/colors';
+@import '../components/icons';
+@import '../components/buttons';
 @import '../components/theme-defaults';
 @import '../components/typography';
+@import '../components/card';
 
 #add-recipe, #edit-recipe {
-    .heading-secondary {
-        font-size: 1.7rem;
-    }
 
     .card {
         @extend .card-custom-style-with-back-btn;
@@ -75,16 +75,8 @@
 
 #recipe-details-container, #meal-cook-container {
 
-    .heading-secondary {
-        font-size: 1.6rem !important;
-    }
-
     .card {
-        // reuse card tabs style, padding, border back-btn and footer btns
         @extend .card-custom-style-with-back-btn;
-        //border: none !important;
-        //box-shadow: none !important;
-        //position: relative;
 
         .card-body {
             padding: 0;
@@ -95,7 +87,7 @@
             }
 
             .recipe-title, .meal-title {
-                font-family: "Libre Baskerville", serif;
+                font-family: $font-family-serif;
 
                 .meal-title-style {
                     text-decoration: underline;
@@ -135,18 +127,19 @@
                     }
                 }
 
-                .fa-user-circle {
+                .fa-bookmark {
                     position: absolute;
-                    top: 12px;
-                    left: 12px;
-                    font-size: 28px;
+                    top: -8px;
+                    right: 7px;
                     z-index: 2;
+                    font-size: 54px;
+                   
                 }
 
                 .add-to-mealplan-container, .button-container {
                     position: absolute;
-                    bottom: 16px;
-                    right: 17px;
+                    bottom: 7px;
+                    right: 7px;
                     z-index: 2;
                 }
             }
@@ -173,42 +166,57 @@
                     }
 
                     .list-item-content {
-                        font-family: "Libre Baskerville", serif;
+                        font-family: $font-family-serif;
                         font-size: 1rem;
                         line-height: 1.3rem;
                         display: flex;
                         align-items: center;
                         padding-top: 2px;
+
+                        .item-decription {
+                            font-weight: bold;
+                        }
+
+                        .item-value {
+                            font-style: italic;
+                            color: $success;
+                        }
                     }
                 }
             }
             // Separate text in newspaper columns
+
+            #ingredients {
+                padding: 2rem 1.5rem;
+
+                .ingredient-heading {
+                    font-size: 16px;
+                    text-decoration: underline;
+                    font-weight: 500;
+                    margin-bottom: 0.25rem;
+                }
+
+
+                .units-styler {
+                    font-weight: 300 !important; // check why does not work!
+                }
+            }
+
             .newspaper-column {
+                padding: 0.75rem;
+                padding-bottom: 1.5rem;
                 column-count: 2;
                 column-gap: 1.4rem;
                 column-rule: 1px solid #ccc;
                 text-align: justify;
 
                 .recipe-description {
-                    font-weight: 300;
+                    font-weight: normal;
                 }
             }
 
-
-
-            .ingredient-heading {
-                font-size: 16px;
-                text-decoration: underline;
-                font-weight: 500;
-                margin-bottom: 0.25rem;
-            }
-
-
-            .units-styler {
-                font-weight: 300;
-            }
-
             #instructions {
+                padding: 2.4rem 0.5rem;
 
                 .step-number {
                     width: 35px;

@@ -1,10 +1,11 @@
 ﻿namespace CookTheWeek.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     public class FavouriteRecipeController : BaseController
     {
@@ -28,11 +29,11 @@
             {
                 return Json(new { success = false, message = ex.Message });
             }
-            catch (RecordNotFoundException ex)
+            catch (RecordNotFoundException)
             {
                 return Json(new { success = false, message = "Record not found" });
             }
-            catch (UnauthorizedUserException ex)
+            catch (UnauthorizedUserException)
             {
                 return Json(new { success = false, message = "Unauthorized" });
             }

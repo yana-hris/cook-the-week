@@ -1,4 +1,7 @@
 ﻿@import '../components/colors';
+@import '../components/theme-defaults';
+@import '../components/typography';
+@import '../components/buttons';
 
 // Universal navigation settings, mobile first
 nav {
@@ -8,6 +11,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 2px solid $gray-800;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 
     #nav-container {
         padding: 0 12px;
@@ -15,6 +20,7 @@ nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: inherit;
 
         .navbar-brand {
             display: flex;
@@ -22,6 +28,7 @@ nav {
             justify-content: start;
             gap: 10px;
             padding: 0;
+            font-family: $font-family-serif;
 
             .navbar-logo {
                 line-height: 60px;
@@ -41,13 +48,14 @@ nav {
             top: 100%;
             left: 0;
             right: 0;
-            z-index: 1500;
+            z-index: 10;
             margin: 0;
             padding: 10px;
             padding-right: 0px;
             text-align: center;
-            background-color: var(--bs-dark-bg-subtle);
-            opacity: 0.95;
+            background-color: inherit;
+            transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+            opacity: 0;
 
             #nav-list {
                 gap: 16px;
@@ -84,7 +92,7 @@ nav {
                 }
 
                 &:active {
-                    background-color: $primary;
+                    background-color: $primary !important;
                 }
 
                 &:hover {
@@ -92,14 +100,22 @@ nav {
                 }
             }
 
-
-
-
             #nav-list {
                 gap: 16px;
 
                 li.nav-item {
                 }
+            }
+        }
+
+        #navigation-buttons.show {
+            opacity: 0.96 !important;
+            background-color: $dark !important;
+           
+            transition: opacity 0.3s ease, transform 0.3s ease; 
+
+            li.nav-item {
+                border-color: transparent !important;
             }
         }
         // Nav btn on small screens (default)

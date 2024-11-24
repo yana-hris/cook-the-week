@@ -1,10 +1,12 @@
-﻿
-function toggleFavourites(event, recipeId) {
+﻿import { AppConfig } from './config.js';
+const currentUserId = AppConfig.currentUserId;
+
+const toggleFavourites = function (event, recipeId) {
     event.preventDefault();
     event.stopPropagation();
     // Change the state of the btn & icon
     toggleLikeButton(event);
-
+    debugger;
     let url = '/FavouriteRecipe/ToggleFavourites'; 
 
     var data = {
@@ -35,7 +37,7 @@ function toggleFavourites(event, recipeId) {
     });
 }
 
-function toggleLikeButton(event) {
+const toggleLikeButton = function (event) {
     const $button = $(event.currentTarget);
 
     $button.find('i').toggleClass('liked-icon not-liked-icon');
@@ -50,5 +52,16 @@ function toggleLikeButton(event) {
         .tooltip('dispose') // Dispose of the current tooltip
         .tooltip(); // Re-initialize the tooltip
 }
+
+export const attachToggleFavouritesHandler = function () {
+    debugger;
+    $(document).on('click', '.add-to-favourites-button', function (event) {
+        debugger;
+        const recipeId = $(this).data('recipe-id');
+        toggleFavourites(event, recipeId);
+    });    
+}
+
+
 
  

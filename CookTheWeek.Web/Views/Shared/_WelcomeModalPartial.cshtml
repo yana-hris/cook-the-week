@@ -1,0 +1,208 @@
+﻿@model MealPlanActiveModalViewModel
+@using static CookTheWeek.Common.NotificationMessagesConstants
+
+@if (Model == null || Model.UserId == default)
+{
+
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header modal-welcome-header position-relative">
+                    <div class="heading-container d-flex flex-column">
+                        <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
+                        <p class="modal-title" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="welcome-user-guest-message">
+                        <p class="lead">
+                            Discover a world of culinary inspiration right at your fingertips.
+                        </p>
+                        <p class="lead">
+                            <a class="custom-link" href="/User/Register">Sign up</a>/<a class="custom-link" href="/User/Login">Log in </a>to unlock the full experience and start building your desired Meal Plan today!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer two-buttons">
+                    <div class="btn-container">
+                        <a asp-area="" asp-action="Register" asp-controller="User" class="join-now-btn">Join Now</a>
+                    </div>
+                    <div class="btn-container">
+                        <a asp-area="" asp-action="Login" asp-controller="User" class="login-modal-btn">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.JustLoggedIn)
+{
+   
+    if (!Model.HasActiveMealPlan)
+    {
+        <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header modal-welcome-header position-relative">
+                        <div class="heading-container d-flex flex-column">
+                            <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
+                            <p class="modal-title" id="welcomeModalLabel">@WelcomeReturningUserModalHeading</p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="welcome-user-guest-message">
+                            <p class="lead">Start crafting your ideal meal plan today and make cooking easy and enjoyable!</p>
+                            <p class="lead">Get inspired by our recipe collection, easily browse and filter or even add your favourite recipes to your personal collection.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer two-buttons">
+                        <a asp-area="" asp-action="All" asp-controller="Recipe" asp-route-returnUrl="ViewBag.ReturnUrl" class="browse-recipes-btn">
+                            <i class="fa-solid fa-magnifying-glass me-2"></i>
+                            <span class="btn-text">Recipes</span>
+                        </a>
+                        <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="user-mealplans-btn">
+                            <span class="btn-text">Meal Plans</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.HasActiveMealPlan && Model != default)
+    {
+        <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header modal-welcome-header position-relative">
+                        <div class="heading-container d-flex flex-column">
+                            <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
+                            <p class="modal-title" id="welcomeModalLabel">@Model.Name</p>
+                            <p class="modal-subheading">@ActiveMealPlanModalContent</p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="stats-container d-flex">
+                            <div class="dates-container">
+                                <div class="date-item">
+                                    <div class="date-heading">
+                                        <i class="fa-solid fa-play text-primary"></i>
+                                        <span class="font-fix">Started</span>
+                                    </div>
+                                    <span class="date-text">@Model.StartDate</span>
+                                </div>
+                                <div class="date-item">
+                                    <div class="date-heading">
+                                        <i class="fa-solid fa-forward-step text-danger"></i>
+                                        <span class="font-fix">Ends</span>
+                                    </div>
+                                    <span class="date-text">@Model.EndDate</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number">@(Model.TotalMealsCooked < Model.TotalMealsCount ? Model.TotalMealsCooked : $"All {Model.TotalMealsCooked}")</span>
+                                    <span class="stat-text">meal@(Model.TotalMealsCooked != 1 ? "s" : "")</span>
+                                    <span class="stat-text">cooked</span>
+                                </div>
+                            </div>
+
+                            @if(Model.TotalMealsCooked != Model.TotalMealsCount)
+                            {
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-calendar-xmark"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number">@Model.TotalMealsUncooked</span>
+                                    <span class="stat-text">meal@(Model.TotalMealsUncooked != 1 ? "s" : "")</span>
+                                    <span class="stat-text">uncooked</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-bowl-rice"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number">@Model.TotalMealsCount</span>
+                                    <span class="stat-text">meal@(Model.TotalMealsCount != 1 ? "s" : "")</span>
+                                    <span class="stat-text">total</span>
+                                </div>
+                            </div>
+                            }                        
+
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-clock stat-icon"></i>
+                                </div>
+                                <div class="stat-content">
+                                    @{
+                                        int totalMinutes = Model?.TotalCookingTimeMinutes ?? 0;
+                                        int hours = totalMinutes / 60;
+                                        int minutes = totalMinutes % 60;
+                                    }
+                                    <span class="stat-number">
+                                        @(hours > 0 ? $"{hours}h " : "")@(minutes > 0 ? $"{minutes}min" : "")
+                                    </span>
+                                    <span class="stat-text">cooking</span>
+                                    <span class="stat-text">time</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-cart-shopping stat-icon"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number">@Model?.TotalIngredients</span>
+                                    <span class="stat-text">ingredient@(Model?.TotalIngredients != 1 ? "s" : "")</span>
+                                    <span class="stat-text">total</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-calendar stat-icon"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number">@Model?.DaysRemaining</span>
+                                    <span class="stat-text">day@(Model?.DaysRemaining != 1 ? "s" : "")</span>
+                                    <span class="stat-text">remaining</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        @if(Model?.TotalMealsCooked == Model?.TotalMealsCount)
+                        {
+                            <div class="add-meals-message">
+                                Awesome! You’ve cooked all your meals. Add new ones to try more delicious recipes!
+                            </div>
+                        }
+                        
+                    </div>
+
+                    <div class="modal-footer two-buttons">
+                        <a asp-area="" asp-action="All" asp-controller="Recipe" asp-route-returnUrl="ViewBag.ReturnUrl" class="browse-recipes-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            <span class="btn-text">Meals</span>
+                        </a>
+                        <a asp-area="" asp-action="Details" asp-controller="MealPlan" asp-route-id="@Model?.Id" class="mealplan-details-btn">
+                            <i class="fa-solid fa-bars"></i>
+                            <span class="btn-text">Details</span>
+                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

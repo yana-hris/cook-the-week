@@ -24,7 +24,7 @@
        
 }
 
-<div class="wide-contents-container">
+<div class="wide-contents-container has-build-btn">
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="container">                    
@@ -60,7 +60,11 @@
 </div>
 
 @section Scripts {  
-    <script src="~/js/recipeLikes.js"></script>
+    <script type="module">
+        import { attachToggleFavouritesHandler } from '/js/recipeLikes.js';
+
+        attachToggleFavouritesHandler();
+    </script>
 }
 
 

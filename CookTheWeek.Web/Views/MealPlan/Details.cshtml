@@ -7,6 +7,7 @@
 @{
     Guid userId = UserContext.UserId;
     bool isAdmin = UserContext.IsAdmin;
+    bool hasActiveMealplan = UserContext.HasActiveMealplan;
     bool isOwner = Model.OwnerId == userId;
 
     var headingModel = new PageHeadingViewModel
@@ -31,7 +32,15 @@
 <div id="details-mealplan">    
     <div class="card-outer-container">
         <div class="header-container">
-            <partial name="_HeadingPartial" model="headingModel" />
+            <partial name="_HeadingSmallPartial" model="headingModel" />
+            <div class="status-container d-flex align-items-center justify-content-between">
+                <div class="meal-plan-dates">
+                    <span class="label">Duration:</span> @Model.StartDate to @Model.EndDate
+                </div>
+                <div class="meal-plan-status meal-plan-finished-@Model.IsFinished.ToString().ToLower()">
+                    @(Model.IsFinished ? "Finished" : "Active")
+                </div>
+            </div>            
             <partial name="_BackBtnPartial" />
         </div>        
         @Html.AntiForgeryToken()
@@ -44,7 +53,7 @@
                                 Meal
                             </th>
                             <th scope="col" class="col-2 text-end">
-                                Cooked?
+                                Status
                             </th>
                         </tr>
                     </thead>
@@ -74,16 +83,23 @@
                                                     asp-controller="Meal" 
                                                     asp-action="Details" 
                                                     asp-route-id="@currentMeal.Id" 
+                                                    asp-route-isMealPlanFinished = "@Model.IsFinished"
                                                     asp-route-returnUrl="/MealPlan/Details/@Model.Id">@currentMeal.Title</a>
 
                                                 }
                                             </h5>
-                                            <p class="meal-stats text-primary">
+                                            <p class="meal-stats">
                                                 <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span><span class="separator">|</span>
+                                                    <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
+                                                    <span class="separator">|</span>
                                                 </span>
                                                 <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-calendar"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : $"{currentMeal.DayOfTheWeek}, {currentMeal.Date}")</span><span class="separator">|</span>
+                                                    <i class="fa-solid fa-calendar"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : $"{currentMeal.DayOfTheWeek}, {currentMeal.Date}")</span>
+                                                    <span class="separator">|</span>
+                                                </span>
+                                                <span class="no-wrap-text">
+                                                    <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
+                                                    <span class="separator">|</span>
                                                 </span>
                                                 <span class="no-wrap-text">
                                                     <i class="fa-solid fa-utensils"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.Servings)</span>
@@ -98,23 +114,46 @@
                                         <!-- Cook / Uncook Button -->
                                         @if (isCurrentMealDeleted)
                                         {
-                                            <button class="meal-button uncook-meal-button disabled" disabled>
-                                                <i class="fa-solid fa-calendar-check"></i>
-                                            </button>
+                                            <span class="not-cooked-meal-icon disabled"
+                                                  title="Deleted">
+                                                <i class="fa-solid fa-ban"></i>
+                                            </span>
                                         }
                                         else
                                         {
-                                            @if (!currentMeal.IsCooked)
+                                            @if (!Model.IsFinished && !currentMeal.IsCooked)
                                             {
-                                                <button class="meal-button cook-meal-button" data-meal-id="@currentMeal.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark as Cooked">
+                                                <button class="meal-button cook-meal-button" 
+                                                        data-meal-id="@currentMeal.Id" 
+                                                        data-bs-toggle="tooltip" 
+                                                        data-bs-placement="top" 
+                                                        title="Mark as Cooked">
                                                     <i class="fa-solid fa-calendar-xmark"></i>
                                                 </button>
                                             }
-                                            else
+                                            else if (!Model.IsFinished && currentMeal.IsCooked)
                                             {
-                                                <button class="meal-button uncook-meal-button" data-meal-id="@currentMeal.Id" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark Uncooked">
+                                                <button class="meal-button uncook-meal-button" 
+                                                        data-meal-id="@currentMeal.Id" 
+                                                        data-bs-toggle="tooltip" 
+                                                        data-bs-placement="top" 
+                                                        title="Mark Uncooked">
                                                     <i class="fa-solid fa-calendar-check"></i>
                                                 </button>
+                                            } 
+                                            else if(Model.IsFinished && !currentMeal.IsCooked)
+                                            {
+                                                <span class="not-cooked-meal-icon"
+                                                      title="Not Cooked">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="cooked-meal-icon" 
+                                                      title="Cooked">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </span>
                                             }
                                         }
 
@@ -134,55 +173,60 @@
                         </a>
 
                         <div class="collapse" id="collapseSummary">
-                            <div class="stats-container d-flex">
+                            <div class="pills-container d-flex">
 
-                                <div class="stat-item">
-                                    <div class="stat-icon">
+                                <div class="pill-item">
+                                    <div class="pill-icon">
                                         <i class="fa-solid fa-bowl-rice"></i>
                                     </div>
-                                    <div class="stat-text">
-                                        <span class="stat-number">@Model.Meals.Count</span>
-                                        <span class="stat-content">meals</span>
+                                    <div class="pill-content">
+                                        <span class="pill-number">@Model.Meals.Count</span>
+                                        <span class="pill-text">meal@(Model.Meals.Count > 1 ? "s" : "")</span>
+                                        <span class="pill-text">included</span>
                                     </div>                                    
                                 </div>
 
-                                <div class="stat-item">
-                                    <div class="stat-icon">
+                                <div class="pill-item">
+                                    <div class="pill-icon">
                                         <i class="fa-solid fa-utensils stat-icon"></i>
                                     </div>
-                                    <div class="stat-text">
-                                        <span class="stat-number">@Model.TotalServings</span>
-                                        <span class="stat-content">total servings</span>
+                                    <div class="pill-content">
+                                        <span class="pill-number">@Model.TotalServings</span>
+                                        <span class="pill-text">total</span>
+                                        <span class="pill-text">servings</span>
                                     </div>                                    
                                 </div>
 
-                                <div class="stat-item">
-                                    <div class="stat-icon">
+                                <div class="pill-item">
+                                    <div class="pill-icon">
                                         <i class="fa-solid fa-clock stat-icon"></i>
                                     </div>
-                                    <div class="stat-text">
-                                        <span class="stat-number">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span>
-                                        <span class="stat-content">time cooking</span>
+                                    <div class="pill-content">
+                                        <span class="pill-number">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span>
+                                        <span class="pill-text">time</span>
+                                        <span class="pill-text">cooking</span>
                                     </div>                                    
                                 </div>
 
-                                <div class="stat-item">
-                                    <div class="stat-icon">
+                                <div class="pill-item">
+                                    <div class="pill-icon">
                                         <i class="fa-solid fa-cart-shopping stat-icon"></i>
                                     </div>
-                                    <div class="stat-text">
-                                        <span class="stat-number">@Model.TotalIngredients</span>
-                                        <span class="stat-content">ingredients used</span>
+                                    <div class="pill-content">
+                                        <span class="pill-number">@Model.TotalIngredients</span>
+                                        <span class="pill-text">ingredient@(Model.TotalIngredients > 1 ? "s" : "")</span>
+                                        <span class="pill-text">total</span>
                                     </div>                                    
                                 </div>
 
-                                <div class="stat-item">
-                                    <div class="stat-icon">
+                                <div class="pill-item">
+                                    <div class="pill-icon">
                                         <i class="fa-solid fa-calendar stat-icon"></i>
                                     </div>
-                                    <div class="stat-text">
-                                        <span class="stat-number">@Model.TotalCookingDays</span>
-                                        <span class="stat-content">days cooking</span>
+                                    <div class="pill-content">
+                                        <span class="pill-number">@Model.TotalCookingDays</span>
+                                        <span class="pill-text">day@(Model.TotalCookingDays > 1 ? "s" : "")</span>
+                                        <span class="pill-text">cooking</span>
                                     </div>
                                 </div>
                                 
@@ -193,27 +237,19 @@
                 </div>
                 @if (isOwner)
                 {
-                    <div class="row">
+                    <div class="row buttons-row">
                         <div class="col buttons">
+                                                         
                             <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="shopping-list-btn">
-                                <i class="fas fa-shopping-basket"></i>&nbsp;List
-                            </a>
+                                <i class="fas fa-shopping-basket"></i>
+                                <span class="btn-text">List</span>
+                            </a>   
                             <div class="d-flex gap-2">
-                                @if (Model.IsFinished)
-                                {
-                                    <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post">
-                                        <input type="hidden" name="mealPlanId" value="@Model.Id" />
-                                        <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
-
-                                        <button type="submit" class="copy-mealplan-button">
-                                            <i class="fa-solid fa-copy"></i>&nbsp;Repeat
-                                        </button>
-                                    </form>
-                                }
-                                else
+                                @if (!Model.IsFinished)
                                 {
                                     <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
-                                        <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <span class="btn-text">Edit</span>
                                     </a>
                                     <a class="delete-button"
                                        data-bs-toggle="modal"
@@ -221,8 +257,22 @@
                                        data-controller="MealPlan"
                                        data-action="Delete"
                                        data-id="@Model.Id">
-                                        <i class="fa-solid fa-trash-can"></i>&nbsp;Remove
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        <span class="btn-text">Remove</span>
                                     </a>
+                                   
+                                }
+                                else if (!hasActiveMealplan)
+                                {
+                                    <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post">
+                                        <input type="hidden" name="mealPlanId" value="@Model.Id" />
+                                        <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
+
+                                        <button type="submit" class="copy-mealplan-button">
+                                            <i class="fa-solid fa-copy"></i>
+                                            <span class="btn-text">Repeat</span>
+                                        </button>
+                                    </form>
                                 }
 
                             </div>

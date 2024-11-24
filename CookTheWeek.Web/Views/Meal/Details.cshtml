@@ -4,14 +4,14 @@
     var headingModel = new PageHeadingViewModel
             {
                 Subheading = "Meal Details",
-                HeadingSecondary = $"Cooking {Model.Title} for {Model.ServingSize}"
+                HeadingSecondary = $"{Model.Title} for {Model.ServingSize}"
             };
 
     int mealId = Model.Id;
 }
 <div id="meal-cook-container">
     <div class="card-outer-container">
-        <partial name="_HeadingPartial" model="headingModel" />
+        <partial name="_HeadingSmallPartial" model="headingModel" />
         @Html.AntiForgeryToken()
 
         <div class="card">
@@ -34,27 +34,38 @@
                                 <div class="img-container">
                                     <img class="img-fluid image" alt="Meal Image" src="@Model.ImageUrl">
                                     <div class="button-container">
-                                    @if (!Model.IsCooked)
+                                    @if (!Model.IsMealPlanFinished && !Model.IsCooked)
                                     {
-                                        
-                                            <button class="meal-button cook-meal-button" 
-                                            data-meal-id="@Model.Id" 
-                                            data-bs-toggle="tooltip" 
-                                            data-bs-placement="top" 
-                                            title="Mark as Cooked">
-                                                <i class="fa-solid fa-calendar-xmark"></i>
+                                        <button class="meal-button cook-meal-button"
+                                                data-meal-id="@Model.Id"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Mark as Cooked">
+                                            <i class="fa-solid fa-calendar-xmark"></i>
+                                        </button>
+                                    }
+                                    else if(!Model.IsMealPlanFinished && Model.IsCooked)
+                                    {
+                                        <button class="meal-button uncook-meal-button"
+                                                data-meal-id="@Model.Id"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Mark Uncooked">
+                                            <i class="fa-solid fa-calendar-check"></i>
                                             </button>
-                                        
+                                    }
+                                    else if (Model.IsMealPlanFinished && Model.IsCooked)
+                                    {
+                                        <span class="cooked-meal-icon">
+                                            <i class="fa-solid fa-check"></i>
+                                        </span>
+
                                     }
                                     else
                                     {
-                                        <button class="meal-button uncook-meal-button" 
-                                        data-meal-id="@Model.Id" 
-                                        data-bs-toggle="tooltip" 
-                                        data-bs-placement="top" 
-                                        title="Mark Uncooked">
-                                            <i class="fa-solid fa-calendar-check"></i>
-                                        </button>
+                                        <span class="not-cooked-meal-icon">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </span>
                                     }
                                     </div>
                                 </div>
@@ -65,38 +76,60 @@
                                 <span class="icon-container me-2">
                                     <i class="fa-solid fa-list"></i>
                                 </span>
-                                <span class="list-item-content">@Model.CategoryName</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-calendar-plus"></i>
+                                <span class="list-item-content">
+                                    <span class="item-decription me-2">Type: </span>
+                                    <span class="item-value">@Model.CategoryName</span>                                    
                                 </span>
-                                <span class="list-item-content">Cook on: @Model.CookingDate</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-utensils"></i>
-                                </span>
-                                <span class="list-item-content">@Model.ServingSize Portions</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-hourglass-start"></i>
-                                </span>
-                                <span class="list-item-content">@Model.CookingTime needed</span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </span>
-                                <span class="list-item-content">@Model.IngredientsByCategories.Sum(category => category.SupplyItems.Count) ingredients</span>
                             </div>
                             <div class="col d-flex align-items-center">
                                 <span class="icon-container me-2">
                                     <i class="fas fa-layer-group"></i>
                                 </span>
-                                <span class="list-item-content">Difficulty level: medium</span>
+                                <span class="list-item-content">
+                                    <span class="item-decription me-2">Difficulty level: </span>
+                                    <span class="item-value">medium</span> // Add to DB
+
+                                </span>
                             </div>
+                            <div class="col d-flex align-items-center">
+                                <span class="icon-container me-2">
+                                    <i class="fa-solid fa-stopwatch"></i>
+                                </span>
+                                <span class="list-item-content">
+                                    <span class="item-decription me-2">Duration: </span>
+                                    <span class="item-value">@Model.CookingTime</span>
+                                </span>
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <span class="icon-container me-2">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </span>
+                                <span class="list-item-content">
+                                    <span class="item-decription me-2">Size: </span>
+                                    <span class="item-value">@Model.ServingSize portions</span>
+                                </span>
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <span class="icon-container me-2">
+                                    <i class="fa-solid fa-calendar-plus"></i>
+                                </span>
+                                <span class="list-item-content">                                    
+                                    <span class="item-decription me-2">Cook date: </span>
+                                    <span class="item-value">@Model.CookingDate</span>
+                                </span>
+                            </div>
+                            
+                            
+                            <div class="col d-flex align-items-center">
+                                <span class="icon-container me-2">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </span>
+                                <span class="list-item-content">
+                                    <span class="item-decription me-2">Ingredients: </span>
+                                    <span class="item-value">@Model.IngredientsByCategories.Sum(category => category.SupplyItems.Count)</span>
+                                </span>
+                            </div>
+                            
                         </div>
                         <div class="row mt-2 mb-4">
                             <div class="newspaper-column">
@@ -105,9 +138,9 @@
                         </div>
                     </div>
                     <div id="ingredients" class="tab-pane fade" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <div class="row p-2 g-1">
+                        <div class="row g-1">
                             <div class="col-12 mb-3">
-                                <h5 class="meal-title">For @Model.ServingSize servings will be needed:</h5>
+                                <h5 class="meal-title">For @Model.ServingSize servings</h5>
                             </div>
                             @foreach (var category in Model.IngredientsByCategories)
                             {
@@ -128,7 +161,7 @@
                         </div>
                     </div>
                     <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row py-4">
+                        <div class="row">
                             <div class="col">
                                 @for (int i = 0; i < Model.CookingSteps.Count; i++)
                                 {

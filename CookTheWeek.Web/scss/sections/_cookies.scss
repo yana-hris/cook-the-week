@@ -3,14 +3,13 @@
 
 #cookieConsent {
     position: fixed;
-    bottom: 2px;
+    bottom: 0;
+    left: 0;
     margin-bottom: 0;
-    left: 2px;
-    min-width: 360px;
-    width: 30%;
+    width: 100vw;
     z-index: 9999;
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
-    border: 1px solid $primary;    
+    border: 1px solid $primary-border-subtle;    
     
 }

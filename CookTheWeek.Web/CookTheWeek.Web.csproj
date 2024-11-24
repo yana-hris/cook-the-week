@@ -65,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.8.15" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />

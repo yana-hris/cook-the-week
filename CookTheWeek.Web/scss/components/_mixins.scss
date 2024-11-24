@@ -14,18 +14,43 @@
     align-items: center;
 }
 
+@mixin button-with-icon-and-text-cenetered($width: 9rem, $font-size: 1.5rem) {
+    @include button-base();
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: $font-family-sans-serif;
+    padding: 0.2rem 1rem;
+    font-size: $font-size;
+    width: $width;
+
+     i {
+         vertical-align: middle;
+     }
+
+     span.btn-text {  //requires a little trick to align the text with icon due to 'Spartan' font specifics
+         vertical-align: middle;
+         display: inline-block;
+         margin-top: $btn-custom-margin-top-fix;
+     }
+
+}
+
 @mixin button-lg-style($width: 100%) {
     @include button-base();
+    @extend .shadow-sm;
     width: $width;
     text-align: center;
     text-transform: uppercase;
     font-size: 1.4rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 @mixin button-sm-style($width: 100%) {
     @include button-base();
+    @extend .shadow-sm;
     width: $width;
     display: block;
     text-align: center;
@@ -39,7 +64,8 @@
     @include button-base();
     @include flex-center();
     position: relative;
-    border: $border-width solid $main-color; 
+    border: $border-width solid $main-color;
+    overflow: hidden;
 
 
     i, .fa, .fas {
@@ -60,6 +86,7 @@
         height: 100%;
         z-index: 0;
         background-color: $main-color;
+        //border-radius: $border-radius;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 

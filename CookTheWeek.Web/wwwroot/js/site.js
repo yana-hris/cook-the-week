@@ -1,96 +1,125 @@
-﻿(function () {
-    // JavaScript snippet handling Dark/Light mode switching
-    const getStoredTheme = () => localStorage.getItem('theme');
-    const setStoredTheme = theme => localStorage.setItem('theme', theme);
-    const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
+﻿import { AppConfig }  from './config.js';
 
-    const getPreferredTheme = () => {
+//document.addEventListener('DOMContentLoaded', () => {
+//    console.log("Current View:", AppConfig.currentView);
+//    console.log("Current User ID:", AppConfig.currentUserId);
+//    console.log("Has Active Meal Plan:", AppConfig.hasActiveMealplan);
 
-        if (forcedTheme) return forcedTheme;
+//    if (AppConfig.hasActiveMealplan) {
+//        console.log("User has an active meal plan.");
+//    }
+//});
 
-        const storedTheme = getStoredTheme();
-        if (storedTheme) {
-            return storedTheme;
-        }
 
-        const pageTheme = document.documentElement.getAttribute('data-bs-theme');
+const currentUserId = AppConfig.currentUserId;
+const hasActiveMealplan = AppConfig.hasActiveMealplan;
 
-        if (pageTheme) {
-            return pageTheme;
-        }
 
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const emptyGuid = "00000000-0000-0000-0000-000000000000";
+const buildBtnContainer = document.getElementById('build-btn-container'); 
+
+
+const buildMealPlan = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    debugger;
+
+    const userMealPlans = JSON.parse(getUserLocalStorage()) || [];
+
+    if (userMealPlans.length === 0) {
+        toastr.error("Error Building Meal Plan");
+        return;
     }
 
-    const setTheme = theme => {
-        if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-bs-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-bs-theme', theme);
-        }
-    }
 
-    setTheme(getPreferredTheme());
 
-    const showActiveTheme = (theme, focus = false) => {
-        const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));
+    var model = {
+        UserId: currentUserId,
+        Meals: userMealPlans.map(recipeId => ({ RecipeId: recipeId }))
+    };
 
-        if (!themeSwitchers.length) return;
-
-        document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-            element.classList.remove('active');
-            element.setAttribute('aria-pressed', 'false');
-        });
-
-        for (const themeSwitcher of themeSwitchers) {
-
-            const btnToActivate = themeSwitcher.querySelector('[data-bs-theme-value="' + theme + '"]');
-
-            if (btnToActivate) {
-                btnToActivate.classList.add('active');
-                btnToActivate.setAttribute('aria-pressed', 'true');
+    $.ajax({
+        url: '/MealPlan/CreateMealPlanModel',
+        type: 'POST',
+        contentType: 'application/json',
+        headers: {
+            'RequestVerificationToken': getAntiForgeryToken()
+        },
+        data: JSON.stringify(model),
+        success: function (response) {
+            // Redirect to the Add view and use TempData to store the model
+            if (response.success) {
+                window.location.href = response.redirectUrl;
+            }                
+        },
+        error: function (xhr, status, error) {
+            if (!hasActiveMealplan) {
+                console.error('Error building the meal plan:', error);
+                toastr.error("Meal plan creation failed! Try again later.");
+            } else if (hasActiveMealplan) {
+                console.error('Error adding meals to the active meal plan:', error);
+                toastr.error("Adding meals to your active meal plan failed! Try again later.");
             }
+            window.location.href = '/Recipe/All';
         }
+    });
+}
+
+const attachHandlerOnBuildBtnAppearance = function () {
+
+    if (!buildBtnContainer) {
+        return;
     }
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        const storedTheme = getStoredTheme();
-        if (storedTheme !== 'light' && storedTheme !== 'dark') {
-            setTheme(getPreferredTheme());
+    let handlerAttached = false; //flag
+
+    const isVisible = (btn) => {
+        return $(btn).is(':visible');
+    }
+
+    const attachHandler = () => {
+        if (!handlerAttached) {
+            $(buildBtnContainer).on('click', function (event) {
+                console.log('Btn clicked!');
+                buildMealPlan(event);
+            });
+            handlerAttached = true;
+        }
+    };
+
+    if (isVisible(buildBtnContainer)) {
+        attachHandler();
+    }
+
+    // A MutationObserver to monitor visibility changes
+    const observer = new MutationObserver(() => {
+        if (isVisible(buildBtnContainer) && !handlerAttached) {
+            console.log("Button is now visible. Attaching handler..");
+            attachHandler();
+            observer.disconnect(); // Stop observing
         }
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-        showActiveTheme(getPreferredTheme());
+    observer.observe(buildBtnContainer, { attributes: true, aatributesFilter: ['style'] });
+}
+$(function () { 
 
-        document.querySelectorAll('[data-bs-theme-value]')
-            .forEach(toggle => {
-                toggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const theme = toggle.getAttribute('data-bs-theme-value');
-                    setStoredTheme(theme);
-                    setTheme(theme);
-                    showActiveTheme(theme);
-                })
-            })
-    });
-})();
+    attachHandlerOnBuildBtnAppearance();
 
+    const shouldRenderBuildBtn = viewWithBuildBtn() && userIsLoggedIn();
 
-window.onload = function () {    
-    var buildBtnShouldBeRendered = isSpecificView();    
-    if (buildBtnShouldBeRendered) {
-        if (currentUserId) {
-            showOrHideBuildMealPlanBtn(); 
-        }
-        else {
-            showOrHideBuildMealPlanBtn(null);
-        }
-    updateRecipeBtns(); 
-    }
+    if (shouldRenderBuildBtn) {
+
+        updateBuildBtnVisibility(); // show the btn first
+        updateRecipeBtns(); 
+
+    } 
     return;
-};
+});
 
+function userIsLoggedIn() {
+    return currentUserId && currentUserId !== emptyGuid;
+}
 function updateRecipeBtns() {
     let userMealPlans = getUserLocalStorage() || [];
 
@@ -144,19 +173,17 @@ function updateRecipeBtns() {
         })
     }
 }
-function isSpecificView() {
-    // Check if the current View is any of these   
-    const specificViews = ["All Recipes", "Recipe Details", "My Recipes"];
-    return specificViews.includes(currentView);
+const viewWithBuildBtn = function () {
+    return $('.has-build-btn').length > 0;
 };
 
 function userHasMealPlans() {
     
     const userMealPlans = JSON.parse(getUserLocalStorage());
     
-    if (userMealPlans && userMealPlans.length > 0) {
+    if (userMealPlans && userMealPlans.length) {
         return true;
-    } else if (userMealPlans && userMealPlans.length === 0) {
+    } else if (userMealPlans && !userMealPlans.length) {
         eraseUserLocalStorage();
     }
 
@@ -164,16 +191,14 @@ function userHasMealPlans() {
     
 }
 
-function showOrHideBuildMealPlanBtn() {
-    var buildBtnContainer = document.getElementById('build-btn-container');    
-    
+function updateBuildBtnVisibility() {
+    const buildBtnContainer = document.getElementById('build-btn-container');  
+        
     if (currentUserId !== null && userHasMealPlans()) {
-        // Show the btn and attach event-listener for creating mealplan
-        buildBtnContainer.style.display = "block";
-        buildBtnContainer.addEventListener('click', (event) => buildMealPlan(event));
-    } else {
-        // Remove event listener and toggle visibility
-        buildBtnContainer.removeEventListener('click', (event) => buildMealPlan(event))
+
+        buildBtnContainer.style.display = "block";        
+    } else {     
+        
         buildBtnContainer.style.display = "none";
     }
 }
@@ -209,7 +234,7 @@ const addRecipeToMealPlan = function(event) {
     // Save the updated meal plans back to local storage
     localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
     toggleAddRemoveBtn(event.currentTarget);
-    showOrHideBuildMealPlanBtn(currentUserId);
+    updateBuildBtnVisibility();
 }
 
 // Remove recipe from saved for meal plan (all, mine, details views) or from meal plan (view)
@@ -223,7 +248,7 @@ const removeRecipeFromMealPlan = function (event) {
 
     removeRecipeFromLocalStorage(recipeId); 
     toggleAddRemoveBtn(event.currentTarget);
-    showOrHideBuildMealPlanBtn();
+    updateBuildBtnVisibility();
 }
 
 function toggleAddRemoveBtn(btn) {
@@ -256,41 +281,7 @@ function getAntiForgeryToken() {
     return $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
 }
 
-function buildMealPlan(event) {
-    event.preventDefault();
-    
-    const userMealPlans = JSON.parse(getUserLocalStorage()) || [];
 
-    if (userMealPlans.length === 0) {
-        toastr.error("Error Building Meal Plan");
-        return;
-    }
-
-    var model = {
-        UserId: currentUserId,
-        Meals: userMealPlans.map(recipeId => ({ RecipeId: recipeId }))
-    };
-    
-    
-    $.ajax({
-        url: '/MealPlan/CreateMealPlanModel',
-        type: 'POST',
-        contentType: 'application/json',
-        headers: {
-            'RequestVerificationToken': getAntiForgeryToken()
-        },
-        data: JSON.stringify(model),
-        success: function (response) {
-            // Redirect to the Add view and use TempData to store the model
-            window.location.href = '/MealPlan/Add';
-        },
-        error: function (xhr, status, error) {
-            console.error('Error building the meal plan:', error);
-            toastr.error("Meal plan creation failed! Try again later.");
-            window.location.href = '/Recipe/All';
-        }
-    });
-}
 
 // Make Active Tab the tab with the first Error in Recipe Views
 export function activateTabWithError(context) {

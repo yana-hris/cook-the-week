@@ -1,5 +1,6 @@
 ﻿@import '../components/colors';
 @import '../components/theme-defaults';
+@import '../components/typography';
 
 #user-profile {
 
@@ -28,6 +29,12 @@
                 font-weight: bold;
             }
         }
+    }
+}
+
+#user-login {
+    .external-container {
+        margin-bottom: 2rem;
     }
 }
 

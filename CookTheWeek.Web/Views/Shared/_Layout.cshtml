@@ -8,49 +8,40 @@
     <title>@ViewData["Title"] - Meal Plannin App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" href="~/img/logo-64-64.ico" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="~/js/site.js"></script>
-    <script src="~/js/modal-redirects.js"></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-    @if (ViewData["Title"] != null)
-    {
-        <script>
-            var currentView = "@ViewData["Title"]";
-        </script>
-    }
-    @if (User.Identity.IsAuthenticated)
-    {
-        <script>
-            @* Needed for the JS function for rendering Build Btn in some views *@
-            var currentUserId = "@UserContext.UserId"; 
-        </script>
-    }
-    else
-    {
-        <script>
-            var currentUserId = null; 
-        </script>
-    }
 </head>
 <body>
     <partial name="_NotificationsPartial" />
     <partial name="_NavigationManagerPartial" />
     <partial name="_ThemeSwitcherPartial" />
     <partial name="_CookieConsentPartial" />
-    <div id="main-container">
+    <div id="main-container"
+         data-current-view="@ViewData["Title"]"
+         data-current-user-id="@UserContext.UserId"
+         data-has-active-mealplan="@UserContext.HasActiveMealplan.ToString().ToLower()">
+
         <div class="@ViewData["PageScrollClass"] @ViewData["BackgroundClass"]">
         </div>
         @RenderBody()
     </div>
     <partial name="_FooterPartial" />
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+            integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+            defer>
+    </script>
+    <script src="~/js/theme.js"></script>
+    <script type="module" src="~/js/config.js"></script>
+    <script type="module" src="~/js/site.js"></script>
+    <script type="module" src="~/js/recipeLikes.js"></script>
+    <script src="~/js/modal-redirects.js" defer></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

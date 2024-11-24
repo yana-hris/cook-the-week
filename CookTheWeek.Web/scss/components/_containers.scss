@@ -6,69 +6,88 @@
 // Custom containers
 .wide-contents-container {
     @include make-container();
+    @extend .hide-scrollbar;
+
     max-width: 1296px;
     margin-top: -1rem;
 }
 
 .list-container {
     @include make-container();
+    @extend .hide-scrollbar;
+
     max-width: 1040px;
 }
 // Scrolling container with hidden scrollbar
 .card-outer-container {
     @include make-container();
     @extend .card-style;
+    @extend .hide-scrollbar;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     max-width: 900px;
     max-height: 80vh;
-    padding: 1rem 2rem 3rem 2rem;
+    padding: $default-padding;
     overflow-y: scroll;
-    scrollbar-width: none; // Hide scrollbar for Firefox
-    -ms-overflow-style: none; // Hide scrollbar for IE and Edge
+    transform: translate(-50%, -50%);
+    box-shadow: var(--container-box-shadow);
 
-    &::-webkit-scrollbar {
-        display: none; // Hide scrollbar for WebKit browsers
+    &:hover {
+        box-shadow: var(--container-box-shadow-hover);
     }
 }
 
 // Container for shopping list details
 .shopping-list-container {
     @include make-container();
-    @extend .card-border-style;
+    @extend .hide-scrollbar;
+
     max-width: 793px;
-    padding: 2.4rem;
+    padding: $default-padding;
+    box-shadow: var(--container-box-shadow);
+
+    &:hover {
+        box-shadow: var(--container-box-shadow-hover);
+    }
 }
 
 .contact-form-container {
     @include make-container();
-    @extend .card-border-style;
+    @extend .hide-scrollbar;
+
     max-width: 520px;
-    margin-top: 1.2rem;
-    padding: 2rem 3rem;
+    padding: $default-padding;
     background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
+    box-shadow: var(--container-box-shadow);
+
+    &:hover {
+        box-shadow: var(--container-box-shadow-hover);
+    }
 }
 
 .form-container {
     @include make-container();
-    @extend .card-border-style;
+    @extend .hide-scrollbar;
+
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -45%);
     z-index: 100;
     overflow-y: auto;
-    max-height: 80vh;
-    max-width: 520px;
-    padding: 2rem 3rem;
+    max-height: 75vh;
+    max-width: 480px;
+    padding: $default-padding;
     border: none;
-    border-radius: 2px;
+    border-radius: $border-radius;
     text-align: center;
     background-color: var(--bs-body-bg);
+    box-shadow: var(--container-box-shadow);
 
-    @extend .hide-scrollbar;
+    &:hover {
+        box-shadow: var(--container-box-shadow-hover);
+    }
 }
 
 // Media queries for custom containers

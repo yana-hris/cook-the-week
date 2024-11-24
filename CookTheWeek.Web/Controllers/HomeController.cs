@@ -6,28 +6,32 @@ namespace CookTheWeek.Web.Controllers
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.ActionFilters;
     using CookTheWeek.Web.ViewModels.Home;
-
     
     using static Common.NotificationMessagesConstants;
 
     [AllowAnonymous]
     public class HomeController : BaseController
     { 
-        
-        //private readonly ILogger<HomeController> logger;
         private readonly IEmailSender emailSender;
+        private readonly Guid userId;
 
         public HomeController(IEmailSender emailSender,
+                              IUserContext userContext,
                               ILogger<HomeController> logger) 
         : base(logger)
         {
             this.emailSender = emailSender;
+            this.userId = userContext.UserId;
         }
 
         [HttpGet]
         [AdminRedirect("Index", "HomeAdmin")]
         public IActionResult Index()
         {
+            if (userId != default)
+            {
+                return RedirectToAction("All", "Recipe");
+            }
             return View();
         }
 
@@ -65,12 +69,15 @@ namespace CookTheWeek.Web.Controllers
         public IActionResult Contact()
         {
             ContactFormModel model = new ContactFormModel();
+            SetViewData("Contact us", null, "image-overlay food-background");
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Contact(ContactFormModel model)
         {
+            SetViewData("Contact us", null, "image-overlay food-background");
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -100,7 +107,8 @@ namespace CookTheWeek.Web.Controllers
         {
             Response.StatusCode = 404;
             ViewBag.ErrorCode = code;
-            ViewBag.Message = message;  
+            ViewBag.Message = message;
+            SetViewData("Page Not Found", null, "image-overlay error-image");
             return View();
         }
        
@@ -109,6 +117,7 @@ namespace CookTheWeek.Web.Controllers
             Response.StatusCode = 500;
             ViewBag.ErrorCode = code;
             ViewBag.Message = message;
+            SetViewData("Internal Server Error", null, "image-overlay error-image");
             return View();
         }
     }

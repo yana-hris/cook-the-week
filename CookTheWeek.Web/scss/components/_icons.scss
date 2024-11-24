@@ -10,7 +10,7 @@
 .not-liked-icon {
     color: lightgray;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #222222;
+    -webkit-text-stroke-color: $green-stroke-color; 
 
     &:hover {
         color: red;
@@ -18,10 +18,10 @@
 }
 
 // owned recipe style
-.fa-user-circle {
-    color: $success;
+.fa-bookmark {
+    color: $yellow;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: $primary;
+    -webkit-text-stroke-color: $yellow-stroke-color;
 }
 
 .finished {

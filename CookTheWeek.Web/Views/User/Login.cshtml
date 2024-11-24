@@ -20,7 +20,7 @@
                 </div>
                  <span asp-validation-for="Username" class="small text-danger"></span>
             </div>
-            <div>
+            <div class="mb-4">
                 <div class="input-group">
                     <span class="input-group-text">Password</span>
                     <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
@@ -31,8 +31,7 @@
                     <a class="custom-link" asp-controller="User" asp-action="Register">Create one here</a>
                 </p>
             </div>
-            <div class="my-1 d-flex flex-grow-0 align-items-center justify-content-between">
-                
+            <div class="d-flex flex-grow-0 align-items-center justify-content-between">                
                 <div class="form-check">
                     <input class="form-check-input" asp-for="RememberMe" type="checkbox" id="flexCheckDefault" />
                     <label class="form-check-label" for="flexCheckDefault">
@@ -40,7 +39,7 @@
                     </label>
                 </div>                
                 <div class="form-check-label">
-                    <a class="custom-link" href="/User/ForgotPassword">Forgot password?</a>
+                    <a class="small custom-link" href="/User/ForgotPassword">Forgot password?</a>
                 </div>                
                 
             </div>
@@ -48,11 +47,11 @@
                 <button type="submit" class="login-btn">Log in</button>
             </div> 
             
-            <h3 class="text-uppercase pb-4">Or</h3>
+            <h3 class="text-uppercase pb-3">Or</h3>
             <!-- External Login Options -->
-            <div class="row mt-2 mb-4">
+            <div class="external-container row g-2">
                 <!-- Google btn -->
-                <div class="col-sm-6 mb-2">
+                <div class="col-sm-6">
                     <a href="@Url.Action("ExternalLogin", "User", new { schemeProvider = GoogleDefaults.AuthenticationScheme, Model.ReturnUrl })" class="btn external-login-button w-100 text-center">
                         <img class="external-login-icon" src="~/img/google.png" />
                         Sign up with Google
@@ -66,7 +65,7 @@
                     </a>
                 </div>
             </div>
-            <p class="small my-3">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
+            <p class="small mt-3 mb-4">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>

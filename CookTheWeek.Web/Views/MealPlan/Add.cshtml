@@ -11,7 +11,7 @@
     var headingModel = new PageHeadingViewModel
     {
         Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = $"This is going to be your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
+        HeadingSecondary = $"This is your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
     };
 
     if (ViewBag.ReturnUrl == null)
@@ -32,8 +32,16 @@
 }
 <div id="add-mealplan">
     <div class="card-outer-container">
-        <div class="header-container add-line">
-            <partial name="_HeadingPartial" model="headingModel" />
+        <div class="header-container">
+            <partial name="_HeadingSmallPartial" model="headingModel" />
+            <div class="status-container d-flex align-items-center justify-content-between">
+                <div class="meal-plan-dates">
+                    <span class="label">Duration:</span> @(@Model.StartDate.ToString(MealPlanDateFormat)) to @Model.StartDate.AddDays(6).ToString(MealPlanDateFormat)
+                </div>
+                <div class="meal-plan-status meal-plan-finished-false">
+                    Active
+                </div>
+            </div>
             <partial name="_BackBtnPartial" />
         </div>
         
@@ -61,7 +69,6 @@
                                 Discover our curated selection to find inspiration for your dietary goals,
                                 weekly vibe, or seasonal cravings!
                             </h4>
-                            <hr />
                             <div class="category-container">
                                 <div class="suggestion-category">
                                     <h5>Weekly Themes</h5>
@@ -228,9 +235,10 @@
                                             else
                                             {
                                                 <div class="button-container">
-                                                    <a href="#" class="remove-item-button disabled">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </a>
+                                                    <span class="not-cooked-meal-icon disabled"
+                                                          title="Deleted">
+                                                        <i class="fa-solid fa-ban"></i>
+                                                    </span>
                                                 </div>
                                             }
                                         </td>
@@ -291,7 +299,7 @@
                 </div>
 
             </div>
-            <div class="row">
+            <div class="row buttons-row">
                 <div class="col buttons">
                     <partial name="_BrowseBtnPartial" />
                     <partial name="_SaveBtnPartial" />

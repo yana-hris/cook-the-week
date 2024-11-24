@@ -1,5 +1,5 @@
 ﻿function toggleMealState($button, mealId, url, successMessage, errorMessage) {
-    debugger;
+    
     const data = { id: mealId };
     const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 
@@ -21,7 +21,6 @@
     });
 }
 
-
 function cookMeal($button, mealId) {
     toggleMealState(
         $button,
@@ -32,7 +31,6 @@ function cookMeal($button, mealId) {
     );
 }
 
-
 function unCookMeal($button, mealId) {
     toggleMealState(
         $button,
@@ -42,38 +40,33 @@ function unCookMeal($button, mealId) {
         "Failed to mark meal as uncooked."
     );
 }
-
 function changeBtnIcon($button, mealId) {
-    const $icon = $button.find('i'); // Find the icon within the button
+    const $icon = $button.find('i'); 
 
     // Check current state and toggle
-    if ($button.hasClass('cook-meal-button')) {
-        // Update to "Uncook" state
+    if ($button.hasClass('cook-meal-button')) {        
         $button
             .removeClass('cook-meal-button')
             .addClass('uncook-meal-button')
             .attr('title', 'Mark Uncooked') // Update tooltip text
-            .tooltip('dispose').tooltip(); // Refresh tooltip
+            .tooltip('dispose').tooltip(); 
 
         // Update icon
         $icon.removeClass('fa-calendar-xmark').addClass('fa-calendar-check');
 
-        // Update click event to call unCookMeal
+        // Update click event
         $button.off('click').on('click', function () {
             unCookMeal($button, mealId);
         });
-    } else if ($button.hasClass('uncook-meal-button')) {
-        // Update to "Cook" state
+    } else if ($button.hasClass('uncook-meal-button')) {        
         $button
             .removeClass('uncook-meal-button')
             .addClass('cook-meal-button')
-            .attr('title', 'Mark as Cooked') // Update tooltip text
-            .tooltip('dispose').tooltip(); // Refresh tooltip
-
-        // Update icon
+            .attr('title', 'Mark as Cooked') 
+            .tooltip('dispose').tooltip(); 
+        
         $icon.removeClass('fa-calendar-check').addClass('fa-calendar-xmark');
-
-        // Update click event to call cookMeal
+                
         $button.off('click').on('click', function () {
             cookMeal($button, mealId);
         });

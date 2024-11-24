@@ -4,7 +4,6 @@
     if (deleteModal.length) {
         deleteModal.on('show.bs.modal', function (event) {
             const triggerBtn = event.relatedTarget;
-            debugger;
             // Extraxt info from data-* attributes
             const controller = triggerBtn.getAttribute('data-controller');
             const action = triggerBtn.getAttribute('data-action');

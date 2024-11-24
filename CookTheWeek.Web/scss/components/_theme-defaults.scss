@@ -1,10 +1,22 @@
 ﻿@import 'colors';
-@import 'typography';
 
 // Default light theme (set in :root)
 :root {
     --bs-body-bg: #{$light-body-bg};
     --bs-body-color: #{$light-body-color};
+    --background-gradient: #{$background-gradient-light};
+    --accent-color: #{$accent-color};
+    --pill-container-bg-color: #{$pill-container-bg-color};
+    --pill-bg-color: #{$pill-bg-color};
+    --modal-text-color: #{$very-dark-green};
+    --link-color: var(--accent-color);
+    --link-hover-color: #{$link-hover-color};
+    --card-border-color: rgba(0, 0, 0, 0.1);
+    --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 
+    0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 // Custom Light Theme settings
@@ -45,6 +57,18 @@
 [data-bs-theme="dark"] {
     --bs-body-bg: #{$dark-body-bg};
     --bs-body-color: #{$dark-body-color};
+    --accent-color: #{$success};
+    --background-gradient: #{$background-gradient-dark};
+    --text-color: $dark;
+    --pill-bg-color: #{$success};
+    --pill-container-bg-color: #{$medium-gray-bg};
+    --modal-text-color: #{$very-light-green};
+    --link-hover-color: #{$success-400};
+    --card-border-color: #212529;
+    --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
+    --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
+    --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
 
     .subheading {
         color: $success;
@@ -78,12 +102,8 @@
         color: $white !important;
     }
 
-    .card {
+    .card-custom-style-with-back-btn {
         border: 1px solid $primary-400 !important;
-    }
-
-    .card.recipe-card {
-        border: none !important;
     }
 
     span.input-group-text,
@@ -94,13 +114,8 @@
     }
 
     .filter-container {
-        background-color: $primary !important;
-        padding-left: 0 !important;
-
         span.input-group-text {
-            border-color: $primary !important;
-            padding-left: 0 !important;
-            padding-right: 0.8rem !important;
+            border-color: transparent !important;
         }
 
         input, textarea, select {
@@ -115,7 +130,6 @@
                 color: var(--bs-body-bg) !important;
                 background-color: $success-400 !important;
             }
-
         }
     }
     // External Login btns

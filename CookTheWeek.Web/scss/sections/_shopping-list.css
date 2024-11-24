@@ -6,7 +6,7 @@
   margin-bottom: 12px;
 }
 #shopping-list section#shopping-list-section #heading-container h2 {
-  font-family: "Libre Baskerville", serif;
+  font-family: $font-family-serif;
 }
 #shopping-list section#shopping-list-section #heading-container .dates {
   font-weight: 400;

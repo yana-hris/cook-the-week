@@ -22,11 +22,11 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id, string? returnUrl)
+        public async Task<IActionResult> Details(int id, bool isMealPlanFinished, string? returnUrl)
         {
             try
             {
-                MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id);
+                MealDetailsViewModel model = await this.viewModelFactory.CreateMealDetailsViewModelAsync(id, isMealPlanFinished);
                 SetViewData("Meal Details", returnUrl ?? "/MealPlan/Mine", "image-overlay food-background");
                 return View(model);
             }
