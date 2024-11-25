@@ -2,26 +2,14 @@
 @import 'theme-defaults';
 @import 'pills';
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1040;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(30px);
-}
-
 .modal-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: fixed !important; // Override Bootstrap
+    top: 50% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 2000;
     min-width: 480px;
-    @extend .shadow;
-    // General modal settings
+    
     .modal-content {
         text-align: center;
         padding: 1rem 1.5rem 1.5rem 1.5rem;

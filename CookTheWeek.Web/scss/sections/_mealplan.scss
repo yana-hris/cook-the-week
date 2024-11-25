@@ -55,7 +55,7 @@
         }
     }
 
-    
+
     .no-wrap-text {
         white-space: nowrap;
     }
@@ -148,7 +148,7 @@
                 .suggestion-category {
                     padding: 0.8rem 0;
                     text-align: start;
-                    
+
 
                     h5 {
                         margin-bottom: 0.6rem;
@@ -336,9 +336,17 @@
         margin-bottom: 1.5rem;
     }
 
-    #collapseSummary {
+    a[data-bs-toggle] {
         position: relative;
-        z-index: -1;
+        z-index: 2;
+    }
+
+    #collapseTips, #collapseSummary {
+        position: relative;
+        z-index: 1;
+    }
+
+    #collapseSummary {
         margin-top: -2rem;
     }
 

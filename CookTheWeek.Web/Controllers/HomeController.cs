@@ -32,6 +32,7 @@ namespace CookTheWeek.Web.Controllers
             {
                 return RedirectToAction("All", "Recipe");
             }
+            SetViewData("Index", null, "hero-background");
             return View();
         }
 

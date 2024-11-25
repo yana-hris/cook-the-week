@@ -21,6 +21,17 @@
 
         });
     }
+
+    initializeModalFix();
     
 });
+// Move modals to <body> dynamically when opened
+const initializeModalFix = function() {    
+    document.addEventListener('show.bs.modal', function (event) {
+        const modal = event.target; // The modal being opened
+        if (modal && modal.parentElement !== document.body) {
+            document.body.appendChild(modal); // Move modal to <body>
+        }
+    });
+}
 

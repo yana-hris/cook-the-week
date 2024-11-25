@@ -7,7 +7,7 @@
 nav {
     padding: 0 !important;
     margin: 0 0;
-    height: 60px;
+    height: $nav-height-small;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,7 +31,7 @@ nav {
             font-family: $font-family-serif;
 
             .navbar-logo {
-                line-height: 60px;
+                line-height: $nav-height-small;
                 max-height: 57px;
                 width: auto;
                 height: 100%;
@@ -197,14 +197,15 @@ nav {
 
 @media (min-width:768px) {
     #guest {
+
         padding: 0 !important;
-        height: 65px !important;
+        height: $nav-height-large !important;
 
         #nav-container {
             padding: 0px 20px !important;
 
             .navbar-logo {
-                line-height: 65px !important;
+                line-height: $nav-height-large !important;
                 max-height: 63px !important;
             }
 
@@ -262,9 +263,9 @@ nav {
 
 /* Min-width for desktops (992px and up) */
 @media (min-width: 992px) {
-
+    
     nav {
-        height: 65px !important;
+        height: $nav-height-large !important;
 
         #nav-container {
             padding: 0 20px !important;
@@ -274,7 +275,7 @@ nav {
                 //justify-content: start;
 
                 .navbar-logo {
-                    line-height: 65px;
+                    //line-height: $nav-height-large;
                     max-height: 63px;
                 }
             }

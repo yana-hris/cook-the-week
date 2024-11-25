@@ -10,10 +10,8 @@
 //    }
 //});
 
-
 const currentUserId = AppConfig.currentUserId;
 const hasActiveMealplan = AppConfig.hasActiveMealplan;
-
 
 const emptyGuid = "00000000-0000-0000-0000-000000000000";
 const buildBtnContainer = document.getElementById('build-btn-container'); 
@@ -22,7 +20,6 @@ const buildBtnContainer = document.getElementById('build-btn-container');
 const buildMealPlan = function (event) {
     event.preventDefault();
     event.stopPropagation();
-    debugger;
 
     const userMealPlans = JSON.parse(getUserLocalStorage()) || [];
 
@@ -364,5 +361,9 @@ export function reindexMealRows() {
 
     $('form').validate().form();
 }
+
+// modal behaviour fix
+
+
 
   

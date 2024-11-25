@@ -10,8 +10,8 @@
 
 @mixin flex-center {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 @mixin button-with-icon-and-text-cenetered($width: 9rem, $font-size: 1.5rem) {
@@ -29,7 +29,7 @@
          vertical-align: middle;
      }
 
-     span.btn-text {  //requires a little trick to align the text with icon due to 'Spartan' font specifics
+     span.btn-text {  // Fix to align the text with icon due to 'Spartan League' font being uplifted
          vertical-align: middle;
          display: inline-block;
          margin-top: $btn-custom-margin-top-fix;
@@ -39,7 +39,6 @@
 
 @mixin button-lg-style($width: 100%) {
     @include button-base();
-    @extend .shadow-sm;
     width: $width;
     text-align: center;
     text-transform: uppercase;
@@ -50,7 +49,6 @@
 
 @mixin button-sm-style($width: 100%) {
     @include button-base();
-    @extend .shadow-sm;
     width: $width;
     display: block;
     text-align: center;

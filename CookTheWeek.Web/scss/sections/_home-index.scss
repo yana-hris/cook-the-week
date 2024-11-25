@@ -2,33 +2,37 @@
 @import '../components/theme-defaults';
 
 #hero {
-    margin: 0 auto;
-    background: url('/img/hero-large-1980.webp') no-repeat center center;
-    background-size: cover;
-    position: fixed;
-    top: 60px; // because of navigation
+    position: relative;
+   /* top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
+    margin: 0 auto;
+    background: url('/img/hero-large-1980.webp') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;*/
 
     #hero-text-background {
-        position: fixed;
+        position: absolute;
         top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
         padding: 10px;
-        max-width: 1160px;
-        border-radius: 8px;
+        min-width: 80%;
+        //max-width: 1160px;
+        border-radius: $border-radius-small;
 
         .text-container {
             padding: 60px 10px;
 
             p {
-                font-size: 18px;
+                font-size: 1.4rem;
                 font-weight: 400;
             }
         }
     }
 
-    @media (max-width: 1200px) {
+    /*@media (max-width: 1200px) {
         background: url('/img/hero-medium-1200.webp') no-repeat center center;
         background-size: cover;
     }
@@ -36,7 +40,11 @@
     @media (max-width: 768px) {
         background: url('/img/hero-small-768-1024.webp') no-repeat center center;
         background-size: cover;
-    }
+
+        #hero-text-background {
+            width: 90%;
+        }
+    }*/
 }
 
 [data-bs-theme="light"] {

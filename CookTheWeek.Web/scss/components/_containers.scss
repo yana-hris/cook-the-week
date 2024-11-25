@@ -9,7 +9,7 @@
     @extend .hide-scrollbar;
 
     max-width: 1296px;
-    margin-top: -1rem;
+    padding: 0 10px;
 }
 
 .list-container {
@@ -22,15 +22,13 @@
 .card-outer-container {
     @include make-container();
     @extend .card-style;
-    @extend .hide-scrollbar;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    max-width: 900px;
-    max-height: 80vh;
+    
     padding: $default-padding;
-    overflow-y: scroll;
-    transform: translate(-50%, -50%);
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;   
+
+    max-width: 900px;
+    overflow-y: auto;
     box-shadow: var(--container-box-shadow);
 
     &:hover {
@@ -43,8 +41,10 @@
     @include make-container();
     @extend .hide-scrollbar;
 
-    max-width: 793px;
     padding: $default-padding;
+    margin-bottom: 2rem;
+
+    max-width: 793px;
     box-shadow: var(--container-box-shadow);
 
     &:hover {
@@ -56,8 +56,8 @@
     @include make-container();
     @extend .hide-scrollbar;
 
-    max-width: 520px;
     padding: $default-padding;
+    max-width: 520px;
     background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
     box-shadow: var(--container-box-shadow);
 
@@ -69,16 +69,13 @@
 .form-container {
     @include make-container();
     @extend .hide-scrollbar;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -45%);
-    z-index: 100;
-    overflow-y: auto;
-    max-height: 75vh;
-    max-width: 480px;
+   
     padding: $default-padding;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+
+    max-width: 480px;
+    overflow-y: auto;
     border: none;
     border-radius: $border-radius;
     text-align: center;

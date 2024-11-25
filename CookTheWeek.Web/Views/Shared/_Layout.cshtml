@@ -20,16 +20,21 @@
     <partial name="_NavigationManagerPartial" />
     <partial name="_ThemeSwitcherPartial" />
     <partial name="_CookieConsentPartial" />
+
+    <!-- Background Image Overlay -->
+    <div class="@ViewData["BackgroundClass"]">
+    </div>
+
     <div id="main-container"
          data-current-view="@ViewData["Title"]"
          data-current-user-id="@UserContext.UserId"
          data-has-active-mealplan="@UserContext.HasActiveMealplan.ToString().ToLower()">
 
-        <div class="@ViewData["PageScrollClass"] @ViewData["BackgroundClass"]">
-        </div>
+       <div class="content">
         @RenderBody()
-    </div>
-    <partial name="_FooterPartial" />
+       </div>
+        <partial name="_FooterPartial" />
+    </div>   
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
             integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
