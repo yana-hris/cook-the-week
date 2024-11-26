@@ -60,10 +60,7 @@
                         {
                             <p class="small text-danger">You don't have a password set up for your account. You can create one here.</p>
                         }
-                        @* else
-                        {
-                        <p class="small">You have a password set up for your account.</p>
-                        } *@
+                       
                     </div>
                 </div>
                 <div class="container actions-container mb-2">
@@ -110,25 +107,6 @@
 
         <partial name="_ConfirmDeleteModalPartial" model="deleteAccountModal" />
     }
-
-
-    @* <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body d-flex flex-column aling-items-center justify-content-center gap-2">
-                    <span><i class="fa-solid fa-triangle-exclamation"></i></span>
-                    <h2>Are you sure you want to delete your account?</h2>
-                    <p>This action is permanent and cannot be undone. Deleting your account will remove all your data and any associated content. </p>
-                    <div class="buttons d-flex flex-column gap-2">
-                        <form asp-area="" asp-controller="User" asp-action="DeleteAccount" method="post" class="w-100">
-                            <button type="submit" class="btn btn-outline-danger w-100 text-center">Delete</button>
-                        </form>
-                        <button type="button" class="btn btn-light w-100 text-center" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> *@
 </div>
 
 

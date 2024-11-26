@@ -45,7 +45,7 @@
                     </div>
                     <div class="name-suggestions">
                         <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
-                            Being short on names? Click <strong>here</strong> for some examples
+                            Want a better name? Click <strong>here</strong> for some examples
                         </a>
                         <div class="collapse names-container" id="collapseNames">
                             <h4>Looking for the perfect meal plan name? 
@@ -112,10 +112,11 @@
                                 @for (int i = 0; i < Model.Meals.Count; i++)
                                 {
                                     var currentMeal = Model.Meals[i];
+                                    bool isCooked = currentMeal.IsCooked.HasValue ? currentMeal.IsCooked.Value : false;
 
-                                    <tr class="meal-row">
+                                    <tr class="meal-row @(isCooked ? "cooked" : "")">
                                         <!-- Hidden input for meal ID -->
-                                        <input type="hidden" asp-for="Meals[i].Id" />
+                                        <input type="hidden" asp-for="Meals[i].Id" />                                        
                                         <td scope="row" class="border-0">
                                             <div class="meal-info">
                                                 <div class="meal-image">
@@ -128,9 +129,9 @@
                                                         <input type="hidden" asp-for="Meals[i].Title" />
                                                         <a 
                                                             asp-area="" 
-                                                            asp-controller="Meal" 
+                                                            asp-controller="Recipe" 
                                                             asp-action="Details" 
-                                                            asp-route-id="@currentMeal.Id"
+                                                            asp-route-id="@currentMeal.RecipeId"
                                                             asp-route-returnUrl="/MealPlan/Details/@Model.Id"
                                                         >@currentMeal.Title</a>
                                                     </h5>
@@ -144,18 +145,36 @@
                                             </div>
                                         </td>
                                         <td class="align-middle text-center">
-
+                                            
                                             <div class="input-group table-input-style">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-cutlery" aria-hidden="true"></i>
                                                 </span>
-                                                <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
-                                                    <option value="">-</option>
-                                                    @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
-                                                    {
-                                                        <option value="@option">@option</option>
-                                                    }
-                                                </select>
+                                                @if (isCooked)
+                                                {
+                                                    <!-- Hidden field for the selected date -->
+                                                    <input type="hidden" asp-for="Meals[i].Servings" />
+
+                                                    <select class="form-select text-style"
+                                                            asp-for="@currentMeal.Servings"
+                                                            data-val="true" disabled>
+                                                        <option value="">-</option>
+                                                        @foreach (var option in @Model.Meals.First().SelectDates)
+                                                        {
+                                                            <option value="@Model.Meals[i].Servings">@currentMeal.Servings</option>
+                                                        }
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
+                                                        <option value="">-</option>
+                                                        @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
+                                                        {
+                                                            <option value="@option">@option</option>
+                                                        }
+                                                    </select>
+                                                }                                                
                                                 <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
                                             </div>
 
@@ -164,25 +183,65 @@
 
                                             <div class="input-group table-input-style">
                                                 <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                                <select class="form-select text-style" asp-for="Meals[i].Date" data-val="true">
-                                                    <option value="">-</option>
-                                                    @foreach (var option in @Model.Meals.First().SelectDates)
-                                                    {
-                                                        <option value="@option">@option</option>
-                                                    }
-                                                </select>
-                                                <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                                @if(isCooked)
+                                                {
+                                                    <!-- Hidden field for the selected date -->
+                                                    <input type="hidden" asp-for="Meals[i].Date" />
+                                                    
+                                                    <select class="form-select text-style" 
+                                                        asp-for="@currentMeal.Date" 
+                                                        data-val="true" disabled >
+                                                        <option value="">-</option>
+                                                        @foreach (var option in @Model.Meals.First().SelectDates)
+                                                        {
+                                                            <option value="@Model.Meals[i].Date">@currentMeal.Date</option>
+                                                        }
+                                                    </select>
+                                                   
+                                                }
+                                                else 
+                                                {
+                                                    <select class="form-select text-style"
+                                                            asp-for="@Model.Meals[i].Date"
+                                                            data-val="true">
+                                                        <option value="">-</option>
+                                                        @foreach (var option in @Model.Meals.First().SelectDates)
+                                                        {
+                                                            <option value="@option">@option</option>
+                                                        }
+                                                    </select>
+                                                       
+                                                }
+                                                <span asp-validation-for="@Model.Meals[i].Date" class="small text-danger"></span>
                                             </div>
 
                                         </td>
-                                        <td class="align-middle text-end">
-                                            <div class="button-container">
-                                                <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                <a data-recipeId="@Model.Meals[i].RecipeId" class="remove-item-button">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                        @if(!isCooked)
+                                        {
+                                            <td class="align-middle text-end">
+                                                <div class="button-container">
+                                                    <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
+                                                    <input type="hidden" asp-for="Meals[i].RecipeId" />
+                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="remove-item-button">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="align-middle text-end">
+                                                <div class="button-container">
+                                                    <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
+                                                    <input type="hidden" asp-for="Meals[i].RecipeId" />
+                                                    <span class="cooked-meal-icon"
+                                                          title="Cooked">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        }
+
                                     </tr>
                                 }
                             }

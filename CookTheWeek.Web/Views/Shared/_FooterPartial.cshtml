@@ -4,7 +4,7 @@
     bool isLoggedIn = UserContext.UserId != default;
     
 }
-<footer class="bd-footer py-6 bg-dark">
+<footer class="bd-footer py-6 pb-5 bg-dark">
     <div class="container pt-5 pb-2">
         <div class="row">
             <div class="col-lg-3 mb-5 info-col">
@@ -17,16 +17,10 @@
                         Your ultimate meal-planning companion.
                     </li>
                     <li class="mb-3">
-                        Transform your weekly meals with ease. Plan, organize, and discover recipes tailored to your lifestyle—all in one place. CookTheWeek is designed to simplify your cooking journey and bring joy to your table.
+                        Transform your weekly meals with ease. Plan, organize, and discover recipes tailored to your lifestyle—all in one place. 
                     </li>
                     <li class="mb-3">
-                        <p class="copyright">
-                            &copy; @ReleaseYear CookTheWeek. All rights reserved.
-                            @if (DateTime.UtcNow.Year != ReleaseYear)
-                            {
-                                <span> - @DateTime.UtcNow.Year</span>
-                            }
-                        </p>
+                        CookTheWeek is designed to simplify your cooking journey and bring joy to your table.
                     </li>
                 </ul>
             </div>
@@ -119,5 +113,17 @@
                 </ul>
             </div>
         </div>
+        
+    </div>
+    <div class="footer-divider"></div>
+    <div class="container d-flex footer-copyright">
+        <p class="copyright">
+            <i class="fa-regular fa-copyright me-1"></i>@ReleaseYear
+            @if (DateTime.UtcNow.Year != ReleaseYear)
+            {
+                <span> - @DateTime.UtcNow.Year </span>
+            }
+            CookTheWeek. All rights reserved.
+        </p>
     </div>
 </footer>

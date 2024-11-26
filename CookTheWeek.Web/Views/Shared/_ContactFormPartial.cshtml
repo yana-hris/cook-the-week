@@ -7,32 +7,32 @@
 
         <form id="contact-form" method="post" asp-area="" asp-controller="Home" asp-action="Contact">
 
-            <div class="form-row">
+            <div class="form-row mb-2">
                 <div class="form-group col-12">
                     <label for="@Model.FullName">Your Name</label>
                     <input asp-for="FullName"
                             type="text"
                             placeholder="John Smith"
-                            class="form-control" />
+                            class="form-control contact" />
                 </div>
                 <span asp-validation-for="FullName" class="small text-danger"></span>
             </div>
-            <div class="form-row">
+            <div class="form-row mb-2">
                 <div class="form-group col-12">
                     <label for="@Model.EmailAddress">Email address</label>
                     <input asp-for="EmailAddress"
                             type="email"
-                            class="form-control"
+                            class="form-control contact"
                             placeholder="me@example.com" />
                 </div>
                 <span asp-validation-for="EmailAddress" class="small text-danger"></span>
             </div>
 
-            <div class="form-row">
+            <div class="form-row mb-2">
                 <div class="form-group col-12">
                     <label for="@Model.Subject">Subject</label>
-                    <select class="form-select" asp-for="Subject">
-                        <option value="">Please choose one option:</option>
+                    <select class="form-select contact" asp-for="Subject">
+                        <option value="" disabled>Please choose one option:</option>
                         <option value="User Experience">User Experience</option>
                         <option value="Features">Features</option>
                         <option value="Recipes">Recipes</option>
@@ -43,12 +43,11 @@
                     </select>
                 </div>
                 <span asp-validation-for="Subject" class="small text-danger"></span>
-
             </div>
-            <div class="form-row">
+            <div class="form-row mb-3">
                 <div class="form-group col-12">
                     <label for="@Model.Message">Message</label>
-                    <textarea asp-for="Message" rows="4" class="form-control" placeholder="Tell me all about it.."></textarea>
+                    <textarea asp-for="Message" rows="4" class="form-control contact" placeholder="Tell me all about it.."></textarea>
                 </div>
                 <span asp-validation-for="Message" class="small text-danger"></span>
             </div>

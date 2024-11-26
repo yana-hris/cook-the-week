@@ -7,7 +7,7 @@ footer {
     border-top: 2px solid var(--accent-color);
 
     .info-col {
-        margin-top: -2.35rem;
+        margin-top: -2.35rem; // to align logo text with columns
 
         .logo-container {
             gap: 0.75rem;
@@ -30,11 +30,13 @@ footer {
         .info-list {
             font-size: 1.1rem;
             font-weight: 300;
-
-            .copyright {
+            /*.copyright {
                 font-size: 1rem;
-                font-weight: normal;
-            }
+               
+                i{
+                    font-size: 0.8rem;
+                }
+            }*/
         }
     }
 
@@ -54,74 +56,27 @@ footer {
             }
         }
     }
+
+    .footer-divider {
+        width: 100%;
+        margin: 2rem 0;
+        height: 1px;
+        background-color: $success;
+    }
+
+    .footer-copyright {
+        display: flex;
+        align-items: center;
+
+        .copyright {
+            font-size: 1rem;
+            font-weight: 400;
+
+            i{
+                font-size: 0.9rem;
+            }
+        }
+        
+    }
 }
 
-/*footer {*/
-    /*position: relative;
-    z-index: 5000;
-    font-weight: 300;
-    font-size: 13px;
-
-    #links-container {
-        flex-direction: column;
-
-        .footer-padding {
-            padding: 1rem;
-        }
-
-        .footer-border {
-            border: none;
-        }
-
-        a {
-            text-decoration: none;
-            color: $white;
-            cursor: pointer;
-
-            &:hover {
-                color: $light !important;
-                text-decoration: underline;
-            }
-        }
-    }*/
-/*}*/
-
-/*
-@media (min-width: 631px) {
-
-    footer {
-
-        #links-container {
-            flex-direction: row !important;
-
-            .footer-border {
-                border-right: 1px solid $white !important;
-            }
-
-            .footer-padding {
-                padding: 0 1rem !important;
-            }
-        }
-    }
-
-    .fixed-footer {
-        position: fixed;
-        bottom: 0;
-        width: 100vw;
-    }
-}*/
-
-
-/*@media (min-width: 887px) {
-    footer {
-        font-size: 14px;
-
-        #links-container {
-            flex-direction: row !important;
-
-            .footer-padding {
-                padding: 0 2rem !important;
-            }
-        }
-    }
-}*/

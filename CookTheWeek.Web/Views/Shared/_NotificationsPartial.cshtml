@@ -1,24 +1,24 @@
 ﻿@using static CookTheWeek.Common.NotificationMessagesConstants
 
-@if (TempData["ErrorMessage"] != null)
+@if (TempData[ErrorMessage] != null)
 {
     <script>
-        toastr.error("@TempData["ErrorMessage"]");
+        toastr.error("@TempData[ErrorMessage]");
     </script>
 }
 
-@if (TempData["WarningMessage"] != null)
+@if (TempData[WarningMessage] != null)
 {
-    <script>toastr.warning('@TempData["WarningMessage"]');</script>
+    <script>toastr.warning('@TempData[WarningMessage]');</script>
 }
 
-@if (TempData["SuccessMessage"] != null)
+@if (TempData[SuccessMessage] != null)
 {
-    <script>toastr.success('@TempData["SuccessMessage"]');</script>
+    <script>toastr.success('@TempData[SuccessMessage]');</script>
 }
 
-@if (TempData["InformationMessage"] != null)
+@if (TempData[InformationMessage] != null)
 {
-    <script>toastr.info('@TempData["InformationMessage"]');</script>
+    <script>toastr.info('@TempData[InformationMessage]');</script>
 }
 

@@ -219,9 +219,9 @@
         tr.meal-row {
             position: relative;
             //separation of meals style
-            padding: 0.5rem;
+            /*padding: 0.5rem;
             background-color: var(--pill-container-bg-color);
-            border-radius: $pill-border-radius;
+            border-radius: $pill-border-radius;*/
 
             .meal-info {
                 display: flex;
@@ -316,6 +316,10 @@
                     text-decoration: none;
                 }
             }
+        }
+
+        tr.meal-row.cooked {
+            background-color: #eaf4e2;
         }
     }
 

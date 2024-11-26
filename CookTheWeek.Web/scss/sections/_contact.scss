@@ -2,10 +2,11 @@
 @import '../components/theme-defaults';
 
 #contact-us {
-    color: #170d03 !important;
+    color: $dark-brown; // !important;
 
-    form {
+    .contact-form-container {
 
+        font-family: $font-family-sans-serif;
 
         .form-control,
         .form-group label {
@@ -14,25 +15,28 @@
 
         .form-select {
             background-color: transparent;
-            appearance: none; /* Remove default styling in some browsers */
+            appearance: none;
         }
 
         .form-control, .form-select {
-            color: #170d03;
-            border: 2px solid $success;
+            color: $dark-brown;
 
             &::placeholder {
-                color: #070D05;
+                color: $dark-brown;
             }
         }
 
         .form-select option {
             background-color: transparent;
-            color: #170d03;
+            color: $dark-brown;
 
             &:hover {
                 background-color: $success;
             }
+        }
+
+        .contact {
+            border: 1px solid var(--accent-color) !important;
         }
     }
 }
