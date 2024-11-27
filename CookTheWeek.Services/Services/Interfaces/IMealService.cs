@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="meals"></param>
         /// <returns>A collection of Meal</returns>
-        ICollection<Meal> CreateMealsAsync(ICollection<MealFormModel> meals);
+        ICollection<Meal> CreateOrUdateMealsAsync(ICollection<MealFormModel> meals);
 
        
         /// <summary>

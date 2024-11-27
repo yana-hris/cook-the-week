@@ -7,49 +7,56 @@
             </a>
             <div id="navigation-buttons" class="collapse navbar-collapse">
                 <ul id="nav-list" class="navbar-nav ms-auto" > 
-                    <li class="nav-item drop-down">
-                        <div class="nav-item dropdown nav-dropdown-btn">
-                            <a id="recipeDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Recipes </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="recipeDropDown">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="Add">Add Recipe</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="All">All Recipes</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="Site">Site Recipes</a>
-                            </div>
-                        </div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Recipes
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="Add">Add Recipe</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="Site">Site Recipes</a></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="RecipeAdmin" asp-action="All">All Recipes</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item drop-down">
-                        <div class="nav-item dropdown nav-dropdown-btn">
-                            <a id="ingredientDropDown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Ingredients </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="ingredientDropDown">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Add">Add Ingredient</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="All">All Ingredients</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item drop-down">
-                        <div class="nav-item dropdown nav-dropdown-btn" >
-                            <a id="categoryDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Categories </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddRecipeCategory">Add Recipe Category</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllRecipeCategories">All Recipe Categories</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddIngredientCategory">Add Ingredient Category</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllIngredientCategories">All Ingredient Categories</a>
-                            </div>
-                        </div>
-                    </li>
+                    @* INGREDIENTS BTN  *@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ingredients
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Add">Add Ingredient</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="All">All Ingredients</a></li>
+                        </ul>
+                    </li>   
+                    @* CATEGORY BTN  *@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddRecipeCategory">Add Recipe Category</a></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllRecipeCategories">All Recipe Categories</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AddIngredientCategory">Add Ingredient Category</a></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="CategoryAdmin" asp-action="AllIngredientCategories">All Ingredient Categories</a></li>
+                        </ul>
+                    </li>                    
                     <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="UserAdmin" asp-action="All">Users</a></li>
-                    <li class="nav-item drop-down">
-                        <div class="nav-item dropdown nav-dropdown-btn">
-                            <a id="mealPlanDropdown" class="dropdown-toggle drop-down-item" aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button">Meal Plans </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="mealPlanDropdown">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllActive">All Active</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllFinished">All Finished</a>
-                            </div>
-                        </div>
+                    @* MEAL PLANS BTN  *@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Meal Plans
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllActive">Active</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="MealPlanAdmin" asp-action="AllFinished">Finished</a></li>
+                        </ul>
                     </li>
-                    <li id="logout-btn" class="user-btn nav-item text-bg-primary bg-dark border-1 border-primary shadow-sm border rounded">
-                        <a id="nav-logout-btn" class="nav-btn nav-link active" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a>
+                   
+                    <li class="nav-item user-btn">
+                        <a class="nav-link active icon-btn" asp-area="" asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -62,7 +69,4 @@
         </div>
     </nav>
 </header>
-
-@section Scripts {
-    
-}            
+          

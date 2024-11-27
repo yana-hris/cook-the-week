@@ -112,6 +112,7 @@
         border-radius: $medium-border-radius;
         box-shadow: var(--card-box-shadow);
         transition: box-shadow 0.3s ease, transform 0.3s ease;
+        background-color: var(--bs-body-bg);
 
        
         .image-container {
@@ -131,9 +132,9 @@
             }
 
             .fa-bookmark {
-                top: -8px;
-                left: 12px;
-                font-size: 40px;
+                top: -2px;
+                left: 10px;
+                font-size: 30px;
             }
 
             .add-to-mealplan-container {

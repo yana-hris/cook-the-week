@@ -19,9 +19,9 @@
         public async Task Invoke(HttpContext context, IUserContext userContext)
         {
            
-            if (context.User.Identity.IsAuthenticated)
+            if (context.User.Identity?.IsAuthenticated ?? false)
             {
-                string userIdClaim = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string userIdClaim = context.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
 
                 if (Guid.TryParse(userIdClaim, out Guid userId))
                 {
@@ -33,6 +33,16 @@
                 }
 
                 userContext.IsAdmin = context.User.IsInRole(AdminRoleName);
+
+                
+                if (bool.TryParse(context.User.FindFirstValue(HasActiveMealPlanClaimName), out bool hasActiveMealplan))
+                {
+                    userContext.HasActiveMealplan = hasActiveMealplan;
+                }
+                else
+                {
+                    userContext.HasActiveMealplan = false;
+                }
             }
               
             await next(context);

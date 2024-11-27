@@ -62,23 +62,23 @@
                 </div>
                 <span asp-validation-for="Password" class="small text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
                 <div class="input-group">
                     <span class="input-group-text">Confirm Password</span>
                     <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />                
                 </div>
                 <span asp-validation-for="ConfirmPassword" class="small text-danger"></span>
-                <p class="small text-start">
+                <p class="small text-start account-message">
                     Already have an accountor or want to sign up with Facebook or Google?
                     <a class="custom-link" asp-controller="User" asp-action="Login">Login/Sign up here</a>
                 </p>
             </div>
             
-            <div class="mb-3">
+            <div class="mb-5">
                 <button type="submit" class="register-btn">Register</button>
             </div>
             
-            <p class="small py-3">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
+            <p class="small mt-5 mb-2">By continuing, you agree to our <a href="/Home/TermsOfUse" class="custom-link">Terms of Use</a> and acknowledge that you have read our <a href="/Home/Privacy" class="custom-link">Privacy Policy</a>.</p>
         </form>
     </div>
 </div>

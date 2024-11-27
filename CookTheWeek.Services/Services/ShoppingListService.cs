@@ -33,7 +33,7 @@
         // TODO: move to viewmodel factory
         public async Task<ShoppingListViewModel> TryGetShoppingListDataByMealPlanIdAsync(Guid id)
         {
-            MealPlan mealplan = await mealPlanService.TryGetAsync(id);
+            MealPlan mealplan = await mealPlanService.GetByIdAsync(id);
 
             ShoppingListViewModel model = new ShoppingListViewModel
             {

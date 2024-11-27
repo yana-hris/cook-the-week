@@ -11,7 +11,7 @@
         padding-top: 0.9rem;
         margin: 1.5rem 0;
         background: var(--background-gradient); //$success-400;
-        border-radius: $border-radius;
+        border-radius: $border-radius-small;
         border-color: 1px solid $primary-bg-subtle;
 
 
@@ -22,7 +22,8 @@
             font-size: 1.1rem !important;
             color: var(--bs-body-bg) !important;
             background-color: transparent !important;
-            border-color: transparent !important;
+            border:none;
+            transition: all 0.3s;
 
             &:first-child {
                 padding-left: 0;
@@ -30,10 +31,15 @@
         }
 
         input, textarea, select {
-            border-color: $primary-400 !important;
-            background-color: var(--bs-body-bg) !important;
-            border-top-left-radius: $border-radius !important;
-            border-bottom-left-radius: $border-radius !important;
+            border-color: none !important;
+            background-color: rgba(255, 255, 255, 0.4) !important;
+            color: #333;
+            border-top-left-radius: $border-radius-small !important;
+            border-bottom-left-radius: $border-radius-small !important;
+        }
+
+        select {
+            border-radius: $border-radius-small !important;
         }
     }
 

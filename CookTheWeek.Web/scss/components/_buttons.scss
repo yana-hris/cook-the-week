@@ -136,19 +136,6 @@
     }
 }
 
-.nav-btn,
-.nav-dropdown-btn {
-    @include flex-center();
-}
-
-.nav-btn:hover {
-    color: $white !important;
-    border-color: $dark !important;
-    background-color: $primary !important;
-    transition: background-color 0.3s ease;
-}
-
-
 .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
@@ -163,6 +150,7 @@
 .browse-recipes-btn {
     @include button-with-icon-and-text-cenetered();
     @extend .btn-secondary;
+    
 }
 
 .add-recipe-button, .edit-recipe-btn {
@@ -252,6 +240,11 @@
     @extend .btn-outline-danger;
 }
 
+.contact-btn {
+    @include button-lg-style(50%);
+    @extend .btn-secondary;
+}
+
 #theme-container {
     position: fixed;
     top: 75px;
@@ -267,7 +260,7 @@
 
         .btn-link {
             margin: 0;
-            padding: 0 8px;         
+            padding: 0 8px;
             vertical-align: middle;
             background-color: var(--bs-body-bg);
             border-radius: 10px;
@@ -358,7 +351,7 @@
         text-align: center;
         text-decoration: none;
         background-color: #f8f9fa; // light
-
+        border-radius: $border-radius-small;
         transition: all 0.3s;
 
         &:active {
@@ -366,7 +359,7 @@
         }
 
         &:hover {
-            border: 1px solid var(--bs-body-color);
+            border: 1px solid var(--accent-color) !important;
         }
 
         .external-login-icon {

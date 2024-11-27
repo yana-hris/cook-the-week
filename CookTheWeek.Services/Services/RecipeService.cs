@@ -10,15 +10,15 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Models.Recipe;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
 
-    using static Common.ExceptionMessagesConstants;
-    using static Common.GeneralApplicationConstants;
-   
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class RecipeService : IRecipeService
     {
@@ -145,6 +145,34 @@
         }
 
         /// <inheritdoc/>
+        public async Task<RecipeAllMineServiceModel> GetAllMineAsync()
+        {
+            var recipes = await recipeRepository
+                .GetAllQuery()
+                .Where(r => r.OwnerId == userId || r.FavouriteRecipes.Any(fr => fr.UserId == userId))
+                .Select(r => new
+                {
+                    RecipeId = r.Id.ToString(),
+                    IsAddedByUser = r.OwnerId == userId,
+                    IsLikedByUser = r.FavouriteRecipes.Any(fr => fr.UserId == userId)
+                })
+                .ToListAsync();
+
+            var likedRecipeIds = recipes.Where(r => r.IsLikedByUser).Select(r => r.RecipeId.ToString()).ToList();
+            var addedRecipeIds = recipes.Where(r => r.IsAddedByUser).Select(r => r.RecipeId.ToString()).ToList();
+
+
+            RecipeAllMineServiceModel model = new RecipeAllMineServiceModel
+            {
+                LikedRecipeIds = likedRecipeIds,
+                AddedRecipeIds = addedRecipeIds
+            }; 
+
+            return model;
+
+        }
+
+        /// <inheritdoc/>
         public async Task<OperationResult<string>> TryAddRecipeAsync(RecipeAddFormModel model)
         {
             ValidationResult result = await recipeValidator.ValidateRecipeFormModelAsync(model);
@@ -211,22 +239,31 @@
         }
 
         /// <inheritdoc/>
-        public async Task<Recipe> GetForDetailsByIdAsync(Guid id)
+        public async Task<RecipeDetailsServiceModel> GetForDetailsByIdAsync(Guid id)
         {
-            Recipe? recipe = await recipeRepository.GetByIdQuery(id) 
+            RecipeDetailsServiceModel? serviceModel = await recipeRepository.GetByIdQuery(id) 
                 .Include(r => r.Owner)
                 .Include(r => r.Steps)
                 .Include(r => r.Category)
+                .Include(r => r.Meals)
+                .Include(r => r.FavouriteRecipes)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Ingredient)
+                .Select(r => new RecipeDetailsServiceModel
+                {
+                    Recipe = r,
+                    LikesCount = r.FavouriteRecipes.Count,
+                    CookedCount = r.Meals.Count,
+                    IsLikedByUser = r.FavouriteRecipes.Any(fr => fr.UserId ==  userId), 
+                })
                 .FirstOrDefaultAsync();
 
-            if (recipe == null)
+            if (serviceModel == null)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
             }
 
-            return recipe;
+            return serviceModel;
         }
 
         /// <inheritdoc/>

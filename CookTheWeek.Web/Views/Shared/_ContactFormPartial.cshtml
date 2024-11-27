@@ -6,29 +6,30 @@
         </p>
 
         <form id="contact-form" method="post" asp-area="" asp-controller="Home" asp-action="Contact">
-
-            <div class="form-row mb-2">
-                <div class="form-group col-12">
-                    <label for="@Model.FullName">Your Name</label>
-                    <input asp-for="FullName"
-                            type="text"
-                            placeholder="John Smith"
-                            class="form-control contact" />
+            <div class="row form-row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="@Model.FullName">Your Name</label>
+                        <input asp-for="FullName"
+                               type="text"
+                               placeholder="John Smith"
+                               class="form-control contact" />
+                    </div>
+                    <span asp-validation-for="FullName" class="small text-danger"></span>
                 </div>
-                <span asp-validation-for="FullName" class="small text-danger"></span>
-            </div>
-            <div class="form-row mb-2">
-                <div class="form-group col-12">
-                    <label for="@Model.EmailAddress">Email address</label>
-                    <input asp-for="EmailAddress"
-                            type="email"
-                            class="form-control contact"
-                            placeholder="me@example.com" />
+                <div class="col-md-6 mb-3">
+                    <div class="form-group2">
+                        <label for="@Model.EmailAddress">Email address</label>
+                        <input asp-for="EmailAddress"
+                               type="email"
+                               class="form-control contact"
+                               placeholder="me@example.com" />
+                    </div>
+                    <span asp-validation-for="EmailAddress" class="small text-danger"></span>
                 </div>
-                <span asp-validation-for="EmailAddress" class="small text-danger"></span>
             </div>
 
-            <div class="form-row mb-2">
+            <div class="form-row mb-3">
                 <div class="form-group col-12">
                     <label for="@Model.Subject">Subject</label>
                     <select class="form-select contact" asp-for="Subject">
@@ -54,7 +55,7 @@
 
             <div class="row py-3">
                 <div class="d-flex align-items-center justify-content-center">
-                    <button form="contact-form" class="btn btn-success w-50 text-center" type="submit">Send Message</button>
+                    <button form="contact-form" class="contact-btn" type="submit">Send Message</button>
                 </div>
             </div>
 

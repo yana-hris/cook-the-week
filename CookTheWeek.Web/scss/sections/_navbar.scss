@@ -15,11 +15,11 @@ nav {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 
     #nav-container {
-        padding: 0 12px;
-        max-width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding: 0 12px;
+        max-width: 100%;
         background-color: inherit;
 
         .navbar-brand {
@@ -62,10 +62,67 @@ nav {
                 color: rgba(255,255,255,0.65);
 
                 li.nav-item {
-                    border: 1px solid var(--bs-dark-bg-subtle);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0;
+                    margin: 0;
+                    height: 100%;
+                    border: 1px solid $dark;
+                    border-radius: $border-radius-small;
+
+                    .nav-link {
+                        padding: 6px 16px;
+                        border: none !important;
+                    }
+
+                    .dropdown-item {
+                        text-decoration: none;
+                        color: var(--bs-body-color);
+
+                        &:hover {
+                            background-color: var(--accent-color);
+                            color: var(--bs-body-bg);
+                            transition: all 0.3s ease;
+                        }
+                    }
+
+                    .dropdown-divider {
+                        color: var(--accent-color) !important;
+                    }
+
+                    &:active {
+                        background-color: $primary !important;
+                        transition: all 0.3s ease;
+                    }
 
                     &:hover {
-                        border: 1px solid $success !important;
+                        color: $success;
+                        border: 1px solid $primary;
+                        transition: all 0.3s ease;
+                    }
+                }
+
+                li.user-btn {
+                    border: 1px solid $success !important;
+
+                    .icon-btn {
+                        display: block;
+                        text-align: center;
+
+                        i.fa {
+                            line-height: inherit;
+                            font-size: inherit;
+                            color: $success;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: $success !important;
+
+                        i.fa {
+                            color: $primary !important;
+                        }
                     }
                 }
 
@@ -73,52 +130,27 @@ nav {
                     display: block !important;
                 }
             }
-
-            li.nav-item {
-                padding-top: 0;
-                border: 1px solid $dark;
-
-                .nav-link, .nav-item {
-                    padding: 6px 16px;
-                }
-
-                .drop-down-item {
-                    text-decoration: none;
-                    color: $white;
-
-                    &:hover {
-                        color: $success;
-                    }
-                }
-
-                &:active {
-                    background-color: $primary !important;
-                }
-
-                &:hover {
-                    border: 1px solid $primary;
-                }
-            }
-
-            #nav-list {
-                gap: 16px;
-
-                li.nav-item {
-                }
-            }
         }
-
+        // Style for shown collapsible navigation btns
         #navigation-buttons.show {
-            opacity: 0.96 !important;
+            opacity: 0.97 !important;
             background-color: $dark !important;
-           
-            transition: opacity 0.3s ease, transform 0.3s ease; 
+            transition: opacity 0.3s ease, transform 0.3s ease;
 
             li.nav-item {
                 border-color: transparent !important;
+                border-radius: $border-radius;
+
+                &:hover {
+                    background-color: $medium-gray-bg !important;
+
+                    .nav-link:not(.user-btn) {
+                        color: $success !important;
+                    }
+                }
             }
         }
-        // Nav btn on small screens (default)
+        // Toggler btn styles (by default is collapsed)
         .navbar-toggler {
             width: 24px;
             height: 24px;
@@ -165,7 +197,7 @@ nav {
                 background-color: $success;
             }
         }
-        /* State when the navbar is collapsed */
+
         .navbar-toggler,
         .navbar-toggler:focus,
         .navbar-toggler:active,
@@ -174,7 +206,7 @@ nav {
             box-shadow: none;
             border: 0;
         }
-
+        // Default btn state
         .collapsed {
             .top-bar {
                 margin-top: -19px;
@@ -191,7 +223,21 @@ nav {
                 transform: rotate(0deg);
             }
         }
-        /* End of Nav Btn */
+
+        #navigation-buttons.show {
+            opacity: 0.96 !important;
+            background-color: $dark !important;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+
+            li.nav-item {
+                border-color: transparent !important;
+                border-radius: $border-radius;
+
+                &:hover {
+                    background-color: $primary;
+                }
+            }
+        }
     }
 }
 
@@ -281,9 +327,9 @@ nav {
             }
 
             #navigation-buttons {
-                margin: 0;
-                padding-right: 0px;
                 position: relative !important;
+                padding-right: 0px;
+                margin: 0;
                 background-color: $dark !important;
                 opacity: 1;
 
@@ -296,16 +342,11 @@ nav {
                     }
 
                     li.nav-item {
-                        padding-top: 0;
                         border: 1px solid $dark;
-
-                        .nav-link, .nav-item {
-                            padding: 6px 16px;
-                        }
 
                         .drop-down-item {
                             text-decoration: none;
-                            color: #ffffff;
+                            color: $white;
 
                             &:hover {
                                 color: $success;

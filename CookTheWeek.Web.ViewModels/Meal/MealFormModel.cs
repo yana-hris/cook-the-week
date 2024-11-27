@@ -24,6 +24,8 @@
         [Required(ErrorMessage = MealServingsRequiredErrorMessage)]
         [Range(MinServingSize, MaxServingSize, ErrorMessage = MealServingsRangeErrorMessage)]
         public int Servings { get; set; }
+        
+        public bool? IsCooked { get; set; } = false;
 
         [Required]
         [Url]

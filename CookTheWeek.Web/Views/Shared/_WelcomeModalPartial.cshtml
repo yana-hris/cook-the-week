@@ -1,46 +1,10 @@
 ﻿@model MealPlanActiveModalViewModel
 @using static CookTheWeek.Common.NotificationMessagesConstants
 
-@if (Model == null || Model.UserId == default)
-{
 
-    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
 
-                <div class="modal-header modal-welcome-header position-relative">
-                    <div class="heading-container d-flex flex-column">
-                        <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
-                        <p class="modal-title" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="welcome-user-guest-message">
-                        <p class="lead">
-                            Discover a world of culinary inspiration right at your fingertips.
-                        </p>
-                        <p class="lead">
-                            <a class="custom-link" href="/User/Register">Sign up</a>/<a class="custom-link" href="/User/Login">Log in </a>to unlock the full experience and start building your desired Meal Plan today!
-                        </p>
-                    </div>
-                </div>
-
-                <div class="modal-footer two-buttons">
-                    <div class="btn-container">
-                        <a asp-area="" asp-action="Register" asp-controller="User" class="join-now-btn">Join Now</a>
-                    </div>
-                    <div class="btn-container">
-                        <a asp-area="" asp-action="Login" asp-controller="User" class="login-modal-btn">Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-else if (Model.JustLoggedIn)
-{
-   
+@if (Model.JustLoggedIn)
+{   
     if (!Model.HasActiveMealPlan)
     {
         <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
@@ -55,14 +19,14 @@ else if (Model.JustLoggedIn)
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="welcome-user-guest-message">
-                            <p class="lead">Start crafting your ideal meal plan today and make cooking easy and enjoyable!</p>
-                            <p class="lead">Get inspired by our recipe collection, easily browse and filter or even add your favourite recipes to your personal collection.</p>
+                        <div class="welcome-user-guest-message mt-3 mb-0">
+                            <p>Start crafting your ideal meal plan today and make cooking easy and enjoyable!</p>
+                            <p>Get inspired by our recipe collection, easily browse and filter or even add your favourite recipes to your personal collection.</p>
                         </div>
                     </div>
                     <div class="modal-footer two-buttons">
                         <a asp-area="" asp-action="All" asp-controller="Recipe" asp-route-returnUrl="ViewBag.ReturnUrl" class="browse-recipes-btn">
-                            <i class="fa-solid fa-magnifying-glass me-2"></i>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                             <span class="btn-text">Recipes</span>
                         </a>
                         <a asp-area="" asp-action="Mine" asp-controller="MealPlan" class="user-mealplans-btn">
@@ -205,4 +169,40 @@ else if (Model.JustLoggedIn)
             </div>
         </div>
     }
+}
+else
+{
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header modal-welcome-header position-relative">
+                    <div class="heading-container d-flex flex-column">
+                        <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
+                        <p class="modal-title mt-3" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mt-3 mb-0">
+                    <div class="welcome-user-guest-message">
+                        <p>
+                            Discover a world of culinary inspiration right at your fingertips.
+                        </p>
+                        <p>
+                            <a class="custom-link" href="/User/Register">Sign up</a>/<a class="custom-link" href="/User/Login">Log in </a>to unlock the full experience and start building your desired Meal Plan today!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer two-buttons">
+                    <div class="btn-container">
+                        <a asp-area="" asp-action="Register" asp-controller="User" class="join-now-btn">Join Now</a>
+                    </div>
+                    <div class="btn-container">
+                        <a asp-area="" asp-action="Login" asp-controller="User" class="login-modal-btn">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }

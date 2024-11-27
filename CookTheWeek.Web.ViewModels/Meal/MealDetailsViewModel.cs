@@ -29,7 +29,7 @@
         public string CategoryName { get; set; } = null!;
         
         public bool IsCooked { get; set; }
-
+        public bool IsMealPlanFinished { get; set; }
         public List<StepViewModel> CookingSteps { get; set; }
 
         public IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> IngredientsByCategories { get; set; }

@@ -10,7 +10,7 @@
         public const string CookieConsentName = ".AspNet.Consent";
         public const string ReturnUrl = "ReturnUrl";
         public const string ContactFormModelWithErrors = "ContactFormModelWithErrors";
-        public const string JustLoggedIn = "JustLoggedIn";
+        public const string HasActiveMealPlanClaimName = "HasActiveMealPlan";
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
@@ -18,33 +18,6 @@
 
         public const double DefaultPdfPageWidth = 210.0d;
         public const double DefaultPdfPageHeight = 297.0d;
-
-
-        public static string[] FixedFooterActions =
-            [
-                "Index",
-                "Error",
-                "Contact",
-                "None",
-                "Details",
-                "Add",
-                "Edit",
-                "Login",
-                "Registert",
-                "Profile",
-                "ChangePassword",
-                "SetPassword",
-                "AccessDeniedPathInfo",
-                "AccountDeletedConfirmation",
-                "EmailConfirmationInfo",
-                "ConfirmedEmail",
-                "ForgotPassword",
-                "ForgotPasswordConfirmation",
-                "ResetPassword",
-                "ResetPasswordConfirmation",
-                "NotFound",
-                "InternalServerError",
-            ];
 
         public const int GuidLength = 36;
         public static readonly Guid DeletedRecipeId = new Guid("00000000-0000-0000-0000-000000000001");
@@ -68,6 +41,7 @@
         public static int[] NutsSeedsAndOthersIngredientCategories = [12,13];
 
         public const string MealDateFormat = "dd-MM-yyyy";
+        public const string MealPlanDateFormat = "ddd, dd-MM-yyyy";
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 
         public const string UserNotFoundErrorMessage = "User not found.";

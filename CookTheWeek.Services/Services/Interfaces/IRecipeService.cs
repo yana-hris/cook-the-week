@@ -2,6 +2,7 @@
 {
     using CookTheWeek.Common;
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Models.Recipe;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -38,12 +39,12 @@
         Task<OperationResult> TryEditRecipeAsync(RecipeEditFormModel model);
 
         /// <summary>
-        /// Gets a Recipe if by a given ID if it exists in the database or throws an exception
+        /// Gets a RecipeDetailsServiceModel if by a given ID if it exists in the database or throws an exception
         /// </summary>
         /// <param name="id">Recipe Id</param>
         /// <remarks>May throw RecordNotFoundException due to GetById</remarks>
-        /// <returns>Recipe</returns>
-        Task<Recipe> GetForDetailsByIdAsync(Guid id);
+        /// <returns>RecipeDetailsServiceModel</returns>
+        Task<RecipeDetailsServiceModel> GetForDetailsByIdAsync(Guid id);
                 
 
         /// <summary>
@@ -106,9 +107,9 @@
         Task<Recipe> GetForMealByIdAsync(Guid recipeId);
 
         /// <summary>
-        /// Gets all recipe Ids, added by the current user
+        /// Gets all recipe Ids for added and liked by the current user recipes
         /// </summary>
-        /// <returns>A collection of recipe IDs as strings</returns>
-        Task<ICollection<string>> GetAllRecipeIdsAddedByCurrentUserAsync();
+        /// <returns>A collection IList of recipe ids (string)</returns>
+        Task<RecipeAllMineServiceModel> GetAllMineAsync();
     }
 }

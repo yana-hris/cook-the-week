@@ -49,17 +49,10 @@
         /// </summary>
         /// <typeparam name="TFormModel"></typeparam>
         /// <param name="id">an existing meal plan`s ID</param>
+        /// <param name="newMeals">if available for adding</param>
         /// <returns>MealPlanAddFormModel or MealPlanEditFormModel</returns>
-        Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id)
+        Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id, ICollection<MealServiceModel>? newMeals = null)
             where TFormModel : IMealPlanFormModel, new();
-
-        /// <summary>
-        /// Creates a MealAddFormModel from a service model. Throws an exception if the specific recipe is not found in the database
-        /// </summary>
-        /// <param name="meal"></param>
-        /// <remarks>May throw a RecordNotFoundException due to usage of GetByIdAsync method.</remarks>
-        /// <returns>MealAddFormModel</returns>
-        Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal);
 
         /// <summary>
         /// Adds Select Dates for cooking meals in all instances of IMealPlanFormModel
@@ -68,5 +61,12 @@
         /// <param name="model"></param>
         /// <returns>the model itself</returns>
         T AddMealCookSelectDates<T>(T model) where T : IMealPlanFormModel;
+
+        /// <summary>
+        /// Returns a view model for the active mealplan for the current user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>MealPlanActiveModalViewModel</returns>
+        Task<MealPlanActiveModalViewModel> GetActiveDetails();
     }
 }

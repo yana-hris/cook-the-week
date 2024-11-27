@@ -32,10 +32,14 @@
     }
 }
 
-#user-login {
-    .external-container {
-        margin-bottom: 2rem;
+#user-login, #user-register {
+    margin-bottom: 5rem;
+
+    .account-message {
+        margin-top: 0.2rem;
+        line-height: 1.0;
     }
+    
 }
 
 @media (max-width: 767px) {

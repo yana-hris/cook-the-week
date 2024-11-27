@@ -141,6 +141,7 @@ html {
     overflow-y: auto; /* Enable scrolling for overflowing content */
     overflow-x: hidden;
     z-index: 1;
+    min-height: 100vh;
     @extend .hide-scrollbar;
 }
 

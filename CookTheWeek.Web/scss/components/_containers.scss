@@ -71,16 +71,13 @@
     @extend .hide-scrollbar;
    
     padding: $default-padding;
-    margin-top: -1rem;
-    margin-bottom: 2rem;
 
     max-width: 480px;
     overflow-y: auto;
     border: none;
-    border-radius: $border-radius;
+    border-radius: $border-radius-small;
     text-align: center;
-    background-color: var(--bs-body-bg);
-    box-shadow: var(--container-box-shadow);
+    background-color: var(--bs-body-bg);    
 
     &:hover {
         box-shadow: var(--container-box-shadow-hover);

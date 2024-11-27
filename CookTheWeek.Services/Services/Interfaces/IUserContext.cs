@@ -5,5 +5,7 @@
         Guid UserId { get; set; }
 
         bool IsAdmin { get; set; }
+
+        bool HasActiveMealplan { get; set; }
     }
 }

@@ -8,11 +8,14 @@
             </a>
             <div id="navigation-buttons" class="collapse navbar-collapse">
                 <ul id="nav-list" class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="All">Recipes</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area ="" asp-controller="Home" asp-action="HowItWorks">How it Works</a></li> 
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li class="user-btn nav-item text-bg-primary bg-dark border border-1 border-primary shadow-sm" id="login-btn">
-                        <a class="nav-link active nav-btn" id="nav-login-btn" asp-area="" asp-controller="User" asp-action="Login">Log In</a>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="All">Recipes</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area ="" asp-controller="Home" asp-action="HowItWorks">How it Works</a></li> 
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-item user-btn">
+                        <a class="nav-link active icon-btn" asp-area="" asp-controller="User" asp-action="Login"><i class="fa fa-sign-in"></i></a>
                     </li>
                 </ul>
             </div>

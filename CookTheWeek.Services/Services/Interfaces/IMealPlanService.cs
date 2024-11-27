@@ -54,15 +54,6 @@
         /// <param name="userId"></param>
         /// <returns>int (default = 0)</returns>
         Task<int?> MineCountAsync();
-
-        /// <summary>
-        /// Validates the existence of a meal plan by its id and authorization rights of the current user to access it. If not, throws exceptions
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>A MealPlan</returns>
-        /// <exception cref="RecordNotFoundException"></exception>
-        /// <exception cref="UnauthorizedUserException"></exception>
-        Task<MealPlan> TryGetAsync(Guid id);
        
         /// <summary>
         /// Returns the total count of all Active meal plans. 
@@ -98,5 +89,58 @@
         /// older than 6 days are considered finished.
         /// </remarks>
         Task UpdateMealPlansStatusAsync(CancellationToken stoppingToken);
+
+        /// <summary>
+        /// Marks a meal plan as expired if it has reached the expiration threshold of 7 full days 
+        /// since its start date. This method updates the meal plan status to finished and adjusts 
+        /// the user's active meal plan claim accordingly.
+        /// </summary>
+        /// <param name="id">The unique identifier of the meal plan to check and potentially expire.</param>
+        /// <param name="userId">The unique identifier of the user who owns the meal plan. Used to update the user’s meal plan claim.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>
+        /// This method checks if 7 full days have passed since the <c>StartDate</c> of the meal plan 
+        /// before marking it as expired. If the meal plan is expired, it updates the <c>IsFinished</c> 
+        /// status and calls <see cref="IUserService.UpdateMealPlanClaimAsync"/> to ensure the user's claim 
+        /// reflects the expired status. The method operates in UTC to ensure consistency across time zones.
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// await mealPlanService.ExpireMealPlanAsync(mealPlanId, userId);
+        /// </code>
+        /// </example>
+
+        Task ExpireMealPlanAsync(Guid id, Guid userId);
+
+        /// <summary>
+        /// Returns the active MealPlan of the currently logged in user or throws an exception if not found
+        /// </summary>
+        /// <exception cref="RecordNotFoundException"></exception>
+        /// <returns>A single MealPlan</returns>
+        Task<MealPlan> GetActiveAsync();
+
+        /// <summary>
+        /// Returns the ID of the currently logged in user`s active MealPlan
+        /// </summary>
+        /// <returns></returns>
+        Task<Guid> GetActiveIdAsync();
+
+        /// <summary>
+        /// Gets a single Meal Plan including its deleted recipes (if any) are returns it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>Includes deleted recipes as reference for the user.</remarks>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<MealPlan> GetUnfilteredByIdAsync(Guid id);
+
+        /// <summary>
+        /// Gets a single Meal Plan or throws an exception 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>Does not include deleted recipes</remarks>
+        /// <exception cref="RecordNotFoundException"></exception>
+        Task<MealPlan> GetByIdAsync(Guid id);
     }
 }

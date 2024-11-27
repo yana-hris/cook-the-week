@@ -4,7 +4,6 @@
 
     using Microsoft.Extensions.Logging;
 
-    using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Common.Extensions;
     using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
@@ -17,25 +16,23 @@
 
 
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
-    using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
+    using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
 
     public class MealPlanViewModelFactory : IMealPlanViewModelFactory
     {
-        private readonly IMealService mealService;
         private readonly IMealPlanService mealplanService;
+        private readonly IMealViewModelFactory mealFactory;
         private readonly ILogger<RecipeViewModelFactory> logger;
-        private readonly IRecipeService recipeService;
 
-        public MealPlanViewModelFactory(IRecipeService recipeService,
-                                      ILogger<RecipeViewModelFactory> logger,
-                                      IMealPlanService mealplanService,
-                                      IMealService mealService)
+        public MealPlanViewModelFactory(ILogger<RecipeViewModelFactory> logger,
+                                        IMealViewModelFactory mealFactory,
+                                      IMealPlanService mealplanService)
         {
             this.logger = logger;
+            this.mealFactory = mealFactory;
             this.mealplanService = mealplanService;
-            this.mealService = mealService;
-            this.recipeService = recipeService;
         }
 
         /// <inheritdoc/>
@@ -46,7 +43,7 @@
             // Ensure all fields are initiated and filled with correct data
             if (model.StartDate == default)
             {
-                model.StartDate = DateTime.Now;
+                model.StartDate = DateTime.UtcNow.Date;
             }
 
             if (model.Meals == null)
@@ -56,7 +53,7 @@
 
             foreach (var meal in serviceModel.Meals)
             {
-                MealFormModel currentMeal = await CreateMealAddFormModelAsync(meal);
+                MealFormModel currentMeal = await mealFactory.CreateMealAddFormModelAsync(meal);
                 model.Meals.Add(currentMeal);
             }
 
@@ -79,13 +76,15 @@
         /// <inheritdoc/>
         public async Task<MealPlanDetailsViewModel> CreateMealPlanDetailsViewModelAsync(Guid mealplanId)
         {
-            MealPlan mealPlan = await mealplanService.TryGetAsync(mealplanId);
+            MealPlan mealPlan = await mealplanService.GetUnfilteredByIdAsync(mealplanId);
 
             MealPlanDetailsViewModel model = new MealPlanDetailsViewModel()
             {
                 Id = mealPlan.Id.ToString(),
                 Name = mealPlan.Name,
                 OwnerId = mealPlan.OwnerId,
+                StartDate = mealPlan.StartDate.ToString(MealPlanDateFormat),
+                EndDate = mealPlan.StartDate.AddDays(6).ToString(MealPlanDateFormat),
                 IsFinished = mealPlan.IsFinished,
                 Meals = mealPlan.Meals
                     .OrderBy(mpm => mpm.CookDate)
@@ -95,6 +94,7 @@
                         RecipeId = mpm.RecipeId.ToString(),
                         Title = mpm.Recipe.Title,
                         Servings = mpm.ServingSize,
+                        CookingTime = FormatCookingTime(mpm.Recipe.TotalTime),
                         ImageUrl = mpm.Recipe.ImageUrl,
                         CategoryName = mpm.Recipe.Category.Name,
                         IsCooked = mpm.IsCooked,
@@ -144,10 +144,10 @@
         }
 
         /// <inheritdoc/>
-        public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id)
+        public async Task<TFormModel> CreateMealPlanFormModelAsync<TFormModel>(Guid id, ICollection<MealServiceModel>? newMeals = null)
             where TFormModel : IMealPlanFormModel, new()
         {
-            MealPlan mealplan = await mealplanService.TryGetAsync(id);
+            MealPlan mealplan = await mealplanService.GetUnfilteredByIdAsync(id);
 
             if (mealplan.Meals == null || mealplan.Meals.Count == 0)
             {
@@ -160,54 +160,45 @@
             }
             else if (typeof(TFormModel) == typeof(MealPlanEditFormModel))
             {
+                if (newMeals != null && newMeals.Count > 0)
+                {
+                    ICollection<MealFormModel> newMealsModel = new List<MealFormModel>();
+
+                    foreach (var newMeal in newMeals)
+                    {
+                        MealFormModel currentModel = await mealFactory.CreateMealAddFormModelAsync(newMeal);
+                        newMealsModel.Add(currentModel);
+                    }      
+
+                    return (TFormModel)(object)MapMealPlanToEditModel(mealplan, newMealsModel);
+                }
+
                 return (TFormModel)(object)MapMealPlanToEditModel(mealplan);
             }
 
             throw new InvalidOperationException("Unsupported form model type.");
         }
 
-        /// <inheritdoc/>
-        public async Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
+        public async Task<MealPlanActiveModalViewModel> GetActiveDetails()
         {
-            // Retrieve the recipe from database
-            if (Guid.TryParse(meal.RecipeId, out Guid guidMealId))
+            MealPlan mealplan = await mealplanService.GetActiveAsync(); // RecordNotFoundException
+
+            var model = new MealPlanActiveModalViewModel
             {
-                try
-                {
-                    Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
+                Id = mealplan.Id.ToString(),
+                Name = mealplan.Name,
+                StartDate = mealplan.StartDate.ToString(MealPlanDateFormat, CultureInfo.InvariantCulture),
+                EndDate = mealplan.StartDate.AddDays(6.00).ToString(MealPlanDateFormat, CultureInfo.InvariantCulture),
+                TotalServings = mealplan.Meals.Sum(mpm => mpm.ServingSize),
+                TotalMealsCount = mealplan.Meals.Count,
+                TotalMealsCooked = mealplan.Meals.Where(m => m.IsCooked).Count(),
+                TotalMealsUncooked = mealplan.Meals.Where(m => !m.IsCooked).Count(),
+                TotalIngredients = mealplan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
+                TotalCookingTimeMinutes = mealplan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes),
+                DaysRemaining = (mealplan.StartDate.AddDays(7.00) -  DateTime.UtcNow.Date).Days,
+            };
 
-                    MealFormModel model = new MealFormModel()
-                    {
-                        RecipeId = recipe.Id,
-                        Title = recipe.Title,
-                        Servings = recipe.Servings,
-                        ImageUrl = recipe.ImageUrl,
-                        CategoryName = recipe.Category.Name,
-                    };
-
-                    // Make sure all select menus are filled with data
-                    if (model.SelectDates == null || model.SelectDates.Count() == 0)
-                    {
-                        model.SelectDates = DateGenerator.GenerateNext7Days();
-                    }
-
-                    if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
-                    {
-                        model.SelectServingOptions = ServingsOptions;
-                    }
-                    model.Date = model.SelectDates!.First();
-
-                    return model;
-                }
-                catch (RecordNotFoundException)
-                {
-                    logger.LogError($"Invalid recipeId, old, inexisting or deleted recipe.");
-                    throw;
-                }
-            }
-
-            throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
-
+            return model;
         }
 
 
@@ -237,7 +228,8 @@
         /// </summary>
         /// <param name="mealplan"></param>
         /// <returns>T => An implementation of IMealPlanFormModel</returns>
-        private static T MapMealPlanToFormModel<T>(MealPlan mealplan) where T : IMealPlanFormModel, new()
+        private static T MapMealPlanToFormModel<T>(MealPlan mealplan, 
+            ICollection<MealFormModel>? addedMeals = null) where T : IMealPlanFormModel, new()
         {
             var model = new T()
             {
@@ -253,11 +245,18 @@
                     RecipeId = mpm.RecipeId,
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
+                    IsCooked = mpm.IsCooked,
                     ImageUrl = mpm.Recipe.ImageUrl,
                     CategoryName = mpm.Recipe.Category.Name,
                     Date = mpm.CookDate.ToString(MealDateFormat),
                     SelectServingOptions = ServingsOptions
                 }).ToList();
+
+                if (addedMeals != null && addedMeals.Count > 0)
+                {
+                    editModel.Meals = editModel.Meals.Concat(addedMeals).ToList();
+                }
+                
                 editModel.Meals.First().SelectDates = DateGenerator.GenerateNext7Days(model.StartDate);
                 return (T)(IMealPlanFormModel)editModel;
             }
@@ -284,9 +283,9 @@
         /// </summary>
         /// <param name="mealPlan"></param>
         /// <returns></returns>
-        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealPlan)
+        private static MealPlanEditFormModel MapMealPlanToEditModel(MealPlan mealPlan, ICollection<MealFormModel>? newMeals = null)
         {
-            var model = MapMealPlanToFormModel<MealPlanEditFormModel>(mealPlan);
+            var model = MapMealPlanToFormModel<MealPlanEditFormModel>(mealPlan, newMeals);
             model.Id = mealPlan.Id;
             return model;
         }
@@ -313,5 +312,7 @@
 
             return model;
         }
+
+        
     }
 }

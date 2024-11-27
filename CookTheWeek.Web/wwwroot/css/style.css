@@ -231,7 +231,7 @@ $main-dish-red: #B22222;*/
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
+.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
 .add-step-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
@@ -993,7 +993,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -1274,6 +1274,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -2007,7 +2008,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -2288,6 +2289,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -2510,15 +2512,12 @@ span.small.text-danger {
   margin-right: auto;
   margin-left: auto;
   padding: 2rem 2.4rem 3rem 2.4rem;
-  margin-top: -1rem;
-  margin-bottom: 2rem;
   max-width: 480px;
   overflow-y: auto;
   border: none;
-  border-radius: 2px;
+  border-radius: 8px;
   text-align: center;
   background-color: var(--bs-body-bg);
-  box-shadow: var(--container-box-shadow);
 }
 .form-container:hover {
   box-shadow: var(--container-box-shadow-hover);
@@ -2762,7 +2761,7 @@ $main-dish-red: #B22222;*/
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
+.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
 .add-step-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
@@ -3524,7 +3523,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -3805,6 +3804,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -3969,7 +3969,7 @@ span.small.text-danger {
   background-color: var(--bs-body-bg);
 }
 
-.btn-secondary, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
+.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-ingredient-btn,
 .add-step-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
@@ -3978,7 +3978,7 @@ span.small.text-danger {
   color: #2e6930;
   background-color: #B4E33D;
 }
-.btn-secondary:hover, .back-to-home-btn:hover, .login-modal-btn:hover, .add-ingredient-btn:hover,
+.btn-secondary:hover, .contact-btn:hover, .back-to-home-btn:hover, .login-modal-btn:hover, .add-ingredient-btn:hover,
 .add-step-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
@@ -4336,20 +4336,6 @@ span.small.text-danger {
   border: 2px solid #DA0505;
 }
 
-.nav-btn,
-.nav-dropdown-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn:hover {
-  color: #fff !important;
-  border-color: #212529 !important;
-  background-color: #2e6930 !important;
-  transition: background-color 0.3s ease;
-}
-
 .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
@@ -4365,6 +4351,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -4396,6 +4383,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -4424,6 +4412,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -4446,6 +4435,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -4477,6 +4467,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
+  border-radius: 8px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -4501,6 +4492,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -4517,12 +4509,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .join-now-btn,
@@ -4530,13 +4524,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -4546,51 +4541,56 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .user-recipes-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .change-password {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .back-to-home-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .profile-btn,
@@ -4598,13 +4598,28 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.contact-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  width: 50%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 #theme-container {
@@ -4805,13 +4820,14 @@ span.small.text-danger {
   text-align: center;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-radius: 8px;
   transition: all 0.3s;
 }
 #main-container .external-login-button:active {
   background-color: #d6d8db;
 }
 #main-container .external-login-button:hover {
-  border: 1px solid var(--bs-body-color);
+  border: 1px solid var(--accent-color) !important;
 }
 #main-container .external-login-button .external-login-icon {
   width: 20px;
@@ -4871,13 +4887,13 @@ $main-dish-red: #B22222;*/
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: darkred;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 .not-liked-icon:hover {
   color: red;
@@ -4886,7 +4902,7 @@ $main-dish-red: #B22222;*/
 .fa-bookmark {
   color: #F9C74F;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .finished {
@@ -4912,13 +4928,13 @@ $main-dish-red: #B22222;*/
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: darkred;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 .not-liked-icon:hover {
   color: red;
@@ -4927,7 +4943,7 @@ $main-dish-red: #B22222;*/
 .fa-bookmark {
   color: #F9C74F;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .finished {
@@ -5534,7 +5550,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -5815,6 +5831,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -6027,7 +6044,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn,
 #meal-cook-container .card .card-footer .buttons .add-step-btn,
 #add-recipe .card .card-footer .buttons .add-step-btn,
-#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn {
+#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -6050,7 +6067,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn:hover,
 #meal-cook-container .card .card-footer .buttons .add-step-btn:hover,
 #add-recipe .card .card-footer .buttons .add-step-btn:hover,
-#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover {
+#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -6078,6 +6095,7 @@ span.small.text-danger {
   border-radius: 12px;
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  background-color: var(--bs-body-bg);
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -6093,9 +6111,9 @@ span.small.text-danger {
   font-size: 26px;
 }
 .recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -8px;
-  left: 12px;
-  font-size: 40px;
+  top: -2px;
+  left: 10px;
+  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -6817,7 +6835,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -7098,6 +7116,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -7471,7 +7490,7 @@ $main-dish-red: #B22222;*/
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .add-ingredient-btn,
-.add-step-btn, .login-modal-btn, .back-to-home-btn {
+.add-step-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -8229,7 +8248,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -8510,6 +8529,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -8678,7 +8698,7 @@ span.small.text-danger {
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .add-ingredient-btn,
-.add-step-btn, .login-modal-btn, .back-to-home-btn {
+.add-step-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -8687,7 +8707,7 @@ span.small.text-danger {
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
 .browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .add-ingredient-btn:hover,
-.add-step-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover {
+.add-step-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -9041,20 +9061,6 @@ span.small.text-danger {
   border: 2px solid #DA0505;
 }
 
-.nav-btn,
-.nav-dropdown-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn:hover {
-  color: #fff !important;
-  border-color: #212529 !important;
-  background-color: #2e6930 !important;
-  transition: background-color 0.3s ease;
-}
-
 .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
@@ -9070,6 +9076,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -9101,6 +9108,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -9129,6 +9137,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -9151,6 +9160,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -9182,6 +9192,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
+  border-radius: 8px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -9206,6 +9217,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -9222,12 +9234,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .join-now-btn,
@@ -9235,13 +9249,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -9251,51 +9266,56 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .user-recipes-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .change-password {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .back-to-home-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .profile-btn,
@@ -9303,13 +9323,28 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.contact-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  width: 50%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 #theme-container {
@@ -9510,13 +9545,14 @@ span.small.text-danger {
   text-align: center;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-radius: 8px;
   transition: all 0.3s;
 }
 #main-container .external-login-button:active {
   background-color: #d6d8db;
 }
 #main-container .external-login-button:hover {
-  border: 1px solid var(--bs-body-color);
+  border: 1px solid var(--accent-color) !important;
 }
 #main-container .external-login-button .external-login-icon {
   width: 20px;
@@ -9580,14 +9616,12 @@ nav {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 nav #nav-container {
-  padding: 0 12px;
-  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 12px;
+  max-width: 100%;
   background-color: inherit;
-  /* State when the navbar is collapsed */
-  /* End of Nav Btn */
 }
 nav #nav-container .navbar-brand {
   display: flex;
@@ -9626,44 +9660,75 @@ nav #nav-container #navigation-buttons #nav-list {
   color: rgba(255, 255, 255, 0.65);
 }
 nav #nav-container #navigation-buttons #nav-list li.nav-item {
-  border: 1px solid var(--bs-dark-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  border: 1px solid #212529;
+  border-radius: 8px;
+}
+nav #nav-container #navigation-buttons #nav-list li.nav-item .nav-link {
+  padding: 6px 16px;
+  border: none !important;
+}
+nav #nav-container #navigation-buttons #nav-list li.nav-item .dropdown-item {
+  text-decoration: none;
+  color: var(--bs-body-color);
+}
+nav #nav-container #navigation-buttons #nav-list li.nav-item .dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: var(--bs-body-bg);
+  transition: all 0.3s ease;
+}
+nav #nav-container #navigation-buttons #nav-list li.nav-item .dropdown-divider {
+  color: var(--accent-color) !important;
+}
+nav #nav-container #navigation-buttons #nav-list li.nav-item:active {
+  background-color: #2e6930 !important;
+  transition: all 0.3s ease;
 }
 nav #nav-container #navigation-buttons #nav-list li.nav-item:hover {
+  color: #B4E33D;
+  border: 1px solid #2e6930;
+  transition: all 0.3s ease;
+}
+nav #nav-container #navigation-buttons #nav-list li.user-btn {
   border: 1px solid #B4E33D !important;
+}
+nav #nav-container #navigation-buttons #nav-list li.user-btn .icon-btn {
+  display: block;
+  text-align: center;
+}
+nav #nav-container #navigation-buttons #nav-list li.user-btn .icon-btn i.fa {
+  line-height: inherit;
+  font-size: inherit;
+  color: #B4E33D;
+}
+nav #nav-container #navigation-buttons #nav-list li.user-btn:hover {
+  background-color: #B4E33D !important;
+}
+nav #nav-container #navigation-buttons #nav-list li.user-btn:hover i.fa {
+  color: #2e6930 !important;
 }
 nav #nav-container #navigation-buttons #nav-list .nav-item.drop-down {
   display: block !important;
 }
-nav #nav-container #navigation-buttons li.nav-item {
-  padding-top: 0;
-  border: 1px solid #212529;
-}
-nav #nav-container #navigation-buttons li.nav-item .nav-link, nav #nav-container #navigation-buttons li.nav-item .nav-item {
-  padding: 6px 16px;
-}
-nav #nav-container #navigation-buttons li.nav-item .drop-down-item {
-  text-decoration: none;
-  color: #fff;
-}
-nav #nav-container #navigation-buttons li.nav-item .drop-down-item:hover {
-  color: #B4E33D;
-}
-nav #nav-container #navigation-buttons li.nav-item:active {
-  background-color: #2e6930 !important;
-}
-nav #nav-container #navigation-buttons li.nav-item:hover {
-  border: 1px solid #2e6930;
-}
-nav #nav-container #navigation-buttons #nav-list {
-  gap: 16px;
-}
 nav #nav-container #navigation-buttons.show {
-  opacity: 0.96 !important;
+  opacity: 0.97 !important;
   background-color: #212529 !important;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 nav #nav-container #navigation-buttons.show li.nav-item {
   border-color: transparent !important;
+  border-radius: 2px;
+}
+nav #nav-container #navigation-buttons.show li.nav-item:hover {
+  background-color: #2D3339 !important;
+}
+nav #nav-container #navigation-buttons.show li.nav-item:hover .nav-link:not(.user-btn) {
+  color: #B4E33D !important;
 }
 nav #nav-container .navbar-toggler {
   width: 24px;
@@ -9723,6 +9788,18 @@ nav #nav-container .collapsed .middle-bar {
 nav #nav-container .collapsed .bottom-bar {
   margin-top: 19px;
   transform: rotate(0deg);
+}
+nav #nav-container #navigation-buttons.show {
+  opacity: 0.96 !important;
+  background-color: #212529 !important;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+nav #nav-container #navigation-buttons.show li.nav-item {
+  border-color: transparent !important;
+  border-radius: 2px;
+}
+nav #nav-container #navigation-buttons.show li.nav-item:hover {
+  background-color: #2e6930;
 }
 
 @media (min-width: 768px) {
@@ -9790,9 +9867,9 @@ nav #nav-container .collapsed .bottom-bar {
     max-height: 63px;
   }
   nav #nav-container #navigation-buttons {
-    margin: 0;
-    padding-right: 0px;
     position: relative !important;
+    padding-right: 0px;
+    margin: 0;
     background-color: #212529 !important;
     opacity: 1;
   }
@@ -9804,15 +9881,11 @@ nav #nav-container .collapsed .bottom-bar {
     display: flex !important;
   }
   nav #nav-container #navigation-buttons #nav-list li.nav-item {
-    padding-top: 0;
     border: 1px solid #212529;
-  }
-  nav #nav-container #navigation-buttons #nav-list li.nav-item .nav-link, nav #nav-container #navigation-buttons #nav-list li.nav-item .nav-item {
-    padding: 6px 16px;
   }
   nav #nav-container #navigation-buttons #nav-list li.nav-item .drop-down-item {
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
   }
   nav #nav-container #navigation-buttons #nav-list li.nav-item .drop-down-item:hover {
     color: #B4E33D;
@@ -10378,13 +10451,13 @@ $main-dish-red: #B22222;*/
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: darkred;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 .not-liked-icon:hover {
   color: red;
@@ -10393,7 +10466,7 @@ $main-dish-red: #B22222;*/
 .fa-bookmark {
   color: #F9C74F;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .finished {
@@ -11000,7 +11073,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -11281,6 +11354,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -11493,7 +11567,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn,
 #meal-cook-container .card .card-footer .buttons .add-step-btn,
 #add-recipe .card .card-footer .buttons .add-step-btn,
-#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn {
+#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -11516,7 +11590,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn:hover,
 #meal-cook-container .card .card-footer .buttons .add-step-btn:hover,
 #add-recipe .card .card-footer .buttons .add-step-btn:hover,
-#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover {
+#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -11544,6 +11618,7 @@ span.small.text-danger {
   border-radius: 12px;
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  background-color: var(--bs-body-bg);
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -11559,9 +11634,9 @@ span.small.text-danger {
   font-size: 26px;
 }
 .recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -8px;
-  left: 12px;
-  font-size: 40px;
+  top: -2px;
+  left: 10px;
+  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -12279,7 +12354,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -12560,6 +12635,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -13336,7 +13412,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -13617,6 +13693,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -13761,7 +13838,7 @@ span.small.text-danger {
   padding-top: 0.9rem;
   margin: 1.5rem 0;
   background: var(--background-gradient);
-  border-radius: 2px;
+  border-radius: 8px;
   border-color: 1px solid rgb(213.2, 225, 213.6);
 }
 .wide-contents-container .filter-container span.input-group-text {
@@ -13771,16 +13848,21 @@ span.small.text-danger {
   font-size: 1.1rem !important;
   color: var(--bs-body-bg) !important;
   background-color: transparent !important;
-  border-color: transparent !important;
+  border: none;
+  transition: all 0.3s;
 }
 .wide-contents-container .filter-container span.input-group-text:first-child {
   padding-left: 0;
 }
 .wide-contents-container .filter-container input, .wide-contents-container .filter-container textarea, .wide-contents-container .filter-container select {
-  border-color: rgb(87.8, 135, 89.4) !important;
-  background-color: var(--bs-body-bg) !important;
-  border-top-left-radius: 2px !important;
-  border-bottom-left-radius: 2px !important;
+  border-color: none !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  color: #333;
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
+.wide-contents-container .filter-container select {
+  border-radius: 8px !important;
 }
 .wide-contents-container .recipe-container {
   display: flex;
@@ -14412,7 +14494,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -14693,6 +14775,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -15515,7 +15598,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -16127,7 +16210,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -16408,6 +16491,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -16921,13 +17005,13 @@ $main-dish-red: #B22222;*/
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: darkred;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 .not-liked-icon:hover {
   color: red;
@@ -16936,7 +17020,7 @@ $main-dish-red: #B22222;*/
 .fa-bookmark {
   color: #F9C74F;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .finished {
@@ -17187,7 +17271,7 @@ $main-dish-red: #B22222;*/
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .add-ingredient-btn,
-.add-step-btn, .login-modal-btn, .back-to-home-btn {
+.add-step-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -17945,7 +18029,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -18226,6 +18310,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -18394,7 +18479,7 @@ span.small.text-danger {
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .add-ingredient-btn,
-.add-step-btn, .login-modal-btn, .back-to-home-btn {
+.add-step-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -18403,7 +18488,7 @@ span.small.text-danger {
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
 .browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .add-ingredient-btn:hover,
-.add-step-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover {
+.add-step-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -18757,20 +18842,6 @@ span.small.text-danger {
   border: 2px solid #DA0505;
 }
 
-.nav-btn,
-.nav-dropdown-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn:hover {
-  color: #fff !important;
-  border-color: #212529 !important;
-  background-color: #2e6930 !important;
-  transition: background-color 0.3s ease;
-}
-
 .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
@@ -18786,6 +18857,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -18817,6 +18889,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -18845,6 +18918,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -18867,6 +18941,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
+  border-radius: 8px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -18898,6 +18973,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
+  border-radius: 8px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -18922,6 +18998,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
+  border-radius: 8px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -18938,12 +19015,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .join-now-btn,
@@ -18951,13 +19030,14 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -18967,51 +19047,56 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
+  display: block;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 .user-recipes-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .change-password {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .back-to-home-btn {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .profile-btn,
@@ -19019,13 +19104,28 @@ span.small.text-danger {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  width: 100%;
   display: block;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.contact-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  width: 50%;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 8px;
 }
 
 #theme-container {
@@ -19226,13 +19326,14 @@ span.small.text-danger {
   text-align: center;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-radius: 8px;
   transition: all 0.3s;
 }
 #main-container .external-login-button:active {
   background-color: #d6d8db;
 }
 #main-container .external-login-button:hover {
-  border: 1px solid var(--bs-body-color);
+  border: 1px solid var(--accent-color) !important;
 }
 #main-container .external-login-button .external-login-icon {
   width: 20px;
@@ -19877,7 +19978,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -20158,6 +20259,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -20306,13 +20408,13 @@ $main-dish-red: #B22222;*/
 .liked-icon {
   color: red;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: darkred;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .not-liked-icon {
   color: lightgray;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 .not-liked-icon:hover {
   color: red;
@@ -20321,7 +20423,7 @@ $main-dish-red: #B22222;*/
 .fa-bookmark {
   color: #F9C74F;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2E6930;
+  -webkit-text-stroke-color: #5A5A5A;
 }
 
 .finished {
@@ -20928,7 +21030,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -21209,6 +21311,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -21421,7 +21524,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn,
 #meal-cook-container .card .card-footer .buttons .add-step-btn,
 #add-recipe .card .card-footer .buttons .add-step-btn,
-#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn {
+#edit-recipe .card .card-footer .buttons .add-step-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -21444,7 +21547,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .add-step-btn:hover,
 #meal-cook-container .card .card-footer .buttons .add-step-btn:hover,
 #add-recipe .card .card-footer .buttons .add-step-btn:hover,
-#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover {
+#edit-recipe .card .card-footer .buttons .add-step-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -21472,6 +21575,7 @@ span.small.text-danger {
   border-radius: 12px;
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  background-color: var(--bs-body-bg);
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -21487,9 +21591,9 @@ span.small.text-danger {
   font-size: 26px;
 }
 .recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -8px;
-  left: 12px;
-  font-size: 40px;
+  top: -2px;
+  left: 10px;
+  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -22938,7 +23042,7 @@ $main-dish-red: #B22222;*/
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 12px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -23219,6 +23323,7 @@ html {
   overflow-y: auto; /* Enable scrolling for overflowing content */
   overflow-x: hidden;
   z-index: 1;
+  min-height: 100vh;
 }
 
 footer {
@@ -23375,8 +23480,12 @@ span.small.text-danger {
   font-weight: bold;
 }
 
-#user-login .external-container {
-  margin-bottom: 2rem;
+#user-login, #user-register {
+  margin-bottom: 5rem;
+}
+#user-login .account-message, #user-register .account-message {
+  margin-top: 0.2rem;
+  line-height: 1;
 }
 
 @media (max-width: 767px) {
@@ -26480,7 +26589,7 @@ textarea.form-control-lg {
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .add-ingredient-btn,
-.add-step-btn, .login-modal-btn, .back-to-home-btn {
+.add-step-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;

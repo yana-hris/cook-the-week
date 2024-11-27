@@ -28,6 +28,8 @@
         /// <returns>UserProfileViewModel</returns>
         /// <exception cref="RecordNotFoundException"></remarks>
         Task<UserProfileViewModel> GetUserProfileDetailsAsync();
+
+      
         Task<IdentityResult> ChangePasswordAsync(ChangePasswordFormModel model);
         Task<IdentityResult> SetPasswordAsync(SetPasswordFormModel model);
         
@@ -145,5 +147,12 @@
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         Task SendPasswordResetEmailAsync(string email, string? callbackUrl);
+
+        /// <summary>
+        /// Sets the User Claim for Active Mealplan to true or false
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        Task UpdateMealPlanClaimAsync(Guid userId, bool hasActiveMealplan);
     }
 }

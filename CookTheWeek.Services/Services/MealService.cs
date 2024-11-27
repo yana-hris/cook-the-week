@@ -33,7 +33,7 @@
 
 
         /// <inheritdoc/>
-        public ICollection<Meal> CreateMealsAsync(ICollection<MealFormModel> model)
+        public ICollection<Meal> CreateOrUdateMealsAsync(ICollection<MealFormModel> model)
         {
             ICollection<Meal> meals = new List<Meal>();
 
@@ -43,6 +43,7 @@
                 {
                     RecipeId = modelMeal.RecipeId,
                     ServingSize = modelMeal.Servings,
+                    IsCooked = modelMeal.IsCooked ?? false,
                     CookDate = DateTime.ParseExact(modelMeal.Date, MealDateFormat, CultureInfo.InvariantCulture),
                 };
 

@@ -10,7 +10,7 @@
         /// </summary>
         /// <returns>AllRecipesFilteredAndPagedViewModel</returns>
         /// <remarks>May throw RecordNotFoundException in case of an empty result collection</remarks>
-        Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel);
+        Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn);
 
         /// <summary>
         /// Generates a form model for adding a new recipe with populated categories and ingredient options.

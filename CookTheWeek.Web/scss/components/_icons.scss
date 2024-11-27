@@ -4,13 +4,13 @@
 .liked-icon {
     color: red;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: darkred;
+    -webkit-text-stroke-color: $icon-stroke-color;
 }
 
 .not-liked-icon {
     color: lightgray;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: $green-stroke-color; 
+    -webkit-text-stroke-color: $icon-stroke-color;
 
     &:hover {
         color: red;
@@ -21,7 +21,7 @@
 .fa-bookmark {
     color: $yellow;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: $yellow-stroke-color;
+    -webkit-text-stroke-color: $icon-stroke-color;
 }
 
 .finished {

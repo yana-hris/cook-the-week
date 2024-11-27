@@ -5,5 +5,6 @@
     {
         public Guid UserId { get; set; } = Guid.Empty;
         public bool IsAdmin { get; set; } = false;
+        public bool HasActiveMealplan { get; set; } = false;
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CookTheWeek.Web.ViewModels.MealPlan;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
 
     public class AllRecipesFilteredAndPagedViewModel
@@ -9,6 +10,7 @@
         public AllRecipesFilteredAndPagedViewModel()
         {
             this.Recipes = new HashSet<RecipeAllViewModel>();
+            this.ActiveMealPlan = new MealPlanActiveModalViewModel();
         }
 
         [Display(Name = "Search for..")]
@@ -29,6 +31,7 @@
 
         public IDictionary<int, string> RecipeSortings { get; set; } = null!;
         public ICollection<string> Categories { get; set; } = null!;
+        public MealPlanActiveModalViewModel ActiveMealPlan { get; set; }
     }
 
     

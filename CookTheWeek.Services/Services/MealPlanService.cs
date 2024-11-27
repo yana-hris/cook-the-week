@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Hangfire;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
@@ -24,18 +25,21 @@
 
         private readonly IMealService mealService;
         private readonly IMealPlanValidationService mealplanValidator;
+        private readonly IUserService userService;
         private readonly ILogger<MealPlanService> logger;
         private readonly Guid userId;
 
         public MealPlanService(IMealService mealService,
             IMealplanRepository mealplanRepository,
             IMealPlanValidationService mealplanValidator,
+            IUserService userService,
             IUserContext userContext,
             ILogger<MealPlanService> logger)
         {
             this.mealplanRepository = mealplanRepository;
             this.mealplanValidator = mealplanValidator;
             this.mealService = mealService;
+            this.userService = userService;
             this.userId = userContext.UserId;
             this.logger = logger;
         }
@@ -103,14 +107,22 @@
                 throw new InvalidOperationException(InvalidOperationExceptionMessages.MealplanUnsuccessfullyAddedExceptionMessage);
             }
 
+            await userService.UpdateMealPlanClaimAsync(userId, true); // Update the user claims with the newly created mealplan
+
+            // Schedule expiration 7 days from the start date using Hangfire
+            BackgroundJob.Schedule<IMealPlanService>(
+                service => service.ExpireMealPlanAsync(newMealPlan.Id, userId),
+                newMealPlan.StartDate.AddDays(7) - DateTime.UtcNow);
+
             return OperationResult<string>.Success(id);
 
         }
 
+        
         /// <inheritdoc/>
         public async Task<OperationResult> TryEditMealPlanAsync(MealPlanEditFormModel model)
         {
-            MealPlan mealplan = await TryGetAsync(model.Id); // RecordNotFound, UnauthorizedException
+            MealPlan mealplan = await GetByIdAsync(model.Id); // RecordNotFound, UnauthorizedException
 
             var result = await mealplanValidator.ValidateMealPlanFormModelAsync(model);
 
@@ -149,8 +161,6 @@
                 .Where(mp => mp.OwnerId == userId)
                 .CountAsync();
         }
-       
-        
 
         /// <inheritdoc/>
         public async Task<int?> AllActiveCountAsync()
@@ -163,45 +173,106 @@
         /// <inheritdoc/>
         public async Task TryDeleteByIdAsync(Guid id)
         {
-            MealPlan mealplanToDelete = await TryGetAsync(id); // RecordNotFound, UnauthorizedUser
+            MealPlan mealplanToDelete = await GetByIdAsync(id); // RecordNotFound, UnauthorizedUser
             await mealplanRepository.RemoveAsync(mealplanToDelete);
+            await userService.UpdateMealPlanClaimAsync(userId, false);
+        }
+        
+        /// <inheritdoc/>
+        public async Task UpdateMealPlansStatusAsync(CancellationToken cancellationToken)
+        {
+            var mealPlans = await mealplanRepository
+                .GetAllQuery()
+                    .Include(mp => mp.Meals)
+                .Where(mp => !mp.IsFinished)
+                .ToListAsync(cancellationToken);
+
+            // Iterate through the meal plans and update their status.
+            foreach (var mealPlan in mealPlans)
+            {
+                // Check if the cancellation token has been requested
+                cancellationToken.ThrowIfCancellationRequested();
+
+                // Calculate expiration date (7 full days from StartDate)
+                var expirationDate = mealPlan.StartDate.AddDays(7).Date;
+
+                // Expire the meal plan if today is the 8th day (UTC)
+                if (DateTime.UtcNow.Date >= expirationDate)
+                {
+                    mealPlan.IsFinished = true;
+                }
+            }
+
+            await mealplanRepository.SaveAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
-        public async Task<MealPlan> TryGetAsync(Guid id)
+        public async Task ExpireMealPlanAsync(Guid id, Guid userId)
         {
+            var mealplan = await mealplanRepository
+                .GetByIdQuery(id)
+                .FirstOrDefaultAsync();
+
+            // Ensure the meal plan exists and has reached its expiration date
+            if (mealplan != null && DateTime.UtcNow.Date >= mealplan.StartDate.AddDays(7).Date)
+            {
+                mealplan.IsFinished = true;
+                await mealplanRepository.SaveAsync(CancellationToken.None);
+
+                // Update the user's meal plan claim to reflect the expired status
+                await userService.UpdateMealPlanClaimAsync(userId, false);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<MealPlan> GetActiveAsync()
+        {
+            var id = await GetActiveIdAsync();
+
+            if (id == default)
+            {
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
+
             MealPlan mealplan = await GetByIdAsync(id);
+            return mealplan;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid> GetActiveIdAsync()
+        {
+            return await mealplanRepository.GetAllQuery()
+                .Where(mp => mp.OwnerId == userId && !mp.IsFinished)
+                .Select(mp => mp.Id)
+                .FirstOrDefaultAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<MealPlan> GetByIdAsync(Guid id)
+        {
+            MealPlan? mealplan = await mealplanRepository.GetByIdQuery(id)
+                .Include(mp => mp.Meals)
+                    .ThenInclude(m => m.Recipe)
+                        .ThenInclude(r => r.RecipesIngredients)
+                            .ThenInclude(ri => ri.Ingredient)
+                .Include(mp => mp.Meals)
+                    .ThenInclude(m => m.Recipe)
+                        .ThenInclude(r => r.Category)
+                .FirstOrDefaultAsync();
+
+            if (mealplan == null)
+            {
+                logger.LogError($"Meal plan with id {id} not found.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
+            }
 
             mealplanValidator.ValidateUserIsMealPlanOwner(mealplan.OwnerId);
 
             return mealplan;
         }
-        
-        // HELPER METHODS:
-        
-        /// <summary>
-        /// Utility method to update the mealplan according to the edit model
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="mealplan"></param>
-        /// <returns></returns>
-        private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
-        {
-            mealplan.Name = model.Name;
-            mealplan.Meals = mealService.CreateMealsAsync(model.Meals);
 
-            await mealplanRepository.SaveAsync(CancellationToken.None);
-        }
-
-
-        /// <summary>
-        /// Gets a single Meal Plan or throws an exception 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <remarks>Includes deleted recipes as reference for the user. Deleted recipe data will be shown as placeholder data</remarks>
-        /// <exception cref="RecordNotFoundException"></exception>
-        private async Task<MealPlan> GetByIdAsync(Guid id)
+        /// <inheritdoc/>
+        public async Task<MealPlan> GetUnfilteredByIdAsync(Guid id)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdQuery(id)
                 .IgnoreQueryFilters()  // Apply to the entire query, ignoring all global filters
@@ -220,40 +291,28 @@
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.MealplanNotFoundExceptionMessage, null);
             }
 
+            mealplanValidator.ValidateUserIsMealPlanOwner(mealplan.OwnerId);
+
             return mealplan;
         }
 
-       
-        /// <inheritdoc/>
-        public async Task UpdateMealPlansStatusAsync(CancellationToken cancellationToken)
+        // HELPER METHODS:
+
+        /// <summary>
+        /// Utility method to update the mealplan according to the edit model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="mealplan"></param>
+        /// <returns></returns>
+        private async Task UpdateMealPlanAsync(MealPlanEditFormModel model, MealPlan mealplan)
         {
-            // Step 1: Retrieve active meal 
-            var mealPlans = await mealplanRepository
-                .GetAllQuery()
-                    .Include(mp => mp.Meals)
-                .Where(mp => !mp.IsFinished)
-                .ToListAsync(cancellationToken);
+            mealplan.Name = model.Name;
+            mealplan.Meals = mealService.CreateOrUdateMealsAsync(model.Meals);
 
-            // Step 2: Iterate through the meal plans and update their status.
-            foreach (var mealPlan in mealPlans)
-            {
-                // Step 3: Check if the cancellation token has been requested
-                cancellationToken.ThrowIfCancellationRequested();
-
-                // Mark the meal plan as finished if older than 6 days
-                if (mealPlan.StartDate.AddDays(6) < DateTime.Today)
-                {
-                    mealPlan.IsFinished = true;
-
-                    // Mark all meals in the meal plan as cooked.
-                    foreach (var meal in mealPlan.Meals)
-                    {
-                        meal.IsCooked = true;
-                    }
-                }
-            }
-
-            await mealplanRepository.SaveAsync(cancellationToken);
+            await mealplanRepository.SaveAsync(CancellationToken.None);
         }
+
+
+       
     }
 }

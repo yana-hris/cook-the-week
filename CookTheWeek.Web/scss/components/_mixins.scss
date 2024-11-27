@@ -24,6 +24,7 @@
     padding: 0.2rem 1rem;
     font-size: $font-size;
     width: $width;
+    border-radius: $border-radius-small;
 
      i {
          vertical-align: middle;
@@ -39,23 +40,26 @@
 
 @mixin button-lg-style($width: 100%) {
     @include button-base();
-    width: $width;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 1.4rem;
+    display: block;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    width: $width;
+    font-size: 1.4rem;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: $border-radius-small;
 }
 
 @mixin button-sm-style($width: 100%) {
     @include button-base();
-    width: $width;
     display: block;
-    text-align: center;
-    text-transform: capitalize;
-    font-size: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    width: $width;
+    text-transform: capitalize;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: $medium-border-radius;
 }
 
 @mixin icon-button($main-color, $icon-color: #fff, $border-width: 1px, $hover-effect: true) {

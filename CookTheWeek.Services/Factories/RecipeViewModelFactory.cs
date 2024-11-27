@@ -6,8 +6,9 @@
 
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Models.Recipe;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
@@ -25,15 +26,16 @@
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
-        private readonly IFavouriteRecipeService favouriteRecipeService;
+        private readonly IMealPlanViewModelFactory mealplanFactory;
         private readonly ICategoryService<RecipeCategory, 
             RecipeCategoryAddFormModel, 
             RecipeCategoryEditFormModel, 
             RecipeCategorySelectViewModel> categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
-        private readonly IMealService mealService;
         private readonly IIngredientAggregatorHelper ingredientHelper;
         private readonly ILogger<RecipeViewModelFactory> logger;    
+        private readonly bool hasActiveMealPlan;
+        private readonly Guid userId;
 
         public RecipeViewModelFactory(IRecipeService recipeService,
                                       ICategoryService<RecipeCategory, 
@@ -41,22 +43,24 @@
                                           RecipeCategoryEditFormModel, 
                                           RecipeCategorySelectViewModel> categoryService,
                                       IRecipeIngredientService recipeIngredientService,
-                                      IFavouriteRecipeService favouriteRecipeService,
                                       ILogger<RecipeViewModelFactory> logger,
-                                      IIngredientAggregatorHelper ingredientHelper,
-                                      IMealService mealService)
+                                      IMealPlanViewModelFactory mealplanFactory,
+                                      IUserContext userContext,
+                                      IIngredientAggregatorHelper ingredientHelper)
         {
             this.recipeService = recipeService;
-            this.favouriteRecipeService = favouriteRecipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
             this.logger = logger;
-            this.mealService = mealService;
+            this.mealplanFactory = mealplanFactory;
             this.ingredientHelper = ingredientHelper;
+            this.hasActiveMealPlan = userContext.HasActiveMealplan;
+            this.userId = userContext.UserId;
+
         }
 
         /// <inheritdoc/>
-        public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel)
+        public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn)
         {
             
             var allRecipes = await recipeService.GetAllAsync(queryModel);
@@ -74,6 +78,17 @@
                 Categories = categories,
                 RecipeSortings = GetEnumValuesDictionary<RecipeSorting>()
             };
+
+            if (hasActiveMealPlan)
+            {
+                viewModel.ActiveMealPlan = await mealplanFactory.GetActiveDetails();
+            }
+
+            if (justLoggedIn)
+            {
+                viewModel.ActiveMealPlan.JustLoggedIn = true;
+                viewModel.ActiveMealPlan.UserId = userId;
+            }            
 
             return viewModel;
         }
@@ -128,7 +143,8 @@
         /// <inheritdoc/>
         public async Task<RecipeDetailsViewModel> CreateRecipeDetailsViewModelAsync(Guid recipeId)
         {
-            Recipe recipe = await recipeService.GetForDetailsByIdAsync(recipeId);
+            var serviceModel = await recipeService.GetForDetailsByIdAsync(recipeId);
+            Recipe recipe = serviceModel.Recipe;
 
             RecipeDetailsViewModel model = new RecipeDetailsViewModel()
             {
@@ -147,6 +163,9 @@
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
                 CreatedBy = recipe.Owner.UserName!,
                 CategoryName = recipe.Category.Name,
+                LikesCount = serviceModel.LikesCount,
+                CookedCount = serviceModel.CookedCount,
+                IsLikedByUser = serviceModel.IsLikedByUser,
             };
 
             decimal servingSizeMultiplier = ingredientHelper
@@ -159,21 +178,20 @@
 
             model.RecipeIngredientsByCategories = ingredientsByCategories;
 
+            //model.IsLikedByUser = await SafeExecuteAsync(
+            //async () => (await this.favouriteRecipeService.GetRecipeLikeIfExistsAsync(recipeId) != null),
+            //DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
+            //);
 
-            model.IsLikedByUser = await SafeExecuteAsync(
-            async () => (await this.favouriteRecipeService.GetRecipeLikeIfExistsAsync(recipeId) != null),
-            DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
-            );
+            //model.LikesCount = await SafeExecuteAsync(
+            //    async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
+            //    DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
+            //    );
 
-            model.LikesCount = await SafeExecuteAsync(
-                async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
-                DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
-                );
-
-            model.CookedCount = await SafeExecuteAsync(
-                async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
-                DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
-                );
+            //model.CookedCount = await SafeExecuteAsync(
+            //    async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
+            //    DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
+            //    );
 
             return model;
            
@@ -182,22 +200,21 @@
         /// <inheritdoc/>
         public async Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync()
         {
+            RecipeAllMineServiceModel serviceModel = await recipeService.GetAllMineAsync();
+
             RecipeMineViewModel model = new RecipeMineViewModel()
             {
                 FavouriteRecipes = new HashSet<RecipeAllViewModel>(),
-                OwnedRecipes = new HashSet<RecipeAllViewModel>(),
+                OwnedRecipes = new HashSet<RecipeAllViewModel>()
             };
-
-            var allLikedByUserIds = await favouriteRecipeService.GetAllRecipeIdsLikedByCurrentUserAsync();
-            var allAddedByUserIds = await recipeService.GetAllRecipeIdsAddedByCurrentUserAsync();
-
-            if (allLikedByUserIds.Count ==  0 || allAddedByUserIds.Count == 0)
+           
+            if (serviceModel.LikedRecipeIds.Count ==  0 || serviceModel.AddedRecipeIds.Count == 0)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
 
-            var likedCollection = await recipeService.GetAllByIds(allLikedByUserIds);
-            var addedCollection = await recipeService.GetAllByIds(allAddedByUserIds);
+            var likedCollection = await recipeService.GetAllByIds(serviceModel.LikedRecipeIds);
+            var addedCollection = await recipeService.GetAllByIds(serviceModel.AddedRecipeIds);
 
             model.FavouriteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(likedCollection);
             model.OwnedRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(addedCollection);
@@ -253,29 +270,7 @@
         }
 
         // HELPER METHODS:
-
-        /// <summary>
-        /// A helper method to log errors upon asyncronous data retrieval from the database and throw exceptions if needed
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="action">the asynchronous function for data retrieval</param>
-        /// <param name="errorMessage">The message to log and pass in case of DataRetrievalException</param>
-        /// <returns></returns>
-        /// <exception cref="DataRetrievalException"></exception>
-        private async Task<T> SafeExecuteAsync<T>(Func<Task<T>> action, string errorMessage)
-        {
-            try
-            {
-                return await action();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"{errorMessage} Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                throw new DataRetrievalException(errorMessage, ex);
-            }
-        }
-
-       
+        
         /// <summary>
         /// A helper method that maps a Recipe collection to a RecipeAllViewModel collection
         /// </summary>

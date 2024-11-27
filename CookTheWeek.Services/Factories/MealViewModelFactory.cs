@@ -2,14 +2,19 @@
 {
     using Microsoft.Extensions.Logging;
 
+    using CookTheWeek.Common.Exceptions;
+    using CookTheWeek.Common.HelperMethods;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Services.Data.Models.MealPlan;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.Step;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
 
     public class MealViewModelFactory : IMealViewModelFactory
     {
@@ -29,9 +34,52 @@
             this.ingredientHelper = ingredientHelper;
         }
 
+        /// <inheritdoc/>
+        public async Task<MealFormModel> CreateMealAddFormModelAsync(MealServiceModel meal)
+        {
+            // Retrieve the recipe from database
+            if (Guid.TryParse(meal.RecipeId, out Guid guidMealId))
+            {
+                try
+                {
+                    Recipe recipe = await recipeService.GetForMealByIdAsync(guidMealId);
+
+                    MealFormModel model = new MealFormModel()
+                    {
+                        RecipeId = recipe.Id,
+                        Title = recipe.Title,
+                        Servings = recipe.Servings,
+                        ImageUrl = recipe.ImageUrl,
+                        CategoryName = recipe.Category.Name
+                    };
+
+                    // Make sure all select menus are filled with data
+                    if (model.SelectDates == null || model.SelectDates.Count() == 0)
+                    {
+                        model.SelectDates = DateGenerator.GenerateNext7Days();
+                    }
+
+                    if (model.SelectServingOptions == null || model.SelectServingOptions.Count() == 0)
+                    {
+                        model.SelectServingOptions = ServingsOptions;
+                    }
+                    model.Date = model.SelectDates!.First();
+
+                    return model;
+                }
+                catch (RecordNotFoundException)
+                {
+                    logger.LogError($"Invalid recipeId, old, inexisting or deleted recipe.");
+                    throw;
+                }
+            }
+
+            throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+
+        }
 
         /// <inheritdoc/>
-        public async Task<MealDetailsViewModel> CreateMealDetailsViewModelAsync(int mealId)
+        public async Task<MealDetailsViewModel> CreateMealDetailsViewModelAsync(int mealId, bool isMealPlanFinished)
         {
             Meal meal = await mealService.GetByIdAsync(mealId);
 
@@ -48,6 +96,7 @@
                 Title = meal.Recipe.Title,
                 ImageUrl = meal.Recipe.ImageUrl,
                 Description = meal.Recipe.Description,
+                IsMealPlanFinished = isMealPlanFinished,
                 CookingTime = FormatCookingTime(meal.Recipe.TotalTime),
                 CookingDate = meal.CookDate.ToString(MealDateFormat),
                 CategoryName = meal.Recipe.Category.Name,

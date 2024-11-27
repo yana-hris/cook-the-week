@@ -12,7 +12,7 @@
         {
             builder
                 .Property(mp => mp.StartDate)
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("GETUTCDATE()");
 
             builder
                 .Property(mp => mp.IsFinished)

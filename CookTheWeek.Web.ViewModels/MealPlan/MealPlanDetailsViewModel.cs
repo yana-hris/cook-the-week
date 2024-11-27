@@ -13,6 +13,10 @@
         public string Name { get; set; } = null!;
         public Guid OwnerId { get; set; }
 
+        public string StartDate { get; set; } = null!;
+
+        public string EndDate { get; set; } = null!;
+
         public bool IsFinished { get; set; }
 
         public IList<MealViewModel> Meals { get; set; }

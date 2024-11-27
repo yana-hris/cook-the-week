@@ -26,9 +26,6 @@
         private readonly IUserRepository userRepository; 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-
-        private readonly IRecipeService recipeService;
-        private readonly IMealPlanService mealPlanService;
         private readonly IValidationService validationService;        
 
         private readonly IEmailSender emailSender;
@@ -39,17 +36,13 @@
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUserContext userContext,
-            IRecipeService recipeService,
             IValidationService validationService,
             IEmailSender emailSender,
-            IMealPlanService mealPlanService,
             ILogger<UserService> logger)
         {
             
             this.userRepository = userRepository;
-
-            this.recipeService = recipeService;
-            this.mealPlanService = mealPlanService;
+            
             this.validationService = validationService;
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -181,16 +174,13 @@
                 {
                     Id = u.Id.ToString(),
                     Username = u.UserName,
-                    Email = u.Email
+                    Email = u.Email,
+                    TotalRecipes = u.Recipes.Count(),
+                    TotalMealPlans = u.MealPlans.Count()
 
                 }).ToListAsync();
 
-            foreach (var user in users)
-            {
-                user.TotalRecipes = await recipeService.GetMineCountAsync();
-                user.TotalMealPlans = await mealPlanService.MineCountAsync();
-            }
-
+            
             return users;
         }
         
@@ -668,8 +658,35 @@
             }
         }
 
+        /// <inheritdoc/>
+        public async Task UpdateMealPlanClaimAsync(Guid userId, bool newClaimValue)
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+
+            if (user != null)
+            {
+                var claims = await userManager.GetClaimsAsync(user);
+                var existingClaim = claims.FirstOrDefault(c => c.Type == HasActiveMealPlanClaimName);
+
+                if (existingClaim != null)
+                {
+                    bool currentValue = bool.Parse(existingClaim.Value);
+
+                    if (currentValue != newClaimValue)
+                    {
+                        await userManager.RemoveClaimAsync(user, existingClaim);
+                    }
+                }
+
+                await userManager.AddClaimAsync(user, new Claim(HasActiveMealPlanClaimName, newClaimValue.ToString()));
+
+                // Refresh the user's sign-in to update their claims in the current session
+                await signInManager.RefreshSignInAsync(user);
+            }
+        }
+
         // HELPER METHODS:
-       
+
         /// <summary>
         /// Utility method that accepts a RegisterFormModel and tries to create an ApplicationUser in the database. If it fails, logs an error and throws an exception
         /// </summary>
@@ -723,6 +740,5 @@
         }
 
         
-       
     }
 }

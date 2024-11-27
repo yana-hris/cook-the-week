@@ -2,11 +2,13 @@
 {
     using System.Reflection;
 
+    using Hangfire;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Middlewares;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
@@ -20,13 +22,29 @@
     public static class WebApplicationBuilderExtensions
     {
         /// <summary>
-        /// 
+        /// Registers services in the specified assemblies by convention, based on matching class name suffixes. 
+        /// This method scans each provided assembly for class types with specified suffixes and registers 
+        /// them with their implemented interfaces as scoped services in the <see cref="IServiceCollection"/>.
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="assembliesToScan"></param>
-        /// <param name="suffixes"></param>
-        /// <param name="interfaceTypes"></param>
-        /// <returns></returns>
+        /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+        /// <param name="assembliesToScan">An array of assemblies to scan for class types to register.</param>
+        /// <param name="suffixes">An array of suffix strings to match class names against (e.g., "Repository", "Service"). 
+        /// Classes with names ending in these suffixes are registered.</param>
+        /// <returns>The updated <see cref="IServiceCollection"/> with the registered services.</returns>
+        /// <remarks>
+        /// This method supports both open and closed generic types. For example, if a class implements 
+        /// <c>ICategoryService{T}</c>, it will be registered as a scoped service, allowing for dependency injection 
+        /// of open generic interfaces. Non-generic classes and closed generic classes are registered directly 
+        /// against their implemented interfaces. 
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var assembliesToScan = new[] { typeof(RecipeService).Assembly };
+        /// var suffixes = new[] { "Repository", "Service" };
+        /// services.AddServicesByConvention(assembliesToScan, suffixes);
+        /// </code>
+        /// </example>
+
         public static IServiceCollection AddServicesByConvention(this IServiceCollection services,
                                                         Assembly[] assembliesToScan,
                                                         string[] suffixes)
@@ -131,14 +149,83 @@
             return app;
         }
 
+
+        /// <summary>
+        /// Adds middleware to the application's request pipeline to track and monitor online users. 
+        /// This extension method configures the <see cref="OnlineUsersMiddleware"/> to manage user activity 
+        /// status, enabling features related to online user tracking.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> instance to configure.</param>
+        /// <returns>The <see cref="IApplicationBuilder"/> with the <see cref="OnlineUsersMiddleware"/> added.</returns>
+        /// <remarks>
+        /// This method simplifies the addition of <see cref="OnlineUsersMiddleware"/> to the pipeline, 
+        /// which is responsible for identifying and tracking active users based on incoming requests.
+        /// Ensure that <see cref="OnlineUsersMiddleware"/> is registered as part of the DI container 
+        /// if it has any dependencies.
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var app = builder.Build();
+        /// app.EnableOnlineUsersCheck();
+        /// </code>
+        /// </example>
+
         public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
         {
             return app.UseMiddleware<OnlineUsersMiddleware>();
         }
 
+        /// <summary>
+        /// Adds middleware to the application's request pipeline to populate and manage user-specific context data. 
+        /// This extension method configures the <see cref="UserContextMiddleware"/> to provide additional 
+        /// context about the user for each request, such as user ID and role-based information.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> instance to configure.</param>
+        /// <returns>The <see cref="IApplicationBuilder"/> with the <see cref="UserContextMiddleware"/> added.</returns>
+        /// <remarks>
+        /// This method simplifies the addition of <see cref="UserContextMiddleware"/> to the request pipeline, 
+        /// enabling the extraction and storage of user-specific data, which can be accessed throughout the 
+        /// application's lifecycle for the current request. Ensure that any dependencies required by 
+        /// <see cref="UserContextMiddleware"/> are registered in the DI container.
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var app = builder.Build();
+        /// app.EnableUserContext();
+        /// </code>
+        /// </example>
+
         public static IApplicationBuilder EnableUserContext(this IApplicationBuilder app)
         {
             return app.UseMiddleware<UserContextMiddleware>();
+        }
+
+        /// <summary>
+        /// Configures and registers recurring jobs with Hangfire for periodic execution.
+        /// This method sets up a recurring job to check and update meal plan statuses daily 
+        /// by calling the <see cref="IMealPlanService.UpdateMealPlansStatusAsync"/> method.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> instance used to configure the application pipeline.</param>
+        /// <remarks>
+        /// This extension method simplifies the registration of recurring Hangfire jobs within the application setup. 
+        /// It registers a daily recurring job with a unique identifier, "checkMealplansStatus," to ensure the job 
+        /// executes consistently. The job is enqueued by Hangfire on a daily schedule based on the specified Cron expression.
+        /// Ensure that Hangfire is properly configured and that <see cref="IMealPlanService"/> is registered in 
+        /// the dependency injection container.
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// var app = builder.Build();
+        /// app.RegisterRecurringJobs();
+        /// </code>
+        /// </example>
+
+        public static void RegisterRecurringJobs(this IApplicationBuilder app)
+        {
+            RecurringJob.AddOrUpdate<IMealPlanService>("checkMealplansStatus",
+                service => service
+                .UpdateMealPlansStatusAsync(CancellationToken.None),
+                Cron.Daily);
         }
         
     }  
