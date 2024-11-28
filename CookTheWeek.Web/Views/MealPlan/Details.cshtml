@@ -68,7 +68,21 @@
                                 <td>
                                     <div class="meal-info">
                                         <div class="meal-image">
-                                            <img src="@(isCurrentMealDeleted ? "/img/compressed_deleted_recipe.png" : currentMeal.ImageUrl)" alt="Meal Image">
+                                            @if (!isCurrentMealDeleted)
+                                            {
+                                                <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                                <a asp-area=""
+                                                   asp-controller="Recipe"
+                                                   asp-action="Details"
+                                                   asp-route-id="@currentMeal.RecipeId"
+                                                   asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                                                    <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                            }
                                         </div>
 
                                         <div class="meal-content">

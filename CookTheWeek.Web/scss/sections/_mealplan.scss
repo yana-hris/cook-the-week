@@ -1,5 +1,6 @@
 ﻿@import '../components/colors';
 @import '../components/theme-defaults';
+@import '../components/buttons';
 @import '../components/pills';
 @import '../components/modals';
 @import '../components/typography';
@@ -200,17 +201,24 @@
                 border-bottom: none;
 
                 .text-style {
-                    //font-family: 'Libre Baskerville', serif;
                     font-size: 1rem;
                 }
 
                 .table-input-style {
                     .input-group-text {
                         color: var(--bs-body-bg);
+                        border-width: 3px;
+                        border-top-left-radius: $border-radius-small;
+                        border-bottom-left-radius: $border-radius-small;
                     }
 
                     .input-group-text, .form-control, .form-select {
-                        border: 1px solid $primary;
+                        border: 3px solid $primary !important;
+                    }
+
+                    .form-control, .form-select {
+                        border-top-right-radius: $border-radius-small;
+                        border-bottom-right-radius: $border-radius-small;
                     }
                 }
             }
@@ -226,27 +234,46 @@
             .meal-info {
                 display: flex;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 0.7rem;
 
                 .meal-image {
-                    width: 5rem;
-                    height: 5rem;
-                    overflow: hidden;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    flex-grow: 0;
-                    flex-shrink: 0;
+                    width: 5.5rem;
+                    height: 5.5rem;
+                    overflow: hidden;
+                    flex: 0 0 auto;
+                    border-radius: $border-radius;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth animation
+
+
+
+                    &:hover {
+                        transform: scale(1.2) translateY(-5px);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                        border-radius: $border-radius-small;
+                    }
 
                     img {
-                        max-width: 100%;
-                        height: 100%;
-                        object-fit: cover;
                         display: block;
-                        flex-grow: 1;
+                        height: 100%;
+                        max-width: 100%;
+                        object-fit: cover;
+                        flex: 1 1 auto; // Combines flex-grow: 1; flex-shrink: 1; flex-basis: auto;
                         overflow: hidden;
+
+                        &:hover {
+                            transform: none; // Prevents double scaling (handled by container)
+                        }
                     }
                 }
+
+                .meal-image a {
+                    display: block;
+                }
+
+                
             }
 
             .button-container {

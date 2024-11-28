@@ -3,8 +3,8 @@
 @using static CookTheWeek.Common.EntityValidationConstants.ValidationErrorMessages
 @using static CookTheWeek.Common.Extensions.NumberExtensions
 @using static CookTheWeek.Common.GeneralApplicationConstants
-@using static CookTheWeek.Common.TempDataConstants
 @using static CookTheWeek.Common.NotificationMessagesConstants
+@using static CookTheWeek.Common.TempDataConstants
 @{
     int? userPlansCount = await this.MealPlanService.MineCountAsync() + 1;
 
@@ -138,8 +138,18 @@
                                                     @if (!isCurrentMealDeleted)
                                                     {
                                                         <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                                        <a asp-area=""
+                                                           asp-controller="Recipe"
+                                                           asp-action="Details"
+                                                           asp-route-id="@currentMeal.RecipeId"
+                                                           asp-route-returnUrl="/MealPlan/Mine">
+                                                            <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                                        </a>
                                                     }
-                                                    <img src="@(isCurrentMealDeleted ? "/img/compressed_deleted_recipe.png" : currentMeal.ImageUrl)" alt="Meal Image">
+                                                    else
+                                                    {
+                                                        <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                                    }
                                                 </div>
 
                                                 <div class="meal-content">
@@ -163,10 +173,15 @@
                                                         @if (!isCurrentMealDeleted)
                                                         {
                                                             <input type="hidden" asp-for="Meals[i].CategoryName" />
+                                                            <input type="hidden" asp-for="Meals[i].CookingTime" />
                                                         }
                                                         
                                                         <span class="no-wrap-text">
                                                             <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
+                                                            <span class="separator">|</span>
+                                                        </span>
+                                                        <span class="no-wrap-text">
+                                                            <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
                                                         </span>
                                                     </p>
                                                 </div>
@@ -226,7 +241,7 @@
                                             {
                                                 <div class="button-container">
                                                     <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="remove-item-button">
+                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
                                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                                     </a>
                                                 </div>

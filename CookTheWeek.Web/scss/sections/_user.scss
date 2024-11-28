@@ -35,11 +35,21 @@
 #user-login, #user-register {
     margin-bottom: 5rem;
 
-    .account-message {
-        margin-top: 0.2rem;
+    /*.account-message {
+        margin-top: 4px;
         line-height: 1.0;
+        font-weight: 300;
+    }*/
+
+    .input-group-text {
+        border-top-left-radius: $border-radius-small;
+        border-bottom-left-radius: $border-radius-small;
     }
-    
+
+    .form-control {
+        border-top-right-radius: $border-radius-small;
+        border-bottom-right-radius: $border-radius-small;
+    }
 }
 
 @media (max-width: 767px) {

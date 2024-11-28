@@ -180,6 +180,7 @@ footer {
 
 input.form-control, textarea.form-control, .form-select {
     padding: 0.55rem 0.75rem 0.45rem 0.75rem;
+    margin-left: 0 !important;
     border: 1px solid $primary-border-subtle;
     color: var(--bs-body-color);
     border-top-left-radius: 0;

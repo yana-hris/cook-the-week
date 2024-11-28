@@ -105,6 +105,7 @@ nav {
 
                 li.user-btn {
                     border: 1px solid $success !important;
+                    background-color: $dark !important;
 
                     .icon-btn {
                         display: block;
@@ -119,6 +120,7 @@ nav {
 
                     &:hover {
                         background-color: $success !important;
+                        border: 1px solid $success !important;
 
                         i.fa {
                             color: $primary !important;

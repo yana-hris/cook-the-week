@@ -121,7 +121,13 @@
                                             <div class="meal-info">
                                                 <div class="meal-image">
                                                     <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
-                                                    <img src="@Model.Meals[i].ImageUrl" alt="Meal Image">
+                                                    <a asp-area=""
+                                                       asp-controller="Recipe"
+                                                       asp-action="Details"
+                                                       asp-route-id="@currentMeal.RecipeId"
+                                                       asp-route-returnUrl="/MealPlan/Edit/@Model.Id">
+                                                        <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                                    </a>
                                                 </div>
 
                                                 <div class="meal-content">
@@ -132,7 +138,7 @@
                                                             asp-controller="Recipe" 
                                                             asp-action="Details" 
                                                             asp-route-id="@currentMeal.RecipeId"
-                                                            asp-route-returnUrl="/MealPlan/Details/@Model.Id"
+                                                            asp-route-returnUrl="/MealPlan/Edit/@Model.Id"
                                                         >@currentMeal.Title</a>
                                                     </h5>
                                                     <p class="meal-stats text-primary">
@@ -222,7 +228,7 @@
                                                 <div class="button-container">
                                                     <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
                                                     <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="remove-item-button">
+                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
                                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                                     </a>
                                                 </div>

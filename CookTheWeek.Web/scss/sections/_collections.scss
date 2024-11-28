@@ -1,5 +1,6 @@
 ﻿@import '../components/colors';
 @import '../components/theme-defaults';
+@import '../components/buttons';
 @import '../components/typography';
 
 .wide-contents-container {
@@ -32,10 +33,17 @@
 
         input, textarea, select {
             border-color: none !important;
-            background-color: rgba(255, 255, 255, 0.4) !important;
-            color: #333;
             border-top-left-radius: $border-radius-small !important;
             border-bottom-left-radius: $border-radius-small !important;
+            background-color: var(--input-background) !important;// rgba(255, 255, 255, 0.7) !important;
+            color: var(--bs-body-bg);
+            font-size: 1.2rem !important;
+
+            &::placeholder {
+                color: var(--bs-body-bg);
+                opacity: 0.9;
+                font-size: 1.2rem !important;
+            }
         }
 
         select {

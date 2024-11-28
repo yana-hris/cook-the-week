@@ -49,6 +49,7 @@
                         RecipeId = recipe.Id,
                         Title = recipe.Title,
                         Servings = recipe.Servings,
+                        CookingTime = FormatCookingTime(recipe.TotalTime),
                         ImageUrl = recipe.ImageUrl,
                         CategoryName = recipe.Category.Name
                     };

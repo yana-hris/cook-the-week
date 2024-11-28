@@ -62,16 +62,42 @@
     border-radius: $medium-border-radius;
 }
 
-@mixin icon-button($main-color, $icon-color: #fff, $border-width: 1px, $hover-effect: true) {
+@mixin icon-button( $main-color, $icon-color: #fff, $flip-border-hover-color: false, $is-background-plain: false, $border-width: 1px, $hover-effect: true, $height: 40px, $width: null, $font-size: null, $border-radius: $border-radius ) {
+
     @include button-base();
     @include flex-center();
     position: relative;
-    border: $border-width solid $main-color;
-    overflow: hidden;
+    height: $height;
 
+    @if $is-background-plain == true {
+        border: $border-width solid $icon-color;
+    }
+    @else {
+        border: $border-width solid $main-color;
+    }
+    border-radius: $border-radius;
+    overflow: hidden;
+    background-color: $main-color;
+
+    @if $width == null {
+        width: calc(1.1 * $height); //width: 44px;
+    }
+    @else {
+        width: $width;
+    }
+
+
+    @if $font-size == null {
+        font-size: calc(0.55 * $height); // font-size: 22px;
+    }
+    @else {
+        font-size: $font-size;
+    }
 
     i, .fa, .fas {
         position: absolute;
+        margin: 0;
+        padding: 0;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -87,24 +113,33 @@
         width: 100%;
         height: 100%;
         z-index: 0;
-        background-color: $main-color;
-        //border-radius: $border-radius;
+        //background-color: $main-color;
+        overflow: hidden;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
 
     @if $hover-effect == true {
         &:hover {
-            border: $border-width solid $icon-color;
-            border-radius: 2px;
+
+            background-color: $icon-color;
+
+            @if $flip-border-hover-color == true {
+                border: $border-width solid $main-color;
+            }
+            @else {
+                border: $border-width solid $icon-color;
+            }
+
+            border-radius: $border-radius;
 
             i, .fa, .fas {
                 color: $main-color;
             }
 
-            &::before {
+            /*&::before {
                 background-color: $icon-color;
-            }
+            }*/
         }
     }
 }

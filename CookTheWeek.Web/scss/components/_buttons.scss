@@ -59,82 +59,62 @@
     opacity: 0.6 !important;
 }
 
-.fixed-size-btn {
+/*.fixed-size-btn {
     height: 40px;
     width: 44px;
     font-size: 22px;
-}
+}*/
 
-.remove-btn-size {
-    height: 36px;
-    width: 36px;
-    font-size: 24px;
-}
+
 
 // Reusable buttons
 .back-button-main,
+.details-btn,
+.list-btn,
 .download-btn {
-    @include icon-button(var(--bs-body-bg), $primary, 1px);
-    @extend .fixed-size-btn;
+    @include icon-button(var(--bs-body-bg), $primary, false, true, 2px, true, 40px, null, null, $border-radius-small);
 
-    &:hover {
-        border: 1px solid $primary;
-    }
 }
+
+
 
 .plus {
-    @include icon-button($primary, #fff, 2px);
+    @include icon-button($primary, #fff, true, false, 2px, true, 40px, null, null, $border-radius);
     @include button-box-shadow-effect();
-    @extend .fixed-size-btn;
-
-    &:hover {
-        border: 2px solid $primary;
-    }
-}
-
-.cook-meal-button {
-    @include icon-button($danger, var(--bs-body-bg), 2px);
-    @extend .fixed-size-btn;
-
-    &:hover {
-        border: 2px solid $danger;
-    }
-}
-
-.not-cooked-meal-icon {
-    @include icon-button($danger, #fff, 2px, false);
-    @extend .fixed-size-btn;
-}
-
-.cooked-meal-icon {
-    @include icon-button($primary, #fff, 2px, false);
-    @extend .fixed-size-btn;
-}
-
-
-.uncook-meal-button { //.cooked-icon
-    @include icon-button($primary, var(--bs-body-bg), 2px);
-    @extend .fixed-size-btn;
-    border: 2px solid $primary;
-
-    &:hover {
-        border: 2px solid $primary !important;
-    }
 }
 
 .minus {
-    @include icon-button($danger, #fff, 2px);
+    @include icon-button($danger, #fff, true, false, 2px, true, 40px, null, null, $border-radius);
     @include button-box-shadow-effect();
-    @extend .fixed-size-btn;
-
-    &::before {
-        border-radius: 0;
-    }
-
-    &:hover {
-        border: 2px solid $danger;
-    }
 }
+
+.delete-meal-button {
+    @include icon-button(var(--bs-body-bg), $danger, false, true, 3px, true, 42px, null, null, $border-radius-small);
+    
+}
+
+.cook-meal-button {
+    @include icon-button($danger, var(--bs-body-bg), true, false, 2px, true, 40px, null, null, $border-radius-small);
+}
+
+.not-cooked-meal-icon {
+    @include icon-button($danger, #fff, true, false, 2px, false, 40px, null, null, $border-radius-small);
+}
+
+.cooked-meal-icon {
+    @include icon-button($primary, #fff, true, false,2px, false, 40px, null, null, $border-radius-small);
+}
+
+.repeat-btn {
+    @include icon-button($primary, #fff, true, false, 1px, true, 40px ,null, null, null);
+}
+
+
+.uncook-meal-button { 
+    @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 40px, null, null, $border-radius-small);   
+}
+
+
 
 .shopping-list-btn,
 .save-button,
@@ -172,7 +152,14 @@
 
 .remove-item-button {
     @extend .minus;
-    @extend .remove-btn-size; 
+
+    //.remove-btn-size {
+        height: 36px;
+        width: 36px;
+        font-size: 24px;
+    //}
+
+    //@extend .remove-btn-size;
 }
 
 .signup-button,
@@ -281,103 +268,97 @@
     }
 }
 
-#main-container {
-    // all recipes view: search btn
-    .search-btn {
-        text-transform: uppercase;
-        font-weight: bold !important;
-        font-size: 1rem;
-        color: var(--bs-body-bg) !important;
-        background-color: $primary;
-        border-color: $primary;
-        border-radius: $border-radius;
 
-        &:hover {
-            background-color: $primary-400;
-            border-color: $primary-border-subtle;
-            color: $primary;
-            @extend .hover-state;
-        }
-       
-    }
-    // remove btns style on hover
+// all recipes view: search btn
+.search-btn {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.5rem;
+    color: var(--bs-body-bg) !important;
+    background-color: $primary;
+    border-color: $primary;
+    border-bottom-right-radius: $border-radius-small !important;
+    border-top-right-radius: $border-radius-small !important;
 
-    .btn-outline-danger {
-        border: 1px solid $danger;
-        color: $danger;
-        background-color: var(--bs-body-bg);
-
-        &:hover {
-            border: 1px solid $danger;
-            color: var(--bs-body-bg);
-            background-color: $danger;
-        }
-    }
-
-    .btn-outline-primary {
-        border: 1px solid $primary;
+    &:hover {
+        background-color: $primary-400;
+        border-color: $primary-border-subtle;
         color: $primary;
-
-        &:hover {
-            border: 1px solid $primary;
-            color: $white;
-            background-color: $primary;
-        }
+        //@extend .hover-state;
     }
+}
+// remove btns style on hover
 
-    .pagination-btn {
-        @include icon-button($primary, var(--bs-body-bg), 1px);
-        @extend .fixed-size-btn;
-        border: 1px solid $primary !important;
-    }
+.btn-outline-danger {
+    border: 1px solid $danger;
+    color: $danger;
+    background-color: var(--bs-body-bg);
 
-    .btn-build {
-        @include icon-button(var(--bs-body-bg), $primary, 2px);
-        @extend .fixed-size-btn;
-        border: 2px solid $primary !important;
-    }
-
-    .card-back-button {
-        @include icon-button($primary, $success, 0px);
-        @extend .fixed-size-btn;
-        border-radius: $border-radius;
-    }
-
-    .external-login-button {
-        @include flex-center();
-        padding: 8px;
-        border: 1px solid #ddd;
-        font-size: 13px;
-        text-align: center;
-        text-decoration: none;
-        background-color: #f8f9fa; // light
-        border-radius: $border-radius-small;
-        transition: all 0.3s;
-
-        &:active {
-            background-color: #d6d8db;
-        }
-
-        &:hover {
-            border: 1px solid var(--accent-color) !important;
-        }
-
-        .external-login-icon {
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-        }
-
-        img {
-            margin-right: 8px;
-        }
+    &:hover {
+        border: 1px solid $danger;
+        color: var(--bs-body-bg);
+        background-color: $danger;
     }
 }
 
+.btn-outline-primary {
+    border: 1px solid $primary;
+    color: $primary;
+
+    &:hover {
+        border: 1px solid $primary;
+        color: $white;
+        background-color: $primary;
+    }
+}
+
+.pagination-btn {
+    @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 40px, null, 26px, $border-radius);
+}
+
+.btn-build {
+    @include icon-button(var(--bs-body-bg), $primary, false, true, 2px, true, 40px, null, 26px, $border-radius);
+}
+
+.card-back-button {
+    @include icon-button($primary, $success, 0px);
+    border-radius: $border-radius;
+}
+
+.external-login-button {
+    @include flex-center();
+    flex-wrap: nowrap;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    background-color: #f8f9fa; // light
+    border-radius: $border-radius-small;
+    transition: all 0.3s;
+
+    
+    &:hover {
+        border: 1px solid var(--accent-color) !important;               
+    }
+
+    .external-login-icon {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    img {
+        margin-right: 5px;
+    }
+}
+
+
 #pagination-buttons {
     position: fixed;
-    bottom: 17px;
     right: 57px;
+    bottom: 17px;
     z-index: 100;
 }
 
