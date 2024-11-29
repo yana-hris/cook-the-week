@@ -179,7 +179,7 @@ footer {
 }
 
 input.form-control, textarea.form-control, .form-select {
-    padding: 0.55rem 0.75rem 0.45rem 0.75rem;
+    padding: 0.5rem;
     margin-left: 0 !important;
     border: 1px solid $primary-border-subtle;
     color: var(--bs-body-color);
@@ -193,7 +193,8 @@ input.form-control, textarea.form-control, .form-select {
     }
 
     &::placeholder {
-        padding: 0.55rem 0.75rem 0.45rem 0.75rem;
+        padding: inherit;
+        margin: inherit;
         font-size: 1rem;
         color: var(--bs-body-color);
         opacity: 0.6;

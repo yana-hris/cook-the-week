@@ -105,8 +105,8 @@
             public const int QtyWholeMinValue = 1;
             public const int QtyWholeMaxValue = 9999;
 
-            public const double QtyMinDecimalValue = 0.01;
-            public const double QtyMaxDecimalValue = 9999.99;
+            public const double QtyMinDecimalValue = 0.001;
+            public const double QtyMaxDecimalValue = 9999.999;
 
             //public const string QtyRegularExpression = @"^\d+(\.\d{1,2})?$";
             

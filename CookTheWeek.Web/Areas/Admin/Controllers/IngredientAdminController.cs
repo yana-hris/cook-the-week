@@ -82,7 +82,7 @@
 
                 if (result.Succeeded)
                 {
-                    TempData[ErrorMessage] = IngredientValidation.IngredientSuccessfullyAddedMessage;
+                    TempData[SuccessMessage] = IngredientValidation.IngredientSuccessfullyAddedMessage;
 
                     return RedirectToAction("All");
                 }

@@ -5,9 +5,7 @@
         public const string ErrorMessage = "ErrorMessage";
         public const string WarningMessage = "WarnMessage";
         public const string InformationMessage = "InfoMessage";
-        public const string SuccessMessage = "SuccessMessage";
-
-        
+        public const string SuccessMessage = "SuccessMessage";        
 
         public const string SuccessfulEmailSentMessage = "Thank you for your message. We will get back to you soon.";
         public const string UnsuccessfulEmailSentMessage = "Error sending email. Please try again later.";
@@ -27,7 +25,7 @@
 
         // Welcome Modal text for user
         public const string WelcomeGuestModalHeading = "Join our community today!";
-        public const string WelcomeReturningUserModalHeading = "Welcome Back! Ready to Plan Your Meals?";
+        public const string WelcomeReturningUserModalHeading = "Welcome Back!";
         public const string ActiveMealPlanModalContent = "Your active meal plan";
     }
 

@@ -150,16 +150,10 @@
     padding: 0.4rem 1.25rem;
 }
 
-.remove-item-button {
-    @extend .minus;
-
-    //.remove-btn-size {
-        height: 36px;
-        width: 36px;
-        font-size: 24px;
-    //}
-
-    //@extend .remove-btn-size;
+.remove-item-button {    
+    @include icon-button($danger, #fff, true, false, 1px, true, 39px, 39px, 24px, $border-radius);
+    @include button-box-shadow-effect();
+    
 }
 
 .signup-button,
@@ -274,7 +268,7 @@
     display: block;
     padding: 0.25rem 0.5rem;
     font-size: 1.5rem;
-    color: var(--bs-body-bg) !important;
+    color: $white;
     background-color: $primary;
     border-color: $primary;
     border-bottom-right-radius: $border-radius-small !important;
@@ -284,7 +278,6 @@
         background-color: $primary-400;
         border-color: $primary-border-subtle;
         color: $primary;
-        //@extend .hover-state;
     }
 }
 // remove btns style on hover
@@ -314,10 +307,12 @@
 
 .pagination-btn {
     @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 40px, null, 26px, $border-radius);
+    @include button-box-shadow-effect();
 }
 
 .btn-build {
     @include icon-button(var(--bs-body-bg), $primary, false, true, 2px, true, 40px, null, 26px, $border-radius);
+    @include button-box-shadow-effect();
 }
 
 .card-back-button {
@@ -360,6 +355,7 @@
     right: 57px;
     bottom: 17px;
     z-index: 100;
+    
 }
 
 #build-btn-container {
@@ -367,6 +363,7 @@
     right: 10px;
     bottom: 25px;
     z-index: 100;
+    
 }
 
 @media (min-width: 768px) {

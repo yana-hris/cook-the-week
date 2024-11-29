@@ -185,7 +185,17 @@
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { success = false, errors = ModelState });
+                var filteredErrors = ModelState
+                        .Where(kvp => kvp.Key != nameof(returnUrl)) // Exclude `returnUrl`
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => new
+                            {
+                                errors = kvp.Value.Errors.Select(e => new { errorMessage = e.ErrorMessage}).ToList()
+                            }
+                        );
+
+                return BadRequest(new { success = false, errors = filteredErrors });
             }
             string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl = returnUrl ?? "/" })!;
 
@@ -200,7 +210,14 @@
                 else
                 {
                     AddCustomValidationErrorsToModelState(result.Errors);
-                    return BadRequest(new { success = false, errors = ModelState });
+                    var filteredErrors = ModelState
+                        .Where(kvp => kvp.Key != nameof(returnUrl)) // Exclude `returnUrl`
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.Errors.Select(e => new { errorMessage = e.ErrorMessage }).ToList()
+                        );
+
+                    return BadRequest(new { success = false, errors = filteredErrors });
                 }
             }
             catch (RecordNotFoundException ex)

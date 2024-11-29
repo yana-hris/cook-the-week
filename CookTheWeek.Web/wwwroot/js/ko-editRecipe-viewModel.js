@@ -248,7 +248,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
                     if (response.status === 400 && response.responseJSON && !response.responseJSON.success) {
                         // Display server-side validation errors
                         if (response.responseJSON.errors) {
-                            processErrors(response.responseJSON.errors);
+                            processErrors.call(self, response.responseJSON.errors);
                         }
 
                         // Handle redirection if provided in case of 400 errors
@@ -276,43 +276,66 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
 
     // Helper function for processing ajax JSON errors in case of response BadRequest and Errors dictionary sent in json format
     function processErrors(errors) {
-        for (var key in errors) {
-            if (errors.hasOwnProperty(key)) {
-                var errorMessages = errors[key].errors;
-                var firstErrorMessage = errorMessages[0].errorMessage;
+        debugger;
 
-                if (errorMessages && errorMessages.length > 0) {
-                    // Convert property name to match the Knockout view model's format
-                    const propertyName = key.charAt(0).toUpperCase() + key.slice(1);
+        for (const [key, value] of Object.entries(errors)) {
+            const errorMessages = value.errors;
 
-                    var observable = this; // Adjust the context if needed
-                    var path = propertyName.split(/[.\[\]]+/).filter(Boolean);
+            if (errorMessages && errorMessages.length > 0) {
+                const firstErrorMessage = errorMessages[0].errorMessage;
 
-                    // Traverse the path to the correct observable
-                    for (var i = 0; i < path.length; i++) {
-                        if (ko.isObservable(observable)) {
-                            observable = observable();
-                        }
-                        if (!isNaN(parseInt(path[i], 10)) && Array.isArray(observable)) {
-                            observable = observable[parseInt(path[i], 10)];
-                        } else if (observable[path[i]]) {
-                            observable = observable[path[i]];
+                // Capitalize each segment of the key
+                const capitalizedKey = capitalizeKey(key);
+
+                // Split the error key into path segments
+                const path = capitalizedKey.split(/[.\[\]]+/).filter(Boolean);
+                let observable = this; // Start from the ViewModel root
+
+                // Traverse the path to locate the observable
+                for (const segment of path) {
+                    if (ko.isObservable(observable)) {
+                        observable = observable(); // Unwrap the observable
+                    }
+
+                    if (Array.isArray(observable)) {
+                        // Handle array indexing
+                        if (!isNaN(parseInt(segment, 10))) {
+                            observable = observable[parseInt(segment, 10)];
                         } else {
-                            console.warn(`Path ${path[i]} not found in ViewModel`);
+                            console.error(`Invalid index "${segment}" for array at "${path.join(".")}"`);
                             observable = null;
                             break;
                         }
+                    } else if (observable && observable[segment]) {
+                        // Access object property
+                        observable = observable[segment];
+                    } else {
+                        // Log missing path segment and break
+                        console.warn(`Path segment "${segment}" not found in ViewModel.`);
+                        observable = null;
+                        break;
                     }
+                }
 
-                    // Set the error on the observable
-                    if (observable && ko.isObservable(observable)) {
+                // Apply the error to the observable
+                if (observable && ko.isObservable(observable)) {
+                    if (typeof observable.setError === "function") {
                         observable.setError(firstErrorMessage);
+                    } else {
+                        console.warn(`Observable for path "${key}" does not support setError.`);
                     }
+                } else {
+                    console.error(`Unable to locate observable for path "${key}".`);
                 }
             }
         }
-        this.errors.showAllMessages(); // Display all validation messages
+
+        // Show all validation messages for the entire ViewModel
+        if (this.errors && typeof this.errors.showAllMessages === "function") {
+            this.errors.showAllMessages();
+        }
     }
+
 
     function createQtyObservable(qty) {
 
@@ -517,7 +540,12 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         return stepSelf;
        
     };
-    
+
+    function capitalizeKey(key) {
+        return key.replace(/(?:^|[.\[\]])([a-z])/g, (match, char) =>
+            char.toUpperCase()
+        );
+    }
 }
 
 

@@ -189,7 +189,7 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
     self.errors = ko.validation.group(self, { deep: true, live: true });
 
     self.submitForm = function () {
-        
+        debugger;
         const clientSideErrors = self.errors();
         self.errors.showAllMessages();
        

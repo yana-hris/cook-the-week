@@ -21,9 +21,9 @@
             text-transform: uppercase;
             font-weight: bold !important;
             font-size: 1.1rem !important;
-            color: var(--bs-body-bg) !important;
+            color: var(--bs-body-color) !important;
             background-color: transparent !important;
-            border:none;
+            border: none !important;
             transition: all 0.3s;
 
             &:first-child {
@@ -32,15 +32,17 @@
         }
 
         input, textarea, select {
-            border-color: none !important;
+            border-color: transparent !important;
             border-top-left-radius: $border-radius-small !important;
             border-bottom-left-radius: $border-radius-small !important;
-            background-color: var(--input-background) !important;// rgba(255, 255, 255, 0.7) !important;
-            color: var(--bs-body-bg);
+            background-color: var(--input-background) !important;
+            color: var(--input-color) !important;
             font-size: 1.2rem !important;
 
+
+
             &::placeholder {
-                color: var(--bs-body-bg);
+                color: var(--input-color);
                 opacity: 0.9;
                 font-size: 1.2rem !important;
             }
@@ -48,6 +50,10 @@
 
         select {
             border-radius: $border-radius-small !important;
+
+            option {
+                background-color: var(--select-menu-filter-bg-color) !important;
+            }
         }
     }
 
