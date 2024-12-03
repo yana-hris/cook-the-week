@@ -23,6 +23,7 @@ bld/
 *.dll
 *.pdb
 *.exe
+*.sourcelink.json
 !wwwroot/rotativa/wkhtmltopdf.exe
 
 
@@ -79,3 +80,10 @@ secrets.json
 # Microsoft Azure and publish-related files
 publish/
 PublishScripts/
+
+# Temporary files
+*~
+*.bak
+*.tmp
+Thumbs.db
+.DS_Store
