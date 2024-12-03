@@ -97,6 +97,7 @@
                 Title = meal.Recipe.Title,
                 ImageUrl = meal.Recipe.ImageUrl,
                 Description = meal.Recipe.Description,
+                DifficultyLevel = meal.Recipe.DifficultyLevel.HasValue ? meal.Recipe.DifficultyLevel.ToString() : "",
                 IsMealPlanFinished = isMealPlanFinished,
                 CookingTime = FormatCookingTime(meal.Recipe.TotalTime),
                 CookingDate = meal.CookDate.ToString(MealDateFormat),

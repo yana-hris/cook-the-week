@@ -4,17 +4,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-  
-    using CookTheWeek.Common.Exceptions;
+    using Microsoft.Extensions.Logging;
+    
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using Microsoft.Extensions.Logging;
-    using System.Runtime.InteropServices;
-    using System.Data.SqlTypes;
 
     public class RecipeIngredientService : IRecipeIngredientService
     {
@@ -95,16 +91,16 @@
         }
                 
         /// <inheritdoc/>        
-        public async Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync()
+        public async Task<ICollection<SelectViewModel>> GetRecipeIngredientMeasuresAsync()
         {
             try
             {
                 ICollection<Measure> allMeasures = await this.recipeIngredientRepository
                                                             .GetAllMeasuresQuery()
                                                             .ToListAsync();
-                ICollection<RecipeIngredientSelectMeasureViewModel> model =
+                ICollection<SelectViewModel> model =
                     allMeasures
-                        .Select(m => new RecipeIngredientSelectMeasureViewModel()
+                        .Select(m => new SelectViewModel()
                         {
                             Id = m.Id,
                             Name = m.Name,
@@ -121,7 +117,7 @@
         }
 
         /// <inheritdoc/>     
-        public async Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync()
+        public async Task<ICollection<SelectViewModel>> GetRecipeIngredientSpecificationsAsync()
         {
             try
             {
@@ -130,7 +126,7 @@
                 .ToListAsync();
 
                 var model = allSpecs
-                    .Select(sp => new RecipeIngredientSelectSpecificationViewModel()
+                    .Select(sp => new SelectViewModel()
                     {
                         Id = sp.Id,
                         Name = sp.Description

@@ -80,7 +80,29 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
         },
         validatable: true
     });
-        
+
+    self.AvailableTags = ko.observableArray(ko.utils.arrayMap(data.AvailableTags || [], function (tag) {
+        return {
+            Id: tag.Id,
+            Name: tag.Name
+        };
+    }));
+
+    self.SelectedTagIds = ko.observableArray(data.SelectedTagIds || []).extend({
+        validatable: true
+    });
+
+    self.DifficultyLevels = ko.observableArray(ko.utils.arrayMap(data.DifficultyLevels || [], function (level) {
+        return {
+            Id: level.Id,
+            Name: level.Name
+        };
+    })
+    );
+
+    self.DifficultyLevelId = ko.observable(data.DifficultyLevelId || null).extend({
+        validatable: true
+    });
 
     self.RecipeCategoryId = ko.observable(data.RecipeCategoryId ? data.RecipeCategoryId : '').extend({
         required: {

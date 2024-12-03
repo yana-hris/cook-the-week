@@ -25,7 +25,7 @@
 
         // Welcome Modal text for user
         public const string WelcomeGuestModalHeading = "Join our community today!";
-        public const string WelcomeReturningUserModalHeading = "Welcome Back!";
+        public const string WelcomeReturningUserModalHeading = "Welcome Back";
         public const string ActiveMealPlanModalContent = "Your active meal plan";
     }
 

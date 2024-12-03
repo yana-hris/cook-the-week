@@ -48,6 +48,15 @@
             public const string RecipeCategoryIdRequiredErrorMessage = "Meal type is required";
             public const string RecipeCategoryIdInvalidErrorMessage = "Invalid meal type";
 
+            // DifficultyLevel
+            public const int DifficultyLevelMinValue = 1;
+            public const int DifficultyLevelMaxValue = 3;
+
+            public const string DifficultyLevelErrorMessage = "Invalid difficulty level";
+
+            // Recipe Tag
+            public const string TagIdInvalidErrorMessage = "Invalid tag id(s)";
+
             // Servings
             public const int ServingsMinValue = 1;
             public const int ServingsMaxValue = 20;
@@ -147,6 +156,12 @@
             public const int DescriptionMaxLength = 50;
         }
 
+        public static class TagValidation
+        {
+            public const int NameMinLength = 2;
+            public const int NameMaxLength = 40;
+        }
+
         // All categories TCategory (RecipeCategory, IngredientCategory)
         public static class CategoryValidation
         {
@@ -227,6 +242,8 @@
                     { "CookingTimeRequiredErrorMessage", RecipeValidation.CookingTimeRequiredErrorMessage },
                     { "CookingTimeRangeErrorMessage", RecipeValidation.CookingTimeRangeErrorMessage },
                     { "RecipeCategoryIdRequiredErrorMessage", RecipeValidation.RecipeCategoryIdRequiredErrorMessage },
+                    { "DifficultyLevelErrorMessage", RecipeValidation.DifficultyLevelErrorMessage },
+                    { "SelectedRecipeTagsErrorMessage", RecipeValidation.TagIdInvalidErrorMessage },
                     { "StepsRequiredErrorMessage", RecipeValidation.StepsRequiredErrorMessage },
                     { "StepDescriptionRangeErrorMessage", StepValidation.StepDescriptionRangeErrorMessage },
                     { "IngredientsRequiredErrorMessage", RecipeValidation.IngredientsRequiredErrorMessage },
@@ -260,6 +277,8 @@
                     {"TitleMaxLength", RecipeValidation.TitleMaxLength },
                     {"DescriptionMinLength", RecipeValidation.DescriptionMinLength },
                     {"DescriptionMaxLength", RecipeValidation.DescriptionMaxLength },
+                    {"DifficultyLevelMinValue", RecipeValidation.DifficultyLevelMinValue },
+                    {"DifficultyLevelMaxValue", RecipeValidation.DifficultyLevelMaxValue},
                     {"ServingsMinValue", RecipeValidation.ServingsMinValue },
                     {"ServingsMaxValue", RecipeValidation.ServingsMaxValue },
                     {"ImageUlrMinLength", RecipeValidation.ImageUlrMinLength },
