@@ -2,8 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
     using Microsoft.EntityFrameworkCore;
+
+    using CookTheWeek.Common.Enums;
 
     using static Common.EntityValidationConstants.RecipeValidation;
 
@@ -80,6 +81,9 @@
         [Required]
         public bool IsSiteRecipe { get; set; }
 
+        [Comment("Level of difficulty for the Recipe")]
+        public DifficultyLevel? DifficultyLevel { get; set; }
+
 
         [Comment("Recipe Cooking Instructions")]
         public ICollection<Step> Steps { get; set; }
@@ -96,6 +100,8 @@
         [Comment("A collection of Meals cooked with the Recipe")]
         public ICollection<Meal> Meals { get; set; }
 
-        
+        [Comment("A collection of Recipe Tags")]
+        public ICollection<RecipeTag> RecipeTags { get; set; }
+
     }
 }

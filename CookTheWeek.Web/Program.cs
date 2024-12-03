@@ -28,7 +28,7 @@ namespace CookTheWeek.Web
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -182,6 +182,8 @@ namespace CookTheWeek.Web
                         
             WebApplication app = builder.Build();
 
+            await app.Services.ApplyMigrationsAndSeedData(true);
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -204,7 +206,6 @@ namespace CookTheWeek.Web
             {
                 app.SeedAdministrator(AdminUserUsername);
             }
-
 
             app.UseRouting();
 

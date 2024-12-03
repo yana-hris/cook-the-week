@@ -7,30 +7,30 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
-    using CookTheWeek.Web.ViewModels.Category;
 
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Web.ViewModels;
 
     public class CategoryAdminController : BaseAdminController
     {
         private readonly ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> ingredientCategoryService;
+                                            SelectViewModel> ingredientCategoryService;
         private readonly ICategoryService<RecipeCategory,
                                             RecipeCategoryAddFormModel,
                                             RecipeCategoryEditFormModel,
-                                            RecipeCategorySelectViewModel> recipeCategoryService;
+                                            SelectViewModel> recipeCategoryService;
         private readonly IValidationService validationService;
 
         public CategoryAdminController(ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> ingredientCategoryService,
+                                            SelectViewModel> ingredientCategoryService,
                                     ICategoryService<RecipeCategory,
                                             RecipeCategoryAddFormModel,
                                             RecipeCategoryEditFormModel,
-                                            RecipeCategorySelectViewModel> recipeCategoryService,
+                                            SelectViewModel> recipeCategoryService,
                                     IValidationService validationService,
                                     ILogger<CategoryAdminController> logger) 
         : base(logger)
@@ -44,7 +44,7 @@
         [HttpGet]
         public async Task<IActionResult> AllRecipeCategories()
         {
-            ICollection<RecipeCategorySelectViewModel> all = await this.recipeCategoryService
+            ICollection<SelectViewModel> all = await this.recipeCategoryService
                 .GetAllCategoriesAsync();
 
             return View(all);
@@ -172,7 +172,7 @@
         {
             try
             {
-                ICollection<IngredientCategorySelectViewModel> all = await ingredientCategoryService
+                ICollection<SelectViewModel> all = await ingredientCategoryService
                                                                         .GetAllCategoriesAsync();
                 return View(all);
             }

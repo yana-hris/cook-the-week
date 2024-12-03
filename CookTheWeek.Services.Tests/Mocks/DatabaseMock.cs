@@ -14,7 +14,7 @@
                     .UseInMemoryDatabase("CookTheWeekInMemoryDb" + DateTime.Now.Ticks.ToString())
                     .Options;
 
-                return new CookTheWeekDbContext(dbContextOptions, false);
+                return new CookTheWeekDbContext(dbContextOptions);
             }
         }
     }

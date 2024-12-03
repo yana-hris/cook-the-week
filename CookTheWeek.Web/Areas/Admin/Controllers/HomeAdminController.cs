@@ -4,9 +4,9 @@
 
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Admin.HomeAdmin;
-    using CookTheWeek.Web.ViewModels.Category;    
 
     public class HomeAdminController : BaseAdminController
     {
@@ -14,11 +14,11 @@
         private readonly ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> ingredientCategoryService;
+                                            SelectViewModel> ingredientCategoryService;
         private readonly ICategoryService<RecipeCategory, 
                                             RecipeCategoryAddFormModel, 
                                             RecipeCategoryEditFormModel,
-                                            RecipeCategorySelectViewModel> recipeCategoryService;
+                                            SelectViewModel> recipeCategoryService;
         private readonly IIngredientService ingredientService;
         private readonly IMealPlanService mealplanService;
         private readonly IUserService userService;
@@ -28,11 +28,11 @@
             ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> ingredientCategoryService,
+                                            SelectViewModel> ingredientCategoryService,
             ICategoryService<RecipeCategory,
                                             RecipeCategoryAddFormModel,
                                             RecipeCategoryEditFormModel,
-                                            RecipeCategorySelectViewModel> recipeCategoryService,
+                                            SelectViewModel> recipeCategoryService,
 
             IIngredientService ingredientService,
             IMealPlanService mealplanService,

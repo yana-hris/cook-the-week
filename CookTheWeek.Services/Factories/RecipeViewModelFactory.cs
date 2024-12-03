@@ -9,8 +9,8 @@
     using CookTheWeek.Services.Data.Helpers;
     using CookTheWeek.Services.Data.Models.Recipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
-    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
@@ -22,15 +22,17 @@
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Common.HelperMethods.EnumHelper;
+    using CookTheWeek.Common.Enums;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
         private readonly IRecipeService recipeService;
+        private readonly ITagService tagService;
         private readonly IMealPlanViewModelFactory mealplanFactory;
         private readonly ICategoryService<RecipeCategory, 
             RecipeCategoryAddFormModel, 
             RecipeCategoryEditFormModel, 
-            RecipeCategorySelectViewModel> categoryService;
+            SelectViewModel> categoryService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IIngredientAggregatorHelper ingredientHelper;
         private readonly ILogger<RecipeViewModelFactory> logger;    
@@ -41,16 +43,18 @@
                                       ICategoryService<RecipeCategory, 
                                           RecipeCategoryAddFormModel, 
                                           RecipeCategoryEditFormModel, 
-                                          RecipeCategorySelectViewModel> categoryService,
+                                          SelectViewModel> categoryService,
                                       IRecipeIngredientService recipeIngredientService,
                                       ILogger<RecipeViewModelFactory> logger,
                                       IMealPlanViewModelFactory mealplanFactory,
                                       IUserContext userContext,
+                                      ITagService tagService,
                                       IIngredientAggregatorHelper ingredientHelper)
         {
             this.recipeService = recipeService;
             this.categoryService = categoryService;
             this.recipeIngredientService = recipeIngredientService;
+            this.tagService = tagService;
             this.logger = logger;
             this.mealplanFactory = mealplanFactory;
             this.ingredientHelper = ingredientHelper;
@@ -123,8 +127,10 @@
 
                 }).ToList(),
                 Servings = recipe.Servings,
-                CookingTimeMinutes = (int)recipe.TotalTime.TotalMinutes,
                 ImageUrl = recipe.ImageUrl,
+                CookingTimeMinutes = (int)recipe.TotalTime.TotalMinutes,
+                SelectedTagIds = recipe.RecipeTags.Select(s => s.TagId).ToList(),
+                DifficultyLevelId = recipe.DifficultyLevel != null ? (int)recipe.DifficultyLevel : default,
                 RecipeCategoryId = recipe.CategoryId,
                 RecipeIngredients = recipe.RecipesIngredients.Select(ri => new RecipeIngredientFormModel()
                 {
@@ -158,6 +164,7 @@
                 }).ToList(),
                 Servings = recipe.Servings,
                 IsSiteRecipe = recipe.IsSiteRecipe,
+                DifficultyLevel = recipe.DifficultyLevel.ToString() ?? "N/A",
                 TotalTime = FormatCookingTime(recipe.TotalTime),
                 ImageUrl = recipe.ImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
@@ -227,7 +234,17 @@
         {
             model.Categories = await categoryService.GetAllCategoriesAsync();
 
+            model.AvailableTags = await tagService.GetAllTagsAsync();
+            
             model.ServingsOptions = ServingsOptions;
+
+            model.DifficultyLevels = Enum.GetValues(typeof(DifficultyLevel))
+                .Cast<DifficultyLevel>()
+                .Select(level => new SelectViewModel()
+                {
+                    Id = (int)level,
+                    Name = level.ToString()
+                }).ToList();
 
             if (!model.RecipeIngredients.Any())
             {
@@ -285,7 +302,7 @@
                 Title = recipe.Title,
                 ImageUrl = recipe.ImageUrl,
                 Description = recipe.Description,
-                Category = new RecipeCategorySelectViewModel
+                Category = new SelectViewModel
                 {
                     Id = recipe.CategoryId,
                     Name = recipe.Category.Name

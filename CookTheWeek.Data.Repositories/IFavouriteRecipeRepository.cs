@@ -7,7 +7,6 @@
         /// <summary>
         /// Returns a queryable collection of all existing user likes 
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns>A collection of FavouriteRecipe</returns>
         IQueryable<FavouriteRecipe> GetAllQuery();
 

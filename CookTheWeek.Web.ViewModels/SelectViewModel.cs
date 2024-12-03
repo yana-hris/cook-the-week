@@ -1,10 +1,8 @@
-﻿namespace CookTheWeek.Web.ViewModels.Category
+﻿namespace CookTheWeek.Web.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
-    using CookTheWeek.Web.ViewModels.Interfaces;
-
-    public class IngredientCategorySelectViewModel : ISelectViewModel
+    public class SelectViewModel
     {
         [Required]
         public int Id { get; set; }

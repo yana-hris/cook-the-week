@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookTheWeek.Data.Migrations
 {
     [DbContext(typeof(CookTheWeekDbContext))]
-    [Migration("20241016115851_Initial")]
-    partial class Initial
+    [Migration("20241201155018_AddDifficultyLevelToRecipe")]
+    partial class AddDifficultyLevelToRecipe
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,7 +241,7 @@ namespace CookTheWeek.Data.Migrations
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()")
+                        .HasDefaultValueSql("GETUTCDATE()")
                         .HasComment("Meal Plan Start Date");
 
                     b.HasKey("Id");
@@ -298,6 +298,10 @@ namespace CookTheWeek.Data.Migrations
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)")
                         .HasComment("Recipe Description");
+
+                    b.Property<int?>("DifficultyLevel")
+                        .HasColumnType("int")
+                        .HasComment("Level of difficulty for the Recipe");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -428,6 +432,26 @@ namespace CookTheWeek.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeTag", b =>
+                {
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Recipe Key Identifier");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int")
+                        .HasComment("Tag Key Identifier");
+
+                    b.HasKey("RecipeId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("RecipeTags", t =>
+                        {
+                            t.HasComment("Recipe`s Tags");
+                        });
+                });
+
             modelBuilder.Entity("CookTheWeek.Data.Models.Specification", b =>
                 {
                     b.Property<int>("Id")
@@ -483,6 +507,29 @@ namespace CookTheWeek.Data.Migrations
                     b.ToTable("Steps", t =>
                         {
                             t.HasComment("Cooking Step");
+                        });
+                });
+
+            modelBuilder.Entity("CookTheWeek.Data.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Key identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasComment("Meal Plan Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags", t =>
+                        {
+                            t.HasComment("Recipe Tag");
                         });
                 });
 
@@ -734,6 +781,25 @@ namespace CookTheWeek.Data.Migrations
                     b.Navigation("Specification");
                 });
 
+            modelBuilder.Entity("CookTheWeek.Data.Models.RecipeTag", b =>
+                {
+                    b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookTheWeek.Data.Models.Tag", "Tag")
+                        .WithMany("RecipeTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("CookTheWeek.Data.Models.Step", b =>
                 {
                     b.HasOne("CookTheWeek.Data.Models.Recipe", "Recipe")
@@ -831,6 +897,8 @@ namespace CookTheWeek.Data.Migrations
 
                     b.Navigation("Meals");
 
+                    b.Navigation("RecipeTags");
+
                     b.Navigation("RecipesIngredients");
 
                     b.Navigation("Steps");
@@ -844,6 +912,11 @@ namespace CookTheWeek.Data.Migrations
             modelBuilder.Entity("CookTheWeek.Data.Models.Specification", b =>
                 {
                     b.Navigation("RecipesIngredients");
+                });
+
+            modelBuilder.Entity("CookTheWeek.Data.Models.Tag", b =>
+                {
+                    b.Navigation("RecipeTags");
                 });
 #pragma warning restore 612, 618
         }

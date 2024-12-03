@@ -12,8 +12,8 @@
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
-    using CookTheWeek.Web.ViewModels.Category;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
 
@@ -21,7 +21,7 @@
         RecipeCategory,
         RecipeCategoryAddFormModel,
         RecipeCategoryEditFormModel,
-        RecipeCategorySelectViewModel>
+        SelectViewModel>
     {
         private readonly ICategoryRepository<RecipeCategory> categoryRepository;
 
@@ -66,12 +66,13 @@
         }
 
         /// <inheritdoc/>      
-        public async Task<ICollection<RecipeCategorySelectViewModel>> GetAllCategoriesAsync()
+        public async Task<ICollection<SelectViewModel>> GetAllCategoriesAsync()
         {
             try
             {
-                ICollection<RecipeCategorySelectViewModel> all = await this.categoryRepository.GetAllQuery()
-                .Select(c => new RecipeCategorySelectViewModel()
+                ICollection<SelectViewModel> all = await this.categoryRepository
+                .GetAllQuery()
+                .Select(c => new SelectViewModel()
                 {
                     Id = c.Id,
                     Name = c.Name,

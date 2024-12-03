@@ -1,8 +1,7 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Admin.IngredientAdmin
 {
     using System.ComponentModel.DataAnnotations;
-
-    using CookTheWeek.Web.ViewModels.Category;
+    
     using CookTheWeek.Web.ViewModels.Interfaces;
 
     using static Common.EntityValidationConstants.RecipeIngredientValidation;
@@ -20,6 +19,6 @@
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public ICollection<IngredientCategorySelectViewModel> Categories { get; set; } = new List<IngredientCategorySelectViewModel>();
+        public ICollection<SelectViewModel> Categories { get; set; } = new List<SelectViewModel>();
     }
 }
