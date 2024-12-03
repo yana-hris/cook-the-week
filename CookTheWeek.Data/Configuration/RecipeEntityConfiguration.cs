@@ -26,6 +26,10 @@
                .HasDefaultValue(false);
 
             builder
+                .Property(r => r.DifficultyLevel)
+                .HasConversion<int>(); // Save enum as integers
+
+            builder
                 .HasOne(r => r.Category)
                 .WithMany(rc => rc.Recipes)
                 .HasForeignKey(r => r.CategoryId)
@@ -60,7 +64,14 @@
                 .HasMany(r => r.FavouriteRecipes)
                 .WithOne(fr => fr.Recipe)
                 .HasForeignKey(fr => fr.RecipeId)
-                .OnDelete(DeleteBehavior.Restrict);            
+                .OnDelete(DeleteBehavior.Restrict);         
+            
+            builder
+                .HasMany(r => r.RecipeTags)
+                .WithOne(rt => rt.Recipe)
+                .HasForeignKey(rt => rt.RecipeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             
         }
     }

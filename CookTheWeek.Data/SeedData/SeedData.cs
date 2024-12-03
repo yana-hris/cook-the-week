@@ -8,9 +8,9 @@
 
     using static Common.GeneralApplicationConstants;
 
-    internal class SeedData
+    internal static class SeedData
     {
-        internal ICollection<ApplicationUser> SeedUsers()
+        internal static ICollection<ApplicationUser> SeedUsers()
         {
             ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
 
@@ -64,7 +64,7 @@
 
             return users;
         }
-        internal ICollection<RecipeCategory> SeedRecipeCategories()
+        internal static ICollection<RecipeCategory> SeedRecipeCategories()
         {
             return new HashSet<RecipeCategory>()
             {
@@ -100,7 +100,7 @@
                 },
             };
         }
-        internal ICollection<IngredientCategory> SeedIngredientCategories()
+        internal static ICollection<IngredientCategory> SeedIngredientCategories()
         {
             return new HashSet<IngredientCategory>()
             {
@@ -172,7 +172,7 @@
 
             };
         }
-        internal ICollection<Measure> SeedMeasures()
+        internal static ICollection<Measure> SeedMeasures()
         {
             return new HashSet<Measure>()
             {
@@ -243,7 +243,7 @@
                 },
             };
         }
-        internal ICollection<Specification> SeedSpecifications()
+        internal static ICollection<Specification> SeedSpecifications()
         {
             return new HashSet<Specification>()
             {
@@ -293,7 +293,7 @@
                 }
             };
         }
-        internal ICollection<Ingredient> SeedIngredients()
+        internal static ICollection<Ingredient> SeedIngredients()
         {
             return new HashSet<Ingredient>()
             {
@@ -1868,7 +1868,7 @@
                 },
             };
         }
-        internal ICollection<Recipe> SeedRecipes()
+        internal static ICollection<Recipe> SeedRecipes()
         {
             return new HashSet<Recipe>()
             {
@@ -2005,7 +2005,7 @@
                 },
             };
         }
-        internal ICollection<Step> SeedSteps()
+        internal static ICollection<Step> SeedSteps()
         {
             return new HashSet<Step>()
             {
@@ -2293,7 +2293,7 @@
                 },
             };
         }
-        internal ICollection<RecipeIngredient> SeedRecipeIngredients()
+        internal static ICollection<RecipeIngredient> SeedRecipeIngredients()
         {
             return new HashSet<RecipeIngredient>()
             {
@@ -2985,7 +2985,7 @@
             };
         }
 
-        internal ICollection<FavouriteRecipe> SeedRecipeLikes()
+        internal static ICollection<FavouriteRecipe> SeedRecipeLikes()
         {
             return new HashSet<FavouriteRecipe>()
             {
@@ -3008,8 +3008,8 @@
 
             };
         }
-
-        internal ICollection<MealPlan> SeedMealPlans()
+                 
+        internal static ICollection<MealPlan> SeedMealPlans()
         {
             return new HashSet<MealPlan>()
             {
@@ -3031,8 +3031,8 @@
                 },
             };
         }
-
-        internal ICollection<Meal> SeedMeals()
+                  
+        internal static ICollection<Meal> SeedMeals()
         {
             return new HashSet<Meal>()
             {
@@ -3089,6 +3089,67 @@
                     CookDate = DateTime.ParseExact("12-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = false,
                     MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                },
+            };
+        }
+                 
+        internal static ICollection<Tag> SeedTags()
+        {
+            return new HashSet<Tag>
+            {
+                // Based on dietary restrictions
+                new Tag { Name = "Vegan" },
+                new Tag { Name = "Vegetarian" },
+                new Tag { Name = "Pescatarian" },
+                new Tag { Name = "Gluten-Free" },
+                new Tag { Name = "Dairy-Free" },
+                new Tag { Name = "Nut-Free" },
+
+                // Based on Special Occasion
+                new Tag { Name = "Christmas" },
+                new Tag { Name = "Easter" },
+
+                // Based on Time 
+                new Tag { Name = "Quick" },
+                new Tag { Name = "15-Minute Meals" },
+                new Tag { Name = "Slow-Cooked" },
+                new Tag { Name = "No-Cook" },
+
+                // Based on audience
+                new Tag {Name = "Kid-Friendly"},
+                new Tag {Name = "Budget-Friendly"},
+
+                // Based on Season
+                new Tag {Name = "Spring"},
+                new Tag {Name = "Summer"},
+                new Tag {Name = "Autumn (Fall)"},
+                new Tag {Name = "Winter"},
+
+                // Based on Unique Characteristics
+                new Tag {Name = "Classic"},
+                new Tag {Name = "Healthy"},
+                new Tag {Name = "Light"},
+            };
+        }
+                
+        internal static ICollection<RecipeTag> SeedRecipeTags()
+        {
+            return new HashSet<RecipeTag>
+            {
+                new RecipeTag 
+                { 
+                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"), 
+                    TagId = 9
+                },
+                new RecipeTag
+                {
+                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"),
+                    TagId = 13
+                },
+                new RecipeTag
+                {
+                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"),
+                    TagId = 20
                 },
             };
         }

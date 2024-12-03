@@ -185,17 +185,7 @@
 
             if (!ModelState.IsValid)
             {
-                var filteredErrors = ModelState
-                        .Where(kvp => kvp.Key != nameof(returnUrl)) // Exclude `returnUrl`
-                        .ToDictionary(
-                            kvp => kvp.Key,
-                            kvp => new
-                            {
-                                errors = kvp.Value.Errors.Select(e => new { errorMessage = e.ErrorMessage}).ToList()
-                            }
-                        );
-
-                return BadRequest(new { success = false, errors = filteredErrors });
+                return ReturnBadRequestWithSerializedModelErrors();
             }
             string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl = returnUrl ?? "/" })!;
 
@@ -210,14 +200,7 @@
                 else
                 {
                     AddCustomValidationErrorsToModelState(result.Errors);
-                    var filteredErrors = ModelState
-                        .Where(kvp => kvp.Key != nameof(returnUrl)) // Exclude `returnUrl`
-                        .ToDictionary(
-                            kvp => kvp.Key,
-                            kvp => kvp.Value.Errors.Select(e => new { errorMessage = e.ErrorMessage }).ToList()
-                        );
-
-                    return BadRequest(new { success = false, errors = filteredErrors });
+                    return ReturnBadRequestWithSerializedModelErrors();
                 }
             }
             catch (RecordNotFoundException ex)
@@ -238,6 +221,8 @@
             }
             
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> Details(string id, string returnUrl = null)
@@ -368,6 +353,25 @@
 
             // Serialize the errors to JSON and store them in TempData
             TempData["ServerErrors"] = JsonConvert.SerializeObject(serverErrors);
+        }
+
+        /// <summary>
+        /// Transforms the model state errors into an object, expected to be received from the AJAX request callback function in case of Bad Request server response
+        /// </summary>
+        /// <returns>Returns BadRequest response as Json, containing success = false and errors = Modelstate errors</returns>
+        private IActionResult ReturnBadRequestWithSerializedModelErrors()
+        {
+            var filteredErrors = ModelState
+                                    .Where(kvp => kvp.Key != "returnUrl") // Exclude `returnUrl`
+                                    .ToDictionary(
+                                        kvp => kvp.Key,
+                                        kvp => new
+                                        {
+                                            errors = kvp.Value.Errors.Select(e => new { errorMessage = e.ErrorMessage }).ToList()
+                                        }
+                                    );
+
+            return BadRequest(new { success = false, errors = filteredErrors });
         }
 
         /// <summary>

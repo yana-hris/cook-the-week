@@ -7,6 +7,7 @@
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common;
+    using CookTheWeek.Common.Enums;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
@@ -27,6 +28,7 @@
 
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IStepService stepService;
+        private readonly IRecipeTagService recipeTagService;
         
         private readonly IRecipeValidationService recipeValidator;
         private readonly ILogger<RecipeService> logger;
@@ -34,18 +36,19 @@
         private readonly bool isAdmin;
 
         public RecipeService(IRecipeRepository recipeRepository,
-            IStepService stepService,
             IRecipeIngredientService recipeIngredientService,
+            IStepService stepService,
+            IRecipeTagService recipeTagService,
+            IRecipeValidationService recipeValidator,
             ILogger<RecipeService> logger,
-            IUserContext userContext,
-            IRecipeValidationService recipeValidator)
+            IUserContext userContext)
         {
             this.recipeRepository = recipeRepository;
-            
-            this.logger = logger;
             this.recipeIngredientService = recipeIngredientService;
-            this.recipeValidator = recipeValidator;
             this.stepService = stepService;
+            this.recipeTagService = recipeTagService;
+            this.recipeValidator = recipeValidator;
+            this.logger = logger;            
 
             userId = userContext.UserId;
             isAdmin = userContext.IsAdmin; 
@@ -185,6 +188,11 @@
             recipe.RecipesIngredients = recipeIngredientService.CreateAll(model.RecipeIngredients);
             recipe.Steps = stepService.CreateAll(model.Steps);
 
+            if (model.SelectedTagIds.Count > 0)
+            {
+                recipe.RecipeTags = recipeTagService.CreateAll(model.SelectedTagIds);
+            }            
+
             try
             {
                 string recipeId = await recipeRepository.AddAsync(recipe);
@@ -204,9 +212,10 @@
 
             Recipe recipe = await recipeRepository
                 .GetByIdQuery(model.Id) 
+                .Include(r => r.RecipeTags)
                 .Include(r => r.Steps)
                 .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Ingredient)
+                    .ThenInclude(ri => ri.Ingredient) 
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Measure)
                 .Include(r => r.RecipesIngredients)
@@ -225,6 +234,7 @@
             recipe = MapFromModelToRecipe(model, recipe);
             recipe.RecipesIngredients = await recipeIngredientService.UpdateAll(recipe.Id, model.RecipeIngredients);
             recipe.Steps = await stepService.UpdateAll(recipe.Id, model.Steps);
+            recipe.RecipeTags = await recipeTagService.UpdateAll(recipe.Id, model.SelectedTagIds);
 
             try
             {
@@ -244,9 +254,11 @@
             RecipeDetailsServiceModel? serviceModel = await recipeRepository.GetByIdQuery(id) 
                 .Include(r => r.Owner)
                 .Include(r => r.Steps)
-                .Include(r => r.Category)
+                .Include(r => r.Category)   
                 .Include(r => r.Meals)
                 .Include(r => r.FavouriteRecipes)
+                .Include(r => r.RecipeTags)
+                    .ThenInclude(rt => rt.Tag)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Ingredient)
                 .Select(r => new RecipeDetailsServiceModel
@@ -296,10 +308,11 @@
             
             Recipe recipe = await recipeRepository.GetByIdQuery(id)
                 .Include(r => r.Steps)
+                .Include(r => r.RecipeTags)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Ingredient)
                 .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Measure)
+                    .ThenInclude(ri => ri.Measure)                
                 .Include(ri => ri.RecipesIngredients)
                     .ThenInclude(ri => ri.Specification)
                 .FirstAsync();
@@ -424,6 +437,7 @@
                 recipe.Servings = model.Servings!.Value;
                 recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
                 recipe.ImageUrl = model.ImageUrl;
+                recipe.DifficultyLevel = model.DifficultyLevelId.HasValue ? (DifficultyLevel)model.DifficultyLevelId : null;
                 recipe.CategoryId = model.RecipeCategoryId!.Value;
 
                 if (model is RecipeAddFormModel addModel)

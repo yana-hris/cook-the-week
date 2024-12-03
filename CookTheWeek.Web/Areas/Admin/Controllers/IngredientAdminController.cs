@@ -6,10 +6,10 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Models.Ingredient;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
-    using CookTheWeek.Web.ViewModels.Category;
     using CookTheWeek.Web.ViewModels.Interfaces;
 
     using static Common.NotificationMessagesConstants;
@@ -20,13 +20,13 @@
         private readonly ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> categoryService;
+                                            SelectViewModel> categoryService;
         private readonly IIngredientService ingredientService;
 
         public IngredientAdminController(ICategoryService<IngredientCategory,
                                             IngredientCategoryAddFormModel,
                                             IngredientCategoryEditFormModel,
-                                            IngredientCategorySelectViewModel> categoryService,
+                                            SelectViewModel> categoryService,
             IIngredientService ingredientService,
             ILogger<IngredientAdminController> logger) 
         : base(logger)

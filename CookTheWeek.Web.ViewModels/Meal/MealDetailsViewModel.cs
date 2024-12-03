@@ -24,6 +24,8 @@
 
         public string CookingTime { get; set; } = null!;
 
+        public string? DifficultyLevel { get; set; }
+
         public string CookingDate { get; set; } = null!;
 
         public string CategoryName { get; set; } = null!;

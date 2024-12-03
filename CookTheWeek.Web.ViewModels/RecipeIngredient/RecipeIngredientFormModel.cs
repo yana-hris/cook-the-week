@@ -10,8 +10,8 @@
         
         public RecipeIngredientFormModel()
         {
-            this.Measures = new HashSet<RecipeIngredientSelectMeasureViewModel>();
-            this.Specifications = new HashSet<RecipeIngredientSelectSpecificationViewModel>();
+            this.Measures = new HashSet<SelectViewModel>();
+            this.Specifications = new HashSet<SelectViewModel>();
         }
 
         [Required]
@@ -32,8 +32,8 @@
 
         [Display(Name = "Note")]
         public int? SpecificationId { get; set; }
-        public ICollection<RecipeIngredientSelectMeasureViewModel> Measures { get; set; }
+        public ICollection<SelectViewModel> Measures { get; set; }
 
-        public ICollection<RecipeIngredientSelectSpecificationViewModel> Specifications { get; set; }
+        public ICollection<SelectViewModel> Specifications { get; set; }
     }
 }

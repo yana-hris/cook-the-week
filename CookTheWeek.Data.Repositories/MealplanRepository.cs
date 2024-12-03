@@ -17,7 +17,7 @@
         /// <inheritdoc/>
         public IQueryable<MealPlan> GetAllQuery()
         {
-            return this.dbContext.MealPlans
+            return dbContext.MealPlans
                 .AsQueryable();
         }
 

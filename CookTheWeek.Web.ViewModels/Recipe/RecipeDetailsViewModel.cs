@@ -18,6 +18,7 @@
         public string TotalTime { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
         public string CategoryName { get; set; } = null!;
+        public string DifficultyLevel { get; set; } = null!;
         public string CreatedOn { get; set; } = null!;
         public string CreatedBy { get; set; } = null!;
         public bool IsLikedByUser { get; set; }

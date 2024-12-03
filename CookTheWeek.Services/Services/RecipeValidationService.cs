@@ -23,6 +23,7 @@
         private readonly IIngredientRepository ingredientRepository;
         private readonly IRecipeIngredientRepository recipeIngredientRepository;
         private readonly ICategoryRepository<RecipeCategory> recipeCategoryRepository;
+        private readonly ITagRepository tagRepository;
         private readonly ILogger<RecipeValidationService> logger;
 
         private readonly Guid userId;
@@ -31,6 +32,7 @@
             IRecipeIngredientRepository recipeIngredientRepository,
             IIngredientRepository ingredientRepository,
             ICategoryRepository<RecipeCategory> recipeCategoryRepository,
+            ITagRepository tagRepository,
             IUserContext userContext,
             ILogger<RecipeValidationService> logger)
         {
@@ -38,6 +40,7 @@
             this.ingredientRepository = ingredientRepository;
             this.recipeIngredientRepository = recipeIngredientRepository;
             this.recipeCategoryRepository = recipeCategoryRepository;
+            this.tagRepository = tagRepository;
             this.logger = logger;
 
             this.userId = userContext.UserId;
@@ -70,6 +73,21 @@
                 AddValidationError(result, nameof(model.Steps), RecipeValidation.StepsRequiredErrorMessage);
             }
 
+            if (model.SelectedTagIds.Count > 0)
+            {
+                List<Tag> existingTags = await tagRepository.GetAllQuery().ToListAsync();
+
+                foreach (var tagId in model.SelectedTagIds)
+                {
+                    Tag? tag = existingTags.FirstOrDefault(t => t.Id == tagId);
+
+                    if (tag == null)
+                    {
+                        AddValidationError(result, nameof(model.SelectedTagIds), RecipeValidation.TagIdInvalidErrorMessage);
+                    }
+                }
+            }
+
             foreach (var ingredient in model.RecipeIngredients)
             {
                 try
@@ -89,6 +107,7 @@
                     AddValidationError(result, nameof(ingredient.MeasureId), RecipeIngredientValidation.MeasureRangeErrorMessage);
                 }
 
+                
                 if (ingredient.SpecificationId != null && ingredient.SpecificationId.HasValue)
                 {
                     bool specificationExists = await recipeIngredientRepository.SpecificationExistsByIdAsync(ingredient.SpecificationId.Value);

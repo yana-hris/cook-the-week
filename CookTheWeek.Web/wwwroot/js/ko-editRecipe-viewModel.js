@@ -81,12 +81,35 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         validatable: true
     });
 
+    self.AvailableTags = ko.observableArray(ko.utils.arrayMap(data.AvailableTags || [], function (tag) {
+        return {
+            Id: tag.Id,
+            Name: tag.Name
+        };
+    }));
+
+    self.SelectedTagIds = ko.observableArray(data.SelectedTagIds || []).extend({
+        validatable: true
+    });
+   
+    self.DifficultyLevels = ko.observableArray(ko.utils.arrayMap(data.DifficultyLevels || [], function (level) {
+            return {
+                Id: level.Id,
+                Name: level.Name
+            };
+        })
+    );
+    self.DifficultyLevelId = ko.observable(data.DifficultyLevelId || null).extend({
+        validatable: true
+    });
+
     self.RecipeCategoryId = ko.observable(data.RecipeCategoryId).extend({
         required: {
             message: errorMessages.RecipeCategoryIdRequiredErrorMessage
         },
         validatable: true
-    });
+    });    
+
     self.Steps = ko.observableArray(ko.utils.arrayMap(data.Steps, function (step) {
         return new createStep(step);
     }));
@@ -154,7 +177,11 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             Servings: self.Servings(),
             ImageUrl: self.ImageUrl(),
             CookingTimeMinutes: self.CookingTimeMinutes(),
+            DifficultyLevelId: self.DifficultyLevelId(),
+            SelectedTagIds: self.SelectedTagIds().filter(id => id !== null && id !== undefined && id != 0),
+
             RecipeCategoryId: self.RecipeCategoryId(),
+
             Steps: ko.utils.arrayMap(self.Steps(), function (step) {
                 return {
                     Id: step.Id(), // Ensure that null Ids are preserved    
@@ -276,7 +303,6 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
 
     // Helper function for processing ajax JSON errors in case of response BadRequest and Errors dictionary sent in json format
     function processErrors(errors) {
-        debugger;
 
         for (const [key, value] of Object.entries(errors)) {
             const errorMessages = value.errors;

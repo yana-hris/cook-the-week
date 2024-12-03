@@ -1,6 +1,7 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using System.Collections.Generic;
 
@@ -24,13 +25,13 @@
         /// Gets all measures for recipe ingredients as a view model for select menus
         /// </summary>
         /// <returns>A collection of RecipeIngredientSelectMeasureViewModel</returns>
-        Task<ICollection<RecipeIngredientSelectMeasureViewModel>> GetRecipeIngredientMeasuresAsync();
+        Task<ICollection<SelectViewModel>> GetRecipeIngredientMeasuresAsync();
 
         /// <summary>
         /// Gets all specifications for recipe ingredients as a view model for select menus
         /// </summary>
         /// <returns>A collection of RecipeIngredientSelectSpecificationViewModel</returns>
-        Task<ICollection<RecipeIngredientSelectSpecificationViewModel>> GetRecipeIngredientSpecificationsAsync();
+        Task<ICollection<SelectViewModel>> GetRecipeIngredientSpecificationsAsync();
         
         
         /// <summary>
