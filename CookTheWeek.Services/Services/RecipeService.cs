@@ -61,6 +61,7 @@
 
             IQueryable<Recipe> recipesQuery = recipeRepository
                 .GetAllQuery()
+                .Include(r => r.RecipeTags)
                 .Include(r => r.Category)
                 .AsNoTracking();
 
@@ -82,10 +83,10 @@
                     .Where(r => r.IsSiteRecipe);
             }
 
-            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            if (queryModel.MealTypeId.HasValue)
             {
                 recipesQuery = recipesQuery
-                    .Where(r => r.Category.Name == queryModel.Category);
+                    .Where(r => r.CategoryId == queryModel.MealTypeId.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -98,24 +99,57 @@
                             r.RecipesIngredients!.Any(ri => EF.Functions.Like(ri.Ingredient.Name, wildCard)));
             }
 
-            // Check if sorting is applied and if it exists in sorting enum
-            string recipeSorting = queryModel.RecipeSorting.ToString("G");
-
-            if (string.IsNullOrEmpty(recipeSorting) || !Enum.IsDefined(typeof(RecipeSorting), recipeSorting))
+            if(queryModel.MaxPreparationTime.HasValue)
             {
-                queryModel.RecipeSorting = RecipeSorting.Newest;
+                recipesQuery = recipesQuery
+                    .Where(r => r.TotalTimeMinutes <= queryModel.MaxPreparationTime.Value);
             }
 
-            recipesQuery = queryModel.RecipeSorting switch
+            if (queryModel.DifficultyLevel.HasValue)
+            {
+                recipesQuery = recipesQuery
+                    .Where(r => r.DifficultyLevel == (DifficultyLevel)queryModel.DifficultyLevel.Value);
+            }
+
+            // Filtering by all tags (only recipes that have all the tags will be included in the result set)
+            if (queryModel.SelectedTagIds != null && queryModel.SelectedTagIds.Any())
+            {
+                // If only one tag is applied => simple query for faster results
+                if (queryModel.SelectedTagIds.Count == 1)
+                {
+                    var singleTagId = queryModel.SelectedTagIds.First();
+
+                    recipesQuery = recipesQuery
+                        .Where(r => r.RecipeTags
+                            .Any(tag => tag.TagId == singleTagId));
+                }
+                else // TODO: introduce indexes for query optimization
+                {
+                    recipesQuery = recipesQuery
+                   .Where(r => queryModel.SelectedTagIds
+                       .All(tagId => r.RecipeTags
+                           .Any(tag => tag.TagId == tagId)));
+                }
+               
+            }
+
+            // Check if sorting is applied and if it exists in sorting enum
+            RecipeSorting recipeSorting = (queryModel.RecipeSorting.HasValue &&
+                    Enum.IsDefined(typeof(RecipeSorting), queryModel.RecipeSorting)) ? 
+                    (RecipeSorting)queryModel.RecipeSorting : 
+                    RecipeSorting.Newest;
+
+            
+            recipesQuery = recipeSorting switch
             {
                 RecipeSorting.Newest => recipesQuery
                     .OrderByDescending(r => r.CreatedOn),
                 RecipeSorting.Oldest => recipesQuery
                     .OrderBy(r => r.CreatedOn),
                 RecipeSorting.CookingTimeAscending => recipesQuery
-                    .OrderBy(r => r.TotalTime),
+                    .OrderBy(r => r.TotalTimeMinutes),
                 RecipeSorting.CookingTimeDescending => recipesQuery
-                    .OrderByDescending(r => r.TotalTime),
+                    .OrderByDescending(r => r.TotalTimeMinutes),
                 _ => recipesQuery.OrderByDescending(r => r.CreatedOn)
             };
 
@@ -129,7 +163,7 @@
                 queryModel.RecipesPerPage = DefaultRecipesPerPage;
             }
 
-            queryModel.TotalRecipes = recipesQuery.Count();
+            queryModel.TotalResults = recipesQuery.Count();
 
             
             var recipes = await recipesQuery
@@ -336,6 +370,7 @@
         {
             return await recipeRepository
                 .GetAllQuery()
+                .Include(r => r.Category)
                 .Where(r => r.OwnerId == userId)
                 .CountAsync();
 
@@ -346,7 +381,7 @@
         {
             var siteRecipes = await recipeRepository
                 .GetAllQuery()
-                .AsNoTracking()
+                .Include(r => r.Category)
                 .Where(r => r.IsSiteRecipe)
                 .ToListAsync();
 
@@ -358,7 +393,7 @@
         {
             var allUserRecipes = await recipeRepository
                 .GetAllQuery()
-                .AsNoTracking()
+                .Include(r => r.Category)
                 .Where(r => !r.IsSiteRecipe)
                 .ToListAsync();
 
@@ -435,7 +470,7 @@
                 recipe.Title = model.Title;
                 recipe.Description = model.Description;
                 recipe.Servings = model.Servings!.Value;
-                recipe.TotalTime = TimeSpan.FromMinutes(model.CookingTimeMinutes!.Value);
+                recipe.TotalTimeMinutes = model.CookingTimeMinutes!.Value;
                 recipe.ImageUrl = model.ImageUrl;
                 recipe.DifficultyLevel = model.DifficultyLevelId.HasValue ? (DifficultyLevel)model.DifficultyLevelId : null;
                 recipe.CategoryId = model.RecipeCategoryId!.Value;

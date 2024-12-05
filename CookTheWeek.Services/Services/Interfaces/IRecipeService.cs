@@ -1,12 +1,13 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
-    using CookTheWeek.Common;
-    using CookTheWeek.Data.Models;
-    using CookTheWeek.Services.Data.Models.Recipe;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Web.ViewModels.Recipe;
+    using CookTheWeek.Common;
+    using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Models.Recipe;
+    using CookTheWeek.Web.ViewModels.Recipe;
+
 
     public interface IRecipeService
     {
@@ -16,7 +17,7 @@
         /// </summary>
         /// <param name="queryModel"></param>
         /// <param name="userId"></param>
-        /// <returns>A collection of RecipeAllViewModel</returns>
+        /// <returns>A collection of Recipes</returns>
         /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
         Task<ICollection<Recipe>> GetAllAsync(AllRecipesQueryModel queryModel); 
 

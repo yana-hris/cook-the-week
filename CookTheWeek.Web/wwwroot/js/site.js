@@ -362,7 +362,27 @@ export function reindexMealRows() {
     $('form').validate().form();
 }
 
-// modal behaviour fix
+export function initializeSwiper() {
+    const swiper = new Swiper(".swiper-container", {
+        slidesPerView: 4, // Number of slides visible (for large screens)
+        spaceBetween: 20, // Space between slides in pixels
+        navigation: {
+            nextEl: ".swiper-button-next", // Next button
+            prevEl: ".swiper-button-prev", // Prev button
+        },
+        breakpoints: {
+            576: { slidesPerView: 1, spaceBetween: 10 }, // Small screens
+            768: { slidesPerView: 2, spaceBetween: 15 }, // Medium screens
+            1024: { slidesPerView: 3, spaceBetween: 20 }, // Large screens
+            1200: { slidesPerView: 4, spaceBetween: 20 }, // Extra-large screens
+        },
+        loop: true, // Infinite scroll
+        autoplay: {
+            delay: 3000, // Autoplay interval in milliseconds
+            disableOnInteraction: false, // Keep autoplay running after interaction
+        },
+    });
+}
 
 
 

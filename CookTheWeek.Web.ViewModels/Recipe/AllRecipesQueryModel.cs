@@ -1,24 +1,23 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Recipe
 {
-    
-    using Enums;
-
-    using static Common.GeneralApplicationConstants;
-
+   
     public class AllRecipesQueryModel
-    {        
-        public string? Category { get; set; }
-        
+    {
+        // Filters
         public string? SearchString { get; set; }
+        public int? MealTypeId { get; set; }        
+        public int? MaxPreparationTime { get; set; } // e.g., 30 minutes
+        public int? DifficultyLevel { get; set; } // Easy, Medium, Hard
+        public List<int>? SelectedTagIds { get; set; } // e.g., Kid-Friendly, Healthy, Autumn, etc.
         
-        public RecipeSorting RecipeSorting { get; set; }
 
+        // Pagination
         public int CurrentPage { get; set; }
-
         public int RecipesPerPage { get; set; }
+        public int TotalResults { get; set; }
 
-        public int TotalRecipes { get; set; }
 
-        
+        // Sorting
+        public int? RecipeSorting { get; set; }
     }
 }

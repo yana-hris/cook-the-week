@@ -13,6 +13,13 @@
         Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn);
 
         /// <summary>
+        /// Generates a view model for displaying custom Recipe views (Quick Dinners, Kids-friendly, etc.)
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        Task<AllRecipesFilteredAndPagedViewModel> CreateCustomRecipesViewModelAsync(string? queryType, string? mealType, AllRecipesQueryModel queryModel);
+
+        /// <summary>
         /// Generates a form model for adding a new recipe with populated categories and ingredient options.
         /// Throws an exception if model casting goes wrong.
         /// </summary>
@@ -43,9 +50,6 @@
         /// <exception cref="RecordNotFoundException"></exception>
         Task<RecipeMineViewModel> CreateRecipeMineViewModelAsync();
 
-        
-
-
         /// <summary>
         /// A helper method that fills an existing IRecipeFormModel with the pre-defined select options for Recipe Categories and Serving Options (from the databse).
         /// Adds to the first RecipeIngredient the pre-defined select options for Measures and Specifications.
@@ -62,5 +66,6 @@
         /// </summary>
         /// <returns></returns>
         Task<ICollection<RecipeAllViewModel>> CreateAdminSiteRecipesViewModelAsync();
+        
     }
 }

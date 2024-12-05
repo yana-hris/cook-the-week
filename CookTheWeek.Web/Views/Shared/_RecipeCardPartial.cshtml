@@ -53,7 +53,7 @@
                 <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
             </a>
             <div class="d-flex align-items-center justify-content-between recipe-info">
-                    <span class="badge @BadgeColorHelper.GetBadgeColor(Model.Category.Name)">@Model.Category.Name</span>                    
+                    <span class="badge @BadgeColorHelper.GetBadgeColor(Model.MealType)">@Model.MealType</span>                    
                     <div class="d-flex align-items-center justify-content-center time">
                     <i class="fa-solid fa-stopwatch"></i>
                         <span class="icon-text">@Model.CookingTime</span>

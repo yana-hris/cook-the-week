@@ -52,7 +52,7 @@
 
         [Comment("Recipe Cooking Time")]
         [Required]
-        public TimeSpan TotalTime { get; set; }
+        public int TotalTimeMinutes { get; set; }
 
 
         [Comment("Recipe Image Link")]

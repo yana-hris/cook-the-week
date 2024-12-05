@@ -4,6 +4,7 @@
 
     using Microsoft.Extensions.Logging;
 
+    using CookTheWeek.Common.Enums;
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Helpers;
@@ -21,8 +22,6 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
-    using static CookTheWeek.Common.HelperMethods.EnumHelper;
-    using CookTheWeek.Common.Enums;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
@@ -67,20 +66,26 @@
         public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn)
         {
             
-            var allRecipes = await recipeService.GetAllAsync(queryModel);
-            var categories = await categoryService.GetAllCategoryNamesAsync();
-            
+            ICollection<Recipe> allRecipes = await recipeService.GetAllAsync(queryModel);
+            ICollection<SelectViewModel> mealTypes = await categoryService.GetAllCategoriesAsync();
+            ICollection<SelectViewModel> allTags = await tagService.GetAllTagsAsync();
+
             var viewModel = new AllRecipesFilteredAndPagedViewModel
             {
-                Category = queryModel.Category,
                 SearchString = queryModel.SearchString,
+                MealTypeId = queryModel.MealTypeId,
+                MaxPreparationTime = queryModel.MaxPreparationTime,
+                DifficultyLevel = queryModel.DifficultyLevel,   
+                SelectedTagIds = queryModel.SelectedTagIds,
                 RecipeSorting = queryModel.RecipeSorting,
                 RecipesPerPage = queryModel.RecipesPerPage,
                 CurrentPage = queryModel.CurrentPage,
-                TotalRecipes = queryModel.TotalRecipes,
-                Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes),
-                Categories = categories,
-                RecipeSortings = GetEnumValuesDictionary<RecipeSorting>()
+                TotalResults = queryModel.TotalResults,
+                Recipes = new List<RecipeAllViewModel>(MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes)),
+                MealTypes = mealTypes,
+                DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(),
+                AvailableTags = allTags,
+                RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>()
             };
 
             if (hasActiveMealPlan)
@@ -93,6 +98,54 @@
                 viewModel.ActiveMealPlan.JustLoggedIn = true;
                 viewModel.ActiveMealPlan.UserId = userId;
             }            
+
+            return viewModel;
+        }
+
+        /// <inheritdoc/>
+        public async Task<AllRecipesFilteredAndPagedViewModel> CreateCustomRecipesViewModelAsync(string? tagType, string? mealType, AllRecipesQueryModel queryModel)
+        {
+            ICollection<Recipe> recipes = new List<Recipe>();
+            ICollection<SelectViewModel> mealTypes = await categoryService.GetAllCategoriesAsync();
+            ICollection<SelectViewModel> allTags = await tagService.GetAllTagsAsync();
+
+            if (!String.IsNullOrEmpty(mealType))
+            {
+                int customMealTypeId = mealTypes.FirstOrDefault(mt => mt.Name == mealType).Id;
+                queryModel.MealTypeId = customMealTypeId;
+            }
+
+            if (!String.IsNullOrEmpty(tagType))
+            {
+                int customTagId = allTags.FirstOrDefault(tag => tag.Name == tagType).Id;
+
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+                queryModel.SelectedTagIds.Add(customTagId);
+            }
+
+            
+            recipes = await recipeService.GetAllAsync(queryModel);
+
+            var viewModel = new AllRecipesFilteredAndPagedViewModel
+            {
+                SearchString = queryModel.SearchString,
+                MealTypeId = queryModel.MealTypeId,
+                MaxPreparationTime = queryModel.MaxPreparationTime,
+                DifficultyLevel = queryModel.DifficultyLevel,
+                SelectedTagIds = queryModel.SelectedTagIds,
+                RecipeSorting = queryModel.RecipeSorting,
+                RecipesPerPage = queryModel.RecipesPerPage,
+                CurrentPage = queryModel.CurrentPage,
+                TotalResults = queryModel.TotalResults,
+                Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(recipes),
+                MealTypes = mealTypes,
+                DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(),
+                AvailableTags = allTags,
+                RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>()
+            };
 
             return viewModel;
         }
@@ -128,7 +181,7 @@
                 }).ToList(),
                 Servings = recipe.Servings,
                 ImageUrl = recipe.ImageUrl,
-                CookingTimeMinutes = (int)recipe.TotalTime.TotalMinutes,
+                CookingTimeMinutes = recipe.TotalTimeMinutes,
                 SelectedTagIds = recipe.RecipeTags.Select(s => s.TagId).ToList(),
                 DifficultyLevelId = recipe.DifficultyLevel != null ? (int)recipe.DifficultyLevel : default,
                 RecipeCategoryId = recipe.CategoryId,
@@ -165,7 +218,7 @@
                 Servings = recipe.Servings,
                 IsSiteRecipe = recipe.IsSiteRecipe,
                 DifficultyLevel = recipe.DifficultyLevel.ToString() ?? "N/A",
-                TotalTime = FormatCookingTime(recipe.TotalTime),
+                TotalTime = FormatCookingTime(recipe.TotalTimeMinutes),
                 ImageUrl = recipe.ImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
                 CreatedBy = recipe.Owner.UserName!,
@@ -235,16 +288,10 @@
             model.Categories = await categoryService.GetAllCategoriesAsync();
 
             model.AvailableTags = await tagService.GetAllTagsAsync();
-            
+
             model.ServingsOptions = ServingsOptions;
 
-            model.DifficultyLevels = Enum.GetValues(typeof(DifficultyLevel))
-                .Cast<DifficultyLevel>()
-                .Select(level => new SelectViewModel()
-                {
-                    Id = (int)level,
-                    Name = level.ToString()
-                }).ToList();
+            model.DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>();
 
             if (!model.RecipeIngredients.Any())
             {
@@ -263,6 +310,7 @@
             return model;
         }
 
+        
         /// <inheritdoc/>
         public async Task<RecipeMineAdminViewModel> CreateAdminAllRecipesViewModelAsync()
         {
@@ -302,17 +350,35 @@
                 Title = recipe.Title,
                 ImageUrl = recipe.ImageUrl,
                 Description = recipe.Description,
-                Category = new SelectViewModel
-                {
-                    Id = recipe.CategoryId,
-                    Name = recipe.Category.Name
-                },
+                MealType = recipe.Category.Name,
                 Servings = recipe.Servings,
-                CookingTime = FormatCookingTime(recipe.TotalTime)
+                CookingTime = FormatCookingTime(recipe.TotalTimeMinutes)
             }).ToList();
         }
 
-        
+        /// <summary>
+        /// A private method that returns the Difficulty Levels enumberation as a collection of SelectViewModel
+        /// </summary>
+        /// <returns></returns>
+        private ICollection<SelectViewModel> GetEnumAsSelectViewModel<TEnum>() where TEnum : Enum
+        {
+            if (!typeof(TEnum).IsEnum)
+            {
+                logger.LogError("Invalid enum type.");
+                throw new ArgumentException("TEnum must be an enumerated type");
+            }
+            
+            return Enum.GetValues(typeof(TEnum))
+                .Cast<TEnum>()
+                .Select(enumValue => new SelectViewModel()
+                {
+                    Id = Convert.ToInt32(enumValue),
+                    Name = enumValue.ToString()
+                }).ToList();
+        }
+
+
+
     }
 
 }

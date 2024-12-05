@@ -45,20 +45,7 @@
         /// <exception cref="RecordNotFoundException"></exception>
         Task<TCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id);
 
-        /// <summary>
-        /// Checks if a category exists by id
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns>true or false</returns>
-        Task<bool> CategoryExistsByIdAsync(int categoryId);
-
-        /// <summary>
-        /// Checks if a category exists by a given name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>true or false</returns>
-        Task<bool> CategoryExistsByNameAsync(string name);
-
+        
         /// <summary>
         /// Gets all category names as a list
         /// </summary>

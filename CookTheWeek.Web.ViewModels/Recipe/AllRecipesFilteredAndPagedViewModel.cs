@@ -3,34 +3,61 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookTheWeek.Web.ViewModels.MealPlan;
-    using CookTheWeek.Web.ViewModels.Recipe.Enums;
 
     public class AllRecipesFilteredAndPagedViewModel
     {
         public AllRecipesFilteredAndPagedViewModel()
         {
             this.Recipes = new HashSet<RecipeAllViewModel>();
+            this.MealTypes = new List<SelectViewModel>();
+            this.DifficultyLevels = new List<SelectViewModel>();
+            this.AvailableTags = new List<SelectViewModel>();
+            this.RecipeSortings = new List<SelectViewModel>();
+            this.SelectedTagIds = new List<int>();
             this.ActiveMealPlan = new MealPlanActiveModalViewModel();
         }
+
+        // Filters
 
         [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
 
-        public int TotalRecipes { get; set; }
+        [Display(Name = "Meal Type")]
+        public int? MealTypeId { get; set; }
 
-        [Display(Name = "Sort by")]
-        public RecipeSorting RecipeSorting { get; set; }
+        [Display(Name = "Ready In")]
+        public int? MaxPreparationTime { get; set; }
 
-        public string? Category { get; set; }
+        [Display(Name = "Level")]
+        public int? DifficultyLevel { get; set; }
 
+        [Display(Name = "Level")]
+        public List<int>? SelectedTagIds { get; set; } 
+
+
+        // Pagination
+        public int TotalResults { get; set; }
         public int RecipesPerPage { get; set; }
-
         public int CurrentPage { get; set; }
 
+        // Sorting
+
+        [Display(Name = "Sort by")]
+        public int? RecipeSorting { get; set; }
+
+
+        // Result Set Collection
         public ICollection<RecipeAllViewModel> Recipes { get; set; }
 
-        public IDictionary<int, string> RecipeSortings { get; set; } = null!;
-        public ICollection<string> Categories { get; set; } = null!;
+
+        // Select Options
+        public ICollection<SelectViewModel> MealTypes { get; set; } = null!;
+        public ICollection<SelectViewModel> DifficultyLevels { get; set; } = null!;
+        public ICollection<SelectViewModel> AvailableTags { get; set; } = null!;
+        public ICollection<SelectViewModel> RecipeSortings { get; set; } = null!;
+
+
+        // Meal Plan Modal Needed Data (optional)
         public MealPlanActiveModalViewModel ActiveMealPlan { get; set; }
     }
 

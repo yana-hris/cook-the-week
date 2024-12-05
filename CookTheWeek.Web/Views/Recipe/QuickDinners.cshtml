@@ -7,23 +7,10 @@
     bool hasActiveMealplan = UserContext.HasActiveMealplan;
 
     var headingModel = new PageHeadingViewModel
-    {
-        Subheading = "Browse Recipes",
-        HeadingSecondary = "Find delicious recipes to cook this week"
-    };
-
-    bool justLoggedIn = TempData[JustLoggedIn] as bool? ?? false;
-    bool showModal = justLoggedIn || userId == default;
-
-    if (showModal && hasActiveMealplan)
-    {
-        if (Model.ActiveMealPlan != null)
-        {
-            Model.ActiveMealPlan.HasActiveMealPlan = hasActiveMealplan;
-            Model.ActiveMealPlan.UserId = userId;
-            Model.ActiveMealPlan.JustLoggedIn = justLoggedIn;
-        }       
-    }
+            {
+                Subheading = "Quick Dinners",
+                HeadingSecondary = "Get inspiration and save time"
+            };
 }
 
 <div class="wide-contents-container has-build-btn">
@@ -36,12 +23,12 @@
             <div class="row align-items-center justify-content-between g-0 gy-3">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
                     <div class="input-group">
-                        <span class="input-group-text">Type</span>
-                        <select asp-for="MealTypeId" class="form-select">
+                        <span class="input-group-text">Difficulty</span>
+                        <select asp-for="DifficultyLevel" class="form-select">
                             <option value="">All</option>
-                            @foreach (var type in Model.MealTypes)
+                            @foreach (var level in Model.DifficultyLevels)
                             {
-                                <option value="@type.Id">@type.Name</option>
+                                <option value="@level.Id">@level.Name</option>
                             }
                         </select>
                     </div>
@@ -50,9 +37,9 @@
                     <div class="input-group">
                         <span class="input-group-text">Sort</span>
                         <select asp-for="RecipeSorting" class="form-select">
-                            @foreach (var sorting in Model.RecipeSortings)
+                            @foreach (var criteria in Model.RecipeSortings)
                             {
-                                <option value="@sorting.Id">@sorting.Name</option>
+                                <option value="@criteria.Id">@criteria.Name</option>
                             }
                         </select>
                     </div>
@@ -81,66 +68,65 @@
     <partial name="_BuildBtnPartial" />
 
     <!-- Recipes Container -->
-    <div class="row">        
+    <div class="row">
         <div class="container">
-            @if (!Model.Recipes.Any())
-            {
-                <h2 class="text-center pt-5">No recipes found by the given criteria!</h2>
-            }
-            else
-            {
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 pb-3"> 
+            <!-- Swiper Container -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
                     @foreach (var recipe in Model.Recipes)
                     {
-                        <partial name="_RecipeCardPartial" model="recipe"/>
+                        <!-- Each Recipe Card as a Slide -->
+                        <div class="swiper-slide">
+                            <partial name="_RecipeCardPartial" model="recipe" />
+                        </div>
                     }
                 </div>
-            }
+                <!-- Swiper Navigation Buttons -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
         </div>
     </div>
-    
-    @{
-        int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.RecipesPerPage);
-        int previousPage = Model.CurrentPage - 1;
-        int nextPage = Model.CurrentPage + 1;
 
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || !Model.Recipes.Any();
-        bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
+    @{
+        int previousPage = Model.CurrentPage - 1;
+        if (previousPage < 1)
+        {
+            previousPage = 1;
+        }
+
+        int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.RecipesPerPage);
+        bool shouldDisplayPagination = Model.CurrentPage > 1 || Model.CurrentPage < maxPage;
     }
     <!-- Pagination buttons -->
-    @if(Model.TotalResults > Model.RecipesPerPage)
+    @if (shouldDisplayPagination)
     {
         <div aria-label="Page navigation" id="pagination-buttons">
             <ul class="pagination d-flex justify-content-end align-items-center">
                 <li class="page-item">
-                    <a class="pagination-btn @(shouldPreviousPageBeDisabled ? "disabled" : string.Empty)"
+                    <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
                        asp-action="All"
                        asp-route-currentPage="@previousPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
-                       asp-route-mealTypeId="@Model.MealTypeId"
-                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
-                       asp-route-difficultyLevel="@Model.DifficultyLevel"
-                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
-                       asp-route-searchString="@Model.SearchString"
-                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
-                       aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
+                       asp-route-category="@Model.MealTypeId"
+                       asp-route-searchTerm="@Model.SearchString"
+                       asp-route-sorting="@((int)Model.RecipeSorting)"
+                       aria-disabled="@(Model.CurrentPage == 1 ? true : false)">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                 </li>
-          
+                @{
+                    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+                    !Model.Recipes.Any();
+                }
                 <li class="page-item">
                     <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
                        asp-action="All"
-                       asp-route-currentPage="@nextPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
-                       asp-route-mealTypeId="@Model.MealTypeId"
-                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
-                       asp-route-difficultyLevel="@Model.DifficultyLevel"
-                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
-                       asp-route-searchString="@Model.SearchString"
-                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
+                       asp-route-currentPage="@(Model.CurrentPage + 1)"
+                       asp-route-category="@Model.MealTypeId"
+                       asp-route-searchTerm="@Model.SearchString"
+                       asp-route-sorting="@((int)Model.RecipeSorting)"
                        aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
@@ -149,19 +135,16 @@
         </div>
     }
     <!-- Modal -->
-    <partial name="_WelcomeModalPartial" model="@Model.ActiveMealPlan"/>   
+    <partial name="_WelcomeModalPartial" model="@Model.ActiveMealPlan" />
 </div>
 
-@section Scripts {    
+@section Scripts {
     <script type="module">
+        import { initializeSwiper } from '/js/site.js';
         import { attachToggleFavouritesHandler } from '/js/recipeLikes.js';
 
-        $(document).ready(function () {            
-            if ('@showModal' === "True") {  
-                
-                console.log("Showing modal...");
-                $('#welcomeModal').modal('show');
-            } 
+        $(document).ready(function () {
+            initializeSwiper();
 
             debugger;
             attachToggleFavouritesHandler();

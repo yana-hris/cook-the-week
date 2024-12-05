@@ -3,14 +3,18 @@
     
     public static class CookingTimeHelper
     {
-        public static string FormatCookingTime(TimeSpan cookingTime)
+        public static string FormatCookingTime(int totalTimeInMinutes)
         {
-            string space = (cookingTime.Hours > 0 && cookingTime.Minutes > 0) ? " " : "";
-            string hours = cookingTime.Hours > 0 ? cookingTime.Hours.ToString() + "h" : "";
-            string minutes = (cookingTime.Minutes > 0 || cookingTime.Hours == 0) ? cookingTime.Minutes.ToString() + " min" : "";
-            string result = hours + space + minutes;
+            // Calculate hours and minutes from total minutes
+            int hours = totalTimeInMinutes / 60;
+            int minutes = totalTimeInMinutes % 60;
 
-            return result;
+            // Format the string based on the presence of hours and minutes
+            string space = (hours > 0 && minutes > 0) ? " " : "";
+            string hoursString = hours > 0 ? $"{hours}h" : "";
+            string minutesString = (minutes > 0 || hours == 0) ? $"{minutes} min" : "";
+
+            return hoursString + space + minutesString;
         }
     }
 }

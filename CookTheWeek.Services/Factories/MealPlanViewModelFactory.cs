@@ -94,7 +94,7 @@
                         RecipeId = mpm.RecipeId.ToString(),
                         Title = mpm.Recipe.Title,
                         Servings = mpm.ServingSize,
-                        CookingTime = FormatCookingTime(mpm.Recipe.TotalTime),
+                        CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
                         ImageUrl = mpm.Recipe.ImageUrl,
                         CategoryName = mpm.Recipe.Category.Name,
                         IsCooked = mpm.IsCooked,
@@ -104,7 +104,7 @@
                 TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),
                 TotalCookingDays = mealPlan.Meals.Select(mpm => mpm.CookDate.Date).Distinct().Count(),
                 TotalIngredients = mealPlan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
-                TotalCookingTimeMinutes = mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes),
+                TotalCookingTimeMinutes = mealPlan.Meals.Sum(m => (int)m.Recipe.TotalTimeMinutes),
             };
 
             return model;
@@ -194,7 +194,7 @@
                 TotalMealsCooked = mealplan.Meals.Where(m => m.IsCooked).Count(),
                 TotalMealsUncooked = mealplan.Meals.Where(m => !m.IsCooked).Count(),
                 TotalIngredients = mealplan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
-                TotalCookingTimeMinutes = mealplan.Meals.Sum(m => (int)m.Recipe.TotalTime.TotalMinutes),
+                TotalCookingTimeMinutes = mealplan.Meals.Sum(m => (int)m.Recipe.TotalTimeMinutes),
                 DaysRemaining = (mealplan.StartDate.AddDays(7.00) -  DateTime.UtcNow.Date).Days,
             };
 
@@ -245,7 +245,7 @@
                     RecipeId = mpm.RecipeId,
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
-                    CookingTime = FormatCookingTime(mpm.Recipe.TotalTime),
+                    CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
                     IsCooked = mpm.IsCooked,
                     ImageUrl = mpm.Recipe.ImageUrl,
                     CategoryName = mpm.Recipe.Category.Name,
@@ -268,7 +268,7 @@
                     RecipeId = mpm.RecipeId,
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
-                    CookingTime = FormatCookingTime(mpm.Recipe.TotalTime),
+                    CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
                     ImageUrl = mpm.Recipe.ImageUrl,
                     CategoryName = mpm.Recipe.Category.Name,
                     Date = mpm.CookDate.ToString(MealDateFormat),

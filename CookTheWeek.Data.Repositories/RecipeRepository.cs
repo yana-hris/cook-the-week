@@ -21,7 +21,6 @@
         {
             IQueryable<Recipe> allRecipes = this.dbContext
                 .Recipes
-                .Include(r => r.Category)
                 .AsNoTracking()
                 .AsQueryable();
 

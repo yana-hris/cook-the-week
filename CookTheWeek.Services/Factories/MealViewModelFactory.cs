@@ -49,7 +49,7 @@
                         RecipeId = recipe.Id,
                         Title = recipe.Title,
                         Servings = recipe.Servings,
-                        CookingTime = FormatCookingTime(recipe.TotalTime),
+                        CookingTime = FormatCookingTime(recipe.TotalTimeMinutes),
                         ImageUrl = recipe.ImageUrl,
                         CategoryName = recipe.Category.Name
                     };
@@ -99,7 +99,7 @@
                 Description = meal.Recipe.Description,
                 DifficultyLevel = meal.Recipe.DifficultyLevel.HasValue ? meal.Recipe.DifficultyLevel.ToString() : "",
                 IsMealPlanFinished = isMealPlanFinished,
-                CookingTime = FormatCookingTime(meal.Recipe.TotalTime),
+                CookingTime = FormatCookingTime(meal.Recipe.TotalTimeMinutes),
                 CookingDate = meal.CookDate.ToString(MealDateFormat),
                 CategoryName = meal.Recipe.Category.Name,
                 IsCooked = meal.IsCooked,

@@ -59,20 +59,6 @@
             await this.categoryRepository.AddAsync(category);
             return OperationResult.Success();
         }
-
-        /// <inheritdoc/>      
-        public async Task<bool> CategoryExistsByIdAsync(int categoryId)
-        {
-            return await this.categoryRepository.ExistsByIdAsync(categoryId);
-        }
-
-        /// <inheritdoc/>      
-        public async Task<bool> CategoryExistsByNameAsync(string name)
-        {
-            return await this.categoryRepository.GetAllQuery()
-                .AnyAsync(c => c.Name.ToLower() == name.ToLower());
-        }
-
         /// <inheritdoc/>      
         public async Task TryDeleteCategoryAsync(int id)
         {

@@ -58,7 +58,49 @@
             }
         }
 
-        
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> QuickDinners([FromQuery] AllRecipesQueryModel queryModel)
+        {
+            try
+            {
+                string queryType = "Quick";
+                string mealType = "Main Dish";
+                var model = await recipeViewModelFactory.CreateCustomRecipesViewModelAsync(queryType, mealType, queryModel);
+                SetViewData("Quick Dinners", Request.Path + Request.QueryString);
+                return View(model);
+            }
+            catch (RecordNotFoundException)
+            {
+                return RedirectToAction(nameof(None));
+            }
+            catch(Exception ex)
+            {
+                return HandleException(ex, nameof(QuickDinners), null);
+            }
+        }
+
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public async Task<IActionResult> KidsFriendly([FromQuery] RecipesCustomQueryModel queryModel)
+        //{
+        //    try
+        //    {
+        //        var model = await recipeViewModelFactory.CreateCustomRecipesViewModelAsync(queryModel);
+        //        SetViewData("Quick Dinners", Request.Path + Request.QueryString);
+        //        return View(model);
+        //    }
+        //    catch (RecordNotFoundException)
+        //    {
+        //        return RedirectToAction(nameof(None));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return HandleException(ex, nameof(QuickDinners), null);
+        //    }
+        //}
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -250,6 +292,13 @@
 
         }
 
+        [HttpGet]
+        public IActionResult None()
+        {
+            SetViewData("None", null, "image-overlay food-background");
+            return View();
+        }
+
 
         [HttpGet]
         [AdminRedirect("Site", "RecipeAdmin")]
@@ -273,12 +322,7 @@
 
         }
 
-        [HttpGet]
-        public IActionResult None()
-        {
-            return View();
-        }
-
+        
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {

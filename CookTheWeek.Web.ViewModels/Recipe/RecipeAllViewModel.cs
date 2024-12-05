@@ -9,7 +9,7 @@
         public string Title { get; set; } = null!;
         public string? Description { get; set; }
         public string CookingTime { get; set; } = null!;
-        public SelectViewModel Category { get; set; } = null!;
+        public string MealType { get; set; } = null!;
         public int Servings { get; set; }
 
     }
