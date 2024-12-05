@@ -131,6 +131,31 @@
             return new decimal[] { 1m / 8, 1m / 4, 1m / 3, 1m / 2, 2m / 3, 3m / 4 };
         }
 
+        public const string VeganTagDescription = "Recipes labeled as vegan contain no animal-derived products, including meat, dairy, eggs, or honey. They are crafted using only plant-based ingredients to suit ethical, dietary, or environmental preferences.";
+        public const string VegetarianTagDescription = "These recipes exclude meat, poultry, and seafood but may include animal by-products like dairy, eggs, and honey. Perfect for those embracing a meat-free lifestyle.";
+        public const string PescatarianTagDescription = "Recipes include seafood and fish but exclude other types of meat. These are great for individuals who prefer a diet with occasional fish-based protein.";
+        public const string GlutenFreeTagDescription = "Certified gluten-free recipes exclude wheat, barley, rye, and related derivatives. They are safe for people with celiac disease, gluten intolerance, or those on a gluten-free diet.";
+        public const string DiaryFreeTagDescription = "These recipes contain no milk, cream, cheese, or other dairy products. Ideal for those with lactose intolerance, dairy allergies, or following a dairy-free diet.";
+        public const string NutFreeTagDescription = "Recipes marked as nut-free contain no tree nuts or peanuts. Perfect for individuals with nut allergies or those avoiding nuts for dietary reasons.";
 
+        public const string ChristmasTagDescription = "Festive recipes inspired by the Christmas season. These include traditional and creative holiday treats to celebrate with family and friends.";
+        public const string EasterTagDescription = "Recipes crafted with Easter traditions in mind, featuring light and seasonal dishes like eggs, spring vegetables, and festive baked goods.";
+
+        public const string QuickRecipeDescription = "Recipes that can be prepared swiftly, perfect for busy schedules. Most take less than 30 minutes from start to finish.";
+        public const string FifteenMinuteMealsDescription = "Even faster options that can be ready in just 15 minutes or less, ideal for quick lunches or dinners.";
+        public const string SlowCookedDescription = "Dishes that require slow cooking for deep, rich flavors. Best suited for hearty meals or when you have time to let the food simmer.";
+        public const string NoCookDescription = "Recipes that require no cooking, ideal for hot weather or quick preparation. They often include salads, sandwiches, and raw dishes.";
+
+        public const string KidFriendlyDescription = "Recipes designed to appeal to children, featuring simple, flavorful, and approachable meals for younger palates.";
+        public const string BudgetFriendlyDescription = "Affordable recipes that use cost-effective and accessible ingredients. Great for cooking delicious meals without breaking the bank.";
+
+        public const string SpringRecipesDescription = "Seasonal recipes featuring fresh produce like asparagus, peas, and leafy greens. Perfect for celebrating the renewal of spring.";
+        public const string SummerRecipesDescription = "Light and refreshing recipes with seasonal ingredients like tomatoes, cucumbers, and berries. Ideal for hot weather or outdoor meals.";
+        public const string AutumnRecipesDescription = "Cozy dishes using seasonal produce like pumpkins, squash, apples, and root vegetables. Perfect for cooler weather and comforting meals.";
+        public const string WinterRecipesDescription = "Hearty and warming recipes for the cold season, featuring ingredients like potatoes, citrus fruits, and spices for robust flavors.";
+
+        public const string ClassicRecipesDescription = "Timeless recipes that are beloved staples across generations. These dishes often evoke a sense of nostalgia and tradition.";
+        public const string HealthyRecipesDescription = "Recipes designed with balanced nutrition in mind, focusing on whole, nutrient-rich ingredients.";
+        public const string LightRecipesDescription = "Lighter recipes with lower calories or smaller portions, perfect for those seeking a less heavy meal option.";
     }
 }

@@ -81,7 +81,7 @@
                 RecipesPerPage = queryModel.RecipesPerPage,
                 CurrentPage = queryModel.CurrentPage,
                 TotalResults = queryModel.TotalResults,
-                Recipes = new List<RecipeAllViewModel>(MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes)),
+                Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes),
                 MealTypes = mealTypes,
                 DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(),
                 AvailableTags = allTags,

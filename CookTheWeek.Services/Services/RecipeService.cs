@@ -96,6 +96,7 @@
                 recipesQuery = recipesQuery
                     .Where(r => EF.Functions.Like(r.Title, wildCard) ||
                             EF.Functions.Like(r.Description, wildCard) ||
+                            (r.RecipeTags != null && r.RecipeTags.Any(rt => EF.Functions.Like(rt.Tag.Name, wildCard))) ||
                             r.RecipesIngredients!.Any(ri => EF.Functions.Like(ri.Ingredient.Name, wildCard)));
             }
 
@@ -186,6 +187,7 @@
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
+                .Include(r => r.Category)
                 .Where(r => r.OwnerId == userId || r.FavouriteRecipes.Any(fr => fr.UserId == userId))
                 .Select(r => new
                 {
@@ -370,7 +372,6 @@
         {
             return await recipeRepository
                 .GetAllQuery()
-                .Include(r => r.Category)
                 .Where(r => r.OwnerId == userId)
                 .CountAsync();
 
@@ -418,6 +419,7 @@
             var guidRecipeIds = recipeIds.Select(id => Guid.Parse(id)).ToList(); // Convert strings to Guids
 
             var recipes = await recipeRepository.GetAllQuery()
+                .Include(r => r.Category)
                 .Where(r => guidRecipeIds.Contains(r.Id))
                 .ToListAsync();
 

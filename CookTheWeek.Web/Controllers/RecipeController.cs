@@ -40,17 +40,20 @@
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
+            var model = new AllRecipesFilteredAndPagedViewModel();
+
             try
             {
                 bool justLoggedIn = TempData.Peek(TempDataConstants.JustLoggedIn) as bool? ?? false;
-                var model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, justLoggedIn);
+                model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, justLoggedIn);
 
                 SetViewData("All Recipes", Request.Path + Request.QueryString);
                 return View(model);
             }
             catch (RecordNotFoundException)
             {
-                return RedirectToAction(nameof(None));
+                TempData[InformationMessage] = "No recipes found by this criteria!";
+                return View(model);
             }
             catch(Exception ex)
             {
