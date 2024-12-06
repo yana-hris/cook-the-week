@@ -66,43 +66,71 @@
         [HttpGet]
         public async Task<IActionResult> QuickDinners([FromQuery] AllRecipesQueryModel queryModel)
         {
+            var model = new AllRecipesFilteredAndPagedViewModel();
+
             try
             {
-                string queryType = "Quick";
-                string mealType = "Main Dish";
-                var model = await recipeViewModelFactory.CreateCustomRecipesViewModelAsync(queryType, mealType, queryModel);
+                int mealType = 4; // "Main Dish"
+                int tag = 9; //"Quick" 
+                int maxCookingTime = 30;
+
+                queryModel.MealTypeId = mealType;
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+
+                queryModel.SelectedTagIds.Add(tag);
+                queryModel.MaxPreparationTime = maxCookingTime;
+
+                model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+
                 SetViewData("Quick Dinners", Request.Path + Request.QueryString);
                 return View(model);
             }
             catch (RecordNotFoundException)
             {
-                return RedirectToAction(nameof(None));
+                TempData[InformationMessage] = "No recipes found by this criteria!";
+                return View(model);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return HandleException(ex, nameof(QuickDinners), null);
             }
         }
 
-        //[AllowAnonymous]
-        //[HttpGet]
-        //public async Task<IActionResult> KidsFriendly([FromQuery] RecipesCustomQueryModel queryModel)
-        //{
-        //    try
-        //    {
-        //        var model = await recipeViewModelFactory.CreateCustomRecipesViewModelAsync(queryModel);
-        //        SetViewData("Quick Dinners", Request.Path + Request.QueryString);
-        //        return View(model);
-        //    }
-        //    catch (RecordNotFoundException)
-        //    {
-        //        return RedirectToAction(nameof(None));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return HandleException(ex, nameof(QuickDinners), null);
-        //    }
-        //}
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> KidsFriendly([FromQuery] AllRecipesQueryModel queryModel)
+        {
+            var model = new AllRecipesFilteredAndPagedViewModel();
+
+            try
+            {
+                int tag = 13; //"Kid-friendly" 
+                
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+
+                queryModel.SelectedTagIds.Add(tag);
+
+                model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+
+                SetViewData("Kids Friendly", Request.Path + Request.QueryString);
+                return View(model);
+            }
+            catch (RecordNotFoundException)
+            {
+                TempData[InformationMessage] = "No recipes found by this criteria!";
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(KidsFriendly), null);
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> Add()
