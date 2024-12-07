@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="queryModel">The model containing filtering, sorting, and pagination options.</param>
         /// <returns>An object containing the filtered, sorted, and paginated list of ingredients along with the total count.</returns>
-        Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel);
+        Task<AllIngredientsQueryModel> AllAsync(AllIngredientsQueryModel queryModel);
 
         /// <summary>
         /// Adds a new ingredient to the database.

@@ -93,10 +93,12 @@
 
         /// <inheritdoc/>
         /// // ADMIN
-        public Task<bool> CanIngredientBeDeletedAsync(int id)
+        public async Task<bool> CanIngredientBeDeletedAsync(int id)
         {
-            return recipeRepository.GetAllQuery()
+            bool isIncluded = await recipeRepository.GetAllQuery()
                 .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
+
+            return !isIncluded;
         }
 
 
@@ -198,14 +200,7 @@
             return true;  // Category can be deleted
         }
 
-       
-       
-
         // PRIVATE METHODS:
-        
-        
-
-        
 
         /// <summary>
         /// Set a validation error with a message and make validation result false. If the validation error key alreday exists, the message will not be overwritten

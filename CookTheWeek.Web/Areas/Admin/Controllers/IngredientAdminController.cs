@@ -14,6 +14,7 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants;
+    using CookTheWeek.Web.ViewModels.Recipe.Enums;
 
     public class IngredientAdminController : BaseAdminController
     {
@@ -41,14 +42,9 @@
         {
             try
             {
-                AllIngredientsFilteredAndPagedServiceModel serviceModel = await ingredientService
-                .AllAsync(queryModel);
-                queryModel.Ingredients = serviceModel.Ingredients;
-                queryModel.TotalIngredients = serviceModel.TotalIngredientsCount;
-                queryModel.Categories = await categoryService.GetAllCategoryNamesAsync();
-                queryModel.IngredientSortings = Enum.GetValues(typeof(IngredientSorting))
-                    .Cast<IngredientSorting>()
-                    .ToDictionary(rs => (int)rs, rs => rs.ToString());
+                var model = await ingredientService
+                .AllAsync(queryModel);                
+                queryModel.Categories = await categoryService.GetAllCategoriesAsync();
 
                 return View(queryModel);
             }
@@ -186,6 +182,9 @@
         {
             model.Categories = await categoryService.GetAllCategoriesAsync();
         }
+
+        
+
 
     }
 }

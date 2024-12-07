@@ -44,14 +44,8 @@
         /// <returns>The TCategoryEditFormModel</returns>
         /// <exception cref="RecordNotFoundException"></exception>
         Task<TCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id);
-
         
-        /// <summary>
-        /// Gets all category names as a list
-        /// </summary>
-        /// <returns>A collection of all category names</returns>
-        Task<ICollection<string>> GetAllCategoryNamesAsync();
-
+        
         /// <summary>
         /// Gets the total number of all categories
         /// </summary>

@@ -108,17 +108,6 @@
         }
 
         /// <inheritdoc/>      
-        public async Task<ICollection<string>> GetAllCategoryNamesAsync()
-        {
-            ICollection<string> names = await this.categoryRepository.GetAllQuery()
-                .Select(c => c.Name)
-                .ToListAsync();
-
-            return names;
-        }
-       
-
-        /// <inheritdoc/>      
         public async Task<IngredientCategoryEditFormModel> TryGetCategoryModelForEditAsync(int id)
         {
             var categoryToEdit = await this.categoryRepository

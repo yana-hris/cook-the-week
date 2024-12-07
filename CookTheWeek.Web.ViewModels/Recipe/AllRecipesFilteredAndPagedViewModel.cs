@@ -36,9 +36,9 @@
 
 
         // Pagination
-        public int TotalResults { get; set; }
-        public int RecipesPerPage { get; set; }
         public int CurrentPage { get; set; }
+        public int RecipesPerPage { get; set; }
+        public int TotalResults { get; set; }
 
         // Sorting
 

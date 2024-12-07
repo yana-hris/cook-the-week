@@ -18,6 +18,10 @@
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using CookTheWeek.Services.Data.Helpers;
+    using Microsoft.AspNetCore.Localization;
+    using CookTheWeek.Web.ViewModels.Recipe.Enums;
+    using CookTheWeek.Web.ViewModels;
 
     public class IngredientService : IIngredientService
     {
@@ -37,15 +41,15 @@
         }
 
         /// <inheritdoc/>
-        public async Task<AllIngredientsFilteredAndPagedServiceModel> AllAsync(AllIngredientsQueryModel queryModel)
+        public async Task<AllIngredientsQueryModel> AllAsync(AllIngredientsQueryModel queryModel)
         {
             IQueryable<Ingredient> ingredientsQuery = 
                                 ingredientRepository.GetAllQuery();
 
-            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            if (queryModel.CategoryId != null)
             {
                 ingredientsQuery = ingredientsQuery
-                    .Where(i => i.Category.Name == queryModel.Category);
+                    .Where(i => i.CategoryId == queryModel.CategoryId);
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -56,7 +60,12 @@
                     .Where(i => EF.Functions.Like(i.Name, wildCard));
             }
 
-            ingredientsQuery = queryModel.IngredientSorting switch
+            IngredientSorting ingredientSorting = queryModel.IngredientSorting.HasValue &&
+                Enum.IsDefined(typeof(IngredientSorting), queryModel.IngredientSorting) ?
+                (IngredientSorting)queryModel.IngredientSorting :
+                IngredientSorting.NameAscending;
+
+            ingredientsQuery = ingredientSorting switch
             {
                 IngredientSorting.NameDescending => ingredientsQuery
                     .OrderByDescending(i => i.Name),
@@ -69,6 +78,8 @@
                 _ => ingredientsQuery.OrderBy(i => i.Name)
             };
 
+            queryModel.TotalResults = ingredientsQuery.Count();            
+
             ICollection<IngredientAllViewModel> resultIngredients = await ingredientsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.IngredientsPerPage)
                 .Take(queryModel.IngredientsPerPage)
@@ -80,13 +91,10 @@
                 })
                 .ToListAsync();
 
-            int totalIngredients = ingredientsQuery.Count();
+            queryModel.Ingredients = resultIngredients;
+            queryModel.IngredientSortings = GetEnumAsSelectViewModel<IngredientSorting>();
 
-            return new AllIngredientsFilteredAndPagedServiceModel()
-            {
-                TotalIngredientsCount = totalIngredients,
-                Ingredients = resultIngredients
-            };
+            return queryModel;
         }
 
         /// <inheritdoc/>
@@ -218,6 +226,27 @@
         {
             return await ingredientRepository.GetAllQuery()
                 .AnyAsync(i => i.CategoryId == id);
+        }
+
+        /// <summary>
+        /// A private method that returns the Difficulty Levels enumberation as a collection of SelectViewModel
+        /// </summary>
+        /// <returns></returns>
+        private ICollection<SelectViewModel> GetEnumAsSelectViewModel<TEnum>() where TEnum : Enum
+        {
+            if (!typeof(TEnum).IsEnum)
+            {
+                logger.LogError("Invalid enum type.");
+                throw new ArgumentException("TEnum must be an enumerated type");
+            }
+
+            return Enum.GetValues(typeof(TEnum))
+                .Cast<TEnum>()
+                .Select(enumValue => new SelectViewModel()
+                {
+                    Id = Convert.ToInt32(enumValue),
+                    Name = enumValue.ToString()
+                }).ToList();
         }
     }
 }
