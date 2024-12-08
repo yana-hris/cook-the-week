@@ -1,18 +1,24 @@
 ﻿@model AllIngredientsQueryModel
 @using static CookTheWeek.Common.GeneralApplicationConstants
 @{
-    ViewData["Title"] = "All Ingredients";
+    string returnUrl = ViewBag.ReturnUrl ?? "/Admin/IngredientAdmin/All";
+
+    var adminHeading = new PageHeadingViewModel
+    {
+        Subheading = "All Ingredients",
+        HeadingSecondary = "Browse & manage ingredients"
+    };
 }
 
-<div class="container">
-    <h2 class="text-center">@ViewData["Title"]</h2>
-    <hr />
-    <div class="container pt-2">
-        <form method="get" class="pb-4">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label asp-for="CategoryId" class="form-label">Category</label>
+<div class="wide-contents-container" id="admin">
+    <partial name="_HeadingPartial" model="adminHeading"/>
+
+    <div class="row text-center filter-container">
+        <form id="all-ingredients-form" method="get" class="pb-1">
+            <div class="row align-items-center justify-content-between g-0 gy-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text">Type</span>
                         <select asp-for="CategoryId" class="form-select">
                             <option value="">All</option>
                             @foreach (var category in Model.Categories)
@@ -22,61 +28,48 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <label asp-for="SearchString" class="form-label">Search</label>
-                        <input asp-for="SearchString" class="form-control" placeholder="..." />
+                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Filter</span>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Ingredient name..." />
+                        <button type="submit" value="Search" class="search-btn" form="all-ingredients-form">&rarr;</button>
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label asp-for="IngredientSorting" class="form-label">Sort By</label>
-                        <select asp-for="IngredientSorting" class="form-select sort">
+                <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Sort By</span>
+                        <select asp-for="IngredientSorting" class="form-select">
                             @foreach (var sorting in Model.IngredientSortings)
                             {
-                                string sortText = @sorting.Name
-                                .Replace("Ascending", "")
-                                .Replace("Descending", "");
-                                
-                                <option value="@sorting.Id">
-                                @sortText                                
-                                </option>
+                                <option value="@sorting.Id">@sorting.Name</option>
                             }
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-auto">
-                    <div class="row align-items-end">
-                        <div class="col-sm-6">
-                            <div class="form-group mb-0">
-                                <label asp-for="IngredientsPerPage" class="form-label">Per Page</label>
-                                <select asp-for="IngredientsPerPage" class="form-select">
-                                    @foreach (var perPage in AdminPerPageOptions)
-                                    {
-                                        <option value="@perPage">@perPage</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group mb-0 d-flex justify-content-end">
-                                <button type="submit" value="Search" class="btn btn-primary">Search</button>
-                            </div>
-                        </div>
+                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text">Per Page</span>
+                        <select asp-for="IngredientsPerPage" class="form-select">
+                            @foreach (var perPage in AdminPerPageOptions)
+                            {
+                                <option value="@perPage">@perPage</option>
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <div class="container pt-2">
-        @if (!Model.Ingredients.Any())
-        {
-            <h2 class="text-center">No ingredients found by the given criteria!</h2>
-        }
-        else
-        {
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                <table class="table table-striped">
+
+    <div class="row">
+        <div class="container">
+            @if (!Model.Ingredients.Any())
+            {
+                <h2 class="text-center">No ingredients found by the given criteria!</h2>
+            }
+            else
+            {
+                <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
                             <th><label>Id</label></th>
@@ -93,18 +86,23 @@
                                 <td class="align-baseline">@ingredient.Id</td>
                                 <td class="align-baseline">@ingredient.Name</td>
                                 <td class="align-baseline">@ingredient.Category</td>
-                                <td class="align-baseline"><label><a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Edit" asp-route-id="@ingredient.Id">✔</a></label></td>
                                 <td class="align-baseline">
-                                    <label>
-                                        <a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Delete" asp-route-id="@ingredient.Id">❌</a>
-                                    </label>
+                                    <a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Edit" asp-route-id="@ingredient.Id">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+                                </td>
+                                <td class="align-baseline">
+                                    <a class="btn" asp-area="Admin" asp-controller="IngredientAdmin" asp-action="Delete" asp-route-id="@ingredient.Id" asp-route-returnUrl="@returnUrl">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-            </div>
-        }
+            }
+        </div>
+        
     </div>
     @{
         int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.IngredientsPerPage);
@@ -146,7 +144,7 @@
                    asp-route-categoryId="@Model.CategoryId"
                    asp-route-searchString="@Model.SearchString"
                    asp-route-ingredientSorting="@(Model.IngredientSorting ?? 0)"
-                   aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
+                   aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
                         <i class="fa-solid fa-angles-right"></i>
                    </a>
                 </li>

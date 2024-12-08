@@ -49,6 +49,8 @@
 
             // INGREDIENT:
             public const string IngredientNotFoundExceptionMessage = "Ingredient not found.";
+            // For Ingredient collections
+            public const string NoIngredientsFoundExceptionMessage = "No ingredients found by this criteria.";
 
             // FAV RECIPES:
             public const string FavouriteRecipeNotFoundExceptionMessage = "Favourite recipe not found.";

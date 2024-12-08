@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="title">The View Title</param>
         /// <param name="returnUrl">The ReturnUrl</param>
-        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default, string? pageScrollClass = default)
+        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default)
         {
             ViewData["Title"] = title;
             ViewBag.ReturnUrl = returnUrl;
@@ -41,10 +41,6 @@
                 ViewData["BackgroundClass"] = backgroundClass;
             }
 
-            if (pageScrollClass != default)
-            {
-                ViewData["PageScrollClass"] = pageScrollClass;
-            }
         }
 
     }

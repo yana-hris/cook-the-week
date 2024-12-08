@@ -8,13 +8,10 @@
     {
         public AllIngredientsQueryModel()
         {
-            this.CurrentPage = DefaultPage;
-            this.IngredientsPerPage = DefaultIngredientsPerPage;
-
             this.Categories = new List<SelectViewModel>();
+            this.IngredientSortings = new List<SelectViewModel>();
             this.Ingredients = new HashSet<IngredientAllViewModel>();
         }
-
         // Filters
         [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
@@ -35,7 +32,7 @@
 
 
         // Result Set Collection
-        public ICollection<IngredientAllViewModel> Ingredients { get; set; }
+        public ICollection<IngredientAllViewModel> Ingredients { get; set; } = null!;
 
 
         // Select Options

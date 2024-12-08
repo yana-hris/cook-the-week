@@ -3,6 +3,20 @@
 @import '../components/theme-defaults';
 @import '../components/typography';
 
+#admin.wide-contents-container {
+    display: block;
+    text-align: center;
+
+    .filter-container {
+        padding-bottom: 1rem !important;
+    }
+
+    .ingredients-content {
+        padding: 1rem !important;
+        text-align: center;
+    }
+}
+
 #admin-container {
     max-width: 1200px;
     padding: 30px;

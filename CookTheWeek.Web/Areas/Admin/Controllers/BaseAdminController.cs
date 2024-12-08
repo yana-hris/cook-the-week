@@ -47,6 +47,22 @@
             // Redirect to the internal server error page with the exception message
             return RedirectToAction("InternalServerError", "Home", new { message = ex.Message });
         }
+
+        /// <summary>
+        /// Helper method for setting up ViewData and ViewBag values
+        /// </summary>
+        /// <param name="title">The View Title</param>
+        /// <param name="returnUrl">The ReturnUrl</param>
+        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default)
+        {
+            ViewData["Title"] = title;
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (backgroundClass != default)
+            {
+                ViewData["BackgroundClass"] = backgroundClass;
+            }
+        }
     }
 
    

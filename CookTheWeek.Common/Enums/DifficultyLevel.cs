@@ -1,14 +1,14 @@
 ﻿namespace CookTheWeek.Common.Enums
 {
-    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
 
     public enum DifficultyLevel
     {
-        [Display(Name = "Easy")]
+        [Description("Easy")]
         Easy = 1,
-        [Display(Name = "Medium")]
+        [Description("Medium")]
         Medium = 2,
-        [Display(Name = "Hard")]
+        [Description("Hard")]
         Hard = 3
     }
 }

@@ -11,17 +11,14 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Services.Data.Models.RecipeIngredient;
     using CookTheWeek.Services.Data.Models.Validation;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using CookTheWeek.Services.Data.Helpers;
-    using Microsoft.AspNetCore.Localization;
-    using CookTheWeek.Web.ViewModels.Recipe.Enums;
-    using CookTheWeek.Web.ViewModels;
+    using static CookTheWeek.Services.Data.Helpers.EnumHelper;
+    using static CookTheWeek.Common.GeneralApplicationConstants;
 
     public class IngredientService : IIngredientService
     {
@@ -46,10 +43,10 @@
             IQueryable<Ingredient> ingredientsQuery = 
                                 ingredientRepository.GetAllQuery();
 
-            if (queryModel.CategoryId != null)
+            if (!ingredientsQuery.Any())
             {
-                ingredientsQuery = ingredientsQuery
-                    .Where(i => i.CategoryId == queryModel.CategoryId);
+                logger.LogError("No ingredients found in the database");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoIngredientsFoundExceptionMessage, null);
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
@@ -58,6 +55,12 @@
 
                 ingredientsQuery = ingredientsQuery
                     .Where(i => EF.Functions.Like(i.Name, wildCard));
+            }
+
+            if (queryModel.CategoryId.HasValue)
+            {
+                ingredientsQuery = ingredientsQuery
+                    .Where(i => i.CategoryId == queryModel.CategoryId.Value);
             }
 
             IngredientSorting ingredientSorting = queryModel.IngredientSorting.HasValue &&
@@ -78,9 +81,19 @@
                 _ => ingredientsQuery.OrderBy(i => i.Name)
             };
 
+            if (queryModel.CurrentPage == default)
+            {
+                queryModel.CurrentPage = DefaultPage;
+            }
+
+            if (queryModel.IngredientsPerPage ==  default)
+            {
+                queryModel.IngredientsPerPage = DefaultIngredientsPerPage;
+            }
+
             queryModel.TotalResults = ingredientsQuery.Count();            
 
-            ICollection<IngredientAllViewModel> resultIngredients = await ingredientsQuery
+            var ingredients = await ingredientsQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.IngredientsPerPage)
                 .Take(queryModel.IngredientsPerPage)
                 .Select(i => new IngredientAllViewModel()
@@ -91,7 +104,13 @@
                 })
                 .ToListAsync();
 
-            queryModel.Ingredients = resultIngredients;
+            if (ingredients.Count == 0)
+            {
+                logger.LogError("No ingredients found by these criteria.");
+                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoIngredientsFoundExceptionMessage, null);
+            }
+
+            queryModel.Ingredients = ingredients;
             queryModel.IngredientSortings = GetEnumAsSelectViewModel<IngredientSorting>();
 
             return queryModel;
@@ -230,25 +249,6 @@
                 .AnyAsync(i => i.CategoryId == id);
         }
 
-        /// <summary>
-        /// A private method that returns the Difficulty Levels enumberation as a collection of SelectViewModel
-        /// </summary>
-        /// <returns></returns>
-        private ICollection<SelectViewModel> GetEnumAsSelectViewModel<TEnum>() where TEnum : Enum
-        {
-            if (!typeof(TEnum).IsEnum)
-            {
-                logger.LogError("Invalid enum type.");
-                throw new ArgumentException("TEnum must be an enumerated type");
-            }
-
-            return Enum.GetValues(typeof(TEnum))
-                .Cast<TEnum>()
-                .Select(enumValue => new SelectViewModel()
-                {
-                    Id = Convert.ToInt32(enumValue),
-                    Name = enumValue.ToString()
-                }).ToList();
-        }
+        
     }
 }

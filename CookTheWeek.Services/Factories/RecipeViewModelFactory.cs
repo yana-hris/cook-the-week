@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Factories
 {
+    using System.ComponentModel;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -22,6 +23,8 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
+    using static CookTheWeek.Services.Data.Helpers.EnumHelper;
+   
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
@@ -83,7 +86,7 @@
                 TotalResults = queryModel.TotalResults,
                 Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes),
                 MealTypes = mealTypes,
-                DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(),
+                DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(), 
                 AvailableTags = allTags,
                 RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>()
             };
@@ -238,21 +241,6 @@
 
             model.RecipeIngredientsByCategories = ingredientsByCategories;
 
-            //model.IsLikedByUser = await SafeExecuteAsync(
-            //async () => (await this.favouriteRecipeService.GetRecipeLikeIfExistsAsync(recipeId) != null),
-            //DataRetrievalExceptionMessages.FavouriteRecipeDataRetrievalExceptionMessage
-            //);
-
-            //model.LikesCount = await SafeExecuteAsync(
-            //    async () => await this.favouriteRecipeService.GetRecipeTotalLikesAsync(recipeId),
-            //    DataRetrievalExceptionMessages.RecipeTotalLikesDataRetrievalExceptionMessage
-            //    );
-
-            //model.CookedCount = await SafeExecuteAsync(
-            //    async () => await this.mealService.GetAllMealsCountByRecipeIdAsync(recipeId),
-            //    DataRetrievalExceptionMessages.MealsTotalCountDataRetrievalExceptionMessage
-            //    );
-
             return model;
            
         }
@@ -356,29 +344,7 @@
             }).ToList();
         }
 
-        /// <summary>
-        /// A private method that returns the Difficulty Levels enumberation as a collection of SelectViewModel
-        /// </summary>
-        /// <returns></returns>
-        private ICollection<SelectViewModel> GetEnumAsSelectViewModel<TEnum>() where TEnum : Enum
-        {
-            if (!typeof(TEnum).IsEnum)
-            {
-                logger.LogError("Invalid enum type.");
-                throw new ArgumentException("TEnum must be an enumerated type");
-            }
-            
-            return Enum.GetValues(typeof(TEnum))
-                .Cast<TEnum>()
-                .Select(enumValue => new SelectViewModel()
-                {
-                    Id = Convert.ToInt32(enumValue),
-                    Name = enumValue.ToString()
-                }).ToList();
-        }
-
-
-
+       
     }
 
 }

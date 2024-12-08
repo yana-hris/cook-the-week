@@ -5,16 +5,13 @@
     using CookTheWeek.Common.Exceptions;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Services.Interfaces;
-    using CookTheWeek.Services.Data.Models.Ingredient;
     using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin;
-    using CookTheWeek.Web.ViewModels.Admin.IngredientAdmin.Enums;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
     using CookTheWeek.Web.ViewModels.Interfaces;
 
     using static Common.NotificationMessagesConstants;
     using static Common.EntityValidationConstants;
-    using CookTheWeek.Web.ViewModels.Recipe.Enums;
 
     public class IngredientAdminController : BaseAdminController
     {
@@ -40,13 +37,22 @@
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllIngredientsQueryModel queryModel)
         {
+            var model = new AllIngredientsQueryModel();
+            queryModel.Categories = await categoryService.GetAllCategoriesAsync();
+
             try
             {
-                var model = await ingredientService
-                .AllAsync(queryModel);                
-                queryModel.Categories = await categoryService.GetAllCategoriesAsync();
+                model = await ingredientService
+                .AllAsync(queryModel); 
 
-                return View(queryModel);
+                SetViewData("All Ingredients", Request.Path + Request.QueryString);
+                return View(model);
+            }
+            catch(RecordNotFoundException)
+            {
+                TempData[InformationMessage] = "No ingredients found by this criteria!";
+                model.Categories = await categoryService.GetAllCategoriesAsync();
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -150,7 +156,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string? returnUrl)
         {
             try
             {
@@ -170,7 +176,7 @@
                 return HandleException(ex, nameof(Delete), nameof(Ingredient), id.ToString());
             }
 
-            return RedirectToAction("All");
+            return Redirect(returnUrl ?? "/Admin/IngredientAdmin/All");
         }
 
         /// <summary>
