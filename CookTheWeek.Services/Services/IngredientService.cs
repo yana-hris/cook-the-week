@@ -200,9 +200,11 @@
             {
                 await ingredientRepository.DeleteAsync(ingredient);
             }
-
-            logger.LogError($"Invalid operation while trying to delete an ingredient with id {id}. {InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage}");
-            throw new InvalidOperationException(InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage);
+            else
+            {
+                logger.LogError($"Invalid operation while trying to delete an ingredient with id {id}. {InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage}");
+                throw new InvalidOperationException(InvalidOperationExceptionMessages.IngredientCannotBeDeletedExceptionMessage);
+            }            
         }
 
         /// <inheritdoc/>

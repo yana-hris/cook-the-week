@@ -6213,8 +6213,6 @@ span.small.text-danger {
 }
 .card-custom-style-with-back-btn .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button, #add-recipe .card .card-header .card-back-button, #edit-recipe .card .card-header .card-back-button {
   position: absolute;
-  height: 34px;
-  width: 42px;
   top: 5px;
   right: 7px;
   z-index: 15;
@@ -11942,8 +11940,6 @@ span.small.text-danger {
 }
 .card-custom-style-with-back-btn .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button, #add-recipe .card .card-header .card-back-button, #edit-recipe .card .card-header .card-back-button {
   position: absolute;
-  height: 34px;
-  width: 42px;
   top: 5px;
   right: 7px;
   z-index: 15;
@@ -27241,8 +27237,6 @@ span.small.text-danger {
 }
 .card-custom-style-with-back-btn .card-header .card-back-button, #recipe-details-container .card .card-header .card-back-button, #meal-cook-container .card .card-header .card-back-button, #add-recipe .card .card-header .card-back-button, #edit-recipe .card .card-header .card-back-button {
   position: absolute;
-  height: 34px;
-  width: 42px;
   top: 5px;
   right: 7px;
   z-index: 15;
@@ -27515,6 +27509,10 @@ span.small.text-danger {
   margin: 0.5rem 0;
 }
 
+#recipe-details-container .card, #meal-cook-container .card {
+  overflow: hidden;
+  position: relative;
+}
 #recipe-details-container .card .card-body, #meal-cook-container .card .card-body {
   padding: 0;
 }
@@ -27556,13 +27554,6 @@ span.small.text-danger {
 #recipe-details-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #recipe-details-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .liked-icon, #meal-cook-container .card .card-body .img-container .add-to-favourites-button .not-liked-icon {
   font-size: 28px;
 }
-#recipe-details-container .card .card-body .img-container .fa-bookmark, #meal-cook-container .card .card-body .img-container .fa-bookmark {
-  position: absolute;
-  top: -8px;
-  left: 8px;
-  z-index: 2;
-  font-size: 82px;
-}
 #recipe-details-container .card .card-body .img-container .add-to-mealplan-container, #recipe-details-container .card .card-body .img-container .button-container, #meal-cook-container .card .card-body .img-container .add-to-mealplan-container, #meal-cook-container .card .card-body .img-container .button-container {
   position: absolute;
   bottom: 7px;
@@ -27570,12 +27561,10 @@ span.small.text-danger {
   z-index: 2;
 }
 #recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
-  padding: 1rem 0.5rem;
+  padding: 1.2rem 0.25rem 1rem 0.25rem;
   color: #fff;
   background-color: #2e6930;
-}
-#recipe-details-container .card .card-body .features-row .col, #meal-cook-container .card .card-body .features-row .col {
-  margin-bottom: 0.3rem;
+  row-gap: 0.3rem;
 }
 #recipe-details-container .card .card-body .features-row .col .icon-container, #meal-cook-container .card .card-body .features-row .col .icon-container {
   width: 1.3rem;
@@ -27583,25 +27572,28 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   color: #B4E33D;
-  line-height: 1.3rem;
+  line-height: 1.2rem;
 }
 #recipe-details-container .card .card-body .features-row .col .icon-container .fa, #meal-cook-container .card .card-body .features-row .col .icon-container .fa {
   font-size: 1rem;
 }
 #recipe-details-container .card .card-body .features-row .col .list-item-content, #meal-cook-container .card .card-body .features-row .col .list-item-content {
-  font-family: "Libre Baskerville", serif;
-  font-size: 1rem;
-  line-height: 1.3rem;
   display: flex;
   align-items: center;
   padding-top: 2px;
+  line-height: 1.2rem;
+  font-size: 1rem;
+  font-family: "League Spartan", sans-serif;
 }
 #recipe-details-container .card .card-body .features-row .col .list-item-content .item-decription, #meal-cook-container .card .card-body .features-row .col .list-item-content .item-decription {
-  font-weight: bold;
+  font-size: 1.2rem;
+  color: #B4E33D;
 }
 #recipe-details-container .card .card-body .features-row .col .list-item-content .item-value, #meal-cook-container .card .card-body .features-row .col .list-item-content .item-value {
+  padding-bottom: 0.125rem;
+  font-size: 1rem;
   font-style: italic;
-  color: #B4E33D;
+  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body #ingredients, #meal-cook-container .card .card-body #ingredients {
   padding: 2rem 1.5rem;
@@ -27616,7 +27608,7 @@ span.small.text-danger {
   font-weight: 300 !important;
 }
 #recipe-details-container .card .card-body .newspaper-column, #meal-cook-container .card .card-body .newspaper-column {
-  padding: 0.75rem;
+  padding: 1rem;
   padding-bottom: 1.5rem;
   column-count: 2;
   column-gap: 1.4rem;
@@ -27624,37 +27616,67 @@ span.small.text-danger {
   text-align: justify;
 }
 #recipe-details-container .card .card-body .newspaper-column .recipe-description, #meal-cook-container .card .card-body .newspaper-column .recipe-description {
-  font-weight: normal;
+  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 #recipe-details-container .card .card-body #instructions, #meal-cook-container .card .card-body #instructions {
   padding: 2.4rem 0.5rem;
 }
-#recipe-details-container .card .card-body #instructions .step-number, #meal-cook-container .card .card-body #instructions .step-number {
-  width: 35px;
-  height: 35px;
+#recipe-details-container .card .card-body #instructions .steps-container, #meal-cook-container .card .card-body #instructions .steps-container {
+  padding: 0 1rem;
+}
+#recipe-details-container .card .card-body #instructions .steps-container .step-wrapper, #meal-cook-container .card .card-body #instructions .steps-container .step-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  column-gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgb(171.4, 195, 172.2);
+}
+#recipe-details-container .card .card-body #instructions .steps-container .step-wrapper .step-number, #meal-cook-container .card .card-body #instructions .steps-container .step-wrapper .step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   background-color: #B4E33D;
-  border-radius: 8px;
-  text-align: center;
-  line-height: 35px;
-  font-size: 18px;
+  border-radius: 12px;
+  font-size: 1.4rem;
   color: #2e6930;
 }
-
-@media screen and (min-width: 768px) {
-  hr {
-    margin: 0.75rem 0 !important;
-  }
+#recipe-details-container .card .card-body #instructions .steps-container .step-wrapper:last-child, #meal-cook-container .card .card-body #instructions .steps-container .step-wrapper:last-child {
+  border-bottom: none; /* Removes the border-bottom for the last step */
 }
+#recipe-details-container .card .bookmark-icon, #meal-cook-container .card .bookmark-icon {
+  position: absolute;
+  top: -30px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  right: 56px;
+  z-index: 10;
+  font-size: 120px;
+}
+
+/*@media screen and (min-width:768px) {
+    hr {
+        margin: 0.75rem 0 !important;
+    }
+
+}*/
 @media screen and (max-width: 768px) {
+  #recipe-details-container .steps-container, #meal-cook-container .steps-container {
+    padding: 0 0.5rem !important;
+  }
+  #recipe-details-container .bookmark-icon, #meal-cook-container .bookmark-icon {
+    font-size: 95px !important;
+  }
   #recipe-details-container .newspaper-column, #meal-cook-container .newspaper-column {
     column-count: 1 !important;
   }
-  #recipe-details-container .newspaper-column .recipe-description, #meal-cook-container .newspaper-column .recipe-description {
-    font-weight: 400 !important;
-  }
   #recipe-details-container .back-button, #meal-cook-container .back-button {
-    height: 34px !important;
-    width: 42px !important;
     top: 2px;
     font-size: 18px;
   }

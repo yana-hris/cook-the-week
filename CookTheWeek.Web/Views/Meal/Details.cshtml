@@ -169,23 +169,17 @@
                         </div>
                     </div>
                     <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row">
-                            <div class="col">
-                                @for (int i = 0; i < Model.CookingSteps.Count; i++)
-                                {
-                                    string currentStepText = Model.CookingSteps[i].Description;
-                                    <div class="row mb-2 d-flex align-items-start">
-                                        @if (i > 0)
-                                        {
-                                            <hr class="steps-delimeter" />
-                                        }
-                                        <div class="col-auto">
-                                            <div class="step-number">@(i + 1)</div>
-                                        </div>
-                                        <div class="col">@Html.Raw(currentStepText.Replace("\n", "<br>"))</div>
-                                    </div>
-                                }
-                            </div>
+                        <div class="steps-container">
+                            @for (int i = 0; i < Model.CookingSteps.Count; i++)
+                            {
+                                string currentStepText = Model.CookingSteps[i].Description;
+                                <div class="step-wrapper">
+
+                                    <div class="step-number">@(i + 1)</div>
+
+                                    <div class="col">@Html.Raw(currentStepText.Replace("\n", "<br>"))</div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

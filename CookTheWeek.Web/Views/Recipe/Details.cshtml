@@ -19,7 +19,13 @@
         <partial name="_HeadingSmallPartial" model="headingModel" />
         @Html.AntiForgeryToken()
 
-        <div class="card">
+        <div class="card">      
+            @if (!isAdmin && !Model.IsSiteRecipe)
+            {
+                <div class="bookmark-icon">
+                    <i class="fa-solid fa-bookmark" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
+                </div>                
+            }
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Info</a></li>
@@ -29,9 +35,11 @@
                 <a id="backBtn" href="@(!string.IsNullOrEmpty(ViewBag.ReturnUrl) ? ViewBag.ReturnUrl : Url.Action("Home", "Index"))" class="card-back-button">
                     <i class="fa-solid fa-angles-left"></i>
                 </a>
+               
             </div>
 
             <div class="card-body p-0" id="recipe-details">
+                
                 <div id="info-content" class="tab-content g-3">
                     <div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row g-0">
@@ -51,13 +59,7 @@
                                             }
                                         </a>
                                     }
-                                    else
-                                    {
-                                        if (!isAdmin)
-                                        {
-                                            <i class="fa-solid fa-bookmark" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
-                                        }
-                                    }
+                                   
                                     @if (userId != default && !isAdmin)
                                     {
                                         <div class="add-to-mealplan-container">
@@ -201,23 +203,17 @@
                         </div>
                     </div>
                     <div id="instructions" class="tab-pane fade" role="tabpanel" aria-labelledby="instructions-tab">
-                        <div class="row">
-                            <div class="col">
-                                @for (int i = 0; i < Model.Steps.Count; i++)
-                                {
-                                    string currentStepText = Model.Steps[i].Description;
-                                    <div class="row mb-2 d-flex align-items-start">
-                                        @if (i > 0)
-                                        {
-                                            <hr class="steps-delimeter" />
-                                        }
-                                        <div class="col-auto">
-                                            <div class="step-number">@(i + 1)</div>
-                                        </div>
-                                        <div class="col">@Html.Raw(currentStepText.Replace("\n", "<br>"))</div>
-                                    </div>
-                                }
-                            </div>
+                        <div class="steps-container">
+                            @for (int i = 0; i < Model.Steps.Count; i++)
+                            {
+                                string currentStepText = Model.Steps[i].Description;
+                                <div class="step-wrapper">
+                                    
+                                    <div class="step-number">@(i + 1)</div>
+
+                                    <div class="col">@Html.Raw(currentStepText.Replace("\n", "<br>"))</div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -77,6 +77,8 @@
 
     .card {
         @extend .card-custom-style-with-back-btn;
+        overflow: hidden;
+        position: relative;
 
         .card-body {
             padding: 0;
@@ -127,14 +129,6 @@
                     }
                 }
 
-                .fa-bookmark {
-                    position: absolute;
-                    top: -8px;
-                    left: 8px;
-                    z-index: 2;
-                    font-size: 82px;
-                   
-                }
 
                 .add-to-mealplan-container, .button-container {
                     position: absolute;
@@ -145,12 +139,12 @@
             }
 
             .features-row {
-                padding: 1rem 0.5rem;
+                padding: 1.2rem 0.25rem 1rem 0.25rem;
                 color: $white;
                 background-color: $primary;
+                row-gap: 0.3rem;
 
                 .col {
-                    margin-bottom: 0.3rem;
 
                     .icon-container {
                         width: 1.3rem;
@@ -158,7 +152,7 @@
                         justify-content: center;
                         align-items: center;
                         color: $success;
-                        line-height: 1.3rem;
+                        line-height: 1.2rem;
 
                         .fa {
                             font-size: 1rem;
@@ -166,20 +160,23 @@
                     }
 
                     .list-item-content {
-                        font-family: $font-family-serif;
-                        font-size: 1rem;
-                        line-height: 1.3rem;
                         display: flex;
                         align-items: center;
                         padding-top: 2px;
+                        line-height: 1.2rem;
+                        font-size: 1rem;
+                        font-family: $font-family-sans-serif;
 
                         .item-decription {
-                            font-weight: bold;
+                            font-size: 1.2rem;
+                            color: $success;
                         }
 
                         .item-value {
+                            padding-bottom: 0.125rem;
+                            font-size: 1rem;
                             font-style: italic;
-                            color: $success;
+                            font-family: $font-family-serif;
                         }
                     }
                 }
@@ -196,14 +193,13 @@
                     margin-bottom: 0.25rem;
                 }
 
-
                 .units-styler {
                     font-weight: 300 !important; // check why does not work!
                 }
             }
 
             .newspaper-column {
-                padding: 0.75rem;
+                padding: 1rem;
                 padding-bottom: 1.5rem;
                 column-count: 2;
                 column-gap: 1.4rem;
@@ -211,51 +207,86 @@
                 text-align: justify;
 
                 .recipe-description {
-                    font-weight: normal;
+                    font-weight: 300;
+                    font-size: 1.1rem;
+                    line-height: 1.5;
                 }
             }
 
             #instructions {
                 padding: 2.4rem 0.5rem;
 
-                .step-number {
-                    width: 35px;
-                    height: 35px;
-                    background-color: $success;
-                    border-radius: 8px;
-                    text-align: center;
-                    line-height: 35px;
-                    font-size: 18px;
-                    color: $primary;
+                .steps-container {
+                    padding: 0 1rem;
+
+                    .step-wrapper {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: start;
+                        justify-content: start;
+                        column-gap: 1rem;
+                        margin-bottom: 1.5rem;
+                        padding-bottom: 2rem;
+                        border-bottom: 1px solid $primary-border-subtle;
+
+                        .step-number {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 38px;
+                            height: 38px;
+                            background-color: $success;
+                            border-radius: $medium-border-radius;
+                            font-size: 1.4rem;
+                            color: $primary;
+                        }
+                    }
+
+                    .step-wrapper:last-child {
+                        border-bottom: none; /* Removes the border-bottom for the last step */
+                    }
                 }
             }
+        }
+
+        .bookmark-icon {
+            position: absolute;
+            top: -30px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            right: 56px;
+            z-index: 10;
+            font-size: 120px;
         }
     }
 }
 
-@media screen and (min-width:768px) {
+/*@media screen and (min-width:768px) {
     hr {
         margin: 0.75rem 0 !important;
     }
 
-}
+}*/
 
 @media screen and (max-width: 768px) {
     #recipe-details-container, #meal-cook-container {
 
+        .steps-container {
+            padding: 0 0.5rem !important;
+        }
+
+        .bookmark-icon {
+            font-size: 95px !important;
+        }
+
         .newspaper-column {
             column-count: 1 !important;
-
-            .recipe-description {
-                font-weight: 400 !important;
-            }
         }
 
         .back-button {
-            height: 34px !important;
-            width: 42px !important;
             top: 2px;
             font-size: 18px;
         }
+        
     }
 }
