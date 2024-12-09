@@ -21,7 +21,7 @@
         {
             var user = context.HttpContext.User;
 
-            if (user.Identity.IsAuthenticated && user.IsInRole("Admin"))
+            if (user.Identity.IsAuthenticated && user.IsInRole(AdminRoleName))
             {
                 // Redirect the admin user to the specific admin area action
                 context.Result = new RedirectToActionResult(adminAction, adminController, new {area = AdminAreaName});

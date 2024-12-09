@@ -16,7 +16,6 @@
         /// Returns a collection of all Recipes, filtered and sorted according to the query model parameters (if any)
         /// </summary>
         /// <param name="queryModel"></param>
-        /// <param name="userId"></param>
         /// <returns>A collection of Recipes</returns>
         /// <exception cref="RecordNotFoundException">Thrown if no recipes exist in the database</exception>
         Task<ICollection<Recipe>> GetAllAsync(AllRecipesQueryModel queryModel); 

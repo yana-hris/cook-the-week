@@ -1,9 +1,7 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Admin.IngredientAdmin
 {
-    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations;    
     
-    using static Common.GeneralApplicationConstants;
-
     public class AllIngredientsQueryModel
     {
         public AllIngredientsQueryModel()
@@ -12,13 +10,16 @@
             this.IngredientSortings = new List<SelectViewModel>();
             this.Ingredients = new HashSet<IngredientAllViewModel>();
         }
+
         // Filters
+
         [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
         public int? CategoryId { get; set; }       
 
 
         // Pagination
+
         public int CurrentPage { get; set; }
         public int IngredientsPerPage { get; set; }
         public int TotalResults { get; set; }

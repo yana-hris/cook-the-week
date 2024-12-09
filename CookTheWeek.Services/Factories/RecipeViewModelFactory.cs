@@ -1,6 +1,5 @@
 ﻿namespace CookTheWeek.Services.Data.Factories
 {
-    using System.ComponentModel;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
@@ -297,22 +296,7 @@
 
             return model;
         }
-
         
-        /// <inheritdoc/>
-        public async Task<RecipeMineAdminViewModel> CreateAdminAllRecipesViewModelAsync()
-        {
-            RecipeMineAdminViewModel model = new RecipeMineAdminViewModel();
-
-            ICollection<Recipe> siteRecipes = await recipeService.GetAllSiteAsync();
-            ICollection<Recipe> userRecipes = await recipeService.GetAllNonSiteAsync();
-
-            model.SiteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(siteRecipes);
-            model.UserRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(userRecipes);
-
-            return model;
-        }
-
         /// <inheritdoc/>
         public async Task<ICollection<RecipeAllViewModel>> CreateAdminSiteRecipesViewModelAsync()
         {
@@ -336,6 +320,7 @@
                 Id = recipe.Id,
                 OwnerId = recipe.OwnerId,
                 Title = recipe.Title,
+                IsSiteRecipe = recipe.IsSiteRecipe,
                 ImageUrl = recipe.ImageUrl,
                 Description = recipe.Description,
                 MealType = recipe.Category.Name,

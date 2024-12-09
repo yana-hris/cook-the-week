@@ -58,7 +58,6 @@
         /// <inheritdoc/>
         public async Task<ICollection<Recipe>> GetAllAsync(AllRecipesQueryModel queryModel)
         {
-
             IQueryable<Recipe> recipesQuery = recipeRepository
                 .GetAllQuery()
                 .Include(r => r.RecipeTags)
@@ -70,18 +69,18 @@
                 logger.LogError("No recipes found in the database.");
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
-
-
-            if (userId != default)
+            
+            if (userId != default && !isAdmin) // Logged in user (sees site recipes + own recipes
             {
                 recipesQuery = recipesQuery
                     .Where(r => r.OwnerId == userId || r.IsSiteRecipe);
             }
-            else
+            else if(userId == default) // No logged in user
             {
                 recipesQuery = recipesQuery
                     .Where(r => r.IsSiteRecipe);
             }
+            // If admin, no ownership filters will be applied
 
             if (queryModel.MealTypeId.HasValue)
             {
@@ -181,7 +180,7 @@
             return recipes;
            
         }
-
+        
         /// <inheritdoc/>
         public async Task<RecipeAllMineServiceModel> GetAllMineAsync()
         {

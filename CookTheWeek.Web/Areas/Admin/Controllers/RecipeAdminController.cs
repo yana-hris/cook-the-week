@@ -5,6 +5,9 @@
     using CookTheWeek.Web.ViewModels.Recipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Services.Data.Factories;
+    using CookTheWeek.Common.Exceptions;
+
+    using static Common.NotificationMessagesConstants;
 
     public class RecipeAdminController : BaseAdminController
     {
@@ -24,23 +27,25 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllRecipesQueryModel queryModel)
         {
+            var model = new AllRecipesFilteredAndPagedViewModel();
+
             try
             {
-                RecipeMineAdminViewModel model = await viewModelFactory.CreateAdminAllRecipesViewModelAsync();
-                ViewBag.ReturnUrl = Request.Path + Request.QueryString;
+                model = await viewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
 
-                if (model.SiteRecipes.Count == 0 && model.UserRecipes.Count == 0)
-                {
-                    return RedirectToAction(nameof(None));
-                }
-
+                SetViewData("Admin All Recipes", Request.Path + Request.QueryString);
+                return View(model);
+            }
+            catch(RecordNotFoundException)
+            {
+                TempData[InformationMessage] = "No recipes found by this criteria!";
                 return View(model);
             }
             catch (Exception ex)
             {
-                return HandleException(ex, nameof(All), nameof(RecipeMineAdminViewModel), null);
+                return HandleException(ex, nameof(All), nameof(AllRecipesFilteredAndPagedViewModel), null);
             }
         }
 

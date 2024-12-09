@@ -18,8 +18,14 @@
 }
 
 // owned recipe style
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
     color: $yellow;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: $icon-stroke-color;
+}
+
+.fa-house {
+    color: $primary;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: $icon-stroke-color;
 }

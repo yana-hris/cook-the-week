@@ -1,55 +1,136 @@
-﻿@model RecipeMineAdminViewModel
+﻿@model AllRecipesFilteredAndPagedViewModel
+@using static CookTheWeek.Common.GeneralApplicationConstants
 @{
-    ViewData["Title"] = "All Site Recipes";
-
-
-    var siteRecipes = new PageHeadingViewModel
+    var generalHeading = new PageHeadingViewModel
     {
-        Subheading = "SITE"
+        Subheading = ViewData["Title"].ToString(),
+        HeadingSecondary = "Browse & filter user and site recipes" 
     };
-
-    var userRecipes = new PageHeadingViewModel();
-
-
-    if (Model.SiteRecipes.Count > 0)
-    {
-        userRecipes.Subheading = "USER";
-
-    }
-
 }
 
 <div class="wide-contents-container">
+    <partial name="_HeadingPartial" model="generalHeading"/>
+
+    <!-- Search and Filter panel -->
+    <div class="row text-center filter-container">
+        <form id="admin-all-recipes" method="get" class="pb-1">
+            
+            <div class="row align-items-center justify-content-between g-0 gy-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text">Type</span>
+                        <select asp-for="MealTypeId" class="form-select">
+                            <option value="">All</option>
+                            @foreach (var type in Model.MealTypes)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Sort</span>
+                        <select asp-for="RecipeSorting" class="form-select">
+                            @foreach (var sorting in Model.RecipeSortings)
+                            {
+                                <option value="@sorting.Id">@sorting.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Filter</span>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
+                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                    </div>
+                </div>
+                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text">Per Pg</span>
+                        <select asp-for="RecipesPerPage" class="form-select">
+                            @foreach (var perPage in PerPageOptions)
+                            {
+                                <option value="@perPage">@perPage</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="container">
-            @if (Model.UserRecipes.Any())
+            @if (Model.Recipes.Any())
             {
-                <div class="row">
-                    <partial name="_HeadingPartial" model="userRecipes" />
-                </div>
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-4">
-                    @foreach (var recipe in Model.UserRecipes)
+                    @foreach (var recipe in Model.Recipes)
                     {
                         <partial name="_RecipeCardPartial" model="recipe" />
                     }
                 </div>
 
             }
-            @if (Model.SiteRecipes.Any())
+            else
             {
-                <div class="row">
-                    <partial name="_HeadingPartial" model="siteRecipes" />
-                </div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
-                    @foreach (var recipe in Model.SiteRecipes)
-                    {
-                        <partial name="_RecipeCardPartial" model="recipe" />
-                    }
-                </div>
+                <h2 class="text-center pt-5">No recipes found by the given criteria</h2>
             }
         </div>
     </div>
+
+    @{
+        int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.RecipesPerPage);
+        int previousPage = Model.CurrentPage - 1;
+        int nextPage = Model.CurrentPage + 1;
+
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Recipes.Any());
+        bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
+    }
+    <!-- Pagination buttons -->
+    @if (Model.TotalResults > Model.RecipesPerPage)
+    {
+        <div aria-label="Page navigation" id="pagination-buttons">
+            <ul class="pagination d-flex justify-content-end align-items-center">
+                <li class="page-item">
+                    <a class="pagination-btn @(shouldPreviousPageBeDisabled ? "disabled" : string.Empty)"
+                       asp-area="Admin"
+                       asp-controller="RecipeAdmin"
+                       asp-action="All"
+                       asp-route-currentPage="@previousPage"
+                       asp-route-recipesPerPage="@Model.RecipesPerPage"
+                       asp-route-mealTypeId="@Model.MealTypeId"
+                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
+                       asp-route-difficultyLevel="@Model.DifficultyLevel"
+                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
+                       asp-route-searchString="@Model.SearchString"
+                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
+                       aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                       asp-area="Admin"
+                       asp-controller="RecipeAdmin"
+                       asp-action="All"
+                       asp-route-currentPage="@nextPage"
+                       asp-route-recipesPerPage="@Model.RecipesPerPage"
+                       asp-route-mealTypeId="@Model.MealTypeId"
+                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
+                       asp-route-difficultyLevel="@Model.DifficultyLevel"
+                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
+                       asp-route-searchString="@Model.SearchString"
+                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
+                       aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
+                        <i class="fa-solid fa-angles-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    }
 </div>
 
 

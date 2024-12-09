@@ -5103,8 +5103,14 @@ $main-dish-red: #B22222;*/
   color: red;
 }
 
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
   color: #F9C74F;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5A5A5A;
+}
+
+.fa-house {
+  color: #2e6930;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #5A5A5A;
 }
@@ -5144,8 +5150,14 @@ $main-dish-red: #B22222;*/
   color: red;
 }
 
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
   color: #F9C74F;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5A5A5A;
+}
+
+.fa-house {
+  color: #2e6930;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #5A5A5A;
 }
@@ -6307,7 +6319,11 @@ span.small.text-danger {
   width: 100%;
   object-fit: cover;
 }
-.recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-bookmark {
+.recipe-container .recipe-card .image-container .liked-icon,
+.recipe-container .recipe-card .image-container .not-liked-icon,
+.recipe-container .recipe-card .image-container .fa-bookmark,
+.recipe-container .recipe-card .image-container .fa-house,
+.recipe-container .recipe-card .image-container .fa-user-plus {
   position: absolute;
   top: 8px;
   left: 10px;
@@ -10871,8 +10887,14 @@ $main-dish-red: #B22222;*/
   color: red;
 }
 
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
   color: #F9C74F;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5A5A5A;
+}
+
+.fa-house {
+  color: #2e6930;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #5A5A5A;
 }
@@ -12034,7 +12056,11 @@ span.small.text-danger {
   width: 100%;
   object-fit: cover;
 }
-.recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-bookmark {
+.recipe-container .recipe-card .image-container .liked-icon,
+.recipe-container .recipe-card .image-container .not-liked-icon,
+.recipe-container .recipe-card .image-container .fa-bookmark,
+.recipe-container .recipe-card .image-container .fa-house,
+.recipe-container .recipe-card .image-container .fa-user-plus {
   position: absolute;
   top: 8px;
   left: 10px;
@@ -13183,6 +13209,18 @@ span.small.text-danger {
     display: none !important;
   }
 }
+#admin.wide-contents-container {
+  display: block;
+  text-align: center;
+}
+#admin.wide-contents-container .filter-container {
+  padding-bottom: 1rem !important;
+}
+#admin.wide-contents-container .ingredients-content {
+  padding: 1rem !important;
+  text-align: center;
+}
+
 #admin-container {
   max-width: 1200px;
   padding: 30px;
@@ -22563,8 +22601,14 @@ $main-dish-red: #B22222;*/
   color: red;
 }
 
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
   color: #F9C74F;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5A5A5A;
+}
+
+.fa-house {
+  color: #2e6930;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #5A5A5A;
 }
@@ -26168,8 +26212,14 @@ $main-dish-red: #B22222;*/
   color: red;
 }
 
-.fa-bookmark {
+.fa-bookmark, .fa-user-plus {
   color: #F9C74F;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5A5A5A;
+}
+
+.fa-house {
+  color: #2e6930;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #5A5A5A;
 }
@@ -27331,7 +27381,11 @@ span.small.text-danger {
   width: 100%;
   object-fit: cover;
 }
-.recipe-container .recipe-card .image-container .liked-icon, .recipe-container .recipe-card .image-container .not-liked-icon, .recipe-container .recipe-card .image-container .fa-bookmark {
+.recipe-container .recipe-card .image-container .liked-icon,
+.recipe-container .recipe-card .image-container .not-liked-icon,
+.recipe-container .recipe-card .image-container .fa-bookmark,
+.recipe-container .recipe-card .image-container .fa-house,
+.recipe-container .recipe-card .image-container .fa-user-plus {
   position: absolute;
   top: 8px;
   left: 10px;
