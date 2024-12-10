@@ -6,7 +6,7 @@
     {
         public static string FormatIngredientQty(decimal qty)
         {
-            if (qty == 0.0m || qty < 0.0m)
+            if (qty == 0.000m || qty < 0.000m)
             {
                 return "0";
             }
@@ -28,6 +28,11 @@
         /// <returns></returns>
         private static string FractionGenerator(decimal fraction)
         {
+            if (fraction < 0.125m)
+            {
+                return fraction.ToString("0.###");
+            }
+
             int wholeNumber = (int)Math.Truncate(fraction);
             fraction -= wholeNumber;
 

@@ -11,6 +11,7 @@ namespace CookTheWeek.Data.Configuration
         {
             // Surrogate key
             builder.HasKey(ri => ri.Id);
+            
 
             // Unique index where SpecificationId is not null
             builder.HasIndex(ri => new { ri.RecipeId, ri.IngredientId, ri.MeasureId, ri.SpecificationId })
@@ -21,6 +22,10 @@ namespace CookTheWeek.Data.Configuration
             builder.HasIndex(ri => new { ri.RecipeId, ri.IngredientId, ri.MeasureId })
                    .HasFilter("[SpecificationId] IS NULL")
                    .IsUnique();
+
+            builder
+                .Property(ri => ri.Qty)
+                .HasPrecision(18, 3);
 
             builder
                 .Property(r => r.IsDeleted)
@@ -55,9 +60,7 @@ namespace CookTheWeek.Data.Configuration
                 .HasForeignKey(ri => ri.SpecificationId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder
-                .Property(ri => ri.Qty)
-                .HasPrecision(18, 2);
+            
         }
     }
 }

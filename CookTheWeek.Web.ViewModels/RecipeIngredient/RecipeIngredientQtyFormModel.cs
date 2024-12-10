@@ -22,7 +22,7 @@
 
         public decimal GetDecimalQtyValue()
         {
-            decimal decimalQty = 0m;
+            decimal decimalQty = 0.000m;
 
             if (QtyDecimal.HasValue)
             {

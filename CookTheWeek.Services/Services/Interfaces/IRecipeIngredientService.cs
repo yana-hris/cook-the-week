@@ -1,9 +1,10 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
+    using System.Collections.Generic;
+
     using CookTheWeek.Data.Models;
     using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
-    using System.Collections.Generic;
 
     public interface IRecipeIngredientService
     {

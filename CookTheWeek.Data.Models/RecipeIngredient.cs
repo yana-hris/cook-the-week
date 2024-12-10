@@ -5,6 +5,9 @@
 
     using Microsoft.EntityFrameworkCore;
 
+    using static Common.EntityValidationConstants.RecipeIngredientValidation;
+    using static Common.EntityValidationConstants.RecipeIngredientQtyValidation;
+
     [Comment("Recipe Ingredient")]
     public class RecipeIngredient
     {
@@ -29,7 +32,9 @@
         public Ingredient Ingredient { get; set; } = null!;
 
         [Comment("Quantity of Ingredient in Recipe")]
+        [Range(QtyMinDecimalValue, QtyMaxDecimalValue, ErrorMessage = InvalidDecimalRangeErrorMessage)]
         [Required]
+        [Column(TypeName = "decimal(10,3)")]
         public decimal Qty { get; set; }
 
         [Comment("Measure Key Identifier")]
