@@ -38,11 +38,6 @@
                 SetViewData("Admin All Recipes", Request.Path + Request.QueryString);
                 return View(model);
             }
-            catch(RecordNotFoundException)
-            {
-                TempData[InformationMessage] = "No recipes found by this criteria!";
-                return View(model);
-            }
             catch (Exception ex)
             {
                 return HandleException(ex, nameof(All), nameof(AllRecipesFilteredAndPagedViewModel), null);

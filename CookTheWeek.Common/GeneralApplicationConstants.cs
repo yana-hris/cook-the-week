@@ -19,6 +19,16 @@
         public static readonly IReadOnlyList<int> AdminPerPageOptions = new List<int> { 20, 40, 60, 80, 100 };
         public static readonly IReadOnlyList<int> PreparationTimeOptions = new List<int> { 10, 15, 20, 25, 30, 45, 60 };
 
+        public static readonly Dictionary<string, List<int>> TagGrouping= new Dictionary<string, List<int>>
+        {
+            { "Dietary Preferences", new List<int> {1, 2, 3, 4, 5, 6} },
+            { "Special Occasions", new List<int> {7, 8, 9, 10} },
+            { "Cooking Method", new List<int> {11, 12} },
+            { "Specifics", new List<int> {13, 14} },
+            { "Seasonal", new List<int> {15, 16, 17, 18} },
+            { "General Feature", new List<int> {19, 20, 21} },
+        };
+
         public const double DefaultPdfPageWidth = 210.0d;
         public const double DefaultPdfPageHeight = 297.0d;
 

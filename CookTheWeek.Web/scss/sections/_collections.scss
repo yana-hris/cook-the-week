@@ -55,6 +55,19 @@
                 background-color: var(--select-menu-filter-bg-color) !important;
             }
         }
+
+        .tag-container {
+            gap: 0.5rem;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+
+            .tag-group {
+                width: 185px;
+                border: 1px solid var(--accent-color);
+                border-radius: $medium-border-radius;
+                padding: 0.5rem 1rem;
+            }
+        }
     }
 
     .recipe-container {

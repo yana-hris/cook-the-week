@@ -50,11 +50,6 @@
                 SetViewData("All Recipes", Request.Path + Request.QueryString);
                 return View(model);
             }
-            catch (RecordNotFoundException)
-            {
-                TempData[InformationMessage] = "No recipes found by this criteria!";
-                return View(model);
-            }
             catch(Exception ex)
             {
                 return HandleException(ex, nameof(All), null);
@@ -88,11 +83,6 @@
                 SetViewData("Quick Dinners", Request.Path + Request.QueryString);
                 return View(model);
             }
-            catch (RecordNotFoundException)
-            {
-                TempData[InformationMessage] = "No recipes found by this criteria!";
-                return View(model);
-            }
             catch (Exception ex)
             {
                 return HandleException(ex, nameof(QuickDinners), null);
@@ -119,11 +109,6 @@
                 model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
 
                 SetViewData("Kids Friendly", Request.Path + Request.QueryString);
-                return View(model);
-            }
-            catch (RecordNotFoundException)
-            {
-                TempData[InformationMessage] = "No recipes found by this criteria!";
                 return View(model);
             }
             catch (Exception ex)

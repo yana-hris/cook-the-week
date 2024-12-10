@@ -81,7 +81,9 @@
                     .Where(r => r.IsSiteRecipe);
             }
 
-            if (queryModel.RecipeSource.HasValue && Enum.IsDefined(typeof(RecipeSource), queryModel.RecipeSource.Value))
+            // Filtering Recipe Source: the default behaviour is to show All Recipes (both Site & User)
+            if (queryModel.RecipeSource.HasValue && 
+                Enum.IsDefined(typeof(RecipeSource), queryModel.RecipeSource.Value))
             {
                 RecipeSource recipeSource = (RecipeSource)queryModel.RecipeSource.Value;
 
@@ -91,10 +93,10 @@
                      .Where(r => r.IsSiteRecipe),
                     RecipeSource.User => recipesQuery
                         .Where(r => !r.IsSiteRecipe),
-                    _ => recipesQuery.Where(r => r.IsSiteRecipe && !r.IsSiteRecipe)
+                    _ => recipesQuery
                 };
             }
-            // If admin, no ownership filters will be applied
+            
 
             if (queryModel.MealTypeId.HasValue)
             {

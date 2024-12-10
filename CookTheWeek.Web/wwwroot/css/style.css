@@ -16874,6 +16874,17 @@ span.small.text-danger {
 .wide-contents-container .filter-container select option {
   background-color: var(--select-menu-filter-bg-color) !important;
 }
+.wide-contents-container .filter-container .tag-container {
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.wide-contents-container .filter-container .tag-container .tag-group {
+  width: 185px;
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+}
 .wide-contents-container .recipe-container {
   display: flex;
   align-items: start;

@@ -14,8 +14,8 @@
     <!-- Search and Filter panel -->
     <div class="row text-center filter-container">
         <form id="admin-all-recipes" method="get" class="pb-1">
-            
-            <div class="row align-items-center justify-content-between g-0 gy-3 pb-3">
+
+            <div class="row align-items-center justify-content-between gx-3 gy-3 pb-3">
 
                 <!-- Recipe Source Dropdown -->
                 <div class="col-12 col-sm-6 col-md-3 order-md-first ps-sm-3 ps-md-0">
@@ -54,9 +54,9 @@
                         </select>
                     </div>
                 </div>  
-                
+
             </div>
-            <div class="row align-items-center justify-content-between g-0 gy-3">
+            <div class="row align-items-center justify-content-between gx-3 gy-3">
 
                 <!-- Sorting DropDown -->
                 <div class="col col-12 col-sm-6 col-md-3">
@@ -95,13 +95,13 @@
                             {
                                 <option value="option">Under @option minutes</option>
                             }
-                            
+
                         </select>
                     </div>
                 </div>
 
-                
-                
+
+
 
                 <!-- Pagination DropDown -->
                 <div class="col col-12 col-sm-6 col-md-2 ">
@@ -116,16 +116,38 @@
                     </div>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-between g-0 gy-3 pt-3">
+            <div class="row align-items-center justify-content-between gx-3 gy-3 pt-3">
                 <div class="text-start">
                     <div class="col-12">
                         <label class="form-label fw-bold">Tags:</label>
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach (var tag in Model.AvailableTags)
+                        <div class="tag-container d-flex align-items-start flex-wrap">     
+                            @foreach(var group in TagGrouping)
                             {
-                                <div class="form-check">
-                                    <input asp-for="@tag.Id" class="form-check-input" type="checkbox" value="@tag.Id" id="tag-@tag.Id" />
-                                    <label class="form-check-label" for="tag-@tag.Id">@tag.Name</label>
+                                string groupHeading = group.Key;
+                                List<int> tagIds = group.Value;
+
+                                <div class="tag-group">
+                                    <h6>@groupHeading</h6>
+                                    @foreach (var tagId in tagIds)
+                                    {
+                                        var tag = Model.AvailableTags.FirstOrDefault(tag => tag.Id == tagId);
+
+                                        @if (tag != null)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="SelectedTagIds"
+                                                       value="@tag.Id"
+                                                @(Model.SelectedTagIds != null &&
+                                                    Model.SelectedTagIds.Contains(tag.Id)
+                                                    ? "checked"
+                                                    : "") />
+
+                                                <label class="form-check-label" for="@tag.Id">@tag.Name</label>
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             }
                         </div>
@@ -179,6 +201,7 @@
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
                        asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
                        asp-route-searchString="@Model.SearchString"
+                       asp-route-recipeSource="@Model.RecipeSource"
                        asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
                        aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
                         <i class="fa-solid fa-angles-left"></i>
@@ -193,6 +216,7 @@
                        asp-route-currentPage="@nextPage"
                        asp-route-recipesPerPage="@Model.RecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
+                       asp-route-recipeSource="@Model.RecipeSource"
                        asp-route-maxPreparationTime="@Model.MaxPreparationTime"
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
                        asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"

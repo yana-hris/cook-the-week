@@ -67,10 +67,23 @@
         /// <inheritdoc/>
         public async Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn)
         {
-            
-            ICollection<Recipe> allRecipes = await recipeService.GetAllAsync(queryModel);
-            ICollection<SelectViewModel> mealTypes = await categoryService.GetAllCategoriesAsync();
-            ICollection<SelectViewModel> allTags = await tagService.GetAllTagsAsync();
+            ICollection<Recipe> allRecipes = new HashSet<Recipe>();
+            ICollection<SelectViewModel> mealTypes = new HashSet<SelectViewModel>();
+            ICollection<SelectViewModel> allTags = new HashSet<SelectViewModel>();
+
+            try
+            {
+                allRecipes = await recipeService.GetAllAsync(queryModel);
+                
+            }
+            catch (RecordNotFoundException)
+            {
+                // Only register no match is found and proceed
+                logger.LogError("No recipes match this criteria.");
+            }
+
+            mealTypes = await categoryService.GetAllCategoriesAsync();
+            allTags = await tagService.GetAllTagsAsync();
 
             var viewModel = new AllRecipesFilteredAndPagedViewModel
             {
