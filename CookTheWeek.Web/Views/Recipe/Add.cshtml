@@ -272,6 +272,9 @@
                                                     <div class="input-group flex-inside">
                                                         <span class="input-group-text">Qty</span>
                                                         <input type="number"
+                                                               min="0.001"
+                                                               max="9999.999"
+                                                               step="any"
                                                                data-bind="value: Qty().QtyDecimal,
                                                                   validationElement: Qty().QtyDecimal,
                                                                   attr: { name: 'RecipeIngredients[' + $index() + '].Qty.QtyDecimal' },

@@ -17,6 +17,7 @@
         public const int DefaultIngredientsPerPage = 20;
         public static readonly IReadOnlyList<int> PerPageOptions = new List<int> { 8, 12, 16, 20, 24 };
         public static readonly IReadOnlyList<int> AdminPerPageOptions = new List<int> { 20, 40, 60, 80, 100 };
+        public static readonly IReadOnlyList<int> PreparationTimeOptions = new List<int> { 10, 15, 20, 25, 30, 45, 60 };
 
         public const double DefaultPdfPageWidth = 210.0d;
         public const double DefaultPdfPageHeight = 297.0d;

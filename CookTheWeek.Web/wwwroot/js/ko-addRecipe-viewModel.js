@@ -216,8 +216,8 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
         self.errors.showAllMessages();
        
 
-        //console.log(clientSideErrors);
-        //console.log(self);
+        console.log(clientSideErrors);
+        console.log(self);
 
         // Additional validation for steps and ingredients
         const stepsValid = self.Steps().length > 0;

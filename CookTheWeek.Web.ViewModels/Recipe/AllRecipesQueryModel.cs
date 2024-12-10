@@ -10,6 +10,7 @@
         public int? DifficultyLevel { get; set; } // Easy, Medium, Hard
         public List<int>? SelectedTagIds { get; set; } // e.g., Kid-Friendly, Healthy, Autumn, etc.
         
+        public int? RecipeSource {  get; set; }
 
         // Pagination
         public int CurrentPage { get; set; }

@@ -87,7 +87,9 @@
                 MealTypes = mealTypes,
                 DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(), 
                 AvailableTags = allTags,
-                RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>()
+                RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>(),
+                PreparationTimes = PreparationTimeOptions,
+                RecipeSources = GetEnumAsSelectViewModel<RecipeSource>(),
             };
 
             if (hasActiveMealPlan)

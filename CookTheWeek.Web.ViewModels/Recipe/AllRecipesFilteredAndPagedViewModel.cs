@@ -15,6 +15,8 @@
             this.RecipeSortings = new List<SelectViewModel>();
             this.SelectedTagIds = new List<int>();
             this.ActiveMealPlan = new MealPlanActiveModalViewModel();
+            this.PreparationTimes = new List<int>();
+            this.RecipeSources = new List<SelectViewModel>();
         }
 
         // Filters
@@ -32,13 +34,17 @@
         public int? DifficultyLevel { get; set; }
 
         [Display(Name = "Level")]
-        public List<int>? SelectedTagIds { get; set; } 
+        public List<int>? SelectedTagIds { get; set; }
+
+        [Display(Name = "Recipe Source")]
+        public int? RecipeSource { get; set; }
 
 
         // Pagination
         public int CurrentPage { get; set; }
         public int RecipesPerPage { get; set; }
         public int TotalResults { get; set; }
+
 
         // Sorting
 
@@ -55,6 +61,8 @@
         public ICollection<SelectViewModel> DifficultyLevels { get; set; } = null!;
         public ICollection<SelectViewModel> AvailableTags { get; set; } = null!;
         public ICollection<SelectViewModel> RecipeSortings { get; set; } = null!;
+        public IReadOnlyList<int> PreparationTimes { get; set; } = null!;
+        public ICollection<SelectViewModel> RecipeSources { get; set; } = null!;
 
 
         // Meal Plan Modal Needed Data (optional)

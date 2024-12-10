@@ -15,8 +15,34 @@
     <div class="row text-center filter-container">
         <form id="admin-all-recipes" method="get" class="pb-1">
             
-            <div class="row align-items-center justify-content-between g-0 gy-3">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+            <div class="row align-items-center justify-content-between g-0 gy-3 pb-3">
+
+                <!-- Recipe Source Dropdown -->
+                <div class="col-12 col-sm-6 col-md-3 order-md-first ps-sm-3 ps-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text">Source</span>
+                        <select asp-for="RecipeSource" class="form-select">
+                            <option value="">All</option>
+                            @foreach (var source in Model.RecipeSources)
+                            {
+                                <option value="@source.Id">@source.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search input -->
+                <div class="col-12 col-sm-12 col-md-5 order-first order-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Filter</span>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
+                        <button type="submit" value="Search" class="search-btn" form="admin-all-recipes">&rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Meal Type DropDown -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    @* order-md-first ps-sm-3 ps-md-0 *@
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
                         <select asp-for="MealTypeId" class="form-select">
@@ -27,8 +53,13 @@
                             }
                         </select>
                     </div>
-                </div>
-                <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
+                </div>  
+                
+            </div>
+            <div class="row align-items-center justify-content-between g-0 gy-3">
+
+                <!-- Sorting DropDown -->
+                <div class="col col-12 col-sm-6 col-md-3">
                     <div class="input-group">
                         <span class="input-group-text">Sort</span>
                         <select asp-for="RecipeSorting" class="form-select">
@@ -39,14 +70,41 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
+
+                <!-- Difficulty Level Dropdown -->
+                <div class="col-12 col-sm-6 col-md-4">
                     <div class="input-group">
-                        <span class="input-group-text">Filter</span>
-                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                        <span class="input-group-text">Difficulty</span>
+                        <select asp-for="DifficultyLevel" class="form-select">
+                            <option value="">All</option>
+                            @foreach (var level in Model.DifficultyLevels)
+                            {
+                                <option value="@level.Id">@level.Name</option>
+                            }
+                        </select>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+
+                <!-- Max Preparation Time Dropdown -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Prep Time</span>
+                        <select asp-for="MaxPreparationTime" class="form-select">
+                            <option value="">All</option>
+                            @foreach (var option in Model.PreparationTimes)
+                            {
+                                <option value="option">Under @option minutes</option>
+                            }
+                            
+                        </select>
+                    </div>
+                </div>
+
+                
+                
+
+                <!-- Pagination DropDown -->
+                <div class="col col-12 col-sm-6 col-md-2 ">
                     <div class="input-group">
                         <span class="input-group-text">Per Pg</span>
                         <select asp-for="RecipesPerPage" class="form-select">
@@ -55,6 +113,22 @@
                                 <option value="@perPage">@perPage</option>
                             }
                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-between g-0 gy-3 pt-3">
+                <div class="text-start">
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Tags:</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var tag in Model.AvailableTags)
+                            {
+                                <div class="form-check">
+                                    <input asp-for="@tag.Id" class="form-check-input" type="checkbox" value="@tag.Id" id="tag-@tag.Id" />
+                                    <label class="form-check-label" for="tag-@tag.Id">@tag.Name</label>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

@@ -80,6 +80,20 @@
                 recipesQuery = recipesQuery
                     .Where(r => r.IsSiteRecipe);
             }
+
+            if (queryModel.RecipeSource.HasValue && Enum.IsDefined(typeof(RecipeSource), queryModel.RecipeSource.Value))
+            {
+                RecipeSource recipeSource = (RecipeSource)queryModel.RecipeSource.Value;
+
+                recipesQuery = recipeSource switch
+                {
+                    RecipeSource.Site => recipesQuery
+                     .Where(r => r.IsSiteRecipe),
+                    RecipeSource.User => recipesQuery
+                        .Where(r => !r.IsSiteRecipe),
+                    _ => recipesQuery.Where(r => r.IsSiteRecipe && !r.IsSiteRecipe)
+                };
+            }
             // If admin, no ownership filters will be applied
 
             if (queryModel.MealTypeId.HasValue)
