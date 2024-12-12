@@ -28,6 +28,7 @@
         public DbSet<MealPlan> MealPlans { get; set; } = null!;
         public DbSet<Tag> Tags { get; set; } = null!;
         public DbSet<RecipeTag> RecipeTags { get; set; } = null!;
+        public DbSet<RecipeRating> Ratings { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(CookTheWeekDbContext)) ??

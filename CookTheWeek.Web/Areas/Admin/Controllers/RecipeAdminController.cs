@@ -35,7 +35,7 @@
             {
                 model = await viewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
 
-                SetViewData("Admin All Recipes", Request.Path + Request.QueryString);
+                SetViewData("Admin All Recipes", Request.Path + Request.QueryString, null);
                 return View(model);
             }
             catch (Exception ex)

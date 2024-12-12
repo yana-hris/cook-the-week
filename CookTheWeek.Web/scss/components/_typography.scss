@@ -67,6 +67,11 @@
     }
 }
 
+.hidden {
+    display: none;
+}
+
+
 .hero-background {
     position: fixed;
     top: 50px; // because of nav
@@ -243,6 +248,7 @@ span.small.text-danger {
 .custom-link {
     color: $primary;
     text-decoration: underline;
+    cursor: pointer;
 
     &:hover {
         color: $primary-400;

@@ -59,14 +59,6 @@
     opacity: 0.6 !important;
 }
 
-/*.fixed-size-btn {
-    height: 40px;
-    width: 44px;
-    font-size: 22px;
-}*/
-
-
-
 // Reusable buttons
 .back-button-main,
 .details-btn,
@@ -75,8 +67,6 @@
     @include icon-button(var(--bs-body-bg), $primary, false, true, 2px, true, 40px, null, null, $border-radius-small);
 
 }
-
-
 
 .plus {
     @include icon-button($primary, #fff, true, false, 2px, true, 40px, null, null, $border-radius);
@@ -113,8 +103,6 @@
 .uncook-meal-button { 
     @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 40px, null, null, $border-radius-small);   
 }
-
-
 
 .shopping-list-btn,
 .save-button,
@@ -268,16 +256,16 @@
     display: block;
     padding: 0.25rem 0.5rem;
     font-size: 1.5rem;
-    color: $white;
-    background-color: $primary;
-    border-color: $primary;
+    color: var(--bs-body-bg);
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    @include button-box-shadow-effect();
+    
     border-bottom-right-radius: $border-radius-small !important;
     border-top-right-radius: $border-radius-small !important;
 
     &:hover {
         background-color: $primary-400;
-        border-color: $primary-border-subtle;
-        color: $primary;
     }
 }
 // remove btns style on hover

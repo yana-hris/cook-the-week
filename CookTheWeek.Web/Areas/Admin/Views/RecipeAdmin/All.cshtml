@@ -13,12 +13,24 @@
 
     <!-- Search and Filter panel -->
     <div class="row text-center filter-container">
+        <div class="filter-btn-container">
+            @{
+                bool tagsApplied = Model.SelectedTagIds != null && Model.SelectedTagIds.Any();
+                string showClass = tagsApplied ? "" : "hidden";
+                string btnText = tagsApplied ? "Hide advanced filters" : "More advanced filters";
+                string iconClass = tagsApplied ? "fa-circle-chevron-up" : "fa-circle-chevron-down";
+            }
+            <a href="#" class="small filter-link more-filters-link">
+                <span class="btnText">@btnText</span>
+                <i class="fa-solid @iconClass"></i>
+            </a>
+        </div>
         <form id="admin-all-recipes" method="get" class="pb-1">
 
             <div class="row align-items-center justify-content-between gx-3 gy-3 pb-3">
 
                 <!-- Recipe Source Dropdown -->
-                <div class="col-12 col-sm-6 col-md-3 order-md-first ps-sm-3 ps-md-0">
+                <div class="col-12 col-sm-6 col-md-3 order-md-first">
                     <div class="input-group">
                         <span class="input-group-text">Source</span>
                         <select asp-for="RecipeSource" class="form-select">
@@ -56,6 +68,7 @@
                 </div>  
 
             </div>
+
             <div class="row align-items-center justify-content-between gx-3 gy-3">
 
                 <!-- Sorting DropDown -->
@@ -93,15 +106,12 @@
                             <option value="">All</option>
                             @foreach (var option in Model.PreparationTimes)
                             {
-                                <option value="option">Under @option minutes</option>
+                                <option value="@option">Under @option minutes</option>
                             }
 
                         </select>
                     </div>
                 </div>
-
-
-
 
                 <!-- Pagination DropDown -->
                 <div class="col col-12 col-sm-6 col-md-2 ">
@@ -115,26 +125,27 @@
                         </select>
                     </div>
                 </div>
+
             </div>
-            <div class="row align-items-center justify-content-between gx-3 gy-3 pt-3">
-                <div class="text-start">
-                    <div class="col-12">
-                        <label class="form-label fw-bold">Tags:</label>
+
+            <div class="row align-items-center justify-content-between gx-3 gy-3 pt-4">
+                <div class="text-start">                   
+                    <div id="tags" class="col-12 @showClass">
                         <div class="tag-container d-flex align-items-start flex-wrap">     
                             @foreach(var group in TagGrouping)
                             {
-                                string groupHeading = group.Key;
+                                string groupName = group.Key;
                                 List<int> tagIds = group.Value;
 
                                 <div class="tag-group">
-                                    <h6>@groupHeading</h6>
+                                    <h3 class="tag-title">@groupName</h3>
                                     @foreach (var tagId in tagIds)
                                     {
                                         var tag = Model.AvailableTags.FirstOrDefault(tag => tag.Id == tagId);
 
                                         @if (tag != null)
                                         {
-                                            <div class="form-check">
+                                            <div class="form-check tag-line">
                                                 <input class="form-check-input"
                                                        type="checkbox"
                                                        name="SelectedTagIds"
@@ -230,6 +241,16 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script type="module">
+        import { advancedFiltersToggler } from '/js/site.js';
+
+        $(document).ready(function () {
+            advancedFiltersToggler();
+        });
+    </script>
+}
 
 
 

@@ -15,6 +15,7 @@
             this.Recipes = new HashSet<Recipe>();   
             this.FavoriteRecipes = new HashSet<FavouriteRecipe>();
             this.MealPlans = new HashSet<MealPlan>();
+            this.Ratings = new HashSet<RecipeRating>();
         }
 
         [Comment("A collection of user`s owned recipes")]
@@ -25,5 +26,8 @@
 
         [Comment("A set of Meal Plans built by the User")]
         public ICollection<MealPlan> MealPlans { get; set; }
+
+        [Comment("A collection of the User`s Recipe Ratings")]
+        public ICollection<RecipeRating> Ratings { get; set; }
     }
 }

@@ -384,6 +384,44 @@ export function initializeSwiper() {
     });
 }
 
+export function advancedFiltersToggler() {
+    debugger;
+    const filtersBtn = document.querySelector('.filter-btn-container');
+    const filterSpan = filtersBtn.querySelector('.filter-link .btnText');
+    const filtersDiv = document.querySelector('#tags');
 
+    filtersBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (filtersDiv.classList.contains('hidden')) {
+            filtersDiv.classList.remove('hidden');
+            filterSpan.textContent = "Hide advanced filters";
+            toggleIcons(filtersBtn);
+            
+        } else {
+            filterSpan.textContent = "More advanced filters";
+            toggleIcons(filtersBtn);
+            filtersDiv.classList.add('hidden');
+        }
+    });
+
+    
+}
+
+const toggleIcons = function (btn) {
+    debugger;
+    if (btn) {
+        const icon = btn.querySelector('a i');
+
+        if (icon.classList.contains('fa-circle-chevron-up')) {
+            icon.classList.remove('fa-circle-chevron-up');
+            icon.classList.add('fa-circle-chevron-down');
+        } else {
+            icon.classList.remove('fa-circle-chevron-down');
+            icon.classList.add('fa-circle-chevron-up');
+        }
+    }
+    return;
+}
 
   

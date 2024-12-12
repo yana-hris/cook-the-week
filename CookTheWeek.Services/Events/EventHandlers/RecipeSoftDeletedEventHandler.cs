@@ -8,15 +8,18 @@
         private readonly IMealService mealService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IStepService stepService;
+        private readonly IRatingService ratingService;
 
         public RecipeSoftDeletedEventHandler(IStepService stepService,
             IFavouriteRecipeService favouriteRecipeService,
             IMealService mealService,
+            IRatingService ratingService,
             IRecipeIngredientService recipeIngredientService)
         {
             this.favouriteRecipeService = favouriteRecipeService;
             this.mealService = mealService;
             this.recipeIngredientService = recipeIngredientService;
+            this.ratingService = ratingService;
             this.stepService = stepService;
         }
 
@@ -30,6 +33,7 @@
             await stepService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await mealService.SoftDeleteAllByRecipeIdAsync(recipeId);
             await favouriteRecipeService.SoftDeleteAllByRecipeIdAsync(recipeId);
+            await ratingService.SoftDeleteAllByRecipeIdAsync(recipeId);
         }
     }
 }

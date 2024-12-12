@@ -159,14 +159,48 @@
             recipesQuery = recipeSorting switch
             {
                 RecipeSorting.Newest => recipesQuery
-                    .OrderByDescending(r => r.CreatedOn),
+                    .OrderByDescending(r => r.CreatedOn)
+                    .ThenBy(r => r.DifficultyLevel)
+                    .ThenBy(r => r.TotalTimeMinutes)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
                 RecipeSorting.Oldest => recipesQuery
-                    .OrderBy(r => r.CreatedOn),
+                    .OrderBy(r => r.CreatedOn)
+                    .ThenBy(r => r.DifficultyLevel)
+                    .ThenBy(r => r.TotalTimeMinutes)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
                 RecipeSorting.CookingTimeAscending => recipesQuery
-                    .OrderBy(r => r.TotalTimeMinutes),
+                    .OrderBy(r => r.TotalTimeMinutes)
+                    .ThenBy(r => r.DifficultyLevel)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
                 RecipeSorting.CookingTimeDescending => recipesQuery
-                    .OrderByDescending(r => r.TotalTimeMinutes),
-                _ => recipesQuery.OrderByDescending(r => r.CreatedOn)
+                    .OrderByDescending(r => r.TotalTimeMinutes)
+                    .ThenByDescending(r => r.DifficultyLevel)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
+                RecipeSorting.DifficultyLevelAscending => recipesQuery
+                    .OrderBy(r => r.DifficultyLevel)
+                    .ThenBy(r => r.TotalTimeMinutes)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
+                RecipeSorting.DifficultyLevelDescending => recipesQuery
+                    .OrderByDescending(r => r.DifficultyLevel)
+                    .ThenByDescending(r => r.TotalTimeMinutes)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
+                RecipeSorting.ViewsDescending => recipesQuery
+                    .OrderByDescending(r => r.TotalTimeMinutes) // change to RecipeViews when available
+                    .ThenBy(r => r.DifficultyLevel)
+                    .ThenBy(r => r.Title)
+                    .ThenBy(r => r.Id),
+                _ => recipesQuery
+                .OrderByDescending(r => r.CreatedOn)
+                .ThenBy(r => r.DifficultyLevel)
+                .ThenBy(r => r.TotalTimeMinutes)
+                .ThenBy(r => r.Title)
+                .ThenBy(r => r.Id),
             };
 
             if (queryModel.CurrentPage == default)
@@ -451,6 +485,8 @@
 
             return allUserAddedRecipesIds;
         }
+
+
 
         // PRIVATE HELPER METHODS        
 

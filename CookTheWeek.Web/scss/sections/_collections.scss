@@ -6,14 +6,50 @@
 .wide-contents-container {
 
     .filter-container {
+        position: relative;
         display: flex;
         align-items: center;
         padding: 0.6rem;
-        padding-top: 0.9rem;
+        padding-top: 2rem;
         margin: 1.5rem 0;
         background: var(--background-gradient); //$success-400;
         border-radius: $border-radius-small;
         border-color: 1px solid $primary-bg-subtle;
+
+
+        .filter-btn-container {
+            position: absolute;
+            top: 8px;
+            right: 1rem;
+            align-self: end;
+            width: auto;
+            padding: 0.1rem 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+
+            .filter-link {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                color: var(--accent-color);
+                text-decoration: none;
+            }
+
+            &:hover {
+
+                .filter-link {
+
+                    .btnText {
+                        color: var(--bs-body-color);
+                        text-decoration: underline;
+                    }
+
+                    i.fa-solid {
+                        color: var(--bs-body-color);
+                    }
+                }
+            }
+        }
 
 
         span.input-group-text {
@@ -38,13 +74,13 @@
             background-color: var(--input-background) !important;
             color: var(--input-color) !important;
             font-size: 1.2rem !important;
-
-
+            font-weight: 300;
 
             &::placeholder {
                 color: var(--input-color);
                 opacity: 0.9;
                 font-size: 1.2rem !important;
+                font-weight: 300;
             }
         }
 
@@ -57,7 +93,7 @@
         }
 
         .tag-container {
-            gap: 0.5rem;
+            gap: 0.4rem;
             justify-content: space-between;
             margin-bottom: 0.6rem;
 
@@ -65,7 +101,33 @@
                 width: 185px;
                 border: 1px solid var(--accent-color);
                 border-radius: $medium-border-radius;
-                padding: 0.5rem 1rem;
+                padding: 0.7rem 1rem;
+
+                .tag-title {
+                    font-size: 1.2rem;
+                    color: var(--bs-body-color);
+                    font-weight: 300;
+                }
+
+                .tag-line {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    .form-check-input {
+                        display: block;
+                        line-height: 1.2;
+                        border-radius: $border-radius-small;
+                        height: 1.3rem;
+                        width: 1.3rem;
+                        margin-bottom: 0.2rem; // adjust center alignment with text
+                    }
+
+                    .form-check-label {
+                        line-height: 1.2;
+                        margin-top: $btn-custom-margin-top-fix;
+                    }
+                }
             }
         }
     }

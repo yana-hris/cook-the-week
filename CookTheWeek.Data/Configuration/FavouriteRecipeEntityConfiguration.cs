@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Models;
+    using CookTheWeek.Data.Models;
 
     public class FavouriteRecipeEntityConfiguration : IEntityTypeConfiguration<FavouriteRecipe>
     {

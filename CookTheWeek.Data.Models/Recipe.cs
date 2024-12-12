@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using Microsoft.EntityFrameworkCore;
 
     using CookTheWeek.Common.Enums;
@@ -19,6 +20,9 @@
             this.FavouriteRecipes = new HashSet<FavouriteRecipe>();
             this.Steps = new HashSet<Step>();
             this.Meals = new HashSet<Meal>();   
+            this.RecipeTags = new HashSet<RecipeTag>();
+            this.Ratings = new HashSet<RecipeRating>();
+
         }
 
         [Comment("Key Indetifier")]
@@ -55,6 +59,14 @@
         public int TotalTimeMinutes { get; set; }
 
 
+        [Comment("Recipe Total Views")]
+        public int Views { get; set; } = 0;
+
+
+        [Comment("Recipe Average Rating calculated")]
+        public double AverageRating { get; set; } = 0.0;
+
+
         [Comment("Recipe Image Link")]
         [Required]
         [MaxLength(ImageUlrMaxLength)]
@@ -77,9 +89,11 @@
         [Required]
         public bool IsDeleted { get; set; }
 
+
         [Comment("Indicator for Recipe Ownership")]
         [Required]
         public bool IsSiteRecipe { get; set; }
+
 
         [Comment("Level of difficulty for the Recipe")]
         public DifficultyLevel? DifficultyLevel { get; set; }
@@ -100,8 +114,13 @@
         [Comment("A collection of Meals cooked with the Recipe")]
         public ICollection<Meal> Meals { get; set; }
 
+
         [Comment("A collection of Recipe Tags")]
         public ICollection<RecipeTag> RecipeTags { get; set; }
+
+
+        [Comment("A collection of Recipe-User Ratings")]
+        public ICollection<RecipeRating> Ratings { get; set; }
 
     }
 }

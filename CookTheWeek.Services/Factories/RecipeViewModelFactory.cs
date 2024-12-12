@@ -88,15 +88,20 @@
             var viewModel = new AllRecipesFilteredAndPagedViewModel
             {
                 SearchString = queryModel.SearchString,
-                MealTypeId = queryModel.MealTypeId,
-                MaxPreparationTime = queryModel.MaxPreparationTime,
-                DifficultyLevel = queryModel.DifficultyLevel,   
+                MealTypeId = queryModel.MealTypeId.HasValue ? queryModel.MealTypeId.Value : null,
+                MaxPreparationTime = queryModel.MaxPreparationTime.HasValue ? queryModel.MaxPreparationTime.Value : null,
+                DifficultyLevel = queryModel.DifficultyLevel.HasValue ? queryModel.DifficultyLevel.Value : null,   
                 SelectedTagIds = queryModel.SelectedTagIds,
-                RecipeSorting = queryModel.RecipeSorting,
-                RecipesPerPage = queryModel.RecipesPerPage,
+                RecipeSource = queryModel.RecipeSource.HasValue ? queryModel.RecipeSource.Value : null,
+
                 CurrentPage = queryModel.CurrentPage,
+                RecipesPerPage = queryModel.RecipesPerPage,
                 TotalResults = queryModel.TotalResults,
+
+                RecipeSorting = queryModel.RecipeSorting.HasValue ? queryModel.RecipeSorting.Value : (int)RecipeSorting.Newest,
+
                 Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes),
+
                 MealTypes = mealTypes,
                 DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(), 
                 AvailableTags = allTags,

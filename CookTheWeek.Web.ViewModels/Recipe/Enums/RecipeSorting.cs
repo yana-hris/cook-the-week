@@ -12,5 +12,11 @@
         CookingTimeAscending = 2,
         [Description("Slowest")]
         CookingTimeDescending = 3,
+        [Description("Easiest")]
+        DifficultyLevelAscending = 4,
+        [Description("Hardest")]
+        DifficultyLevelDescending = 5,
+        [Description("Most Popular")]
+        ViewsDescending = 6,
     }
 }

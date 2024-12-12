@@ -24,32 +24,37 @@
         [Display(Name = "Search for..")]
         public string? SearchString { get; set; }
 
+
         [Display(Name = "Meal Type")]
         public int? MealTypeId { get; set; }
+
 
         [Display(Name = "Ready In")]
         public int? MaxPreparationTime { get; set; }
 
+
         [Display(Name = "Level")]
         public int? DifficultyLevel { get; set; }
+
 
         [Display(Name = "Level")]
         public List<int>? SelectedTagIds { get; set; }
 
+
         [Display(Name = "Recipe Source")]
         public int? RecipeSource { get; set; }
+        
+
+        // Sorting
+
+        [Display(Name = "Sort by")]
+        public int? RecipeSorting { get; set; }
 
 
         // Pagination
         public int CurrentPage { get; set; }
         public int RecipesPerPage { get; set; }
         public int TotalResults { get; set; }
-
-
-        // Sorting
-
-        [Display(Name = "Sort by")]
-        public int? RecipeSorting { get; set; }
 
 
         // Result Set Collection
