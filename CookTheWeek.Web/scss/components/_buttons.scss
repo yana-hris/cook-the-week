@@ -256,20 +256,10 @@
 
 // all recipes view: search btn
 .search-btn {
-    display: block;
-    padding: 0.25rem 0.5rem;
-    font-size: 1.5rem;
-    color: var(--bs-body-bg);
-    border-color: var(--accent-color);
-    background-color: var(--accent-color);
-    @include button-box-shadow-effect();
+    @include icon-button(var(--accent-color),var(--bs-body-bg), true, false, 0px, true, 46px, null, 1.3rem, 0);
     
     border-bottom-right-radius: $border-radius-small !important;
     border-top-right-radius: $border-radius-small !important;
-
-    &:hover {
-        background-color: $primary-400;
-    }
 }
 // remove btns style on hover
 

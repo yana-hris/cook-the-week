@@ -62,7 +62,7 @@
     border-radius: $medium-border-radius;
 }
 
-@mixin icon-button( $main-color, $icon-color: #fff, $flip-border-hover-color: false, $is-background-plain: false, $border-width: 1px, $hover-effect: true, $height: 40px, $width: null, $font-size: null, $border-radius: $border-radius ) {
+@mixin icon-button($main-color, $icon-color: #fff, $flip-border-hover-color: false, $is-background-plain: false, $border-width: 1px, $hover-effect: true, $height: 40px, $width: null, $font-size: null, $border-radius: $border-radius ) {
 
     @include button-base();
     @include flex-center();

@@ -75,7 +75,7 @@
                 <!-- Sorting DropDown -->
                 <div class="col col-12 col-sm-6 col-lg-3 order-lg-2">
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
                         <select asp-for="RecipeSorting" class="form-select">
                             <option value="">Order By</option>
                             @foreach (var sorting in Model.RecipeSortings)
@@ -124,7 +124,7 @@
                 <!-- Pagination DropDown -->
                 <div class="col col-12 col-sm-6 col-md-3">
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-grip"></i></span>
+                        <span class="input-group-text"><i class="fa-solid fa-table-cells-large"></i></span>
                         <select asp-for="RecipesPerPage" class="form-select">
                             <option value="">Per Pg</option>
                             @foreach (var perPage in PerPageOptions)

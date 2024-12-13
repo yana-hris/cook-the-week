@@ -30,7 +30,7 @@
                 <!-- Recipe Source Dropdown -->
                 <div class="col-12 col-sm-6 col-md-3 order-md-first">
                     <div class="input-group">
-                        <span class="input-group-text">Source</span>
+                        <span class="input-group-text"><i class="fa-solid fa-shuffle"></i></span>
                         <select asp-for="RecipeSource" class="form-select">
                             <option value="">All</option>
                             @foreach (var source in Model.RecipeSources)
@@ -44,19 +44,18 @@
                 <!-- Search input -->
                 <div class="col-12 col-sm-12 col-md-5 order-first order-md-2">
                     <div class="input-group">
-                        <span class="input-group-text">Filter</span>
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
                         <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="admin-all-recipes">&rarr;</button>
+                        <button type="submit" value="Search" class="search-btn" form="admin-all-recipes"><i class="fa-solid fa-filter"></i></button>
                     </div>
                 </div>
 
                 <!-- Meal Type DropDown -->
                 <div class="col-12 col-sm-6 col-md-4">
-                    @* order-md-first ps-sm-3 ps-md-0 *@
                     <div class="input-group">
-                        <span class="input-group-text">Type</span>
+                        <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
                         <select asp-for="MealTypeId" class="form-select">
-                            <option value="">All</option>
+                            <option value="">Meal Type</option>
                             @foreach (var type in Model.MealTypes)
                             {
                                 <option value="@type.Id">@type.Name</option>
@@ -72,8 +71,9 @@
                 <!-- Sorting DropDown -->
                 <div class="col col-12 col-sm-6 col-md-3">
                     <div class="input-group">
-                        <span class="input-group-text">Sort</span>
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
                         <select asp-for="RecipeSorting" class="form-select">
+                            <option value="">Order By</option>
                             @foreach (var sorting in Model.RecipeSortings)
                             {
                                 <option value="@sorting.Id">@sorting.Name</option>
@@ -85,9 +85,9 @@
                 <!-- Difficulty Level Dropdown -->
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="input-group">
-                        <span class="input-group-text">Difficulty</span>
+                        <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
                         <select asp-for="DifficultyLevel" class="form-select">
-                            <option value="">All</option>
+                            <option value="">Difficulty Level</option>
                             @foreach (var level in Model.DifficultyLevels)
                             {
                                 <option value="@level.Id">@level.Name</option>
@@ -99,9 +99,9 @@
                 <!-- Max Preparation Time Dropdown -->
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="input-group">
-                        <span class="input-group-text">Prep Time</span>
+                        <span class="input-group-text"><i class="fa-solid fa-clock-rotate-left"></i></span>
                         <select asp-for="MaxPreparationTime" class="form-select">
-                            <option value="">All</option>
+                            <option value="">Preparation Time</option>
                             @foreach (var option in Model.PreparationTimes)
                             {
                                 <option value="@option">Under @option minutes</option>
@@ -114,8 +114,9 @@
                 <!-- Pagination DropDown -->
                 <div class="col col-12 col-sm-6 col-md-2 ">
                     <div class="input-group">
-                        <span class="input-group-text">Per Pg</span>
+                        <span class="input-group-text"><i class="fa-solid fa-table-cells-large"></i></span>
                         <select asp-for="RecipesPerPage" class="form-select">
+                            <option value="">Per Pg</option>
                             @foreach (var perPage in PerPageOptions)
                             {
                                 <option value="@perPage">@perPage</option>
