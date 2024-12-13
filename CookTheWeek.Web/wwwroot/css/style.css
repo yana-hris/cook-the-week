@@ -20,8 +20,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -62,8 +64,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -549,8 +553,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -591,8 +597,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -680,8 +688,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -722,8 +732,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -811,8 +823,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -853,8 +867,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -1457,8 +1473,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -1499,8 +1517,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -1588,8 +1608,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -1630,8 +1652,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -1719,8 +1743,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -1761,8 +1787,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -1850,8 +1878,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -1892,8 +1922,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -2526,6 +2558,7 @@ span.small.text-danger {
   margin-right: auto;
   margin-left: auto;
   padding: 2rem 2.4rem 3rem 2.4rem;
+  border-radius: 2px;
   margin-bottom: 2rem;
   max-width: 793px;
   box-shadow: var(--container-box-shadow);
@@ -2544,6 +2577,7 @@ span.small.text-danger {
   margin-left: auto;
   padding: 2rem 2.4rem 3rem 2.4rem;
   max-width: 520px;
+  border-radius: 2px;
   background: linear-gradient(180deg, rgb(180, 227, 61) 0%, rgb(46, 105, 48) 100%);
   box-shadow: var(--container-box-shadow);
 }
@@ -2566,6 +2600,7 @@ span.small.text-danger {
   border-radius: 8px;
   text-align: center;
   background-color: var(--bs-body-bg);
+  box-shadow: var(--container-box-shadow);
 }
 .form-container:hover {
   box-shadow: var(--container-box-shadow-hover);
@@ -2598,8 +2633,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -2640,8 +2677,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -3127,8 +3166,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -3169,8 +3210,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -3258,8 +3301,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -3300,8 +3345,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -3389,8 +3436,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -3431,8 +3480,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -4088,7 +4139,6 @@ span.small.text-danger {
   opacity: 0.6 !important;
 }
 
-.back-button-main,
 .details-btn,
 .list-btn,
 .download-btn {
@@ -4100,17 +4150,14 @@ span.small.text-danger {
   justify-content: center;
   position: relative;
   height: 40px;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas,
-.details-btn i,
-.details-btn .fa,
-.details-btn .fas,
+.details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
 .list-btn .fa,
 .list-btn .fas,
@@ -4126,7 +4173,6 @@ span.small.text-danger {
   color: #2e6930;
   z-index: 1;
 }
-.back-button-main::before,
 .details-btn::before,
 .list-btn::before,
 .download-btn::before {
@@ -4140,24 +4186,66 @@ span.small.text-danger {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover,
 .details-btn:hover,
 .list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
-.details-btn:hover i,
-.details-btn:hover .fa,
-.details-btn:hover .fas,
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
 .list-btn:hover i,
 .list-btn:hover .fa,
 .list-btn:hover .fas,
 .download-btn:hover i,
 .download-btn:hover .fa,
 .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.back-button-main {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.back-button-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -4536,7 +4624,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -4568,7 +4656,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -4597,7 +4685,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -4620,7 +4708,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -4703,7 +4791,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -4728,7 +4816,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -5255,8 +5343,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -5297,8 +5387,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -5386,8 +5478,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -5428,8 +5522,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -5517,8 +5613,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -5559,8 +5657,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -5648,8 +5748,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -5690,8 +5792,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -6566,8 +6670,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -6608,8 +6714,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -6697,8 +6805,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -6739,8 +6849,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -6828,8 +6940,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -6870,8 +6984,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -6959,8 +7075,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -7001,8 +7119,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -7605,8 +7725,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -7647,8 +7769,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -8134,8 +8258,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -8176,8 +8302,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -8265,8 +8393,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -8307,8 +8437,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -8396,8 +8528,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -8438,8 +8572,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -9095,7 +9231,6 @@ span.small.text-danger {
   opacity: 0.6 !important;
 }
 
-.back-button-main,
 .details-btn,
 .list-btn,
 .download-btn {
@@ -9107,17 +9242,14 @@ span.small.text-danger {
   justify-content: center;
   position: relative;
   height: 40px;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas,
-.details-btn i,
-.details-btn .fa,
-.details-btn .fas,
+.details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
 .list-btn .fa,
 .list-btn .fas,
@@ -9133,7 +9265,6 @@ span.small.text-danger {
   color: #2e6930;
   z-index: 1;
 }
-.back-button-main::before,
 .details-btn::before,
 .list-btn::before,
 .download-btn::before {
@@ -9147,24 +9278,66 @@ span.small.text-danger {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover,
 .details-btn:hover,
 .list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
-.details-btn:hover i,
-.details-btn:hover .fa,
-.details-btn:hover .fas,
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
 .list-btn:hover i,
 .list-btn:hover .fa,
 .list-btn:hover .fas,
 .download-btn:hover i,
 .download-btn:hover .fa,
 .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.back-button-main {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.back-button-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -9543,7 +9716,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -9575,7 +9748,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -9604,7 +9777,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -9627,7 +9800,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -9710,7 +9883,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -9735,7 +9908,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -10488,8 +10661,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -10530,8 +10705,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -10683,8 +10860,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -10725,8 +10904,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -10826,8 +11007,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -10868,8 +11051,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -11056,8 +11241,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -11098,8 +11285,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -11187,8 +11376,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -11229,8 +11420,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -11318,8 +11511,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -11360,8 +11555,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -11449,8 +11646,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -11491,8 +11690,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -12363,8 +12564,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -12405,8 +12608,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -12494,8 +12699,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -12536,8 +12743,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -12625,8 +12834,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -12667,8 +12878,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -12756,8 +12969,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -12798,8 +13013,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -13397,7 +13614,7 @@ span.small.text-danger {
   background-color: transparent;
 }
 
-#add-ingredient .suggestionsList {
+#add-ingredient .suggestionsList, #edit-ingredient .suggestionsList {
   top: 33px;
   left: 63px;
   border-radius: 12px;
@@ -13469,8 +13686,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -13511,8 +13730,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -13600,8 +13821,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -13642,8 +13865,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -14129,8 +14354,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -14171,8 +14398,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -14260,8 +14489,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -14302,8 +14533,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -14391,8 +14624,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -14433,8 +14668,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -15090,7 +15327,6 @@ span.small.text-danger {
   opacity: 0.6 !important;
 }
 
-.back-button-main,
 .details-btn,
 .list-btn,
 .download-btn {
@@ -15102,17 +15338,14 @@ span.small.text-danger {
   justify-content: center;
   position: relative;
   height: 40px;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas,
-.details-btn i,
-.details-btn .fa,
-.details-btn .fas,
+.details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
 .list-btn .fa,
 .list-btn .fas,
@@ -15128,7 +15361,6 @@ span.small.text-danger {
   color: #2e6930;
   z-index: 1;
 }
-.back-button-main::before,
 .details-btn::before,
 .list-btn::before,
 .download-btn::before {
@@ -15142,24 +15374,66 @@ span.small.text-danger {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover,
 .details-btn:hover,
 .list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
-.details-btn:hover i,
-.details-btn:hover .fa,
-.details-btn:hover .fas,
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
 .list-btn:hover i,
 .list-btn:hover .fa,
 .list-btn:hover .fas,
 .download-btn:hover i,
 .download-btn:hover .fa,
 .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.back-button-main {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.back-button-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -15538,7 +15812,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -15570,7 +15844,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -15599,7 +15873,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -15622,7 +15896,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -15705,7 +15979,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -15730,7 +16004,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -16171,8 +16445,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -16213,8 +16489,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -16302,8 +16580,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -16344,8 +16624,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -16433,8 +16715,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -16475,8 +16759,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -17067,6 +17353,12 @@ span.small.text-danger {
   background: var(--background-gradient);
   border-radius: 8px;
   border-color: 1px solid rgb(213.2, 225, 213.6);
+  box-shadow: var(--filter-box-shadow);
+  transition: box-shadow 0.3s ease;
+}
+.wide-contents-container .filter-container:hover {
+  box-shadow: var(--filter-box-shadow-hover);
+  transform: translateY(-1px);
 }
 .wide-contents-container .filter-container .row {
   row-gap: 1rem;
@@ -17226,8 +17518,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -17268,8 +17562,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -17357,8 +17653,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -17399,8 +17697,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -17488,8 +17788,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -17530,8 +17832,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -17619,8 +17923,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -17661,8 +17967,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -18295,8 +18603,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -18337,8 +18647,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -18426,8 +18738,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -18468,8 +18782,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -18955,8 +19271,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -18997,8 +19315,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -19086,8 +19406,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -19128,8 +19450,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -19217,8 +19541,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -19259,8 +19585,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -19916,7 +20244,6 @@ span.small.text-danger {
   opacity: 0.6 !important;
 }
 
-.back-button-main,
 .details-btn,
 .list-btn,
 .download-btn {
@@ -19928,17 +20255,14 @@ span.small.text-danger {
   justify-content: center;
   position: relative;
   height: 40px;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas,
-.details-btn i,
-.details-btn .fa,
-.details-btn .fas,
+.details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
 .list-btn .fa,
 .list-btn .fas,
@@ -19954,7 +20278,6 @@ span.small.text-danger {
   color: #2e6930;
   z-index: 1;
 }
-.back-button-main::before,
 .details-btn::before,
 .list-btn::before,
 .download-btn::before {
@@ -19968,24 +20291,66 @@ span.small.text-danger {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover,
 .details-btn:hover,
 .list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
-.details-btn:hover i,
-.details-btn:hover .fa,
-.details-btn:hover .fas,
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
 .list-btn:hover i,
 .list-btn:hover .fa,
 .list-btn:hover .fas,
 .download-btn:hover i,
 .download-btn:hover .fa,
 .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.back-button-main {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.back-button-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -20364,7 +20729,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -20396,7 +20761,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -20425,7 +20790,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -20448,7 +20813,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -20531,7 +20896,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -20556,7 +20921,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -20997,8 +21362,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21039,8 +21406,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -21187,8 +21556,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21229,8 +21600,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -21318,8 +21691,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21360,8 +21735,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -21668,8 +22045,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21710,8 +22089,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -21799,8 +22180,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21841,8 +22224,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -21930,8 +22315,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -21972,8 +22359,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -23007,8 +23396,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -23049,8 +23440,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -23536,8 +23929,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -23578,8 +23973,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -23667,8 +24064,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -23709,8 +24108,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -23798,8 +24199,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -23840,8 +24243,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -24497,7 +24902,6 @@ span.small.text-danger {
   opacity: 0.6 !important;
 }
 
-.back-button-main,
 .details-btn,
 .list-btn,
 .download-btn {
@@ -24509,17 +24913,14 @@ span.small.text-danger {
   justify-content: center;
   position: relative;
   height: 40px;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
 }
-.back-button-main i, .back-button-main .fa, .back-button-main .fas,
-.details-btn i,
-.details-btn .fa,
-.details-btn .fas,
+.details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
 .list-btn .fa,
 .list-btn .fas,
@@ -24535,7 +24936,6 @@ span.small.text-danger {
   color: #2e6930;
   z-index: 1;
 }
-.back-button-main::before,
 .details-btn::before,
 .list-btn::before,
 .download-btn::before {
@@ -24549,24 +24949,66 @@ span.small.text-danger {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.back-button-main:hover,
 .details-btn:hover,
 .list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
-  border: 2px solid #2e6930;
-  border-radius: 8px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
 }
-.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas,
-.details-btn:hover i,
-.details-btn:hover .fa,
-.details-btn:hover .fas,
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
 .list-btn:hover i,
 .list-btn:hover .fa,
 .list-btn:hover .fas,
 .download-btn:hover i,
 .download-btn:hover .fa,
 .download-btn:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.back-button-main {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.back-button-main i, .back-button-main .fa, .back-button-main .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.back-button-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.back-button-main:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -24945,7 +25387,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .shopping-list-btn i,
 .save-button i,
@@ -24977,7 +25419,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .edit-button i,
 .copy-mealplan-button i,
@@ -25006,7 +25448,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .add-recipe-button i, .edit-recipe-btn i {
   vertical-align: middle;
@@ -25029,7 +25471,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 9rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .delete-button i {
   vertical-align: middle;
@@ -25112,7 +25554,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 11rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .signup-button i,
 .learnmore-button i {
@@ -25137,7 +25579,7 @@ span.small.text-danger {
   padding: 0.2rem 1rem;
   font-size: 1.5rem;
   width: 10rem;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 .user-mealplans-btn i {
   vertical-align: middle;
@@ -25574,8 +26016,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -25616,8 +26060,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -25705,8 +26151,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -25747,8 +26195,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -25836,8 +26286,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -25878,8 +26330,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -25967,8 +26421,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -26009,8 +26465,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -26656,8 +27114,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -26698,8 +27158,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -26787,8 +27249,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -26829,8 +27293,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -26918,8 +27384,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -26960,8 +27428,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -27049,8 +27519,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -27091,8 +27563,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28181,8 +28655,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -28223,8 +28699,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28343,8 +28821,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -28385,8 +28865,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28553,8 +29035,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -28595,8 +29079,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28721,8 +29207,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -28763,8 +29251,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28852,8 +29342,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -28894,8 +29386,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -28983,8 +29477,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -29025,8 +29521,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;
@@ -29114,8 +29612,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: rgba(0, 0, 0, 0.1);
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --container-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.2);
+  --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.1);
+  --container-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --filter-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
   --input-background: rgba(255, 255, 255, 0.2);
   --select-menu-filter-bg-color: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
   --input-color: $dark;
@@ -29156,8 +29656,10 @@ $main-dish-red: #B22222;*/
   --card-border-color: #212529;
   --card-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   --card-box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --container-box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.05), 0 8px 16px rgba(0, 0, 0, 0.6);
-  --container-box-shadow-hover: inset 0 3px 8px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.8);
+  --container-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --container-box-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.8);
+  --filter-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(255, 255, 255, 0.1);
+  --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
   --input-background: #4C8433;
   --select-menu-filter-bg-color: #4C8433;
   --input-color: $white;

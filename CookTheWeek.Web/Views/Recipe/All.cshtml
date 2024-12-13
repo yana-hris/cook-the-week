@@ -24,21 +24,37 @@
             Model.ActiveMealPlan.JustLoggedIn = justLoggedIn;
         }       
     }
+
+    bool isUserLoggedIn = userId != default;
+    string showAdvancedFilterBtn = isUserLoggedIn ? "" : "hidden";
+    bool tagsApplied = Model.SelectedTagIds != null && Model.SelectedTagIds.Any();
+    string showClass = (isUserLoggedIn && tagsApplied) ? "" : "hidden";
+    string btnText = tagsApplied ? "Hide advanced filters" : "More advanced filters";
+    string iconClass = tagsApplied ? "fa-circle-chevron-up" : "fa-circle-chevron-down";
 }
 
 <div class="wide-contents-container has-build-btn">
     <partial name="_HeadingPartial" model="headingModel" />
-
+    @Html.AntiForgeryToken()
     <!-- Search and Filter panel -->
     <div class="row text-center filter-container">
-        <form id="all-recipes-form" method="get" class="pb-1">
-            @Html.AntiForgeryToken()
-            <div class="row align-items-center justify-content-between g-0 gy-3">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+        <div class="filter-btn-container @showAdvancedFilterBtn">
+            <a href="#" class="small filter-link">
+                <span class="btnText">@btnText</span>
+                <i class="fa-solid @iconClass"></i>
+            </a>
+        </div>
+        <form id="all-recipes-form" method="get">
+
+            <div class="row align-items-center justify-content-between gx-3">
+                
+                <!-- Meal Type DropDown -->
+                <div class="col-12 col-sm-6 col-lg-3 order-lg-0">
+                    @* order-md-first ps-sm-3 ps-md-0 *@
                     <div class="input-group">
-                        <span class="input-group-text">Type</span>
+                        <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
                         <select asp-for="MealTypeId" class="form-select">
-                            <option value="">All</option>
+                            <option value="">Meal Type</option>
                             @foreach (var type in Model.MealTypes)
                             {
                                 <option value="@type.Id">@type.Name</option>
@@ -46,10 +62,22 @@
                         </select>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
+
+                <!-- Search input -->
+                <div class="col-12 col-sm-12 col-lg-6 order-first order-lg-1">
                     <div class="input-group">
-                        <span class="input-group-text">Sort</span>
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
+                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Sorting DropDown -->
+                <div class="col col-12 col-sm-6 col-lg-3 order-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
                         <select asp-for="RecipeSorting" class="form-select">
+                            <option value="">Order By</option>
                             @foreach (var sorting in Model.RecipeSortings)
                             {
                                 <option value="@sorting.Id">@sorting.Name</option>
@@ -57,23 +85,89 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
+
+            </div>
+
+            <div class="row align-items-center justify-content-between gx-3">
+
+                <!-- Difficulty Level Dropdown -->
+                <div class="col-12 col-sm-6 col-md-4">
                     <div class="input-group">
-                        <span class="input-group-text">Filter</span>
-                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                        <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
+                        <select asp-for="DifficultyLevel" class="form-select">
+                            <option value="">Difficulty Level</option>
+                            @foreach (var level in Model.DifficultyLevels)
+                            {
+                                <option value="@level.Id">@level.Name</option>
+                            }
+                        </select>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+
+
+                <!-- Max Preparation Time Dropdown -->
+                <div class="col-12 col-sm-12 col-md-4">
                     <div class="input-group">
-                        <span class="input-group-text">Per Pg</span>
+                        <span class="input-group-text"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                        <select asp-for="MaxPreparationTime" class="form-select">
+                            <option value="">Preparation Time</option>
+                            @foreach (var option in Model.PreparationTimes)
+                            {
+                                <option value="@option">Under @option minutes</option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                
+                <!-- Pagination DropDown -->
+                <div class="col col-12 col-sm-6 col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-grip"></i></span>
                         <select asp-for="RecipesPerPage" class="form-select">
+                            <option value="">Per Pg</option>
                             @foreach (var perPage in PerPageOptions)
                             {
                                 <option value="@perPage">@perPage</option>
                             }
                         </select>
                     </div>
+                </div>
+
+            </div>
+
+            <div id="tags" class="row align-items-center justify-content-between gx-3 @showClass">
+                <div class="col-12 tag-container d-flex align-items-start flex-wrap">
+                    @foreach (var group in TagGrouping)
+                    {
+                        string groupName = group.Key;
+                        List<int> tagIds = group.Value;
+
+                        <div class="tag-group">
+                            <h3 class="tag-title">@groupName</h3>
+                            @foreach (var tagId in tagIds)
+                            {
+                                var tag = Model.AvailableTags.FirstOrDefault(tag => tag.Id == tagId);
+
+                                @if (tag != null)
+                                {
+                                    <div class="form-check tag-line">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               name="SelectedTagIds"
+                                               value="@tag.Id"
+                                        @(Model.SelectedTagIds != null &&
+                                            Model.SelectedTagIds.Contains(tag.Id)
+                                            ? "checked"
+                                            : "") />
+
+                                        <label class="form-check-label" for="@tag.Id">@tag.Name</label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </form>
@@ -117,7 +211,7 @@
                        asp-controller="Recipe"
                        asp-action="All"
                        asp-route-currentPage="@previousPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
+                       asp-route-recipesPerPage="@Model.RecipesPerPage ?? @DefaultRecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
                        asp-route-maxPreparationTime="@Model.MaxPreparationTime"
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
@@ -134,7 +228,7 @@
                        asp-controller="Recipe"
                        asp-action="All"
                        asp-route-currentPage="@nextPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
+                       asp-route-recipesPerPage="@Model.RecipesPerPage ?? @DefaultRecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
                        asp-route-maxPreparationTime="@Model.MaxPreparationTime"
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
@@ -154,6 +248,7 @@
 
 @section Scripts {    
     <script type="module">
+        import { attachToggleFiltersHandler } from '/js/site.js';
         import { attachToggleFavouritesHandler } from '/js/recipeLikes.js';
 
         $(document).ready(function () {            
@@ -162,9 +257,9 @@
                 console.log("Showing modal...");
                 $('#welcomeModal').modal('show');
             } 
-
-            debugger;
+            
             attachToggleFavouritesHandler();
+            attachToggleFiltersHandler();
         });
     </script>
 

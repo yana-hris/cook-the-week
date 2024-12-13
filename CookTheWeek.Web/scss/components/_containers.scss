@@ -42,6 +42,7 @@
     @extend .hide-scrollbar;
 
     padding: $default-padding;
+    border-radius: $border-radius;
     margin-bottom: 2rem;
 
     max-width: 793px;
@@ -58,6 +59,7 @@
 
     padding: $default-padding;
     max-width: 520px;
+    border-radius: $border-radius;
     background: linear-gradient(180deg, rgba(180,227,61,1) 0%, rgba(46,105,48,1) 100%);
     box-shadow: var(--container-box-shadow);
 
@@ -69,15 +71,14 @@
 .form-container {
     @include make-container();
     @extend .hide-scrollbar;
-   
     padding: $default-padding;
-
     max-width: 480px;
     overflow-y: auto;
     border: none;
     border-radius: $border-radius-small;
     text-align: center;
-    background-color: var(--bs-body-bg);    
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--container-box-shadow);
 
     &:hover {
         box-shadow: var(--container-box-shadow-hover);

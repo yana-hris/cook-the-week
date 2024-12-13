@@ -54,7 +54,7 @@ const toggleLikeButton = function (event) {
 }
 
 export const attachToggleFavouritesHandler = function () {
-    debugger;
+    
     $(document).on('click', '.add-to-favourites-button', function (event) {        
         const recipeId = $(this).data('recipe-id');
         toggleFavourites(event, recipeId);

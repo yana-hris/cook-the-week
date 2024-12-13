@@ -66,7 +66,7 @@
             IngredientAddFormModel model = new IngredientAddFormModel();
             await PopulateIngredientCategoriesAsync(model);
 
-            SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
+            SetViewData("Admin Add Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
             return View(model);
         }
 
@@ -76,7 +76,7 @@
             if (!ModelState.IsValid)
             {
                 await PopulateIngredientCategoriesAsync(model);
-                SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
+                SetViewData("Admin Add Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
                 return View(model);
             }
 
@@ -93,7 +93,7 @@
 
                 AddCustomValidationErrorsToModelState(result.Errors);
                 await PopulateIngredientCategoriesAsync(model);
-                SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
+                SetViewData("Admin Add Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
                 return View(model);
             }
             catch (Exception ex)
@@ -109,6 +109,8 @@
             {
                 IngredientEditFormModel model = await ingredientService.TryGetIngredientModelForEditAsync(id);
                 await PopulateIngredientCategoriesAsync(model);
+
+                SetViewData("Admin Edit Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
                 return View(model);
             }
             catch (RecordNotFoundException ex)
@@ -130,6 +132,8 @@
             if (!ModelState.IsValid)
             {
                 await PopulateIngredientCategoriesAsync(model);
+
+                SetViewData("Admin Edit Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
                 return View(model);
             }
 
@@ -141,6 +145,8 @@
                 {
                     AddCustomValidationErrorsToModelState(result.Errors);
                     await PopulateIngredientCategoriesAsync(model);
+
+                    SetViewData("Admin Edit Ingredient", "/IngredientAdmin/All", "image-overlay food-background");
                     return View(model);
                 }
 

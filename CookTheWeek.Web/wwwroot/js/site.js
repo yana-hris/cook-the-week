@@ -384,29 +384,29 @@ export function initializeSwiper() {
     });
 }
 
-export function attachFilterToggler() {
-    debugger
-    const filtersBtn = document.querySelector('.filter-btn-container');
-    const filterSpan = filtersBtn.querySelector('.filter-link .btnText');
-    const filtersDiv = document.querySelector('#tags');
-
-    filtersBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        debugger;
-
-        if (filtersDiv.classList.contains('hidden')) {
-            filtersDiv.classList.remove('hidden');
-            filterSpan.textContent = "Hide advanced filters";
-            toggleIcons(filtersBtn);
-            
-        } else {
-            filterSpan.textContent = "More advanced filters";
-            toggleIcons(filtersBtn);
-            filtersDiv.classList.add('hidden');
-        }
+export const attachToggleFiltersHandler = function() {
+    $(document).on('click', '.filter-btn-container', function (e) {        
+        toggleAdvancedSectionVisibility(e, this);
     });
+}
 
+const toggleAdvancedSectionVisibility = function (e, btn) {
+    e.preventDefault();
     
+    const filterSpan = btn.querySelector('.filter-link .btnText');
+    const filtersDiv = document.querySelector('#tags');
+    debugger;
+
+    if (filtersDiv.classList.contains('hidden')) {
+        filtersDiv.classList.remove('hidden');
+        filterSpan.textContent = "Hide advanced filters";
+        toggleIcons(btn);
+
+    } else {
+        filterSpan.textContent = "More advanced filters";
+        toggleIcons(btn);
+        filtersDiv.classList.add('hidden');
+    }
 }
 
 const toggleIcons = function (btn) {

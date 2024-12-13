@@ -14,6 +14,13 @@
         background: var(--background-gradient); //$success-400;
         border-radius: $border-radius-small;
         border-color: 1px solid $primary-bg-subtle;
+        box-shadow: var(--filter-box-shadow);
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: var(--filter-box-shadow-hover);
+            transform: translateY(-1px);
+        }
 
         .row {
             row-gap: 1rem;
@@ -30,8 +37,6 @@
         .row.hidden {
             display: none;
         }
-
-
 
         .filter-btn-container {
             position: absolute;

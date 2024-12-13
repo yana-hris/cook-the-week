@@ -228,7 +228,7 @@
                                                 <div class="button-container">
                                                     <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
                                                     <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
+                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button ">
                                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
@@ -322,16 +322,13 @@
     </div>
 </div>
 
-
-
-
 @section Scripts {
     <partial name="_JQueryValidationPartial.cshtml" />
     <script type="module">
         import { reindexMealRows } from '/js/site.js';        
         
         $(document).ready(function () {
-            $(document).on('click', '.remove-item-button', function (event) {
+            $(document).on('click', '.delete-meal-button', function (event) {
                 debugger
                 let mealsCount = $('.meal-row').length;
 

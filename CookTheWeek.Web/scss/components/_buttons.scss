@@ -60,14 +60,17 @@
 }
 
 // Reusable buttons
-.back-button-main,
+
 .details-btn,
 .list-btn,
 .download-btn {
-    @include icon-button(var(--bs-body-bg), $primary, false, true, 2px, true, 40px, null, null, $border-radius-small);
+    @include icon-button(var(--bs-body-bg), $primary, false, true, 1px, true, 40px, null, null, $border-radius);
 
 }
 
+.back-button-main {
+    @include icon-button(var(--bs-body-bg), $primary, false, true, 1px, true, 40px, null, null, $border-radius);
+}
 .plus {
     @include icon-button($primary, #fff, true, false, 2px, true, 40px, null, null, $border-radius);
     @include button-box-shadow-effect();
