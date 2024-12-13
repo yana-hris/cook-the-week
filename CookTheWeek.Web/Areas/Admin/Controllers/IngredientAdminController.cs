@@ -66,6 +66,7 @@
             IngredientAddFormModel model = new IngredientAddFormModel();
             await PopulateIngredientCategoriesAsync(model);
 
+            SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
             return View(model);
         }
 
@@ -75,6 +76,7 @@
             if (!ModelState.IsValid)
             {
                 await PopulateIngredientCategoriesAsync(model);
+                SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
                 return View(model);
             }
 
@@ -91,6 +93,7 @@
 
                 AddCustomValidationErrorsToModelState(result.Errors);
                 await PopulateIngredientCategoriesAsync(model);
+                SetViewData("Admin Add Ingredient", "/Ingredient/All", "image-overlay food-background");
                 return View(model);
             }
             catch (Exception ex)

@@ -384,14 +384,15 @@ export function initializeSwiper() {
     });
 }
 
-export function advancedFiltersToggler() {
-    debugger;
+export function attachFilterToggler() {
+    debugger
     const filtersBtn = document.querySelector('.filter-btn-container');
     const filterSpan = filtersBtn.querySelector('.filter-link .btnText');
     const filtersDiv = document.querySelector('#tags');
 
     filtersBtn.addEventListener('click', function (e) {
         e.preventDefault();
+        debugger;
 
         if (filtersDiv.classList.contains('hidden')) {
             filtersDiv.classList.remove('hidden');
@@ -409,7 +410,6 @@ export function advancedFiltersToggler() {
 }
 
 const toggleIcons = function (btn) {
-    debugger;
     if (btn) {
         const icon = btn.querySelector('a i');
 

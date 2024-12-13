@@ -9,12 +9,28 @@
         position: relative;
         display: flex;
         align-items: center;
-        padding: 0.6rem;
-        padding-top: 2rem;
-        margin: 1.5rem 0;
+        padding: 2rem 0.6rem;
+        margin: 2rem 0;
         background: var(--background-gradient); //$success-400;
         border-radius: $border-radius-small;
         border-color: 1px solid $primary-bg-subtle;
+
+        .row {
+            row-gap: 1rem;
+        }
+
+        .row:first-child {
+            margin-bottom: 1rem;
+        }
+
+        .row:last-child {
+            margin-top: 1.5rem;
+        }
+
+        .row.hidden {
+            display: none;
+        }
+
 
 
         .filter-btn-container {

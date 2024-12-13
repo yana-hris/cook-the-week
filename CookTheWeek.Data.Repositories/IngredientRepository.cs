@@ -52,7 +52,6 @@
         {
             Ingredient? ingredient = await dbContext.Ingredients
                             .Include(i => i.Category)
-                            .AsNoTracking()
                             .FirstOrDefaultAsync(i => i.Id == id);
 
             if (ingredient == null)

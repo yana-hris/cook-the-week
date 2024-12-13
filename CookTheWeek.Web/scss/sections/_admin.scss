@@ -3,17 +3,34 @@
 @import '../components/theme-defaults';
 @import '../components/typography';
 
+.searchBox {
+    position: relative;
+} 
+
 #admin.wide-contents-container {
-    display: block;
-    text-align: center;
 
-    .filter-container {
-        padding-bottom: 1rem !important;
+    .filter-container.ingredients {
+        padding-top: 0.4rem;
+        padding-bottom: 1rem;
     }
+    
+    .suggestionsList {
+        top: 39px;
+        left: 63px;
+        border-radius: $medium-border-radius;
+        text-align: left;
+        background-color: transparent;
+        
+    }
+}
 
-    .ingredients-content {
-        padding: 1rem !important;
-        text-align: center;
+#add-ingredient {
+    .suggestionsList {
+        top: 33px;
+        left: 63px;
+        border-radius: $medium-border-radius;
+        text-align: left;
+        background-color: transparent;
     }
 }
 

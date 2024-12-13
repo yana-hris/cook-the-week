@@ -13,10 +13,10 @@
 <div class="wide-contents-container" id="admin">
     <partial name="_HeadingPartial" model="adminHeading"/>
 
-    <div class="row text-center filter-container">
-        <form id="all-ingredients-form" method="get" class="pb-1">
-            <div class="row align-items-center justify-content-between g-0 gy-3">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+    <div class="row text-center filter-container ingredients">
+        <form id="all-ingredients-form" method="get">
+            <div class="row align-items-center justify-content-between gx-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first">
                     <div class="input-group">
                         <span class="input-group-text">Type</span>
                         <select asp-for="CategoryId" class="form-select">
@@ -29,10 +29,15 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
-                    <div class="input-group">
+                    <div class="input-group searchBox">
                         <span class="input-group-text">Filter</span>
-                        <input asp-for="SearchString" class="form-control search" placeholder="Ingredient name..." />
+                        <input asp-for="SearchString" 
+                        class="form-control search ingredientName" 
+                        placeholder="Ingredient name..." 
+                        autocomplete="off"/>
                         <button type="submit" value="Search" class="search-btn" form="all-ingredients-form">&rarr;</button>
+                        <div class="suggestionsList invisible">
+                        </div>
                     </div>
                 </div>
                 <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
@@ -46,7 +51,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
                     <div class="input-group">
                         <span class="input-group-text">Per Page</span>
                         <select asp-for="IngredientsPerPage" class="form-select">
@@ -153,3 +158,8 @@
     }
 
 </div>
+
+@section Scripts
+{
+    <script src="~/js/suggestions.js"></script>
+}

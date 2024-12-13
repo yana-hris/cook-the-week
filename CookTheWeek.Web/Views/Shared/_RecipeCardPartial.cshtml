@@ -58,7 +58,7 @@
     </div>
         <div class="card-body p-2">
             <a class="recipe-details-link" asp-area="" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
-                <p class="recipe-title">@Model.Title.TrimToChar(RecipeCardTitleMaxLength)</p>
+                <p class="recipe-title">@Html.Raw(Model.Title.TrimToChar(RecipeCardTitleMaxLength))</p>
             </a>
             <div class="d-flex align-items-center justify-content-between recipe-info">
                     <span class="badge @BadgeColorHelper.GetBadgeColor(Model.MealType)">@Model.MealType</span>                    
