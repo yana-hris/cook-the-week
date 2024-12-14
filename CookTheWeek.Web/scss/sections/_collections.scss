@@ -83,6 +83,11 @@
             border: none !important;
             transition: all 0.3s;
 
+            i{
+                font-size: 1.4rem;
+                color: var(--accent-color);
+            }
+
             &:first-child {
                 padding-left: 0;
             }
@@ -114,17 +119,19 @@
         }
 
         .tag-container {
-            gap: 0.4rem;
+            gap: 0.5rem;
             justify-content: space-between;
             margin-bottom: 0.6rem;
 
             .tag-group {
                 width: 185px;
                 border: 1px solid var(--accent-color);
-                border-radius: $medium-border-radius;
+                border-radius: $border-radius-small;
                 padding: 0.7rem 1rem;
+                margin-bottom: 0.5rem;
 
                 .tag-title {
+                    text-align: start;
                     font-size: 1.2rem;
                     color: var(--bs-body-color);
                     font-weight: 300;

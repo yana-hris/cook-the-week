@@ -65,31 +65,11 @@
         /// <exception cref="UnauthorizedUserException"></exception>
         Task DeleteByIdAsync(Guid id);
 
-        
-        /// <summary>
-        /// Returns the number of recipes added by a given user
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns>int or 0</returns>
-        Task<int?> GetMineCountAsync();
-
         /// <summary>
         /// Returns the count of all recipes
         /// </summary>
         /// <returns>int or 0</returns>
         Task<int?> GetAllCountAsync();
-       
-        /// <summary>
-        /// Returns a collection of all Site Recipes
-        /// </summary>
-        /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<Recipe>> GetAllSiteAsync();
-
-        /// <summary>
-        /// Returns a collection of all users` recipes
-        /// </summary>
-        /// <returns>A collection of RecipeAllViewModel</returns>
-        Task<ICollection<Recipe>> GetAllNonSiteAsync();
 
         /// <summary>
         /// Returns a collection of Recipes by a list of their IDs

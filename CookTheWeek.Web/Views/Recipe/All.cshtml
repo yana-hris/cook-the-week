@@ -68,7 +68,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
                         <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form"><i class="fa-solid fa-filter"></i></button>
                     </div>
                 </div>
 
@@ -90,19 +90,7 @@
 
             <div class="row align-items-center justify-content-between gx-3">
 
-                <!-- Difficulty Level Dropdown -->
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
-                        <select asp-for="DifficultyLevel" class="form-select">
-                            <option value="">Difficulty Level</option>
-                            @foreach (var level in Model.DifficultyLevels)
-                            {
-                                <option value="@level.Id">@level.Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
+                
 
 
                 <!-- Max Preparation Time Dropdown -->
@@ -116,6 +104,20 @@
                                 <option value="@option">Under @option minutes</option>
                             }
 
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Difficulty Level Dropdown -->
+                <div class="col-12 col-sm-6 col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
+                        <select asp-for="DifficultyLevel" class="form-select">
+                            <option value="">Difficulty Level</option>
+                            @foreach (var level in Model.DifficultyLevels)
+                            {
+                                <option value="@level.Id">@level.Name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -157,6 +159,7 @@
                                                type="checkbox"
                                                name="SelectedTagIds"
                                                value="@tag.Id"
+                                               id="@tag.Id"
                                         @(Model.SelectedTagIds != null &&
                                             Model.SelectedTagIds.Contains(tag.Id)
                                             ? "checked"

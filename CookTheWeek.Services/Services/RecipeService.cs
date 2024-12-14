@@ -336,28 +336,35 @@
         /// <inheritdoc/>
         public async Task<RecipeDetailsServiceModel> GetForDetailsByIdAsync(Guid id)
         {
-            RecipeDetailsServiceModel? serviceModel = await recipeRepository.GetByIdQuery(id) 
+            var recipe = await recipeRepository.GetByIdQuery(id)
                 .Include(r => r.Owner)
                 .Include(r => r.Steps)
-                .Include(r => r.Category)   
+                .Include(r => r.Category)
                 .Include(r => r.Meals)
                 .Include(r => r.FavouriteRecipes)
                 .Include(r => r.RecipeTags)
                     .ThenInclude(rt => rt.Tag)
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Ingredient)
-                .Select(r => new RecipeDetailsServiceModel
-                {
-                    Recipe = r,
-                    LikesCount = r.FavouriteRecipes.Count,
-                    CookedCount = r.Meals.Count,
-                    IsLikedByUser = r.FavouriteRecipes.Any(fr => fr.UserId ==  userId), 
-                })
                 .FirstOrDefaultAsync();
 
-            if (serviceModel == null)
+            if(recipe == null)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.RecipeNotFoundExceptionMessage, null);
+            }
+
+            RecipeDetailsServiceModel? serviceModel = new RecipeDetailsServiceModel
+            {
+                Recipe = recipe,
+                LikesCount = recipe.FavouriteRecipes.Count,
+                CookedCount = recipe.Meals.Count,
+                IsLikedByUser = recipe.FavouriteRecipes.Any(fr => fr.UserId == userId),
+            };
+            
+            if (!isAdmin) // Increase recipe total views if user is not an admin
+            {
+                recipe.Views += 1;
+                await recipeRepository.SaveChangesAsync();
             }
 
             return serviceModel;
@@ -415,41 +422,7 @@
                 .GetAllQuery()
                 .CountAsync();
         }
-
-        /// <inheritdoc/>
-        public async Task<int?> GetMineCountAsync()
-        {
-            return await recipeRepository
-                .GetAllQuery()
-                .Where(r => r.OwnerId == userId)
-                .CountAsync();
-
-        }
        
-        /// <inheritdoc/>
-        public async Task<ICollection<Recipe>> GetAllSiteAsync()
-        {
-            var siteRecipes = await recipeRepository
-                .GetAllQuery()
-                .Include(r => r.Category)
-                .Where(r => r.IsSiteRecipe)
-                .ToListAsync();
-
-            return siteRecipes;
-        }
-
-        /// <inheritdoc/>
-        public async Task<ICollection<Recipe>> GetAllNonSiteAsync()
-        {
-            var allUserRecipes = await recipeRepository
-                .GetAllQuery()
-                .Include(r => r.Category)
-                .Where(r => !r.IsSiteRecipe)
-                .ToListAsync();
-
-            return allUserRecipes;
-        }
-        
         /// <inheritdoc/>
         public async Task<Recipe> GetForMealByIdAsync(Guid recipeId)
         {
