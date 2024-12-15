@@ -13,12 +13,12 @@
 <div class="wide-contents-container" id="admin">
     <partial name="_HeadingPartial" model="adminHeading"/>
 
-    <div class="row text-center filter-container ingredients">
+    <div class="row text-center filter-container fix-padding">
         <form id="all-ingredients-form" method="get">
             <div class="row align-items-center justify-content-between gx-3">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first">
                     <div class="input-group">
-                        <span class="input-group-text">Type</span>
+                        <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
                         <select asp-for="CategoryId" class="form-select">
                             <option value="">All</option>
                             @foreach (var category in Model.Categories)
@@ -30,19 +30,19 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
                     <div class="input-group searchBox">
-                        <span class="input-group-text">Filter</span>
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
                         <input asp-for="SearchString" 
                         class="form-control search ingredientName" 
                         placeholder="Ingredient name..." 
                         autocomplete="off"/>
-                        <button type="submit" value="Search" class="search-btn" form="all-ingredients-form">&rarr;</button>
+                        <button type="submit" value="Search" class="search-btn" form="all-ingredients-form"><i class="fa-solid fa-filter"></i></button>
                         <div class="suggestionsList invisible">
                         </div>
                     </div>
                 </div>
                 <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
                     <div class="input-group">
-                        <span class="input-group-text">Sort By</span>
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
                         <select asp-for="IngredientSorting" class="form-select">
                             @foreach (var sorting in Model.IngredientSortings)
                             {
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
                     <div class="input-group">
-                        <span class="input-group-text">Per Page</span>
+                        <span class="input-group-text"><i class="fa-solid fa-table-cells-large"></i></span>
                         <select asp-for="IngredientsPerPage" class="form-select">
                             @foreach (var perPage in AdminPerPageOptions)
                             {

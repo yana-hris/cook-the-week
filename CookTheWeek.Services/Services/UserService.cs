@@ -13,6 +13,7 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Web.ViewModels.Admin.Enums;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
     using CookTheWeek.Web.ViewModels.User;
 
@@ -20,6 +21,9 @@
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.TempDataConstants;
+
+    using static CookTheWeek.Services.Data.Helpers.EnumHelper;
+    using Microsoft.Extensions.Caching.Memory;
 
     public class UserService : IUserService
     {
@@ -166,22 +170,95 @@
         /// Returns a collection of UserAllViewModel which contains all users, registered in the database
         /// </summary>
         /// <returns>A collection of UserAllViewModel</returns>
-        public async Task<ICollection<UserAllViewModel>> GetAllAsync()
+        public async Task<AllUsersQueryModel> GetAllAsync(AllUsersQueryModel queryModel)
         {
-            ICollection<UserAllViewModel> users = await userRepository
-                .GetAllQuery()
-                .Select(u => new UserAllViewModel()
+            
+                IQueryable<ApplicationUser> usersQuery = userRepository
+                    .GetAllQuery()
+                    .Include(u => u.Recipes)
+                    .Include(u => u.MealPlans)
+                    .AsNoTracking();
+
+                if (usersQuery.Any())
+                {
+                    logger.LogError("No users found in the database.");
+                }
+
+                if (!string.IsNullOrEmpty(queryModel.SearchString))
+                {
+                    string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                    usersQuery = usersQuery
+                        .Where(u => EF.Functions.Like(u.UserName, wildCard) ||
+                                    EF.Functions.Like(u.Email, wildCard));
+                }
+
+                // Define a default User Sorting
+                UserSorting userSorting = (queryModel.UserSorting.HasValue &&
+                    Enum.IsDefined(typeof(UserSorting), queryModel.UserSorting)) ?
+                    (UserSorting)queryModel.UserSorting :
+                    UserSorting.Newest;
+
+                usersQuery = userSorting switch
+                {
+                    UserSorting.NameAscending => usersQuery
+                        .OrderBy(u => u.UserName)
+                        .ThenBy(u => u.Id),
+                    UserSorting.NameDescending => usersQuery
+                        .OrderByDescending(u => u.UserName)
+                        .ThenBy(u => u.Id),
+                    UserSorting.Newest => usersQuery
+                        .OrderByDescending(u => u.Id), // Add User CreatedOn to model
+                    UserSorting.Oldest => usersQuery
+                        .OrderBy(u => u.Id),
+                    UserSorting.MostMealPlans => usersQuery
+                        .OrderByDescending(u => u.MealPlans.Count)
+                        .ThenByDescending(u => u.Recipes.Count)
+                        .ThenBy(u => u.UserName)
+                        .ThenBy(u => u.Id),
+                    UserSorting.MostRecipes => usersQuery
+                        .OrderByDescending(u => u.Recipes.Count)
+                        .ThenByDescending(u => u.MealPlans.Count)
+                        .ThenBy(u => u.UserName)
+                        .ThenBy(u => u.Id),
+                    _ => usersQuery
+                    .OrderBy(u => u.UserName)
+                    .ThenBy(u => u.Id)
+                };
+
+                if (queryModel.CurrentPage == default)
+                {
+                    queryModel.CurrentPage = DefaultPage;
+                }
+
+                if (queryModel.UsersPerPage == default)
+                {
+                    queryModel.UsersPerPage = AdminDefaultPerPage;
+                }
+
+                queryModel.TotalUsers = usersQuery.Count();
+
+                var users = await usersQuery
+                    .Skip((queryModel.CurrentPage - 1) * queryModel.UsersPerPage)
+                    .Take(queryModel.UsersPerPage)
+                    .ToListAsync();
+
+
+                queryModel.Users = users.Select(u => new UserAllViewModel
                 {
                     Id = u.Id.ToString(),
                     Username = u.UserName,
                     Email = u.Email,
-                    TotalRecipes = u.Recipes.Count(),
-                    TotalMealPlans = u.MealPlans.Count()
+                    HasPassword = u.PasswordHash != null,
+                    TotalRecipes = u.Recipes.Count,
+                    TotalMealPlans = u.MealPlans.Count
 
-                }).ToListAsync();
+                }).ToList();
 
-            
-            return users;
+
+                queryModel.UserSortings = GetEnumAsSelectViewModel<UserSorting>();            
+
+            return queryModel;
         }
         
         public AuthenticationProperties? GetExternalLoginProperties(string provider, string? redirectUrl)

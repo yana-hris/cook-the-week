@@ -71,17 +71,17 @@
             ICollection<SelectViewModel> mealTypes = new HashSet<SelectViewModel>();
             ICollection<SelectViewModel> allTags = new HashSet<SelectViewModel>();
 
+
             try
             {
                 allRecipes = await recipeService.GetAllAsync(queryModel);
-                
             }
-            catch (RecordNotFoundException)
+            catch (Exception)
             {
-                // Only register no match is found and proceed
-                logger.LogError("No recipes match this criteria.");
+                throw;
             }
-
+                
+           
             mealTypes = await categoryService.GetAllCategoriesAsync();
             allTags = await tagService.GetAllTagsAsync();
 
@@ -124,54 +124,7 @@
             return viewModel;
         }
 
-        /// <inheritdoc/>
-        public async Task<AllRecipesFilteredAndPagedViewModel> CreateCustomRecipesViewModelAsync(string? tagType, string? mealType, AllRecipesQueryModel queryModel)
-        {
-            ICollection<Recipe> recipes = new List<Recipe>();
-            ICollection<SelectViewModel> mealTypes = await categoryService.GetAllCategoriesAsync();
-            ICollection<SelectViewModel> allTags = await tagService.GetAllTagsAsync();
-
-            if (!String.IsNullOrEmpty(mealType))
-            {
-                int customMealTypeId = mealTypes.FirstOrDefault(mt => mt.Name == mealType).Id;
-                queryModel.MealTypeId = customMealTypeId;
-            }
-
-            if (!String.IsNullOrEmpty(tagType))
-            {
-                int customTagId = allTags.FirstOrDefault(tag => tag.Name == tagType).Id;
-
-                if (queryModel.SelectedTagIds == null)
-                {
-                    queryModel.SelectedTagIds = new List<int>();
-                }
-                queryModel.SelectedTagIds.Add(customTagId);
-            }
-
-            
-            recipes = await recipeService.GetAllAsync(queryModel);
-
-            var viewModel = new AllRecipesFilteredAndPagedViewModel
-            {
-                SearchString = queryModel.SearchString,
-                MealTypeId = queryModel.MealTypeId,
-                MaxPreparationTime = queryModel.MaxPreparationTime,
-                DifficultyLevel = queryModel.DifficultyLevel,
-                SelectedTagIds = queryModel.SelectedTagIds,
-                RecipeSorting = queryModel.RecipeSorting,
-                RecipesPerPage = queryModel.RecipesPerPage,
-                CurrentPage = queryModel.CurrentPage,
-                TotalResults = queryModel.TotalResults,
-                Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(recipes),
-                MealTypes = mealTypes,
-                DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(),
-                AvailableTags = allTags,
-                RecipeSortings = GetEnumAsSelectViewModel<RecipeSorting>()
-            };
-
-            return viewModel;
-        }
-
+        
         /// <inheritdoc/>
         public async Task<RecipeAddFormModel> CreateRecipeAddFormModelAsync()
         {

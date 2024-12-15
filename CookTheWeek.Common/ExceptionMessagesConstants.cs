@@ -45,7 +45,7 @@
             // For single Recipe
             public const string RecipeNotFoundExceptionMessage = "Recipe not found.";
             // For Recipe collections
-            public const string NoRecipesFoundExceptionMessage = "No recipes found by this criteria.";
+            public const string NoRecipesFoundExceptionMessage = "No recipes found in the database.";
 
             // INGREDIENT:
             public const string IngredientNotFoundExceptionMessage = "Ingredient not found.";
@@ -65,7 +65,10 @@
             public const string NoMealplansFoundExceptionMessage = "No mealplans found by this criteria.";
 
             // USER:
+            // For single user:
             public const string UserNotFoundExceptionMessage = "No user found by this id";
+            // For a collection of users:
+            public const string NoUsersFoundExceptionMessge = "No users found in the database.";
 
             // CATEGORY:
             public const string CategoryNotFoundExceptionMessage = "No category found by this id.";

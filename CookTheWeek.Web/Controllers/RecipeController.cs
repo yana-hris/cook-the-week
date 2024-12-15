@@ -317,7 +317,7 @@
 
 
         [HttpGet]
-        [AdminRedirect("Site", "RecipeAdmin")]
+        [AdminRedirect("All", "RecipeAdmin")]
         public async Task<IActionResult> Mine()
         {
             SetViewData("My Recipes", Request.Path + Request.QueryString);

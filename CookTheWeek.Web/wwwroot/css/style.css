@@ -5200,11 +5200,15 @@ $main-dish-red: #B22222;*/
   -webkit-text-stroke-color: #5A5A5A;
 }
 
-.finished {
+.no, .yes {
+  font-size: 1.2rem;
+}
+
+.finished, .no {
   color: #DA0505;
 }
 
-.not-finished {
+.not-finished, .yes {
   color: #2e6930;
 }
 
@@ -5247,11 +5251,15 @@ $main-dish-red: #B22222;*/
   -webkit-text-stroke-color: #5A5A5A;
 }
 
-.finished {
+.no, .yes {
+  font-size: 1.2rem;
+}
+
+.finished, .no {
   color: #DA0505;
 }
 
-.not-finished {
+.not-finished, .yes {
   color: #2e6930;
 }
 
@@ -11054,11 +11062,15 @@ $main-dish-red: #B22222;*/
   -webkit-text-stroke-color: #5A5A5A;
 }
 
-.finished {
+.no, .yes {
+  font-size: 1.2rem;
+}
+
+.finished, .no {
   color: #DA0505;
 }
 
-.not-finished {
+.not-finished, .yes {
   color: #2e6930;
 }
 
@@ -13380,7 +13392,7 @@ span.small.text-danger {
   position: relative;
 }
 
-#admin.wide-contents-container .filter-container.ingredients {
+#admin.wide-contents-container .fix-padding {
   padding-top: 0.4rem;
   padding-bottom: 1rem;
 }
@@ -23021,11 +23033,15 @@ $main-dish-red: #B22222;*/
   -webkit-text-stroke-color: #5A5A5A;
 }
 
-.finished {
+.no, .yes {
+  font-size: 1.2rem;
+}
+
+.finished, .no {
   color: #DA0505;
 }
 
-.not-finished {
+.not-finished, .yes {
   color: #2e6930;
 }
 
@@ -26708,11 +26724,15 @@ $main-dish-red: #B22222;*/
   -webkit-text-stroke-color: #5A5A5A;
 }
 
-.finished {
+.no, .yes {
+  font-size: 1.2rem;
+}
+
+.finished, .no {
   color: #DA0505;
 }
 
-.not-finished {
+.not-finished, .yes {
   color: #2e6930;
 }
 

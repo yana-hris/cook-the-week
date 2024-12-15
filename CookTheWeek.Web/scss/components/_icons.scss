@@ -30,11 +30,15 @@
     -webkit-text-stroke-color: $icon-stroke-color;
 }
 
-.finished {
+.no, .yes {
+    font-size: 1.2rem;
+}
+
+.finished, .no {
     color: $danger;
 }
 
-.not-finished {
+.not-finished, .yes {
     color: $primary;
 }
 

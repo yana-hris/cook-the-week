@@ -5,22 +5,21 @@
 
 .searchBox {
     position: relative;
-} 
+}
 
 #admin.wide-contents-container {
 
-    .filter-container.ingredients {
+    .fix-padding {
         padding-top: 0.4rem;
         padding-bottom: 1rem;
     }
-    
+
     .suggestionsList {
         top: 39px;
         left: 63px;
         border-radius: $medium-border-radius;
         text-align: left;
         background-color: transparent;
-        
     }
 }
 

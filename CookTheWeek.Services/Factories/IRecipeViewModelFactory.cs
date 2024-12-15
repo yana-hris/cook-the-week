@@ -12,13 +12,7 @@
         /// <remarks>May throw RecordNotFoundException in case of an empty result collection</remarks>
         Task<AllRecipesFilteredAndPagedViewModel> CreateAllRecipesViewModelAsync(AllRecipesQueryModel queryModel, bool justLoggedIn);
 
-        /// <summary>
-        /// Generates a view model for displaying custom Recipe views (Quick Dinners, Kids-friendly, etc.)
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        Task<AllRecipesFilteredAndPagedViewModel> CreateCustomRecipesViewModelAsync(string? queryType, string? mealType, AllRecipesQueryModel queryModel);
-
+        
         /// <summary>
         /// Generates a form model for adding a new recipe with populated categories and ingredient options.
         /// Throws an exception if model casting goes wrong.

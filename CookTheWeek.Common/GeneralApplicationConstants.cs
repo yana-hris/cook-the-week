@@ -14,7 +14,7 @@
 
         public const int DefaultPage = 1;
         public const int DefaultRecipesPerPage = 8;
-        public const int DefaultIngredientsPerPage = 20;
+        public const int AdminDefaultPerPage = 20;
         public static readonly IReadOnlyList<int> PerPageOptions = new List<int> { 8, 12, 16, 20, 24 };
         public static readonly IReadOnlyList<int> AdminPerPageOptions = new List<int> { 20, 40, 60, 80, 100 };
         public static readonly IReadOnlyList<int> PreparationTimeOptions = new List<int> { 15, 20, 25, 30, 45, 60 };

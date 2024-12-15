@@ -67,7 +67,8 @@
             if (!recipesQuery.Any())
             {
                 logger.LogError("No recipes found in the database.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
+
+
             }
             
             if (userId != default && !isAdmin) // Logged in user (sees site recipes + own recipes
@@ -220,13 +221,7 @@
                 .Skip((queryModel.CurrentPage - 1) * queryModel.RecipesPerPage)
                 .Take(queryModel.RecipesPerPage)
                 .ToListAsync();
-
-            if (recipes.Count == 0)
-            {
-                logger.LogError("No recipes found by these critearia.");
-                throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
-            }
-
+           
             return recipes;
            
         }

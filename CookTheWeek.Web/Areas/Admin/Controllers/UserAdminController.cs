@@ -11,44 +11,34 @@
     public class UserAdminController : BaseAdminController
     {
         private readonly IUserService userService;
-        private readonly IMemoryCache memoryCache;
+        
 
         public UserAdminController(
-                        IUserService userService,
-                        IMemoryCache memoryCache,
+                        IUserService userService,                        
                         ILogger<UserAdminController> logger
                         ) : base(logger) 
         {
             this.userService = userService;
-            this.memoryCache = memoryCache;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllUsersQueryModel queryModel)
         {
-            IEnumerable<UserAllViewModel>? users = this.memoryCache.Get<IEnumerable<UserAllViewModel>>(UsersCacheKey);
+            AllUsersQueryModel model = new AllUsersQueryModel();
 
-            if(users == null)
+            try
             {
-                try
-                {
-                    users = await userService.GetAllAsync();
-                }
-                catch (Exception)
-                {
-                    logger.LogError($"Users were not successfully loaded.");
-                    return BadRequest();
-                }
-
-                MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan
-                        .FromMinutes(UsersCacheDurationMinutes));
-
-                this.memoryCache.Set(UsersCacheKey, users, cacheOptions);
+                model = await userService.GetAllAsync(queryModel);
+                SetViewData("All Users", Request.Path + Request.Query);
+                return View(model);
             }
-
-            return View(users);
+            catch (Exception ex)
+            {
+                logger.LogError(ex.StackTrace, ex.Message);
+                return HandleException(ex, nameof(All), "Users", null);
+            }
+            
         }
         
     }

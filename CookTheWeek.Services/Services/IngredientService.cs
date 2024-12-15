@@ -88,7 +88,7 @@
 
             if (queryModel.IngredientsPerPage ==  default)
             {
-                queryModel.IngredientsPerPage = DefaultIngredientsPerPage;
+                queryModel.IngredientsPerPage = AdminDefaultPerPage;
             }
 
             queryModel.TotalResults = ingredientsQuery.Count();            
