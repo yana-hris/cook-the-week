@@ -83,7 +83,7 @@
             border: none !important;
             transition: all 0.3s;
 
-            i{
+            i {
                 font-size: 1.4rem;
                 color: var(--accent-color);
             }
@@ -158,6 +158,11 @@
                 }
             }
         }
+    }
+
+    .fix-padding {
+        padding-top: 0.4rem;
+        padding-bottom: 1rem;
     }
 
     .recipe-container {

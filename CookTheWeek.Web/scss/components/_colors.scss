@@ -12,20 +12,17 @@ $white: #fff;
 $dark-brown: #170d03;
 $icon-stroke-color: #5A5A5A;
 // TEST colors:
-$medium-gray-bg: #2D3339; //for dark theme-contrasting backgrounds
-$light-green-bg: #BFE85E; // for light theme-contrasting backgrounds
+$medium-gray-bg: #2D3339; 
+$light-green-bg: #BFE85E; 
 
-/*$breakfast-yellow: #FFEB3B;
-$soup-orange: #FFA500;
-$dessert-pink: #FF69B4;
-$main-dish-red: #B22222;*/
+
 $dark-dirty-green: #485b18;
 $very-dark-green: #121706;
 $very-light-green: #f8fcec;
 $medium-light-green: #9CCF35;
 $light-gradient-green: #bce650;
 $dark-gradient-green: #7e9f2b;
-$secondary-window-bg-dark-theme: #4A613C; //#5A6E5A;
+$secondary-window-bg-dark-theme: #4A613C; 
 $secondary-window-bg-light-theme: $very-light-green;
 
 
@@ -125,6 +122,7 @@ $small-font-size: 0.9rem;
 $border-radius: 2px;
 $border-radius-small: 8px;
 $medium-border-radius: 12px;
+$item-border-radius: 15px;
 $pill-border-radius: 20px;
 $link-decoration: none;
 $link-hover-color: $success;
@@ -141,7 +139,10 @@ $background-gradient-light: radial-gradient(circle, #B4E33D, #9CCF35, #7CA06E);
 $background-gradient-dark: radial-gradient(circle, #2e6930, #1f4a22);
 $pill-bg-color: $primary;
 $pill-container-bg-color: $light-green-bg;
-
+$item-background-color-light: #EBEBEB;//#F8FCED;
+$item-background-color-dark: #2D3339;
+$secondary-background-dark-theme: #204620;
+$secondary-background-light-theme: #C6E6C7;
 
 // Spacers
 $spacer: 1rem !default;

@@ -190,23 +190,27 @@ footer {
 .input-group {
 
     span.input-group-text {
-        padding: 0.55rem 0.75rem 0.45rem 0.75rem;//0.5rem 0.75rem;
+        padding: 0.55rem 0.75rem 0.45rem 0.75rem;
         font-size: 0.9rem;
         font-weight: 500;
         background-color: $primary;
         color: $white;
         border: 1px solid $primary;
-        border-radius: $border-radius;
+        border-radius: $border-radius-small;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
-input.form-control, textarea.form-control, .form-select {
+input.form-control, 
+input.ingredientName, 
+textarea.form-control, 
+select.form-select {
     padding: 0.5rem;
     margin-left: 0 !important;
     border: 1px solid $primary-border-subtle;
     color: var(--bs-body-color);
+    border-radius: $border-radius-small;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     font-size: 1rem;

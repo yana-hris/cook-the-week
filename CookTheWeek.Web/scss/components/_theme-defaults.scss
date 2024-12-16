@@ -20,7 +20,9 @@
     --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
     --input-background: rgba(255, 255, 255, 0.2);
     --select-menu-filter-bg-color: #{$background-gradient-light};
-    --input-color: $dark;
+    --input-color: #{$dark};
+    --item-background-color: #{$item-background-color-light};
+    --secondary-background: #{$secondary-background-light-theme};
 }
 
 // Custom Light Theme settings
@@ -33,7 +35,7 @@
     .input-group {
 
         select, input, textarea {
-            background-color: var(--bg-body-bg);
+            background-color: var(--bs-body-bg);
             color: var(--bs-body-color);
 
             &::placeholder {
@@ -77,8 +79,9 @@
     --filter-box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(255, 255, 255, 0.15);
     --input-background: #4C8433;
     --select-menu-filter-bg-color: #4C8433;
-    --input-color: $white;
-
+    --input-color: #{$white};
+    --item-background-color: #{$item-background-color-dark};
+    --secondary-background: #{$secondary-background-dark-theme};
 
     .subheading {
         color: $success;

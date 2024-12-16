@@ -1,12 +1,9 @@
 ﻿namespace CookTheWeek.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Memory;
 
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Admin.UserAdmin;
-
-    using static Common.GeneralApplicationConstants;
 
     public class UserAdminController : BaseAdminController
     {

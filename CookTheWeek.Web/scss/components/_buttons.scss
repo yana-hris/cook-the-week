@@ -7,6 +7,10 @@
     @include button-base();
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 .btn-primary {
     border: 1px solid $primary;
     background-color: $primary;
@@ -136,15 +140,13 @@
 
 .add-ingredient-btn,
 .add-step-btn {
-    @include button-base();
-    @extend .btn-secondary;
-    padding: 0.4rem 1.25rem;
+    @include icon-button($success, $primary, false, false, 2px, true, 40px, null, null, $border-radius-small);
+    @include button-box-shadow-effect();
 }
 
 .remove-item-button {    
-    @include icon-button($danger, #fff, true, false, 1px, true, 39px, 39px, 24px, $border-radius);
+    @include icon-button($danger, #fff, true, false, 2px, true, 39px, null, null, $border-radius-small);
     @include button-box-shadow-effect();
-    
 }
 
 .signup-button,
