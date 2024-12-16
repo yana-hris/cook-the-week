@@ -143,6 +143,8 @@
             return new decimal[] { 1m / 8, 1m / 4, 1m / 3, 1m / 2, 2m / 3, 3m / 4 };
         }
 
+
+
         public const string VeganTagDescription = "Recipes labeled as vegan contain no animal-derived products, including meat, dairy, eggs, or honey. They are crafted using only plant-based ingredients to suit ethical, dietary, or environmental preferences.";
         public const string VegetarianTagDescription = "These recipes exclude meat, poultry, and seafood but may include animal by-products like dairy, eggs, and honey. Perfect for those embracing a meat-free lifestyle.";
         public const string PescatarianTagDescription = "Recipes include seafood and fish but exclude other types of meat. These are great for individuals who prefer a diet with occasional fish-based protein.";

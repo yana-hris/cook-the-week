@@ -7,25 +7,27 @@
     bool hasActiveMealplan = UserContext.HasActiveMealplan;
 
     var headingModel = new PageHeadingViewModel
-            {
-                Subheading = "Kids-Friendly Recipes",
-                HeadingSecondary = "Delicious, fun, and easy meals the whole family will love!"
-            };
+    {
+        Subheading = "Kids-Friendly Recipes",
+        HeadingSecondary = "Delicious, fun, and easy meals the whole family will love!"
+    };
 }
 
 <div class="wide-contents-container has-build-btn">
     <partial name="_HeadingPartial" model="headingModel" />
+    @Html.AntiForgeryToken()
 
     <!-- Search and Filter panel -->
-    <div class="row text-center filter-container">
-        <form id="all-recipes-form" method="get" class="pb-1">
-            @Html.AntiForgeryToken()
-            <div class="row align-items-center justify-content-between g-0 gy-3">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 order-md-first ps-sm-3 ps-md-0">
+    <div class="row text-center filter-container fix-padding">
+        <form id="kids-friendly-form" method="get">
+           
+            <div class="row align-items-center justify-content-between gx-3">
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="input-group">
-                        <span class="input-group-text">Difficulty</span>
+                        <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
                         <select asp-for="DifficultyLevel" class="form-select">
-                            <option value="">All</option>
+                            <option value="">Difficulty Level</option>
                             @foreach (var level in Model.DifficultyLevels)
                             {
                                 <option value="@level.Id">@level.Name</option>
@@ -33,10 +35,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-4 col-lg-2 order-lg-3">
+
+                <!-- Sorting DropDown -->
+                <div class="col col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="input-group">
-                        <span class="input-group-text">Sort</span>
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
                         <select asp-for="RecipeSorting" class="form-select">
+                            <option value="">Order By</option>
                             @foreach (var criteria in Model.RecipeSortings)
                             {
                                 <option value="@criteria.Id">@criteria.Name</option>
@@ -44,17 +49,21 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4 order-first order-md-2">
+
+                <!-- Search input -->
+                <div class="col-12 col-sm-6 col-md-12 col-lg-4">
                     <div class="input-group">
-                        <span class="input-group-text">Filter</span>
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
                         <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="all-recipes-form">&rarr;</button>
+                        <button type="submit" value="Search" class="search-btn" form="kids-friendly-form"><i class="fa-solid fa-filter"></i></button>
                     </div>
                 </div>
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4 ps-sm-3 ps-md-0">
+
+                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
                     <div class="input-group">
-                        <span class="input-group-text">Per Pg</span>
+                        <span class="input-group-text"><i class="fa-solid fa-table-cells-large"></i></span>
                         <select asp-for="RecipesPerPage" class="form-select">
+                            <option value="">Per Pg</option>
                             @foreach (var perPage in PerPageOptions)
                             {
                                 <option value="@perPage">@perPage</option>
@@ -91,7 +100,7 @@
         int previousPage = Model.CurrentPage - 1;
         int nextPage = Model.CurrentPage + 1;
 
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || !Model.Recipes.Any();
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Recipes.Any());
         bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
     }
     <!-- Pagination buttons -->
@@ -100,9 +109,9 @@
         <div aria-label="Page navigation" id="pagination-buttons">
             <ul class="pagination d-flex justify-content-end align-items-center">
                 <li class="page-item">
-                    <a class="pagination-btn @(shouldPreviousPageBeDisabled ? "disabled" : string.Empty)"
+                    <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
-                       asp-action="All"
+                       asp-action="KidsFriendly"
                        asp-route-currentPage="@previousPage"
                        asp-route-recipesPerPage="@Model.RecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
@@ -110,6 +119,7 @@
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
                        asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
                        asp-route-searchString="@Model.SearchString"
+                       asp-route-recipeSource="@Model.RecipeSource"
                        asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
                        aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
                         <i class="fa-solid fa-angles-left"></i>
@@ -119,10 +129,11 @@
                 <li class="page-item">
                     <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
-                       asp-action="All"
+                       asp-action="KidsFriendly"
                        asp-route-currentPage="@nextPage"
                        asp-route-recipesPerPage="@Model.RecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
+                       asp-route-recipeSource="@Model.RecipeSource"
                        asp-route-maxPreparationTime="@Model.MaxPreparationTime"
                        asp-route-difficultyLevel="@Model.DifficultyLevel"
                        asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
@@ -134,7 +145,7 @@
                 </li>
             </ul>
         </div>
-    }    
+    }
 </div>
 
 @section Scripts {

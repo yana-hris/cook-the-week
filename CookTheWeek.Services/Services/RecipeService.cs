@@ -192,7 +192,7 @@
                     .ThenBy(r => r.Title)
                     .ThenBy(r => r.Id),
                 RecipeSorting.ViewsDescending => recipesQuery
-                    .OrderByDescending(r => r.TotalTimeMinutes) // change to RecipeViews when available
+                    .OrderByDescending(r => r.Views) 
                     .ThenBy(r => r.DifficultyLevel)
                     .ThenBy(r => r.Title)
                     .ThenBy(r => r.Id),

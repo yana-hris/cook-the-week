@@ -1,10 +1,11 @@
 ﻿@model AllRecipesFilteredAndPagedViewModel
 @using static CookTheWeek.Common.GeneralApplicationConstants
 @{
+    
     var headingModel = new PageHeadingViewModel
     {
-        Subheading = "Quick Dinners",
-        HeadingSecondary = "Get inspiration and save time"
+        Subheading = "Vegetarian",
+        HeadingSecondary = "Wholesome vegetarian recipes to nourish and inspire your plate!"
     };
 }
 
@@ -13,12 +14,54 @@
 
     @Html.AntiForgeryToken()
     <!-- Search and Filter panel -->
-    <div class="row text-center filter-container fix-padding">
-        <form id="quick-dinners-form" method="get">
-            
+    <div class="row text-center filter-container">
+        <form id="vegetarian-form" method="get">
+
+            <div class="row align-items-center justify-content-between gx-3">
+                
+                <!-- Sorting DropDown -->
+                <div class="col col-12 col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
+                        <select asp-for="RecipeSorting" class="form-select">
+                            <option value="">Order By</option>
+                            @foreach (var sorting in Model.RecipeSortings)
+                            {
+                                <option value="@sorting.Id">@sorting.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search input -->
+                <div class="col-12 col-sm-12 col-md-5 order-first order-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
+                        <button type="submit" value="Search" class="search-btn" form="vegetarian-form"><i class="fa-solid fa-filter"></i></button>
+                    </div>
+                </div>
+
+                <!-- Meal Type DropDown -->
+                <div class="col-12 col-6 col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
+                        <select asp-for="MealTypeId" class="form-select">
+                            <option value="">Meal Type</option>
+                            @foreach (var type in Model.MealTypes)
+                            {
+                                <option value="@type.Id">@type.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="row align-items-center justify-content-between gx-3">
 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <!-- Difficulty Level Dropdown -->
+                <div class="col-12 col-sm-6 col-md-5">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-layer-group"></i></span>
                         <select asp-for="DifficultyLevel" class="form-select">
@@ -31,30 +74,23 @@
                     </div>
                 </div>
 
-                <!-- Sorting DropDown -->
-                <div class="col col-12 col-sm-6 col-md-4 col-lg-2">
+                <!-- Max Preparation Time Dropdown -->
+                <div class="col-12 col-sm-12 col-md-5 order-first order-md-2">
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
-                        <select asp-for="RecipeSorting" class="form-select">
-                            <option value="">Order By</option>
-                            @foreach (var criteria in Model.RecipeSortings)
+                        <span class="input-group-text"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                        <select asp-for="MaxPreparationTime" class="form-select">
+                            <option value="">Preparation Time</option>
+                            @foreach (var option in Model.PreparationTimes)
                             {
-                                <option value="@criteria.Id">@criteria.Name</option>
+                                <option value="@option">Under @option minutes</option>
                             }
+
                         </select>
                     </div>
                 </div>
 
-                <!-- Search input -->
-                <div class="col-12 col-sm-6 col-md-12 col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <input asp-for="SearchString" class="form-control search" placeholder="Search for recipes or ingredients" />
-                        <button type="submit" value="Search" class="search-btn" form="quick-dinners-form"><i class="fa-solid fa-filter"></i></button>
-                    </div>
-                </div>
-
-                <div class="col col-12 col-sm-6 col-md-3 col-lg-2 order-lg-4">
+                <!-- Pagination DropDown -->
+                <div class="col col-12 col-sm-6 col-md-2 order-md-last">
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-table-cells-large"></i></span>
                         <select asp-for="RecipesPerPage" class="form-select">
@@ -66,6 +102,7 @@
                         </select>
                     </div>
                 </div>
+
             </div>
         </form>
     </div>
@@ -106,7 +143,7 @@
                 <li class="page-item">
                     <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
-                       asp-action="QuickDinners"
+                       asp-action="Vegetarian"
                        asp-route-currentPage="@previousPage"
                        asp-route-recipesPerPage="@Model.RecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
@@ -120,11 +157,11 @@
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                 </li>
-               
+
                 <li class="page-item">
                     <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
                        asp-controller="Recipe"
-                       asp-action="QuickDinners"
+                       asp-action="Vegetarian"
                        asp-route-currentPage="@nextPage"
                        asp-route-recipesPerPage="@Model.RecipesPerPage"
                        asp-route-mealTypeId="@Model.MealTypeId"
@@ -148,7 +185,7 @@
         import { attachToggleFavouritesHandler } from '/js/recipeLikes.js';
 
         $(document).ready(function () {
-            
+
             attachToggleFavouritesHandler();
         });
     </script>

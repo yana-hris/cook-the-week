@@ -61,7 +61,7 @@
         [HttpGet]
         public async Task<IActionResult> QuickDinners([FromQuery] AllRecipesQueryModel queryModel)
         {
-            var model = new AllRecipesFilteredAndPagedViewModel();
+            var quickDinnersModel = new AllRecipesFilteredAndPagedViewModel();
 
             try
             {
@@ -78,10 +78,10 @@
                 queryModel.SelectedTagIds.Add(tag);
                 queryModel.MaxPreparationTime = maxCookingTime;
 
-                model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+                quickDinnersModel = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
 
                 SetViewData("Quick Dinners", Request.Path + Request.QueryString);
-                return View(model);
+                return View(quickDinnersModel);
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@
         [HttpGet]
         public async Task<IActionResult> KidsFriendly([FromQuery] AllRecipesQueryModel queryModel)
         {
-            var model = new AllRecipesFilteredAndPagedViewModel();
+            var kidsFriendlyModel = new AllRecipesFilteredAndPagedViewModel();
 
             try
             {
@@ -106,16 +106,103 @@
 
                 queryModel.SelectedTagIds.Add(tag);
 
-                model = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+                kidsFriendlyModel = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
 
                 SetViewData("Kids Friendly", Request.Path + Request.QueryString);
-                return View(model);
+                return View(kidsFriendlyModel);
             }
             catch (Exception ex)
             {
                 return HandleException(ex, nameof(KidsFriendly), null);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Vegetarian([FromQuery] AllRecipesQueryModel queryModel)
+        {
+            var vegetarianModel = new AllRecipesFilteredAndPagedViewModel();
+
+            try
+            {
+                int tag = 2; //"Vegetarian" 
+
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+
+                queryModel.SelectedTagIds.Add(tag);
+
+                vegetarianModel = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+
+                SetViewData("Vegetarian", Request.Path + Request.QueryString);
+                return View(vegetarianModel);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(Vegetarian), null);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GlutenFree([FromQuery] AllRecipesQueryModel queryModel)
+        {
+            var glutenFreeModel = new AllRecipesFilteredAndPagedViewModel();
+
+            try
+            {
+                int tag = 4; //"Gluten-free" 
+
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+
+                queryModel.SelectedTagIds.Add(tag);
+
+                glutenFreeModel = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+
+                SetViewData("Gluten Free", Request.Path + Request.QueryString);
+                return View(glutenFreeModel);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(GlutenFree), null);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> DiaryFree([FromQuery] AllRecipesQueryModel queryModel)
+        {
+            var diaryFreeModel = new AllRecipesFilteredAndPagedViewModel();
+
+            try
+            {
+                int tag = 5; //"Diary-free" 
+
+                if (queryModel.SelectedTagIds == null)
+                {
+                    queryModel.SelectedTagIds = new List<int>();
+                }
+
+                queryModel.SelectedTagIds.Add(tag);
+
+                diaryFreeModel = await this.recipeViewModelFactory.CreateAllRecipesViewModelAsync(queryModel, false);
+
+                SetViewData("Diary Free", Request.Path + Request.QueryString);
+                return View(diaryFreeModel);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, nameof(DiaryFree), null);
+            }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Add()
