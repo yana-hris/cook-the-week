@@ -197,7 +197,7 @@
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, .user-recipes-btn, .login-btn,
+.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -219,7 +219,7 @@
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
+.btn-secondary, .contact-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn {
@@ -956,7 +956,7 @@
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -986,6 +986,11 @@
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -1025,6 +1030,7 @@
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -1973,7 +1979,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -2003,6 +2009,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -2042,6 +2053,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -2729,7 +2741,7 @@ span.small.text-danger {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, .user-recipes-btn, .login-btn,
+.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -2751,7 +2763,7 @@ span.small.text-danger {
   --bs-btn-disabled-border-color: #2e6930;
 }
 
-.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
+.btn-secondary, .contact-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn {
@@ -3488,7 +3500,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -3518,6 +3530,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -3557,6 +3574,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -3951,7 +3969,7 @@ span.small.text-danger {
   pointer-events: none;
 }
 
-.btn-primary, .user-recipes-btn, .login-btn,
+.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -3959,9 +3977,9 @@ span.small.text-danger {
 .ok-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
-  color: var(--bs-body-bg);
+  color: #fff;
 }
-.btn-primary:hover, .user-recipes-btn:hover, .login-btn:hover,
+.btn-primary:hover, .back-to-home-btn:hover, .user-recipes-btn:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .signup-button:hover, .shopping-list-btn:hover,
 .save-button:hover,
@@ -3972,7 +3990,7 @@ span.small.text-danger {
   background-color: var(--bs-body-bg);
 }
 
-.btn-secondary, .contact-btn, .back-to-home-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
+.btn-secondary, .contact-btn, .login-modal-btn, .add-recipe-button, .edit-recipe-btn, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
 .browse-recipes-btn {
@@ -3980,7 +3998,7 @@ span.small.text-danger {
   color: #2e6930;
   background-color: #B4E33D;
 }
-.btn-secondary:hover, .contact-btn:hover, .back-to-home-btn:hover, .login-modal-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .edit-button:hover,
+.btn-secondary:hover, .contact-btn:hover, .login-modal-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
 .browse-recipes-btn:hover {
@@ -4765,13 +4783,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .join-now-btn,
@@ -4780,13 +4798,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -4797,13 +4814,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .user-recipes-btn {
@@ -4811,13 +4828,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .change-password {
@@ -4825,13 +4841,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
-  text-transform: capitalize;
-  font-size: 1rem;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
   text-align: center;
-  border-radius: 12px;
 }
 
 .back-to-home-btn {
@@ -4839,13 +4855,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .profile-btn,
@@ -4854,13 +4869,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .contact-btn {
@@ -4868,13 +4882,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 50%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 #theme-container {
@@ -5846,7 +5860,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -5876,6 +5890,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -5915,6 +5934,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -6367,7 +6387,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -6385,7 +6405,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn:hover,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -7125,7 +7145,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -7155,6 +7175,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -7194,6 +7219,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -7781,7 +7807,7 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -7801,7 +7827,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -8535,7 +8561,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -8565,6 +8591,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -8604,6 +8635,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -9003,17 +9035,17 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
-  color: var(--bs-body-bg);
+  color: #fff;
 }
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -9022,7 +9054,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -9030,7 +9062,7 @@ span.small.text-danger {
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
-.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
+.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -9812,13 +9844,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .join-now-btn,
@@ -9827,13 +9859,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -9844,13 +9875,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .user-recipes-btn {
@@ -9858,13 +9889,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .change-password {
@@ -9872,13 +9902,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
-  text-transform: capitalize;
-  font-size: 1rem;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
   text-align: center;
-  border-radius: 12px;
 }
 
 .back-to-home-btn {
@@ -9886,13 +9916,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .profile-btn,
@@ -9901,13 +9930,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .contact-btn {
@@ -9915,13 +9943,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 50%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 #theme-container {
@@ -10267,6 +10295,7 @@ nav #nav-container .navbar-brand {
   justify-content: start;
   gap: 10px;
   padding: 0;
+  font-size: 1.2rem;
   font-family: "Libre Baskerville", serif;
 }
 nav #nav-container .navbar-brand .navbar-logo {
@@ -10306,9 +10335,10 @@ nav #nav-container #navigation-buttons #nav-list li.nav-item {
   height: 100%;
   border: 1px solid #212529;
   border-radius: 8px;
+  font-size: 1.2rem;
 }
 nav #nav-container #navigation-buttons #nav-list li.nav-item .nav-link {
-  padding: 6px 16px;
+  padding: 6px 16px 3px 16px;
   border: none !important;
 }
 nav #nav-container #navigation-buttons #nav-list li.nav-item .dropdown-item {
@@ -10341,8 +10371,8 @@ nav #nav-container #navigation-buttons #nav-list li.user-btn .icon-btn {
   text-align: center;
 }
 nav #nav-container #navigation-buttons #nav-list li.user-btn .icon-btn i.fa {
-  line-height: inherit;
-  font-size: inherit;
+  line-height: 1;
+  font-size: 1.2rem;
   color: #B4E33D;
 }
 nav #nav-container #navigation-buttons #nav-list li.user-btn:hover {
@@ -10473,7 +10503,7 @@ nav #nav-container #navigation-buttons.show li.nav-item:hover {
     border: 1px solid #212529;
   }
   #guest #nav-container #navigation-buttons #nav-list li.nav-item .nav-link, #guest #nav-container #navigation-buttons #nav-list li.nav-item .nav-item {
-    padding: 6px 16px;
+    padding: 6px 16px 3px 16px;
   }
   #guest #nav-container #navigation-buttons #nav-list li.nav-item .drop-down-item {
     text-decoration: none;
@@ -11659,7 +11689,7 @@ footer .footer-copyright .copyright i {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -11689,6 +11719,11 @@ footer .footer-copyright .copyright i {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -11728,6 +11763,7 @@ footer .footer-copyright .copyright i {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -12180,7 +12216,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -12198,7 +12234,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn:hover,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -12938,7 +12974,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -12968,6 +13004,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -13007,6 +13048,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -13780,7 +13822,7 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -13800,7 +13842,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -14534,7 +14576,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -14564,6 +14606,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -14603,6 +14650,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -15002,17 +15050,17 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
-  color: var(--bs-body-bg);
+  color: #fff;
 }
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -15021,7 +15069,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -15029,7 +15077,7 @@ span.small.text-danger {
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
-.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
+.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -15811,13 +15859,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .join-now-btn,
@@ -15826,13 +15874,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -15843,13 +15890,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .user-recipes-btn {
@@ -15857,13 +15904,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .change-password {
@@ -15871,13 +15917,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
-  text-transform: capitalize;
-  font-size: 1rem;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
   text-align: center;
-  border-radius: 12px;
 }
 
 .back-to-home-btn {
@@ -15885,13 +15931,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .profile-btn,
@@ -15900,13 +15945,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .contact-btn {
@@ -15914,13 +15958,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 50%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 #theme-container {
@@ -16683,7 +16727,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -16713,6 +16757,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -16752,6 +16801,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -17863,7 +17913,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -17893,6 +17943,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -17932,6 +17987,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -18672,7 +18728,7 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -18692,7 +18748,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -19426,7 +19482,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -19456,6 +19512,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -19495,6 +19556,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -19894,17 +19956,17 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
-  color: var(--bs-body-bg);
+  color: #fff;
 }
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -19913,7 +19975,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -19921,7 +19983,7 @@ span.small.text-danger {
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
-.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
+.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -20703,13 +20765,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .join-now-btn,
@@ -20718,13 +20780,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -20735,13 +20796,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .user-recipes-btn {
@@ -20749,13 +20810,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .change-password {
@@ -20763,13 +20823,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
-  text-transform: capitalize;
-  font-size: 1rem;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
   text-align: center;
-  border-radius: 12px;
 }
 
 .back-to-home-btn {
@@ -20777,13 +20837,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .profile-btn,
@@ -20792,13 +20851,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .contact-btn {
@@ -20806,13 +20864,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 50%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 #theme-container {
@@ -21634,7 +21692,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -21664,6 +21722,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -21703,6 +21766,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -22222,7 +22286,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -22252,6 +22316,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -22291,6 +22360,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -23305,7 +23375,7 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -23325,7 +23395,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;
@@ -24059,7 +24129,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -24089,6 +24159,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -24128,6 +24203,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -24527,17 +24603,17 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
-  color: var(--bs-body-bg);
+  color: #fff;
 }
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -24546,7 +24622,7 @@ span.small.text-danger {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   border: 1px solid rgb(171.4, 195, 172.2);
   color: #2e6930;
   background-color: #B4E33D;
@@ -24554,7 +24630,7 @@ span.small.text-danger {
 .btn-secondary:hover, .edit-button:hover,
 .copy-mealplan-button:hover,
 .cancel-btn:hover,
-.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .back-to-home-btn:hover, .contact-btn:hover {
+.browse-recipes-btn:hover, .add-recipe-button:hover, .edit-recipe-btn:hover, .login-modal-btn:hover, .contact-btn:hover {
   border: 1px solid #2e6930;
   color: #B4E33D;
   background-color: #2e6930;
@@ -25336,13 +25412,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .join-now-btn,
@@ -25351,13 +25427,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
@@ -25368,13 +25443,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .user-recipes-btn {
@@ -25382,13 +25457,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .change-password {
@@ -25396,13 +25470,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 100%;
-  text-transform: capitalize;
-  font-size: 1rem;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
   text-align: center;
-  border-radius: 12px;
 }
 
 .back-to-home-btn {
@@ -25410,13 +25484,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .profile-btn,
@@ -25425,13 +25498,12 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem !important;
   width: 100%;
+  border-radius: 12px;
   text-transform: capitalize;
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
 }
 
 .contact-btn {
@@ -25439,13 +25511,13 @@ span.small.text-danger {
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
   display: block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
   width: 50%;
+  border-radius: 2px;
   font-size: 1.4rem;
-  text-align: center;
   text-transform: uppercase;
-  border-radius: 8px;
+  text-align: center;
 }
 
 #theme-container {
@@ -26331,7 +26403,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -26361,6 +26433,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -26400,6 +26477,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -27391,7 +27469,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -27421,6 +27499,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -27460,6 +27543,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -27912,7 +27996,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn, #recipe-details-container .card .card-footer .buttons .back-to-home-btn, #meal-cook-container .card .card-footer .buttons .back-to-home-btn, #add-recipe .card .card-footer .buttons .back-to-home-btn, #edit-recipe .card .card-footer .buttons .back-to-home-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button, #recipe-details-container .card .card-footer .buttons .add-recipe-button, #meal-cook-container .card .card-footer .buttons .add-recipe-button, #add-recipe .card .card-footer .buttons .add-recipe-button, #edit-recipe .card .card-footer .buttons .add-recipe-button, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn, #add-recipe .card .card-footer .buttons .edit-recipe-btn, #edit-recipe .card .card-footer .buttons .edit-recipe-btn, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn, #recipe-details-container .card .card-footer .buttons .login-modal-btn, #meal-cook-container .card .card-footer .buttons .login-modal-btn, #add-recipe .card .card-footer .buttons .login-modal-btn, #edit-recipe .card .card-footer .buttons .login-modal-btn, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn, #recipe-details-container .card .card-footer .buttons .contact-btn, #meal-cook-container .card .card-footer .buttons .contact-btn, #add-recipe .card .card-footer .buttons .contact-btn, #edit-recipe .card .card-footer .buttons .contact-btn {
   border: 1px solid #B4E33D;
 }
 .card-custom-style-with-back-btn .card-footer .buttons .btn-secondary:hover, #recipe-details-container .card .card-footer .buttons .btn-secondary:hover, #meal-cook-container .card .card-footer .buttons .btn-secondary:hover, #add-recipe .card .card-footer .buttons .btn-secondary:hover, #edit-recipe .card .card-footer .buttons .btn-secondary:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-button:hover, #recipe-details-container .card .card-footer .buttons .edit-button:hover, #meal-cook-container .card .card-footer .buttons .edit-button:hover, #add-recipe .card .card-footer .buttons .edit-button:hover, #edit-recipe .card .card-footer .buttons .edit-button:hover,
@@ -27930,7 +28014,7 @@ span.small.text-danger {
 #recipe-details-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #meal-cook-container .card .card-footer .buttons .browse-recipes-btn:hover,
 #add-recipe .card .card-footer .buttons .browse-recipes-btn:hover,
-#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .back-to-home-btn:hover, #recipe-details-container .card .card-footer .buttons .back-to-home-btn:hover, #meal-cook-container .card .card-footer .buttons .back-to-home-btn:hover, #add-recipe .card .card-footer .buttons .back-to-home-btn:hover, #edit-recipe .card .card-footer .buttons .back-to-home-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
+#edit-recipe .card .card-footer .buttons .browse-recipes-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .add-recipe-button:hover, #recipe-details-container .card .card-footer .buttons .add-recipe-button:hover, #meal-cook-container .card .card-footer .buttons .add-recipe-button:hover, #add-recipe .card .card-footer .buttons .add-recipe-button:hover, #edit-recipe .card .card-footer .buttons .add-recipe-button:hover, .card-custom-style-with-back-btn .card-footer .buttons .edit-recipe-btn:hover, #recipe-details-container .card .card-footer .buttons .edit-recipe-btn:hover, #meal-cook-container .card .card-footer .buttons .edit-recipe-btn:hover, #add-recipe .card .card-footer .buttons .edit-recipe-btn:hover, #edit-recipe .card .card-footer .buttons .edit-recipe-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .login-modal-btn:hover, #recipe-details-container .card .card-footer .buttons .login-modal-btn:hover, #meal-cook-container .card .card-footer .buttons .login-modal-btn:hover, #add-recipe .card .card-footer .buttons .login-modal-btn:hover, #edit-recipe .card .card-footer .buttons .login-modal-btn:hover, .card-custom-style-with-back-btn .card-footer .buttons .contact-btn:hover, #recipe-details-container .card .card-footer .buttons .contact-btn:hover, #meal-cook-container .card .card-footer .buttons .contact-btn:hover, #add-recipe .card .card-footer .buttons .contact-btn:hover, #edit-recipe .card .card-footer .buttons .contact-btn:hover {
   border: 1px solid #B4E33D !important;
 }
 
@@ -29424,7 +29508,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
+  border-radius: 2px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -29454,6 +29538,11 @@ span.small.text-danger {
   font-weight: bold;
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
+}
+.modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: 1.6rem;
 }
 .modal-dialog .modal-content .modal-header .btn-close {
   position: absolute;
@@ -29493,6 +29582,7 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  font-size: 20px;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -29896,21 +29986,84 @@ span.small.text-danger {
   font-weight: bold;
 }
 
-#user-login, #user-register {
+.form-container {
   margin-bottom: 5rem;
-  /*.account-message {
-      margin-top: 4px;
-      line-height: 1.0;
-      font-weight: 300;
-  }*/
 }
-#user-login .input-group-text, #user-register .input-group-text {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+.form-container .input-group-text {
+  border-top-left-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
 }
-#user-login .form-control, #user-register .form-control {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+.form-container .input-group-text i {
+  padding: 0.25rem;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.form-container .form-control {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.user-text {
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 300;
+  font-size: 1.1rem;
+  margin-bottom: 1.8rem;
+}
+
+#user-forgot-password,
+#user-reset-pass {
+  position: relative;
+}
+#user-forgot-password .form-container,
+#user-reset-pass .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 30%);
+}
+
+#user-reset-pass-conf {
+  position: relative;
+}
+#user-reset-pass-conf .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 60%);
+}
+#user-reset-pass-conf .form-container .user-message {
+  font-size: 1.3rem;
+}
+
+#user-change-pass {
+  position: relative;
+}
+#user-change-pass .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+}
+
+#user-forgot-password-confirmation {
+  position: relative;
+}
+#user-forgot-password-confirmation .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+}
+#user-forgot-password-confirmation .form-container .stronger-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+  margin-bottom: 2rem;
+}
+#user-forgot-password-confirmation .form-container .small {
+  line-height: 1;
+  font-weight: 300;
 }
 
 @media (max-width: 767px) {
@@ -32993,7 +33146,7 @@ textarea.form-control-lg {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -33013,7 +33166,7 @@ textarea.form-control-lg {
 .btn-secondary, .edit-button,
 .copy-mealplan-button,
 .cancel-btn,
-.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .back-to-home-btn, .contact-btn {
+.browse-recipes-btn, .add-recipe-button, .edit-recipe-btn, .login-modal-btn, .contact-btn {
   --bs-btn-color: #000;
   --bs-btn-bg: #82a583;
   --bs-btn-border-color: #82a583;

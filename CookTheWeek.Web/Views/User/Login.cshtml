@@ -15,15 +15,19 @@
             <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
             <div class="mb-3">
                 <div class="input-group">
-                    <span class="input-group-text">Username</span>
-                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username"/>
                 </div>
                  <span asp-validation-for="Username" class="small text-danger"></span>
             </div>
             <div class="mb-4">
                 <div class="input-group">
-                    <span class="input-group-text">Password</span>
-                    <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-key"></i>
+                    </span>
+                    <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
                 </div>
                 <span asp-validation-for="Password" class="small text-danger"></span>
                 <p class="small text-start">

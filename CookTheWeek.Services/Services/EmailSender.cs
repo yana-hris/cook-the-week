@@ -11,17 +11,21 @@
     using CookTheWeek.Common;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
+    using CookTheWeek.Services.Data.Helpers;
 
     public class EmailSender : IEmailSender
     {
         private readonly IConfiguration configuration;
         private readonly ILogger<EmailSender> logger;
         private readonly SendGridClient client;
+        private readonly EmailFormatter formatter;
 
         public EmailSender(ILogger<EmailSender> logger,    
             IConfiguration configuration)
         {
             this.logger = logger;
+            this.formatter = new EmailFormatter();
+
             this.configuration = configuration;
             this.client = new SendGridClient(configuration["SendGrid:ApiKey"]);
         }
@@ -60,7 +64,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<OperationResult> SendPasswordResetEmailAsync(string email, string? callbackUrl, string tokenExpirationTime)
+        public async Task<OperationResult> SendPasswordResetEmailAsync(string email, string username, string? callbackUrl, string tokenExpirationTime)
         {
             if (string.IsNullOrEmpty(callbackUrl))
             {
@@ -70,11 +74,14 @@
                 });
             }
 
+            string htmlContent = formatter.GetPasswordResetHtmlContent(username, callbackUrl, tokenExpirationTime);
+            string plainTextContent = $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}";
+
             var result = await SendEmailAsync(
                 email,
                 "Reset Password",
-                $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}",
-                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>. The link will be active until {tokenExpirationTime}");
+                plainTextContent,
+                htmlContent);
 
             if (result.Succeeded)
             {

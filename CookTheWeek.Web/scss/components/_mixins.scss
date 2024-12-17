@@ -41,25 +41,26 @@
 @mixin button-lg-style($width: 100%) {
     @include button-base();
     display: block;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding: 0.35rem !important;
+    padding-bottom: 0.2rem !important;
     width: $width;
+    border-radius: $border-radius;
+
     font-size: 1.4rem;
-    text-align: center;
     text-transform: uppercase;
-    border-radius: $border-radius-small;
+    text-align: center;
 }
 
-@mixin button-sm-style($width: 100%) {
+@mixin button-sm-style($width: 100%, $border-radius: $medium-border-radius, $font-size: 1rem) {
     @include button-base();
     display: block;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 0.3rem !important;
     width: $width;
+    border-radius: $border-radius;
+
     text-transform: capitalize;
-    font-size: 1rem;
+    font-size: $font-size;
     text-align: center;
-    border-radius: $medium-border-radius;
 }
 
 @mixin icon-button($main-color, $icon-color: #fff, $flip-border-hover-color: false, $is-background-plain: false, $border-width: 1px, $hover-effect: true, $height: 40px, $width: null, $font-size: null, $border-radius: $border-radius ) {
@@ -149,4 +150,6 @@
         box-shadow: none;
     }
 }
+
+
 

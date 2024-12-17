@@ -43,29 +43,37 @@
             </div>
             <div class="mb-3">
                 <div class="input-group">
-                    <span class="input-group-text">Username</span>
-                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input asp-for="Username" class="form-control" autocomplete="username" placeholder="Username" aria-required="true" />
                 </div>
                 <span asp-validation-for="Username" class="small text-danger"></span>
             </div>
             <div class="mb-3">
                 <div class="input-group">
-                    <span class="input-group-text">Email</span>            
-                    <input asp-for="Email" class="form-control" autocomplete="email" aria-required="true" />                
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <input asp-for="Email" class="form-control" autocomplete="email" placeholder="Email" aria-required="true" />                
                 </div>
                 <span asp-validation-for="Email" class="small text-danger"></span>
             </div>
             <div class="mb-3">
                 <div class="input-group">
-                    <span class="input-group-text">Password</span>
-                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />                
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-key"></i>
+                    </span>
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" placeholder="Password" aria-required="true" />                
                 </div>
                 <span asp-validation-for="Password" class="small text-danger"></span>
             </div>
             <div class="mb-4">
                 <div class="input-group">
-                    <span class="input-group-text">Confirm Password</span>
-                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />                
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-arrow-rotate-right"></i>
+                    </span>
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="Confirm Password" aria-required="true" />                
                 </div>
                 <span asp-validation-for="ConfirmPassword" class="small text-danger"></span>
                 <p class="small text-start account-message">

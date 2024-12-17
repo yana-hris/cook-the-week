@@ -23,7 +23,7 @@
     using static CookTheWeek.Common.TempDataConstants;
 
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
-    using Microsoft.Extensions.Caching.Memory;
+    using static CookTheWeek.Services.Data.Helpers.DateFormatter;
 
     public class UserService : IUserService
     {
@@ -514,7 +514,8 @@
                 
                 var data = new Dictionary<string, object>
                     {
-                        { "token", token }
+                        { "token", token },
+                        { "username", user.UserName },
                     };
 
                 return OperationResult.Success(data);
@@ -701,13 +702,14 @@
         }
 
         /// <inheritdoc/>
-        public async Task SendPasswordResetEmailAsync(string email, string? callbackUrl)
+        public async Task SendPasswordResetEmailAsync(string email, string username, string? callbackUrl)
         {
             try
             {
-                string tokenExpirationTime = DateTime.Now.AddHours(TokenExpirationDefaultHoursTime).ToString();
+                string userLocale = "en-US";
+                string tokenExpirationTime = FormatLocalizedDate(DateTime.UtcNow.AddHours(TokenExpirationDefaultHoursTime), userLocale);
 
-                var emailResult = await emailSender.SendPasswordResetEmailAsync(email, callbackUrl, tokenExpirationTime);
+                var emailResult = await emailSender.SendPasswordResetEmailAsync(email, username, callbackUrl, tokenExpirationTime);
 
                 if (!emailResult.Succeeded)
                 {

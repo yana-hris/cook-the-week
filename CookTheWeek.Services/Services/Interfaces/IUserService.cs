@@ -146,7 +146,7 @@
         /// <param name="callbackUrl"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        Task SendPasswordResetEmailAsync(string email, string? callbackUrl);
+        Task SendPasswordResetEmailAsync(string email, string username, string? callbackUrl);
 
         /// <summary>
         /// Sets the User Claim for Active Mealplan to true or false

@@ -32,23 +32,93 @@
     }
 }
 
-#user-login, #user-register {
+.form-container {
     margin-bottom: 5rem;
 
-    /*.account-message {
-        margin-top: 4px;
-        line-height: 1.0;
-        font-weight: 300;
-    }*/
-
     .input-group-text {
-        border-top-left-radius: $border-radius-small;
-        border-bottom-left-radius: $border-radius-small;
-    }
+        border-top-left-radius: $border-radius !important;
+        border-bottom-left-radius: $border-radius !important;
 
+        i {
+            padding: 0.25rem;
+            font-size: 1.2rem;
+            color: $white;
+        }
+    }
+    
     .form-control {
-        border-top-right-radius: $border-radius-small;
-        border-bottom-right-radius: $border-radius-small;
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+}
+
+.user-text {
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin-bottom: 1.8rem;
+}
+
+
+#user-forgot-password,
+#user-reset-pass {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 30%);
+    }
+}
+
+#user-reset-pass-conf {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 60%);
+
+        .user-message {
+            font-size: 1.3rem;
+        }
+    }
+}
+
+#user-change-pass {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+    }
+}
+
+#user-forgot-password-confirmation {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+
+       .stronger-message {
+           font-size: 1.5rem;
+           font-weight: bold;
+           font-family: $font-family-serif;
+           margin-bottom: 2rem;
+       }
+
+       .small {
+           line-height: 1;
+           font-weight: 300;
+       }
     }
 }
 
@@ -56,16 +126,14 @@
     #user-profile {
         .card-container {
             flex-direction: column;
-            gap:20px;            
+            gap: 20px;
 
             .card-img {
                 width: 100%;
                 max-height: 250px;
                 object-fit: cover;
                 object-position: top;
-                
             }
-
         }
     }
 }

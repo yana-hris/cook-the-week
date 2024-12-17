@@ -24,9 +24,10 @@
         /// Sends an email with a confirmation token to a given email for password reset
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="username"></param>
         /// <param name="callbackUrl"></param>
         /// <param name="tokenExpirationTime"></param>
         /// <returns></returns>
-        Task<OperationResult> SendPasswordResetEmailAsync(string email, string callbackUrl, string tokenExpirationTime);
+        Task<OperationResult> SendPasswordResetEmailAsync(string email, string username, string? callbackUrl, string tokenExpirationTime);
     }
 }

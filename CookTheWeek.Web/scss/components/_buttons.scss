@@ -14,7 +14,8 @@
 .btn-primary {
     border: 1px solid $primary;
     background-color: $primary;
-    color: var(--bs-body-bg);
+    //color: var(--bs-body-bg);
+    color: $white;
 
     &:hover {
         border: 1px solid $primary;
@@ -199,13 +200,13 @@
 }
 
 .change-password {
-    @include button-sm-style();
+    @include button-lg-style();
     @extend .btn-danger;
 }
 
 .back-to-home-btn {
-    @include button-sm-style();
-    @extend .btn-secondary;
+    @include button-sm-style(100%, $border-radius, 1.5rem);
+    @extend .btn-primary;
 }
 
 .profile-btn,

@@ -340,7 +340,8 @@
                             Request.Scheme);
 
                         // Step 3: Send the password reset email via the service
-                        await userService.SendPasswordResetEmailAsync(model.Email, callbackUrl);
+                        string username = result.Data["username"].ToString() ?? model.Email;
+                        await userService.SendPasswordResetEmailAsync(model.Email, username, callbackUrl);
                     }
 
                     // Redirect to confirmation view in all Success scenarios
@@ -365,18 +366,19 @@
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string token, string email)
+        public IActionResult ResetPassword([FromQuery]string code, string email)
         {
+            
             SetViewData("Reset Password", null, "image-overlay food-background");
 
-            if (token == null || email == null)
+            if (code == null || email == null)
             {
                 return RedirectToAction("Error", "Home");
             }
 
             var model = new ResetPasswordFormModel()
             {
-                Token = token,
+                Token = code,
                 Email = email
             };
 
@@ -409,8 +411,7 @@
             return View(model);
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet]        
         public IActionResult ResetPasswordConfirmation()
         {
             SetViewData("Reset Password Confirmation", null, "image-overlay food-background");
@@ -418,6 +419,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ChangePassword()
         {
             SetViewData("Change Password", null, "image-overlay food-background");
