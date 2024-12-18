@@ -43,10 +43,14 @@
                 });
             }
 
+            string subject = "❗️Confirm your registration";
+            string plainTextContent = $"Please confirm your account by clicking this link: {callbackUrl}";
+            string htmlContent = formatter.GetEmailConfirmationHtml(email, callbackUrl);
+
             var result = await SendEmailAsync(
                 email,
-                "Confirm your email with CookTheWeek",
-                $"Please confirm your account by clicking this link: {callbackUrl}",
+                subject,
+                plainTextContent,
                 $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
 
             if (result.Succeeded)
@@ -74,12 +78,13 @@
                 });
             }
 
+            string subject = "Password reset for CookTheWeek";
             string htmlContent = formatter.GetPasswordResetHtmlContent(username, callbackUrl, tokenExpirationTime);
             string plainTextContent = $"Please reset your password by clicking here. The link will be active until {tokenExpirationTime}";
 
             var result = await SendEmailAsync(
                 email,
-                "Reset Password",
+                subject,
                 plainTextContent,
                 htmlContent);
 

@@ -174,6 +174,10 @@
     @extend .btn-primary;
 }
 
+.profile-btn {
+    @include button-lg-style();
+    @extend .btn-outline-danger;
+}
 .join-now-btn,
 .login-modal-btn {
     @include button-sm-style();
@@ -209,7 +213,7 @@
     @extend .btn-primary;
 }
 
-.profile-btn,
+
 .delete-account-btn {
     @include button-sm-style();
     @extend .btn-outline-danger;
@@ -218,6 +222,12 @@
 .contact-btn {
     @include button-lg-style(50%);
     @extend .btn-secondary;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+    @include button-sm-style(44%, $border-radius, 1.2rem);
+    @extend .btn-primary;
 }
 
 #theme-container {
@@ -255,6 +265,7 @@
         }
     }
 }
+
 
 
 // all recipes view: search btn

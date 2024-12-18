@@ -197,7 +197,8 @@
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
+.btn-primary, .register-redirect-btn,
+.home-redirect-btn, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -427,8 +428,7 @@
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .delete-account-btn, .profile-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -956,7 +956,7 @@
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -1979,7 +1979,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -2741,7 +2741,8 @@ span.small.text-danger {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
+.btn-primary, .register-redirect-btn,
+.home-redirect-btn, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -2971,8 +2972,7 @@ span.small.text-danger {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .delete-account-btn, .profile-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -3500,7 +3500,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -3969,7 +3969,8 @@ span.small.text-danger {
   pointer-events: none;
 }
 
-.btn-primary, .back-to-home-btn, .user-recipes-btn, .login-btn,
+.btn-primary, .register-redirect-btn,
+.home-redirect-btn, .back-to-home-btn, .user-recipes-btn, .login-btn,
 .browse-btn,
 .set-password-btn, .signup-button, .shopping-list-btn,
 .save-button,
@@ -3979,7 +3980,8 @@ span.small.text-danger {
   background-color: #2e6930;
   color: #fff;
 }
-.btn-primary:hover, .back-to-home-btn:hover, .user-recipes-btn:hover, .login-btn:hover,
+.btn-primary:hover, .register-redirect-btn:hover,
+.home-redirect-btn:hover, .back-to-home-btn:hover, .user-recipes-btn:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .signup-button:hover, .shopping-list-btn:hover,
 .save-button:hover,
@@ -4792,6 +4794,20 @@ span.small.text-danger {
   text-align: center;
 }
 
+.profile-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .join-now-btn,
 .login-modal-btn {
   border-radius: 2px;
@@ -4863,7 +4879,6 @@ span.small.text-danger {
   text-align: center;
 }
 
-.profile-btn,
 .delete-account-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -4888,6 +4903,20 @@ span.small.text-danger {
   border-radius: 2px;
   font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.3rem !important;
+  width: 44%;
+  border-radius: 2px;
+  text-transform: capitalize;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -4969,14 +4998,12 @@ span.small.text-danger {
   color: var(--accent-color);
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   border: 1px solid #DA0505;
   color: #DA0505;
   background-color: var(--bs-body-bg);
 }
-.btn-outline-danger:hover, .profile-btn:hover,
-.delete-account-btn:hover {
+.btn-outline-danger:hover, .profile-btn:hover, .delete-account-btn:hover {
   border: 1px solid #DA0505;
   color: var(--bs-body-bg);
   background-color: #DA0505;
@@ -5860,7 +5887,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -7145,7 +7172,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -7807,7 +7834,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -8032,8 +8060,7 @@ span.small.text-danger {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -8561,7 +8588,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -9035,7 +9062,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
   color: #fff;
@@ -9045,7 +9073,8 @@ span.small.text-danger {
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover, .register-redirect-btn:hover,
+.home-redirect-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -9853,6 +9882,20 @@ span.small.text-danger {
   text-align: center;
 }
 
+.profile-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .join-now-btn,
 .login-modal-btn {
   border-radius: 2px;
@@ -9924,7 +9967,6 @@ span.small.text-danger {
   text-align: center;
 }
 
-.profile-btn,
 .delete-account-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -9949,6 +9991,20 @@ span.small.text-danger {
   border-radius: 2px;
   font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.3rem !important;
+  width: 44%;
+  border-radius: 2px;
+  text-transform: capitalize;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -10030,14 +10086,12 @@ span.small.text-danger {
   color: var(--accent-color);
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   border: 1px solid #DA0505;
   color: #DA0505;
   background-color: var(--bs-body-bg);
 }
-.btn-outline-danger:hover, .profile-btn:hover,
-.delete-account-btn:hover {
+.btn-outline-danger:hover, .profile-btn:hover, .delete-account-btn:hover {
   border: 1px solid #DA0505;
   color: var(--bs-body-bg);
   background-color: #DA0505;
@@ -11689,7 +11743,7 @@ footer .footer-copyright .copyright i {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -12974,7 +13028,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -13822,7 +13876,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -14047,8 +14102,7 @@ span.small.text-danger {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -14576,7 +14630,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -15050,7 +15104,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
   color: #fff;
@@ -15060,7 +15115,8 @@ span.small.text-danger {
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover, .register-redirect-btn:hover,
+.home-redirect-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -15868,6 +15924,20 @@ span.small.text-danger {
   text-align: center;
 }
 
+.profile-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .join-now-btn,
 .login-modal-btn {
   border-radius: 2px;
@@ -15939,7 +16009,6 @@ span.small.text-danger {
   text-align: center;
 }
 
-.profile-btn,
 .delete-account-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -15964,6 +16033,20 @@ span.small.text-danger {
   border-radius: 2px;
   font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.3rem !important;
+  width: 44%;
+  border-radius: 2px;
+  text-transform: capitalize;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -16045,14 +16128,12 @@ span.small.text-danger {
   color: var(--accent-color);
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   border: 1px solid #DA0505;
   color: #DA0505;
   background-color: var(--bs-body-bg);
 }
-.btn-outline-danger:hover, .profile-btn:hover,
-.delete-account-btn:hover {
+.btn-outline-danger:hover, .profile-btn:hover, .delete-account-btn:hover {
   border: 1px solid #DA0505;
   color: var(--bs-body-bg);
   background-color: #DA0505;
@@ -16727,7 +16808,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -17913,7 +17994,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -18728,7 +18809,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -18953,8 +19035,7 @@ span.small.text-danger {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -19482,7 +19563,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -19956,7 +20037,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
   color: #fff;
@@ -19966,7 +20048,8 @@ span.small.text-danger {
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover, .register-redirect-btn:hover,
+.home-redirect-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -20774,6 +20857,20 @@ span.small.text-danger {
   text-align: center;
 }
 
+.profile-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .join-now-btn,
 .login-modal-btn {
   border-radius: 2px;
@@ -20845,7 +20942,6 @@ span.small.text-danger {
   text-align: center;
 }
 
-.profile-btn,
 .delete-account-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -20870,6 +20966,20 @@ span.small.text-danger {
   border-radius: 2px;
   font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.3rem !important;
+  width: 44%;
+  border-radius: 2px;
+  text-transform: capitalize;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -20951,14 +21061,12 @@ span.small.text-danger {
   color: var(--accent-color);
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   border: 1px solid #DA0505;
   color: #DA0505;
   background-color: var(--bs-body-bg);
 }
-.btn-outline-danger:hover, .profile-btn:hover,
-.delete-account-btn:hover {
+.btn-outline-danger:hover, .profile-btn:hover, .delete-account-btn:hover {
   border: 1px solid #DA0505;
   color: var(--bs-body-bg);
   background-color: #DA0505;
@@ -21692,7 +21800,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -22286,7 +22394,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -23375,7 +23483,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -23600,8 +23709,7 @@ span.small.text-danger {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;
@@ -24129,7 +24237,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -24603,7 +24711,8 @@ span.small.text-danger {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   border: 1px solid #2e6930;
   background-color: #2e6930;
   color: #fff;
@@ -24613,7 +24722,8 @@ span.small.text-danger {
 .mealplan-details-btn:hover,
 .ok-btn:hover, .signup-button:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover {
+.set-password-btn:hover, .user-recipes-btn:hover, .back-to-home-btn:hover, .register-redirect-btn:hover,
+.home-redirect-btn:hover {
   border: 1px solid #2e6930;
   color: #2e6930;
   background-color: var(--bs-body-bg);
@@ -25421,6 +25531,20 @@ span.small.text-danger {
   text-align: center;
 }
 
+.profile-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .join-now-btn,
 .login-modal-btn {
   border-radius: 2px;
@@ -25492,7 +25616,6 @@ span.small.text-danger {
   text-align: center;
 }
 
-.profile-btn,
 .delete-account-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -25517,6 +25640,20 @@ span.small.text-danger {
   border-radius: 2px;
   font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.register-redirect-btn,
+.home-redirect-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: block;
+  padding: 0.3rem !important;
+  width: 44%;
+  border-radius: 2px;
+  text-transform: capitalize;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -25598,14 +25735,12 @@ span.small.text-danger {
   color: var(--accent-color);
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   border: 1px solid #DA0505;
   color: #DA0505;
   background-color: var(--bs-body-bg);
 }
-.btn-outline-danger:hover, .profile-btn:hover,
-.delete-account-btn:hover {
+.btn-outline-danger:hover, .profile-btn:hover, .delete-account-btn:hover {
   border: 1px solid #DA0505;
   color: var(--bs-body-bg);
   background-color: #DA0505;
@@ -26403,7 +26538,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -27469,7 +27604,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -29508,7 +29643,7 @@ span.small.text-danger {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   background: var(--bs-body-bg);
   transition: background 0.3s ease, color 0.3s ease;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .modal-dialog .modal-content .modal-header {
   position: relative;
@@ -29986,6 +30121,17 @@ span.small.text-danger {
   font-weight: bold;
 }
 
+.validation-summary-errors ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.validation-summary-errors li {
+  color: #DA0505;
+  margin-bottom: 5px;
+}
+
 .form-container {
   margin-bottom: 5rem;
 }
@@ -30011,12 +30157,89 @@ span.small.text-danger {
   margin-bottom: 1.8rem;
 }
 
+.stronger-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+  margin-bottom: 2rem;
+}
+
+.redirection-message {
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.bolder-red-text {
+  color: #DA0505;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
+.suggested-links-message {
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-family: "Libre Baskerville", serif;
+  margin-bottom: 1.5rem;
+}
+
 #user-forgot-password,
 #user-reset-pass {
   position: relative;
 }
 #user-forgot-password .form-container,
 #user-reset-pass .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 30%);
+}
+
+#user-email-confirmation-info {
+  position: relative;
+}
+#user-email-confirmation-info .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+}
+#user-email-confirmation-info .form-container .small {
+  line-height: 1;
+  font-weight: 300;
+}
+
+#user-email-confirmed {
+  position: relative;
+}
+#user-email-confirmed .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+}
+#user-email-confirmed .form-container h3, #user-email-confirmed .form-container .h3 {
+  color: var(--accent-color);
+}
+#user-email-confirmed .form-container .small {
+  line-height: 1;
+  font-weight: 300;
+}
+
+#user-account-deleted {
+  position: relative;
+}
+#user-account-deleted .form-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -30054,12 +30277,6 @@ span.small.text-danger {
   top: 50%;
   left: 50%;
   transform: translate(-50%, 20%);
-}
-#user-forgot-password-confirmation .form-container .stronger-message {
-  font-size: 1.5rem;
-  font-weight: bold;
-  font-family: "Libre Baskerville", serif;
-  margin-bottom: 2rem;
 }
 #user-forgot-password-confirmation .form-container .small {
   line-height: 1;
@@ -33146,7 +33363,8 @@ textarea.form-control-lg {
 .mealplan-details-btn,
 .ok-btn, .signup-button, .login-btn,
 .browse-btn,
-.set-password-btn, .user-recipes-btn, .back-to-home-btn {
+.set-password-btn, .user-recipes-btn, .back-to-home-btn, .register-redirect-btn,
+.home-redirect-btn {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2e6930;
   --bs-btn-border-color: #2e6930;
@@ -33371,8 +33589,7 @@ textarea.form-control-lg {
   --bs-gradient: none;
 }
 
-.btn-outline-danger, .profile-btn,
-.delete-account-btn {
+.btn-outline-danger, .profile-btn, .delete-account-btn {
   --bs-btn-color: #DA0505;
   --bs-btn-border-color: #DA0505;
   --bs-btn-hover-color: #fff;

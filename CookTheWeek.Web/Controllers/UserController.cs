@@ -518,7 +518,7 @@
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> DeleteAccount()
         {
             try

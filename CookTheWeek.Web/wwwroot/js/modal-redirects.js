@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     const deleteModal = $('#confirmDeleteModal');
-
+    debugger;
     if (deleteModal.length) {
         deleteModal.on('show.bs.modal', function (event) {
             const triggerBtn = event.relatedTarget;
@@ -10,8 +10,14 @@
             const id = triggerBtn.getAttribute('data-id');
             const returnUrl = triggerBtn.getAttribute('data-returnurl');
 
-            let url = `/${controller}/${action}/${id}`;
+            let url = `/${controller}/${action}`;
 
+            // Append id only if it exists
+            if (id) {
+                url += `/${id}`;
+            }
+
+            // Append returnUrl as a query parameter if it exists
             if (returnUrl) {
                 url += `?returnUrl=${encodeURIComponent(returnUrl)}`;
             }

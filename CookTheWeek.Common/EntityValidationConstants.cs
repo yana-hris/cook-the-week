@@ -180,8 +180,8 @@
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;
 
-            public const string LoginFailedErrorMessage = "Login failed: Invalid username or password.";
-            public const string AccountLockedErrorMessage = "Your account is locked out. Kindly wait for 5 minutes and try again";
+            public const string LoginFailedErrorMessage = "Invalid username or password.";
+            public const string AccountLockedErrorMessage = "Your account is locked out due to multiple failed attempts.";
 
             public const string UsernameAlreadyExistsErrorMessage = "User with such username already exists";
             public const string EmailAlreadyExistsErrorMessage = "User with such email already exists";

@@ -70,6 +70,7 @@ namespace CookTheWeek.Web
                     .FromMinutes(lockoutSection.GetValue<double>("DefaultLockoutTimeSpan"));
                 options.Lockout.MaxFailedAccessAttempts = lockoutSection.
                     GetValue<int>("MaxFailedAccessAttempts");
+               
             })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CookTheWeekDbContext>();

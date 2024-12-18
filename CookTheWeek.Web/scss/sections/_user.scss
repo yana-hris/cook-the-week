@@ -32,6 +32,17 @@
     }
 }
 
+.validation-summary-errors ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.validation-summary-errors li {
+    color: $danger; 
+    margin-bottom: 5px; 
+}
+
 .form-container {
     margin-bottom: 5rem;
 
@@ -45,7 +56,7 @@
             color: $white;
         }
     }
-    
+
     .form-control {
         border-top-right-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
@@ -60,6 +71,41 @@
     margin-bottom: 1.8rem;
 }
 
+.stronger-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: $font-family-serif;
+    margin-bottom: 2rem;
+}
+
+.redirection-message {
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    margin-bottom: 0;
+}
+
+.bolder-red-text {
+    color: $danger;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+.buttons-two {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+}
+
+.suggested-links-message {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    font-family: $font-family-serif;
+    margin-bottom: 1.5rem;
+}
 
 #user-forgot-password,
 #user-reset-pass {
@@ -70,6 +116,57 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, 30%);
+    }
+}
+
+#user-email-confirmation-info {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+
+        .small {
+            line-height: 1;
+            font-weight: 300;
+        }
+    }
+}
+
+#user-email-confirmed {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+
+        h3{
+            color: var(--accent-color);
+        }
+
+        .small {
+            line-height: 1;
+            font-weight: 300;
+        }
+    }
+}
+
+#user-account-deleted {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 30%); // TODO: check position
+
+        
+
+        
     }
 }
 
@@ -108,12 +205,7 @@
         left: 50%;
         transform: translate(-50%, 20%);
 
-       .stronger-message {
-           font-size: 1.5rem;
-           font-weight: bold;
-           font-family: $font-family-serif;
-           margin-bottom: 2rem;
-       }
+       
 
        .small {
            line-height: 1;

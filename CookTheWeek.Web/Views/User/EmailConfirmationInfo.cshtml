@@ -3,16 +3,14 @@
 }
 <div id="user-email-confirmation-info">
     <div class="form-container">
-        <h5 class="text-center text-uppercase mb-4 text-danger">Confirm your email address to get started on CookTheWeek</h5>
+        <h3 class="text-center text-uppercase mb-4 text-danger">Confirm your email</h3>
 
-        <p class="text-center">A confirmation email has been sent to <span class="text-danger text-decoration-underline">@ViewBag.Email</span>. Please check your inbox to confirm your account.</p>
-        <p class="text-center mb-4">Once you do so, you will be able to save favourite recipes, add your own or build your meal plans.</p>
-        <div class="row g-2 my-2 mb-3">
-            <div class="col-12">
-                <a href="@Url.Action("Index", "Home")" class="back-to-home-btn">Back to Home</a>
-            </div>           
+        <p class="user-text mb-5">A confirmation email has been sent to <span class="bolder-red-text">@ViewBag.Email</span>.</p>
+        <p class="stronger-message">Please check your inbox to confirm your account.</p>
+        <div class="d-flex align-items-center justify-content-center mb-4">
+            <a href="@Url.Action("Index", "Home")" class="back-to-home-btn">Home</a>
         </div>
-        <p class="small text-center">If you didn`t request this email, there`s nothing to worry about - you can safely ignore it.</p>
+        <p class="small text-center mb-0 pb-0">If you did not request registration, you can safely ignore this message.</p>
     </div>
 </div>
 

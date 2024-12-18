@@ -24,13 +24,16 @@
 
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
     using static CookTheWeek.Services.Data.Helpers.DateFormatter;
+    using Microsoft.Extensions.Configuration;
+    using System.Numerics;
 
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository; 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IValidationService validationService;        
+        private readonly IValidationService validationService;
+        private readonly IConfiguration configuration;
 
         private readonly IEmailSender emailSender;
         private readonly ILogger<UserService> logger;
@@ -40,6 +43,7 @@
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUserContext userContext,
+            IConfiguration configuration,
             IValidationService validationService,
             IEmailSender emailSender,
             ILogger<UserService> logger)
@@ -52,6 +56,7 @@
             this.userManager = userManager;
 
             this.emailSender = emailSender;
+            this.configuration = configuration;
             this.userId = userContext.UserId;
             this.logger = logger;   
         }
@@ -375,37 +380,56 @@
                 logger.LogError($"User Login failed. User with username {model.Username} not found in the database.");
                 return OperationResult.Failure(new Dictionary<string, string>
                 {
-                    {$"{nameof(model.Username)}",  ApplicationUserValidation.UsernameNotFoundErrorMessage}
+                    {"",  ApplicationUserValidation.LoginFailedErrorMessage}
                 });
             }
+
+            bool isLockedOut = await userManager.IsLockedOutAsync(user);
+
+            if (isLockedOut)
+            {
+                int failedAttempts = await userManager.GetAccessFailedCountAsync(user);
+
+                logger.LogError($"User with username ${model.Username} is locked out.");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "", $"{ApplicationUserValidation.AccountLockedErrorMessage} Total failed attempts: {failedAttempts}. Please try again later." }
+                });
+            }
+
+            // Max failed attempts from configuration
+            int maxFailedAttempts = configuration.GetSection("Identity:Lockout:MaxFailedAccessAttempts").Get<int>();
 
             var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: true);
 
-            if (!signInResult.Succeeded)
+            if (signInResult.Succeeded)
             {
-                if (signInResult.IsLockedOut)
+                bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);
+                return OperationResult.Success(new Dictionary<string, object>
                 {
-                    logger.LogError($"User account is locked out. Username: {model.Username}");
-                }
-                else
-                {
-                    logger.LogError($"Invalid credentials for user {model.Username}.");
-                }
-
-                await userManager.AccessFailedAsync(user);
+                    { IsAdmin, isAdmin }
+                });
+            } 
+            else if (signInResult.IsLockedOut)
+            {
+                logger.LogError($"User account is locked out. Username: {model.Username}");
                 return OperationResult.Failure(new Dictionary<string, string>
                 {
-                    {string.Empty,  ApplicationUserValidation.LoginFailedErrorMessage}
+                    { "", $"{ApplicationUserValidation.AccountLockedErrorMessage} Please try again later." }
+                });
+            }
+            else
+            {
+                logger.LogError($"Invalid credentials for user {model.Username}.");
+                int failedAttempts = await userManager.GetAccessFailedCountAsync(user);
+                int remainingAttempts = maxFailedAttempts - failedAttempts;
+
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "", $"{ApplicationUserValidation.LoginFailedErrorMessage} Remaining attempts: {remainingAttempts}" }
                 });
             }
 
-            bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);
-
-            // Return OperationResult with isAdmin data
-            return OperationResult.Success(new Dictionary<string, object>
-            {
-                { IsAdmin, isAdmin }
-            });
         }
 
         /// <inheritdoc/>

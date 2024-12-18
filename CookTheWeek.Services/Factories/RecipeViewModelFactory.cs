@@ -109,18 +109,19 @@
                 PreparationTimes = PreparationTimeOptions,
                 RecipeSources = GetEnumAsSelectViewModel<RecipeSource>(),
             };
-
-            if (hasActiveMealPlan)
-            {
-                viewModel.ActiveMealPlan = await mealplanFactory.GetActiveDetails();
-            }
-
+            
             if (justLoggedIn)
             {
+                if (hasActiveMealPlan)
+                {
+                    viewModel.ActiveMealPlan = await mealplanFactory.GetActiveDetails();
+                }
+
                 viewModel.ActiveMealPlan.JustLoggedIn = true;
                 viewModel.ActiveMealPlan.UserId = userId;
-            }            
+            }
 
+            
             return viewModel;
         }
 
