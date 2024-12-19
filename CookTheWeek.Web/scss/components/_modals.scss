@@ -2,6 +2,8 @@
 @import 'theme-defaults';
 @import 'pills';
 
+
+
 .modal-dialog {
     position: fixed !important; // Override Bootstrap
     top: 50% !important;
@@ -9,7 +11,7 @@
     transform: translate(-50%, -50%) !important;
     z-index: 2000;
     min-width: 480px;
-    
+
     .modal-content {
         text-align: center;
         padding: 1rem 1.5rem 1.5rem 1.5rem;
@@ -48,6 +50,14 @@
                     font-weight: bold;
                     font-family: $font-family-sans-serif;
                     text-transform: uppercase;
+                }
+
+                .guest-modal-title {
+                    margin-bottom: 0.3rem;
+                    color: var(--bs-body-color);
+                    font-size: 25px;
+                    font-weight: bold;
+                    font-family: $font-family-serif;
                 }
 
                 .heading-secondary {
@@ -105,6 +115,11 @@
             .welcome-user-guest-message {
                 padding: 1.5rem 0.75rem 0.5rem 0.75rem;
                 font-size: 20px;
+
+                .user-text {
+                    font-weight: 300;
+                    font-size: 1.3rem;
+                }
             }
 
             .user-notification-message {
@@ -208,4 +223,8 @@
             }
         }
     }
+}
+
+.narrow-modal-dialog {
+    width: 440px !important;
 }

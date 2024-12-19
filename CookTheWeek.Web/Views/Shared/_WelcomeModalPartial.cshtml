@@ -8,21 +8,21 @@
     if (!Model.HasActiveMealPlan)
     {
         <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog narrow-modal-dialog" role="document">
                 <div class="modal-content">
 
-                    <div class="modal-header modal-welcome-header position-relative">
+                    <div class="modal-header modal-welcome-header position-relative mb-4">
                         <div class="heading-container d-flex flex-column">
                             <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo mb-2" />
-                            <p class="subheading" id="welcomeModalLabel">@WelcomeReturningUserModalHeading</p>
+                            <p class="subheading mb-0" id="welcomeModalLabel">@WelcomeReturningUserModalHeading</p>
                             <p class="heading-secondary">Ready to Plan Your Meals?</p>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="welcome-user-guest-message mt-3 mb-0">
-                            <p>Start crafting your ideal meal plan today and make cooking easy and enjoyable!</p>
-                            <p>Get inspired by our recipe collection, easily browse and filter or even add your favourite recipes to your personal collection.</p>
+                        <div class="welcome-user-guest-message">
+                            <p class="user-text">Start crafting your ideal meal plan today and make cooking easy and enjoyable!</p>
+                            <p class="user-text">Get inspired by our recipe collection, easily browse and filter or even add your favourite recipes to your personal collection.</p>
                         </div>
                     </div>
                     <div class="modal-footer two-buttons">
@@ -174,22 +174,22 @@
 else
 {
     <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog narrow-modal-dialog" role="document">
             <div class="modal-content">
 
-                <div class="modal-header modal-welcome-header position-relative">
+                <div class="modal-header modal-welcome-header position-relative mb-3">
                     <div class="heading-container d-flex flex-column">
                         <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
-                        <p class="modal-title mt-3" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
+                        <p class="guest-modal-title" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body mb-0">
                     <div class="welcome-user-guest-message">
-                        <p>
+                        <p class="user-text">
                             Discover a world of culinary inspiration right at your fingertips.
                         </p>
-                        <p>
+                        <p class="user-text">
                             <a class="custom-link" href="/User/Register">Sign up</a>/<a class="custom-link" href="/User/Login">Log in </a>to unlock the full experience and start building your desired Meal Plan today!
                         </p>
                     </div>

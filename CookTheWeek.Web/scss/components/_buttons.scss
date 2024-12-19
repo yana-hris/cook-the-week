@@ -211,7 +211,7 @@ li.user-btn {
 }
 .join-now-btn,
 .login-modal-btn {
-    @include button-sm-style(100%, $border-radius, 1.3rem, 0.4rem);
+    @include button-sm-style(100%, $border-radius, 1.4rem, 0.4rem);
     font-weight: bold;
 }
 
@@ -220,7 +220,7 @@ li.user-btn {
 }
 
 .cta-btn {
-    @include button-sm-style(260px, $medium-border-radius, 1.8rem, 0.6rem);
+    @include button-sm-style(260px, $border-radius-small, 1.9rem, 0.6rem);
     @extend .btn-danger;
 }
 

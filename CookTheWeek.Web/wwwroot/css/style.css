@@ -986,6 +986,13 @@
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -1030,6 +1037,10 @@
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -1106,6 +1117,10 @@
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -2013,6 +2028,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -2057,6 +2079,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -2133,6 +2159,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -3537,6 +3567,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -3581,6 +3618,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -3657,6 +3698,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -4859,7 +4904,7 @@ li.user-btn:hover i.fa {
   width: 100%;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
   font-weight: bold;
 }
@@ -4871,9 +4916,9 @@ li.user-btn:hover i.fa {
   display: block;
   padding: 0.6rem !important;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 8px;
   text-transform: capitalize;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
@@ -5983,6 +6028,13 @@ li.user-btn:hover i.fa {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -6027,6 +6079,10 @@ li.user-btn:hover i.fa {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -6103,6 +6159,10 @@ li.user-btn:hover i.fa {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -7272,6 +7332,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -7316,6 +7383,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -7392,6 +7463,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -8691,6 +8766,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -8735,6 +8817,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -8811,6 +8897,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -10013,7 +10103,7 @@ li.user-btn:hover i.fa {
   width: 100%;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
   font-weight: bold;
 }
@@ -10025,9 +10115,9 @@ li.user-btn:hover i.fa {
   display: block;
   padding: 0.6rem !important;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 8px;
   text-transform: capitalize;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
@@ -11195,60 +11285,8 @@ footer .footer-copyright .copyright i {
   cursor: pointer;
 }
 
-#about-container .row {
-  margin-bottom: 3rem;
-}
-#about-container .row .text-container p {
-  margin-bottom: 1.5rem;
-  line-height: 1.8;
-  font-weight: 400;
-}
-#about-container .row .text-container p:first-child {
-  text-indent: 2rem;
-}
-#about-container .row .rows-container {
-  gap: 1rem;
-}
-#about-container .row div.row {
-  margin-bottom: 1rem;
-}
-#about-container .thank-message-row {
-  margin-bottom: 3rem;
-  margin-top: 2rem;
-}
-#about-container .thank-message-row .message-container {
-  padding: 2rem 3rem;
-  border: 1px solid #2e6930;
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-}
-#about-container .thank-message-row .message-container .quote {
-  font-size: 1.5em;
-  font-style: italic;
-  margin-bottom: 10px;
-}
-#about-container .thank-message-row .message-container .author {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-#about-container .thank-message-row .message-container .thank-message {
-  font-size: 1em;
-}
-#about-container .spacer {
-  margin-bottom: 4.2rem;
-}
-
-@media (max-width: 568px) {
-  #about-container .row .image-row {
-    margin-bottom: 1rem !important;
-  }
-  #about-container .spacer {
-    margin-bottom: 2.2rem;
-  }
-}
 #about .about-container {
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -11992,6 +12030,13 @@ footer .footer-copyright .copyright i {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -12036,6 +12081,10 @@ footer .footer-copyright .copyright i {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -12112,6 +12161,10 @@ footer .footer-copyright .copyright i {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -13281,6 +13334,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -13325,6 +13385,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -13401,6 +13465,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -14886,6 +14954,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -14930,6 +15005,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -15006,6 +15085,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -16208,7 +16291,7 @@ li.user-btn:hover i.fa {
   width: 100%;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
   font-weight: bold;
 }
@@ -16220,9 +16303,9 @@ li.user-btn:hover i.fa {
   display: block;
   padding: 0.6rem !important;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 8px;
   text-transform: capitalize;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
@@ -17123,6 +17206,13 @@ li.user-btn:hover i.fa {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -17167,6 +17257,10 @@ li.user-btn:hover i.fa {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -17243,6 +17337,10 @@ li.user-btn:hover i.fa {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -18313,6 +18411,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -18357,6 +18462,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -18433,6 +18542,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -19885,6 +19998,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -19929,6 +20049,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -20005,6 +20129,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -21207,7 +21335,7 @@ li.user-btn:hover i.fa {
   width: 100%;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
   font-weight: bold;
 }
@@ -21219,9 +21347,9 @@ li.user-btn:hover i.fa {
   display: block;
   padding: 0.6rem !important;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 8px;
   text-transform: capitalize;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
@@ -22181,6 +22309,13 @@ li.user-btn:hover i.fa {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -22225,6 +22360,10 @@ li.user-btn:hover i.fa {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -22301,6 +22440,10 @@ li.user-btn:hover i.fa {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 :root {
@@ -22775,6 +22918,13 @@ li.user-btn:hover i.fa {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -22819,6 +22969,10 @@ li.user-btn:hover i.fa {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -22895,6 +23049,10 @@ li.user-btn:hover i.fa {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -24617,6 +24775,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -24661,6 +24826,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -24737,6 +24906,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -25939,7 +26112,7 @@ li.user-btn:hover i.fa {
   width: 100%;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
   font-weight: bold;
 }
@@ -25951,9 +26124,9 @@ li.user-btn:hover i.fa {
   display: block;
   padding: 0.6rem !important;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 8px;
   text-transform: capitalize;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
@@ -26977,6 +27150,13 @@ li.user-btn:hover i.fa {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -27021,6 +27201,10 @@ li.user-btn:hover i.fa {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -27097,6 +27281,10 @@ li.user-btn:hover i.fa {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -28047,6 +28235,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -28091,6 +28286,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -28167,6 +28366,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
@@ -29261,9 +29464,9 @@ span.small.text-danger {
   padding: 1rem;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 6.4rem;
-  row-gap: 6.4rem;
+  row-gap: 12rem;
   margin-bottom: 8rem;
-  margin-top: 2.4rem;
+  margin-top: 5rem;
   align-items: center;
 }
 #how-it-works #steps-container .step-text-box .step-number {
@@ -29273,16 +29476,16 @@ span.small.text-danger {
   padding-bottom: 0;
 }
 #how-it-works #steps-container .step-text-box .heading-tertiary {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.35px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
-#how-it-works #steps-container .step-text-box .step-decsription {
-  font-size: 2rem;
-  line-height: 2;
-  font-weight: 400;
+#how-it-works #steps-container .step-text-box .step-description {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  font-weight: 300;
 }
 #how-it-works #steps-container .step-img-box {
   position: relative;
@@ -29322,7 +29525,7 @@ span.small.text-danger {
 
 @media (max-width: 768px) {
   #steps-container {
-    row-gap: 4.8rem !important;
+    row-gap: 6rem !important;
     grid-template-columns: 1fr !important;
   }
   #steps-container step-img-box {
@@ -30090,6 +30293,13 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   text-transform: uppercase;
 }
+.modal-dialog .modal-content .modal-header .heading-container .guest-modal-title {
+  margin-bottom: 0.3rem;
+  color: var(--bs-body-color);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+}
 .modal-dialog .modal-content .modal-header .heading-container .heading-secondary {
   margin-top: -10px;
   margin-bottom: 0;
@@ -30134,6 +30344,10 @@ span.small.text-danger {
 .modal-dialog .modal-content .modal-body .welcome-user-guest-message {
   padding: 1.5rem 0.75rem 0.5rem 0.75rem;
   font-size: 20px;
+}
+.modal-dialog .modal-content .modal-body .welcome-user-guest-message .user-text {
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 .modal-dialog .modal-content .modal-body .user-notification-message {
   font-size: 22px;
@@ -30210,6 +30424,10 @@ span.small.text-danger {
 }
 .modal-dialog .modal-content .modal-footer.two-buttons .btn-container {
   width: 44%;
+}
+
+.narrow-modal-dialog {
+  width: 440px !important;
 }
 
 * {
