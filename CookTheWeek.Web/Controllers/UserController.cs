@@ -300,22 +300,7 @@
             }
         }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> ProfileNew()
-        {
-            try
-            {
-                UserProfileViewModel model = await this.userService.GetUserProfileDetailsAsync();
-                SetViewData("Profile", null, "image-overlay food-background");
-                return View(model);
-            }
-            catch (RecordNotFoundException ex)
-            {
-                return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
-            }
-        }
-
+        
         [HttpGet]
         public IActionResult ForgotPassword()
         {

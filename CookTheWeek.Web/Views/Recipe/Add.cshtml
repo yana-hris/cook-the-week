@@ -52,168 +52,173 @@
 
             <div class="card-body">
                 <form id="add-recipe-form" method="post" data-bind="submit: submitForm" asp-area="" asp-controller="Recipe" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
-                    <div id="info-content" class="tab-content g-3">
+                    <div id="info-content" class="tab-content">
                         <!-- TAB RECIPE DETAILS -->
                         <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                             <!-- FIRST ROW -->
-                            <div class="row">
-                                <div class="col col-12 col-md-9 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-book"></i>
-                                        </span>
-                                        <input asp-for="Title"
-                                               data-bind="value: Title"
-                                               class="form-control"
-                                               placeholder="Name it.."
-                                               type="text" />
+                            <div class="container-fuid info-rows">
+                                <div class="custom-padding">
+                                    <div class="row">
+                                        <div class="col col-12 col-md-9 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-book"></i>
+                                                </span>
+                                                <input asp-for="Title"
+                                                       data-bind="value: Title"
+                                                       class="form-control"
+                                                       placeholder="Name it.."
+                                                       type="text" />
+                                            </div>
+                                            <span class="small text-danger"
+                                                  data-bind="validationMessage: Title">
+                                            </span>
+                                        </div>
+                                        <div class="col col-12 col-md-3 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-utensils"></i>
+                                                </span>
+                                                <select class="form-select"
+                                                        asp-for="Servings"
+                                                        data-bind="value: Servings, valueUpdate: 'afterkeydown'">
+                                                    <option value="">Servings</option>
+                                                    @foreach (var option in @Model.ServingsOptions!)
+                                                    {
+                                                        <option value="@option">@option</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <span data-bind="validationMessage: Servings"
+                                                  class="small text-danger">
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="small text-danger"
-                                          data-bind="validationMessage: Title">
-                                    </span>
-                                </div>
-                                <div class="col col-12 col-md-3 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-utensils"></i>
-                                        </span>
-                                        <select class="form-select"
-                                                asp-for="Servings"
-                                                data-bind="value: Servings, valueUpdate: 'afterkeydown'">
-                                            <option value="">Servings</option>
-                                            @foreach (var option in @Model.ServingsOptions!)
-                                            {
-                                                <option value="@option">@option</option>
-                                            }
-                                        </select>
+                                    <!-- SECOND ROW -->
+                                    <div class="row">
+                                        <!-- MEAL TYPE -->
+                                        <div class="col col-12 col-md-5 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-filter"></i>
+                                                </span>
+                                                <select asp-for="RecipeCategoryId"
+                                                        data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'"
+                                                        class="form-select">
+                                                    <option value="">Meal Type</option>
+                                                    @foreach (var category in @Model.Categories!)
+                                                    {
+                                                        <option value="@category.Id">@category.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <span data-bind="validationMessage: RecipeCategoryId"
+                                                  class="small text-danger">
+                                            </span>
+                                        </div>
+                                        <!-- COOKING TIME -->
+                                        <div class="col col-12 col-md-3 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                                </span>
+                                                <input asp-for="CookingTimeMinutes"
+                                                       data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
+                                                       class="form-control"
+                                                       placeholder="minutes"
+                                                       type="number" />
+                                            </div>
+                                            <span data-bind="validationMessage: CookingTimeMinutes"
+                                                  class="small text-danger">
+                                            </span>
+                                        </div>
+                                        <!-- DIFFICULTY LEVEL -->
+                                        <div class="col col-12 col-md-4 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-layer-group"></i>
+                                                </span>
+                                                <select asp-for="DifficultyLevelId"
+                                                        data-bind="value: DifficultyLevelId,
+                                                                   optionsCaption: 'Difficulty: (optional)',
+                                                                   optionsText: 'Name',
+                                                                   optionsValue: 'Id',
+                                                                   options: DifficultyLevels"
+                                                        class="form-select">
+                                                </select>
+                                            </div>
+                                            <span class="small text-danger"
+                                                  data-bind="validationMessage: DifficultyLevelId">
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span data-bind="validationMessage: Servings"
-                                          class="small text-danger">
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- SECOND ROW -->
-                            <div class="row">
-                                <!-- MEAL TYPE -->
-                                <div class="col col-12 col-md-5 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-filter"></i>
-                                        </span>
-                                        <select asp-for="RecipeCategoryId"
-                                                data-bind="value: RecipeCategoryId, valueUpdate: 'afterkeydown'"
-                                                class="form-select">
-                                            <option value="">Meal Type</option>
-                                            @foreach (var category in @Model.Categories!)
-                                            {
-                                                <option value="@category.Id">@category.Name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <span data-bind="validationMessage: RecipeCategoryId"
-                                          class="small text-danger">
-                                    </span>
-                                </div>
-                                <!-- COOKING TIME -->
-                                <div class="col col-12 col-md-3 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-clock-rotate-left"></i>
-                                        </span>
-                                        <input asp-for="CookingTimeMinutes"
-                                               data-bind="value: CookingTimeMinutes, valueUpdate: 'afterkeydown'"
-                                               class="form-control"
-                                               placeholder="minutes"
-                                               type="number" />
-                                    </div>
-                                    <span data-bind="validationMessage: CookingTimeMinutes"
-                                          class="small text-danger">
-                                    </span>
-                                </div>
-                                <!-- DIFFICULTY LEVEL -->
-                                <div class="col col-12 col-md-4 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-layer-group"></i>
-                                        </span>
-                                        <select asp-for="DifficultyLevelId"
-                                                data-bind="value: DifficultyLevelId,
-                                                               optionsCaption: 'Difficulty: (optional)',
-                                                               optionsText: 'Name',
-                                                               optionsValue: 'Id',
-                                                               options: DifficultyLevels"
-                                                class="form-select">
-                                        </select>
-                                    </div>
-                                    <span class="small text-danger"
-                                          data-bind="validationMessage: DifficultyLevelId">
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- THIRD ROW -->
-                            <!-- DESCRIPTION, RECIPE TAGS AND ADDITIONAL RECIPE INFO -->
-                            <div class="row">
-                                <div class="col col-12 col-md-4 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-tags"></i>
-                                        </span>
-                                        <select asp-for="SelectedTagIds"
-                                               data-bind="selectedOptions: SelectedTagIds,
-                                                                optionsCaption: 'Recipe Tags: (optional)',
-                                                                optionsText: 'Name',
-                                                                optionsValue: 'Id',
-                                                                options: AvailableTags"
-                                                class="form-select fix-border" size="22" multiple>
-                                        </select>
-                                    </div>
-                                    <span class="small text-danger"
-                                          data-bind="validationMessage: SelectedTagIds">
-                                    </span>
-                                </div>
+                                    <!-- THIRD ROW -->
+                                    <!-- DESCRIPTION, RECIPE TAGS AND ADDITIONAL RECIPE INFO -->
+                                    <div class="row">
+                                        <div class="col col-12 col-md-4 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-tags"></i>
+                                                </span>
+                                                <select asp-for="SelectedTagIds"
+                                                        data-bind="selectedOptions: SelectedTagIds,
+                                                                    optionsCaption: 'Recipe Tags: (optional)',
+                                                                    optionsText: 'Name',
+                                                                    optionsValue: 'Id',
+                                                                    options: AvailableTags"
+                                                        class="form-select fix-border" size="22" multiple>
+                                                </select>
+                                            </div>
+                                            <span class="small text-danger"
+                                                  data-bind="validationMessage: SelectedTagIds">
+                                            </span>
+                                        </div>
 
-                                <div class="col col-12 col-md-8 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </span>
-                                        <textarea asp-for="Description"
-                                                  data-bind="value: Description"
-                                                  rows="17"
-                                                  class="form-control"
-                                                  placeholder="Would be great to know more about this recipe.."></textarea>
+                                        <div class="col col-12 col-md-8 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </span>
+                                                <textarea asp-for="Description"
+                                                          data-bind="value: Description"
+                                                          rows="17"
+                                                          class="form-control"
+                                                          placeholder="Would be great to know more about this recipe.."></textarea>
+                                            </div>
+                                            <span class="small text-danger"
+                                                  data-bind="validationMessage: Description">
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="small text-danger"
-                                          data-bind="validationMessage: Description">
-                                    </span>
+
+                                    <!-- FOURTH ROW (IMG) -->
+                                    <div class="row">
+                                        <div class="col col-12 p-2">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa-solid fa-image me-2"></i> URL
+                                                </span>
+                                                <input asp-for="ImageUrl"
+                                                       data-bind="value: ImageUrl"
+                                                       class="form-control"
+                                                       placeholder="Your image link here..."
+                                                       type="url" />
+                                            </div>
+                                            <span data-bind="validationMessage: ImageUrl"
+                                                  class="small text-danger">
+                                            </span>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                             
-                            <!-- FOURTH ROW (IMG) -->
-                            <div class="row">
-                                <div class="col col-12 p-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa-solid fa-image me-2"></i> URL
-                                        </span>
-                                        <input asp-for="ImageUrl"
-                                               data-bind="value: ImageUrl"
-                                               class="form-control"
-                                               placeholder="Your image link here..."
-                                               type="url" />
-                                    </div>
-                                    <span data-bind="validationMessage: ImageUrl"
-                                          class="small text-danger">
-                                    </span>
-                                </div>                                
-
-                            </div>
                         </div>
                         <!-- TAB INSTRUCTIONS -->
                         <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
                             <div id="instructions-content" class="tab-content">
-                                <div id="instructionsContainer">
-                                    <div class="w-100 text-start description">
+                                <div id="instructionsContainer" class="container-fluid">
+                                    <div class="description" >
                                         Make your recipe easy to follow by organizing 
                                         the cooking steps clearly. 
                                         You can add as many steps as you need, 
@@ -263,8 +268,8 @@
                         <!-- TAB INGREDIENTS -->
                         <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                             <div id="ingredients-content" class="tab-content">
-                                <div id="ingredientsContainer">
-                                    <div class="w-100 text-start description">
+                                <div id="ingredientsContainer" class="container-fluid">
+                                    <div class="description">
                                         Add your ingredients one by one by typing their names below. 
                                         You can adjust the quantity and measurement unit as needed, 
                                         and include any special notes like "small," "frozen," or "finely chopped."
