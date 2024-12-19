@@ -35,7 +35,7 @@
          data-current-user-id="@UserContext.UserId"
          data-has-active-mealplan="@UserContext.HasActiveMealplan.ToString().ToLower()">
 
-       <div class="content">
+        <div class="content @ViewData["CustomClass"]">
         @RenderBody()
        </div>
         <partial name="_FooterPartial" />

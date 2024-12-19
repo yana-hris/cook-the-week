@@ -39,6 +39,7 @@ namespace CookTheWeek.Web.Controllers
         [HttpGet]
         public IActionResult About()
         {
+            SetViewData("About", null, null ,"remove-bottom-margin");
             return View();
         }
                 

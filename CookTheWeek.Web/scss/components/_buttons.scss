@@ -64,6 +64,31 @@
     opacity: 0.6 !important;
 }
 
+// Navigation User Login / Logout Btn
+li.user-btn {
+    border: 1px solid $dark !important;
+    //background-color: $dark !important;
+
+    .icon-btn {
+        display: block;
+        text-align: center;
+
+        i.fa {
+            line-height: 1;
+            font-size: 1.2rem;
+            color: $success;
+        }
+    }
+
+    &:hover {
+        border: 1px solid $success !important;
+
+        i.fa {
+            color: $success !important;
+        }
+    }
+}
+
 // Reusable buttons
 
 .details-btn,
@@ -141,7 +166,7 @@
 
 .add-ingredient-btn,
 .add-step-btn {
-    @include icon-button($success, $primary, false, false, 2px, true, 40px, null, null, $border-radius-small);
+    @include icon-button($primary, $success, false, false, 2px, true, 40px, null, null, $border-radius-small);
     @include button-box-shadow-effect();
 }
 
@@ -174,18 +199,28 @@
     @extend .btn-primary;
 }
 
+.add-btn {
+    @include button-lg-style();
+    @extend .btn-secondary;
+}
+
+
 .profile-btn {
     @include button-lg-style();
     @extend .btn-outline-danger;
 }
 .join-now-btn,
 .login-modal-btn {
-    @include button-sm-style();
-    font-size: 1.3rem;
+    @include button-sm-style(100%, $border-radius, 1.3rem, 0.4rem);
     font-weight: bold;
 }
 
 .join-now-btn {
+    @extend .btn-danger;
+}
+
+.cta-btn {
+    @include button-sm-style(260px, $medium-border-radius, 1.8rem, 0.6rem);
     @extend .btn-danger;
 }
 
@@ -224,10 +259,15 @@
     @extend .btn-secondary;
 }
 
-.register-redirect-btn,
+
 .home-redirect-btn {
-    @include button-sm-style(44%, $border-radius, 1.2rem);
+    @include button-sm-style(100%, $border-radius, 1.1rem);
     @extend .btn-primary;
+}
+
+.register-redirect-btn {
+    @include button-sm-style(100%, $border-radius, 1.1rem);
+    @extend .btn-danger;
 }
 
 #theme-container {

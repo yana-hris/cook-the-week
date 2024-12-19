@@ -3,22 +3,22 @@
 }
 <div id="user-account-deleted">
     <div class="form-container">
-        <h5 class="text-center text-uppercase mb-4 text-danger">Your account has been successfully deleted</h5>        
+        <h3 class="text-center text-uppercase mb-4 text-danger">Account deleted</h3>        
 
-        <p class="user-text">We're sorry to see you go, but we respect your decision. All your data has been permanently removed from our system. If you ever decide to return, you'll need to create a new account.</p>
-        <p class="user-text">If this was a mistake you can create a new account or signup using external logins by using some of the options below:</p>
+        <p class="user-text">We're sorry to see you go, but we respect your decision.</p>
+        <p class="user-text mb-5">All your data has been permanently removed from our system. If you ever decide to return, you'll need to create a new account.</p>
 
-        <h6 class="suggested-links-message">To go back, choose one of the following:</h6>
+        <h6 class="suggested-links-message mb-4">To go back, choose one of the following:</h6>
 
         <div class="buttons-two">
             
+            <a href="@Url.Action("Index", "Home")" class="home-redirect-btn">Home</a>
             <a href="@Url.Action("Register", "User")" class="register-redirect-btn">Register</a>
            
-            <a href="@Url.Action("Index", "Home")" class="home-redirect-btn">Home</a>
 
         </div>
-        <div class="mb-4">
-            <p class="redirection-message">You will be redirected to the homepage in <span class="text-danger small d-inline-block" id="countdown">1000</span> seconds.</p>
+        <div class="mb-0">
+            <p class="redirection-message">You will be redirected to the homepage in <span class="text-danger small d-inline-block" id="countdown">30</span> seconds.</p>
             <p class="redirection-message">If the page doesn't redirect, <a href="/Home/Index">click here</a>.</p>
         </div>
     </div>
@@ -26,7 +26,7 @@
 
 @section Scripts {
     <script type="text/javascript">
-        let countdown = 999;
+        let countdown = 30;
 
         updateCountdown();
         // Function to update the countdown and redirect

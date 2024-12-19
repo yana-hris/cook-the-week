@@ -77,3 +77,138 @@
     }
 }
 
+#about {
+
+    
+    .about-container {
+        padding: 1rem 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+
+        .intro-text {
+            text-align: start;
+
+            .user-text {
+                text-align: start;
+                font-size: 1.3rem;
+                line-height: 1.5;
+            }
+        }
+
+        .features-grid {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 1.5rem;
+            justify-items: center;
+            margin-bottom: 8rem;
+            padding: 2rem 0;
+
+            .feature-item {
+                width: 100%;
+                max-width: 600px;
+                padding-top: 5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 3rem 2rem;
+                background-color: var(--secondary-background);
+                color: var(--bs-body-color);
+                border-radius: $border-radius-small;
+
+                i {
+                    font-size: 4.5rem;
+                    margin-bottom: 2.5rem;
+                }
+
+                h3 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                p {
+                    font-size: 1.4rem;
+                    font-weight: 300;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .cta-container {
+        margin: 0 auto;
+        //margin-bottom: 10rem;
+        display: flex;
+        justify-content: center;
+        padding: 10rem 0;
+        padding-bottom: 15rem;
+        //border-top: 2px solid var(--accent-color);
+        background: $background-gradient-light;
+
+        .cta-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            max-width: 840px;
+            gap: 2rem;
+            padding: 5rem 4rem;
+            background: $secondary-background-light-theme;
+            color: $dark;
+            border-radius: $medium-border-radius;
+
+            h3 {
+                font-family: $font-family-serif;
+            }
+
+            .text {
+                
+                .user-text {
+                    font-size: 1.5rem;
+                   line-height: 1.6;
+                }
+            }
+
+
+            .cta-btn {
+                /*max-width: 220px;
+                border-radius: 12px;*/
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1010px) {
+    .features-grid {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 4rem !important;
+
+
+        .feature-item {
+            width: 470px !important;
+            height: auto;
+
+            i {
+                font-size: 4rem !important;
+                margin-bottom: 2.2rem !important;
+            }
+
+            h3 {
+                font-size: 1.7rem !important;
+            }
+
+            p {
+                font-size: 1.1rem !important;
+                font-weight: 300;
+            }
+        }
+    }
+}
+

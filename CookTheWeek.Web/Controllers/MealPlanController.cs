@@ -180,6 +180,7 @@
         [HttpGet]
         public IActionResult None()
         {
+            SetViewData("No Meal Plans", null, "image-overlay food-background");
             return View();
         }
 

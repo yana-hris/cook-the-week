@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="title">The View Title</param>
         /// <param name="returnUrl">The ReturnUrl</param>
-        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default)
+        protected void SetViewData(string title, string returnUrl, string? backgroundClass = default, string? customClass = default)
         {
             ViewData["Title"] = title;
             ViewBag.ReturnUrl = returnUrl;
@@ -39,6 +39,11 @@
             if (backgroundClass != default)
             {
                 ViewData["BackgroundClass"] = backgroundClass;
+            }
+
+            if(customClass != default)
+            {
+                ViewData["CustomClass"] = customClass;
             }
 
         }

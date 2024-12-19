@@ -1,33 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "No Plans";    
+    ViewData["Title"] = "No Meal Plans";    
 }
 
 <div id="meal-plans-none">
     <div class="form-container">
         
-        <h2 class="mb-1">It's a Shame!</h2>
+        <h3 class="mb-1">Let’s Get Cooking!</h3>
         <h5 class="text-uppercase mb-4">You have no Meal Plans yet</h5>
-        <p class="fw-bold mb-1">
-            We are thrilled to have you here! Ready to embark on your culinary journey?
+        <p class="stronger-message">
+            Ready to start your culinary journey?
         </p>
 
-        <p>
-            Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="flex-nowrap custom-link">All Recipes</a> section to find a variety of dishes.
-            With just a few clicks of the <span class="add-to-mealplan-container d-inline-block">
-                <a class="plus fixed-size-btn btn btn-icon-only" style="height: 1.4rem; width: 1rem; font-size: 1rem;">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </a>
-            </span> button, you can start building your personalized meal plan.
-            You can even add <strong>your own recipes</strong> to make your meal plan truly unique and tailored to your taste.
-        </p>       
-        <p class="fw-bold mb-0">Start now by browsing our Recipes section or add your first recipe to your collection!</p>
-        <div class="row g-2 my-2 mb-4">
-            <div class="col-6">
-                <a class="btn btn-secondary w-100 text-center" asp-area="" asp-controller="Recipe" asp-action="All">Browse Recipes</a>
-            </div>
-            <div class="col-6">
-                <a class="btn btn-primary w-100 text-center" asp-area="" asp-controller="Recipe" asp-action="Add">Add Recipe</a>
-            </div>
+        <p class="user-text">
+            Explore our <a asp-area="" asp-controller="Recipe" asp-action="All" class="flex-nowrap custom-link">Recipes</a> section to find a variety of dishes.
+            and start building your first personalized meal plan.
+            
+        </p>
+        <p class="user-text">
+            You can even <strong>add your own recipes</strong> to make your collection truly unique!
+        </p>
+        <p class="suggested-links-message mb-5">Start now by clicking below</p>
+        
+        <div class="buttons-two mb-2">
+            <a class="browse-btn" asp-area="" asp-controller="Recipe" asp-action="All"><i class="fa-solid fa-magnifying-glass me-2"></i>Recipes</a>
+            <a class="add-btn" asp-area="" asp-controller="Recipe" asp-action="Add"><i class="fa-solid fa-plus me-2"></i>Add</a>
         </div>       
         
     </div>

@@ -7,46 +7,74 @@
         HeadingSecondary = "App Purpose"
     };
 }
-<div id="about-container" class="list-container">
-    <partial name="_HeadingPartial" model="headingModel" />
 
-    <div class="row gx-5 gy-5">
-        <!-- Image column -->
-        <div class="col-12 col-sm-4 image-row">
-            <img class="img-fluid rounded" src="~/img/who-am-i.jpg" alt="creator photo" />
+<div id="about" class="about-section">
+    <div class="list-container">
+        <partial name="_HeadingPartial" model="headingModel" />
+        <div class="about-container">
+            <div class="intro-text">
+                <p class="user-text">
+                    CookTheWeek is your all-in-one platform to simplify meal planning,
+                    save time in the kitchen, and organize your cooking effortlessly.
+                    Whether you’re looking for inspiration from curated recipes,
+                    adding your own private creations, or building personalized meal plans, we’ve got you covered.
+                </p>
+                <p class="user-text">
+                    With advanced filters, intuitive tools, and smart shopping list generation,
+                    CookTheWeek transforms the way you plan, cook, and shop for meals.
+                    Start your culinary journey today and make every week a delicious success!
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h3>View Recipe Details</h3>
+                    <p>Access full recipe info.</p>
+                    <p>Read ingredient list and cooking steps.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-feather"></i>
+                    <h3>Secure Family Treasures</h3>
+                    <p>Add your favourites recipes.</p>
+                    <p>Be sure they are protected and not visible to others.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>Browse Collections</h3>
+                    <p>Discover a variety of recipes to inspire your meals.</p>
+                    <p>Filter and sort recipes, using conveniently created filters.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h3>Apply Advanced Filters</h3>
+                    <p>Filter recipes by complex scenarious.</p>
+                    <p>Combine multiple filters for specific diet or occasion.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-utensils"></i>
+                    <h3>Build Custom Plans</h3>
+                    <p>Adjust serving size and cooking date for every meal.</p>
+                    <p>Organize your week and edit it as many times as needed.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <h3>Get Shopping Lists</h3>
+                    <p>Never miss buying a product again.</p>
+                    <p>Download or e-mail a full & well-structured shopping list.</p>
+                </div>
+            </div>
         </div>
-        <!-- Text column -->
-        <div class="col-12 col-sm-8 text-container">
-            <div>
-                <p>
-                    Hi, I'm Yana, the founder of CookTheWeek. As a busy mom passionate about homemade dinners, I faced the daily challenge of finding new recipes and optimizing grocery shopping. This inspired me to create CookTheWeek—a user-friendly app designed to help busy parents effortlessly plan and prepare delicious meals.
-                </p>
-                <p>
-                    CookTheWeek is born from my love of cooking and my desire to simplify meal planning for households. The app streamlines the process, providing fresh ideas, organizational tools, and convenience for families looking to enjoy wholesome meals without the hassle.
-                </p>
-                <p>
-                    I'd love to hear your questions or feedback! Reach out through the form below, and I'll get back to you as soon as possible.
-                </p>
-            </div>            
-        </div>        
     </div>
-    <div class="row thank-message-row">
-        <div class="col col-12 message-container">
-            <p class="quote">
-                "Cooking is an art, and planning is the brush that brings the masterpiece to life. At CookTheWeek, we believe that a thoughtfully planned week of meals removes the stress of daily cooking, forgotten meals, and last-minute shopping lists. By bringing a sense of effortless structure, it allows you to nourish both your body and soul with ease and satisfaction."
-            <p class="author">- CookTheWeek Team</p>
-            <p class="thank-message">
-                Thank you for choosing CookTheWeek to enhance your meal planning experience!
-            </p>
+    <div class="cta-container">
+        <div class="cta-section">
+            <h3>Transform Your Mealtime Today!</h3>
+            <div class="text">
+                <p class="user-text">Sign up now to unlock personalized meal plans, save your favorite recipes, and let CookTheWeek simplify your cooking journey. Never miss an ingredient again!</p>
+                
+            </div>
+
+            <a asp-controller="User" asp-action="Register" class="cta-btn">Start Now</a>
         </div>
     </div>
-    <div class="row">
-        <p>For any questions or feedback, do not hesitate to contact me, using the site <a href="/Home/Contact">Contact Form</a>!</p>
-    </div>
-    
+   
 </div>
-
-@section Scripts
-{
-    <partial name="_JQueryValidationPartial.cshtml" />
-}

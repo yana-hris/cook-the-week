@@ -18,7 +18,7 @@
 
         .meal-plan-dates {
             font-size: 1.2rem;
-            color: var(--bs-accent-color);
+            color: var(--accent-color);
 
             .label {
                 text-transform: uppercase;
@@ -426,6 +426,25 @@
     }
 }
 
+#meal-plans-none {
+    position: relative;
+
+    .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 5%);
+
+        h5 {
+            color: var(--accent-color);
+        }
+
+        .stronger-message{
+            font-size:1.3rem;
+        }
+    }
+}
+
 @media screen and (max-width: 660px) {
     #add-mealplan, #details-mealplan, #edit-mealplan {
 
@@ -454,26 +473,11 @@
         }
     }
 }
-/*
-@media (min-width: 1043px) { //custom because of theme-switcher
-    .header-container {
-        position: relative;
 
-        .back-btn-container {
-            position: absolute;
-            top: 5px !important; 
-            right: 0;
-        }
-    }
-}*/
 
 [data-bs-theme="dark"] {
 
-    .meal-plan-dates {
-        
-        color: $success !important;
-    }
-
+    
     .name-inviting-message {
         color: $success !important;
     }
@@ -499,10 +503,6 @@
     .name input::placeholder {
         color: $success-400 !important;
     }
-
-    /*.name-suggestions a {
-        color: $success !important;
-    }*/
 
     .info-pill {
         color: var(--bs-body-bg) !important;

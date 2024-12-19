@@ -51,10 +51,10 @@
     text-align: center;
 }
 
-@mixin button-sm-style($width: 100%, $border-radius: $medium-border-radius, $font-size: 1rem) {
+@mixin button-sm-style($width: 100%, $border-radius: $medium-border-radius, $font-size: 1rem, $padding: 0.3rem) {
     @include button-base();
     display: block;
-    padding: 0.3rem !important;
+    padding: $padding !important;
     width: $width;
     border-radius: $border-radius;
 
