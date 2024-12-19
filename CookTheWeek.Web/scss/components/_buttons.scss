@@ -192,6 +192,16 @@ li.user-btn {
     @extend .btn-light;
 }
 
+.go-to-login {
+    @include button-sm-style(100%, $border-radius, 1.3rem, 0.3rem);
+    @extend .btn-primary;
+}
+
+.go-to-home {
+    @include button-sm-style(100%, $border-radius, 1.3rem, 0.3rem);
+    @extend .btn-secondary;
+}
+
 .login-btn,
 .browse-btn,
 .set-password-btn {
@@ -243,6 +253,18 @@ li.user-btn {
     @extend .btn-danger;
 }
 
+.profile-change-pass {
+    @include button-sm-style(100%, $border-radius, 1.2rem, 0.3rem);
+    @extend .btn-danger;
+}
+
+
+.profile-set-pass,
+.profile-recipe-collection {
+    @include button-sm-style(100%, $border-radius, 1.2rem, 0.3rem);
+    @extend .btn-primary;
+}
+
 .back-to-home-btn {
     @include button-sm-style(100%, $border-radius, 1.5rem);
     @extend .btn-primary;
@@ -250,8 +272,13 @@ li.user-btn {
 
 
 .delete-account-btn {
-    @include button-sm-style();
+    @include button-sm-style(100%, $border-radius, 1.2rem, 0.3rem);
     @extend .btn-outline-danger;
+}
+
+.profile-mealplans {
+    @include button-sm-style(100%, $border-radius, 1.2rem, 0.3rem);
+    @extend .btn-secondary;
 }
 
 .contact-btn {

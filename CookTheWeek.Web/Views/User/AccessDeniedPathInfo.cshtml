@@ -3,25 +3,19 @@
 }
 <div id="access-denied">   
     <div class="form-container">
-        <h2 class="text-capitalize text-danger mb-1">Oops..</h2>
-        <h6 class="text-uppercase mb-4">Access denied</h6>
+        <h3 class="text-capitalize mb-1">Oops..</h3>
+        <h5 class="text-uppercase text-danger mb-4">Something went wrong</h5>
         
-        <p>For some reason your Login/Register attempt was unsuccessful! You can try again later or <a href="@Url.Action("Login", "User")" class="custom-link">change the login provider</a>.</p>
-        <p>Alternatively, you can <a href="@Url.Action("Register", "User")" class="custom-link">create a local account</a> instead of using Facebook and Google.</p>
-        <p>However, if you believe there is something wrong with our website, use our <a href="/Home/Contact" class="custom-link">Contact Form</a> and let us know!</p>
+        <p class="user-text">For some reason your Sign In/Up attempt was unsuccessful!</p>
+        <p class="user-text">You can <a asp-controller="User" asp-action="Login" class="custom-link">try again</a> later or <a asp-controller="User" asp-action="Register" class="custom-link">create a local account</a>.</p>
+        
+        <p class="stronger-message mb-4">To proceed:</p>
 
-        <p class="fw-bold mb-2">To go back, choose one of the following:</p>
-
-        <div class="row g-2 my-2 mb-4">
-            <div class="col-4">
-                <a href="@Url.Action("Login", "User")" class="login-btn">Back to Login</a>
-            </div>
-            <div class="col-4">
-                <a href="@Url.Action("Register", "User")" class="register-btn">Register</a>
-            </div>
-            <div class="col-4">
-                <a href="@Url.Action("Index", "Home")" class="back-to-home-btn">Back to Home</a>
-            </div>
+        <div class="buttons-two mb-2">
+            <a href="@Url.Action("Login", "User")" class="go-to-login">SignUp</a>            
+           
+            <a href="@Url.Action("Index", "Home")" class="go-to-home">Home</a>
+            
         </div>
     </div>    
 </div>

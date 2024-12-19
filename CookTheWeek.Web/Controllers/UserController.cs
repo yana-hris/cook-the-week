@@ -301,6 +301,22 @@
         }
 
         [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ProfileNew()
+        {
+            try
+            {
+                UserProfileViewModel model = await this.userService.GetUserProfileDetailsAsync();
+                SetViewData("Profile", null, "image-overlay food-background");
+                return View(model);
+            }
+            catch (RecordNotFoundException ex)
+            {
+                return RedirectToAction("NotFound", "Home", new { message = ex.Message, code = ex.ErrorCode });
+            }
+        }
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             ForgotPasswordFormModel model = new ForgotPasswordFormModel();
@@ -513,7 +529,7 @@
         [HttpGet]
         public IActionResult ConfirmationFailed()
         {
-            SetViewData("Confirmation Failed", null, "image-overlay food-background");
+            SetViewData("Confirmation Failed", null, "image-overlay food-background", null);
             return View();
         }
 

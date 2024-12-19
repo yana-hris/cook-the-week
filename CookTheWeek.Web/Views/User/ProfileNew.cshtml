@@ -1,0 +1,101 @@
+﻿@model UserProfileViewModel
+@using static CookTheWeek.Common.NotificationMessagesConstants
+@{
+    ViewData["Title"] = "Profile";
+
+    PageHeadingViewModel headingModel = new PageHeadingViewModel
+            {
+                Subheading = "User Profile",
+                HeadingSecondary = "Manage Your Account"
+            };
+}
+
+<div id="user-profile">
+    <div class="form-container">
+        <partial name="_HeadingSmallPartial" model="headingModel" />
+
+        <div class="profile-container">
+            <div class="row">
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fas fa-user me-2"></i> Username
+                    </h5>
+                    <p class="info-style">@Model.UserName</p>
+                </div>
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fas fa-envelope me-2"></i> 
+                        Email
+                    </h5>
+                    <p class="info-style">@Model.Email</p>
+                </div>
+            </div>
+
+           
+            <!-- User Collections  -->
+            <div class="row">
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fa-solid fa-folder me-2"></i> Recipes
+                    </h5>
+                    <a href="@Url.Action("Mine", "Recipe")" class="profile-recipe-collection">Recipes</a>
+                    
+                </div>
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fa-solid fa-folder me-2"></i>
+                        Meal Plans
+                    </h5>
+                    <a href="@Url.Action("Mine", "MealPlan")" class="profile-mealplans">
+                        Meal Plans
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fa-solid fa-key me-2"></i>
+                        Password
+                    </h5>
+
+                    @if (Model.HasPassword)
+                    {
+                        <a asp-area="" asp-controller="User" asp-action="ChangePassword" class="profile-change-pass" type="button">Change Password</a>
+                    }
+                    else
+                    {
+                        <a asp-area="" asp-controller="User" asp-action="SetPassword" class="profile-set-pass" type="button">Set Password</a>
+                    }
+                </div>
+                <div class="stat col col-12 col-md-6">
+                    <h5 class="stat-text">
+                        <i class="fa-solid fa-file-invoice me-2"></i>
+                        Account
+                    </h5>
+                    <button data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteModal"
+                            data-controller="User"
+                            data-action="DeleteAccount"
+                            data-returnUrl="/"
+                            class="delete-account-btn"
+                            type="button">
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Modal for Delete *@
+    @{
+        var deleteAccountModal = new ModalViewModel
+            {
+                Title = DeleteAccountModalHeading,
+                Content = DeleteAccountModalMessage,
+                IconClass = DeleteModalIconClass
+            };
+
+        <partial name="_ConfirmDeleteModalPartial" model="deleteAccountModal" />
+    }
+</div>
