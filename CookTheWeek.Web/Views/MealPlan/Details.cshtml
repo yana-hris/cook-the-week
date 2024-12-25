@@ -11,14 +11,14 @@
     bool isOwner = Model.OwnerId == userId;
 
     var headingModel = new PageHeadingViewModel
-    {
-        Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = Model.Name
-    };
+            {
+                Subheading = ViewData["Title"]!.ToString(),
+                HeadingSecondary = Model.Name
+            };
 
     if (ViewBag.ReturnUrl == null)
     {
-        if(isAdmin)
+        if (isAdmin)
         {
             ViewBag.ReturnUrl = "/Admin/MealPlanAdmin/AllActive";
         }
@@ -29,264 +29,144 @@
     }
 }
 
-<div id="details-mealplan">    
+<div id="details-mealplan-new">
     <div class="card-outer-container">
+
         <div class="header-container">
-            <partial name="_HeadingSmallPartial" model="headingModel" />
-            <div class="status-container d-flex align-items-center justify-content-between">
-                <div class="meal-plan-dates">
-                    <span class="label">Duration:</span> @Model.StartDate to @Model.EndDate
+            <div class="meal-plan-header">
+                <partial name="_HeadingSmallPartial" model="headingModel" class="meal-plan-title" />
+                <div class="status-and-btn">
+                    <div class="meal-plan-status meal-plan-finished-@Model.IsFinished.ToString().ToLower()">
+                        @(Model.IsFinished ? "Finished" : "Active")
+                    </div>
+                    <partial name="_BackBtnPartial" class="back-btn" />
                 </div>
-                <div class="meal-plan-status meal-plan-finished-@Model.IsFinished.ToString().ToLower()">
-                    @(Model.IsFinished ? "Finished" : "Active")
-                </div>
-            </div>            
-            <partial name="_BackBtnPartial" />
-        </div>        
+            </div>
+            <div class="meal-plan-dates">
+                <span class="label">Duration:</span> @Model.StartDate to @Model.EndDate
+            </div>
+        </div>
+       
         @Html.AntiForgeryToken()
-        <div class="row">
-            <div class="col-lg-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="col-10">
-                                Meal
-                            </th>
-                            <th scope="col" class="col-2 text-end">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- For each -->
-                        @for (int i = 0; i < Model.Meals.Count; i++)
-                        {
-                            var currentMeal = Model.Meals[i];
-                            bool isCurrentMealDeleted = Guid.Parse(currentMeal.RecipeId) == DeletedRecipeId;
+        <div class="container-fluid">
 
-                            <tr class="meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
-                                <td>
-                                    <div class="meal-info">
-                                        <div class="meal-image">
-                                            @if (!isCurrentMealDeleted)
-                                            {
-                                                <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
-                                                <a asp-area=""
-                                                   asp-controller="Recipe"
-                                                   asp-action="Details"
-                                                   asp-route-id="@currentMeal.RecipeId"
-                                                   asp-route-returnUrl="/MealPlan/Details/@Model.Id">
-                                                    <img src="@currentMeal.ImageUrl" alt="Meal Image">
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
-                                            }
-                                        </div>
+            <!-- MEALS HEADER -->
+            <div class="card-header-pills info-pill">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>Meal</div>
+                    <div>Status</div>
+                </div>
+            </div>
 
-                                        <div class="meal-content">
-                                            <h5 class="meal-title">
-                                                @if (isCurrentMealDeleted)
-                                                {
-                                                    <span class="text-muted">@currentMeal.Title</span>
-                                                }
-                                                else
-                                                {
-                                                    <a asp-area="" 
-                                                    asp-controller="Meal" 
-                                                    asp-action="Details" 
-                                                    asp-route-id="@currentMeal.Id" 
-                                                    asp-route-isMealPlanFinished = "@Model.IsFinished"
-                                                    asp-route-returnUrl="/MealPlan/Details/@Model.Id">@currentMeal.Title</a>
+            <!-- MEALS -->
+            <div class="container-fluid meals-container">
+                @for (int i = 0; i < Model.Meals.Count; i++)
+                {
+                    var currentMeal = Model.Meals[i];
+                    bool isCurrentMealDeleted = Guid.Parse(currentMeal.RecipeId) == DeletedRecipeId;
 
-                                                }
-                                            </h5>
-                                            <p class="meal-stats">
-                                                <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
-                                                    <span class="separator">|</span>
-                                                </span>
-                                                <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-calendar"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : $"{currentMeal.DayOfTheWeek}, {currentMeal.Date}")</span>
-                                                    <span class="separator">|</span>
-                                                </span>
-                                                <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
-                                                    <span class="separator">|</span>
-                                                </span>
-                                                <span class="no-wrap-text">
-                                                    <i class="fa-solid fa-utensils"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.Servings)</span>
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
+                    <div class="row meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
+                        <div class="col-12 d-flex align-items-center justify-content-between">
+                            <div class="meal-info">
+                                <div class="meal-image">
+                                    @if (!isCurrentMealDeleted)
+                                    {
+                                        <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                        <a asp-area=""
+                                           asp-controller="Recipe"
+                                           asp-action="Details"
+                                           asp-route-id="@currentMeal.RecipeId"
+                                           asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                                            <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                    }
+                                </div>
 
-                                <td class="align-middle text-end">
-                                    <div class="button-container">
-                                        <!-- Cook / Uncook Button -->
+                                <div class="meal-content">
+                                    <h5 class="meal-title">
                                         @if (isCurrentMealDeleted)
                                         {
-                                            <span class="not-cooked-meal-icon disabled"
-                                                  title="Deleted">
-                                                <i class="fa-solid fa-ban"></i>
+                                            <span class="text-muted">@currentMeal.Title</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-area=""
+                                               asp-controller="Meal"
+                                               asp-action="Details"
+                                               asp-route-id="@currentMeal.Id"
+                                               asp-route-isMealPlanFinished="@Model.IsFinished"
+                                               asp-route-returnUrl="/MealPlan/Details/@Model.Id">@currentMeal.Title</a>
+
+                                        }
+                                    </h5>
+                                    <div class="meal-stats">
+                                        <span class="no-wrap-text">
+                                            <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
+                                            <span class="separator">|</span>
+                                        </span>
+                                        <span class="no-wrap-text">
+                                            <i class="fa-solid fa-calendar"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : $"{currentMeal.DayOfTheWeek}, {currentMeal.Date}")</span>
+                                            <span class="separator">|</span>
+                                        </span>
+                                        <span class="no-wrap-text">
+                                            <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
+                                            <span class="separator">|</span>
+                                        </span>
+                                        <span class="no-wrap-text">
+                                            <i class="fa-solid fa-utensils"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.Servings)</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-container">
+                                <!-- Cook / Uncook Button -->
+                                @if (isCurrentMealDeleted)
+                                {
+                                    <span class="disabled deleted-meal-icon"
+                                          title="Deleted">
+                                        <i class="fa-solid fa-ban"></i>
+                                    </span>
+                                }
+                                else
+                                {
+                                    @if(Model.IsFinished)
+                                    {
+                                        if(currentMeal.IsCooked)
+                                        {
+                                            <span class="finished-cooked-meal-icon"
+                                                  title="Cooked">
+                                                <i class="fa-solid fa-circle-check"></i>
                                             </span>
                                         }
                                         else
                                         {
-                                            @if (!Model.IsFinished && !currentMeal.IsCooked)
-                                            {
-                                                <button class="meal-button cook-meal-button" 
-                                                        data-meal-id="@currentMeal.Id" 
-                                                        data-bs-toggle="tooltip" 
-                                                        data-bs-placement="top" 
-                                                        title="Mark as Cooked">
-                                                    <i class="fa-solid fa-calendar-xmark"></i>
-                                                </button>
-                                            }
-                                            else if (!Model.IsFinished && currentMeal.IsCooked)
-                                            {
-                                                <button class="meal-button uncook-meal-button" 
-                                                        data-meal-id="@currentMeal.Id" 
-                                                        data-bs-toggle="tooltip" 
-                                                        data-bs-placement="top" 
-                                                        title="Mark Uncooked">
-                                                    <i class="fa-solid fa-calendar-check"></i>
-                                                </button>
-                                            } 
-                                            else if(Model.IsFinished && !currentMeal.IsCooked)
-                                            {
-                                                <span class="not-cooked-meal-icon"
-                                                      title="Not Cooked">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span class="cooked-meal-icon" 
-                                                      title="Cooked">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                            }
+                                            <span class="not-cooked-meal-icon"
+                                                  title="Not Cooked">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                            </span>
                                         }
-
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <div class="row">
-
-                    <div class="col-12">
-                        <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
-                            <div class="card-header-pills summary-pill">
-                                View Summary
-                            </div>
-                        </a>
-
-                        <div class="collapse" id="collapseSummary">
-                            <div class="pills-container d-flex">
-
-                                <div class="pill-item">
-                                    <div class="pill-icon">
-                                        <i class="fa-solid fa-bowl-rice"></i>
-                                    </div>
-                                    <div class="pill-content">
-                                        <span class="pill-number">@Model.Meals.Count</span>
-                                        <span class="pill-text">meal@(Model.Meals.Count > 1 ? "s" : "")</span>
-                                        <span class="pill-text">included</span>
-                                    </div>                                    
-                                </div>
-
-                                <div class="pill-item">
-                                    <div class="pill-icon">
-                                        <i class="fa-solid fa-utensils stat-icon"></i>
-                                    </div>
-                                    <div class="pill-content">
-                                        <span class="pill-number">@Model.TotalServings</span>
-                                        <span class="pill-text">total</span>
-                                        <span class="pill-text">servings</span>
-                                    </div>                                    
-                                </div>
-
-                                <div class="pill-item">
-                                    <div class="pill-icon">
-                                        <i class="fa-solid fa-clock stat-icon"></i>
-                                    </div>
-                                    <div class="pill-content">
-                                        <span class="pill-number">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span>
-                                        <span class="pill-text">time</span>
-                                        <span class="pill-text">cooking</span>
-                                    </div>                                    
-                                </div>
-
-                                <div class="pill-item">
-                                    <div class="pill-icon">
-                                        <i class="fa-solid fa-cart-shopping stat-icon"></i>
-                                    </div>
-                                    <div class="pill-content">
-                                        <span class="pill-number">@Model.TotalIngredients</span>
-                                        <span class="pill-text">ingredient@(Model.TotalIngredients > 1 ? "s" : "")</span>
-                                        <span class="pill-text">total</span>
-                                    </div>                                    
-                                </div>
-
-                                <div class="pill-item">
-                                    <div class="pill-icon">
-                                        <i class="fa-solid fa-calendar stat-icon"></i>
-                                    </div>
-                                    <div class="pill-content">
-                                        <span class="pill-number">@Model.TotalCookingDays</span>
-                                        <span class="pill-text">day@(Model.TotalCookingDays > 1 ? "s" : "")</span>
-                                        <span class="pill-text">cooking</span>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                @if (isOwner)
-                {
-                    <div class="row buttons-row">
-                        <div class="col buttons">
-                                                         
-                            <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="shopping-list-btn">
-                                <i class="fas fa-shopping-basket"></i>
-                                <span class="btn-text">List</span>
-                            </a>   
-                            <div class="d-flex gap-2">
-                                @if (!Model.IsFinished)
-                                {
-                                    <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                        <span class="btn-text">Edit</span>
-                                    </a>
-                                    <a class="delete-button"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#confirmDeleteModal"
-                                       data-controller="MealPlan"
-                                       data-action="Delete"
-                                       data-id="@Model.Id">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                        <span class="btn-text">Remove</span>
-                                    </a>
-                                   
-                                }
-                                else if (!hasActiveMealplan)
-                                {
-                                    <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post">
-                                        <input type="hidden" name="mealPlanId" value="@Model.Id" />
-                                        <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
-
-                                        <button type="submit" class="copy-mealplan-button">
-                                            <i class="fa-solid fa-copy"></i>
-                                            <span class="btn-text">Repeat</span>
-                                        </button>
-                                    </form>
+                                    }
+                                    else 
+                                    {
+                                        @if (!currentMeal.IsCooked)
+                                        {
+                                            <span class="not-cooked-meal-icon"
+                                                  title="Not Cooked">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="cooked-meal-icon"
+                                                  title="Cooked">
+                                                <i class="fa-regular fa-circle-check"></i>
+                                            </span>
+                                        }
+                                    }
                                 }
 
                             </div>
@@ -294,6 +174,125 @@
                     </div>
                 }
             </div>
+
+
+            <!-- Summary toggler -->
+            <a data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="true" aria-controls="collapseSummary">
+                <div class="card-header-pills summary-pill">
+                    View Summary
+                </div>
+            </a>
+
+            <!-- SUMMARY-->
+            <div class="collapse" id="collapseSummary">
+                <div class="pills-container d-flex">
+
+                    <div class="pill-item">
+                        <div class="pill-icon">
+                            <i class="fa-solid fa-bowl-rice"></i>
+                        </div>
+                        <div class="pill-content">
+                            <span class="pill-number">@Model.Meals.Count</span>
+                            <span class="pill-text">meal@(Model.Meals.Count > 1 ? "s" : "")</span>
+                            <span class="pill-text">included</span>
+                        </div>
+                    </div>
+
+                    <div class="pill-item">
+                        <div class="pill-icon">
+                            <i class="fa-solid fa-utensils stat-icon"></i>
+                        </div>
+                        <div class="pill-content">
+                            <span class="pill-number">@Model.TotalServings</span>
+                            <span class="pill-text">total</span>
+                            <span class="pill-text">servings</span>
+                        </div>
+                    </div>
+
+                    <div class="pill-item">
+                        <div class="pill-icon">
+                            <i class="fa-solid fa-clock stat-icon"></i>
+                        </div>
+                        <div class="pill-content">
+                            <span class="pill-number">@($"{Model.TotalCookingTimeMinutes / 60}h {Model.TotalCookingTimeMinutes % 60}min")</span>
+                            <span class="pill-text">time</span>
+                            <span class="pill-text">cooking</span>
+                        </div>
+                    </div>
+
+                    <div class="pill-item">
+                        <div class="pill-icon">
+                            <i class="fa-solid fa-cart-shopping stat-icon"></i>
+                        </div>
+                        <div class="pill-content">
+                            <span class="pill-number">@Model.TotalIngredients</span>
+                            <span class="pill-text">ingredient@(Model.TotalIngredients > 1 ? "s" : "")</span>
+                            <span class="pill-text">total</span>
+                        </div>
+                    </div>
+
+                    <div class="pill-item">
+                        <div class="pill-icon">
+                            <i class="fa-solid fa-calendar stat-icon"></i>
+                        </div>
+                        <div class="pill-content">
+                            <span class="pill-number">@Model.TotalCookingDays</span>
+                            <span class="pill-text">day@(Model.TotalCookingDays > 1 ? "s" : "")</span>
+                            <span class="pill-text">cooking</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- BTNS -->
+            @if (isOwner)
+            {
+                <div class="row buttons-row">
+                    <div class="col-12 buttons buttons-three">
+
+                        <a asp-area="" asp-controller="ShoppingList" asp-action="GetShoppingList" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id" class="shopping-list-btn">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span class="btn-text">List</span>
+                        </a>
+                        <div class="button-right-wrapper">
+                            @if (!Model.IsFinished)
+                            {
+                                <a class="edit-button" asp-area="" asp-controller="MealPlan" asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="/MealPlan/Details/@Model.Id">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span class="btn-text">Edit</span>
+                                </a>
+                                <button class="delete-button"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#confirmDeleteModal"
+                                   data-controller="MealPlan"
+                                   data-action="Delete"
+                                   data-id="@Model.Id">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    <span class="btn-text">Remove</span>
+                                </button>
+
+                            }
+                            else if (!hasActiveMealplan)
+                            {
+                                <form asp-area="" asp-controller="MealPlan" asp-action="CopyMealPlan" method="post">
+                                    <input type="hidden" name="mealPlanId" value="@Model.Id" />
+                                    <input type="hidden" name="returnUrl" value="/MealPlan/Details/@Model.Id" />
+
+                                    <button type="submit" class="copy-mealplan-button">
+                                        <i class="fa-solid fa-copy"></i>
+                                        <span class="btn-text">Repeat</span>
+                                    </button>
+                                </form>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+           
         </div>
     </div>
     @* Modal for Delete *@
@@ -305,7 +304,7 @@
                 IconClass = DeleteModalIconClass
             };
     }
-    <partial name="_ConfirmDeleteModalPartial" model="deleteModalModel"/>
+    <partial name="_ConfirmDeleteModalPartial" model="deleteModalModel" />
 </div>
 
 @section Scripts {
@@ -321,34 +320,9 @@
         $(document).ready(function () {
             // Initialize tooltips for all meal buttons once
             $('[data-bs-toggle="tooltip"]').tooltip();
-
-            $('.meal-button').each(function () {
-                debugger;
-                const $button = $(this);
-                const mealId = $button.data('meal-id');
-                $button.off('click');
-
-                if ($button.hasClass('cook-meal-button')) {
-                    // Attach cookMeal event
-                    $button.on('click', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        cookMeal($button, mealId);
-                    });
-                } else if ($button.hasClass('uncook-meal-button')) {
-                    // Attach unCookMeal event
-                    $button.on('click', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        unCookMeal($button, mealId);
-                    });
-                }
-            });
         });
     </script>
-    <script src="~/js/mealFunctions.js"></script>
+    
 }
 
 

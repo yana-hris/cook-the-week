@@ -9,10 +9,10 @@
     int? userPlansCount = await this.MealPlanService.MineCountAsync() + 1;
 
     var headingModel = new PageHeadingViewModel
-    {
-        Subheading = ViewData["Title"]!.ToString(),
-        HeadingSecondary = $"This is your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
-    };
+            {
+                Subheading = ViewData["Title"]!.ToString(),
+                HeadingSecondary = $"This is your <strong>{userPlansCount.Value.ToStringWithSuffix()}</strong> plan",
+            };
 
     if (ViewBag.ReturnUrl == null)
     {
@@ -23,310 +23,290 @@
     bool missingRecipes = TempData[MissingRecipesMessage] as bool? ?? false;
 
     var missingRecipesModalModel = new ModalViewModel
-    {
-        Title = MissingRecipesModalHeading,
-        Content = MissingRecipesModalContent,
-        IconClass = MissingRecipesModalIconClass
-    };
+            {
+                Title = MissingRecipesModalHeading,
+                Content = MissingRecipesModalContent,
+                IconClass = MissingRecipesModalIconClass
+            };
 
 }
-<div id="add-mealplan">
+<div id="add-mealplan-new">
     <div class="card-outer-container">
+
         <div class="header-container">
-            <partial name="_HeadingSmallPartial" model="headingModel" />
-            <div class="status-container d-flex align-items-center justify-content-between">
-                <div class="meal-plan-dates">
-                    <span class="label">Duration:</span> @(@Model.StartDate.ToString(MealPlanDateFormat)) to @Model.StartDate.AddDays(6).ToString(MealPlanDateFormat)
-                </div>
-                <div class="meal-plan-status meal-plan-finished-false">
-                    Active
+            <div class="meal-plan-header">
+                <partial name="_HeadingSmallPartial" model="headingModel" class="meal-plan-title" />
+                <div class="status-and-btn">
+                    <partial name="_BackBtnPartial" class="back-btn" />
                 </div>
             </div>
-            <partial name="_BackBtnPartial" />
+            <div class="meal-plan-dates">
+                <span class="label">Duration:</span> @(@Model.StartDate.ToString(MealPlanDateFormat)) to @Model.StartDate.AddDays(6).ToString(MealPlanDateFormat)
+            </div>
         </div>
-        
-        <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
-            <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
-            <div class="row pt-3">
-                <div class="col-12">
-                    <p class="name-inviting-message">To reuse your meal plan in the future, give it a distinctive name</p>
-                </div>
-                <div class="col-12">
-                    <div class="col-lg-6 pb-0 mb-0">
-                        <div class="input-group name">
-                            <span class="name-label-text">Name</span>
-                            <input asp-for="Name" class="form-control" placeholder="Name it.." type="text" data-val="true">
+
+        <div class="container-fluid">
+
+            <form id="add-mealplan-form" method="post" asp-area="" asp-controller="MealPlan" asp-action="Add" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                <div asp-validation-summary="ModelOnly" class="small text-danger"></div>
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        <div class="name">
+                            <div class="input-group mealplan-input-style">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-pen"></i>
+                                </span>
+                                <input asp-for="Name" class="form-control" placeholder="Name.." type="text" data-val="true">
+                            </div>
+                            <span asp-validation-for="Name" class="small text-danger"></span>
                         </div>
-                        <span asp-validation-for="Name" class="small text-danger"></span>
                     </div>
-                    <div class="name-suggestions">
-                        <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
-                            Being short on names? Click <strong>here</strong> for some examples
-                        </a>
-                        <div class="collapse names-container" id="collapseNames">
-                            <h4>
-                                Looking for the perfect meal plan name?
-                                Discover our curated selection to find inspiration for your dietary goals,
-                                weekly vibe, or seasonal cravings!
-                            </h4>
-                            <div class="category-container">
-                                <div class="suggestion-category">
-                                    <h5>Weekly Themes</h5>
-                                    <p>7 Days of Flavor</p>
-                                    <p>Quick & Easy Meals</p>
-                                    <p>Week of World Cuisines</p>
-                                    <p>Everyday Essentials</p>
-                                </div>
-                                <div class="suggestion-category">
-                                    <h5>Cuisine-Based</h5>
-                                    <p>Italian Feast Week</p>
-                                    <p>Mexican Fiesta</p>
-                                    <p>Asian Fusion Week</p>
-                                    <p>Mediterranean Vibes Week</p>
-                                </div>
-                                <div class="suggestion-category">
-                                    <h5>Dietary-Based</h5>
-                                    <p>Keto in 7 Days</p>
-                                    <p>7 Days of Low-Cal</p>
-                                    <p>Plant-Powered Week</p>
-                                    <p>High-Protein Week</p>
-                                </div>
-                                <div class="suggestion-category">
-                                    <h5>Season-Based</h5>
-                                    <p>Spring Fresh Week</p>
-                                    <p>Summer Sizzle Plan</p>
-                                    <p>Autumn Harvest Week</p>
-                                    <p>Winter Warming Week</p>
+                    <div class="col-12 pb-3">
+                        <p class="name-inviting-message mb-0">To reuse your meal plan in the future, give it a distinctive name</p>
+                        <div class="name-suggestions">
+                            <a data-bs-toggle="collapse" href="#collapseNames" role="button" aria-expanded="false" aria-controls="collapseNames">
+                                Being short on names? Click <strong>here</strong> for some examples
+                            </a>
+                            <div class="collapse names-container" id="collapseNames">
+                                <h4>
+                                    Looking for the perfect meal plan name?
+                                    Discover our curated selection to find inspiration for your dietary goals,
+                                    weekly vibe, or seasonal cravings!
+                                </h4>
+                                <div class="category-container">
+                                    <div class="suggestion-category">
+                                        <h5>Weekly Themes</h5>
+                                        <p>7 Days of Flavor</p>
+                                        <p>Quick & Easy Meals</p>
+                                        <p>Week of World Cuisines</p>
+                                        <p>Everyday Essentials</p>
+                                    </div>
+                                    <div class="suggestion-category">
+                                        <h5>Cuisine-Based</h5>
+                                        <p>Italian Feast Week</p>
+                                        <p>Mexican Fiesta</p>
+                                        <p>Asian Fusion Week</p>
+                                        <p>Mediterranean Vibes Week</p>
+                                    </div>
+                                    <div class="suggestion-category">
+                                        <h5>Dietary-Based</h5>
+                                        <p>Keto in 7 Days</p>
+                                        <p>7 Days of Low-Cal</p>
+                                        <p>Plant-Powered Week</p>
+                                        <p>High-Protein Week</p>
+                                    </div>
+                                    <div class="suggestion-category">
+                                        <h5>Season-Based</h5>
+                                        <p>Spring Fresh Week</p>
+                                        <p>Summer Sizzle Plan</p>
+                                        <p>Autumn Harvest Week</p>
+                                        <p>Winter Warming Week</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="col-xs-5 col-md-6">
-                                    Meal
-                                </th>
-                                <th scope="col" class="col-xs-2 col-md-2 text-center col-lg-2">
-                                    Servings
-                                </th>
-                                <th scope="col" class="col-xs-4 col-md-3 col-lg-3 text-center no-wrap-text">
-                                    Cook On
-                                </th>
-                                <th scope="col" class="col-1 text-end">
-                                    X
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- For each -->
-                            @if (Model.Meals.Any())
-                            {
-                                @for (int i = 0; i < Model.Meals.Count; i++)
-                                {
-                                    var currentMeal = Model.Meals[i];
-                                    bool isCurrentMealDeleted = currentMeal.RecipeId == DeletedRecipeId;
+                
+                <div class="card-header-pills info-pill">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>Meals</div>
+                    </div>
+                </div>
+                <!-- MEALS -->
+                <div class="container-fluid meals-container">
+                @if (Model.Meals.Any())
+                {
+                    for (int i = 0; i < Model.Meals.Count; i++)
+                    {
+                        var currentMeal = Model.Meals[i];
+                        bool isCurrentMealDeleted = currentMeal.RecipeId == DeletedRecipeId;
 
-                                    <tr class="meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
-                                        <td>
-                                            <div class="meal-info">
-                                                <div class="meal-image">
-                                                    @if (!isCurrentMealDeleted)
-                                                    {
-                                                        <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
-                                                        <a asp-area=""
-                                                           asp-controller="Recipe"
-                                                           asp-action="Details"
-                                                           asp-route-id="@currentMeal.RecipeId"
-                                                           asp-route-returnUrl="/MealPlan/Mine">
-                                                            <img src="@currentMeal.ImageUrl" alt="Meal Image">
-                                                        </a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
-                                                    }
-                                                </div>
-
-                                                <div class="meal-content">
-                                                    <h5 class="meal-title">
-                                                        @if (!isCurrentMealDeleted)
-                                                        {
-                                                            <input type="hidden" asp-for="Meals[i].Title" />
-                                                            <a asp-area=""
-                                                               asp-controller="Recipe"
-                                                               asp-action="Details"
-                                                               asp-route-id="@currentMeal.RecipeId"
-                                                               asp-route-returnUrl="/MealPlan/Mine">@currentMeal.Title</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a href="#" style="pointer-events: none; color: gray;"><h5 class="meal-title">Deleted Recipe</h5></a>
-                                                        }
-
-                                                    </h5>
-                                                    <p class="meal-stats text-primary">
-                                                        @if (!isCurrentMealDeleted)
-                                                        {
-                                                            <input type="hidden" asp-for="Meals[i].CategoryName" />
-                                                            <input type="hidden" asp-for="Meals[i].CookingTime" />
-                                                        }
-                                                        
-                                                        <span class="no-wrap-text">
-                                                            <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
-                                                            <span class="separator">|</span>
-                                                        </span>
-                                                        <span class="no-wrap-text">
-                                                            <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center">
-
-                                            <div class="input-group table-input-style">
-                                                <span class="input-group-text">
-                                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
-                                                </span>
-                                                @if (!isCurrentMealDeleted)
-                                                {
-                                                    <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
-                                                        <option value="">-</option>
-                                                        @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
-                                                        {
-                                                            <option value="@option">@option</option>
-                                                        }
-                                                    </select>
-                                                    <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="form-control text-start">N/A</span>
-                                                }
-                                            </div>
-
-                                        </td>
-                                        <td class="align-middle text-center">
-
-                                            <div class="input-group table-input-style">
-                                                <span class="input-group-text">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                                @if (!isCurrentMealDeleted)
-                                                {
-                                                    <select class="form-select text-style" asp-for="Meals[i].Date" data-val=true>
-                                                        <option value="">-</option>
-                                                        @foreach (var option in @Model.Meals.First().SelectDates)
-                                                        {
-                                                            <option value="@option">@option</option>
-                                                        }
-                                                    </select>
-                                                    <span asp-validation-for="Meals[i].Date" class="small text-danger d-block"></span>
-
-                                                }
-                                                else
-                                                {
-                                                    <span class="form-control text-start">N/A</span>
-                                                }
-                                            </div>
-
-                                        </td>
-                                        <td class="align-middle text-end">
+                        <div class="row meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
+                            <div class="col-12 d-flex align-items-center justify-content-between">
+                                <div class="meal-info">
+                                    <div class="meal-image">
+                                        @if (!isCurrentMealDeleted)
+                                        {
+                                            <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                            <a asp-area=""
+                                                asp-controller="Recipe"
+                                                asp-action="Details"
+                                                asp-route-id="@currentMeal.RecipeId"
+                                                asp-route-returnUrl="/MealPlan/Mine">
+                                                <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                        }
+                                    </div>
+                                    <div class="meal-content">
+                                        <h5 class="meal-title">
                                             @if (!isCurrentMealDeleted)
                                             {
-                                                <div class="button-container">
-                                                    <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                                    <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
+                                                <input type="hidden" asp-for="Meals[i].Title" />
+                                                <a asp-area=""
+                                                    asp-controller="Recipe"
+                                                    asp-action="Details"
+                                                    asp-route-id="@currentMeal.RecipeId"
+                                                    asp-route-returnUrl="/MealPlan/Mine">@currentMeal.Title</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#" style="pointer-events: none; color: gray;"><h5 class="meal-title">Deleted Recipe</h5></a>
+                                            }
+
+                                        </h5>
+                                        <p class="meal-stats">
+                                            @if (!isCurrentMealDeleted)
+                                            {
+                                                <input type="hidden" asp-for="Meals[i].CategoryName" />
+                                                <input type="hidden" asp-for="Meals[i].CookingTime" />
+                                            }
+
+                                            <span class="no-wrap-text">
+                                                <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
+                                                <span class="separator">|</span>
+                                            </span>
+                                            <span class="no-wrap-text">
+                                                <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="button-and-inputs">
+                                    <div class="meal-servings input-wrapper">
+                                        <div class="input-group mealplan-input-style">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                            </span>
+                                            @if (!isCurrentMealDeleted)
+                                            {
+                                                <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
+                                                    <option value="">Servs</option>
+                                                    @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
+                                                    {
+                                                        <option value="@option">@option</option>
+                                                    }
+                                                </select>
+                                                
+                                            }
+                                            else
+                                            {
+                                                <span class="form-control text-start">N/A</span>
+                                            }
+                                        </div>
+                                        <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
+                                    </div>
+                                    <div class="meal-cookdate input-wrapper">
+                                        <div class="input-group mealplan-input-style">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                            @if (!isCurrentMealDeleted)
+                                            {
+                                                <select class="form-select text-style" asp-for="Meals[i].Date" data-val=true>
+                                                    <option value="">Cook On</option>
+                                                    @foreach (var option in @Model.Meals.First().SelectDates)
+                                                    {
+                                                        <option value="@option">@option</option>
+                                                    }
+                                                </select>
+                                                
 
                                             }
                                             else
                                             {
-                                                <div class="button-container">
-                                                    <span class="not-cooked-meal-icon disabled"
-                                                          title="Deleted">
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </span>
-                                                </div>
+                                                <span class="form-control text-start">N/A</span>
                                             }
-                                        </td>
-                                    </tr>
-                                }
-                            }
-
-                        </tbody>
-                    </table>
-                    
+                                        </div>
+                                            <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                    </div>
+                                    <div class="btn-container">
+                                    @if (!isCurrentMealDeleted)
+                                    {     
+                                        <input type="hidden" asp-for="Meals[i].RecipeId" />
+                                        <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
+                                            <i class="fa fa-minus" aria-hidden="true"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="disabled deleted-meal-icon"
+                                                title="Deleted">
+                                            <i class="fa-solid fa-ban"></i>
+                                        </span>
+                                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }    
                 </div>
-            </div>
-            <div class="row">
 
-                <div class="col-12">
-                    <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
-                        <div class="pill info-pill tips-pill">
-                            Show Tips
+                <!-- Tips toggler -->
+                <a data-bs-toggle="collapse" href="#collapseTips" role="button" aria-expanded="false" aria-controls="collapseTips">
+                    <div class="pill info-pill tips-pill">
+                        Show Tips
+                    </div>
+                </a>
+
+                <!-- TIPS-->
+                <div class="collapse pt-1" id="collapseTips">
+                    <div class="row g-4">
+                        <div class="col-lg-4">
+                            <div class="tip-container d-flex align-items-center justify-content-center flex-column">
+                                <i class="fa-solid fa-calendar-week"></i>
+                                <span class="tip-heading">Weekly Structure</span>
+                                <span class="tip-text">
+                                    Plan your meals for a 7-day week.
+                                    Organize your dishes to cover each day effectively
+                                    and avoid last-minute decisions.
+                                </span>
+                            </div>
                         </div>
-                    </a>
-                    <div class="collapse pt-3" id="collapseTips">
-                        <div class="row g-4">
-                            <div class="col-lg-4">
-                                <div class="tip-container d-flex align-items-center justify-content-center flex-column">
-                                    <i class="fa-solid fa-calendar-week"></i>
-                                    <span class="tip-heading">Weekly Structure</span>
-                                    <span class="tip-text">
-                                        Plan your meals for a 7-day week.
-                                        Organize your dishes to cover each day effectively
-                                        and avoid last-minute decisions.
-                                    </span>
-                                </div>
+                        <div class="col-lg-4">
+                            <div class="tip-container d-flex align-items-center justify-content-center flex-column">
+                                <i class="fa-solid fa-scale-unbalanced"></i>
+                                <span class="tip-heading">Customizable Portions</span>
+                                <span class="tip-text">
+                                    Adjust portion sizes to suit your needs, appetite,
+                                    and dietary goals, ensuring every meal is just right for you.
+                                </span>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="tip-container d-flex align-items-center justify-content-center flex-column">
-                                    <i class="fa-solid fa-scale-unbalanced"></i>
-                                    <span class="tip-heading">Customizable Portions</span>
-                                    <span class="tip-text">
-                                        Adjust portion sizes to suit your needs, appetite,
-                                        and dietary goals, ensuring every meal is just right for you.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="tip-container d-flex align-items-center justify-content-center flex-column">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                    <span class="tip-heading">Smart Shopping List</span>
-                                    <span class="tip-text">
-                                        Get a tailored shopping list based on your chosen meals,
-                                        optimizing your grocery shopping and reducing waste.
-                                    </span>
-                                </div>
-                            </div>
-
                         </div>
-
+                        <div class="col-lg-4">
+                            <div class="tip-container d-flex align-items-center justify-content-center flex-column">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span class="tip-heading">Smart Shopping List</span>
+                                <span class="tip-text">
+                                    Get a tailored shopping list based on your chosen meals,
+                                    optimizing your grocery shopping and reducing waste.
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="row buttons-row">
-                <div class="col buttons">
-                    <partial name="_BrowseBtnPartial" />
-                    <partial name="_SaveBtnPartial" />
+
+                <!-- BTNS -->
+                <div class="row buttons-row">
+                    <div class="col buttons">
+                        <partial name="_BrowseBtnPartial" />
+                        <partial name="_SaveBtnPartial" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!-- Missing Recipes Modal -->
 @if (missingRecipes)
 {
-   <partial name="_InfoModalPartial" model="@missingRecipesModalModel"/>
+    <partial name="_InfoModalPartial" model="@missingRecipesModalModel" />
 }
 
 
@@ -336,6 +316,8 @@
         import { reindexMealRows, removeRecipeFromLocalStorage } from '/js/site.js';
 
         $(document).ready(function () {
+            // Initialize tooltips for all meal buttons once
+            $('[data-bs-toggle="tooltip"]').tooltip();
 
             // Reindex meals upon erasing
             $(document).on('click', '.delete-meal-button', function (event) {
@@ -354,7 +336,7 @@
                 removeRecipeFromLocalStorage(recipeId);
             });
 
-            // Check if there is a message and trigger the modal            
+            // Check if there is a message and trigger the modal
             if ('@missingRecipes') {
                 $('#reusbaleModal').modal('show');
             }
@@ -362,20 +344,19 @@
             // Removing deleted recipes rows before submitting form (in the case of copying an old mealplan)
             $('#add-mealplan-form').on('submit', function (event) {
                 event.preventDefault();
-                
+
                 $('.meal-row.deleted-style').each(function () {
                     $(this).remove();
                 });
-                
+
                 reindexMealRows();
                 this.submit();
             });
-
-            
         });
 
     </script>
     
+
 }
 
 

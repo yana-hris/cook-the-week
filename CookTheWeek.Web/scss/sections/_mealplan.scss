@@ -1,11 +1,12 @@
 ﻿@import '../components/colors';
 @import '../components/theme-defaults';
+@import '../components/icons';
 @import '../components/buttons';
 @import '../components/pills';
 @import '../components/modals';
 @import '../components/typography';
 
-#add-mealplan, #details-mealplan, #edit-mealplan {
+/*#add-mealplan, #details-mealplan, #edit-mealplan {
 
     .heading-secondary {
         font-size: 1.6rem !important;
@@ -18,7 +19,7 @@
 
         .meal-plan-dates {
             font-size: 1.2rem;
-            color: var(--accent-color);
+            color: var(--bs-body-color);
 
             .label {
                 text-transform: uppercase;
@@ -46,17 +47,6 @@
         }
     }
 
-    .header-container {
-        position: relative;
-
-        .back-btn-container {
-            position: absolute;
-            top: 5px;
-            right: 0;
-        }
-    }
-
-
     .no-wrap-text {
         white-space: nowrap;
     }
@@ -78,7 +68,7 @@
     }
 
     .name-inviting-message {
-        margin-bottom: 0.6rem;
+        margin-bottom: 0;
         text-transform: uppercase;
         font-weight: bold;
         font-size: 1rem;
@@ -204,7 +194,7 @@
                     font-size: 1rem;
                 }
 
-                .table-input-style {
+                .mealplan-input-style {
                     .input-group-text {
                         color: var(--bs-body-bg);
                         border-width: 3px;
@@ -226,10 +216,6 @@
 
         tr.meal-row {
             position: relative;
-            //separation of meals style
-            /*padding: 0.5rem;
-            background-color: var(--pill-container-bg-color);
-            border-radius: $pill-border-radius;*/
 
             .meal-info {
                 display: flex;
@@ -248,7 +234,6 @@
                     transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth animation
 
 
-
                     &:hover {
                         transform: scale(1.2) translateY(-5px);
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -257,11 +242,13 @@
 
                     img {
                         display: block;
+                        width: 100%;
                         height: 100%;
-                        max-width: 100%;
                         object-fit: cover;
-                        flex: 1 1 auto; // Combines flex-grow: 1; flex-shrink: 1; flex-basis: auto;
-                        overflow: hidden;
+                        object-position: center;
+                        //flex: 1 1 auto; // Combines flex-grow: 1; flex-shrink: 1; flex-basis: auto;
+                        //overflow: hidden;
+                        transition: transform 0.3s ease;
 
                         &:hover {
                             transform: none; // Prevents double scaling (handled by container)
@@ -391,7 +378,7 @@
             cursor: pointer;
 
             i {
-                font-size: 1.6rem;
+                font-size: 3rem;
             }
 
             .tip-heading {
@@ -425,6 +412,1116 @@
         }
     }
 }
+*/
+#edit-mealplan-test {
+    // Heading, status and Back Btn
+    .header-container {
+        padding: 10px;
+        margin: auto;
+        margin-bottom: 2rem;
+        max-width: 100%;
+
+        .heading-secondary {
+            margin-bottom: 0.2rem !important;
+        }
+
+        .meal-plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+
+            .meal-plan-title {
+                flex: 1;
+                min-width: 400px;
+            }
+
+            .status-and-btn {
+                display: flex;
+                align-self: flex-start;
+                gap: 1rem;
+
+                .meal-plan-status {
+                    flex: 0 0 auto;
+                    align-self: center;
+                    min-width: 80px;
+                    max-height: 40px;
+                    text-align: center;
+                    padding: 0.2rem 1.25rem;
+                    padding-top: 0.35rem;
+                    font-size: 1.2em;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: var(--bs-body-bg);
+                    border-radius: $pill-border-radius;
+                }
+
+                .meal-plan-finished-true {
+                    background-color: $danger;
+                }
+
+                .meal-plan-finished-false {
+                    background-color: $primary;
+                }
+
+                .back-btn {
+                    flex: 0 0 auto;
+                    min-width: 60px;
+                }
+            }
+        }
+
+        .meal-plan-dates {
+            margin-top: 8px;
+            text-align: start;
+            padding: 0 0.25rem;
+            font-size: 1.2rem;
+            color: var(--bs-body-color);
+
+            .label {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: var(--accent-color);
+            }
+        }
+    }
+    // Meal Plan table:
+    .info-pill {
+        padding: 0.8rem 1.25rem;
+        margin-bottom: 1rem;
+        background-color: $primary;
+        border: 1px solid $primary;
+        border-radius: $border-radius;
+        text-align: start;
+        text-transform: uppercase;
+        color: var(--bs-body-bg);
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .no-wrap-text {
+        white-space: nowrap;
+    }
+
+    .name-inviting-message {
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        color: var(--accent-color);
+    }
+
+    .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+
+        .small.text-danger {
+            align-self: flex-start;
+        }
+    }
+
+    .name {
+        @extend .input-wrapper;
+        width: 50%;
+        min-width: 300px;
+
+        input.form-control {
+            padding: 0.65rem;
+
+            &::placeholder {
+                color: $primary-text-emphasis;
+            }
+        }
+    }
+
+    .name-suggestions {
+        margin-top: -0.2rem;
+        padding-top: 0;
+        color: var(--link-color);
+
+        a {
+            font-size: 0.8rem;
+            margin-top: 0;
+            color: var(--link-color);
+
+            &:hover {
+                color: var(--link-hover-color);
+            }
+        }
+
+        .names-container {
+            background-color: $pill-container-bg-color;
+            padding: 1.6rem 1rem;
+            margin-top: 0.6rem;
+            border-radius: $medium-border-radius;
+            color: var(--bs-body-color);
+
+            h4 {
+                padding: 0 0.25rem; //0 1rem;
+                padding-bottom: 0.6rem;
+                font-size: 1.1rem; //1.3rem;
+                font-weight: 300;
+            }
+
+            .category-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                .suggestion-category {
+                    padding: 0.5rem 0; //0.8rem 0;
+                    text-align: start;
+
+
+                    h5 {
+                        margin-bottom: 0.6rem;
+                        text-decoration: underline;
+                        font-size: 1rem; //1.1rem;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        margin-bottom: 0.3rem;
+                        font-weight: normal;
+                        font-size: 0.9rem; //1rem;
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .text-style {
+        font-size: 1rem;
+    }
+
+    .mealplan-input-style {
+        .input-group-text {
+            color: var(--bs-body-bg);
+            border-width: 1px;
+            border-top-left-radius: $border-radius-small;
+            border-bottom-left-radius: $border-radius-small;
+        }
+
+        span.input-group-text {
+            line-height: 1;
+            border: 1px solid $primary !important;
+            border-right: none;
+        }
+
+        .form-control, .form-select {
+            line-height: 1;
+            border: 1px solid $primary !important;
+            border-left: none !important;
+            border-top-right-radius: $border-radius-small;
+            border-bottom-right-radius: $border-radius-small;
+            color: inherit;
+            font-size: 0.9rem;
+            font-family: $font-family-sans-serif;
+            background-color: var(--input-background-color);
+        }
+    }
+
+    .meals-container {
+
+        .meal-row {
+            position: relative;
+            padding: 12px 0 12px 0;
+            background-color: var(--item-background-color);
+            border-radius: $item-border-radius;
+            margin-bottom: 1rem;
+
+
+            .meal-container {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                align-items: start;
+                justify-content: space-between;
+                gap: 0.5rem;
+
+                .info-btn {
+                    position: absolute;
+                    top: -7px;
+                    right: 8px;
+                    z-index: 10;
+                    display: none;
+
+                    i {
+                        font-size: 1rem;
+                        color: var(--pill-bg-color);
+                    }
+                }
+
+
+
+                .meal-image {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 5.6rem;
+                    height: 5.6rem;
+                    overflow: hidden;
+                    flex: 0 0 auto;
+                    border-radius: 3px;
+                    transition: all 0.3s ease; // Smooth animation
+
+
+                    &:hover {
+                        transform: scale(1.1);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                        border-radius: $item-border-radius;
+                    }
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            transform: none; // Prevents double scaling (handled by container)
+                        }
+                    }
+
+
+                    .meal-image a {
+                        display: block;
+                    }
+                }
+
+
+                .meal-content {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: start;
+                    flex-wrap: wrap;
+                    flex-grow: 1;
+                    min-width: 80%;
+                    gap: 0.5rem;
+
+                    .meal-title {
+                        width: 100%;
+                        text-align: start;
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        font-family: $font-family-serif;
+                        color: var(--bs-body-color);
+                        margin-bottom: 0.2rem;
+
+                        a {
+                            color: inherit;
+                        }
+
+                        &:hover {
+                            text-decoration: underline;
+                            color: inherit;
+                        }
+                    }
+
+                    .stats-input-btns-wrapper {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: start;
+                        justify-content: space-between;
+                        flex-grow: 1;
+                        gap: 1rem;
+
+
+                        .meal-stats {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-start;
+
+                            .stat {
+                                color: inherit;
+                                font-size: 1rem;
+                                font-weight: 300;
+                                white-space: nowrap;
+
+                                i::before, {
+                                    margin-right: 0.25rem;
+                                }
+
+                                .separator {
+                                    margin-right: 0.5rem;
+                                }
+
+                                span.icon-text {
+                                    margin-right: 0.25rem;
+                                }
+                                /*span.separator { // On small scr
+                                    display: none;
+                                }*/
+                            }
+                        }
+
+                        .inputs {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 0.5rem;
+                            flex-grow: 1;
+
+                            select, .text-style {
+                                font-family: $font-family-serif;
+                            }
+
+                            .meal-servings {
+                                min-width: 105px;
+                                max-width: 150px;
+                                flex-grow: 1;
+                            }
+
+                            .meal-cookdate {
+                                min-width: 165px;
+                                max-width: 300px;
+                                flex-grow: 1;
+                            }
+                        }
+
+                        .meal-buttons {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+
+                            .button-container {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-right: 0.5rem;
+
+                                span {
+                                    i {
+                                        font-size: 2.2rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            .cook-btn {
+                height: 2.1rem;
+                font-size: 1.4rem;
+            }
+            // For Add & Edit Views, TODO: check!
+            .remove-btn-container {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .meal-row.deleted-style {
+            opacity: 65%;
+
+            .meal-title {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .collapse {
+        margin-bottom: 1rem;
+    }
+
+    .tips-pill, .summary-pill {
+        @extend .info-pill;
+
+        &:hover {
+            @extend .hover-state;
+        }
+    }
+
+    .summary-pill {
+        //margin-top: -0.7rem;
+        margin-bottom: 1.5rem;
+    }
+
+    a[data-bs-toggle] {
+        position: relative;
+        z-index: 2;
+    }
+
+    #collapseTips, #collapseSummary {
+        position: relative;
+        z-index: 1;
+    }
+
+    #collapseSummary {
+        margin-top: -2rem;
+    }
+
+    #collapseTips {
+        .tip-container {
+            padding: $item-padding;
+            background-color: $pill-bg-color;
+            text-align: center;
+            color: var(--bs-body-bg);
+            border-radius: $medium-border-radius;
+            cursor: pointer;
+
+            i {
+                font-size: 2rem;
+                margin-bottom: 1.3rem;
+            }
+
+            .tip-heading {
+                font-weight: bold;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+                text-decoration: none;
+            }
+
+            .tip-text {
+                font-weight: 300;
+                font-size: 1rem;
+            }
+
+            &:hover {
+                @extend .hover-state;
+                background-color: $primary-400;
+            }
+        }
+    }
+    // For add and edit view
+
+    .buttons-row {
+        margin-top: 5rem;
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button, a {
+                text-transform: uppercase;
+                font-size: 1.3rem;
+                font-weight: bold;
+                padding: 0.5rem;
+            }
+        }
+    }
+}
+
+#details-mealplan-new, #add-mealplan-new, #edit-mealplan-new {
+    // Heading, status and Back Btn
+    .header-container {
+        padding: 10px;
+        margin: auto;
+        margin-bottom: 2rem;
+        max-width: 100%;
+
+        .heading-secondary {
+            margin-bottom: 0.2rem !important;
+        }
+
+        .meal-plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+
+            .meal-plan-title {
+                flex: 1;
+                min-width: 400px;
+            }
+
+            .status-and-btn {
+                display: flex;
+                align-self: flex-start;
+                gap: 1rem;
+
+                .meal-plan-status {
+                    flex: 0 0 auto;
+                    align-self: center;
+                    min-width: 80px;
+                    max-height: 40px;
+                    text-align: center;
+                    padding: 0.2rem 1.25rem;
+                    padding-top: 0.35rem;
+                    font-size: 1.2em;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: var(--bs-body-bg);
+                    border-radius: $pill-border-radius;
+                }
+
+                .meal-plan-finished-true {
+                    background-color: $danger;
+                }
+
+                .meal-plan-finished-false {
+                    background-color: $primary;
+                }
+
+                .back-btn {
+                    flex: 0 0 auto;
+                    min-width: 60px;
+                }
+            }
+        }
+
+        .meal-plan-dates {
+            margin-top: 8px;
+            text-align: start;
+            padding: 0 0.25rem;
+            font-size: 1.2rem;
+            color: var(--bs-body-color);
+
+            .label {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: var(--accent-color);
+            }
+        }
+    }
+    // Meal Plan table:
+    .info-pill {
+        padding: 0.8rem 1.25rem;
+        margin-bottom: 1rem;
+        background-color: $primary;
+        border: 1px solid $primary;
+        border-radius: $border-radius;
+        text-align: start;
+        text-transform: uppercase;
+        color: var(--bs-body-bg);
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .no-wrap-text {
+        white-space: nowrap;
+    }
+
+    .name-inviting-message {
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        color: var(--accent-color);
+    }
+
+    .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+
+        .small.text-danger {
+            align-self: flex-start;
+        }
+    }
+
+    .name {
+        @extend .input-wrapper;
+        width: 50%;
+        min-width: 300px;
+
+        input.form-control {
+            padding: 0.65rem;
+
+            &::placeholder {
+                color: $primary-text-emphasis;
+            }
+        }
+    }
+
+    .name-suggestions {
+        margin-top: -0.2rem;
+        padding-top: 0;
+        color: var(--link-color);
+
+        a {
+            font-size: 0.8rem;
+            margin-top: 0;
+            color: var(--link-color);
+
+            &:hover {
+                color: var(--link-hover-color);
+            }
+        }
+
+        .names-container {
+            background-color: $pill-container-bg-color;
+            padding: 1.6rem 1rem;
+            margin-top: 0.6rem;
+            border-radius: $medium-border-radius;
+            color: var(--bs-body-color);
+
+            h4 {
+                padding: 0 1rem;
+                padding-bottom: 0.6rem;
+                font-size: 1.3rem;
+                font-weight: 300;
+            }
+
+            .category-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                .suggestion-category {
+                    padding: 0.8rem 0;
+                    text-align: start;
+
+
+                    h5 {
+                        margin-bottom: 0.6rem;
+                        text-decoration: underline;
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        margin-bottom: 0.3rem;
+                        font-weight: normal;
+                        font-size: 1rem;
+                    }
+
+                    &:last-child {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .text-style {
+        font-size: 1rem;
+    }
+
+    .mealplan-input-style {
+        .input-group-text {
+            color: var(--bs-body-bg);
+            border-width: 2px;
+            border-top-left-radius: $border-radius-small;
+            border-bottom-left-radius: $border-radius-small;
+        }
+
+        .input-group-text, .form-control, .form-select {
+            border: 2px solid $primary !important;
+        }
+
+        .form-control, .form-select {
+            color: inherit;
+            font-family: $font-family-sans-serif;
+            font-size: 0.9rem;
+            border-top-right-radius: $border-radius-small;
+            border-bottom-right-radius: $border-radius-small;
+        }
+    }
+
+
+    .meals-container {
+
+        .meal-row {
+            position: relative;
+            padding: 12px 0 12px 0;
+            background-color: var(--item-background-color);
+            border-radius: $item-border-radius;
+            margin-bottom: 1rem;
+
+            .meal-info {
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+
+                .meal-image {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 5.5rem;
+                    height: 5.5rem;
+                    overflow: hidden;
+                    flex: 0 0 auto;
+                    border-radius: 3px;
+                    transition: all 0.3s ease; // Smooth animation
+
+
+                    &:hover {
+                        transform: scale(1.26) translateX(-2px);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                        border-radius: $item-border-radius;
+                    }
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            transform: none; // Prevents double scaling (handled by container)
+                        }
+                    }
+                }
+
+                .meal-image a {
+                    display: block;
+                }
+            }
+
+            .meal-content {
+
+                .meal-title {
+                    font-family: $font-family-serif;
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    margin-bottom: 0.15rem;
+                    color: var(--bs-body-color);
+
+                    a {
+                        color: inherit;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                        color: inherit;
+                    }
+                }
+
+                .meal-stats {
+                    color: inherit;
+                    font-size: 1.1rem;
+                    font-weight: 300;
+
+                    i::before {
+                        margin-right: 0.25rem;
+                    }
+
+                    span.separator {
+                        margin: 0 0.5rem;
+                    }
+
+                    span.icon-text {
+                        margin-right: 0.25rem;
+                    }
+                }
+                // TODO: Change
+                select, .text-style {
+                    font-family: $font-family-serif;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .button-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0.5rem;
+
+                span {
+                    i {
+                        font-size: 2.2rem;
+                    }
+                }
+            }
+
+            .button-and-inputs {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                min-width: 340px;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+
+                .meal-servings {
+                    min-width: 105px;
+                }
+
+                .meal-cookdate {
+                    min-width: 165px;
+                }
+
+                .btn-container {
+                    min-width: 46px;
+                }
+            }
+
+
+            .cook-btn {
+                height: 2.1rem;
+                font-size: 1.4rem;
+            }
+            // For Add & Edit Views, TODO: check!
+            .remove-btn-container {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .meal-row.deleted-style {
+            opacity: 65%;
+
+            .meal-title {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .collapse {
+        margin-bottom: 1rem;
+    }
+
+    .tips-pill, .summary-pill {
+        @extend .info-pill;
+
+        &:hover {
+            @extend .hover-state;
+        }
+    }
+
+    .summary-pill {
+        //margin-top: -0.7rem;
+        margin-bottom: 1.5rem;
+    }
+
+    a[data-bs-toggle] {
+        position: relative;
+        z-index: 2;
+    }
+
+    #collapseTips, #collapseSummary {
+        position: relative;
+        z-index: 1;
+    }
+
+    #collapseSummary {
+        margin-top: -2rem;
+    }
+
+    #collapseTips {
+        .tip-container {
+            padding: $item-padding;
+            background-color: $pill-bg-color;
+            text-align: center;
+            color: var(--bs-body-bg);
+            border-radius: $medium-border-radius;
+            cursor: pointer;
+
+            i {
+                font-size: 2rem;
+                margin-bottom: 1.3rem;
+            }
+
+            .tip-heading {
+                font-weight: bold;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+                text-decoration: none;
+            }
+
+            .tip-text {
+                font-weight: 300;
+                font-size: 1rem;
+            }
+
+            &:hover {
+                @extend .hover-state;
+                background-color: $primary-400;
+            }
+        }
+    }
+    // For add and edit view
+
+    .buttons-row {
+        margin-top: 5rem;
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            button, a {
+                text-transform: uppercase;
+                font-size: 1.3rem;
+                font-weight: bold;
+                padding: 0.5rem;
+            }
+        }
+
+        .button-right-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    #edit-mealplan-test {
+        .meal-stats {
+            flex-direction: column !important;
+
+            .separator {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 660px) {
+    #edit-mealplan-test {
+
+        .meal-content {
+            min-width: 65% !important;
+        }
+
+        .stats-input-btns-wrapper {
+            gap: 0.5rem !important;
+        }
+
+        .inputs {
+            flex-direction: column !important;
+            flex-grow: 0 !important;
+
+
+            .form-select {
+                font-size: 0.9rem !important;
+            }
+
+            .meal-cookdate{
+                min-width: 150px !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+
+    #details-mealplan-new, #edit-mealplan-test {
+        .subheading, .label, .meal-plan-dates {
+            font-size: 1rem !important;
+        }
+
+        .name-inviting-message {
+            font-size: 0.9rem;
+        }
+
+        .status-and-btn {
+            gap: 5px !important;
+        }
+
+        .meal-plan-status {
+            font-size: 1rem !important;
+        }
+
+        .heading-secondary {
+            font-size: 1.1rem !important;
+        }
+
+        .meal-image {
+            align-self: start;
+        }
+
+        .meal-title {
+            font-size: 1rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .meal-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            font-size: 0.9rem !important;
+
+            .separator {
+                display: none;
+            }
+        }
+
+        .button-container {
+            align-self: end;
+        }
+
+        .buttons-three {
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+
+            button, a {
+                width: 100%;
+            }
+
+            .button-right-wrapper {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+                width: 100%;
+
+                a, button {
+                    width: 100% !important;
+                }
+            }
+        }
+
+        .buttons {
+            flex-direction: column;
+            gap: 0.5rem;
+
+            a, button{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    #edit-mealplan-test {
+
+        .stats-input-btns-wrapper {
+            position: relative;
+            flex-direction: column !important;
+        }
+
+        .inputs {
+            .form-select {
+                line-height: 1.13rem;
+            }
+        }
+
+        .meal-buttons {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+
+
+
+
+
 
 #meal-plans-none {
     position: relative;
@@ -445,76 +1542,35 @@
     }
 }
 
-@media screen and (max-width: 660px) {
-    #add-mealplan, #details-mealplan, #edit-mealplan {
 
-        
-
-        .text-uppercase {
-            font-size: 10px !important;
-        }
-
-        .meal-info {
-            gap: 3px !important;
-
-            .meal-title {
-                font-size: 14px !important;
-            }
-        }
-
-        .input-group {
-            .input-group-text {
-                display: none;
-            }
-
-            .text-style {
-                font-size: 11px !important;
-            }
-        }
-    }
-}
 
 
 [data-bs-theme="dark"] {
-
-    
-    .name-inviting-message {
-        color: $success !important;
-    }
-
-    hr {
-        color: $success !important;
-    }
 
     .names-container {
         background-color: $medium-gray-bg !important;
         color: var(--bs-body-color) !important;
     }
 
-    .tip-container {
-        background-color: $success !important;
-        color: var(--bs-body-bg);
-
-        &:hover {
-            background-color: $success-400 !important;
-        }
-    }
-
     .name input::placeholder {
         color: $success-400 !important;
     }
 
-    .info-pill {
+    .save-button, .shopping-list-btn {
         color: var(--bs-body-bg) !important;
+
+        &:hover {
+            color: $primary !important;
+        }
     }
 
-    .meal-content span,
-    .meal-title a {
-        color: $success-400 !important;
-    }
+    .delete-button {
+        color: var(--bs-body-bg) !important;
 
-    .meal-title a:hover {
-        text-decoration: underline;
-        color: $success-400 !important;
+        &:hover {
+            color: $danger !important;
+            background-color: var(--bs-body-bg) !important;
+            border: 1px solid $danger;
+        }
     }
 }

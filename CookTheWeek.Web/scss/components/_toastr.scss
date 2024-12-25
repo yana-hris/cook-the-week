@@ -1,0 +1,40 @@
+﻿@import 'colors';
+@import 'theme-defaults';
+
+#toast-container .toast-success {
+    background-color: $primary;
+    color: #fff;
+}
+
+#toast-container .toast-error {
+    background-color: $danger;
+    color: #fff;
+}
+
+#toast-container {
+    margin-bottom: 4rem; // Allow for build btn to be always accessible
+    z-index: 1050;
+
+    .toast {
+        position: relative;
+        display: flex;        
+        border-radius: $border-radius-small;
+
+        .toast-close-button{
+            position: absolute;
+            top: 2px;
+            right: 7px;
+            font-size: 2rem;
+           
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            font-size: 1.1rem;
+
+        }
+    }
+    
+}

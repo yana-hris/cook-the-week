@@ -67,8 +67,6 @@
             if (!recipesQuery.Any())
             {
                 logger.LogError("No recipes found in the database.");
-
-
             }
             
             if (userId != default && !isAdmin) // Logged in user (sees site recipes + own recipes
@@ -76,13 +74,13 @@
                 recipesQuery = recipesQuery
                     .Where(r => r.OwnerId == userId || r.IsSiteRecipe);
             }
-            else if(userId == default) // No logged in user
+            else if(userId == default) 
             {
                 recipesQuery = recipesQuery
                     .Where(r => r.IsSiteRecipe);
             }
 
-            // Filtering Recipe Source: the default behaviour is to show All Recipes (both Site & User)
+            // Source Filter (site, user)
             if (queryModel.RecipeSource.HasValue && 
                 Enum.IsDefined(typeof(RecipeSource), queryModel.RecipeSource.Value))
             {
@@ -128,7 +126,7 @@
                     .Where(r => r.DifficultyLevel == (DifficultyLevel)queryModel.DifficultyLevel.Value);
             }
 
-            // Filtering by all tags (only recipes that have all the tags will be included in the result set)
+            // Tags Filter
             if (queryModel.SelectedTagIds != null && queryModel.SelectedTagIds.Any())
             {
                 // If only one tag is applied => simple query for faster results
@@ -140,7 +138,7 @@
                         .Where(r => r.RecipeTags
                             .Any(tag => tag.TagId == singleTagId));
                 }
-                else // TODO: introduce indexes for query optimization
+                else
                 {
                     recipesQuery = recipesQuery
                    .Where(r => queryModel.SelectedTagIds
@@ -150,7 +148,7 @@
                
             }
 
-            // Check if sorting is applied and if it exists in sorting enum
+            // Sorting
             RecipeSorting recipeSorting = (queryModel.RecipeSorting.HasValue &&
                     Enum.IsDefined(typeof(RecipeSorting), queryModel.RecipeSorting)) ? 
                     (RecipeSorting)queryModel.RecipeSorting : 

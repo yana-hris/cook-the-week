@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
+
     const deleteModal = $('#confirmDeleteModal');
-    debugger;
+    
     if (deleteModal.length) {
         deleteModal.on('show.bs.modal', function (event) {
             const triggerBtn = event.relatedTarget;

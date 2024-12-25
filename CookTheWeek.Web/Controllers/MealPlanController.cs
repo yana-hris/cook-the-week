@@ -32,7 +32,7 @@
             this.mealPlanService = mealPlanService;
             this.mealplanValidator = mealplanValidator;
             this.viewModelFactory = viewModelFactory;
-            this.hasActiveMealplan = userContext.HasActiveMealplan;
+            hasActiveMealplan = userContext.HasActiveMealplan;
         }
 
         [HttpPost]
@@ -110,6 +110,7 @@
 
             return Redirect(returnUrl ?? "/Recipe/All");
         }
+        
 
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] MealPlanAddFormModel model, string? returnUrl = null)
@@ -211,7 +212,7 @@
 
             return RedirectToAction("NotFound", "Home", new { message = "Invalid mealplan ID.", code = "400" });
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> CopyMealPlan(string mealPlanId, string? returnUrl = null)
         {
@@ -294,6 +295,7 @@
 
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> Edit(MealPlanEditFormModel model, string? returnUrl)
         {
@@ -336,6 +338,8 @@
             TempData[SubmissionSuccess] = true;
             return RedirectToAction("Details", "MealPlan", new { id = model.Id, returnUrl = returnUrl });
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)

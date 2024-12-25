@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+.disabled {
+    pointer-events: none;
+    opacity: 0.6 !important;
+}
+
 .food-background {
     background: url('/img/background-food-large.webp') no-repeat center center;
 
@@ -312,7 +317,7 @@ span.small.text-danger {
     }
 
     .heading-secondary {
-        font-size: 1.5rem !important;
+        font-size: 1.5rem;
     }
 }
 

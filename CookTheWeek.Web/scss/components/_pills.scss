@@ -7,8 +7,9 @@
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    padding: 2rem 0;
-    gap: 0.25rem;
+    padding: 1.6rem 0.2rem;
+    row-gap: 1rem;
+    column-gap: 0.1rem;
     border-radius: $border-radius-small;
     background-color: var(--pill-container-bg-color);
 }
@@ -18,7 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.2rem 1.4rem;
+    padding: 1.4rem 1.2rem;
     border-radius: $pill-border-radius;
     gap: 0.3rem;
     color: var(--bs-body-bg);

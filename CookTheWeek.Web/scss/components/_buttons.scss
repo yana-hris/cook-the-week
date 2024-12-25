@@ -7,10 +7,6 @@
     @include button-base();
 }
 
-.disabled {
-    pointer-events: none;
-}
-
 .btn-primary {
     border: 1px solid $primary;
     background-color: $primary;
@@ -60,9 +56,6 @@
     }
 }
 
-.disabled {
-    opacity: 0.6 !important;
-}
 
 // Navigation User Login / Logout Btn
 li.user-btn {
@@ -99,7 +92,7 @@ li.user-btn {
 }
 
 .back-button-main {
-    @include icon-button(var(--bs-body-bg), $primary, false, true, 1px, true, 40px, null, null, $border-radius);
+    @include icon-button(var(--bs-body-bg), $primary, false, false, 1px, true, 46px, null, null, $border-radius);
 }
 .plus {
     @include icon-button($primary, #fff, true, false, 2px, true, 40px, null, null, $border-radius);
@@ -112,30 +105,32 @@ li.user-btn {
 }
 
 .delete-meal-button {
-    @include icon-button(var(--bs-body-bg), $danger, false, true, 3px, true, 42px, null, null, $border-radius-small);
-    
+    @include icon-button($danger, var(--item-background-color), true, true, 2px, true, 36px, null, null, $border-radius-small);
+    @include button-box-shadow-effect();
 }
 
 .cook-meal-button {
-    @include icon-button($danger, var(--bs-body-bg), true, false, 2px, true, 40px, null, null, $border-radius-small);
+    @include icon-button(var(--bs-body-bg), var(--item-background-color), true, true, 2px, true, 36px, null, null, $border-radius-small);
+    @include button-box-shadow-effect();
+
+    &:hover {
+        background-color: $primary;
+        border: 2px solid $primary;
+    }
 }
 
-.not-cooked-meal-icon {
-    @include icon-button($danger, #fff, true, false, 2px, false, 40px, null, null, $border-radius-small);
+
+.uncook-meal-button {
+    @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 36px, null, null, $border-radius-small);
+    @include button-box-shadow-effect();
 }
 
-.cooked-meal-icon {
-    @include icon-button($primary, #fff, true, false,2px, false, 40px, null, null, $border-radius-small);
-}
 
 .repeat-btn {
     @include icon-button($primary, #fff, true, false, 1px, true, 40px ,null, null, null);
 }
 
 
-.uncook-meal-button { 
-    @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 40px, null, null, $border-radius-small);   
-}
 
 .shopping-list-btn,
 .save-button,

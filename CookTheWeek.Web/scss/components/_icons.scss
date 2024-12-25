@@ -46,3 +46,17 @@
     color: $light-grey;
 }
 
+.cooked-meal-icon i {
+    color: $primary;
+}
+
+.not-cooked-meal-icon i {
+    color: var(--bs-body-bg);
+}
+
+.deleted-meal-icon i,
+.finished-cooked-meal-icon i,
+.deleted-meal-icon i {
+    color: $inactive-grey;
+}
+
