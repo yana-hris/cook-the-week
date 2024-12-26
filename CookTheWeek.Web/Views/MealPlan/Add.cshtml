@@ -30,7 +30,7 @@
             };
 
 }
-<div id="add-mealplan-new">
+<div id="add-mealplan">
     <div class="card-outer-container">
 
         <div class="header-container">
@@ -113,6 +113,7 @@
                         <div>Meals</div>
                     </div>
                 </div>
+
                 <!-- MEALS -->
                 <div class="container-fluid meals-container">
                 @if (Model.Meals.Any())
@@ -123,122 +124,130 @@
                         bool isCurrentMealDeleted = currentMeal.RecipeId == DeletedRecipeId;
 
                         <div class="row meal-row @((isCurrentMealDeleted ? "deleted-style" : ""))">
-                            <div class="col-12 d-flex align-items-center justify-content-between">
-                                <div class="meal-info">
-                                    <div class="meal-image">
+
+                            <div class="col-12 meal-container">
+                               
+                                <div class="meal-image">
+                                    @if (!isCurrentMealDeleted)
+                                    {
+                                        <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                        <a asp-area=""
+                                            asp-controller="Recipe"
+                                            asp-action="Details"
+                                            asp-route-id="@currentMeal.RecipeId"
+                                            asp-route-returnUrl="/MealPlan/Mine">
+                                            <img src="@currentMeal.ImageUrl" alt="Meal Image">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                    }
+                                </div>
+
+                                <div class="meal-content">
+
+                                    <h5 class="meal-title">
                                         @if (!isCurrentMealDeleted)
                                         {
-                                            <input type="hidden" asp-for="@Model.Meals[i].ImageUrl" />
+                                            <input type="hidden" asp-for="Meals[i].Title" />
                                             <a asp-area=""
                                                 asp-controller="Recipe"
                                                 asp-action="Details"
                                                 asp-route-id="@currentMeal.RecipeId"
-                                                asp-route-returnUrl="/MealPlan/Mine">
-                                                <img src="@currentMeal.ImageUrl" alt="Meal Image">
-                                            </a>
+                                                asp-route-returnUrl="/MealPlan/Mine">@currentMeal.Title</a>
                                         }
                                         else
                                         {
-                                            <img src="/img/compressed_deleted_recipe.png" alt="Deleted Recipe Image">
+                                            <a href="#" style="pointer-events: none; color: gray;"><h5 class="meal-title">Deleted Recipe</h5></a>
                                         }
-                                    </div>
-                                    <div class="meal-content">
-                                        <h5 class="meal-title">
-                                            @if (!isCurrentMealDeleted)
-                                            {
-                                                <input type="hidden" asp-for="Meals[i].Title" />
-                                                <a asp-area=""
-                                                    asp-controller="Recipe"
-                                                    asp-action="Details"
-                                                    asp-route-id="@currentMeal.RecipeId"
-                                                    asp-route-returnUrl="/MealPlan/Mine">@currentMeal.Title</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="#" style="pointer-events: none; color: gray;"><h5 class="meal-title">Deleted Recipe</h5></a>
-                                            }
 
-                                        </h5>
-                                        <p class="meal-stats">
+                                    </h5>
+
+                                    <div class="stats-input-btns-wrapper">
+
+                                        <div class="meal-stats">
                                             @if (!isCurrentMealDeleted)
                                             {
                                                 <input type="hidden" asp-for="Meals[i].CategoryName" />
                                                 <input type="hidden" asp-for="Meals[i].CookingTime" />
                                             }
 
-                                            <span class="no-wrap-text">
-                                                <i class="fa-solid fa-layer-group"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
+                                            <span class="stat">
+                                                <i class="fa-solid fa-layer-group"></i>
+                                                <span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CategoryName)</span>
                                                 <span class="separator">|</span>
                                             </span>
-                                            <span class="no-wrap-text">
-                                                <i class="fa-solid fa-stopwatch"></i><span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
+                                            <span class="stat">
+                                                <i class="fa-solid fa-stopwatch"></i>
+                                                <span class="icon-text">@(isCurrentMealDeleted ? "N/A" : currentMeal.CookingTime)</span>
                                             </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="button-and-inputs">
-                                    <div class="meal-servings input-wrapper">
-                                        <div class="input-group mealplan-input-style">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
-                                            </span>
-                                            @if (!isCurrentMealDeleted)
-                                            {
-                                                <select class="form-select text-style" asp-for="Meals[i].Servings" data-val="true">
-                                                    <option value="">Servs</option>
-                                                    @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
-                                                    {
-                                                        <option value="@option">@option</option>
-                                                    }
-                                                </select>
-                                                
-                                            }
-                                            else
-                                            {
-                                                <span class="form-control text-start">N/A</span>
-                                            }
                                         </div>
-                                        <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
-                                    </div>
-                                    <div class="meal-cookdate input-wrapper">
-                                        <div class="input-group mealplan-input-style">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                            @if (!isCurrentMealDeleted)
-                                            {
-                                                <select class="form-select text-style" asp-for="Meals[i].Date" data-val=true>
-                                                    <option value="">Cook On</option>
-                                                    @foreach (var option in @Model.Meals.First().SelectDates)
-                                                    {
-                                                        <option value="@option">@option</option>
-                                                    }
-                                                </select>
-                                                
 
-                                            }
-                                            else
-                                            {
-                                                <span class="form-control text-start">N/A</span>
-                                            }
+                                        <div class="inputs">
+                                            <div class="meal-servings input-wrapper">
+                                                <div class="input-group mealplan-input-style">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                                    </span>
+                                                    @if (!isCurrentMealDeleted)
+                                                    {
+                                                        <select class="form-select text-style" 
+                                                                asp-for="Meals[i].Servings" 
+                                                                data-val="true">
+                                                            <option value="">Servs</option>
+                                                            @foreach (var option in @Model.Meals!.First().SelectServingOptions!)
+                                                            {
+                                                                <option value="@option">@option</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="form-control text-start">N/A</span>
+                                                    }
+                                                </div>
+                                                <span asp-validation-for="Meals[i].Servings" class="small text-danger"></span>
+                                            </div>
+                                            <div class="meal-cookdate input-wrapper">
+                                                <div class="input-group mealplan-input-style">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                    </span>
+                                                    @if (!isCurrentMealDeleted)
+                                                    {
+                                                        <select class="form-select text-style" asp-for="Meals[i].Date" data-val=true>
+                                                            <option value="">Cook On</option>
+                                                            @foreach (var option in @Model.Meals.First().SelectDates)
+                                                            {
+                                                                <option value="@option">@option</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="form-control text-start">N/A</span>
+                                                    }
+                                                </div>
+                                                <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
+                                            </div>
                                         </div>
-                                            <span asp-validation-for="Meals[i].Date" class="small text-danger"></span>
-                                    </div>
-                                    <div class="btn-container">
-                                    @if (!isCurrentMealDeleted)
-                                    {     
-                                        <input type="hidden" asp-for="Meals[i].RecipeId" />
-                                        <a data-recipeId="@Model.Meals[i].RecipeId" class="delete-meal-button">
-                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <span class="disabled deleted-meal-icon"
-                                                title="Deleted">
-                                            <i class="fa-solid fa-ban"></i>
-                                        </span>
-                                    }
+
+                                        <div class="meal-buttons">
+                                            <div class="btn-container">
+                                                    
+                                                <input type="hidden" asp-for="Meals[i].RecipeId" />
+                                                <a data-recipeId="@Model.Meals[i].RecipeId"
+                                                    class="delete-meal-button @(isCurrentMealDeleted ? "disabled" : "")"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="Remove">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </a>
+                                                   
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +303,7 @@
 
                 <!-- BTNS -->
                 <div class="row buttons-row">
-                    <div class="col buttons">
+                    <div class="col-12 buttons">
                         <partial name="_BrowseBtnPartial" />
                         <partial name="_SaveBtnPartial" />
                     </div>

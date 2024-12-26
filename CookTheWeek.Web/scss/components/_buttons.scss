@@ -84,15 +84,19 @@ li.user-btn {
 
 // Reusable buttons
 
-.details-btn,
-.list-btn,
+
 .download-btn {
-    @include icon-button(var(--bs-body-bg), $primary, false, true, 1px, true, 40px, null, null, $border-radius);
+    @include icon-button(var(--bs-body-bg), $primary, false, false, 1px, true, 46px, null, null, $border-radius);
 
 }
 
 .back-button-main {
     @include icon-button(var(--bs-body-bg), $primary, false, false, 1px, true, 46px, null, null, $border-radius);
+}
+
+.details-btn,
+.list-btn {
+    @include icon-button(var(--bs-body-bg), $primary, false, true, 1px, true, 40px, null, null, $border-radius);
 }
 .plus {
     @include icon-button($primary, #fff, true, false, 2px, true, 40px, null, null, $border-radius);

@@ -1252,7 +1252,7 @@
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -2303,7 +2303,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -3852,7 +3852,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -4132,8 +4132,6 @@ li.user-btn:hover i.fa {
   color: #B4E33D !important;
 }
 
-.details-btn,
-.list-btn,
 .download-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -4142,21 +4140,15 @@ li.user-btn:hover i.fa {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 40px;
-  border: 1px solid #2e6930;
+  height: 46px;
+  border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
-  width: 44px;
-  font-size: 22px;
+  width: 50.6px;
+  font-size: 25.3px;
 }
-.details-btn i, .details-btn .fa, .details-btn .fas,
-.list-btn i,
-.list-btn .fa,
-.list-btn .fas,
-.download-btn i,
-.download-btn .fa,
-.download-btn .fas {
+.download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -4166,8 +4158,6 @@ li.user-btn:hover i.fa {
   color: #2e6930;
   z-index: 1;
 }
-.details-btn::before,
-.list-btn::before,
 .download-btn::before {
   content: "";
   position: absolute;
@@ -4179,20 +4169,12 @@ li.user-btn:hover i.fa {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.details-btn:hover,
-.list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
   border: 1px solid #2e6930;
   border-radius: 2px;
 }
-.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
-.list-btn:hover i,
-.list-btn:hover .fa,
-.list-btn:hover .fas,
-.download-btn:hover i,
-.download-btn:hover .fa,
-.download-btn:hover .fas {
+.download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -4239,6 +4221,61 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.details-btn,
+.list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.details-btn i, .details-btn .fa, .details-btn .fas,
+.list-btn i,
+.list-btn .fa,
+.list-btn .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.details-btn::before,
+.list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.details-btn:hover,
+.list-btn:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
+.list-btn:hover i,
+.list-btn:hover .fa,
+.list-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -6353,7 +6390,7 @@ li.user-btn:hover i.fa {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -7823,7 +7860,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -9267,7 +9304,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -9547,8 +9584,6 @@ li.user-btn:hover i.fa {
   color: #B4E33D !important;
 }
 
-.details-btn,
-.list-btn,
 .download-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -9557,21 +9592,15 @@ li.user-btn:hover i.fa {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 40px;
-  border: 1px solid #2e6930;
+  height: 46px;
+  border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
-  width: 44px;
-  font-size: 22px;
+  width: 50.6px;
+  font-size: 25.3px;
 }
-.details-btn i, .details-btn .fa, .details-btn .fas,
-.list-btn i,
-.list-btn .fa,
-.list-btn .fas,
-.download-btn i,
-.download-btn .fa,
-.download-btn .fas {
+.download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -9581,8 +9610,6 @@ li.user-btn:hover i.fa {
   color: #2e6930;
   z-index: 1;
 }
-.details-btn::before,
-.list-btn::before,
 .download-btn::before {
   content: "";
   position: absolute;
@@ -9594,20 +9621,12 @@ li.user-btn:hover i.fa {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.details-btn:hover,
-.list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
   border: 1px solid #2e6930;
   border-radius: 2px;
 }
-.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
-.list-btn:hover i,
-.list-btn:hover .fa,
-.list-btn:hover .fas,
-.download-btn:hover i,
-.download-btn:hover .fa,
-.download-btn:hover .fas {
+.download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -9654,6 +9673,61 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.details-btn,
+.list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.details-btn i, .details-btn .fa, .details-btn .fas,
+.list-btn i,
+.list-btn .fa,
+.list-btn .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.details-btn::before,
+.list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.details-btn:hover,
+.list-btn:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
+.list-btn:hover i,
+.list-btn:hover .fa,
+.list-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -12563,7 +12637,7 @@ footer .footer-copyright .copyright i {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -13876,7 +13950,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -15508,7 +15582,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -15788,8 +15862,6 @@ li.user-btn:hover i.fa {
   color: #B4E33D !important;
 }
 
-.details-btn,
-.list-btn,
 .download-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -15798,21 +15870,15 @@ li.user-btn:hover i.fa {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 40px;
-  border: 1px solid #2e6930;
+  height: 46px;
+  border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
-  width: 44px;
-  font-size: 22px;
+  width: 50.6px;
+  font-size: 25.3px;
 }
-.details-btn i, .details-btn .fa, .details-btn .fas,
-.list-btn i,
-.list-btn .fa,
-.list-btn .fas,
-.download-btn i,
-.download-btn .fa,
-.download-btn .fas {
+.download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -15822,8 +15888,6 @@ li.user-btn:hover i.fa {
   color: #2e6930;
   z-index: 1;
 }
-.details-btn::before,
-.list-btn::before,
 .download-btn::before {
   content: "";
   position: absolute;
@@ -15835,20 +15899,12 @@ li.user-btn:hover i.fa {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.details-btn:hover,
-.list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
   border: 1px solid #2e6930;
   border-radius: 2px;
 }
-.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
-.list-btn:hover i,
-.list-btn:hover .fa,
-.list-btn:hover .fas,
-.download-btn:hover i,
-.download-btn:hover .fa,
-.download-btn:hover .fas {
+.download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -15895,6 +15951,61 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.details-btn,
+.list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.details-btn i, .details-btn .fa, .details-btn .fas,
+.list-btn i,
+.list-btn .fa,
+.list-btn .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.details-btn::before,
+.list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.details-btn:hover,
+.list-btn:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
+.list-btn:hover i,
+.list-btn:hover .fa,
+.list-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -17770,7 +17881,7 @@ li.user-btn:hover i.fa {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -18984,7 +19095,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -20640,7 +20751,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -20920,8 +21031,6 @@ li.user-btn:hover i.fa {
   color: #B4E33D !important;
 }
 
-.details-btn,
-.list-btn,
 .download-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -20930,21 +21039,15 @@ li.user-btn:hover i.fa {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 40px;
-  border: 1px solid #2e6930;
+  height: 46px;
+  border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
-  width: 44px;
-  font-size: 22px;
+  width: 50.6px;
+  font-size: 25.3px;
 }
-.details-btn i, .details-btn .fa, .details-btn .fas,
-.list-btn i,
-.list-btn .fa,
-.list-btn .fas,
-.download-btn i,
-.download-btn .fa,
-.download-btn .fas {
+.download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -20954,8 +21057,6 @@ li.user-btn:hover i.fa {
   color: #2e6930;
   z-index: 1;
 }
-.details-btn::before,
-.list-btn::before,
 .download-btn::before {
   content: "";
   position: absolute;
@@ -20967,20 +21068,12 @@ li.user-btn:hover i.fa {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.details-btn:hover,
-.list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
   border: 1px solid #2e6930;
   border-radius: 2px;
 }
-.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
-.list-btn:hover i,
-.list-btn:hover .fa,
-.list-btn:hover .fas,
-.download-btn:hover i,
-.download-btn:hover .fa,
-.download-btn:hover .fas {
+.download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -21027,6 +21120,61 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.details-btn,
+.list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.details-btn i, .details-btn .fa, .details-btn .fas,
+.list-btn i,
+.list-btn .fa,
+.list-btn .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.details-btn::before,
+.list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.details-btn:hover,
+.list-btn:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
+.list-btn:hover i,
+.list-btn:hover .fa,
+.list-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -23573,7 +23721,7 @@ li.user-btn:hover i.fa {
   }
 }
 
-.hover-state, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover {
+.hover-state, #details-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -23764,439 +23912,32 @@ span.small.text-danger {
     display: none !important;
   }
 }
-/*#add-mealplan, #details-mealplan, #edit-mealplan {
-
-    .heading-secondary {
-        font-size: 1.6rem !important;
-    }
-
-    .status-container {
-        border-top: 1px solid var(--link-color);
-        padding-top: 0.5rem;
-        padding-bottom: 2rem;
-
-        .meal-plan-dates {
-            font-size: 1.2rem;
-            color: var(--bs-body-color);
-
-            .label {
-                text-transform: uppercase;
-                font-weight: bold;
-                color: var(--accent-color);
-            }
-        }
-
-        .meal-plan-status {
-            font-size: 1.3em;
-            text-transform: uppercase;
-            font-weight: bold;
-            color: var(--bs-body-bg);
-            padding: 0.1rem 1rem;
-            padding-top: 0.375rem;
-            border-radius: $pill-border-radius;
-        }
-
-        .meal-plan-finished-true {
-            background-color: $danger;
-        }
-
-        .meal-plan-finished-false {
-            background-color: $primary;
-        }
-    }
-
-    .no-wrap-text {
-        white-space: nowrap;
-    }
-
-    .row {
-        padding-bottom: 1rem;
-    }
-
-    .info-pill {
-        padding: 0.8rem 1.25rem;
-        margin-bottom: 0.5rem;
-        background-color: $primary;
-        border: 1px solid $primary;
-        border-radius: $border-radius;
-        text-align: start;
-        text-transform: uppercase;
-        color: var(--bs-body-bg);
-        font-weight: bold;
-    }
-
-    .name-inviting-message {
-        margin-bottom: 0;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 1rem;
-        color: $primary;
-    }
-
-    .name {
-        display: flex;
-        align-items: center;
-
-        .name-label-text {
-            @extend .info-pill;
-            display: inline-block;
-            padding: 0.6rem 1.25rem;
-            margin-bottom: 0;
-        }
-
-        input.form-control {
-            padding: 0.65rem;
-            border: none;
-
-            &::placeholder {
-                color: $primary-text-emphasis;
-            }
-        }
-
-        border: 1px solid $primary;
-        border-radius: $border-radius;
-    }
-
-    .name-suggestions {
-        margin-top: -0.2rem;
-        padding-top: 0;
-        color: var(--link-color);
-
-        a {
-            font-size: 0.8rem;
-            margin-top: 0;
-            color: var(--link-color);
-
-            &:hover {
-                color: var(--link-hover-color);
-            }
-        }
-
-        .names-container {
-            background-color: $pill-container-bg-color;
-            padding: 1.6rem 1rem;
-            margin-top: 0.6rem;
-            border-radius: $medium-border-radius;
-            color: var(--bs-body-color);
-
-            h4 {
-                padding: 0 1rem;
-                padding-bottom: 0.6rem;
-                font-size: 1.3rem;
-                font-weight: 300;
-            }
-
-            .category-container {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-around;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-
-                .suggestion-category {
-                    padding: 0.8rem 0;
-                    text-align: start;
-
-
-                    h5 {
-                        margin-bottom: 0.6rem;
-                        text-decoration: underline;
-                        font-size: 1.1rem;
-                        font-weight: bold;
-                    }
-
-                    p {
-                        margin-bottom: 0.3rem;
-                        font-weight: normal;
-                        font-size: 1rem;
-                    }
-
-                    &:last-child {
-                        border-right: none;
-                    }
-                }
-            }
-        }
-    }
-
-    .table {
-        border-collapse: separate;
-        border-spacing: 0 0.75rem;
-
-        thead {
-
-            th {
-                @extend .info-pill;
-                border: 1px solid $primary;
-                border-radius: 0;
-            }
-
-            th:first-child {
-                border-top-left-radius: 2px;
-                border-bottom-left-radius: 2px;
-            }
-
-            th:last-child {
-                border-top-right-radius: 2px;
-                border-bottom-right-radius: 2px;
-            }
-        }
-
-        tr {
-
-            td {
-                border-bottom: none;
-
-                .text-style {
-                    font-size: 1rem;
-                }
-
-                .mealplan-input-style {
-                    .input-group-text {
-                        color: var(--bs-body-bg);
-                        border-width: 3px;
-                        border-top-left-radius: $border-radius-small;
-                        border-bottom-left-radius: $border-radius-small;
-                    }
-
-                    .input-group-text, .form-control, .form-select {
-                        border: 3px solid $primary !important;
-                    }
-
-                    .form-control, .form-select {
-                        border-top-right-radius: $border-radius-small;
-                        border-bottom-right-radius: $border-radius-small;
-                    }
-                }
-            }
-        }
-
-        tr.meal-row {
-            position: relative;
-
-            .meal-info {
-                display: flex;
-                align-items: center;
-                gap: 0.7rem;
-
-                .meal-image {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 5.5rem;
-                    height: 5.5rem;
-                    overflow: hidden;
-                    flex: 0 0 auto;
-                    border-radius: $border-radius;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth animation
-
-
-                    &:hover {
-                        transform: scale(1.2) translateY(-5px);
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-                        border-radius: $border-radius-small;
-                    }
-
-                    img {
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        object-position: center;
-                        //flex: 1 1 auto; // Combines flex-grow: 1; flex-shrink: 1; flex-basis: auto;
-                        //overflow: hidden;
-                        transition: transform 0.3s ease;
-
-                        &:hover {
-                            transform: none; // Prevents double scaling (handled by container)
-                        }
-                    }
-                }
-
-                .meal-image a {
-                    display: block;
-                }
-
-
-            }
-
-            .button-container {
-                display: flex;
-                align-items: center;
-                justify-content: end;
-            }
-
-            .meal-content {
-
-                .meal-title {
-                    font-family: 'Libre Baskerville', serif;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    margin-bottom: 0.25rem;
-
-                    a {
-                        color: $primary-text-emphasis;
-                    }
-
-                    &:hover {
-                        text-decoration: underline;
-                        color: $primary-text-emphasis;
-                    }
-                }
-
-                .meal-stats {
-                    color: $primary;
-                    font-size: 0.9rem;
-                    font-weight: normal;
-
-                    i::before {
-                        margin-right: 0.25rem;
-                    }
-
-                    span.separator {
-                        margin: 0 0.5rem;
-                    }
-
-                    span.icon-text {
-                        margin-right: 0.25rem;
-                    }
-                }
-                // TODO: Change
-                select, .text-style {
-                    font-family: $font-family-serif;
-                    font-size: 0.9rem;
-                }
-            }
-
-            .cook-btn {
-                height: 2.1rem;
-                font-size: 1.4rem;
-            }
-            // For Add & Edit Views, TODO: check!
-            .remove-btn-container {
-                display: flex;
-                justify-content: center;
-            }
-        }
-
-        tr.meal-row.deleted-style {
-            opacity: 65%;
-
-            .meal-title {
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
-
-        tr.meal-row.cooked {
-            background-color: #eaf4e2;
-        }
-    }
-
-    .collapse {
-        margin-bottom: 1rem;
-    }
-
-    .tips-pill, .summary-pill {
-        @extend .info-pill;
-
-        &:hover {
-            @extend .hover-state;
-        }
-    }
-
-    .summary-pill {
-        margin-top: -0.7rem;
-        margin-bottom: 1.5rem;
-    }
-
-    a[data-bs-toggle] {
-        position: relative;
-        z-index: 2;
-    }
-
-    #collapseTips, #collapseSummary {
-        position: relative;
-        z-index: 1;
-    }
-
-    #collapseSummary {
-        margin-top: -2rem;
-    }
-
-    #collapseTips {
-        .tip-container {
-            padding: $item-padding;
-            background-color: $pill-bg-color;
-            text-align: center;
-            color: var(--bs-body-bg);
-            border-radius: $medium-border-radius;
-            cursor: pointer;
-
-            i {
-                font-size: 3rem;
-            }
-
-            .tip-heading {
-                font-weight: bold;
-                font-size: 1.2rem;
-                padding-top: 0.7rem;
-                padding-bottom: 0.5rem;
-                text-decoration: none;
-            }
-
-            .tip-text {
-                font-weight: normal;
-                font-size: 1rem;
-            }
-
-            &:hover {
-                @extend .hover-state;
-                background-color: $success;
-            }
-        }
-    }
-    // For add and edit view
-
-    .buttons-row {
-        margin-top: 3rem;
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
-}
-*/
-#edit-mealplan-test .header-container {
+#edit-mealplan .header-container, #add-mealplan .header-container {
   padding: 10px;
   margin: auto;
   margin-bottom: 2rem;
   max-width: 100%;
 }
-#edit-mealplan-test .header-container .heading-secondary {
+#edit-mealplan .header-container .heading-secondary, #add-mealplan .header-container .heading-secondary {
   margin-bottom: 0.2rem !important;
 }
-#edit-mealplan-test .header-container .meal-plan-header {
+#edit-mealplan .header-container .meal-plan-header, #add-mealplan .header-container .meal-plan-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--accent-color);
   padding-bottom: 10px;
 }
-#edit-mealplan-test .header-container .meal-plan-header .meal-plan-title {
+#edit-mealplan .header-container .meal-plan-header .meal-plan-title, #add-mealplan .header-container .meal-plan-header .meal-plan-title {
   flex: 1;
   min-width: 400px;
 }
-#edit-mealplan-test .header-container .meal-plan-header .status-and-btn {
+#edit-mealplan .header-container .meal-plan-header .status-and-btn, #add-mealplan .header-container .meal-plan-header .status-and-btn {
   display: flex;
   align-self: flex-start;
   gap: 1rem;
 }
-#edit-mealplan-test .header-container .meal-plan-header .status-and-btn .meal-plan-status {
+#edit-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-status, #add-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-status {
   flex: 0 0 auto;
   align-self: center;
   min-width: 80px;
@@ -24210,29 +23951,29 @@ span.small.text-danger {
   color: var(--bs-body-bg);
   border-radius: 20px;
 }
-#edit-mealplan-test .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true {
+#edit-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true, #add-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true {
   background-color: #DA0505;
 }
-#edit-mealplan-test .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false {
+#edit-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false, #add-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false {
   background-color: #2e6930;
 }
-#edit-mealplan-test .header-container .meal-plan-header .status-and-btn .back-btn {
+#edit-mealplan .header-container .meal-plan-header .status-and-btn .back-btn, #add-mealplan .header-container .meal-plan-header .status-and-btn .back-btn {
   flex: 0 0 auto;
   min-width: 60px;
 }
-#edit-mealplan-test .header-container .meal-plan-dates {
+#edit-mealplan .header-container .meal-plan-dates, #add-mealplan .header-container .meal-plan-dates {
   margin-top: 8px;
   text-align: start;
   padding: 0 0.25rem;
   font-size: 1.2rem;
   color: var(--bs-body-color);
 }
-#edit-mealplan-test .header-container .meal-plan-dates .label {
+#edit-mealplan .header-container .meal-plan-dates .label, #add-mealplan .header-container .meal-plan-dates .label {
   text-transform: uppercase;
   font-weight: bold;
   color: var(--accent-color);
 }
-#edit-mealplan-test .info-pill, #edit-mealplan-test .tips-pill, #edit-mealplan-test .summary-pill {
+#edit-mealplan .info-pill, #edit-mealplan .tips-pill, #edit-mealplan .summary-pill, #add-mealplan .info-pill, #add-mealplan .tips-pill, #add-mealplan .summary-pill {
   padding: 0.8rem 1.25rem;
   margin-bottom: 1rem;
   background-color: #2e6930;
@@ -24244,62 +23985,62 @@ span.small.text-danger {
   font-size: 1.2rem;
   font-weight: bold;
 }
-#edit-mealplan-test .no-wrap-text {
+#edit-mealplan .no-wrap-text, #add-mealplan .no-wrap-text {
   white-space: nowrap;
 }
-#edit-mealplan-test .name-inviting-message {
+#edit-mealplan .name-inviting-message, #add-mealplan .name-inviting-message {
   margin-bottom: 0.6rem;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1rem;
   color: var(--accent-color);
 }
-#edit-mealplan-test .input-wrapper, #edit-mealplan-test .name {
+#edit-mealplan .input-wrapper, #edit-mealplan .name, #add-mealplan .input-wrapper, #add-mealplan .name {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
 }
-#edit-mealplan-test .input-wrapper .small.text-danger, #edit-mealplan-test .name .small.text-danger {
+#edit-mealplan .input-wrapper .small.text-danger, #edit-mealplan .name .small.text-danger, #add-mealplan .input-wrapper .small.text-danger, #add-mealplan .name .small.text-danger {
   align-self: flex-start;
 }
-#edit-mealplan-test .name {
+#edit-mealplan .name, #add-mealplan .name {
   width: 50%;
   min-width: 300px;
 }
-#edit-mealplan-test .name input.form-control {
+#edit-mealplan .name input.form-control, #add-mealplan .name input.form-control {
   padding: 0.65rem;
 }
-#edit-mealplan-test .name input.form-control::placeholder {
+#edit-mealplan .name input.form-control::placeholder, #add-mealplan .name input.form-control::placeholder {
   color: rgb(18.4, 42, 19.2);
 }
-#edit-mealplan-test .name-suggestions {
+#edit-mealplan .name-suggestions, #add-mealplan .name-suggestions {
   margin-top: -0.2rem;
   padding-top: 0;
   color: var(--link-color);
 }
-#edit-mealplan-test .name-suggestions a {
+#edit-mealplan .name-suggestions a, #add-mealplan .name-suggestions a {
   font-size: 0.8rem;
   margin-top: 0;
   color: var(--link-color);
 }
-#edit-mealplan-test .name-suggestions a:hover {
+#edit-mealplan .name-suggestions a:hover, #add-mealplan .name-suggestions a:hover {
   color: var(--link-hover-color);
 }
-#edit-mealplan-test .name-suggestions .names-container {
+#edit-mealplan .name-suggestions .names-container, #add-mealplan .name-suggestions .names-container {
   background-color: #BFE85E;
   padding: 1.6rem 1rem;
   margin-top: 0.6rem;
   border-radius: 12px;
   color: var(--bs-body-color);
 }
-#edit-mealplan-test .name-suggestions .names-container h4, #edit-mealplan-test .name-suggestions .names-container .h4 {
-  padding: 0 0.25rem;
+#edit-mealplan .name-suggestions .names-container h4, #edit-mealplan .name-suggestions .names-container .h4, #add-mealplan .name-suggestions .names-container h4, #add-mealplan .name-suggestions .names-container .h4 {
+  padding: 0 1rem;
   padding-bottom: 0.6rem;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 300;
 }
-#edit-mealplan-test .name-suggestions .names-container .category-container {
+#edit-mealplan .name-suggestions .names-container .category-container, #add-mealplan .name-suggestions .names-container .category-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24307,39 +24048,39 @@ span.small.text-danger {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-#edit-mealplan-test .name-suggestions .names-container .category-container .suggestion-category {
-  padding: 0.5rem 0;
+#edit-mealplan .name-suggestions .names-container .category-container .suggestion-category, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category {
+  padding: 0.8rem 0;
   text-align: start;
 }
-#edit-mealplan-test .name-suggestions .names-container .category-container .suggestion-category h5, #edit-mealplan-test .name-suggestions .names-container .category-container .suggestion-category .h5 {
+#edit-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #edit-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5 {
   margin-bottom: 0.6rem;
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
-#edit-mealplan-test .name-suggestions .names-container .category-container .suggestion-category p {
+#edit-mealplan .name-suggestions .names-container .category-container .suggestion-category p, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category p {
   margin-bottom: 0.3rem;
   font-weight: normal;
-  font-size: 0.9rem;
-}
-#edit-mealplan-test .name-suggestions .names-container .category-container .suggestion-category:last-child {
-  border-right: none;
-}
-#edit-mealplan-test .text-style {
   font-size: 1rem;
 }
-#edit-mealplan-test .mealplan-input-style .input-group-text {
+#edit-mealplan .name-suggestions .names-container .category-container .suggestion-category:last-child, #add-mealplan .name-suggestions .names-container .category-container .suggestion-category:last-child {
+  border-right: none;
+}
+#edit-mealplan .text-style, #add-mealplan .text-style {
+  font-size: 1rem;
+}
+#edit-mealplan .mealplan-input-style .input-group-text, #add-mealplan .mealplan-input-style .input-group-text {
   color: var(--bs-body-bg);
   border-width: 1px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-#edit-mealplan-test .mealplan-input-style span.input-group-text {
+#edit-mealplan .mealplan-input-style span.input-group-text, #add-mealplan .mealplan-input-style span.input-group-text {
   line-height: 1;
   border: 1px solid #2e6930 !important;
   border-right: none;
 }
-#edit-mealplan-test .mealplan-input-style .form-control, #edit-mealplan-test .mealplan-input-style .form-select {
+#edit-mealplan .mealplan-input-style .form-control, #edit-mealplan .mealplan-input-style .form-select, #add-mealplan .mealplan-input-style .form-control, #add-mealplan .mealplan-input-style .form-select {
   line-height: 1;
   border: 1px solid #2e6930 !important;
   border-left: none !important;
@@ -24350,14 +24091,14 @@ span.small.text-danger {
   font-family: "League Spartan", sans-serif;
   background-color: var(--input-background-color);
 }
-#edit-mealplan-test .meals-container .meal-row {
+#edit-mealplan .meals-container .meal-row, #add-mealplan .meals-container .meal-row {
   position: relative;
   padding: 12px 0 12px 0;
   background-color: var(--item-background-color);
   border-radius: 15px;
   margin-bottom: 1rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container {
+#edit-mealplan .meals-container .meal-row .meal-container, #add-mealplan .meals-container .meal-row .meal-container {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -24365,18 +24106,18 @@ span.small.text-danger {
   justify-content: space-between;
   gap: 0.5rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .info-btn {
+#edit-mealplan .meals-container .meal-row .meal-container .info-btn, #add-mealplan .meals-container .meal-row .meal-container .info-btn {
   position: absolute;
   top: -7px;
   right: 8px;
   z-index: 10;
   display: none;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .info-btn i {
+#edit-mealplan .meals-container .meal-row .meal-container .info-btn i, #add-mealplan .meals-container .meal-row .meal-container .info-btn i {
   font-size: 1rem;
   color: var(--pill-bg-color);
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-image {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-image, #add-mealplan .meals-container .meal-row .meal-container .meal-image {
   position: relative;
   display: flex;
   align-items: center;
@@ -24388,12 +24129,12 @@ span.small.text-danger {
   border-radius: 3px;
   transition: all 0.3s ease;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-image:hover {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-image:hover, #add-mealplan .meals-container .meal-row .meal-container .meal-image:hover {
   transform: scale(1.1);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-image img {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-image img, #add-mealplan .meals-container .meal-row .meal-container .meal-image img {
   position: absolute;
   top: 0;
   left: 0;
@@ -24403,13 +24144,13 @@ span.small.text-danger {
   object-position: center;
   transition: all 0.3s ease;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-image img:hover {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-image img:hover, #add-mealplan .meals-container .meal-row .meal-container .meal-image img:hover {
   transform: none;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-image .meal-image a {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-image .meal-image a, #add-mealplan .meals-container .meal-row .meal-container .meal-image .meal-image a {
   display: block;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content, #add-mealplan .meals-container .meal-row .meal-container .meal-content {
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -24418,7 +24159,7 @@ span.small.text-danger {
   min-width: 80%;
   gap: 0.5rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .meal-title {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title, #add-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title {
   width: 100%;
   text-align: start;
   font-size: 1.2rem;
@@ -24427,14 +24168,14 @@ span.small.text-danger {
   color: var(--bs-body-color);
   margin-bottom: 0.2rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .meal-title a {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title a, #add-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title a {
   color: inherit;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .meal-title:hover {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title:hover, #add-mealplan .meals-container .meal-row .meal-container .meal-content .meal-title:hover {
   text-decoration: underline;
   color: inherit;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper {
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -24442,12 +24183,12 @@ span.small.text-danger {
   flex-grow: 1;
   gap: 1rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat {
   color: inherit;
   font-size: 1rem;
   font-weight: 300;
@@ -24456,80 +24197,80 @@ span.small.text-danger {
       display: none;
   }*/
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat i::before {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat i::before, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat i::before {
   margin-right: 0.25rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat .separator {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat .separator, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat .separator {
   margin-right: 0.5rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat span.icon-text {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat span.icon-text, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat span.icon-text {
   margin-right: 0.25rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   flex-grow: 1;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs select, #edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .text-style {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs select, #edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .text-style, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs select, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .text-style {
   font-family: "Libre Baskerville", serif;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-servings {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-servings, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-servings {
   min-width: 105px;
   max-width: 150px;
   flex-grow: 1;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-cookdate {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-cookdate, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .inputs .meal-cookdate {
   min-width: 165px;
   max-width: 300px;
   flex-grow: 1;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 0.5rem;
 }
-#edit-mealplan-test .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container span i {
+#edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container span i, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-buttons .button-container span i {
   font-size: 2.2rem;
 }
-#edit-mealplan-test .meals-container .meal-row .cook-btn {
+#edit-mealplan .meals-container .meal-row .cook-btn, #add-mealplan .meals-container .meal-row .cook-btn {
   height: 2.1rem;
   font-size: 1.4rem;
 }
-#edit-mealplan-test .meals-container .meal-row .remove-btn-container {
+#edit-mealplan .meals-container .meal-row .remove-btn-container, #add-mealplan .meals-container .meal-row .remove-btn-container {
   display: flex;
   justify-content: center;
 }
-#edit-mealplan-test .meals-container .meal-row.deleted-style {
+#edit-mealplan .meals-container .meal-row.deleted-style, #add-mealplan .meals-container .meal-row.deleted-style {
   opacity: 65%;
 }
-#edit-mealplan-test .meals-container .meal-row.deleted-style .meal-title:hover {
+#edit-mealplan .meals-container .meal-row.deleted-style .meal-title:hover, #add-mealplan .meals-container .meal-row.deleted-style .meal-title:hover {
   text-decoration: none;
 }
-#edit-mealplan-test .collapse {
+#edit-mealplan .collapse, #add-mealplan .collapse {
   margin-bottom: 1rem;
 }
-#edit-mealplan-test .summary-pill {
+#edit-mealplan .summary-pill, #add-mealplan .summary-pill {
   margin-bottom: 1.5rem;
 }
-#edit-mealplan-test a[data-bs-toggle] {
+#edit-mealplan a[data-bs-toggle], #add-mealplan a[data-bs-toggle] {
   position: relative;
   z-index: 2;
 }
-#edit-mealplan-test #collapseTips, #edit-mealplan-test #collapseSummary {
+#edit-mealplan #collapseTips, #edit-mealplan #collapseSummary, #add-mealplan #collapseTips, #add-mealplan #collapseSummary {
   position: relative;
   z-index: 1;
 }
-#edit-mealplan-test #collapseSummary {
+#edit-mealplan #collapseSummary, #add-mealplan #collapseSummary {
   margin-top: -2rem;
 }
-#edit-mealplan-test #collapseTips .tip-container {
+#edit-mealplan #collapseTips .tip-container, #add-mealplan #collapseTips .tip-container {
   padding: 2rem 1.6rem 2.5rem 1.6rem;
   background-color: #2e6930;
   text-align: center;
@@ -24537,64 +24278,64 @@ span.small.text-danger {
   border-radius: 12px;
   cursor: pointer;
 }
-#edit-mealplan-test #collapseTips .tip-container i {
+#edit-mealplan #collapseTips .tip-container i, #add-mealplan #collapseTips .tip-container i {
   font-size: 2rem;
   margin-bottom: 1.3rem;
 }
-#edit-mealplan-test #collapseTips .tip-container .tip-heading {
+#edit-mealplan #collapseTips .tip-container .tip-heading, #add-mealplan #collapseTips .tip-container .tip-heading {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   text-decoration: none;
 }
-#edit-mealplan-test #collapseTips .tip-container .tip-text {
+#edit-mealplan #collapseTips .tip-container .tip-text, #add-mealplan #collapseTips .tip-container .tip-text {
   font-weight: 300;
   font-size: 1rem;
 }
-#edit-mealplan-test #collapseTips .tip-container:hover {
+#edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover {
   background-color: rgb(87.8, 135, 89.4);
 }
-#edit-mealplan-test .buttons-row {
+#edit-mealplan .buttons-row, #add-mealplan .buttons-row {
   margin-top: 5rem;
 }
-#edit-mealplan-test .buttons-row .buttons {
+#edit-mealplan .buttons-row .buttons, #add-mealplan .buttons-row .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-#edit-mealplan-test .buttons-row .buttons button, #edit-mealplan-test .buttons-row .buttons a {
+#edit-mealplan .buttons-row .buttons button, #edit-mealplan .buttons-row .buttons a, #add-mealplan .buttons-row .buttons button, #add-mealplan .buttons-row .buttons a {
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: bold;
   padding: 0.5rem;
 }
 
-#details-mealplan-new .header-container, #add-mealplan-new .header-container, #edit-mealplan-new .header-container {
+#details-mealplan .header-container {
   padding: 10px;
   margin: auto;
   margin-bottom: 2rem;
   max-width: 100%;
 }
-#details-mealplan-new .header-container .heading-secondary, #add-mealplan-new .header-container .heading-secondary, #edit-mealplan-new .header-container .heading-secondary {
+#details-mealplan .header-container .heading-secondary {
   margin-bottom: 0.2rem !important;
 }
-#details-mealplan-new .header-container .meal-plan-header, #add-mealplan-new .header-container .meal-plan-header, #edit-mealplan-new .header-container .meal-plan-header {
+#details-mealplan .header-container .meal-plan-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--accent-color);
   padding-bottom: 10px;
 }
-#details-mealplan-new .header-container .meal-plan-header .meal-plan-title, #add-mealplan-new .header-container .meal-plan-header .meal-plan-title, #edit-mealplan-new .header-container .meal-plan-header .meal-plan-title {
+#details-mealplan .header-container .meal-plan-header .meal-plan-title {
   flex: 1;
   min-width: 400px;
 }
-#details-mealplan-new .header-container .meal-plan-header .status-and-btn, #add-mealplan-new .header-container .meal-plan-header .status-and-btn, #edit-mealplan-new .header-container .meal-plan-header .status-and-btn {
+#details-mealplan .header-container .meal-plan-header .status-and-btn {
   display: flex;
   align-self: flex-start;
   gap: 1rem;
 }
-#details-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-status, #add-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-status, #edit-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-status {
+#details-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-status {
   flex: 0 0 auto;
   align-self: center;
   min-width: 80px;
@@ -24608,29 +24349,29 @@ span.small.text-danger {
   color: var(--bs-body-bg);
   border-radius: 20px;
 }
-#details-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true, #add-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true, #edit-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true {
+#details-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-true {
   background-color: #DA0505;
 }
-#details-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false, #add-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false, #edit-mealplan-new .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false {
+#details-mealplan .header-container .meal-plan-header .status-and-btn .meal-plan-finished-false {
   background-color: #2e6930;
 }
-#details-mealplan-new .header-container .meal-plan-header .status-and-btn .back-btn, #add-mealplan-new .header-container .meal-plan-header .status-and-btn .back-btn, #edit-mealplan-new .header-container .meal-plan-header .status-and-btn .back-btn {
+#details-mealplan .header-container .meal-plan-header .status-and-btn .back-btn {
   flex: 0 0 auto;
   min-width: 60px;
 }
-#details-mealplan-new .header-container .meal-plan-dates, #add-mealplan-new .header-container .meal-plan-dates, #edit-mealplan-new .header-container .meal-plan-dates {
+#details-mealplan .header-container .meal-plan-dates {
   margin-top: 8px;
   text-align: start;
   padding: 0 0.25rem;
   font-size: 1.2rem;
   color: var(--bs-body-color);
 }
-#details-mealplan-new .header-container .meal-plan-dates .label, #add-mealplan-new .header-container .meal-plan-dates .label, #edit-mealplan-new .header-container .meal-plan-dates .label {
+#details-mealplan .header-container .meal-plan-dates .label {
   text-transform: uppercase;
   font-weight: bold;
   color: var(--accent-color);
 }
-#details-mealplan-new .info-pill, #details-mealplan-new .tips-pill, #details-mealplan-new .summary-pill, #add-mealplan-new .info-pill, #add-mealplan-new .tips-pill, #add-mealplan-new .summary-pill, #edit-mealplan-new .info-pill, #edit-mealplan-new .tips-pill, #edit-mealplan-new .summary-pill {
+#details-mealplan .info-pill, #details-mealplan .tips-pill, #details-mealplan .summary-pill {
   padding: 0.8rem 1.25rem;
   margin-bottom: 1rem;
   background-color: #2e6930;
@@ -24642,62 +24383,62 @@ span.small.text-danger {
   font-size: 1.2rem;
   font-weight: bold;
 }
-#details-mealplan-new .no-wrap-text, #add-mealplan-new .no-wrap-text, #edit-mealplan-new .no-wrap-text {
+#details-mealplan .no-wrap-text {
   white-space: nowrap;
 }
-#details-mealplan-new .name-inviting-message, #add-mealplan-new .name-inviting-message, #edit-mealplan-new .name-inviting-message {
+#details-mealplan .name-inviting-message {
   margin-bottom: 0.6rem;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1rem;
   color: var(--accent-color);
 }
-#details-mealplan-new .input-wrapper, #details-mealplan-new .name, #add-mealplan-new .input-wrapper, #add-mealplan-new .name, #edit-mealplan-new .input-wrapper, #edit-mealplan-new .name {
+#details-mealplan .input-wrapper, #details-mealplan .name {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
 }
-#details-mealplan-new .input-wrapper .small.text-danger, #details-mealplan-new .name .small.text-danger, #add-mealplan-new .input-wrapper .small.text-danger, #add-mealplan-new .name .small.text-danger, #edit-mealplan-new .input-wrapper .small.text-danger, #edit-mealplan-new .name .small.text-danger {
+#details-mealplan .input-wrapper .small.text-danger, #details-mealplan .name .small.text-danger {
   align-self: flex-start;
 }
-#details-mealplan-new .name, #add-mealplan-new .name, #edit-mealplan-new .name {
+#details-mealplan .name {
   width: 50%;
   min-width: 300px;
 }
-#details-mealplan-new .name input.form-control, #add-mealplan-new .name input.form-control, #edit-mealplan-new .name input.form-control {
+#details-mealplan .name input.form-control {
   padding: 0.65rem;
 }
-#details-mealplan-new .name input.form-control::placeholder, #add-mealplan-new .name input.form-control::placeholder, #edit-mealplan-new .name input.form-control::placeholder {
+#details-mealplan .name input.form-control::placeholder {
   color: rgb(18.4, 42, 19.2);
 }
-#details-mealplan-new .name-suggestions, #add-mealplan-new .name-suggestions, #edit-mealplan-new .name-suggestions {
+#details-mealplan .name-suggestions {
   margin-top: -0.2rem;
   padding-top: 0;
   color: var(--link-color);
 }
-#details-mealplan-new .name-suggestions a, #add-mealplan-new .name-suggestions a, #edit-mealplan-new .name-suggestions a {
+#details-mealplan .name-suggestions a {
   font-size: 0.8rem;
   margin-top: 0;
   color: var(--link-color);
 }
-#details-mealplan-new .name-suggestions a:hover, #add-mealplan-new .name-suggestions a:hover, #edit-mealplan-new .name-suggestions a:hover {
+#details-mealplan .name-suggestions a:hover {
   color: var(--link-hover-color);
 }
-#details-mealplan-new .name-suggestions .names-container, #add-mealplan-new .name-suggestions .names-container, #edit-mealplan-new .name-suggestions .names-container {
+#details-mealplan .name-suggestions .names-container {
   background-color: #BFE85E;
   padding: 1.6rem 1rem;
   margin-top: 0.6rem;
   border-radius: 12px;
   color: var(--bs-body-color);
 }
-#details-mealplan-new .name-suggestions .names-container h4, #details-mealplan-new .name-suggestions .names-container .h4, #add-mealplan-new .name-suggestions .names-container h4, #add-mealplan-new .name-suggestions .names-container .h4, #edit-mealplan-new .name-suggestions .names-container h4, #edit-mealplan-new .name-suggestions .names-container .h4 {
+#details-mealplan .name-suggestions .names-container h4, #details-mealplan .name-suggestions .names-container .h4 {
   padding: 0 1rem;
   padding-bottom: 0.6rem;
   font-size: 1.3rem;
   font-weight: 300;
 }
-#details-mealplan-new .name-suggestions .names-container .category-container, #add-mealplan-new .name-suggestions .names-container .category-container, #edit-mealplan-new .name-suggestions .names-container .category-container {
+#details-mealplan .name-suggestions .names-container .category-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24705,56 +24446,56 @@ span.small.text-danger {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-#details-mealplan-new .name-suggestions .names-container .category-container .suggestion-category, #add-mealplan-new .name-suggestions .names-container .category-container .suggestion-category, #edit-mealplan-new .name-suggestions .names-container .category-container .suggestion-category {
+#details-mealplan .name-suggestions .names-container .category-container .suggestion-category {
   padding: 0.8rem 0;
   text-align: start;
 }
-#details-mealplan-new .name-suggestions .names-container .category-container .suggestion-category h5, #details-mealplan-new .name-suggestions .names-container .category-container .suggestion-category .h5, #add-mealplan-new .name-suggestions .names-container .category-container .suggestion-category h5, #add-mealplan-new .name-suggestions .names-container .category-container .suggestion-category .h5, #edit-mealplan-new .name-suggestions .names-container .category-container .suggestion-category h5, #edit-mealplan-new .name-suggestions .names-container .category-container .suggestion-category .h5 {
+#details-mealplan .name-suggestions .names-container .category-container .suggestion-category h5, #details-mealplan .name-suggestions .names-container .category-container .suggestion-category .h5 {
   margin-bottom: 0.6rem;
   text-decoration: underline;
   font-size: 1.1rem;
   font-weight: bold;
 }
-#details-mealplan-new .name-suggestions .names-container .category-container .suggestion-category p, #add-mealplan-new .name-suggestions .names-container .category-container .suggestion-category p, #edit-mealplan-new .name-suggestions .names-container .category-container .suggestion-category p {
+#details-mealplan .name-suggestions .names-container .category-container .suggestion-category p {
   margin-bottom: 0.3rem;
   font-weight: normal;
   font-size: 1rem;
 }
-#details-mealplan-new .name-suggestions .names-container .category-container .suggestion-category:last-child, #add-mealplan-new .name-suggestions .names-container .category-container .suggestion-category:last-child, #edit-mealplan-new .name-suggestions .names-container .category-container .suggestion-category:last-child {
+#details-mealplan .name-suggestions .names-container .category-container .suggestion-category:last-child {
   border-right: none;
 }
-#details-mealplan-new .text-style, #add-mealplan-new .text-style, #edit-mealplan-new .text-style {
+#details-mealplan .text-style {
   font-size: 1rem;
 }
-#details-mealplan-new .mealplan-input-style .input-group-text, #add-mealplan-new .mealplan-input-style .input-group-text, #edit-mealplan-new .mealplan-input-style .input-group-text {
+#details-mealplan .mealplan-input-style .input-group-text {
   color: var(--bs-body-bg);
   border-width: 2px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-#details-mealplan-new .mealplan-input-style .input-group-text, #details-mealplan-new .mealplan-input-style .form-control, #details-mealplan-new .mealplan-input-style .form-select, #add-mealplan-new .mealplan-input-style .input-group-text, #add-mealplan-new .mealplan-input-style .form-control, #add-mealplan-new .mealplan-input-style .form-select, #edit-mealplan-new .mealplan-input-style .input-group-text, #edit-mealplan-new .mealplan-input-style .form-control, #edit-mealplan-new .mealplan-input-style .form-select {
+#details-mealplan .mealplan-input-style .input-group-text, #details-mealplan .mealplan-input-style .form-control, #details-mealplan .mealplan-input-style .form-select {
   border: 2px solid #2e6930 !important;
 }
-#details-mealplan-new .mealplan-input-style .form-control, #details-mealplan-new .mealplan-input-style .form-select, #add-mealplan-new .mealplan-input-style .form-control, #add-mealplan-new .mealplan-input-style .form-select, #edit-mealplan-new .mealplan-input-style .form-control, #edit-mealplan-new .mealplan-input-style .form-select {
+#details-mealplan .mealplan-input-style .form-control, #details-mealplan .mealplan-input-style .form-select {
   color: inherit;
   font-family: "League Spartan", sans-serif;
   font-size: 0.9rem;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-#details-mealplan-new .meals-container .meal-row, #add-mealplan-new .meals-container .meal-row, #edit-mealplan-new .meals-container .meal-row {
+#details-mealplan .meals-container .meal-row {
   position: relative;
   padding: 12px 0 12px 0;
   background-color: var(--item-background-color);
   border-radius: 15px;
   margin-bottom: 1rem;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info, #add-mealplan-new .meals-container .meal-row .meal-info, #edit-mealplan-new .meals-container .meal-row .meal-info {
+#details-mealplan .meals-container .meal-row .meal-info {
   display: flex;
   align-items: center;
   gap: 0.7rem;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info .meal-image, #add-mealplan-new .meals-container .meal-row .meal-info .meal-image, #edit-mealplan-new .meals-container .meal-row .meal-info .meal-image {
+#details-mealplan .meals-container .meal-row .meal-info .meal-image {
   position: relative;
   display: flex;
   align-items: center;
@@ -24766,12 +24507,12 @@ span.small.text-danger {
   border-radius: 3px;
   transition: all 0.3s ease;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info .meal-image:hover, #add-mealplan-new .meals-container .meal-row .meal-info .meal-image:hover, #edit-mealplan-new .meals-container .meal-row .meal-info .meal-image:hover {
+#details-mealplan .meals-container .meal-row .meal-info .meal-image:hover {
   transform: scale(1.26) translateX(-2px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info .meal-image img, #add-mealplan-new .meals-container .meal-row .meal-info .meal-image img, #edit-mealplan-new .meals-container .meal-row .meal-info .meal-image img {
+#details-mealplan .meals-container .meal-row .meal-info .meal-image img {
   position: absolute;
   top: 0;
   left: 0;
@@ -24781,54 +24522,54 @@ span.small.text-danger {
   object-position: center;
   transition: all 0.3s ease;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info .meal-image img:hover, #add-mealplan-new .meals-container .meal-row .meal-info .meal-image img:hover, #edit-mealplan-new .meals-container .meal-row .meal-info .meal-image img:hover {
+#details-mealplan .meals-container .meal-row .meal-info .meal-image img:hover {
   transform: none;
 }
-#details-mealplan-new .meals-container .meal-row .meal-info .meal-image a, #add-mealplan-new .meals-container .meal-row .meal-info .meal-image a, #edit-mealplan-new .meals-container .meal-row .meal-info .meal-image a {
+#details-mealplan .meals-container .meal-row .meal-info .meal-image a {
   display: block;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-title, #add-mealplan-new .meals-container .meal-row .meal-content .meal-title, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-title {
+#details-mealplan .meals-container .meal-row .meal-content .meal-title {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.15rem;
   color: var(--bs-body-color);
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-title a, #add-mealplan-new .meals-container .meal-row .meal-content .meal-title a, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-title a {
+#details-mealplan .meals-container .meal-row .meal-content .meal-title a {
   color: inherit;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-title:hover, #add-mealplan-new .meals-container .meal-row .meal-content .meal-title:hover, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-title:hover {
+#details-mealplan .meals-container .meal-row .meal-content .meal-title:hover {
   text-decoration: underline;
   color: inherit;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-stats, #add-mealplan-new .meals-container .meal-row .meal-content .meal-stats, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-stats {
+#details-mealplan .meals-container .meal-row .meal-content .meal-stats {
   color: inherit;
   font-size: 1.1rem;
   font-weight: 300;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-stats i::before, #add-mealplan-new .meals-container .meal-row .meal-content .meal-stats i::before, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-stats i::before {
+#details-mealplan .meals-container .meal-row .meal-content .meal-stats i::before {
   margin-right: 0.25rem;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.separator, #add-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.separator, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.separator {
+#details-mealplan .meals-container .meal-row .meal-content .meal-stats span.separator {
   margin: 0 0.5rem;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.icon-text, #add-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.icon-text, #edit-mealplan-new .meals-container .meal-row .meal-content .meal-stats span.icon-text {
+#details-mealplan .meals-container .meal-row .meal-content .meal-stats span.icon-text {
   margin-right: 0.25rem;
 }
-#details-mealplan-new .meals-container .meal-row .meal-content select, #details-mealplan-new .meals-container .meal-row .meal-content .text-style, #add-mealplan-new .meals-container .meal-row .meal-content select, #add-mealplan-new .meals-container .meal-row .meal-content .text-style, #edit-mealplan-new .meals-container .meal-row .meal-content select, #edit-mealplan-new .meals-container .meal-row .meal-content .text-style {
+#details-mealplan .meals-container .meal-row .meal-content select, #details-mealplan .meals-container .meal-row .meal-content .text-style {
   font-family: "Libre Baskerville", serif;
   font-size: 0.9rem;
 }
-#details-mealplan-new .meals-container .meal-row .button-container, #add-mealplan-new .meals-container .meal-row .button-container, #edit-mealplan-new .meals-container .meal-row .button-container {
+#details-mealplan .meals-container .meal-row .button-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 0.5rem;
 }
-#details-mealplan-new .meals-container .meal-row .button-container span i, #add-mealplan-new .meals-container .meal-row .button-container span i, #edit-mealplan-new .meals-container .meal-row .button-container span i {
+#details-mealplan .meals-container .meal-row .button-container span i {
   font-size: 2.2rem;
 }
-#details-mealplan-new .meals-container .meal-row .button-and-inputs, #add-mealplan-new .meals-container .meal-row .button-and-inputs, #edit-mealplan-new .meals-container .meal-row .button-and-inputs {
+#details-mealplan .meals-container .meal-row .button-and-inputs {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24836,47 +24577,47 @@ span.small.text-danger {
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
-#details-mealplan-new .meals-container .meal-row .button-and-inputs .meal-servings, #add-mealplan-new .meals-container .meal-row .button-and-inputs .meal-servings, #edit-mealplan-new .meals-container .meal-row .button-and-inputs .meal-servings {
+#details-mealplan .meals-container .meal-row .button-and-inputs .meal-servings {
   min-width: 105px;
 }
-#details-mealplan-new .meals-container .meal-row .button-and-inputs .meal-cookdate, #add-mealplan-new .meals-container .meal-row .button-and-inputs .meal-cookdate, #edit-mealplan-new .meals-container .meal-row .button-and-inputs .meal-cookdate {
+#details-mealplan .meals-container .meal-row .button-and-inputs .meal-cookdate {
   min-width: 165px;
 }
-#details-mealplan-new .meals-container .meal-row .button-and-inputs .btn-container, #add-mealplan-new .meals-container .meal-row .button-and-inputs .btn-container, #edit-mealplan-new .meals-container .meal-row .button-and-inputs .btn-container {
+#details-mealplan .meals-container .meal-row .button-and-inputs .btn-container {
   min-width: 46px;
 }
-#details-mealplan-new .meals-container .meal-row .cook-btn, #add-mealplan-new .meals-container .meal-row .cook-btn, #edit-mealplan-new .meals-container .meal-row .cook-btn {
+#details-mealplan .meals-container .meal-row .cook-btn {
   height: 2.1rem;
   font-size: 1.4rem;
 }
-#details-mealplan-new .meals-container .meal-row .remove-btn-container, #add-mealplan-new .meals-container .meal-row .remove-btn-container, #edit-mealplan-new .meals-container .meal-row .remove-btn-container {
+#details-mealplan .meals-container .meal-row .remove-btn-container {
   display: flex;
   justify-content: center;
 }
-#details-mealplan-new .meals-container .meal-row.deleted-style, #add-mealplan-new .meals-container .meal-row.deleted-style, #edit-mealplan-new .meals-container .meal-row.deleted-style {
+#details-mealplan .meals-container .meal-row.deleted-style {
   opacity: 65%;
 }
-#details-mealplan-new .meals-container .meal-row.deleted-style .meal-title:hover, #add-mealplan-new .meals-container .meal-row.deleted-style .meal-title:hover, #edit-mealplan-new .meals-container .meal-row.deleted-style .meal-title:hover {
+#details-mealplan .meals-container .meal-row.deleted-style .meal-title:hover {
   text-decoration: none;
 }
-#details-mealplan-new .collapse, #add-mealplan-new .collapse, #edit-mealplan-new .collapse {
+#details-mealplan .collapse {
   margin-bottom: 1rem;
 }
-#details-mealplan-new .summary-pill, #add-mealplan-new .summary-pill, #edit-mealplan-new .summary-pill {
+#details-mealplan .summary-pill {
   margin-bottom: 1.5rem;
 }
-#details-mealplan-new a[data-bs-toggle], #add-mealplan-new a[data-bs-toggle], #edit-mealplan-new a[data-bs-toggle] {
+#details-mealplan a[data-bs-toggle] {
   position: relative;
   z-index: 2;
 }
-#details-mealplan-new #collapseTips, #details-mealplan-new #collapseSummary, #add-mealplan-new #collapseTips, #add-mealplan-new #collapseSummary, #edit-mealplan-new #collapseTips, #edit-mealplan-new #collapseSummary {
+#details-mealplan #collapseTips, #details-mealplan #collapseSummary {
   position: relative;
   z-index: 1;
 }
-#details-mealplan-new #collapseSummary, #add-mealplan-new #collapseSummary, #edit-mealplan-new #collapseSummary {
+#details-mealplan #collapseSummary {
   margin-top: -2rem;
 }
-#details-mealplan-new #collapseTips .tip-container, #add-mealplan-new #collapseTips .tip-container, #edit-mealplan-new #collapseTips .tip-container {
+#details-mealplan #collapseTips .tip-container {
   padding: 2rem 1.6rem 2.5rem 1.6rem;
   background-color: #2e6930;
   text-align: center;
@@ -24884,38 +24625,38 @@ span.small.text-danger {
   border-radius: 12px;
   cursor: pointer;
 }
-#details-mealplan-new #collapseTips .tip-container i, #add-mealplan-new #collapseTips .tip-container i, #edit-mealplan-new #collapseTips .tip-container i {
+#details-mealplan #collapseTips .tip-container i {
   font-size: 2rem;
   margin-bottom: 1.3rem;
 }
-#details-mealplan-new #collapseTips .tip-container .tip-heading, #add-mealplan-new #collapseTips .tip-container .tip-heading, #edit-mealplan-new #collapseTips .tip-container .tip-heading {
+#details-mealplan #collapseTips .tip-container .tip-heading {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   text-decoration: none;
 }
-#details-mealplan-new #collapseTips .tip-container .tip-text, #add-mealplan-new #collapseTips .tip-container .tip-text, #edit-mealplan-new #collapseTips .tip-container .tip-text {
+#details-mealplan #collapseTips .tip-container .tip-text {
   font-weight: 300;
   font-size: 1rem;
 }
-#details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover {
+#details-mealplan #collapseTips .tip-container:hover {
   background-color: rgb(87.8, 135, 89.4);
 }
-#details-mealplan-new .buttons-row, #add-mealplan-new .buttons-row, #edit-mealplan-new .buttons-row {
+#details-mealplan .buttons-row {
   margin-top: 5rem;
 }
-#details-mealplan-new .buttons-row .buttons, #add-mealplan-new .buttons-row .buttons, #edit-mealplan-new .buttons-row .buttons {
+#details-mealplan .buttons-row .buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-#details-mealplan-new .buttons-row .buttons button, #details-mealplan-new .buttons-row .buttons a, #add-mealplan-new .buttons-row .buttons button, #add-mealplan-new .buttons-row .buttons a, #edit-mealplan-new .buttons-row .buttons button, #edit-mealplan-new .buttons-row .buttons a {
+#details-mealplan .buttons-row .buttons button, #details-mealplan .buttons-row .buttons a {
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: bold;
   padding: 0.5rem;
 }
-#details-mealplan-new .buttons-row .button-right-wrapper, #add-mealplan-new .buttons-row .button-right-wrapper, #edit-mealplan-new .buttons-row .button-right-wrapper {
+#details-mealplan .buttons-row .button-right-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24923,99 +24664,112 @@ span.small.text-danger {
 }
 
 @media (max-width: 800px) {
-  #edit-mealplan-test .meal-stats {
+  #edit-mealplan .meal-stats, #add-mealplan .meal-stats {
     flex-direction: column !important;
   }
-  #edit-mealplan-test .meal-stats .separator {
+  #edit-mealplan .meal-stats .separator, #add-mealplan .meal-stats .separator {
     display: none;
   }
 }
 @media (max-width: 660px) {
-  #edit-mealplan-test .meal-content {
+  #edit-mealplan .names-container h4, #edit-mealplan .names-container .h4, #add-mealplan .names-container h4, #add-mealplan .names-container .h4, #details-mealplan .names-container h4, #details-mealplan .names-container .h4 {
+    padding: 0 0.25rem !important;
+    font-size: 1.1rem !important;
+  }
+  #edit-mealplan .names-container .suggestion-category, #add-mealplan .names-container .suggestion-category, #details-mealplan .names-container .suggestion-category {
+    padding: 0.5rem 0;
+  }
+  #edit-mealplan .names-container .suggestion-category h5, #edit-mealplan .names-container .suggestion-category .h5, #add-mealplan .names-container .suggestion-category h5, #add-mealplan .names-container .suggestion-category .h5, #details-mealplan .names-container .suggestion-category h5, #details-mealplan .names-container .suggestion-category .h5 {
+    font-size: 1rem;
+  }
+  #edit-mealplan .names-container .suggestion-category p, #add-mealplan .names-container .suggestion-category p, #details-mealplan .names-container .suggestion-category p {
+    font-size: 0.9rem;
+  }
+  #edit-mealplan .meal-content, #add-mealplan .meal-content, #details-mealplan .meal-content {
     min-width: 65% !important;
   }
-  #edit-mealplan-test .stats-input-btns-wrapper {
+  #edit-mealplan .stats-input-btns-wrapper, #add-mealplan .stats-input-btns-wrapper, #details-mealplan .stats-input-btns-wrapper {
     gap: 0.5rem !important;
   }
-  #edit-mealplan-test .inputs {
+  #edit-mealplan .inputs, #add-mealplan .inputs, #details-mealplan .inputs {
     flex-direction: column !important;
     flex-grow: 0 !important;
   }
-  #edit-mealplan-test .inputs .form-select {
+  #edit-mealplan .inputs .form-select, #add-mealplan .inputs .form-select, #details-mealplan .inputs .form-select {
     font-size: 0.9rem !important;
   }
-  #edit-mealplan-test .inputs .meal-cookdate {
+  #edit-mealplan .inputs .meal-cookdate, #add-mealplan .inputs .meal-cookdate, #details-mealplan .inputs .meal-cookdate {
     min-width: 150px !important;
   }
 }
 @media (max-width: 500px) {
-  #details-mealplan-new .subheading, #details-mealplan-new .label, #details-mealplan-new .meal-plan-dates, #edit-mealplan-test .subheading, #edit-mealplan-test .label, #edit-mealplan-test .meal-plan-dates {
+  #details-mealplan .subheading, #details-mealplan .label, #details-mealplan .meal-plan-dates, #edit-mealplan .subheading, #edit-mealplan .label, #edit-mealplan .meal-plan-dates, #add-mealplan .subheading, #add-mealplan .label, #add-mealplan .meal-plan-dates {
     font-size: 1rem !important;
   }
-  #details-mealplan-new .name-inviting-message, #edit-mealplan-test .name-inviting-message {
+  #details-mealplan .name-inviting-message, #edit-mealplan .name-inviting-message, #add-mealplan .name-inviting-message {
     font-size: 0.9rem;
   }
-  #details-mealplan-new .status-and-btn, #edit-mealplan-test .status-and-btn {
+  #details-mealplan .status-and-btn, #edit-mealplan .status-and-btn, #add-mealplan .status-and-btn {
     gap: 5px !important;
   }
-  #details-mealplan-new .meal-plan-status, #edit-mealplan-test .meal-plan-status {
+  #details-mealplan .meal-plan-status, #edit-mealplan .meal-plan-status, #add-mealplan .meal-plan-status {
     font-size: 1rem !important;
   }
-  #details-mealplan-new .heading-secondary, #edit-mealplan-test .heading-secondary {
+  #details-mealplan .heading-secondary, #edit-mealplan .heading-secondary, #add-mealplan .heading-secondary {
     font-size: 1.1rem !important;
   }
-  #details-mealplan-new .meal-image, #edit-mealplan-test .meal-image {
+  #details-mealplan .meal-image, #edit-mealplan .meal-image, #add-mealplan .meal-image {
     align-self: start;
   }
-  #details-mealplan-new .meal-title, #edit-mealplan-test .meal-title {
+  #details-mealplan .meal-title, #edit-mealplan .meal-title, #add-mealplan .meal-title {
     font-size: 1rem !important;
     margin-bottom: 0.5rem !important;
   }
-  #details-mealplan-new .meal-stats, #edit-mealplan-test .meal-stats {
+  #details-mealplan .meal-stats, #edit-mealplan .meal-stats, #add-mealplan .meal-stats {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
     font-size: 0.9rem !important;
   }
-  #details-mealplan-new .meal-stats .separator, #edit-mealplan-test .meal-stats .separator {
+  #details-mealplan .meal-stats .separator, #edit-mealplan .meal-stats .separator, #add-mealplan .meal-stats .separator {
     display: none;
   }
-  #details-mealplan-new .button-container, #edit-mealplan-test .button-container {
+  #details-mealplan .button-container, #edit-mealplan .button-container, #add-mealplan .button-container {
     align-self: end;
   }
-  #details-mealplan-new .buttons-three, #edit-mealplan-test .buttons-three {
+  #details-mealplan .buttons-three, #edit-mealplan .buttons-three, #add-mealplan .buttons-three {
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
   }
-  #details-mealplan-new .buttons-three button, #details-mealplan-new .buttons-three a, #edit-mealplan-test .buttons-three button, #edit-mealplan-test .buttons-three a {
+  #details-mealplan .buttons-three button, #details-mealplan .buttons-three a, #edit-mealplan .buttons-three button, #edit-mealplan .buttons-three a, #add-mealplan .buttons-three button, #add-mealplan .buttons-three a {
     width: 100%;
   }
-  #details-mealplan-new .buttons-three .button-right-wrapper, #edit-mealplan-test .buttons-three .button-right-wrapper {
+  #details-mealplan .buttons-three .button-right-wrapper, #edit-mealplan .buttons-three .button-right-wrapper, #add-mealplan .buttons-three .button-right-wrapper {
     flex-direction: column !important;
     gap: 0.5rem !important;
     width: 100%;
   }
-  #details-mealplan-new .buttons-three .button-right-wrapper a, #details-mealplan-new .buttons-three .button-right-wrapper button, #edit-mealplan-test .buttons-three .button-right-wrapper a, #edit-mealplan-test .buttons-three .button-right-wrapper button {
+  #details-mealplan .buttons-three .button-right-wrapper a, #details-mealplan .buttons-three .button-right-wrapper button, #edit-mealplan .buttons-three .button-right-wrapper a, #edit-mealplan .buttons-three .button-right-wrapper button, #add-mealplan .buttons-three .button-right-wrapper a, #add-mealplan .buttons-three .button-right-wrapper button {
     width: 100% !important;
   }
-  #details-mealplan-new .buttons, #edit-mealplan-test .buttons {
+  #details-mealplan .buttons, #edit-mealplan .buttons, #add-mealplan .buttons {
     flex-direction: column;
     gap: 0.5rem;
   }
-  #details-mealplan-new .buttons a, #details-mealplan-new .buttons button, #edit-mealplan-test .buttons a, #edit-mealplan-test .buttons button {
+  #details-mealplan .buttons a, #details-mealplan .buttons button, #edit-mealplan .buttons a, #edit-mealplan .buttons button, #add-mealplan .buttons a, #add-mealplan .buttons button {
     width: 100%;
   }
 }
 @media (max-width: 450px) {
-  #edit-mealplan-test .stats-input-btns-wrapper {
+  #edit-mealplan .stats-input-btns-wrapper, #add-mealplan .stats-input-btns-wrapper {
     position: relative;
     flex-direction: column !important;
   }
-  #edit-mealplan-test .inputs .form-select {
+  #edit-mealplan .inputs .form-select, #add-mealplan .inputs .form-select {
     line-height: 1.13rem;
   }
-  #edit-mealplan-test .meal-buttons {
+  #edit-mealplan .meal-buttons, #add-mealplan .meal-buttons {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -26369,7 +26123,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover {
+.hover-state, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #details-mealplan #collapseTips .tip-container:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -26649,8 +26403,6 @@ li.user-btn:hover i.fa {
   color: #B4E33D !important;
 }
 
-.details-btn,
-.list-btn,
 .download-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -26659,21 +26411,15 @@ li.user-btn:hover i.fa {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 40px;
-  border: 1px solid #2e6930;
+  height: 46px;
+  border: 1px solid var(--bs-body-bg);
   border-radius: 2px;
   overflow: hidden;
   background-color: var(--bs-body-bg);
-  width: 44px;
-  font-size: 22px;
+  width: 50.6px;
+  font-size: 25.3px;
 }
-.details-btn i, .details-btn .fa, .details-btn .fas,
-.list-btn i,
-.list-btn .fa,
-.list-btn .fas,
-.download-btn i,
-.download-btn .fa,
-.download-btn .fas {
+.download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -26683,8 +26429,6 @@ li.user-btn:hover i.fa {
   color: #2e6930;
   z-index: 1;
 }
-.details-btn::before,
-.list-btn::before,
 .download-btn::before {
   content: "";
   position: absolute;
@@ -26696,20 +26440,12 @@ li.user-btn:hover i.fa {
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.details-btn:hover,
-.list-btn:hover,
 .download-btn:hover {
   background-color: #2e6930;
   border: 1px solid #2e6930;
   border-radius: 2px;
 }
-.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
-.list-btn:hover i,
-.list-btn:hover .fa,
-.list-btn:hover .fas,
-.download-btn:hover i,
-.download-btn:hover .fa,
-.download-btn:hover .fas {
+.download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -26756,6 +26492,61 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
+  color: var(--bs-body-bg);
+}
+
+.details-btn,
+.list-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--bs-body-bg);
+  width: 44px;
+  font-size: 22px;
+}
+.details-btn i, .details-btn .fa, .details-btn .fas,
+.list-btn i,
+.list-btn .fa,
+.list-btn .fas {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2e6930;
+  z-index: 1;
+}
+.details-btn::before,
+.list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.details-btn:hover,
+.list-btn:hover {
+  background-color: #2e6930;
+  border: 1px solid #2e6930;
+  border-radius: 2px;
+}
+.details-btn:hover i, .details-btn:hover .fa, .details-btn:hover .fas,
+.list-btn:hover i,
+.list-btn:hover .fa,
+.list-btn:hover .fas {
   color: var(--bs-body-bg);
 }
 
@@ -28756,7 +28547,7 @@ li.user-btn:hover i.fa {
   }
 }
 
-.hover-state, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover {
+.hover-state, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #details-mealplan #collapseTips .tip-container:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -29864,7 +29655,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover {
+.hover-state, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #details-mealplan #collapseTips .tip-container:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -31950,7 +31741,7 @@ span.small.text-danger {
   }
 }
 
-.hover-state, #edit-mealplan-test .tips-pill:hover, #edit-mealplan-test .summary-pill:hover, #edit-mealplan-test #collapseTips .tip-container:hover, #details-mealplan-new .tips-pill:hover, #details-mealplan-new .summary-pill:hover, #add-mealplan-new .tips-pill:hover, #add-mealplan-new .summary-pill:hover, #edit-mealplan-new .tips-pill:hover, #edit-mealplan-new .summary-pill:hover, #details-mealplan-new #collapseTips .tip-container:hover, #add-mealplan-new #collapseTips .tip-container:hover, #edit-mealplan-new #collapseTips .tip-container:hover {
+.hover-state, #edit-mealplan .tips-pill:hover, #edit-mealplan .summary-pill:hover, #add-mealplan .tips-pill:hover, #add-mealplan .summary-pill:hover, #edit-mealplan #collapseTips .tip-container:hover, #add-mealplan #collapseTips .tip-container:hover, #details-mealplan .tips-pill:hover, #details-mealplan .summary-pill:hover, #details-mealplan #collapseTips .tip-container:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;

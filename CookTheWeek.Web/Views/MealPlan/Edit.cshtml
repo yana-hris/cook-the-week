@@ -17,7 +17,7 @@
     }
 
 }
-<div id="edit-mealplan-test">
+<div id="edit-mealplan">
     <div class="card-outer-container">
 
         <div class="header-container">
@@ -155,6 +155,7 @@
 
                                             <div class="meal-stats">
                                                 <input type="hidden" asp-for="Meals[i].CategoryName" />
+                                                <input type="hidden" asp-for="Meals[i].CookingTime" />
                                                 <span class="stat">
                                                     <i class="fa-solid fa-layer-group"></i>
                                                     <span class="icon-text">@currentMeal.CategoryName</span>
@@ -178,7 +179,7 @@
                                                             <input type="hidden" asp-for="Meals[i].Servings" />
 
                                                             <select class="form-select text-style disabled"
-                                                                    asp-for="@currentMeal.Servings"
+                                                                    asp-for="@Model.Meals[i].Servings"
                                                                     data-val="true">
                                                                 <option value="">Servs</option>
                                                                 @foreach (var option in @Model.Meals.First().SelectServingOptions)

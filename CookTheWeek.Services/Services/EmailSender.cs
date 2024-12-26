@@ -44,14 +44,14 @@
             }
 
             string subject = "❗️Confirm your registration";
-            string plainTextContent = $"Please confirm your account by clicking this link: {callbackUrl}";
             string htmlContent = formatter.GetEmailConfirmationHtml(email, callbackUrl);
+            string plainTextContent = $"Please confirm your account by clicking this link: {callbackUrl}";
 
             var result = await SendEmailAsync(
                 email,
                 subject,
                 plainTextContent,
-                $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                htmlContent);
 
             if (result.Succeeded)
             {
