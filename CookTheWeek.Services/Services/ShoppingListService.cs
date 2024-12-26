@@ -30,7 +30,7 @@
             this.ingredientHelper = ingredientHelper; 
         }
 
-        // TODO: move to viewmodel factory
+        
         public async Task<ShoppingListViewModel> TryGetShoppingListDataByMealPlanIdAsync(Guid id)
         {
             MealPlan mealplan = await mealPlanService.GetByIdAsync(id);
@@ -38,6 +38,7 @@
             ShoppingListViewModel model = new ShoppingListViewModel
             {
                 MealPlanId = mealplan.Id.ToString(),
+                UserEmail = mealplan.Owner.Email,
                 Title = mealplan.Name,
                 StartDate = mealplan.StartDate.ToString(MealDateFormat),
                 EndDate = mealplan.StartDate.AddDays(6).ToString(MealDateFormat),

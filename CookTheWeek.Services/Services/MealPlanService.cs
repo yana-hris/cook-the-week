@@ -251,6 +251,7 @@
         public async Task<MealPlan> GetByIdAsync(Guid id)
         {
             MealPlan? mealplan = await mealplanRepository.GetByIdQuery(id)
+                .Include(mp => mp.Owner)
                 .Include(mp => mp.Meals)
                     .ThenInclude(m => m.Recipe)
                         .ThenInclude(r => r.RecipesIngredients)

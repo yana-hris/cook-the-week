@@ -40,15 +40,31 @@
         }
     }
 
-    #generatePdfBtn {
+    .group-buttons-container {
+        position: absolute;
+        top: 33px;
+        right: 33px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    /*#generatePdfBtn {
         position: absolute;
         top: 33px;
         right: 84px;
+    }
+
+    #emailBtn {
+        position: absolute;
+        top: 33px;
+
     }
     
     #backBtn {
         position: absolute;
         top: 33px;
-        right: 33px;        
-    }
+        right: 33px;
+    }*/
 }

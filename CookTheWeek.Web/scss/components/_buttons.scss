@@ -87,7 +87,10 @@ li.user-btn {
 
 .download-btn {
     @include icon-button(var(--bs-body-bg), $primary, false, false, 1px, true, 46px, null, null, $border-radius);
+}
 
+.send-email-btn {
+    @include icon-button(var(--bs-body-bg), var(--accent-color), false, false, 1px, true, 46px, null, null, $border-radius);
 }
 
 .back-button-main {

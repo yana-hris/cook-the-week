@@ -12,6 +12,7 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Home;
     using CookTheWeek.Services.Data.Helpers;
+    using CookTheWeek.Web.ViewModels.ShoppingList;
 
     public class EmailSender : IEmailSender
     {
@@ -109,7 +110,11 @@
             var plainTextContent = $"Name: {model.FullName}\nEmail: {model.EmailAddress}\nMessage: {model.Message}";
             var htmlContent = $"<strong>Name:</strong> {model.FullName}<br><strong>Email:</strong> {model.EmailAddress}<br><strong>Message:</strong> {model.Message}";
 
-            var result = await SendEmailAsync(model.EmailAddress, model.Subject, plainTextContent, htmlContent);
+            var result = await SendEmailAsync(
+                model.EmailAddress, 
+                model.Subject, 
+                plainTextContent, 
+                htmlContent);
 
             if (result.Succeeded)
             {
@@ -125,6 +130,34 @@
             return OperationResult.Failure(result.Errors);
         }
 
+        /// <inheritdoc/>
+        public async Task<OperationResult> SendShoppingListEmailAsync(ShoppingListViewModel model)
+        {
+            
+            var emailContent = formatter.GetShoppingListHtmlContent(model);
+            var plainTextContent = "Here is your shopping List";
+            var subject = $"Shopping List for {model.StartDate:MMMM d, yyyy} - {model.EndDate:MMMM d, yyyy}";
+
+            var result = await SendEmailAsync(
+                email: model.UserEmail,
+                subject: subject,
+                plainTextContent: plainTextContent,
+                htmlMessage: emailContent);
+
+            if (result.Succeeded)
+            {
+                return OperationResult.Success();
+            }
+
+            logger.LogError("Failed to send shopping list email. Action: {Action}, From: {FromEmail}, Errors: {Errors}",
+                nameof(SendShoppingListEmailAsync),
+                model.UserEmail,
+                string.Join(", ", result.Errors.Select(e => $"{e.Key}: {e.Value}")));
+
+            return OperationResult.Failure(result.Errors);
+        }
+
+
         /// <summary>
         /// Utility method for sending emails reused in the Email Service only, handling exceptions by logging and appending errors to the Operation Result object
         /// </summary>
@@ -135,9 +168,21 @@
         /// <returns>Operation Result (Success or Failure, with Errors Dictionary)</returns>
         private async Task<OperationResult> SendEmailAsync(string email, string subject, string plainTextContent, string htmlMessage)
         {
+            string fromString = configuration["EmailSettings:FromEmail"];
+
+            // Validate both emails
+            if (string.IsNullOrEmpty(email) || !IsValidEmail(email) || string.IsNullOrEmpty(fromString) || !IsValidEmail(fromString))
+            {
+                logger.LogError("Invalid or missing email address. From: {FromEmail}, To: {ToEmail}", fromString ?? "null", email ?? "null");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "EmailError", "Invalid or missing email address." }
+                });
+            }
+
             try
             {
-                var from = new EmailAddress(configuration["EmailSettings:FromEmail"], "CookTheWeek Support");
+                var from = new EmailAddress(fromString, "CookTheWeek Support");
                 var to = new EmailAddress(email);
 
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlMessage);
@@ -184,6 +229,23 @@
             }
         }
 
-        
+
+        /// <summary>
+        /// Utility method for validating email addresses
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>true or false</returns>
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -1,10 +1,16 @@
 ﻿@model ShoppingListViewModel
 <div id="shopping-list" class="shopping-list-container">
+    @Html.AntiForgeryToken()
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
-    <a id="generatePdfBtn" class="download-btn">
-        <i class="fa fa-download"></i>
-    </a>
-    <partial name="_BackBtnPartial"/>
+    <div class="group-buttons-container">
+        <a id="generatePdfBtn" class="download-btn">
+            <i class="fa fa-download"></i>
+        </a>
+        <a id="emailBtn" class="send-email-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+        </a>
+        <partial name="_BackBtnPartial" />
+    </div>
 </div>
     
 <script>
@@ -14,6 +20,40 @@
             e.preventDefault();
             // Navigate to the controller action URL to trigger download
             window.location.href = '/ShoppingList/GetShoppingListAsPdf?id=@Model.MealPlanId';
+        });
+
+        $('#emailBtn').click(function (e) {
+            e.preventDefault();
+            
+            const mealPlanId = '@Model.MealPlanId';
+            const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+            if(!mealPlanId) {
+                toastr.error("Error: cannot send meal plan to email.");
+                console.log("Email ID is invalid. Cannot send to email!");
+                return;
+            }
+
+
+            $.ajax({
+                url: '/ShoppingList/EmailShoppingList',
+                method: 'POST',
+                data: {id: mealPlanId},
+                 headers: {
+                "RequestVerificationToken": antiForgeryToken
+                },
+                success: function(response) {
+                    if(response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message || "Failed to send shopping list email.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while sending the email. Please try again.");
+                    console.error("Error:", error, "Status:", status, "XHR:", xhr);
+                }
+            });
         });
     });
 </script>

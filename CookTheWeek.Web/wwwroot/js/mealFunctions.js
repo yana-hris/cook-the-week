@@ -1,6 +1,6 @@
 ﻿function toggleMealState($button, mealId, url, successMessage, errorMessage) {
     return new Promise((resolve, reject) => {
-        debugger;
+        
         const data = { id: mealId };
         const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 

@@ -2,6 +2,8 @@
 {
     using System.Web;
 
+    using CookTheWeek.Web.ViewModels.ShoppingList;
+
     internal class EmailFormatter
     {
         internal string GetPasswordResetHtmlContent(string userName, string callbackUrl, string tokenExpirationTime)
@@ -205,9 +207,9 @@
             </div>
 
             <!-- Confirmation Button -->
-            <div class=""button"">
+            <div style=""text-align: center;"">
                 <p>Please confirm your email address by clicking the button below:</p>
-                <a href=""{callbackUrl}"">Confirm Email</a>
+                <a class=""button"" href=""{callbackUrl}"">Confirm Email</a>
             </div>
 
             <!-- How It Works Section -->
@@ -253,5 +255,61 @@
     </html>";
         }
 
+        internal string GetShoppingListHtmlContent(ShoppingListViewModel model)
+        {
+            string cssFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/css/style.css");
+
+            string cssContent = File.Exists(cssFilePath) ? File.ReadAllText(cssFilePath) : string.Empty;
+
+            return $@"<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Your Shopping List</title>
+    <style>
+        {cssContent}
+        /* Add email-specific styles if needed */
+        .email-container {{
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }}
+        .email-header {{
+            text-align: center;
+            margin-bottom: 20px;
+        }}
+    </style>
+</head>
+<body>
+    <div class=""email-container"">
+        <div class=""email-header"">
+            <h1>Your Shopping List</h1>
+            <p>For {model.StartDate:MMMM d, yyyy} to {model.EndDate:MMMM d, yyyy}</p>
+        </div>
+        <div class=""shopping-list-section"">
+            {string.Join("", model.ShopItemsByCategories.Select(category => $@"
+            <div class=""shopping-category"">
+                <h3>{category.Title}</h3>
+                <ul>
+                    {string.Join("", category.SupplyItems.Select(item => $@"
+                        <li class=""shopping-item"">
+                            {item.Qty} {item.Measure} {item.Name} {item.Specification}
+                        </li>
+                    "))}
+                </ul>
+            </div>
+            "))}
+        </div>
+        <div class=""footer"">
+            &copy; 2024 CookTheWeek. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>";
+        }
     }
 }
