@@ -4155,7 +4155,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .download-btn::before {
@@ -4170,8 +4170,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .download-btn:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
@@ -4247,7 +4247,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .back-button-main::before {
@@ -4262,8 +4262,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .back-button-main:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
@@ -9653,7 +9653,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .download-btn::before {
@@ -9668,8 +9668,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .download-btn:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
@@ -9745,7 +9745,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .back-button-main::before {
@@ -9760,8 +9760,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .back-button-main:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
@@ -15977,7 +15977,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .download-btn::before {
@@ -15992,8 +15992,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .download-btn:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
@@ -16069,7 +16069,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .back-button-main::before {
@@ -16084,8 +16084,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .back-button-main:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
@@ -21192,7 +21192,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .download-btn::before {
@@ -21207,8 +21207,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .download-btn:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
@@ -21284,7 +21284,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .back-button-main::before {
@@ -21299,8 +21299,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .back-button-main:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {
@@ -26610,7 +26610,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .download-btn::before {
@@ -26625,8 +26625,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .download-btn:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .download-btn:hover i, .download-btn:hover .fa, .download-btn:hover .fas {
@@ -26702,7 +26702,7 @@ li.user-btn:hover i.fa {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #2e6930;
+  color: var(--accent-color);
   z-index: 1;
 }
 .back-button-main::before {
@@ -26717,8 +26717,8 @@ li.user-btn:hover i.fa {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .back-button-main:hover {
-  background-color: #2e6930;
-  border: 1px solid #2e6930;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 2px;
 }
 .back-button-main:hover i, .back-button-main:hover .fa, .back-button-main:hover .fas {

@@ -257,9 +257,63 @@
 
         internal string GetShoppingListHtmlContent(ShoppingListViewModel model)
         {
-            string cssFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/css/style.css");
+            string inlineCss = @"
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .email-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            margin-top: 20px;
+        }
+        .dates {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+        .shopping-category {
+            margin-bottom: 15px;
+        }
+        ul {
+            padding-left: 20px;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            list-style-type: none;
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+        .ingredient-heading {
+            font-size: 16px;
+            text-decoration: underline;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .footer {
+            font-size: 12px;
+            color: #2e6930;
+            text-align: center;
+            margin-top: 30px;
+        }";
 
-            string cssContent = File.Exists(cssFilePath) ? File.ReadAllText(cssFilePath) : string.Empty;
 
             return $@"<!DOCTYPE html>
 <html>
@@ -268,36 +322,24 @@
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
     <title>Your Shopping List</title>
     <style>
-        {cssContent}
-        /* Add email-specific styles if needed */
-        .email-container {{
-            max-width: 600px;
-            margin: 20px auto;
-            background: #ffffff;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }}
-        .email-header {{
-            text-align: center;
-            margin-bottom: 20px;
-        }}
+        {inlineCss}
     </style>
 </head>
 <body>
     <div class=""email-container"">
         <div class=""email-header"">
+            <img src=""https://i.imgur.com/M9KlsA5.png"" alt=""CookTheWeek Logo"" width=""auto"" height=""80px"" style=""display: block; margin: 0 auto; max-height: 6rem;"">
             <h1>Your Shopping List</h1>
-            <p>For {model.StartDate:MMMM d, yyyy} to {model.EndDate:MMMM d, yyyy}</p>
+            <p class=""dates"">For {model.StartDate:MMMM d, yyyy} to {model.EndDate:MMMM d, yyyy}</p>
         </div>
         <div class=""shopping-list-section"">
-            {string.Join("", model.ShopItemsByCategories.Select(category => $@"
+            {string.Join("", model.ShopItemsByCategories.Where(c => c.SupplyItems.Count > 0).Select(category => $@"
             <div class=""shopping-category"">
-                <h3>{category.Title}</h3>
+                <p class=""ingredient-heading"">{category.Title}</p>
                 <ul>
                     {string.Join("", category.SupplyItems.Select(item => $@"
                         <li class=""shopping-item"">
-                            {item.Qty} {item.Measure} {item.Name} {item.Specification}
+                            {item.Qty} <span style=""font-weight: 300;"">{item.Measure}</span> {item.Name} {item.Specification}
                         </li>
                     "))}
                 </ul>

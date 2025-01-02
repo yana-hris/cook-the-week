@@ -10,7 +10,6 @@
 
     using static CookTheWeek.Common.NotificationMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using System.ClientModel.Primitives;
 
     public class ShoppingListController : BaseController
     {
