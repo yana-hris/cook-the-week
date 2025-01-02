@@ -182,6 +182,16 @@
                     right: 7px;
                     z-index: 2;
                 }
+
+                .cook-meal-button {
+                    i {
+                        color: $primary;
+
+                        &:hover {
+                            color: #fff !important;
+                        }
+                    }
+                }
             }
 
             .features-row {

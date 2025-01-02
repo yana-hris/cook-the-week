@@ -126,7 +126,6 @@ li.user-btn {
     }
 }
 
-
 .uncook-meal-button {
     @include icon-button($primary, var(--bs-body-bg), true, false, 2px, true, 36px, null, null, $border-radius-small);
     @include button-box-shadow-effect();

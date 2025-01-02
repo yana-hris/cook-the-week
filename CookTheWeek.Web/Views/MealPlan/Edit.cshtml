@@ -274,10 +274,10 @@
                                             <div class="meal-buttons">
                                                 <div class="btn-container">
                                                     <!-- Cook / Uncook Button -->
+                                                    <input type="hidden" asp-for="Meals[i].IsCooked" />
+                                                    <input type="hidden" asp-for="Meals[i].RecipeId" />
                                                     @if (!isCooked)
                                                     {
-                                                        <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
-                                                        <input type="hidden" asp-for="Meals[i].RecipeId" />
                                                         <a class="meal-button cook-meal-button"
                                                            data-meal-id="@currentMeal.Id"
                                                            data-bs-toggle="tooltip"
@@ -285,13 +285,9 @@
                                                            title="Mark Cooked">
                                                             <i class="fa-solid fa-check"></i>
                                                         </a>
-
                                                     }
                                                     else
                                                     {
-
-                                                        <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
-                                                        <input type="hidden" asp-for="Meals[i].RecipeId" />
                                                         <a class="meal-button uncook-meal-button"
                                                            data-meal-id="@currentMeal.Id"
                                                            data-bs-toggle="tooltip"
@@ -299,12 +295,10 @@
                                                            title="Not Cooked?">
                                                             <i class="fa-solid fa-check"></i>
                                                         </a>
-
                                                     }
                                                 </div>
                                                 <div class="btn-container">
                                                     <!-- Delete Button -->
-                                                    <input type="hidden" asp-for="@Model.Meals[i].IsCooked" />
                                                     <a data-meal-Id="@Model.Meals[i].Id"
                                                         data-bs-toggle="tooltip"
                                                         data-bs-placement="top"
@@ -418,6 +412,9 @@
                 const $button = $(this);
                 const mealId = $button.data('meal-id');
                 $button.off('click');
+                debugger;
+                const isCookedInput = $button.closest('.btn-container').find('input[name$=".IsCooked"]');
+                console.log(isCookedInput);
 
                 if ($button.hasClass('cook-meal-button')) {
                     // Attach cookMeal event
@@ -426,6 +423,8 @@
                         event.stopPropagation();
 
                         cookMeal($button, mealId);
+                        isCookedInput.val('true');
+                       
 
                     });
                 } else if ($button.hasClass('uncook-meal-button')) {
@@ -435,6 +434,7 @@
                         event.stopPropagation();
 
                         unCookMeal($button, mealId);
+                        isCookedInput.val('false');
                     });
                 }
             });
