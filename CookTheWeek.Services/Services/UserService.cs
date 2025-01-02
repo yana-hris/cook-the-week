@@ -373,7 +373,11 @@
         /// <inheritdoc/>
         public async Task<OperationResult> TryLoginUserAsync(LoginFormModel model)
         {
-            var user = await userRepository.GetByUsernameAsync(model.Username);
+            var user = await userRepository
+                .GetAllQuery()
+                .Include(user => user.MealPlans)
+                .Where(user => user.UserName.ToLower() == model.Username.ToLower())
+                .FirstOrDefaultAsync();   //userRepository.GetByUsernameAsync(model.Username);
 
             if (user == null)
             {
@@ -405,6 +409,14 @@
             if (signInResult.Succeeded)
             {
                 bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);
+
+                
+                if (!isAdmin) // only ordinary users have meal plans
+                {
+                    bool hasActiveMealPlan = user.MealPlans.Any(mp => !mp.IsFinished);
+                    await UpdateMealPlanClaimAsync(user.Id, hasActiveMealPlan);
+                }
+
                 return OperationResult.Success(new Dictionary<string, object>
                 {
                     { IsAdmin, isAdmin }
@@ -769,16 +781,11 @@
             if (user != null)
             {
                 var claims = await userManager.GetClaimsAsync(user);
-                var existingClaim = claims.FirstOrDefault(c => c.Type == HasActiveMealPlanClaimName);
-
-                if (existingClaim != null)
+                // Remove all existing claims of this type
+                var claimsToRemove = claims.Where(c => c.Type == HasActiveMealPlanClaimName).ToList();
+                foreach (var claim in claimsToRemove)
                 {
-                    bool currentValue = bool.Parse(existingClaim.Value);
-
-                    if (currentValue != newClaimValue)
-                    {
-                        await userManager.RemoveClaimAsync(user, existingClaim);
-                    }
+                    var removeResult = await userManager.RemoveClaimAsync(user, claim);
                 }
 
                 await userManager.AddClaimAsync(user, new Claim(HasActiveMealPlanClaimName, newClaimValue.ToString()));
