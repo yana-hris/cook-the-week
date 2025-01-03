@@ -346,7 +346,7 @@
                                 font-weight: 300;
                                 white-space: nowrap;
 
-                                i::before, {
+                                i::before {
                                     margin-right: 0.25rem;
                                 }
 
@@ -357,9 +357,6 @@
                                 span.icon-text {
                                     margin-right: 0.25rem;
                                 }
-                                /*span.separator { // On small scr
-                                    display: none;
-                                }*/
                             }
                         }
 
@@ -782,6 +779,7 @@
             }
 
             .meal-content {
+                align-self: start;
 
                 .meal-title {
                     font-family: $font-family-serif;
@@ -802,7 +800,7 @@
 
                 .meal-stats {
                     color: inherit;
-                    font-size: 1.1rem;
+                    font-size: 1rem;
                     font-weight: 300;
 
                     i::before {
@@ -817,7 +815,7 @@
                         margin-right: 0.25rem;
                     }
                 }
-                // TODO: Change
+                
                 select, .text-style {
                     font-family: $font-family-serif;
                     font-size: 0.9rem;
@@ -1078,7 +1076,7 @@
             align-self: end;
         }
 
-        .buttons-three {
+        .buttons-three, .buttons {
             flex-direction: column;
             justify-content: center;
             gap: 0.5rem;
@@ -1095,15 +1093,6 @@
                 a, button {
                     width: 100% !important;
                 }
-            }
-        }
-
-        .buttons {
-            flex-direction: column;
-            gap: 0.5rem;
-
-            a, button {
-                width: 100%;
             }
         }
     }

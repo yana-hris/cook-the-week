@@ -49,22 +49,12 @@
         justify-content: space-between;
         gap: 10px;
     }
+}
 
-    /*#generatePdfBtn {
-        position: absolute;
-        top: 33px;
-        right: 84px;
+@media (max-width: 800px) {
+    #shopping-list {
+        .group-buttons-container {
+            flex-direction: column !important;
+        }
     }
-
-    #emailBtn {
-        position: absolute;
-        top: 33px;
-
-    }
-    
-    #backBtn {
-        position: absolute;
-        top: 33px;
-        right: 33px;
-    }*/
 }

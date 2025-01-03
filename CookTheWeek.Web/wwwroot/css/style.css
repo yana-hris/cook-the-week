@@ -25525,9 +25525,6 @@ span.small.text-danger {
   font-size: 1rem;
   font-weight: 300;
   white-space: nowrap;
-  /*span.separator { // On small scr
-      display: none;
-  }*/
 }
 #edit-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat i::before, #add-mealplan .meals-container .meal-row .meal-container .meal-content .stats-input-btns-wrapper .meal-stats .stat i::before {
   margin-right: 0.25rem;
@@ -25860,6 +25857,9 @@ span.small.text-danger {
 #details-mealplan .meals-container .meal-row .meal-info .meal-image a {
   display: block;
 }
+#details-mealplan .meals-container .meal-row .meal-content {
+  align-self: start;
+}
 #details-mealplan .meals-container .meal-row .meal-content .meal-title {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
@@ -25876,7 +25876,7 @@ span.small.text-danger {
 }
 #details-mealplan .meals-container .meal-row .meal-content .meal-stats {
   color: inherit;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
 }
 #details-mealplan .meals-container .meal-row .meal-content .meal-stats i::before {
@@ -26069,28 +26069,21 @@ span.small.text-danger {
   #details-mealplan .button-container, #edit-mealplan .button-container, #add-mealplan .button-container {
     align-self: end;
   }
-  #details-mealplan .buttons-three, #edit-mealplan .buttons-three, #add-mealplan .buttons-three {
+  #details-mealplan .buttons-three, #details-mealplan .buttons, #edit-mealplan .buttons-three, #edit-mealplan .buttons, #add-mealplan .buttons-three, #add-mealplan .buttons {
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
   }
-  #details-mealplan .buttons-three button, #details-mealplan .buttons-three a, #edit-mealplan .buttons-three button, #edit-mealplan .buttons-three a, #add-mealplan .buttons-three button, #add-mealplan .buttons-three a {
+  #details-mealplan .buttons-three button, #details-mealplan .buttons-three a, #details-mealplan .buttons button, #details-mealplan .buttons a, #edit-mealplan .buttons-three button, #edit-mealplan .buttons-three a, #edit-mealplan .buttons button, #edit-mealplan .buttons a, #add-mealplan .buttons-three button, #add-mealplan .buttons-three a, #add-mealplan .buttons button, #add-mealplan .buttons a {
     width: 100%;
   }
-  #details-mealplan .buttons-three .button-right-wrapper, #edit-mealplan .buttons-three .button-right-wrapper, #add-mealplan .buttons-three .button-right-wrapper {
+  #details-mealplan .buttons-three .button-right-wrapper, #details-mealplan .buttons .button-right-wrapper, #edit-mealplan .buttons-three .button-right-wrapper, #edit-mealplan .buttons .button-right-wrapper, #add-mealplan .buttons-three .button-right-wrapper, #add-mealplan .buttons .button-right-wrapper {
     flex-direction: column !important;
     gap: 0.5rem !important;
     width: 100%;
   }
-  #details-mealplan .buttons-three .button-right-wrapper a, #details-mealplan .buttons-three .button-right-wrapper button, #edit-mealplan .buttons-three .button-right-wrapper a, #edit-mealplan .buttons-three .button-right-wrapper button, #add-mealplan .buttons-three .button-right-wrapper a, #add-mealplan .buttons-three .button-right-wrapper button {
+  #details-mealplan .buttons-three .button-right-wrapper a, #details-mealplan .buttons-three .button-right-wrapper button, #details-mealplan .buttons .button-right-wrapper a, #details-mealplan .buttons .button-right-wrapper button, #edit-mealplan .buttons-three .button-right-wrapper a, #edit-mealplan .buttons-three .button-right-wrapper button, #edit-mealplan .buttons .button-right-wrapper a, #edit-mealplan .buttons .button-right-wrapper button, #add-mealplan .buttons-three .button-right-wrapper a, #add-mealplan .buttons-three .button-right-wrapper button, #add-mealplan .buttons .button-right-wrapper a, #add-mealplan .buttons .button-right-wrapper button {
     width: 100% !important;
-  }
-  #details-mealplan .buttons, #edit-mealplan .buttons, #add-mealplan .buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  #details-mealplan .buttons a, #details-mealplan .buttons button, #edit-mealplan .buttons a, #edit-mealplan .buttons button, #add-mealplan .buttons a, #add-mealplan .buttons button {
-    width: 100%;
   }
 }
 @media (max-width: 450px) {
@@ -32274,23 +32267,6 @@ span.small.text-danger {
 #shopping-list {
   position: relative;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  /*#generatePdfBtn {
-      position: absolute;
-      top: 33px;
-      right: 84px;
-  }
-
-  #emailBtn {
-      position: absolute;
-      top: 33px;
-
-  }
-
-  #backBtn {
-      position: absolute;
-      top: 33px;
-      right: 33px;
-  }*/
 }
 #shopping-list section#shopping-list-section #heading-container {
   margin-bottom: 12px;
@@ -32324,6 +32300,11 @@ span.small.text-danger {
   gap: 10px;
 }
 
+@media (max-width: 800px) {
+  #shopping-list .group-buttons-container {
+    flex-direction: column !important;
+  }
+}
 :root {
   --bs-body-bg: #fff;
   --bs-body-color: #212529;

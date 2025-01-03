@@ -1,21 +1,17 @@
 ﻿import { AppConfig }  from './config.js';
 
-//document.addEventListener('DOMContentLoaded', () => {
-//    console.log("Current View:", AppConfig.currentView);
-//    console.log("Current User ID:", AppConfig.currentUserId);
-//    console.log("Has Active Meal Plan:", AppConfig.hasActiveMealplan);
-
-//    if (AppConfig.hasActiveMealplan) {
-//        console.log("User has an active meal plan.");
-//    }
-//});
-
 const currentUserId = AppConfig.currentUserId;
 const hasActiveMealplan = AppConfig.hasActiveMealplan;
-
 const emptyGuid = "00000000-0000-0000-0000-000000000000";
-const buildBtnContainer = document.getElementById('build-btn-container'); 
+const buildBtnContainer = document.getElementById('build-btn-container');  
 
+const getUserLocalStorage = function () {
+    return localStorage.getItem(currentUserId);
+}
+
+const getAntiForgeryToken = function () {
+    return $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
+}
 
 const buildMealPlan = function (event) {
     event.preventDefault();
@@ -27,8 +23,6 @@ const buildMealPlan = function (event) {
         toastr.error("Error Building Meal Plan");
         return;
     }
-
-
 
     var model = {
         UserId: currentUserId,
@@ -62,69 +56,74 @@ const buildMealPlan = function (event) {
     });
 }
 
-const attachHandlerOnBuildBtnAppearance = function () {
+const userHasMealPlans = function () {
 
-    if (!buildBtnContainer) {
-        return;
+    const userMealPlans = JSON.parse(getUserLocalStorage());
+
+    if (userMealPlans && userMealPlans.length) {
+        return true;
+    } else if (userMealPlans && !userMealPlans.length) {
+        eraseUserLocalStorage();
     }
 
-    let handlerAttached = false; //flag
-
-    const isVisible = (btn) => {
-        return $(btn).is(':visible');
-    }
-
-    const attachHandler = () => {
-        if (!handlerAttached) {
-            $(buildBtnContainer).on('click', function (event) {
-                console.log('Btn clicked!');
-                buildMealPlan(event);
-            });
-            handlerAttached = true;
-        }
-    };
-
-    if (isVisible(buildBtnContainer)) {
-        attachHandler();
-    }
-
-    // A MutationObserver to monitor visibility changes
-    const observer = new MutationObserver(() => {
-        if (isVisible(buildBtnContainer) && !handlerAttached) {
-            console.log("Button is now visible. Attaching handler..");
-            attachHandler();
-            observer.disconnect(); // Stop observing
-        }
-    });
-
-    observer.observe(buildBtnContainer, { attributes: true, aatributesFilter: ['style'] });
+    return false;
 }
-$(function () { 
 
-    attachHandlerOnBuildBtnAppearance();
+const updateBuildBtnVisibility = function () {
+    if (currentUserId !== null && userHasMealPlans()) {
 
-    const shouldRenderBuildBtn = viewWithBuildBtn() && userIsLoggedIn();
+        buildBtnContainer.style.display = "block";
+    } else {
 
-    if (shouldRenderBuildBtn) {
+        buildBtnContainer.style.display = "none";
+    }
+}
 
-        updateBuildBtnVisibility(); // show the btn first
-        updateRecipeBtns(); // Update buttons based on local storage
+const delegateBuildBtnClick = function () {
+    $(document).on('click', '#build-btn-container', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-    } 
-    delegateMealPlanEvents();
-});
+        buildMealPlan(event);
+    })
+}
 
-function delegateMealPlanEvents() {
+const setButtonTo = function (btn, className) {
+    const oppositeClass = className === 'minus' ? 'plus' : 'minus';
+
+    btn.classList.remove(oppositeClass);
+    btn.classList.add(className);
+
+    const icon = btn.querySelector('i');
+    icon.classList.remove(`fa-${oppositeClass}`);
+    icon.classList.add(`fa-${className}`);
+}
+
+const addRecipeToMealPlan = function (recipeId) {
+
+    let userMealPlans = getUserLocalStorage();
+    userMealPlans = userMealPlans ? JSON.parse(userMealPlans) : [];
+
+    if (userMealPlans.includes(recipeId)) {
+        return false;
+    }
+
+    // Add the recipe to the meal plan
+    userMealPlans.push(recipeId);
+    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
+    return true;
+}
+
+const delegateMealPlanEvents = function () {
     $(document).on('click', '.add-to-mealplan-container .mealplan-toggle-btn', function (event) {
         event.preventDefault();
         event.stopPropagation();
 
-        debugger;
         const btn = $(this)[0];
         const recipeId = btn.dataset.recipeid;
 
         if (btn.classList.contains('plus')) {
-            debugger;
+
             const added = addRecipeToMealPlan(recipeId);
             if (added) {
                 setButtonTo(btn, 'minus');
@@ -140,17 +139,22 @@ function delegateMealPlanEvents() {
                 updateBuildBtnVisibility();
                 toastr.warning(`Recipe successfully removed from your meal plan`);
             } else {
-                console.error(`Error: Recipe not found in meal plan`); 
+                console.error(`Error: Recipe not found in meal plan`);
             }
-            
+
         }
     })
 }
 
-function userIsLoggedIn() {
+const viewWithBuildBtn = function () {
+    return $('.has-build-btn').length > 0;
+};
+
+const userIsLoggedIn = function () {
     return currentUserId && currentUserId !== emptyGuid;
 }
-function updateRecipeBtns() {
+
+const updateRecipeBtns = function () {
     let userMealPlans = getUserLocalStorage() || [];
     const recipeButtons = document.querySelectorAll('.add-to-mealplan-container .mealplan-toggle-btn');
 
@@ -161,90 +165,40 @@ function updateRecipeBtns() {
     if (userMealPlans.length > 0) {
         recipeButtons.forEach(btn => {
             const recipeId = btn.getAttribute('data-recipeId');
-            //const icon = btn.querySelector('i');
 
             if (userMealPlans.includes(recipeId)) {
                 setButtonTo(btn, 'minus');
-                
+
             } else {
                 setButtonTo(btn, 'plus');
-              
             }
         })
     } else {
         recipeButtons.forEach(btn => {
             if (btn.classList.contains('minus')) {
                 setButtonTo(btn, 'plus');
-               
-            } 
+            }
         })
     }
 }
 
-const setButtonTo = function (btn, className) {
-    const oppositeClass = className === 'minus' ? 'plus' : 'minus';
 
-    btn.classList.remove(oppositeClass);
-    btn.classList.add(className);
 
-    const icon = btn.querySelector('i');
-    icon.classList.remove(`fa-${oppositeClass}`);
-    icon.classList.add(`fa-${className}`);
-}
+$(document).ready(function () { 
+    delegateBuildBtnClick();
 
-const viewWithBuildBtn = function () {
-    return $('.has-build-btn').length > 0;
-};
+    const shouldRenderBuildBtn = viewWithBuildBtn() && userIsLoggedIn();
 
-function userHasMealPlans() {
-    
-    const userMealPlans = JSON.parse(getUserLocalStorage());
-    
-    if (userMealPlans && userMealPlans.length) {
-        return true;
-    } else if (userMealPlans && !userMealPlans.length) {
-        eraseUserLocalStorage();
-    }
+    if (shouldRenderBuildBtn) {
 
-    return false;
-    
-}
+        updateBuildBtnVisibility(); // Show Build Btn
+        updateRecipeBtns(); // Update recipe btns based on user local storage
 
-function updateBuildBtnVisibility() {
-    const buildBtnContainer = document.getElementById('build-btn-container');  
-        
-    if (currentUserId !== null && userHasMealPlans()) {
-
-        buildBtnContainer.style.display = "block";        
-    } else {     
-        
-        buildBtnContainer.style.display = "none";
-    }
-}
-
-function getUserLocalStorage() {
-    return localStorage.getItem(currentUserId);
-}
-
-const addRecipeToMealPlan = function(recipeId) {
-    
-    let userMealPlans = getUserLocalStorage();
-    userMealPlans = userMealPlans ? JSON.parse(userMealPlans) : [];    
-
-    if (userMealPlans.includes(recipeId)) {
-        return false;
     } 
+    delegateMealPlanEvents();
+});
 
-    // Add the recipe to the meal plan
-    userMealPlans.push(recipeId);
-    localStorage.setItem(currentUserId, JSON.stringify(userMealPlans));
-    return true;
-}
 
-// Gets the antiforgery token
-function getAntiForgeryToken() {
-    return $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
-}
 
 // Make Active Tab the tab with the first Error in Recipe Views
 export function activateTabWithError(context) {
@@ -340,31 +294,6 @@ export function reindexMealRows() {
     $('form').validate().form();
 }
 
-export const attachToggleFiltersHandler = function() {
-    $(document).on('click', '.filter-btn-container', function (e) {        
-        toggleAdvancedSectionVisibility(e, this);
-    });
-}
-
-
-const toggleAdvancedSectionVisibility = function (e, btn) {
-    e.preventDefault();
-    
-    const filterSpan = btn.querySelector('.filter-link .btnText');
-    const filtersDiv = document.querySelector('#tags');
-
-    if (filtersDiv.classList.contains('hidden')) {
-        filtersDiv.classList.remove('hidden');
-        filterSpan.textContent = "Hide advanced filters";
-        toggleIcons(btn);
-
-    } else {
-        filterSpan.textContent = "More advanced filters";
-        toggleIcons(btn);
-        filtersDiv.classList.add('hidden');
-    }
-}
-
 const toggleIcons = function (btn) {
     if (btn) {
         const icon = btn.querySelector('a i');
@@ -380,4 +309,30 @@ const toggleIcons = function (btn) {
     return;
 }
 
-  
+const toggleAdvancedSectionVisibility = function (e, btn) {
+    e.preventDefault();
+
+    const filterSpan = btn.querySelector('.filter-link .btnText');
+    const filtersDiv = document.querySelector('#tags');
+
+    if (filtersDiv.classList.contains('hidden')) {
+        filtersDiv.classList.remove('hidden');
+        filterSpan.textContent = "Hide advanced filters";
+        toggleIcons(btn);
+
+    } else {
+        filterSpan.textContent = "More advanced filters";
+        toggleIcons(btn);
+        filtersDiv.classList.add('hidden');
+    }
+}
+
+export const attachToggleFiltersHandler = function() {
+    $(document).on('click', '.filter-btn-container', function (e) {        
+        toggleAdvancedSectionVisibility(e, this);
+    });
+}
+
+
+
+
