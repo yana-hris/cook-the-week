@@ -80,6 +80,21 @@
     display: none;
 }
 
+.ribbon {
+    position: absolute;
+    
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-align: center;
+    
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+    
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.3));
+}
+
 .suggestionsList {
     position: absolute;
     z-index: 1000;

@@ -30,5 +30,7 @@
         public bool JustLoggedIn = false;
 
         public bool HasActiveMealPlan = false;
+
+        public ICollection<Guid> RecipeIds { get; set; } = new List<Guid>();
     }
 }

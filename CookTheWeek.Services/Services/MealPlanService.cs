@@ -313,7 +313,9 @@
             await mealplanRepository.SaveAsync(CancellationToken.None);
         }
 
-
-       
+        internal static async Task<ICollection<Guid>> GetAcitveRecipeIdsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

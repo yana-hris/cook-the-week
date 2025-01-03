@@ -179,6 +179,7 @@
             throw new InvalidOperationException("Unsupported form model type.");
         }
 
+        /// <inheritdoc/>
         public async Task<MealPlanActiveModalViewModel> GetActiveDetails()
         {
             MealPlan mealplan = await mealplanService.GetActiveAsync(); // RecordNotFoundException
@@ -196,12 +197,13 @@
                 TotalIngredients = mealplan.Meals.Sum(m => m.Recipe.RecipesIngredients.Count),
                 TotalCookingTimeMinutes = mealplan.Meals.Sum(m => (int)m.Recipe.TotalTimeMinutes),
                 DaysRemaining = (mealplan.StartDate.AddDays(7.00) -  DateTime.UtcNow.Date).Days,
+                RecipeIds = mealplan.Meals.Select(m => m.RecipeId).ToList()
             };
 
             return model;
         }
 
-
+       
         // HELPER METHODS:
 
         /// <summary>

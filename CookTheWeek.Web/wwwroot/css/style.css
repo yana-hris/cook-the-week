@@ -1206,6 +1206,17 @@
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -2255,6 +2266,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -3804,6 +3826,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -6390,6 +6423,17 @@ li.user-btn:hover i.fa {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -6742,6 +6786,16 @@ span.small.text-danger {
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
+}
+.recipe-container .recipe-card .ribbon {
+  top: 0px;
+  right: 10px;
+  width: 50px;
+  height: 55px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #B4E33D;
+  color: #2e6930;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -7858,6 +7912,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -9302,6 +9367,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -12257,6 +12333,17 @@ footer .footer-copyright .copyright i {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -13657,6 +13744,17 @@ span.small.text-danger {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -14009,6 +14107,16 @@ span.small.text-danger {
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
+}
+.recipe-container .recipe-card .ribbon {
+  top: 0px;
+  right: 10px;
+  width: 50px;
+  height: 55px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #B4E33D;
+  color: #2e6930;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -14968,6 +15076,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -16600,6 +16719,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -18947,6 +19077,17 @@ li.user-btn:hover i.fa {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -20159,6 +20300,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -21817,6 +21969,17 @@ span.small.text-danger {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -24831,6 +24994,17 @@ li.user-btn:hover i.fa {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {
@@ -27235,6 +27409,17 @@ span.small.text-danger {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -29705,6 +29890,17 @@ li.user-btn:hover i.fa {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -30813,6 +31009,17 @@ span.small.text-danger {
   display: none;
 }
 
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
 .suggestionsList {
   position: absolute;
   z-index: 1000;
@@ -31165,6 +31372,16 @@ span.small.text-danger {
   box-shadow: var(--card-box-shadow);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
+}
+.recipe-container .recipe-card .ribbon {
+  top: 0px;
+  right: 10px;
+  width: 50px;
+  height: 55px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #B4E33D;
+  color: #2e6930;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -32919,6 +33136,17 @@ span.small.text-danger {
 
 .hidden {
   display: none;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .suggestionsList {

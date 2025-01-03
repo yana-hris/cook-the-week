@@ -9,6 +9,7 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Helpers;
     using CookTheWeek.Services.Data.Models.Recipe;
+    using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
@@ -23,7 +24,6 @@
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
-   
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
@@ -100,8 +100,6 @@
 
                 RecipeSorting = queryModel.RecipeSorting.HasValue ? queryModel.RecipeSorting.Value : (int)RecipeSorting.Newest,
 
-                Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes),
-
                 MealTypes = mealTypes,
                 DifficultyLevels = GetEnumAsSelectViewModel<DifficultyLevel>(), 
                 AvailableTags = allTags,
@@ -112,15 +110,20 @@
             
             if (justLoggedIn)
             {
-                if (hasActiveMealPlan)
-                {
-                    viewModel.ActiveMealPlan = await mealplanFactory.GetActiveDetails();
-                }
-
                 viewModel.ActiveMealPlan.JustLoggedIn = true;
                 viewModel.ActiveMealPlan.UserId = userId;
+                viewModel.Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes, false);
             }
 
+            if (hasActiveMealPlan)
+            {
+                viewModel.ActiveMealPlan = await mealplanFactory.GetActiveDetails();
+                viewModel.Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes, true, viewModel.ActiveMealPlan.RecipeIds);
+            }
+            else
+            {
+                viewModel.Recipes = MapRecipeCollectionToRecipeAllViewModelCollection(allRecipes, false);
+            }
             
             return viewModel;
         }
@@ -237,8 +240,19 @@
             var likedCollection = await recipeService.GetAllByIds(serviceModel.LikedRecipeIds);
             var addedCollection = await recipeService.GetAllByIds(serviceModel.AddedRecipeIds);
 
-            model.FavouriteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(likedCollection);
-            model.OwnedRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(addedCollection);
+            if (hasActiveMealPlan)
+            {
+                var mealplanData = await mealplanFactory.GetActiveDetails();
+                var mealPlanRecipeIds = mealplanData.RecipeIds;
+
+                model.FavouriteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(likedCollection, true, mealPlanRecipeIds);
+                model.OwnedRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(addedCollection, true, mealPlanRecipeIds);
+            }
+            else
+            {
+                model.FavouriteRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(likedCollection, false);
+                model.OwnedRecipes = MapRecipeCollectionToRecipeAllViewModelCollection(addedCollection, false);
+            }
 
             return model;
         }
@@ -278,12 +292,29 @@
         /// </summary>
         /// <param name="recipe">A given collection of Recipes</param>
         /// <returns>A collection of RecipeAllViewModel</returns>
-        private ICollection<RecipeAllViewModel> MapRecipeCollectionToRecipeAllViewModelCollection(ICollection<Recipe> recipes)
+        private ICollection<RecipeAllViewModel> MapRecipeCollectionToRecipeAllViewModelCollection(ICollection<Recipe> recipes, bool hasActiveMealPlan, ICollection<Guid> recipeIds = null)
         {
+            if (!hasActiveMealPlan)
+            {
+                return recipes.Select(recipe => new RecipeAllViewModel
+                {
+                    Id = recipe.Id,
+                    OwnerId = recipe.OwnerId,
+                    Title = recipe.Title,
+                    IsSiteRecipe = recipe.IsSiteRecipe,
+                    ImageUrl = recipe.ImageUrl,
+                    Description = recipe.Description,
+                    MealType = recipe.Category.Name,
+                    Servings = recipe.Servings,
+                    CookingTime = FormatCookingTime(recipe.TotalTimeMinutes)
+                }).ToList();
+            }
+            
             return recipes.Select(recipe => new RecipeAllViewModel
             {
                 Id = recipe.Id,
                 OwnerId = recipe.OwnerId,
+                IsIncludedInActiveMealPlan = recipeIds.Any(id => id == recipe.Id),
                 Title = recipe.Title,
                 IsSiteRecipe = recipe.IsSiteRecipe,
                 ImageUrl = recipe.ImageUrl,
@@ -292,6 +323,7 @@
                 Servings = recipe.Servings,
                 CookingTime = FormatCookingTime(recipe.TotalTimeMinutes)
             }).ToList();
+
         }
 
        

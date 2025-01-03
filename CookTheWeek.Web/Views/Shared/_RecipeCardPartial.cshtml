@@ -19,6 +19,10 @@
 
 <div class="col recipe-container">    
     <div class="card recipe-card">
+        @if (Model.IsIncludedInActiveMealPlan)
+        {
+            <div class="ribbon">✔</div>
+        }
         <div class="position-relative image-container">
             <img class="card-img-top" alt="Recipe Image" src="@Model.ImageUrl">
             @if (userId != default && !isOwner && !isAdmin)
@@ -49,11 +53,15 @@
             }
             @if(userId != default && !isAdmin)
             {
-                <div class="add-to-mealplan-container">
-                    <a data-recipeId="@Model.Id" class="mealplan-toggle-btn plus">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </a>
-                </div>
+                if(!Model.IsIncludedInActiveMealPlan)
+                {
+                    <div class="add-to-mealplan-container">
+                        <a data-recipeId="@Model.Id" class="mealplan-toggle-btn plus">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                }
+               
             }            
     </div>
         <div class="card-body p-2">
