@@ -205,6 +205,7 @@
                 LikesCount = serviceModel.LikesCount,
                 CookedCount = serviceModel.CookedCount,
                 IsLikedByUser = serviceModel.IsLikedByUser,
+                IsInActiveMealPlan = serviceModel.IsInActiveMealPlanForCurrentUser,
             };
 
             decimal servingSizeMultiplier = ingredientHelper

@@ -334,6 +334,7 @@
                 .Include(r => r.Steps)
                 .Include(r => r.Category)
                 .Include(r => r.Meals)
+                    .ThenInclude(m => m.MealPlan)
                 .Include(r => r.FavouriteRecipes)
                 .Include(r => r.RecipeTags)
                     .ThenInclude(rt => rt.Tag)
@@ -352,6 +353,7 @@
                 LikesCount = recipe.FavouriteRecipes.Count,
                 CookedCount = recipe.Meals.Count,
                 IsLikedByUser = recipe.FavouriteRecipes.Any(fr => fr.UserId == userId),
+                IsInActiveMealPlanForCurrentUser = recipe.Meals.Any(m => m.MealPlan.OwnerId == userId && !m.MealPlan.IsFinished)
             };
             
             if (!isAdmin) // Increase recipe total views if user is not an admin

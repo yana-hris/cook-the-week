@@ -53,7 +53,7 @@
         public static int[] OilsHerbsSpicesSweetenersIngredientCategories = [5, 6, 10];
         public static int[] NutsSeedsAndOthersIngredientCategories = [12,13];
 
-        public const string MealDateFormat = "dd-MM-yyyy";
+        public const string MealDateFormat = "ddd, dd/MM";
         public const string MealPlanDateFormat = "ddd, dd-MM-yyyy";
         public const string DefaultMealPlanName = "[Your Meal Plan Name]";
 

@@ -10,11 +10,12 @@
     overflow-y: auto;
 }
 
+
 // style for adding custom card tab colors, custom border, shade, btn and footer settings
 .card-custom-style-with-back-btn {
     background-color: var(--bs-body-bg);
     border: 1px solid $primary-border-subtle;
-    
+
 
     .card-header {
         font-size: 1.1rem;
@@ -28,6 +29,7 @@
                 margin-bottom: 0;
                 color: $success;
                 background-color: $primary;
+                text-transform: uppercase;
 
                 &:hover {
                     color: $primary !important;
@@ -112,16 +114,28 @@
         transition: box-shadow 0.3s ease, transform 0.3s ease;
         background-color: var(--bs-body-bg);
 
-        .ribbon {
+        .ribbon-mealplan {
             top: 0px;
             right: 10px;
             width: 50px;
             height: 55px;
-           
             font-size: 1.5rem;
-            font-weight: bold;            
-            background: $success;            
-            color: $primary;           
+            font-weight: bold;
+            background: $success;
+            color: $primary;
+        }
+
+        .ribbon-owner {
+            top: 0px;
+            left: 10px;
+            width: 24px;
+            height: 48px;
+            
+            
+            svg {
+                height: 16px;
+                width: 16px;
+            }
         }
 
         .image-container {
@@ -145,11 +159,7 @@
             }
 
 
-            .fa-bookmark {
-                top: -2px;
-                left: 10px;
-                font-size: 30px;
-            }
+
 
             .add-to-mealplan-container {
                 position: absolute;
@@ -294,6 +304,7 @@
         }
     }
 }
+
 
 @media screen and (min-width: 768px) {
 

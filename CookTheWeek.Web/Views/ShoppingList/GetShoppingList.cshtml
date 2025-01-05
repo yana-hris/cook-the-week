@@ -3,10 +3,10 @@
     @Html.AntiForgeryToken()
     <partial name="_ProductsByCategoriesPartial", model="@Model" />
     <div class="group-buttons-container">
-        <a id="generatePdfBtn" class="download-btn">
+        <a id="generatePdfBtn" class="download-btn" data-bs-toggle="tooltip" title="Download PDF">
             <i class="fa fa-download"></i>
         </a>
-        <a id="emailBtn" class="send-email-btn">
+        <a id="emailBtn" class="send-email-btn" data-bs-toggle="tooltip" title="Send as Email">
             <i class="fa-solid fa-paper-plane"></i>
         </a>
         <partial name="_BackBtnPartial" />

@@ -22,15 +22,34 @@
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
 
+    const isInHowItWorksView = () => {
+        return document.getElementById('how-it-works') !== null;
+    };
+
+    const updateImages = theme => {
+        const images = document.querySelectorAll('[data-light][data-dark]');
+        images.forEach(img => {
+            const newSrc = theme === 'dark' ? img.getAttribute('data-dark') : img.getAttribute('data-light');
+            img.setAttribute('src', newSrc);
+        });
+    };
+
     const setTheme = theme => {
         if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-bs-theme', 'dark');
         } else {
             document.documentElement.setAttribute('data-bs-theme', theme);
         }
-    }
+        if (isInHowItWorksView()) {
+            updateImages(theme);
+        }
+    };
+
+    
 
     setTheme(getPreferredTheme());
+
+    
 
     const showActiveTheme = (theme, focus = false) => {
         const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));

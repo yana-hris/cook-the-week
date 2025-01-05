@@ -25,6 +25,7 @@
         public int? LikesCount { get; set; }
         public int? CookedCount { get; set; }
         public bool IsSiteRecipe { get; set; }
+        public bool IsInActiveMealPlan { get; set; }
         public List<StepViewModel> Steps { get; set; }
 
         public IEnumerable<ISupplyItemListModel<RecipeIngredientDetailsViewModel>> RecipeIngredientsByCategories =

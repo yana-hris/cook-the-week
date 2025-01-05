@@ -10,7 +10,6 @@
         public string CookingTime { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
         public string CategoryName { get; set; } = null!;
-        public string DayOfTheWeek { get; set; } = null!;
         public string Date { get; set; } = null!;
         public bool IsCooked { get; set; }
     }

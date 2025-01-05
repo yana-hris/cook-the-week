@@ -55,6 +55,10 @@
     #shopping-list {
         .group-buttons-container {
             flex-direction: column !important;
+
+            .back-btn-container {
+                order: -1;
+            }
         }
     }
 }

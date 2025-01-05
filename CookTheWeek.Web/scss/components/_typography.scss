@@ -76,23 +76,39 @@
     margin-bottom: 0 !important;
 }
 
+.buttons-two {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+}
+
 .hidden {
     display: none;
 }
 
 .ribbon {
-    position: absolute;
-    
+    position: absolute;    
     z-index: 10;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
     text-align: center;
-    
+}
+
+.ribbon-mealplan {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
-    
     filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.3));
+    background-color: $success;
+    color: $primary;
+}
+
+.ribbon-owner {
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.6));
+    clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+    background: $breakfast-yellow;
+    color: $primary;
 }
 
 .suggestionsList {

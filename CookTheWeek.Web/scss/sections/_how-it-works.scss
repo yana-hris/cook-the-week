@@ -42,36 +42,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: transparent; 
 
             .step-img {
-                width: 35%;
+                width: 100%;
                 z-index: 10;
+                background: transparent;
             }
-        }
-
-        .step-img-box::before,
-        .step-img-box::after {
-            content: "";
-            display: block;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .step-img-box::before {
-            width: 60%;
-            padding-bottom: 60%;
-            background-color: #fbe2b4; // medium yellow
-            z-index: -2;
-        }
-
-        .step-img-box::after {
-            width: 45%;
-            padding-bottom: 45%;
-            background-color: #f7c569;
-            z-index: -1;
         }
     }
 

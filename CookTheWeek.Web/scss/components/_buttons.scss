@@ -155,9 +155,25 @@ li.user-btn {
     
 }
 
+.save-button, 
+.browse-recipes-btn, 
+.shopping-list-btn, 
+.edit-button, 
+.delete-button, 
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn{
+    text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
     @include button-with-icon-and-text-cenetered(10rem);
     @extend .btn-secondary;
+}
+
+.browse-recipes-small-btn {
+    @include button-with-icon-and-text-cenetered(10rem);
+    @extend .btn-primary;
 }
 
 .delete-button {

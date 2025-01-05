@@ -98,7 +98,6 @@
                         ImageUrl = mpm.Recipe.ImageUrl,
                         CategoryName = mpm.Recipe.Category.Name,
                         IsCooked = mpm.IsCooked,
-                        DayOfTheWeek = mpm.CookDate.ToString("ddd"),
                         Date = mpm.CookDate.ToString(MealDateFormat),
                     }).ToList(),
                 TotalServings = mealPlan.Meals.Sum(mpm => mpm.ServingSize),

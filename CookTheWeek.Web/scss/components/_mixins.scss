@@ -12,6 +12,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    i{
+        line-height: 1.2;
+        vertical-align: middle;
+    }
 }
 
 @mixin button-with-icon-and-text-cenetered($width: 9rem, $font-size: 1.5rem) {

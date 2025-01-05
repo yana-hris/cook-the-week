@@ -19,13 +19,22 @@
         <partial name="_HeadingSmallPartial" model="headingModel" />
         @Html.AntiForgeryToken()
 
-        <div class="card">      
+        <div class="card">
+            @if (Model.IsInActiveMealPlan)
+            {
+                <div class="ribbon ribbon-mealplan" data-toggle="tooltip" title="In Meal Plan">✔</div>
+
+            }
             @if (!isAdmin && !Model.IsSiteRecipe)
             {
-                <div class="bookmark-icon">
-                    <i class="fa-solid fa-bookmark" aria-hidden="true" data-toggle="tooltip" title="You own this Recipe"></i>
-                </div>                
+                <div class="ribbon ribbon-owner" data-toggle="tooltip" title="You own this Recipe">
+                    <svg width="24px" height="24px" aria-hidden="true" focusable="false" data-prefix="far" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path fill="currentColor" d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"></path>
+                    </svg>
+                </div>
+                       
             }
+           
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item"><a class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Info</a></li>
@@ -43,7 +52,7 @@
                 <div id="info-content" class="tab-content g-3">
                     <div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="info-tab">
                         <div class="row g-0">
-                            <div class="col-12">
+                            <div class="col col-12 col-md-8">
                                 <div class="img-container">
                                     <img class="img-fluid image" alt="Recipe Image" src="@Model.ImageUrl">
                                     @if (Model.IsSiteRecipe && !isAdmin)
@@ -60,7 +69,7 @@
                                         </a>
                                     }
                                    
-                                    @if (userId != default && !isAdmin)
+                                    @if (userId != default && !isAdmin && !Model.IsInActiveMealPlan)
                                     {
                                         <div class="add-to-mealplan-container">
                                             <a data-recipeId="@Model.Id" class="mealplan-toggle-btn plus">
@@ -70,97 +79,97 @@
                                     }
                                 </div>
                             </div>
-                        </div>
-                        <div class="row row-cols-1 row-cols-sm-2 features-row">
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-list"></i>
-                                </span>
-                                <span class="list-item-content">
-                                    <span class="item-decription me-2">Type: </span>
-                                    <span class="item-value">@Model.CategoryName</span>
-                                </span>
-                            </div>
-                           @if(Model.DifficultyLevel != string.Empty)
-                            {
-                                <div class="col d-flex align-items-center">
-                                    <span class="icon-container me-2">
-                                        <i class="fas fa-layer-group"></i>
+                            <div class="col col-12 col-md-4 features-container">
+                                <div class="feature">
+                                    <span class="icon-container">
+                                        <i class="fa-solid fa-list"></i>
                                     </span>
                                     <span class="list-item-content">
-                                        <span class="item-decription me-2">Difficulty level: </span>
-                                        <span class="item-value">@Model.DifficultyLevel</span>
+                                        <span class="item-decription">Type: </span>
+                                        <span class="item-value">@Model.CategoryName</span>
                                     </span>
                                 </div>
-                            }
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-stopwatch"></i>
-                                </span>
-                                <span class="list-item-content">
-                                    <span class="item-decription me-2">Duration: </span>
-                                    <span class="item-value">@Model.TotalTime</span>
-                                </span>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <span class="icon-container me-2">
-                                    <i class="fa-solid fa-utensils"></i>
-                                </span>
-                                <span class="list-item-content">
-                                    <span class="item-decription me-2">Size: </span>
-                                    <span class="item-value">@Model.Servings portions</span>
-                                </span>
-                            </div>
-
-                            @if (!Model.IsSiteRecipe && isAdmin)
-                            {
-                                <div class="col d-flex align-items-center">
-                                    <span class="icon-container me-2">
-                                        <i class="fa-solid fa-at"></i>
-                                    </span>                                   
-                                    <span class="list-item-content">
-                                        <span class="item-decription me-2">Created by: </span>
-                                    <span class="item-value">@Model.CreatedBy</span> 
-                                    </span>                                   
-                                </div>
-                            }
-                            else if (Model.IsSiteRecipe)
-                            {
-                                <div class="col d-flex align-items-center">
-                                    <span class="icon-container me-2">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </span>                                    
-                                    <span class="list-item-content">
-                                        <span class="item-decription me-2">Liked: </span>
-                                        <span class="item-value">@(Model.LikesCount > 0 ? $"{@Model.LikesCount} time(s)" : "Be the first")</span>
-                                    </span>                                    
-                                </div>
-                                <div class="col d-flex align-items-center">
-                                    <span class="icon-container me-2">
-                                        <i class="fa-solid fa-bowl-rice"></i>
-                                    </span>
-                                    <span class="list-item-content">
-                                        <span class="item-decription me-2">Cooked: </span>
-                                        <span class="item-value">@(Model.CookedCount > 0 ? $"{@Model.CookedCount} time(s)" : "Be the first")</span>
-                                    </span>
-                                </div>
-                                
-                            }
-                            else
-                            {
-                                @if (Model.CookedCount > 0)
+                                @if (Model.DifficultyLevel != string.Empty)
                                 {
-                                    <div class="col d-flex align-items-center">
-                                        <span class="icon-container me-2">
-                                            <i class="fa-solid fa-bowl-rice"></i>
+                                    <div class="feature">
+                                        <span class="icon-container">
+                                            <i class="fas fa-layer-group"></i>
                                         </span>
                                         <span class="list-item-content">
-                                            <span class="item-decription me-2">Cooked: </span>
-                                            <span class="item-value">@Model.CookedCount</span>
+                                            <span class="item-decription">Difficulty: </span>
+                                            <span class="item-value">@Model.DifficultyLevel</span>
                                         </span>
                                     </div>
                                 }
-                            }
+                                <div class="feature">
+                                    <span class="icon-container">
+                                        <i class="fa-solid fa-stopwatch"></i>
+                                    </span>
+                                    <span class="list-item-content">
+                                        <span class="item-decription">Duration: </span>
+                                        <span class="item-value">@Model.TotalTime</span>
+                                    </span>
+                                </div>
+                                <div class="feature">
+                                    <span class="icon-container">
+                                        <i class="fa-solid fa-utensils"></i>
+                                    </span>
+                                    <span class="list-item-content">
+                                        <span class="item-decription">Size: </span>
+                                        <span class="item-value">@Model.Servings portions</span>
+                                    </span>
+                                </div>
+
+                                @if (!Model.IsSiteRecipe && isAdmin)
+                                {
+                                    <div class="feature">
+                                        <span class="icon-container">
+                                            <i class="fa-solid fa-at"></i>
+                                        </span>
+                                        <span class="list-item-content">
+                                            <span class="item-decription">Created by: </span>
+                                            <span class="item-value">@Model.CreatedBy</span>
+                                        </span>
+                                    </div>
+                                }
+                                else if (Model.IsSiteRecipe)
+                                {
+                                    <div class="feature">
+                                        <span class="icon-container">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </span>
+                                        <span class="list-item-content">
+                                            <span class="item-decription">Liked: </span>
+                                            <span class="item-value">@(Model.LikesCount > 0 ? $"{@Model.LikesCount} time(s)" : "Be the first")</span>
+                                        </span>
+                                    </div>
+                                    <div class="feature">
+                                        <span class="icon-container">
+                                            <i class="fa-solid fa-bowl-rice"></i>
+                                        </span>
+                                        <span class="list-item-content">
+                                            <span class="item-decription">Cooked: </span>
+                                            <span class="item-value">@(Model.CookedCount > 0 ? $"{@Model.CookedCount} time(s)" : "Be the first")</span>
+                                        </span>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    @if (Model.CookedCount > 0)
+                                    {
+                                        <div class="feature">
+                                            <span class="icon-container">
+                                                <i class="fa-solid fa-bowl-rice"></i>
+                                            </span>
+                                            <span class="list-item-content">
+                                                <span class="item-decription">Cooked: </span>
+                                                <span class="item-value">@Model.CookedCount</span>
+                                            </span>
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </div>
                         
                         <div class="row">

@@ -202,7 +202,7 @@
 .btn-primary, .home-redirect-btn, .back-to-home-btn, .profile-set-pass,
 .profile-recipe-collection, .user-recipes-btn, .login-btn,
 .browse-btn,
-.set-password-btn, .go-to-login, .signup-button, .shopping-list-btn,
+.set-password-btn, .go-to-login, .signup-button, .browse-recipes-small-btn, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
 .ok-btn {
@@ -1202,6 +1202,14 @@
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -1213,8 +1221,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -2264,6 +2284,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -2275,8 +2303,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -2824,7 +2864,7 @@ span.small.text-danger {
 .btn-primary, .home-redirect-btn, .back-to-home-btn, .profile-set-pass,
 .profile-recipe-collection, .user-recipes-btn, .login-btn,
 .browse-btn,
-.set-password-btn, .go-to-login, .signup-button, .shopping-list-btn,
+.set-password-btn, .go-to-login, .signup-button, .browse-recipes-small-btn, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
 .ok-btn {
@@ -3824,6 +3864,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -3835,8 +3883,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -4085,7 +4145,7 @@ span.small.text-danger {
 .btn-primary, .home-redirect-btn, .back-to-home-btn, .profile-set-pass,
 .profile-recipe-collection, .user-recipes-btn, .login-btn,
 .browse-btn,
-.set-password-btn, .go-to-login, .signup-button, .shopping-list-btn,
+.set-password-btn, .go-to-login, .signup-button, .browse-recipes-small-btn, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
 .ok-btn {
@@ -4096,7 +4156,7 @@ span.small.text-danger {
 .btn-primary:hover, .home-redirect-btn:hover, .back-to-home-btn:hover, .profile-set-pass:hover,
 .profile-recipe-collection:hover, .user-recipes-btn:hover, .login-btn:hover,
 .browse-btn:hover,
-.set-password-btn:hover, .go-to-login:hover, .signup-button:hover, .shopping-list-btn:hover,
+.set-password-btn:hover, .go-to-login:hover, .signup-button:hover, .browse-recipes-small-btn:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
 .ok-btn:hover {
@@ -4181,6 +4241,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.download-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
@@ -4226,6 +4290,10 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 50.6px;
   font-size: 25.3px;
+}
+.send-email-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .send-email-btn i, .send-email-btn .fa, .send-email-btn .fas {
   position: absolute;
@@ -4273,6 +4341,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.back-button-main i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .back-button-main i, .back-button-main .fa, .back-button-main .fas {
   position: absolute;
   margin: 0;
@@ -4319,6 +4391,11 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
+}
+.details-btn i,
+.list-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
@@ -4376,6 +4453,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.plus i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .plus i, .plus .fa, .plus .fas {
   position: absolute;
   margin: 0;
@@ -4426,6 +4507,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.minus i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .minus i, .minus .fa, .minus .fas {
   position: absolute;
@@ -4478,6 +4563,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.delete-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .delete-meal-button i, .delete-meal-button .fa, .delete-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -4528,6 +4617,10 @@ li.user-btn:hover i.fa {
   font-size: 19.8px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.cook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -4584,6 +4677,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.uncook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -4631,6 +4728,10 @@ li.user-btn:hover i.fa {
   background-color: #2e6930;
   width: 44px;
   font-size: 22px;
+}
+.repeat-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .repeat-btn i, .repeat-btn .fa, .repeat-btn .fas {
   position: absolute;
@@ -4725,6 +4826,17 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
+.save-button,
+.browse-recipes-btn,
+.shopping-list-btn,
+.edit-button,
+.delete-button,
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn {
+  text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -4743,6 +4855,29 @@ li.user-btn:hover i.fa {
   vertical-align: middle;
 }
 .add-recipe-button span.btn-text, .edit-recipe-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
+}
+
+.browse-recipes-small-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.5rem;
+  width: 10rem;
+  border-radius: 2px;
+}
+.browse-recipes-small-btn i {
+  vertical-align: middle;
+}
+.browse-recipes-small-btn span.btn-text {
   vertical-align: middle;
   display: inline-block;
   margin-top: 0.325rem;
@@ -4789,6 +4924,11 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.add-ingredient-btn i,
+.add-step-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .add-ingredient-btn i, .add-ingredient-btn .fa, .add-ingredient-btn .fas,
 .add-step-btn i,
@@ -4849,6 +4989,10 @@ li.user-btn:hover i.fa {
   font-size: 21.45px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.remove-item-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .remove-item-button i, .remove-item-button .fa, .remove-item-button .fas {
   position: absolute;
@@ -5226,6 +5370,10 @@ li.user-btn:hover i.fa {
   border-bottom-right-radius: 8px !important;
   border-top-right-radius: 8px !important;
 }
+.search-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .search-btn i, .search-btn .fa, .search-btn .fas {
   position: absolute;
   margin: 0;
@@ -5295,6 +5443,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.pagination-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .pagination-btn i, .pagination-btn .fa, .pagination-btn .fas {
   position: absolute;
   margin: 0;
@@ -5346,6 +5498,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.btn-build i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .btn-build i, .btn-build .fa, .btn-build .fas {
   position: absolute;
   margin: 0;
@@ -5396,6 +5552,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   border-radius: 2px;
 }
+.card-back-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .card-back-button i, .card-back-button .fa, .card-back-button .fas {
   position: absolute;
   margin: 0;
@@ -5440,6 +5600,10 @@ li.user-btn:hover i.fa {
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: all 0.3s;
+}
+.external-login-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .external-login-button:hover {
   border: 1px solid var(--accent-color) !important;
@@ -6419,6 +6583,14 @@ li.user-btn:hover i.fa {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -6430,8 +6602,20 @@ li.user-btn:hover i.fa {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -6693,6 +6877,7 @@ span.small.text-danger {
   margin-bottom: 0;
   color: #B4E33D;
   background-color: #2e6930;
+  text-transform: uppercase;
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover {
   color: #2e6930 !important;
@@ -6787,7 +6972,7 @@ span.small.text-danger {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
 }
-.recipe-container .recipe-card .ribbon {
+.recipe-container .recipe-card .ribbon-mealplan {
   top: 0px;
   right: 10px;
   width: 50px;
@@ -6796,6 +6981,16 @@ span.small.text-danger {
   font-weight: bold;
   background: #B4E33D;
   color: #2e6930;
+}
+.recipe-container .recipe-card .ribbon-owner {
+  top: 0px;
+  left: 10px;
+  width: 24px;
+  height: 48px;
+}
+.recipe-container .recipe-card .ribbon-owner svg {
+  height: 16px;
+  width: 16px;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -6813,11 +7008,6 @@ span.small.text-danger {
   left: 10px;
   z-index: 2;
   font-size: 26px;
-}
-.recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -2px;
-  left: 10px;
-  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -7910,6 +8100,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -7921,8 +8119,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -8365,7 +8575,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -9365,6 +9575,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -9376,8 +9594,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -9626,7 +9856,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -9637,7 +9867,7 @@ span.small.text-danger {
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
-.ok-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
+.ok-btn:hover, .browse-recipes-small-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .user-recipes-btn:hover, .profile-set-pass:hover,
 .profile-recipe-collection:hover, .back-to-home-btn:hover, .home-redirect-btn:hover {
@@ -9722,6 +9952,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.download-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
@@ -9767,6 +10001,10 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 50.6px;
   font-size: 25.3px;
+}
+.send-email-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .send-email-btn i, .send-email-btn .fa, .send-email-btn .fas {
   position: absolute;
@@ -9814,6 +10052,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.back-button-main i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .back-button-main i, .back-button-main .fa, .back-button-main .fas {
   position: absolute;
   margin: 0;
@@ -9860,6 +10102,11 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
+}
+.details-btn i,
+.list-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
@@ -9917,6 +10164,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.plus i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .plus i, .plus .fa, .plus .fas {
   position: absolute;
   margin: 0;
@@ -9967,6 +10218,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.minus i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .minus i, .minus .fa, .minus .fas {
   position: absolute;
@@ -10019,6 +10274,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.delete-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .delete-meal-button i, .delete-meal-button .fa, .delete-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -10069,6 +10328,10 @@ li.user-btn:hover i.fa {
   font-size: 19.8px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.cook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -10125,6 +10388,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.uncook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -10172,6 +10439,10 @@ li.user-btn:hover i.fa {
   background-color: #2e6930;
   width: 44px;
   font-size: 22px;
+}
+.repeat-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .repeat-btn i, .repeat-btn .fa, .repeat-btn .fas {
   position: absolute;
@@ -10266,6 +10537,17 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
+.save-button,
+.browse-recipes-btn,
+.shopping-list-btn,
+.edit-button,
+.delete-button,
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn {
+  text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -10284,6 +10566,29 @@ li.user-btn:hover i.fa {
   vertical-align: middle;
 }
 .add-recipe-button span.btn-text, .edit-recipe-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
+}
+
+.browse-recipes-small-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.5rem;
+  width: 10rem;
+  border-radius: 2px;
+}
+.browse-recipes-small-btn i {
+  vertical-align: middle;
+}
+.browse-recipes-small-btn span.btn-text {
   vertical-align: middle;
   display: inline-block;
   margin-top: 0.325rem;
@@ -10330,6 +10635,11 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.add-ingredient-btn i,
+.add-step-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .add-ingredient-btn i, .add-ingredient-btn .fa, .add-ingredient-btn .fas,
 .add-step-btn i,
@@ -10390,6 +10700,10 @@ li.user-btn:hover i.fa {
   font-size: 21.45px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.remove-item-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .remove-item-button i, .remove-item-button .fa, .remove-item-button .fas {
   position: absolute;
@@ -10767,6 +11081,10 @@ li.user-btn:hover i.fa {
   border-bottom-right-radius: 8px !important;
   border-top-right-radius: 8px !important;
 }
+.search-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .search-btn i, .search-btn .fa, .search-btn .fas {
   position: absolute;
   margin: 0;
@@ -10836,6 +11154,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.pagination-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .pagination-btn i, .pagination-btn .fa, .pagination-btn .fas {
   position: absolute;
   margin: 0;
@@ -10887,6 +11209,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.btn-build i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .btn-build i, .btn-build .fa, .btn-build .fas {
   position: absolute;
   margin: 0;
@@ -10937,6 +11263,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   border-radius: 2px;
 }
+.card-back-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .card-back-button i, .card-back-button .fa, .card-back-button .fas {
   position: absolute;
   margin: 0;
@@ -10981,6 +11311,10 @@ li.user-btn:hover i.fa {
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: all 0.3s;
+}
+.external-login-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .external-login-button:hover {
   border: 1px solid var(--accent-color) !important;
@@ -12329,6 +12663,14 @@ footer .footer-copyright .copyright i {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -12340,8 +12682,20 @@ footer .footer-copyright .copyright i {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -13740,6 +14094,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -13751,8 +14113,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -14014,6 +14388,7 @@ span.small.text-danger {
   margin-bottom: 0;
   color: #B4E33D;
   background-color: #2e6930;
+  text-transform: uppercase;
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover {
   color: #2e6930 !important;
@@ -14108,7 +14483,7 @@ span.small.text-danger {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
 }
-.recipe-container .recipe-card .ribbon {
+.recipe-container .recipe-card .ribbon-mealplan {
   top: 0px;
   right: 10px;
   width: 50px;
@@ -14117,6 +14492,16 @@ span.small.text-danger {
   font-weight: bold;
   background: #B4E33D;
   color: #2e6930;
+}
+.recipe-container .recipe-card .ribbon-owner {
+  top: 0px;
+  left: 10px;
+  width: 24px;
+  height: 48px;
+}
+.recipe-container .recipe-card .ribbon-owner svg {
+  height: 16px;
+  width: 16px;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -14134,11 +14519,6 @@ span.small.text-danger {
   left: 10px;
   z-index: 2;
   font-size: 26px;
-}
-.recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -2px;
-  left: 10px;
-  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -15074,6 +15454,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -15085,8 +15473,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -15717,7 +16117,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -16717,6 +17117,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -16728,8 +17136,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -16978,7 +17398,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -16989,7 +17409,7 @@ span.small.text-danger {
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
-.ok-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
+.ok-btn:hover, .browse-recipes-small-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .user-recipes-btn:hover, .profile-set-pass:hover,
 .profile-recipe-collection:hover, .back-to-home-btn:hover, .home-redirect-btn:hover {
@@ -17074,6 +17494,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.download-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
@@ -17119,6 +17543,10 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 50.6px;
   font-size: 25.3px;
+}
+.send-email-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .send-email-btn i, .send-email-btn .fa, .send-email-btn .fas {
   position: absolute;
@@ -17166,6 +17594,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.back-button-main i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .back-button-main i, .back-button-main .fa, .back-button-main .fas {
   position: absolute;
   margin: 0;
@@ -17212,6 +17644,11 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
+}
+.details-btn i,
+.list-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
@@ -17269,6 +17706,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.plus i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .plus i, .plus .fa, .plus .fas {
   position: absolute;
   margin: 0;
@@ -17319,6 +17760,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.minus i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .minus i, .minus .fa, .minus .fas {
   position: absolute;
@@ -17371,6 +17816,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.delete-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .delete-meal-button i, .delete-meal-button .fa, .delete-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -17421,6 +17870,10 @@ li.user-btn:hover i.fa {
   font-size: 19.8px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.cook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -17477,6 +17930,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.uncook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -17524,6 +17981,10 @@ li.user-btn:hover i.fa {
   background-color: #2e6930;
   width: 44px;
   font-size: 22px;
+}
+.repeat-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .repeat-btn i, .repeat-btn .fa, .repeat-btn .fas {
   position: absolute;
@@ -17618,6 +18079,17 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
+.save-button,
+.browse-recipes-btn,
+.shopping-list-btn,
+.edit-button,
+.delete-button,
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn {
+  text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -17636,6 +18108,29 @@ li.user-btn:hover i.fa {
   vertical-align: middle;
 }
 .add-recipe-button span.btn-text, .edit-recipe-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
+}
+
+.browse-recipes-small-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.5rem;
+  width: 10rem;
+  border-radius: 2px;
+}
+.browse-recipes-small-btn i {
+  vertical-align: middle;
+}
+.browse-recipes-small-btn span.btn-text {
   vertical-align: middle;
   display: inline-block;
   margin-top: 0.325rem;
@@ -17682,6 +18177,11 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.add-ingredient-btn i,
+.add-step-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .add-ingredient-btn i, .add-ingredient-btn .fa, .add-ingredient-btn .fas,
 .add-step-btn i,
@@ -17742,6 +18242,10 @@ li.user-btn:hover i.fa {
   font-size: 21.45px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.remove-item-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .remove-item-button i, .remove-item-button .fa, .remove-item-button .fas {
   position: absolute;
@@ -18119,6 +18623,10 @@ li.user-btn:hover i.fa {
   border-bottom-right-radius: 8px !important;
   border-top-right-radius: 8px !important;
 }
+.search-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .search-btn i, .search-btn .fa, .search-btn .fas {
   position: absolute;
   margin: 0;
@@ -18188,6 +18696,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.pagination-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .pagination-btn i, .pagination-btn .fa, .pagination-btn .fas {
   position: absolute;
   margin: 0;
@@ -18239,6 +18751,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.btn-build i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .btn-build i, .btn-build .fa, .btn-build .fas {
   position: absolute;
   margin: 0;
@@ -18289,6 +18805,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   border-radius: 2px;
 }
+.card-back-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .card-back-button i, .card-back-button .fa, .card-back-button .fas {
   position: absolute;
   margin: 0;
@@ -18333,6 +18853,10 @@ li.user-btn:hover i.fa {
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: all 0.3s;
+}
+.external-login-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .external-login-button:hover {
   border: 1px solid var(--accent-color) !important;
@@ -19073,6 +19597,14 @@ li.user-btn:hover i.fa {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -19084,8 +19616,20 @@ li.user-btn:hover i.fa {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -20298,6 +20842,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -20309,8 +20861,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -20965,7 +21529,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -21965,6 +22529,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -21976,8 +22548,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -22226,7 +22810,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -22237,7 +22821,7 @@ span.small.text-danger {
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
-.ok-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
+.ok-btn:hover, .browse-recipes-small-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .user-recipes-btn:hover, .profile-set-pass:hover,
 .profile-recipe-collection:hover, .back-to-home-btn:hover, .home-redirect-btn:hover {
@@ -22322,6 +22906,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.download-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
@@ -22367,6 +22955,10 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 50.6px;
   font-size: 25.3px;
+}
+.send-email-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .send-email-btn i, .send-email-btn .fa, .send-email-btn .fas {
   position: absolute;
@@ -22414,6 +23006,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.back-button-main i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .back-button-main i, .back-button-main .fa, .back-button-main .fas {
   position: absolute;
   margin: 0;
@@ -22460,6 +23056,11 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
+}
+.details-btn i,
+.list-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
@@ -22517,6 +23118,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.plus i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .plus i, .plus .fa, .plus .fas {
   position: absolute;
   margin: 0;
@@ -22567,6 +23172,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.minus i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .minus i, .minus .fa, .minus .fas {
   position: absolute;
@@ -22619,6 +23228,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.delete-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .delete-meal-button i, .delete-meal-button .fa, .delete-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -22669,6 +23282,10 @@ li.user-btn:hover i.fa {
   font-size: 19.8px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.cook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -22725,6 +23342,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.uncook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -22772,6 +23393,10 @@ li.user-btn:hover i.fa {
   background-color: #2e6930;
   width: 44px;
   font-size: 22px;
+}
+.repeat-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .repeat-btn i, .repeat-btn .fa, .repeat-btn .fas {
   position: absolute;
@@ -22866,6 +23491,17 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
+.save-button,
+.browse-recipes-btn,
+.shopping-list-btn,
+.edit-button,
+.delete-button,
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn {
+  text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -22884,6 +23520,29 @@ li.user-btn:hover i.fa {
   vertical-align: middle;
 }
 .add-recipe-button span.btn-text, .edit-recipe-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
+}
+
+.browse-recipes-small-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.5rem;
+  width: 10rem;
+  border-radius: 2px;
+}
+.browse-recipes-small-btn i {
+  vertical-align: middle;
+}
+.browse-recipes-small-btn span.btn-text {
   vertical-align: middle;
   display: inline-block;
   margin-top: 0.325rem;
@@ -22930,6 +23589,11 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.add-ingredient-btn i,
+.add-step-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .add-ingredient-btn i, .add-ingredient-btn .fa, .add-ingredient-btn .fas,
 .add-step-btn i,
@@ -22990,6 +23654,10 @@ li.user-btn:hover i.fa {
   font-size: 21.45px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.remove-item-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .remove-item-button i, .remove-item-button .fa, .remove-item-button .fas {
   position: absolute;
@@ -23367,6 +24035,10 @@ li.user-btn:hover i.fa {
   border-bottom-right-radius: 8px !important;
   border-top-right-radius: 8px !important;
 }
+.search-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .search-btn i, .search-btn .fa, .search-btn .fas {
   position: absolute;
   margin: 0;
@@ -23436,6 +24108,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.pagination-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .pagination-btn i, .pagination-btn .fa, .pagination-btn .fas {
   position: absolute;
   margin: 0;
@@ -23487,6 +24163,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.btn-build i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .btn-build i, .btn-build .fa, .btn-build .fas {
   position: absolute;
   margin: 0;
@@ -23537,6 +24217,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   border-radius: 2px;
 }
+.card-back-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .card-back-button i, .card-back-button .fa, .card-back-button .fas {
   position: absolute;
   margin: 0;
@@ -23581,6 +24265,10 @@ li.user-btn:hover i.fa {
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: all 0.3s;
+}
+.external-login-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .external-login-button:hover {
   border: 1px solid var(--accent-color) !important;
@@ -24992,6 +25680,14 @@ li.user-btn:hover i.fa {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -25003,8 +25699,20 @@ li.user-btn:hover i.fa {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -26398,7 +27106,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -27398,6 +28106,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -27409,8 +28125,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -27659,7 +28387,7 @@ span.small.text-danger {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {
@@ -27670,7 +28398,7 @@ span.small.text-danger {
 .btn-primary:hover, .shopping-list-btn:hover,
 .save-button:hover,
 .mealplan-details-btn:hover,
-.ok-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
+.ok-btn:hover, .browse-recipes-small-btn:hover, .signup-button:hover, .go-to-login:hover, .login-btn:hover,
 .browse-btn:hover,
 .set-password-btn:hover, .user-recipes-btn:hover, .profile-set-pass:hover,
 .profile-recipe-collection:hover, .back-to-home-btn:hover, .home-redirect-btn:hover {
@@ -27755,6 +28483,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.download-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .download-btn i, .download-btn .fa, .download-btn .fas {
   position: absolute;
   margin: 0;
@@ -27800,6 +28532,10 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 50.6px;
   font-size: 25.3px;
+}
+.send-email-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .send-email-btn i, .send-email-btn .fa, .send-email-btn .fas {
   position: absolute;
@@ -27847,6 +28583,10 @@ li.user-btn:hover i.fa {
   width: 50.6px;
   font-size: 25.3px;
 }
+.back-button-main i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .back-button-main i, .back-button-main .fa, .back-button-main .fas {
   position: absolute;
   margin: 0;
@@ -27893,6 +28633,11 @@ li.user-btn:hover i.fa {
   background-color: var(--bs-body-bg);
   width: 44px;
   font-size: 22px;
+}
+.details-btn i,
+.list-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .details-btn i, .details-btn .fa, .details-btn .fas,
 .list-btn i,
@@ -27950,6 +28695,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.plus i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .plus i, .plus .fa, .plus .fas {
   position: absolute;
   margin: 0;
@@ -28000,6 +28749,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.minus i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .minus i, .minus .fa, .minus .fas {
   position: absolute;
@@ -28052,6 +28805,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.delete-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .delete-meal-button i, .delete-meal-button .fa, .delete-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -28102,6 +28859,10 @@ li.user-btn:hover i.fa {
   font-size: 19.8px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.cook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .cook-meal-button i, .cook-meal-button .fa, .cook-meal-button .fas {
   position: absolute;
@@ -28158,6 +28919,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.uncook-meal-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .uncook-meal-button i, .uncook-meal-button .fa, .uncook-meal-button .fas {
   position: absolute;
   margin: 0;
@@ -28205,6 +28970,10 @@ li.user-btn:hover i.fa {
   background-color: #2e6930;
   width: 44px;
   font-size: 22px;
+}
+.repeat-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .repeat-btn i, .repeat-btn .fa, .repeat-btn .fas {
   position: absolute;
@@ -28299,6 +29068,17 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
+.save-button,
+.browse-recipes-btn,
+.shopping-list-btn,
+.edit-button,
+.delete-button,
+.add-recipe-button,
+.mealplan-details-btn,
+.edit-recipe-btn {
+  text-transform: uppercase;
+}
+
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -28317,6 +29097,29 @@ li.user-btn:hover i.fa {
   vertical-align: middle;
 }
 .add-recipe-button span.btn-text, .edit-recipe-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
+}
+
+.browse-recipes-small-btn {
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.5rem;
+  width: 10rem;
+  border-radius: 2px;
+}
+.browse-recipes-small-btn i {
+  vertical-align: middle;
+}
+.browse-recipes-small-btn span.btn-text {
   vertical-align: middle;
   display: inline-block;
   margin-top: 0.325rem;
@@ -28363,6 +29166,11 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.add-ingredient-btn i,
+.add-step-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .add-ingredient-btn i, .add-ingredient-btn .fa, .add-ingredient-btn .fas,
 .add-step-btn i,
@@ -28423,6 +29231,10 @@ li.user-btn:hover i.fa {
   font-size: 21.45px;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+.remove-item-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .remove-item-button i, .remove-item-button .fa, .remove-item-button .fas {
   position: absolute;
@@ -28800,6 +29612,10 @@ li.user-btn:hover i.fa {
   border-bottom-right-radius: 8px !important;
   border-top-right-radius: 8px !important;
 }
+.search-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .search-btn i, .search-btn .fa, .search-btn .fas {
   position: absolute;
   margin: 0;
@@ -28869,6 +29685,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.pagination-btn i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .pagination-btn i, .pagination-btn .fa, .pagination-btn .fas {
   position: absolute;
   margin: 0;
@@ -28920,6 +29740,10 @@ li.user-btn:hover i.fa {
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
 }
+.btn-build i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .btn-build i, .btn-build .fa, .btn-build .fas {
   position: absolute;
   margin: 0;
@@ -28970,6 +29794,10 @@ li.user-btn:hover i.fa {
   font-size: 22px;
   border-radius: 2px;
 }
+.card-back-button i {
+  line-height: 1.2;
+  vertical-align: middle;
+}
 .card-back-button i, .card-back-button .fa, .card-back-button .fas {
   position: absolute;
   margin: 0;
@@ -29014,6 +29842,10 @@ li.user-btn:hover i.fa {
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: all 0.3s;
+}
+.external-login-button i {
+  line-height: 1.2;
+  vertical-align: middle;
 }
 .external-login-button:hover {
   border: 1px solid var(--accent-color) !important;
@@ -29879,6 +30711,14 @@ li.user-btn:hover i.fa {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -29890,8 +30730,20 @@ li.user-btn:hover i.fa {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -30998,6 +31850,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -31009,8 +31869,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -31272,6 +32144,7 @@ span.small.text-danger {
   margin-bottom: 0;
   color: #B4E33D;
   background-color: #2e6930;
+  text-transform: uppercase;
 }
 .card-custom-style-with-back-btn .card-header .nav-item .nav-link:hover, #recipe-details-container .card .card-header .nav-item .nav-link:hover, #meal-cook-container .card .card-header .nav-item .nav-link:hover, #add-recipe .card .card-header .nav-item .nav-link:hover, #edit-recipe .card .card-header .nav-item .nav-link:hover {
   color: #2e6930 !important;
@@ -31366,7 +32239,7 @@ span.small.text-danger {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background-color: var(--bs-body-bg);
 }
-.recipe-container .recipe-card .ribbon {
+.recipe-container .recipe-card .ribbon-mealplan {
   top: 0px;
   right: 10px;
   width: 50px;
@@ -31375,6 +32248,16 @@ span.small.text-danger {
   font-weight: bold;
   background: #B4E33D;
   color: #2e6930;
+}
+.recipe-container .recipe-card .ribbon-owner {
+  top: 0px;
+  left: 10px;
+  width: 24px;
+  height: 48px;
+}
+.recipe-container .recipe-card .ribbon-owner svg {
+  height: 16px;
+  width: 16px;
 }
 .recipe-container .recipe-card .image-container .card-img-top {
   display: block;
@@ -31392,11 +32275,6 @@ span.small.text-danger {
   left: 10px;
   z-index: 2;
   font-size: 26px;
-}
-.recipe-container .recipe-card .image-container .fa-bookmark {
-  top: -2px;
-  left: 10px;
-  font-size: 30px;
 }
 .recipe-container .recipe-card .image-container .add-to-mealplan-container {
   position: absolute;
@@ -31602,8 +32480,25 @@ span.small.text-danger {
 }
 
 #recipe-details-container .card, #meal-cook-container .card {
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+}
+#recipe-details-container .card .ribbon-owner, #meal-cook-container .card .ribbon-owner {
+  top: -10px;
+  right: 70px;
+  width: 60px;
+  height: 90px;
+}
+#recipe-details-container .card .ribbon-owner svg, #meal-cook-container .card .ribbon-owner svg {
+  height: 30px;
+  width: 30px;
+}
+#recipe-details-container .card .ribbon-mealplan, #meal-cook-container .card .ribbon-mealplan {
+  top: -10px;
+  right: 150px;
+  width: 60px;
+  height: 80px;
+  font-size: 36px;
 }
 #recipe-details-container .card .card-body, #meal-cook-container .card .card-body {
   padding: 0;
@@ -31622,9 +32517,53 @@ span.small.text-danger {
   text-decoration: underline;
   font-weight: 600;
 }
+#recipe-details-container .card .card-body .features-container, #meal-cook-container .card .card-body .features-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #2e6930;
+  color: #fff;
+}
+#recipe-details-container .card .card-body .features-container .feature, #meal-cook-container .card .card-body .features-container .feature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+#recipe-details-container .card .card-body .features-container .feature .icon-container, #meal-cook-container .card .card-body .features-container .feature .icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  line-height: 1.4rem;
+  color: #B4E33D;
+}
+#recipe-details-container .card .card-body .features-container .feature .icon-container i, #meal-cook-container .card .card-body .features-container .feature .icon-container i {
+  font-size: 1.2rem;
+}
+#recipe-details-container .card .card-body .features-container .feature .list-item-content, #meal-cook-container .card .card-body .features-container .feature .list-item-content {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 2px;
+  line-height: 1.4rem;
+  font-size: 1.2rem;
+  font-family: "League Spartan", sans-serif;
+}
+#recipe-details-container .card .card-body .features-container .feature .list-item-content .item-decription, #meal-cook-container .card .card-body .features-container .feature .list-item-content .item-decription {
+  font-size: 1.2rem;
+  color: #B4E33D;
+}
+#recipe-details-container .card .card-body .features-container .feature .list-item-content .item-value, #meal-cook-container .card .card-body .features-container .feature .list-item-content .item-value {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
 #recipe-details-container .card .card-body .img-container, #meal-cook-container .card .card-body .img-container {
   position: relative;
-  height: 460px;
+  height: 300px;
   overflow: hidden;
 }
 #recipe-details-container .card .card-body .img-container .image, #meal-cook-container .card .card-body .img-container .image {
@@ -31657,41 +32596,6 @@ span.small.text-danger {
 }
 #recipe-details-container .card .card-body .img-container .cook-meal-button i:hover, #meal-cook-container .card .card-body .img-container .cook-meal-button i:hover {
   color: #fff !important;
-}
-#recipe-details-container .card .card-body .features-row, #meal-cook-container .card .card-body .features-row {
-  padding: 1.2rem 0.25rem 1rem 0.25rem;
-  color: #fff;
-  background-color: #2e6930;
-  row-gap: 0.3rem;
-}
-#recipe-details-container .card .card-body .features-row .col .icon-container, #meal-cook-container .card .card-body .features-row .col .icon-container {
-  width: 1.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #B4E33D;
-  line-height: 1.2rem;
-}
-#recipe-details-container .card .card-body .features-row .col .icon-container .fa, #meal-cook-container .card .card-body .features-row .col .icon-container .fa {
-  font-size: 1rem;
-}
-#recipe-details-container .card .card-body .features-row .col .list-item-content, #meal-cook-container .card .card-body .features-row .col .list-item-content {
-  display: flex;
-  align-items: center;
-  padding-top: 2px;
-  line-height: 1.2rem;
-  font-size: 1rem;
-  font-family: "League Spartan", sans-serif;
-}
-#recipe-details-container .card .card-body .features-row .col .list-item-content .item-decription, #meal-cook-container .card .card-body .features-row .col .list-item-content .item-decription {
-  font-size: 1.2rem;
-  color: #B4E33D;
-}
-#recipe-details-container .card .card-body .features-row .col .list-item-content .item-value, #meal-cook-container .card .card-body .features-row .col .list-item-content .item-value {
-  padding-bottom: 0.125rem;
-  font-size: 1rem;
-  font-style: italic;
-  font-family: "Libre Baskerville", serif;
 }
 #recipe-details-container .card .card-body #ingredients, #meal-cook-container .card .card-body #ingredients {
   padding: 2rem 1.5rem;
@@ -31748,14 +32652,29 @@ span.small.text-danger {
 #recipe-details-container .card .card-body #instructions .steps-container .step-wrapper:last-child, #meal-cook-container .card .card-body #instructions .steps-container .step-wrapper:last-child {
   border-bottom: none; /* Removes the border-bottom for the last step */
 }
-#recipe-details-container .card .bookmark-icon, #meal-cook-container .card .bookmark-icon {
+
+#recipes-mine-none {
+  position: relative;
+}
+#recipes-mine-none .form-container {
   position: absolute;
-  top: -30px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  right: 56px;
-  z-index: 10;
-  font-size: 120px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 15%);
+}
+#recipes-mine-none .form-container .stronger-message {
+  font-size: 1.3rem;
+}
+#recipes-mine-none .form-container .user-text {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+}
+#recipes-mine-none .form-container .buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -31777,6 +32696,21 @@ span.small.text-danger {
   #recipe-details-container .back-button, #meal-cook-container .back-button {
     top: 2px;
     font-size: 18px;
+  }
+  #recipe-details-container .ribbon-owner, #meal-cook-container .ribbon-owner {
+    width: 20px !important;
+    right: 60px !important;
+    height: 100px !important;
+  }
+  #recipe-details-container .ribbon-owner svg, #meal-cook-container .ribbon-owner svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  #recipe-details-container .ribbon-mealplan, #meal-cook-container .ribbon-mealplan {
+    right: 86px !important;
+    width: 20px !important;
+    height: 100px !important;
+    font-size: 16px !important;
   }
 }
 :root {
@@ -32093,32 +33027,12 @@ span.small.text-danger {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 }
 #how-it-works #steps-container .step-img-box .step-img {
-  width: 35%;
+  width: 100%;
   z-index: 10;
-}
-#how-it-works #steps-container .step-img-box::before,
-#how-it-works #steps-container .step-img-box::after {
-  content: "";
-  display: block;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-#how-it-works #steps-container .step-img-box::before {
-  width: 60%;
-  padding-bottom: 60%;
-  background-color: #fbe2b4;
-  z-index: -2;
-}
-#how-it-works #steps-container .step-img-box::after {
-  width: 45%;
-  padding-bottom: 45%;
-  background-color: #f7c569;
-  z-index: -1;
+  background: transparent;
 }
 #how-it-works #steps-container:last-child {
   margin-bottom: 0;
@@ -32303,6 +33217,9 @@ span.small.text-danger {
 @media (max-width: 800px) {
   #shopping-list .group-buttons-container {
     flex-direction: column !important;
+  }
+  #shopping-list .group-buttons-container .back-btn-container {
+    order: -1;
   }
 }
 :root {
@@ -33115,6 +34032,14 @@ span.small.text-danger {
   margin-bottom: 0 !important;
 }
 
+.buttons-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
 .hidden {
   display: none;
 }
@@ -33126,8 +34051,20 @@ span.small.text-danger {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.ribbon-mealplan {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 40% 100%, 0 calc(100% - 12px));
   filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+  background-color: #B4E33D;
+  color: #2e6930;
+}
+
+.ribbon-owner {
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  clip-path: polygon(0.4% 0.3%, 100% 0%, 95% 85.8%, 20.1% 74%, 10.4% 100%, 14.1% 78.8%, 4.8% 77%);
+  background: #FFEB3B;
+  color: #2e6930;
 }
 
 .suggestionsList {
@@ -33457,14 +34394,6 @@ span.small.text-danger {
   color: #DA0505;
   font-weight: 400;
   font-size: 1.3rem;
-}
-
-.buttons-two {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
-  margin-bottom: 3rem;
 }
 
 .suggested-links-message {
@@ -36649,7 +37578,7 @@ textarea.form-control-lg {
 .btn-primary, .shopping-list-btn,
 .save-button,
 .mealplan-details-btn,
-.ok-btn, .signup-button, .go-to-login, .login-btn,
+.ok-btn, .browse-recipes-small-btn, .signup-button, .go-to-login, .login-btn,
 .browse-btn,
 .set-password-btn, .user-recipes-btn, .profile-set-pass,
 .profile-recipe-collection, .back-to-home-btn, .home-redirect-btn {

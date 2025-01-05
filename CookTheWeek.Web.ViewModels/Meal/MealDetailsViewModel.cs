@@ -13,27 +13,17 @@
         }
 
         public int Id { get; set; }
-
         public string Title { get; set; } = null!;
-
         public string ImageUrl { get; set; } = null!;
-
         public string? Description { get; set; }
-
         public int ServingSize { get; set; }
-
         public string CookingTime { get; set; } = null!;
-
         public string? DifficultyLevel { get; set; }
-
         public string CookingDate { get; set; } = null!;
-
-        public string CategoryName { get; set; } = null!;
-        
+        public string CategoryName { get; set; } = null!;           
         public bool IsCooked { get; set; }
         public bool IsMealPlanFinished { get; set; }
         public List<StepViewModel> CookingSteps { get; set; }
-
         public IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> IngredientsByCategories { get; set; }
 
     }
