@@ -19,7 +19,7 @@
                         <ul class="list-unstyled">
                             @foreach (var product in category.SupplyItems)
                             {
-                                <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Specification</li>
+                                <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Note</li>
                             }
                         </ul>
                     </div>

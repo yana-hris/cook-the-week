@@ -71,50 +71,5 @@
             dbContext.Measures.Remove(measure);
             await dbContext.SaveChangesAsync();
         }
-
-        /// <inheritdoc/>
-        public IQueryable<Specification> GetAllSpecsQuery()
-        {
-            return dbContext
-                .Specifications
-                .AsNoTracking()
-                .AsQueryable();
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> SpecificationExistsByIdAsync(int id)
-        {
-            return await dbContext.Specifications.AnyAsync(sp => sp.Id == id);
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> SpecificationExistsByNameAsync(string name)
-        {
-            return await dbContext.Specifications
-                .AnyAsync(sp => sp.Description.ToLower() == name.ToLower());
-        }
-
-        /// <inheritdoc/>
-        public async Task AddSpecAsync(Specification spec)
-        {
-            await dbContext.Specifications.AddAsync(spec);
-            await dbContext.SaveChangesAsync();
-        }
-
-        /// <inheritdoc/>
-        public async Task UpdateSpecAsync(Specification spec)
-        {
-            dbContext.Specifications.Update(spec);
-            await dbContext.SaveChangesAsync();
-        }
-
-        /// <inheritdoc/>
-        public async Task DeleteSpecAsync(Specification spec)
-        {
-            dbContext.Specifications.Remove(spec);
-            await dbContext.SaveChangesAsync();
-        }
-
-        
     }
 }

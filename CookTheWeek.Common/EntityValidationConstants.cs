@@ -116,8 +116,6 @@
 
             public const double QtyMinDecimalValue = 0.001;
             public const double QtyMaxDecimalValue = 9999.999;
-
-            //public const string QtyRegularExpression = @"^\d+(\.\d{1,2})?$";
             
             public const string QtyRequiredErrorMessage = "Qty is required";
 
@@ -125,8 +123,8 @@
             public const string MeasureRequiredErrorMessage = "Unit/measure is required";
             public const string MeasureRangeErrorMessage = "Invalid unit/measure";
 
-            // Specification
-            public const string SpecificationRangeErrorMessage = "Invalid specification";
+            // Note
+            public const string InvalidNoteLengthErrorMessage = "Invalid note";
 
         }
 
@@ -150,7 +148,7 @@
             public const int NameMaxLength = 50;
         }
 
-        public static class SpecificationValidation
+        public static class NoteValidation
         {
             public const int DescriptionMinLength = 2;
             public const int DescriptionMaxLength = 50;
@@ -251,6 +249,7 @@
                     { "RecipeIngredientNameRequiredErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRequiredErrorMessage },
                     { "RecipeIngredientNameRangeErrorMessage", RecipeIngredientValidation.RecipeIngredientNameRangeErrorMessage },
                     { "MeasureRequiredErrorMessage", RecipeIngredientValidation.MeasureRequiredErrorMessage },
+                    { "InvalidNoteLengthErrorMessage", RecipeIngredientValidation.InvalidNoteLengthErrorMessage },
                     { "MissingFormInputErrorMessage", RecipeIngredientQtyValidation.MissingFormInputErrorMessage },
                     { "MissingFractionalOrWholeInputMessage", RecipeIngredientQtyValidation.MissingFractionalOrWholeInputMessage },
                     { "InvalidDecimalRangeErrorMessage", RecipeIngredientQtyValidation.InvalidDecimalRangeErrorMessage },
@@ -289,6 +288,8 @@
                     {"StepDescriptionMaxLength", StepValidation.StepDescriptionMaxLength },
                     {"RecipeIngredientNameMinLength", RecipeIngredientValidation.RecipeIngredientNameMinLength },
                     {"RecipeIngredientNameMaxLength", RecipeIngredientValidation.RecipeIngredientNameMaxLength },
+                    {"RecipeIngredientNoteMinLength", NoteValidation.DescriptionMinLength },
+                    {"RecipeIngredientNoteMaxLength", NoteValidation.DescriptionMaxLength },
 
                 };
         }

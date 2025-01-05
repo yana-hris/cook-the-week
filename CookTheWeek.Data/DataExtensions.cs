@@ -51,7 +51,6 @@
             //context.RecipeCategories.AddRange(SeedRecipeCategories());
             //context.IngredientCategories.AddRange(SeedIngredientCategories());
             //context.Measures.AddRange(SeedMeasures());
-            //context.Specifications.AddRange(SeedSpecifications());
             //context.Ingredients.AddRange(SeedIngredients());
             //context.Recipes.AddRange(SeedRecipes());
             //context.Steps.AddRange(SeedSteps());

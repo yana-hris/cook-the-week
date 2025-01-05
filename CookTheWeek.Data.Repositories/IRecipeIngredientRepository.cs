@@ -61,49 +61,5 @@
         /// <param name="measure"></param>
         /// <returns></returns>
         Task DeleteMeasureAsync(Measure measure);
-
-        // SPECIFICATIONS:
-        /// <summary>
-        /// Returns a queriable of all specifications
-        /// </summary>
-        /// <returns>A qieryable collection of Specification</returns>
-        IQueryable<Specification> GetAllSpecsQuery();
-
-        /// <summary>
-        /// Checks if a given recipe ingredient Specification exists by its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true or false</returns>
-        Task<bool> SpecificationExistsByIdAsync(int id);
-
-        /// <summary>
-        /// Checks if a given recipe ingredient Specification exists by name
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true or false</returns>
-        Task<bool> SpecificationExistsByNameAsync(string name);
-
-        /// <summary>
-        /// Adds a Specification to the database
-        /// </summary>
-        /// <param name="spec"></param>
-        /// <returns></returns>
-        Task AddSpecAsync(Specification spec);
-
-        /// <summary>
-        /// Updates an existing Specification
-        /// </summary>
-        /// <param name="spec"></param>
-        /// <returns></returns>
-        Task UpdateSpecAsync(Specification spec);
-
-        /// <summary>
-        /// Deletes an existing Specification from the database
-        /// </summary>
-        /// <param name="spec"></param>
-        /// <returns></returns>
-        Task DeleteSpecAsync(Specification mespecasure);
-
-        
     }
 }

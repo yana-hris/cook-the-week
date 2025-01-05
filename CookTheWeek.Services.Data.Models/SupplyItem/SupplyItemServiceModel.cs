@@ -7,6 +7,6 @@
         public decimal Qty { get; set; }
         public int MeasureId { get; set; }
         public int CategoryId { get; set; }
-        public int? SpecificationId { get; set; }
+        public string? Note { get; set; }
     }
 }

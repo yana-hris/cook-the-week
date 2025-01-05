@@ -6,6 +6,6 @@
         string Name { get; set; }
         string Qty { get; set; }
         string Measure { get; set; }
-        string? Specification { get; set; }
+        string? Note { get; set; }
     }
 }

@@ -141,7 +141,7 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
             Name: '',
             Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
             MeasureId: '',
-            SpecificationId: ''
+            Note: ''
         });
 
         self.RecipeIngredients.push(newIngredient);
@@ -336,8 +336,19 @@ export function AddRecipeViewModel(data, serverErrors, errorMessages, qtyFractio
             validatable: true
         });
 
-        ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId ? ingredient.SpecificationId : '')
-            .extend({ validatable: true });
+        ingredientSelf.Note = ko.observable(ingredient.Note ? ingredient.Note : '')
+            .extend({
+                validatable: true,
+                validation: {
+                    validator: function (value) {
+                        if (!value) return true; // Skip validation if the note is empty
+                        const minLength = validationConstants.RecipeIngredientNoteMinLength; // Minimum length
+                        const maxLength = validationConstants.RecipeIngredientNoteMaxLength; // Maximum length
+                        return value.length >= minLength && value.length <= maxLength;
+                    },
+                    message: errorMessages.InvalidNoteLengthErrorMessage,
+                },
+            });
 
         let switchChecked = Boolean(ingredientSelf.Qty() ? (!ingredientSelf.Qty().QtyDecimal() && (ingredientSelf.Qty().QtyFraction() || ingredientSelf.Qty().QtyWhole()) ? true : false) : false);
 

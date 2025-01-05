@@ -339,7 +339,7 @@
                 <ul>
                     {string.Join("", category.SupplyItems.Select(item => $@"
                         <li class=""shopping-item"">
-                            {item.Qty} <span style=""font-weight: 300;"">{item.Measure}</span> {item.Name} {item.Specification}
+                            {item.Qty} <span style=""font-weight: 300;"">{item.Measure}</span> {item.Name} {item.Note}
                         </li>
                     "))}
                 </ul>

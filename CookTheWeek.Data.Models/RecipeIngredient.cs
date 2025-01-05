@@ -44,13 +44,9 @@
         [Comment("Measure")]
         [Required]
         public Measure Measure { get; set; } = null!;
-        
-        [Comment("Key identifier for Specification")]
-        [ForeignKey(nameof(Specification))]
-        public int? SpecificationId { get; set; }
 
-        [Comment("Specification")]       
-        public Specification? Specification { get; set; }
+        [Comment("User Notes for the given RecipeIngredient")]
+        public string? Note { get; set; } 
 
         [Comment("Soft Delete the RecipeIngredient when the Recipe is deleted")]
         [Required]

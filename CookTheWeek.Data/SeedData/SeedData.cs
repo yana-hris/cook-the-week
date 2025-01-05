@@ -243,56 +243,6 @@
                 },
             };
         }
-        internal static ICollection<Specification> SeedSpecifications()
-        {
-            return new HashSet<Specification>()
-            {
-                new() {
-                    Id = 1,
-                    Description = "frozen"
-                },
-                new() {
-                    Id = 2,
-                    Description = "canned"
-                },
-                new() {
-                    Id = 3,
-                    Description = "sliced"
-                },
-                new() {
-                    Id = 4,
-                    Description = "pre-cooked"
-                },
-                new() {
-                    Id = 5,
-                    Description = "grated"
-                },
-                new() {
-                    Id = 6,
-                    Description = "fermented"
-                },
-                new() {
-                    Id = 7,
-                    Description = "blended"
-                },
-                new() {
-                    Id = 8,
-                    Description = "finely-chopped"
-                },
-                new() {
-                    Id = 9,
-                    Description = "fresh"
-                },
-                new() {
-                    Id = 10,
-                    Description = "squeezed"
-                },
-                new() {
-                    Id = 11,
-                    Description = "dried"
-                }
-            };
-        }
         internal static ICollection<Ingredient> SeedIngredients()
         {
             return new HashSet<Ingredient>()
@@ -2305,7 +2255,6 @@
                     IngredientId = 11,
                     Qty = 500,
                     MeasureId = 5,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2314,7 +2263,6 @@
                     IngredientId = 113,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2323,7 +2271,6 @@
                     IngredientId = 118,
                     Qty = 1,
                     MeasureId = 6,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2332,7 +2279,6 @@
                     IngredientId = 122,
                     Qty = 250,
                     MeasureId = 5,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2341,7 +2287,6 @@
                     IngredientId = 154,
                     Qty = 3,
                     MeasureId = 8,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2350,7 +2295,6 @@
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2359,7 +2303,6 @@
                     IngredientId = 14,
                     Qty = 1,
                     MeasureId = 9,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2368,7 +2311,6 @@
                     IngredientId = 12,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2377,7 +2319,6 @@
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2386,7 +2327,6 @@
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
                 }, // Recipe By Admin (No. 2)                    
                 new()
                 {
@@ -2395,7 +2335,6 @@
                     IngredientId = 1,
                     Qty = 400,
                     MeasureId = 5,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2404,7 +2343,6 @@
                     IngredientId = 118,
                     Qty = 6,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2413,7 +2351,6 @@
                     IngredientId = 71,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2422,7 +2359,6 @@
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2431,7 +2367,6 @@
                     IngredientId = 114,
                     Qty = 3,
                     MeasureId = 1,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2440,7 +2375,6 @@
                     IngredientId = 154,
                     Qty = 3,
                     MeasureId = 8,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2449,7 +2383,6 @@
                     IngredientId = 64,
                     Qty = 1,
                     MeasureId = 10,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2458,7 +2391,6 @@
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
                 },
                 new()
                 {
@@ -2467,7 +2399,6 @@
                     IngredientId = 53,
                     Qty = 10,
                     MeasureId = 1,
-                    SpecificationId = null,
                 }, // Recipe By Admin (No. 3)
                 new()
                 {
@@ -2476,7 +2407,7 @@
                     IngredientId = 4,
                     Qty = 600,
                     MeasureId = 5,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2485,7 +2416,7 @@
                     IngredientId = 114,
                     Qty = 3,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2494,7 +2425,7 @@
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2503,7 +2434,7 @@
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2512,7 +2443,7 @@
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2521,7 +2452,7 @@
                     IngredientId = 57,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2530,7 +2461,7 @@
                     IngredientId = 64,
                     Qty = 1,
                     MeasureId = 10,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2539,7 +2470,7 @@
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2548,7 +2479,7 @@
                     IngredientId = 56,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2557,7 +2488,7 @@
                     IngredientId = 156,
                     Qty = 150,
                     MeasureId = 5,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2566,7 +2497,7 @@
                     IngredientId = 163,
                     Qty = 250,
                     MeasureId = 5,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2575,7 +2506,7 @@
                     IngredientId = 154,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },// Recipe By Admin (No. 4)
                 new()
                 {
@@ -2584,7 +2515,7 @@
                     IngredientId = 2,
                     Qty = 500,
                     MeasureId = 5,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2593,7 +2524,7 @@
                     IngredientId = 127,
                     Qty = 10,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2602,7 +2533,7 @@
                     IngredientId = 114,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2611,7 +2542,7 @@
                     IngredientId = 122,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = 5,
+                    Note = "grated",
                 },
                 new()
                 {
@@ -2620,7 +2551,7 @@
                     IngredientId = 154,
                     Qty = 4,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2629,7 +2560,7 @@
                     IngredientId = 189,
                     Qty = 160,
                     MeasureId = 3,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2638,7 +2569,7 @@
                     IngredientId = 113,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2647,7 +2578,7 @@
                     IngredientId = 52,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2656,7 +2587,7 @@
                     IngredientId = 53,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2665,7 +2596,7 @@
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2674,7 +2605,7 @@
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 }, // Recipe By Admin (No. 5)
                 new()
                 {
@@ -2683,7 +2614,7 @@
                     IngredientId = 14,
                     Qty = 1,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2692,7 +2623,7 @@
                     IngredientId = 135,
                     Qty = 1,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2701,7 +2632,7 @@
                     IngredientId = 198,
                     Qty = 0.5m,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2710,7 +2641,7 @@
                     IngredientId = 116,
                     Qty = 1,
                     MeasureId = 12,
-                    SpecificationId = 9
+                    Note = "fresh"
                 }, // Recipe By Admin (No. 6)
                 new()
                 {
@@ -2719,7 +2650,7 @@
                     IngredientId = 196,
                     Qty = 0.5m,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2728,7 +2659,7 @@
                     IngredientId = 198,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2737,7 +2668,7 @@
                     IngredientId = 218,
                     Qty = 2,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2746,7 +2677,7 @@
                     IngredientId = 13,
                     Qty = 1,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2755,7 +2686,7 @@
                     IngredientId = 228,
                     Qty = 2,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2764,7 +2695,7 @@
                     IngredientId = 229,
                     Qty = 2,
                     MeasureId = 8,
-                    SpecificationId = 8
+                    Note = "finely-chopped"
                 }, // Recipe By Admin (No 7)
                 new()
                 {
@@ -2773,7 +2704,7 @@
                     IngredientId = 134,
                     Qty = 0.5m,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2782,7 +2713,7 @@
                     IngredientId = 243,
                     Qty = 1,
                     MeasureId = 12,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2791,7 +2722,7 @@
                     IngredientId = 251,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2800,7 +2731,7 @@
                     IngredientId = 252,
                     Qty = 1,
                     MeasureId = 13,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2809,7 +2740,7 @@
                     IngredientId = 141,
                     Qty = 1,
                     MeasureId = 1,
-                    SpecificationId = 10
+                    Note = "squeezed"
                 },
                 new()
                 {
@@ -2818,7 +2749,7 @@
                     IngredientId = 123,
                     Qty = 6,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 }, // Recipe by AppUser (No 8)
                 new()
                 {
@@ -2827,7 +2758,7 @@
                     IngredientId = 36,
                     Qty = 500.00m,
                     MeasureId = 5,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2836,7 +2767,7 @@
                     IngredientId = 52,
                     Qty = 2,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2845,7 +2776,7 @@
                     IngredientId = 54,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2854,7 +2785,7 @@
                     IngredientId = 59,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2863,7 +2794,7 @@
                     IngredientId = 64,
                     Qty = 1,
                     MeasureId = 10,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2872,7 +2803,7 @@
                     IngredientId = 67,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2881,7 +2812,7 @@
                     IngredientId = 112,
                     Qty = 1,
                     MeasureId = 2,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2890,7 +2821,7 @@
                     IngredientId = 113,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2899,7 +2830,7 @@
                     IngredientId = 114,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2908,7 +2839,7 @@
                     IngredientId = 122,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2917,7 +2848,7 @@
                     IngredientId = 127,
                     Qty = 2,
                     MeasureId = 1,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2926,7 +2857,7 @@
                     IngredientId = 188,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },// Recipe by AppUser (No 8)
                 new()
                 {
@@ -2935,7 +2866,7 @@
                     IngredientId = 116,
                     Qty = 2,
                     MeasureId = 7,
-                    SpecificationId = 5
+                    Note = "grated"
                 },
                 new()
                 {
@@ -2944,7 +2875,7 @@
                     IngredientId = 155,
                     Qty = 1,
                     MeasureId = 8,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2953,7 +2884,7 @@
                     IngredientId = 165,
                     Qty = 400.0m,
                     MeasureId = 3,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2962,7 +2893,7 @@
                     IngredientId = 222,
                     Qty = 2,
                     MeasureId = 9,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2971,7 +2902,7 @@
                     IngredientId = 83,
                     Qty = 1,
                     MeasureId = 6,
-                    SpecificationId = null,
+                    Note = null,
                 },
                 new()
                 {
@@ -2980,7 +2911,7 @@
                     IngredientId = 253,
                     Qty = 1,
                     MeasureId = 7,
-                    SpecificationId = null,
+                    Note = null,
                 },
             };
         }

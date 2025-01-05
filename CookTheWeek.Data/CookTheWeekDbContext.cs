@@ -18,7 +18,6 @@
         public DbSet<RecipeCategory> RecipeCategories { get; set; } = null!;
         public DbSet<IngredientCategory> IngredientCategories { get; set; } = null!;
         public DbSet<Measure> Measures { get; set; } = null!;
-        public DbSet<Specification> Specifications { get; set; } = null!;
         public DbSet<Ingredient> Ingredients { get; set; } = null!;
         public DbSet<Recipe> Recipes { get; set; } = null!;
         public DbSet<Step> Steps { get; set; } = null!;

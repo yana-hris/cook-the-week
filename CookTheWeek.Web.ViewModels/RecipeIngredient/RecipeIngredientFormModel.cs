@@ -5,13 +5,13 @@
     using CustomValidationAttributes;
 
     using static Common.EntityValidationConstants.RecipeIngredientValidation;
+    using static Common.EntityValidationConstants;
     public class RecipeIngredientFormModel
     {
         
         public RecipeIngredientFormModel()
         {
             this.Measures = new HashSet<SelectViewModel>();
-            this.Specifications = new HashSet<SelectViewModel>();
         }
 
         [Required]
@@ -31,9 +31,8 @@
         public int? MeasureId { get; set; }
 
         [Display(Name = "Note")]
-        public int? SpecificationId { get; set; }
+        [StringLength(NoteValidation.DescriptionMaxLength, MinimumLength = NoteValidation.DescriptionMinLength, ErrorMessage = InvalidNoteLengthErrorMessage)]
+        public string? Note { get; set; }
         public ICollection<SelectViewModel> Measures { get; set; }
-
-        public ICollection<SelectViewModel> Specifications { get; set; }
     }
 }

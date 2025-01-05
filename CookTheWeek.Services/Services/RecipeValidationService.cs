@@ -106,17 +106,6 @@
                 {
                     AddValidationError(result, nameof(ingredient.MeasureId), RecipeIngredientValidation.MeasureRangeErrorMessage);
                 }
-
-                
-                if (ingredient.SpecificationId != null && ingredient.SpecificationId.HasValue)
-                {
-                    bool specificationExists = await recipeIngredientRepository.SpecificationExistsByIdAsync(ingredient.SpecificationId.Value);
-                    if (!specificationExists)
-                    {
-                        AddValidationError(result, nameof(ingredient.SpecificationId), RecipeIngredientValidation.SpecificationRangeErrorMessage);
-
-                    }
-                }
             }
 
             return result;

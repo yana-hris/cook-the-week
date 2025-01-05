@@ -13,9 +13,7 @@
             public const string CategoryDataRetrievalExceptionMessage = "Recipe Categories data retrieval failed.";
 
             public const string RecipeIngredientMeasuresDataRetrievalExceptionMessage = "Recipe Ingredient Measures data retrieval failed.";
-
-            public const string RecipeIngredientSpecificationsDataRetrievalExceptionMessage = "Recipe Ingredient Specifications data retrieval failed.";
-
+           
             public const string FavouriteRecipeDataRetrievalExceptionMessage = "User like for a recipe data retrieval failed.";
 
             public const string RecipeTotalLikesDataRetrievalExceptionMessage = "Recipe likes total count data retrieval failed.";

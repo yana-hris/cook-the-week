@@ -400,8 +400,14 @@
                                                     <span class="input-group-text">
                                                         <i class="fa-solid fa-pencil"></i>
                                                     </span>
-                                                    <select data-bind="value: SpecificationId,
-                                                               attr: {name: 'RecipeIngredients[' + $index() + '].SpecificationId' },
+                                                    <input class="form-control" 
+                                                           data-bind="value: Note,
+                                                           attr: {name: 'RecipeIngredients[' + $index() + '].Note' },
+                                                           valueUpdate: 'afterkeydown'"
+                                                           placeholder="Any notes here.."
+                                                           type="text" />
+                                                   @*  <select data-bind="value: Note,
+                                                               attr: {name: 'RecipeIngredients[' + $index() + '].Note' },
                                                                valueUpdate: 'afterkeydown'"
                                                             aria-label="Note"
                                                             class="form-select">
@@ -410,8 +416,11 @@
                                                         {
                                                             <option value="@specification.Id">@specification.Name</option>
                                                         }
-                                                    </select>
+                                                    </select> *@
                                                 </div>
+                                                <span data-bind="validationMessage: Note"
+                                                      class="small text-danger">
+                                                </span>
                                             </div>
 
                                             <!-- BTN - -->

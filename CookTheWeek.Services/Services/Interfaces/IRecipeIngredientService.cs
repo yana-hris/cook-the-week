@@ -27,13 +27,6 @@
         /// </summary>
         /// <returns>A collection of RecipeIngredientSelectMeasureViewModel</returns>
         Task<ICollection<SelectViewModel>> GetRecipeIngredientMeasuresAsync();
-
-        /// <summary>
-        /// Gets all specifications for recipe ingredients as a view model for select menus
-        /// </summary>
-        /// <returns>A collection of RecipeIngredientSelectSpecificationViewModel</returns>
-        Task<ICollection<SelectViewModel>> GetRecipeIngredientSpecificationsAsync();
-        
         
         /// <summary>
         /// Soft Deletes all recipe ingredients by a given recipe ID by setting their IsDeleted flag to true

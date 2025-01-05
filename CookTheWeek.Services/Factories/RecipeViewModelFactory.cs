@@ -170,7 +170,7 @@
                     Name = ri.Ingredient.Name,
                     Qty = RecipeIngredientQtyFormModel.ConvertFromDecimalQty(ri.Qty, ri.Measure.Name),
                     MeasureId = ri.MeasureId,
-                    SpecificationId = ri.SpecificationId
+                    Note = ri.Note
                 }).ToList()
             };
 
@@ -280,8 +280,6 @@
             }
 
             model.RecipeIngredients.First().Measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-
-            model.RecipeIngredients.First().Specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             return model;
         }

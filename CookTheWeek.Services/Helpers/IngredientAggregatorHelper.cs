@@ -30,11 +30,9 @@
 
             // Load from the DB existing measures and specs
             var measures = await recipeIngredientService.GetRecipeIngredientMeasuresAsync();
-            var specifications = await recipeIngredientService.GetRecipeIngredientSpecificationsAsync();
 
             // Preprocess measures and specifications into dictionaries for fast lookup
             var measureDict = measures.ToDictionary(m => m.Id, m => m.Name);
-            var specificationDict = specifications.ToDictionary(sp => sp.Id, sp => sp.Name);
 
             // Group ingredients by category for faster lookup
             var ingredientsGroupedByCategory = ingredients
@@ -59,10 +57,7 @@
                             Qty = FormatIngredientQty(p.Qty),
                             Measure = measureDict.TryGetValue(p.MeasureId, out var measureName) ? measureName : "N/A",
                             Name = p.Name,
-                            Specification = p.SpecificationId.HasValue ?
-                                           specificationDict.TryGetValue(p.SpecificationId.Value, out var specName) ?
-                                           specName : ""
-                                           : ""
+                            Note = !string.IsNullOrEmpty(p.Note) ? p.Note : ""
                         }));
                     }
                 }
@@ -91,7 +86,7 @@
                 Name = ri.Ingredient.Name,
                 Qty = ri.Qty * servingSizeMultiplier,
                 MeasureId = ri.MeasureId,
-                SpecificationId = ri.SpecificationId
+                Note = ri.Note
             }).ToList();
 
             return ingredients;

@@ -46,7 +46,7 @@
             };
 
             // Dictionary for fast product lookup
-            var productDict = new Dictionary<(string Name, int MeasureId, int? SpecificationId), SupplyItemServiceModel>();
+            var productDict = new Dictionary<(string Name, int MeasureId, string? Note), SupplyItemServiceModel>();
 
 
             foreach (var meal in mealplan.Meals)
@@ -58,7 +58,7 @@
 
                 foreach (var ri in meal.Recipe.RecipesIngredients)
                 {
-                    var key = (ri.Ingredient.Name, ri.MeasureId, ri.SpecificationId);
+                    var key = (ri.Ingredient.Name, ri.MeasureId, !string.IsNullOrEmpty(ri.Note) ? ri.Note.ToLower() : "");
 
                     if (productDict.TryGetValue(key, out var existingProduct))
                     {
@@ -72,7 +72,7 @@
                             Name = ri.Ingredient.Name,
                             Qty = ri.Qty * servingSizeMultiplier,
                             MeasureId = ri.MeasureId,
-                            SpecificationId = ri.SpecificationId
+                            Note = !string.IsNullOrEmpty(ri.Note) ? ri.Note : ""
                         };
                     }
                 }

@@ -297,7 +297,6 @@
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Measure)
                 .Include(r => r.RecipesIngredients)
-                    .ThenInclude(ri => ri.Specification)
                 .FirstAsync();
             
             recipeValidator.ValidateUserIsRecipeOwner(recipe.OwnerId); // UnauthorizedUserExc
@@ -401,7 +400,6 @@
                 .Include(r => r.RecipesIngredients)
                     .ThenInclude(ri => ri.Measure)                
                 .Include(ri => ri.RecipesIngredients)
-                    .ThenInclude(ri => ri.Specification)
                 .FirstAsync();
 
             

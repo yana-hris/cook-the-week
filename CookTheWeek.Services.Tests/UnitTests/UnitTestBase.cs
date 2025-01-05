@@ -19,7 +19,6 @@
         public Ingredient TestIngredient { get; private set; }
         public Ingredient NewIngredient { get; private set; }
         public RecipeIngredient NewRecipeIngredient { get; private set; }
-        public ICollection<Specification> TestSpecifications { get; private set; }
         public ICollection<Measure> TestMeasures { get; private set; }
         public ICollection<Ingredient> TestIngredients { get; private set; }
         public ICollection<RecipeCategory> TestRecipeCategories { get; private set;}
@@ -156,7 +155,7 @@
                     IngredientId = 2,
                     Qty = 1,
                     MeasureId = 2,
-                    SpecificationId = 2
+                    Note = "canned"
                 },
                 new()
                 {
@@ -164,7 +163,7 @@
                     IngredientId = 3,
                     Qty = 1,
                     MeasureId = 3,
-                    SpecificationId = 3
+                    Note = "sliced"
                 }
             };
             // Save the Recipe Ingredients for easier reference - these will not be added to the DB
@@ -176,7 +175,7 @@
                     IngredientId = 2,
                     Qty = 1,
                     MeasureId = 2,
-                    SpecificationId = 2
+                    Note = "canned"
                 },
                 new()
                 {
@@ -184,7 +183,7 @@
                     IngredientId = 3,
                     Qty = 1,
                     MeasureId = 3,
-                    SpecificationId = 3
+                    Note = "sliced"
                 }
             };
 
@@ -200,7 +199,7 @@
                 IngredientId = 1,
                 Qty = 10,
                 MeasureId = 2,
-                SpecificationId = 3,
+                Note = "sliced",
             };
 
             //NewRecipe.RecipesIngredients.Add(NewRecipeIngredient);
@@ -279,24 +278,6 @@
                 
             };
             data.Measures.AddRange(TestMeasures);
-
-            // Specifications
-            TestSpecifications = new List<Specification>()
-            {
-                new() {
-                    Id = 1,
-                    Description = "Test Specification 1"
-                },
-                new() {
-                    Id = 2,
-                    Description = "Test Specification 2"
-                },
-                new() {
-                    Id = 3,
-                    Description = "Test Specification 3"
-                }
-            };
-            data.Specifications.AddRange(TestSpecifications);
 
             data.SaveChanges();
 

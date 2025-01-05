@@ -117,31 +117,6 @@
         }
 
         /// <inheritdoc/>     
-        public async Task<ICollection<SelectViewModel>> GetRecipeIngredientSpecificationsAsync()
-        {
-            try
-            {
-                ICollection<Specification> allSpecs = await recipeIngredientRepository
-                .GetAllSpecsQuery()
-                .ToListAsync();
-
-                var model = allSpecs
-                    .Select(sp => new SelectViewModel()
-                    {
-                        Id = sp.Id,
-                        Name = sp.Description
-                    }).ToList();
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Loading recipe ingredient specifications faild. Error message: {ex.Message}. Error Stacktrace: {ex.StackTrace}");
-                throw;
-            }
-        }
-
-        /// <inheritdoc/>     
         public async Task SoftDeleteAllByRecipeIdAsync(Guid id)
         {
             var recipeIngredients = await GetAllByRecipeIdAsync(id);
@@ -185,9 +160,7 @@
             // Check if the ingredient is already added with the same measure and specification
             return alreadyAdded
                 .FirstOrDefault(ri => ri.IngredientId == ingredient.IngredientId &&
-                                      ri.MeasureId == ingredient.MeasureId &&
-                                      (ri.SpecificationId == ingredient.SpecificationId ||
-                                      (ri.SpecificationId == null && ingredient.SpecificationId == null)));
+                                      ri.MeasureId == ingredient.MeasureId);
 
             
         }
@@ -206,7 +179,7 @@
                 IngredientId = model.IngredientId.HasValue ? model.IngredientId.Value : throw new ArgumentNullException(nameof(model.IngredientId)),
                 Qty = model.Qty.GetDecimalQtyValue(),
                 MeasureId = model.MeasureId.HasValue ? model.MeasureId.Value : throw new ArgumentNullException(nameof(model.MeasureId)),
-                SpecificationId = model.SpecificationId.HasValue ? model.SpecificationId.Value : (int?)null // SpecificationId is nullable
+                Note = !string.IsNullOrEmpty(model.Note) ? model.Note : ""
             };
 
             // Check for null and assign RecipeId only if it's provided (after the Recipe is saved)
