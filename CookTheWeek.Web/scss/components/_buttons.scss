@@ -155,17 +155,6 @@ li.user-btn {
     
 }
 
-.save-button, 
-.browse-recipes-btn, 
-.shopping-list-btn, 
-.edit-button, 
-.delete-button, 
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn{
-    text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
     @include button-with-icon-and-text-cenetered(10rem);
     @extend .btn-secondary;
@@ -198,7 +187,7 @@ li.user-btn {
 }
 
 .user-mealplans-btn {
-    @include button-with-icon-and-text-cenetered(10rem);
+    @include button-with-icon-and-text-cenetered(10rem, 1.2rem);
     @extend .btn-danger;
 }
 .signup-button {

@@ -20,6 +20,7 @@
         @Html.AntiForgeryToken()
 
         <div class="card">
+            <div class="ribbon-container">
             @if (Model.IsInActiveMealPlan)
             {
                 <div class="ribbon ribbon-mealplan" data-toggle="tooltip" title="In Meal Plan">✔</div>
@@ -34,6 +35,7 @@
                 </div>
                        
             }
+            </div>
            
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">

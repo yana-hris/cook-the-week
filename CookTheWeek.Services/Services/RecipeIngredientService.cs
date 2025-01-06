@@ -152,7 +152,7 @@
         /// </returns>
         /// <remarks>
         /// The search checks for ingredients with the same <see cref="IngredientId"/>, <see cref="MeasureId"/>,
-        /// and <see cref="SpecificationId"/> (if applicable). 
+        /// and <see cref="Note"/> (if applicable). 
         /// </remarks>
         private static RecipeIngredient? FindExistingRecipeIngredient(ICollection<RecipeIngredient> alreadyAdded,
                                                              RecipeIngredientFormModel ingredient)
@@ -160,9 +160,9 @@
             // Check if the ingredient is already added with the same measure and specification
             return alreadyAdded
                 .FirstOrDefault(ri => ri.IngredientId == ingredient.IngredientId &&
-                                      ri.MeasureId == ingredient.MeasureId);
+                                      ri.MeasureId == ingredient.MeasureId &&
+                                      string.Equals(ri.Note, ingredient.Note, StringComparison.OrdinalIgnoreCase));
 
-            
         }
 
         /// <summary>

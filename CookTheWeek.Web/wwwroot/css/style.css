@@ -4772,10 +4772,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -4804,10 +4805,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -4826,17 +4828,6 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
-.save-button,
-.browse-recipes-btn,
-.shopping-list-btn,
-.edit-button,
-.delete-button,
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn {
-  text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -4844,10 +4835,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -4867,10 +4859,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -4890,10 +4883,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -5035,10 +5029,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 11rem;
   border-radius: 2px;
 }
@@ -5060,10 +5055,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -10483,10 +10479,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -10515,10 +10512,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -10537,17 +10535,6 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
-.save-button,
-.browse-recipes-btn,
-.shopping-list-btn,
-.edit-button,
-.delete-button,
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn {
-  text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -10555,10 +10542,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -10578,10 +10566,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -10601,10 +10590,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -10746,10 +10736,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 11rem;
   border-radius: 2px;
 }
@@ -10771,10 +10762,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -18025,10 +18017,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -18057,10 +18050,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -18079,17 +18073,6 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
-.save-button,
-.browse-recipes-btn,
-.shopping-list-btn,
-.edit-button,
-.delete-button,
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn {
-  text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -18097,10 +18080,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -18120,10 +18104,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -18143,10 +18128,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -18288,10 +18274,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 11rem;
   border-radius: 2px;
 }
@@ -18313,10 +18300,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -23437,10 +23425,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -23469,10 +23458,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -23491,17 +23481,6 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
-.save-button,
-.browse-recipes-btn,
-.shopping-list-btn,
-.edit-button,
-.delete-button,
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn {
-  text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -23509,10 +23488,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -23532,10 +23512,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -23555,10 +23536,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -23700,10 +23682,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 11rem;
   border-radius: 2px;
 }
@@ -23725,10 +23708,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -29014,10 +28998,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -29046,10 +29031,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -29068,17 +29054,6 @@ li.user-btn:hover i.fa {
   margin-top: 0.325rem;
 }
 
-.save-button,
-.browse-recipes-btn,
-.shopping-list-btn,
-.edit-button,
-.delete-button,
-.add-recipe-button,
-.mealplan-details-btn,
-.edit-recipe-btn {
-  text-transform: uppercase;
-}
-
 .add-recipe-button, .edit-recipe-btn {
   border-radius: 2px;
   cursor: pointer;
@@ -29086,10 +29061,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -29109,10 +29085,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -29132,10 +29109,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 9rem;
   border-radius: 2px;
 }
@@ -29277,10 +29255,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 11rem;
   border-radius: 2px;
 }
@@ -29302,10 +29281,11 @@ li.user-btn:hover i.fa {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 10rem;
   border-radius: 2px;
 }
@@ -32483,19 +32463,27 @@ span.small.text-danger {
   position: relative;
   overflow: hidden;
 }
-#recipe-details-container .card .ribbon-owner, #meal-cook-container .card .ribbon-owner {
+#recipe-details-container .card .ribbon-container, #meal-cook-container .card .ribbon-container {
+  position: absolute;
   top: -10px;
   right: 70px;
+  z-index: 10;
+  display: flex;
+  align-items: start;
+  justify-content: end;
+  gap: 0.5rem;
+}
+#recipe-details-container .card .ribbon-container .ribbon-owner, #meal-cook-container .card .ribbon-container .ribbon-owner {
+  position: static;
   width: 60px;
   height: 90px;
 }
-#recipe-details-container .card .ribbon-owner svg, #meal-cook-container .card .ribbon-owner svg {
+#recipe-details-container .card .ribbon-container .ribbon-owner svg, #meal-cook-container .card .ribbon-container .ribbon-owner svg {
   height: 30px;
   width: 30px;
 }
-#recipe-details-container .card .ribbon-mealplan, #meal-cook-container .card .ribbon-mealplan {
-  top: -10px;
-  right: 150px;
+#recipe-details-container .card .ribbon-container .ribbon-mealplan, #meal-cook-container .card .ribbon-container .ribbon-mealplan {
+  position: static;
   width: 60px;
   height: 80px;
   font-size: 36px;
@@ -32697,17 +32685,18 @@ span.small.text-danger {
     top: 2px;
     font-size: 18px;
   }
-  #recipe-details-container .ribbon-owner, #meal-cook-container .ribbon-owner {
-    width: 20px !important;
+  #recipe-details-container .ribbon-container, #meal-cook-container .ribbon-container {
     right: 60px !important;
+  }
+  #recipe-details-container .ribbon-container .ribbon-owner, #meal-cook-container .ribbon-container .ribbon-owner {
+    width: 20px !important;
     height: 100px !important;
   }
-  #recipe-details-container .ribbon-owner svg, #meal-cook-container .ribbon-owner svg {
+  #recipe-details-container .ribbon-container .ribbon-owner svg, #meal-cook-container .ribbon-container .ribbon-owner svg {
     width: 12px !important;
     height: 12px !important;
   }
-  #recipe-details-container .ribbon-mealplan, #meal-cook-container .ribbon-mealplan {
-    right: 86px !important;
+  #recipe-details-container .ribbon-container .ribbon-mealplan, #meal-cook-container .ribbon-container .ribbon-mealplan {
     width: 20px !important;
     height: 100px !important;
     font-size: 16px !important;

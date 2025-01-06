@@ -126,26 +126,36 @@
         overflow: hidden;
         @extend .card-custom-style-with-back-btn;
 
-        .ribbon-owner {
+        .ribbon-container {
+            position: absolute;
             top: -10px;
             right: 70px;
-            width: 60px;
-            height: 90px;
+            z-index: 10;
+            display: flex;
+            align-items: start;
+            justify-content: end;
+            gap: 0.5rem;
 
-            svg {
-                height: 30px;
-                width: 30px;
+            .ribbon-owner {
+                position: static;
+                width: 60px;
+                height: 90px;
+
+                svg {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+
+            .ribbon-mealplan {
+                position: static;
+                width: 60px;
+                height: 80px;
+                font-size: 36px;
             }
         }
 
-        .ribbon-mealplan {
-            top: -10px;
-            right: 150px;
-            width: 60px;
-            height: 80px;
-            font-size: 36px;
-            
-        }
+
 
         .card-body {
             padding: 0;
@@ -393,22 +403,24 @@
             font-size: 18px;
         }
 
-        .ribbon-owner {
-            width: 20px !important;
+        .ribbon-container {
             right: 60px !important;
-            height: 100px !important;
 
-            svg {
-                width: 12px !important;
-                height: 12px !important;
+            .ribbon-owner {
+                width: 20px !important;
+                height: 100px !important;
+
+                svg {
+                    width: 12px !important;
+                    height: 12px !important;
+                }
             }
-        }
 
-        .ribbon-mealplan {
-            right: 86px !important;
-            width: 20px !important;
-            height: 100px !important;
-            font-size: 16px !important;
+            .ribbon-mealplan {
+                width: 20px !important;
+                height: 100px !important;
+                font-size: 16px !important;
+            }
         }
     }
 }

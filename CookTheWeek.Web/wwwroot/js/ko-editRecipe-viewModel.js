@@ -153,7 +153,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             Name: '',
             Qty: { QtyDecimal: '', QtyWhole: '', QtyFraction: '' },
             MeasureId: '',
-            SpecificationId: ''
+            Note: ''
         });
         
         self.RecipeIngredients.push(newIngredient);
@@ -173,7 +173,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
         return {
             Id: self.Id(),
             Title: self.Title(),
-            Description: self.Description(),
+            Description: self.Description() ? self.Description() : null,
             Servings: self.Servings(),
             ImageUrl: self.ImageUrl(),
             CookingTimeMinutes: self.CookingTimeMinutes(),
@@ -198,7 +198,7 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
                         QtyFraction: ingredient.Qty().QtyFraction()
                     },
                     MeasureId: ingredient.MeasureId(),
-                    SpecificationId: ingredient.SpecificationId()
+                    Note: ingredient.Note() ? ingredient.Note() : null
                 };
             })
         };
@@ -451,7 +451,18 @@ export function EditRecipeViewModel(data, errorMessages, qtyFractionOptions, val
             validatable: true
         });
 
-        ingredientSelf.SpecificationId = ko.observable(ingredient.SpecificationId).extend({ validatable: true });
+        ingredientSelf.Note = ko.observable(ingredient.Note !== '' ? ingredient.Note : null)
+            .extend({
+                minLength: {
+                    message: errorMessages.InvalidNoteLengthErrorMessage,
+                    params: validationConstants.RecipeIngredientNoteMinLength
+                },
+                maxLength: {
+                    message: errorMessages.InvalidNoteLengthErrorMessage,
+                    params: validationConstants.RecipeIngredientNoteMaxLength
+                },
+                validatable: true                
+            });
 
         let switchChecked = Boolean(ingredientSelf.Qty() ? (!ingredientSelf.Qty().QtyDecimal() && (ingredientSelf.Qty().QtyFraction() || ingredientSelf.Qty().QtyWhole()) ? true : false) : false);
         

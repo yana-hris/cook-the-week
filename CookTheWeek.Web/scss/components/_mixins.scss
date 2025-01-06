@@ -18,11 +18,12 @@
     }
 }
 
-@mixin button-with-icon-and-text-cenetered($width: 9rem, $font-size: 1.5rem) {
+@mixin button-with-icon-and-text-cenetered($width: 9rem, $font-size: 1.2rem) {
     @include button-base();
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    text-transform: uppercase;
     gap: 8px;
     font-family: $font-family-sans-serif;
     padding: 0.2rem 1rem;

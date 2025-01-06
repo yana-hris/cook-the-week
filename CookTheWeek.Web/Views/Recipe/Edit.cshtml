@@ -388,16 +388,14 @@
                                                     <span class="input-group-text">
                                                         <i class="fa-solid fa-pencil"></i>
                                                     </span>
-                                                   @*  <select data-bind="value: SpecificationId, valueUpdate: 'afterkeydown'"
-                                                            aria-label="Note"
-                                                            class="form-select">
-                                                        <option value="" selected>Note</option>
-                                                        @foreach (var specification in Model.RecipeIngredients!.First().Specifications!)
-                                                        {
-                                                            <option value="@specification.Id">@specification.Name</option>
-                                                        }
-                                                    </select> *@
+                                                    <input class="form-control"
+                                                           data-bind="value: Note"
+                                                           placeholder="Any notes here.."
+                                                           type="text" />
                                                 </div>
+                                                <span data-bind="validationMessage: Note"
+                                                      class="small text-danger">
+                                                </span>
                                             </div>
 
                                             <!-- BTN - -->
@@ -482,7 +480,8 @@
         // Initialize the ViewModel with the initial data
         const initialData = @Html.Raw(JsonConvert.SerializeObject(Model));
         var viewModel = new EditRecipeViewModel(initialData, errorMessages, qtyFractionOptions, validationConstants, returnUrl);
-        
+        console.log(viewModel);
+        console.log(initialData);
 
         // Configure Knockout Validation plugin
         ko.validation.init({

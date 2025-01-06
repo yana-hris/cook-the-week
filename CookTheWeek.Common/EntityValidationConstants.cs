@@ -124,7 +124,7 @@
             public const string MeasureRangeErrorMessage = "Invalid unit/measure";
 
             // Note
-            public const string InvalidNoteLengthErrorMessage = "Invalid note";
+            public const string InvalidNoteLengthErrorMessage = "Notes can be between 2 and 50 characters.";
 
         }
 
