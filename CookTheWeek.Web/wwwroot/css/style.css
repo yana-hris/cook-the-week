@@ -33170,6 +33170,7 @@ span.small.text-danger {
 #shopping-list {
   position: relative;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  min-height: 600px;
 }
 #shopping-list section#shopping-list-section #heading-container {
   margin-bottom: 12px;
@@ -33199,18 +33200,14 @@ span.small.text-danger {
   right: 33px;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
   gap: 10px;
 }
-
-@media (max-width: 800px) {
-  #shopping-list .group-buttons-container {
-    flex-direction: column !important;
-  }
-  #shopping-list .group-buttons-container .back-btn-container {
-    order: -1;
-  }
+#shopping-list .group-buttons-container .back-btn-container {
+  order: -1;
 }
+
 :root {
   --bs-body-bg: #fff;
   --bs-body-color: #212529;

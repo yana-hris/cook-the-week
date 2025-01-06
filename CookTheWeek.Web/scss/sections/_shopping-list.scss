@@ -4,6 +4,7 @@
 #shopping-list {
     position: relative;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-height: 600px;
 
     section#shopping-list-section {
 
@@ -46,19 +47,13 @@
         right: 33px;
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: space-between;
         gap: 10px;
-    }
-}
 
-@media (max-width: 800px) {
-    #shopping-list {
-        .group-buttons-container {
-            flex-direction: column !important;
-
-            .back-btn-container {
-                order: -1;
-            }
+        .back-btn-container {
+            order: -1;
         }
     }
 }
+

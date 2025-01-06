@@ -13,8 +13,8 @@ namespace CookTheWeek.Data.Configuration
             builder.HasKey(ri => ri.Id);
 
 
-            // Unique index based on RecipeId, IngredientId, and MeasureId
-            builder.HasIndex(ri => new { ri.RecipeId, ri.IngredientId, ri.MeasureId })
+            // Unique index based on RecipeId, IngredientId, MeasureId and Note
+            builder.HasIndex(ri => new { ri.RecipeId, ri.IngredientId, ri.MeasureId, ri.Note })
                    .IsUnique();
 
             builder
