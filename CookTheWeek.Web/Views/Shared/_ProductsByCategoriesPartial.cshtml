@@ -23,7 +23,7 @@
                                                 @Html.Raw(measure.Qty) <span class="units-styler">@measure.Measure</span>
 
                                                 <!-- Notes for Measure -->
-                                                @if (measure.ChildItems != null && measure.ChildItems.Count > 0)
+                                                @if (measure.ChildItems != null && measure.ChildItems.Count > 1)
                                                 {
                                                     <p class="add-border-bottom"><span class="fw-bold  fst-italic">in total</span>, of which:</p>
                                                     <ul class="list-unstyled nested-ingredients">
@@ -42,11 +42,12 @@
                                 else if (product.ChildItems != null && product.ChildItems.Count == 1)
                                 {
                                     var singleProduct = product.ChildItems.First();
-                                    bool hasVariations = singleProduct.ChildItems != null && singleProduct.ChildItems.Count > 1;
+                                    bool hasVariations = singleProduct.ChildItems != null && singleProduct.ChildItems.Count > 0;
 
-                                    <span class="text-capitalize fw-medium">@product.Name</span> @singleProduct.Qty <span class="units-styler">@singleProduct.Measure</span>
-                                    @if (hasVariations)
+
+                                    @if (hasVariations && singleProduct.ChildItems!.Count > 1)
                                     {
+                                        <span class="text-capitalize fw-medium">@product.Name</span> @singleProduct.Qty <span class="units-styler">@singleProduct.Measure</span>
                                         <p class="add-border-bottom"><span class="fw-bold  fst-italic">in total</span>, of which:</p>
                                         <ul class="list-unstyled nested-ingredients">
                                             @foreach (var note in singleProduct.ChildItems!)
@@ -57,11 +58,13 @@
                                             }
                                         </ul>
                                     }
+                                    else if (hasVariations && singleProduct.ChildItems!.Count == 1)
+                                    {
+                                        var simpleProduct = singleProduct.ChildItems.First()!;
+                                        <span class="text-capitalize fw-medium">@product.Name</span> @simpleProduct.Qty <span class="units-styler">@simpleProduct.Measure</span> @simpleProduct.Note
+                                    }
                                 }
-                                else
-                                {
-
-                                }
+                                
                             
                         </li>
                     }

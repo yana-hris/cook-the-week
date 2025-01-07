@@ -91,9 +91,9 @@
                                     Qty = FormatIngredientQty(m.TotalQty),
                                     Measure = m.Measure,
                                     Note = null,
-                                    ChildItems = m.Notes.Count > 1
-                                        ? m.Notes.Cast<ISupplyItemModel>().ToList() 
-                                        : null 
+                                    ChildItems = m.Notes
+                                        .Cast<ISupplyItemModel>()
+                                        .ToList() 
                                 })
                                 .Cast<ISupplyItemModel>()
                                 .ToList()
