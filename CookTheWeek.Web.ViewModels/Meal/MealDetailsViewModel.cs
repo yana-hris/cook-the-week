@@ -8,7 +8,7 @@
     {
         public MealDetailsViewModel()
         {
-            this.IngredientsByCategories = new List<SupplyItemListModel<MealIngredientDetailsViewModel>>();
+            this.IngredientsByCategories = new List<SupplyItemListModel<IngredientItemViewModel>>();
             this.CookingSteps = new List<StepViewModel>();
         }
 
@@ -24,7 +24,7 @@
         public bool IsCooked { get; set; }
         public bool IsMealPlanFinished { get; set; }
         public List<StepViewModel> CookingSteps { get; set; }
-        public IEnumerable<ISupplyItemListModel<MealIngredientDetailsViewModel>> IngredientsByCategories { get; set; }
+        public IEnumerable<ISupplyItemListModel<IngredientItemViewModel>> IngredientsByCategories { get; set; }
 
     }
 }

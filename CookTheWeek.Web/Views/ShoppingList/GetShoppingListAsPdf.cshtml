@@ -8,7 +8,8 @@
         <h1>Shopping List "@Model.Title"</h1>
         <sup class="dates" style="font-weight: 400;font-size: 15px;/*padding-top: 18px;*/">For @Model.StartDate to @Model.EndDate</sup>
     </div>
-    <div class="container">
+    <partial name="_ProductsByCategoriesPartial" model="@Model.ShopItemsByCategories"/>
+   @*  <div class="container">
         <div class="row">
             @foreach (var category in Model.ShopItemsByCategories)
             {
@@ -26,5 +27,5 @@
                 }
             }
         </div>
-    </div>
+    </div> *@
 </section>

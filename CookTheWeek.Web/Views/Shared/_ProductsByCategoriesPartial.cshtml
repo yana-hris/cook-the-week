@@ -1,27 +1,75 @@
-﻿@model ShoppingListViewModel
+﻿@model IEnumerable<ISupplyItemListModel<IngredientItemViewModel>>
 
-<section id="shopping-list-section" class="p-3">
-    <div id="heading-container">
-        <h2>@Model.Title</h2>
-        <sup class="dates">Shopping List for <span class="date">@Model.StartDate</span> to <span class="date">@Model.EndDate</span></sup>
-    </div>
-    <div class="container">
-        <div class="row">
-            @foreach (var category in Model.ShopItemsByCategories)
+<div class="container-fluid">
+    <div class="all-categories-container">
+        @foreach (var category in Model)
+        {
+            if (category.SupplyItems.Count > 0)
             {
-                if (category.SupplyItems.Count > 0)
-                {
-                    <div class="col col-12 col-md-6">
-                        <p class="ingredient-heading">@category.Title:</p>
-                        <ul class="list-unstyled">
-                            @foreach (var product in category.SupplyItems)
-                            {
-                                <li>@Html.Raw(@product.Qty) <span class="units-styler">@product.Measure</span> @product.Name @product.Note</li>
-                            }
-                        </ul>
-                    </div>
-                }
-            }
-        </div>
+                <div class="products-by-category-container">
+                    <p class="ingredient-heading">@category.Title:</p>
+                    <ul class="list-unstyled">
+                        @foreach (var product in category.SupplyItems)
+                        {
+                            <li>
+                                @if (product.ChildItems != null && product.ChildItems.Count > 1){
+                                    <span class="text-capitalize fw-medium">@product.Name</span>
+
+                                    <ul class="list-unstyled ms-3">
+                                        @foreach (var measure in product.ChildItems)
+                                        {
+                                            <li>
+                                                <!-- Generalized Measure -->
+                                                @Html.Raw(measure.Qty) <span class="units-styler">@measure.Measure</span>
+
+                                                <!-- Notes for Measure -->
+                                                @if (measure.ChildItems != null && measure.ChildItems.Count > 0)
+                                                {
+                                                    <p class="add-border-bottom"><span class="fw-bold  fst-italic">in total</span>, of which:</p>
+                                                    <ul class="list-unstyled nested-ingredients">
+                                                        @foreach (var note in measure.ChildItems)
+                                                        {
+                                                            <li>
+                                                                - @Html.Raw(note.Qty) <span class="units-styler">@note.Measure</span> @note.Note
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else if (product.ChildItems != null && product.ChildItems.Count == 1)
+                                {
+                                    var singleProduct = product.ChildItems.First();
+                                    bool hasVariations = singleProduct.ChildItems != null && singleProduct.ChildItems.Count > 1;
+
+                                    <span class="text-capitalize fw-medium">@product.Name</span> @singleProduct.Qty <span class="units-styler">@singleProduct.Measure</span>
+                                    @if (hasVariations)
+                                    {
+                                        <p class="add-border-bottom"><span class="fw-bold  fst-italic">in total</span>, of which:</p>
+                                        <ul class="list-unstyled nested-ingredients">
+                                            @foreach (var note in singleProduct.ChildItems!)
+                                            {
+                                                <li>
+                                                    - @Html.Raw(note.Qty) <span class="units-styler">@note.Measure</span> @note.Note
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+                            
+                        </li>
+                    }
+                </ul>
+
+            </div>
+            
+        }
+    }
     </div>
-</section>
+</div>

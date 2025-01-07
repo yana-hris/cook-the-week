@@ -7,5 +7,7 @@
         string Qty { get; set; }
         string Measure { get; set; }
         string? Note { get; set; }
+
+        public List<ISupplyItemModel>? ChildItems { get; set; }
     }
 }

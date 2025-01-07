@@ -24,6 +24,7 @@
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
@@ -214,7 +215,7 @@
             var adjustedIngredients = ingredientHelper.CreateAdjustedIngredientCollection(recipe.RecipesIngredients, servingSizeMultiplier);
             
             var ingredientsByCategories = await ingredientHelper
-                .AggregateIngredientsByCategory<RecipeIngredientDetailsViewModel>(adjustedIngredients, RecipeAndMealDetailedProductListCategoryDictionary);
+                .AggregateIngredientsByCategory<IngredientItemViewModel>(adjustedIngredients, RecipeAndMealDetailedProductListCategoryDictionary);
 
             model.RecipeIngredientsByCategories = ingredientsByCategories;
 

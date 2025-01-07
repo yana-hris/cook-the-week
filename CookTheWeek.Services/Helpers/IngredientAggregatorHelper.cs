@@ -52,24 +52,67 @@
                 {
                     if (ingredientsGroupedByCategory.TryGetValue(categoryId, out var ingredientsInCategory))
                     {
-                        productsInCategory.AddRange(ingredientsInCategory.Select(p => new T
+                        // Group ingredients by name first
+                        var groupedByName = ingredientsInCategory
+                            .GroupBy(i => i.Name.ToLower())
+                            .Select(g => new
+                            {
+                                Name = g.Key,
+                                Measures = g.GroupBy(m => m.MeasureId)
+                                    .Select(mg => new
+                                    {
+                                        Measure = measureDict.TryGetValue(mg.Key, out var measure) ? measure : "N/A",
+                                        TotalQty = mg.Sum(i => i.Qty),
+                                        Notes = mg.Select(i => new T
+                                        {
+                                            Name = null,
+                                            Qty = FormatIngredientQty(i.Qty),
+                                            Measure = measureDict.TryGetValue(mg.Key, out var measure) ? measure : "N/A",
+                                            Note = string.IsNullOrEmpty(i.Note) ? null : i.Note,
+                                            ChildItems = null
+                                        }).ToList()
+                                    })
+                                    .OrderBy(m => m.Measure) // Order measures alphabetically
+                                    .ToList()
+                            });
+
+                        foreach (var product in groupedByName)
                         {
-                            Qty = FormatIngredientQty(p.Qty),
-                            Measure = measureDict.TryGetValue(p.MeasureId, out var measureName) ? measureName : "N/A",
-                            Name = p.Name,
-                            Note = !string.IsNullOrEmpty(p.Note) ? p.Note : ""
-                        }));
+                            // Create parent item (Product Name)
+                            var parentProduct = new T
+                            {
+                                Name = product.Name,
+                                Qty = null,
+                                Measure = null,
+                                Note = null,
+                                ChildItems = product.Measures.Select(m => new T
+                                {
+                                    Name = null,
+                                    Qty = FormatIngredientQty(m.TotalQty),
+                                    Measure = m.Measure,
+                                    Note = null,
+                                    ChildItems = m.Notes.Count > 1
+                                        ? m.Notes.Cast<ISupplyItemModel>().ToList() 
+                                        : null 
+                                })
+                                .Cast<ISupplyItemModel>()
+                                .ToList()
+                            };
+
+                            productsInCategory.Add(parentProduct);
+                           
+                        }
                     }
                 }
 
-                // Add the product list to the category view model
-                var productListViewModel = new SupplyItemListModel<T>
+                if (productsInCategory.Any())
                 {
-                    Title = categoryName,   // Assuming index is the same
-                    SupplyItems = productsInCategory
-                };
-
-                ingredientsByCategories.Add(productListViewModel);
+                    ingredientsByCategories.Add(new SupplyItemListModel<T>
+                    {
+                        Title = categoryName,
+                        SupplyItems = productsInCategory
+                    });
+                }
             }
 
             return ingredientsByCategories;

@@ -1,7 +1,6 @@
 ﻿namespace CookTheWeek.Web.ViewModels.Recipe
 {
     using CookTheWeek.Web.ViewModels.Interfaces;
-    using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
     using CookTheWeek.Web.ViewModels.SupplyItem;
 
@@ -28,7 +27,7 @@
         public bool IsInActiveMealPlan { get; set; }
         public List<StepViewModel> Steps { get; set; }
 
-        public IEnumerable<ISupplyItemListModel<RecipeIngredientDetailsViewModel>> RecipeIngredientsByCategories =
-                                                new List<SupplyItemListModel<RecipeIngredientDetailsViewModel>>();
+        public IEnumerable<ISupplyItemListModel<IngredientItemViewModel>> RecipeIngredientsByCategories =
+                                                new List<SupplyItemListModel<IngredientItemViewModel>>();
     }
 }

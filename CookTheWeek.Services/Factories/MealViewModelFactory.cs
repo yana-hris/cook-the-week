@@ -10,6 +10,7 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels.Meal;
     using CookTheWeek.Web.ViewModels.Step;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
@@ -89,7 +90,7 @@
             var adjustedIngredients = ingredientHelper.CreateAdjustedIngredientCollection(meal.Recipe.RecipesIngredients, servingSizeMultiplier);
 
             var ingredientsByCategories = await ingredientHelper
-                .AggregateIngredientsByCategory<MealIngredientDetailsViewModel>(adjustedIngredients, RecipeAndMealDetailedProductListCategoryDictionary);
+                .AggregateIngredientsByCategory<IngredientItemViewModel>(adjustedIngredients, RecipeAndMealDetailedProductListCategoryDictionary);
             
             return new MealDetailsViewModel
             {

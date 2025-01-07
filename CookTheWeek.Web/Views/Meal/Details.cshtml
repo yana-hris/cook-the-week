@@ -148,7 +148,9 @@
                             <div class="col-12 mb-3">
                                 <h5 class="meal-title">For @Model.ServingSize servings</h5>
                             </div>
-                            @foreach (var category in Model.IngredientsByCategories)
+
+                            <partial name="_ProductsByCategoriesPartial" model="@Model.IngredientsByCategories" />
+                            @* @foreach (var category in Model.IngredientsByCategories)
                             {
                                 if (category.SupplyItems.Count > 0)
                                 {
@@ -162,7 +164,7 @@
                                         </ul>
                                     </div>
                                 }
-                            }
+                            } *@
 
                         </div>
                     </div>

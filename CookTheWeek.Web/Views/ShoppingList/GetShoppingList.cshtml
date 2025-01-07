@@ -1,16 +1,22 @@
 ﻿@model ShoppingListViewModel
 <div id="shopping-list" class="shopping-list-container">
     @Html.AntiForgeryToken()
-    <partial name="_ProductsByCategoriesPartial", model="@Model" />
-    <div class="group-buttons-container">
-        <a id="generatePdfBtn" class="download-btn" data-bs-toggle="tooltip" title="Download PDF">
-            <i class="fa fa-download"></i>
-        </a>
-        <a id="emailBtn" class="send-email-btn" data-bs-toggle="tooltip" title="Send as Email">
-            <i class="fa-solid fa-paper-plane"></i>
-        </a>
-        <partial name="_BackBtnPartial" />
-    </div>
+    <section id="shopping-list-section" class="p-3">
+        <div id="heading-container">
+            <h2>@Model.Title</h2>
+            <sup class="dates">Shopping List for <span class="date">@Model.StartDate</span> to <span class="date">@Model.EndDate</span></sup>
+        </div>
+        <partial name="_ProductsByCategoriesPartial" , model="@Model.ShopItemsByCategories" />
+        <div class="group-buttons-container">
+            <a id="generatePdfBtn" class="download-btn" data-bs-toggle="tooltip" title="Download PDF">
+                <i class="fa fa-download"></i>
+            </a>
+            <a id="emailBtn" class="send-email-btn" data-bs-toggle="tooltip" title="Send as Email">
+                <i class="fa-solid fa-paper-plane"></i>
+            </a>
+            <partial name="_BackBtnPartial" />
+        </div>
+    </section>
 </div>
     
 <script>

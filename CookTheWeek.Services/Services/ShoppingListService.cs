@@ -42,11 +42,11 @@
                 Title = mealplan.Name,
                 StartDate = mealplan.StartDate.ToString(MealDateFormat),
                 EndDate = mealplan.StartDate.AddDays(6).ToString(MealDateFormat),
-                ShopItemsByCategories = new List<SupplyItemListModel<ShopItemViewModel>>()
+                ShopItemsByCategories = new List<SupplyItemListModel<IngredientItemViewModel>>()
             };
 
             // Dictionary for fast product lookup
-            var productDict = new Dictionary<(string Name, int MeasureId, string? Note), SupplyItemServiceModel>();
+            var productDict = new Dictionary<(string Name, int MeasureId), List<SupplyItemServiceModel>>();
 
 
             foreach (var meal in mealplan.Meals)
@@ -58,29 +58,39 @@
 
                 foreach (var ri in meal.Recipe.RecipesIngredients)
                 {
-                    var key = (ri.Ingredient.Name, ri.MeasureId, !string.IsNullOrEmpty(ri.Note) ? ri.Note.ToLower() : "");
+                    var key = (ri.Ingredient.Name.ToLower(), ri.MeasureId);
 
-                    if (productDict.TryGetValue(key, out var existingProduct))
+                    if (!productDict.TryGetValue(key, out var productList))
                     {
-                        existingProduct.Qty += ri.Qty * servingSizeMultiplier;
+                        productList = new List<SupplyItemServiceModel>();
+                        productDict[key] = productList;
+                    }
+
+                    var note = !string.IsNullOrEmpty(ri.Note) ? ri.Note.ToLower() : null;
+
+                    var existingItem = productList.FirstOrDefault(p => p.Note == note);
+
+                    if (existingItem != null)
+                    {
+                        existingItem.Qty += ri.Qty * servingSizeMultiplier;
                     }
                     else
                     {
-                        productDict[key] = new SupplyItemServiceModel
+                        productList.Add(new SupplyItemServiceModel
                         {
                             CategoryId = ri.Ingredient.CategoryId,
                             Name = ri.Ingredient.Name,
                             Qty = ri.Qty * servingSizeMultiplier,
                             MeasureId = ri.MeasureId,
-                            Note = !string.IsNullOrEmpty(ri.Note) ? ri.Note : ""
-                        };
+                            Note = note
+                        });
                     }
                 }
             }
 
-            var products = productDict.Values.ToList();
+            var products = productDict.SelectMany(kv => kv.Value).ToList();
 
-            model.ShopItemsByCategories = await ingredientHelper.AggregateIngredientsByCategory<ShopItemViewModel>(products, ShoppingListCategoryGroupDictionary);
+            model.ShopItemsByCategories = await ingredientHelper.AggregateIngredientsByCategory<IngredientItemViewModel>(products, ShoppingListCategoryGroupDictionary);
 
             return model;
 
