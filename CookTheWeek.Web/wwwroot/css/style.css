@@ -1208,9 +1208,9 @@
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -2325,9 +2325,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -3940,9 +3940,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -6690,9 +6690,9 @@ li.user-btn:hover i.fa {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -8242,9 +8242,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -9752,9 +9752,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -12871,9 +12871,9 @@ footer .footer-copyright .copyright i {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -14337,9 +14337,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -15732,9 +15732,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -17430,9 +17430,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -19941,9 +19941,9 @@ li.user-btn:hover i.fa {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -21221,9 +21221,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -22943,9 +22943,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -26125,9 +26125,9 @@ li.user-btn:hover i.fa {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -28586,9 +28586,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -31222,9 +31222,9 @@ li.user-btn:hover i.fa {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -32396,9 +32396,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -34446,9 +34446,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
@@ -34753,14 +34753,17 @@ span.small.text-danger {
   min-height: 600px;
 }
 #shopping-list section#shopping-list-section #heading-container {
-  margin-bottom: 12px;
+  margin-bottom: 2rem;
 }
 #shopping-list section#shopping-list-section #heading-container h2, #shopping-list section#shopping-list-section #heading-container .h2 {
   font-family: "Libre Baskerville", serif;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
 }
 #shopping-list section#shopping-list-section #heading-container .dates {
-  font-weight: 400;
-  font-size: 14px;
+  margin-left: 0.2rem;
+  font-weight: 300;
+  font-size: 1rem;
 }
 #shopping-list section#shopping-list-section #heading-container .dates .date {
   font-weight: 500;
@@ -35612,9 +35615,9 @@ span.small.text-danger {
 }
 
 .ingredient-heading {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 

@@ -263,6 +263,8 @@
             margin: 0;
             padding: 0;
             background-color: #f8f8f8;
+            color: #000000;
+            font-weight: 400;
         }
         .email-container {
             max-width: 600px;
@@ -273,6 +275,7 @@
             border-radius: 5px;
             font-size: 14px;
             line-height: 1.5;
+            color: #000000;
         }
         .email-header {
             text-align: center;
@@ -282,34 +285,56 @@
             margin: 0;
             margin-top: 20px;
         }
+        .mealplan-title {
+            font-size: 16px;
+            margin-top: 5px;
+        }
         .dates {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             margin: 0;
             padding: 0;
         }
         .shopping-category {
-            margin-bottom: 15px;
-        }
-        ul {
-            padding-left: 20px;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            list-style-type: none;
-            margin-bottom: 4px;
-            font-weight: 400;
+            margin-bottom: 20px;
         }
         .ingredient-heading {
             font-size: 16px;
             text-decoration: underline;
-            font-weight: 500;
-            margin-bottom: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .list-unstyled {
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .nested-ingredients {
+            padding-left: 20px;
+            font-size: 12px;
+        }
+        .text-light {
+            font-weight: 300;
+            font-style: italic;
+        }
+        .add-border-bottom {
+            max-width: 60%;
+            border-bottom: 1px dashed #ddd;
+            margin-top: 0;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+        span.product-name {
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .italic-text {
+            font-style: italic;
+            margin-top: 0;
+            font-weight: 400;
         }
         .footer {
             font-size: 12px;
-            color: #2e6930;
             text-align: center;
             margin-top: 30px;
         }";
@@ -317,40 +342,105 @@
 
             return $@"<!DOCTYPE html>
 <html>
-<head>
-    <meta charset=""UTF-8"">
-    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <title>Your Shopping List</title>
-    <style>
-        {inlineCss}
-    </style>
-</head>
-<body>
-    <div class=""email-container"">
-        <div class=""email-header"">
-            <img src=""https://i.imgur.com/M9KlsA5.png"" alt=""CookTheWeek Logo"" width=""auto"" height=""80px"" style=""display: block; margin: 0 auto; max-height: 6rem;"">
-            <h1>Your Shopping List</h1>
-            <p class=""dates"">For {model.StartDate:MMMM d, yyyy} to {model.EndDate:MMMM d, yyyy}</p>
-        </div>
-        <div class=""shopping-list-section"">
-            {string.Join("", model.ShopItemsByCategories.Where(c => c.SupplyItems.Count > 0).Select(category => $@"
-            <div class=""shopping-category"">
-                <p class=""ingredient-heading"">{category.Title}</p>
-                <ul>
-                    {string.Join("", category.SupplyItems.Select(item => $@"
-                        <li class=""shopping-item"">
-                            {item.Qty} <span style=""font-weight: 300;"">{item.Measure}</span> {item.Name} {item.Note}
+    <head>
+        <meta charset=""UTF-8"">
+        <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+        <title>Your Shopping List</title>
+        <style>
+            {inlineCss}
+        </style>
+    </head>
+    <body>
+        <div class=""email-container"">
+            <div class=""email-header"">
+                <img src=""https://i.imgur.com/M9KlsA5.png"" alt=""CookTheWeek Logo"" width=""auto"" height=""80px"" style=""display: block; margin: 0 auto; max-height: 6rem;"">
+                <h1>Your Shopping List</h1>
+                <p class=""mealplan-title"">Meal Plan: {model.Title}</p>
+                <p class=""dates"">For {model.StartDate:MMMM d, yyyy} to {model.EndDate:MMMM d, yyyy}</p>
+            </div>
+            <div class=""shopping-list-section"">
+                {string.Join("", model.ShopItemsByCategories.Where(c => c.SupplyItems.Count > 0).Select(category => $@"
+                <div class=""shopping-category"">
+                    <p class='ingredient-heading'>{category.Title}:</p>
+                    <ul class='list-unstyled'>
+                        {string.Join("", category.SupplyItems.Select(product => $@"
+                        <li>
+                            {(
+                                product.ChildItems != null && product.ChildItems.Count > 1
+                                ? $@"
+                                    <!-- Product with multiple child items -->
+                                    <span class='product-name'>{product.Name}</span>
+                                    <ul class='list-unstyled ms-3'>
+                                        {string.Join("", product.ChildItems.Select(measure => $@"
+                                            <li>
+                                                <!-- Generalized measure -->
+                                                {measure.Qty} <span class='units-styler'>{measure.Measure}</span>
+                                                {(measure.ChildItems != null && measure.ChildItems.Count > 1
+                                                    ? $@"
+                                                        <!-- Measure with notes -->
+                                                        <p class='add-border-bottom'>
+                                                            <span class='italic-text'>in total</span>, of which:
+                                                        </p>
+                                                        <ul class='list-unstyled nested-ingredients'>
+                                                            {string.Join("", measure.ChildItems.Select(subProduct => $@"
+                                                                <li>
+                                                                    - {subProduct.Qty} <span class='units-styler'>{subProduct.Measure}</span> 
+                                                                    <span class='text-light'>{subProduct.Note}</span>
+                                                                </li>
+                                                            "))}
+                                                        </ul>
+                                                    "
+                                                    : ""
+                                                )}
+                                            </li>
+                                        "))}
+                                    </ul>
+                                "
+                                : product.ChildItems != null && product.ChildItems.Count == 1
+                                ? string.Join("", product.ChildItems.Select(singleProduct => $@"
+                                    {(
+                                        singleProduct.ChildItems != null && singleProduct.ChildItems.Count > 1
+                                        ? $@"
+                                            <!-- Single product with variations -->
+                                            <span class='product-name'>{product.Name}</span> 
+                                            {singleProduct.Qty} <span class='units-styler'>{singleProduct.Measure}</span>
+                                            <p class='add-border-bottom'>
+                                                <span class='italic-text'>in total</span>, of which:
+                                            </p>
+                                            <ul class='list-unstyled nested-ingredients'>
+                                                {string.Join("", singleProduct.ChildItems.Select(note => $@"
+                                                    <li>
+                                                        - {note.Qty} <span class='units-styler'>{note.Measure}</span> 
+                                                        <span class='text-light'>{note.Note}</span>
+                                                    </li>
+                                                "))}
+                                            </ul>
+                                        "
+                                        : $@"
+                                            <!-- Single product with notes -->
+                                            <span class='product-name'>{product.Name}</span> 
+                                            {singleProduct.Qty} <span class='units-styler'>{singleProduct.Measure}</span> 
+                                            {(string.IsNullOrEmpty(singleProduct.ChildItems.First().Qty) ? "" : $"<span class='text-light'>{singleProduct.ChildItems.First().Note}</span>")}
+                                        "
+                                    )}
+                                "))
+                                : $@"
+                                    <!-- Unexpected case: product without child items -->
+                                    {product.Name} {product.Qty} <span class='units-styler'>{product.Measure}</span> <span class='text-light'>{product.Note}</span>
+                                "
+                            )}
                         </li>
                     "))}
-                </ul>
+
+                    </ul>
+                </div>
+                "))}
             </div>
-            "))}
+            <div class=""footer"">
+                &copy; 2024 CookTheWeek. All rights reserved.
+            </div>
         </div>
-        <div class=""footer"">
-            &copy; 2024 CookTheWeek. All rights reserved.
-        </div>
-    </div>
-</body>
+    </body>
 </html>";
         }
     }
