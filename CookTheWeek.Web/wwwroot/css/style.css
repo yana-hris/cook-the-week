@@ -33107,7 +33107,7 @@ span.small.text-danger {
   align-items: start;
   justify-content: start;
   gap: 1rem;
-  padding: 2rem;
+  padding: 1rem 1.5rem;
   background-color: #2e6930;
   color: #fff;
 }

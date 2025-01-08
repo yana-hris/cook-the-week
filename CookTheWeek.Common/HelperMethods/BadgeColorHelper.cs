@@ -12,7 +12,7 @@
                 "Main Dish" => "bg-main-dish-red",
                 "Appetizer" => "bg-appetizer-green text-dark",
                 "Dessert" => "bg-dessert-pink text-dark",
-                _ => "bg-white text-dark"
+                _ => "bg-white text-dark border border-dark"
             };
         }
     }

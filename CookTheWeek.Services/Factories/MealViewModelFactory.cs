@@ -12,10 +12,10 @@
     using CookTheWeek.Web.ViewModels.Step;
     using CookTheWeek.Web.ViewModels.SupplyItem;
 
+    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
+    using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
-    using static CookTheWeek.Common.ExceptionMessagesConstants;
-    using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
 
     public class MealViewModelFactory : IMealViewModelFactory
     {

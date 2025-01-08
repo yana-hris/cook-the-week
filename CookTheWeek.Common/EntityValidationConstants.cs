@@ -76,8 +76,8 @@
             public const string ServingsRangeErrorMessage = "Servings can be between 1 and 20";
 
             // Minutes / Cooking Time
-            public const int CookingTimeMinValue = 10;
-            public const int CookingTimeMaxValue = 720;
+            public const int CookingTimeMinValue = 5;
+            public const int CookingTimeMaxValue = 1440; //24 hours
 
             public const string CookingTimeRequiredErrorMessage = "Cooking time (in minutes) is required";
             public const string CookingTimeRangeErrorMessage = "Cooking time minutes must be between 10 and 720";
