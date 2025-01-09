@@ -2,6 +2,7 @@
 {
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -10,7 +11,7 @@
     {
 
         /// <summary>
-        /// Applies migrations and seeds the database.
+        /// Applies migrations and seeds the database upon application start up. Meant for use in Development Env. only
         /// </summary>
         /// <param name="services">The service provider containing the DbContext.</param>
         public static async Task ApplyMigrationsAndSeedData(this IServiceProvider services, bool seedData = false)
@@ -19,17 +20,19 @@
             {
                 var provider = scope.ServiceProvider;
                 var logger = provider.GetRequiredService<ILogger<CookTheWeekDbContext>>();
+                
 
                 try
                 {
                     var context = provider.GetRequiredService<CookTheWeekDbContext>();
+                    var configuration = provider.GetRequiredService<IConfiguration>();
 
                     logger.LogInformation("Applying database migrations..");
                     context.Database.Migrate();
 
                     if (seedData)
                     {
-                        await SeedData(context);
+                        await SeedData(context, configuration);
                     }
 
                 }
@@ -45,9 +48,13 @@
         /// Helper method for programatically seeding new data into the database. To add new data pass it to any of the methods commented below
         /// </summary>
         /// <param name="context">The app DB Context</param>
-        private static async Task SeedData(CookTheWeekDbContext context)
+        private static async Task SeedData(CookTheWeekDbContext context, IConfiguration configuration)
         {
-            //context.Users.AddRange(SeedUsers());
+
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(SeedUsers(configuration));
+            }
             //context.RecipeCategories.AddRange(SeedRecipeCategories());
             //context.IngredientCategories.AddRange(SeedIngredientCategories());
             //context.Measures.AddRange(SeedMeasures());

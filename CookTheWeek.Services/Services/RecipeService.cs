@@ -20,6 +20,7 @@
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
+    using Microsoft.Extensions.Configuration;
 
     public class RecipeService : IRecipeService
     {
@@ -29,6 +30,7 @@
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IStepService stepService;
         private readonly IRecipeTagService recipeTagService;
+        private readonly IConfiguration configuration;
         
         private readonly IRecipeValidationService recipeValidator;
         private readonly ILogger<RecipeService> logger;
@@ -41,6 +43,7 @@
             IRecipeTagService recipeTagService,
             IRecipeValidationService recipeValidator,
             ILogger<RecipeService> logger,
+            IConfiguration configuration,
             IUserContext userContext)
         {
             this.recipeRepository = recipeRepository;
@@ -48,6 +51,7 @@
             this.stepService = stepService;
             this.recipeTagService = recipeTagService;
             this.recipeValidator = recipeValidator;
+            this.configuration = configuration;
             this.logger = logger;            
 
             userId = userContext.UserId;
@@ -464,7 +468,8 @@
         private async Task SoftDeleteRecipeAsync(Recipe recipe)
         {
             // SOFT DELETE
-            recipe.OwnerId = Guid.Parse(DeletedUserId);
+            string deletedUserIdString = configuration.GetValue<string>("DeletedUser:Id");
+            recipe.OwnerId = Guid.Parse(deletedUserIdString);
             recipe.IsDeleted = true;          
 
             await recipeRepository.UpdateAsync(recipe);

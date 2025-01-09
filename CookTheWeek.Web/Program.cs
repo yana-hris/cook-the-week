@@ -25,8 +25,6 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
-    using Microsoft.Extensions.Options;
-    using Microsoft.AspNetCore.Authentication.Cookies;
 
     public class Program
     {
@@ -41,7 +39,6 @@ namespace CookTheWeek.Web
             }
 
             var rotativaPath = Path.GetFullPath(builder.Environment.WebRootPath);
-            Console.WriteLine($"Rotativa Path: {rotativaPath}"); // Debug the path
             RotativaConfiguration.Setup(rotativaPath);
 
             string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
@@ -51,8 +48,10 @@ namespace CookTheWeek.Web
                 options.EnableSensitiveDataLogging();
             });
 
-
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            }
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
@@ -160,8 +159,6 @@ namespace CookTheWeek.Web
                 cfg.SlidingExpiration = true;
                 cfg.LoginPath = "/User/Login";
                 cfg.AccessDeniedPath = "/User/AccessDeniedPathInfo";
-                
-
             });
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -191,27 +188,39 @@ namespace CookTheWeek.Web
                 });
 
             builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
-            
-            builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-                builder =>
-                {
-                    builder.AllowAnyHeader()
-                           .AllowAnyMethod()
-                           .SetIsOriginAllowed((host) => true)
-                           .AllowCredentials();
-                }));
+
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+                    builder =>
+                    {
+                        builder.AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .SetIsOriginAllowed((host) => true) // Allow all in development
+                               .AllowCredentials();
+                    }));
+            }
+            else
+            {
+                builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://cooktheweek.azurewebsites.net") // Replace with your production domain
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    }));
+            }
 
             // Register the SendGrid EmailSender service
             builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
                         
             WebApplication app = builder.Build();
 
-            await app.Services.ApplyMigrationsAndSeedData(true);
-
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                await app.Services.ApplyMigrationsAndSeedData(true); // Seeds data and applies migrations when set to true
 
             }
             else
@@ -225,11 +234,8 @@ namespace CookTheWeek.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseCors("CorsPolicy");
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.SeedAdministrator(AdminUserUsername);
-            }
+            
+            app.SeedAdministrator(); // Works for both Dev & Prod env. using configuration settings
 
             app.UseRouting();
 
@@ -245,7 +251,7 @@ namespace CookTheWeek.Web
             // Custom middleware for checking online users (requires user ID)
             app.EnableOnlineUsersCheck();
 
-            // Optional: Use Hangfire Dashboard for job monitoring
+            // Hangfire Dashboard for job monitoring
             app.UseHangfireDashboard("/hangfire");
             app.RegisterRecurringJobs();
 

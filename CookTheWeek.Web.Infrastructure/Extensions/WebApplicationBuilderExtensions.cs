@@ -4,7 +4,9 @@
 
     using Hangfire;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     using CookTheWeek.Data.Models;
@@ -87,7 +89,7 @@
         /// <param name="app">The currecnt application</param>
         /// <param name="userName">The user we want to make admin`s username</param>
         /// <returns>IApplicationBuilder and allows chaining</returns>
-        public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string userName)
+        public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app)
         {
             //In order to get the DI services in a static class, we first need to get access to the Service provider, so we first create the scope
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
@@ -95,6 +97,14 @@
             // In static classes this is the only way to get the service container (as it cannot be injected in the contructor)
             IServiceProvider serviceProvider = scopedServices.ServiceProvider;
 
+            IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
+            IWebHostEnvironment environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+
+            // Fetch AdminUser configuration
+            var adminConfig = configuration.GetSection("AdminUser");
+
+            // Log the current environment for debugging
+            Console.WriteLine($"Seeding administrator in environment: {environment.EnvironmentName}");
 
             UserManager<ApplicationUser> userManager =
                 serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -121,19 +131,20 @@
 
                     }
 
-                    ApplicationUser? adminUser = await userManager.FindByNameAsync(AdminUserUsername);
+                    ApplicationUser? adminUser = await userManager.FindByNameAsync(adminConfig["UserName"]);
 
                     if (adminUser == null)
                     {
                         // Create the admin user
                         adminUser = new ApplicationUser
                         {
-                            UserName = AdminUserUsername,
-                            Email = AdminUserEmail,
-                            EmailConfirmed = true // Assuming email confirmation isn't needed for the initial admin
+                            Id = Guid.Parse(adminConfig["Id"]),
+                            UserName = adminConfig["UserName"],
+                            Email = adminConfig["Email"],
+                            EmailConfirmed = true 
                         };
 
-                        var createResult = await userManager.CreateAsync(adminUser, AdminUserPassword);
+                        var createResult = await userManager.CreateAsync(adminUser, adminConfig["Password"]);
 
                         if (!createResult.Succeeded)
                         {
@@ -152,7 +163,7 @@
                         }
                         else
                         {
-                            Console.WriteLine($"Administrator '{userName}' has been successfully created and assigned to the '{AdminRoleName}' role.");
+                            Console.WriteLine($"Administrator '{adminUser.UserName}' has been successfully created and assigned to the '{AdminRoleName}' role.");
                         }
                     }
                 }

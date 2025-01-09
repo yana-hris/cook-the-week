@@ -4,8 +4,7 @@
 
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
-
-    using static Common.GeneralApplicationConstants;
+    using Microsoft.Extensions.Configuration;
 
     public class UnitTestBase
     {
@@ -25,35 +24,38 @@
         public ICollection<IngredientCategory> TestIngredientCategories { get; private set; }
         public ICollection<FavouriteRecipe> UserLikes { get; private set; }
 
+        private readonly IConfiguration configuration;
+
         [SetUp]
         public void SetUpBase()
         {
             data = DatabaseMock.Instance;
-            SeedDatabase();
+            SeedDatabase(configuration);
         }
 
         [TearDown]
         public void TearDownBase() 
             => data.Dispose();
 
-        private void SeedDatabase() 
+        private void SeedDatabase(IConfiguration configuration) 
         {
+            var adminConfig = configuration.GetSection("AdminUser");
             // Users
             PasswordHasher<ApplicationUser> hasher = new();
 
             AdminUser = new ApplicationUser()
             {
-                Id = Guid.Parse(AdminUserId),
-                UserName = AdminUserUsername,
-                NormalizedUserName = AdminUserUsername.ToUpper(),
-                Email = AdminUserEmail,
-                NormalizedEmail = AdminUserEmail.ToUpper(),
+                Id = Guid.Parse(adminConfig["Id"]),
+                UserName = adminConfig["UserName"],
+                NormalizedUserName = adminConfig["UserName"].ToUpper(),
+                Email = adminConfig["Email"],
+                NormalizedEmail = adminConfig["Email"].ToUpper(),
                 ConcurrencyStamp = "caf271d7-0ba7-4ab1-8d8d-6d0e3711c27d",
                 SecurityStamp = "ca32c787-626e-4234-a4e4-8c94d85a2b1c",
                 EmailConfirmed = true,
             };
 
-            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, AdminUserPassword);
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, adminConfig["Password"]);
 
             TestUser = new ApplicationUser()
             {
@@ -76,7 +78,7 @@
             TestRecipe = new Recipe()
             {
                 Id = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
-                OwnerId = Guid.Parse(AdminUserId),
+                OwnerId = Guid.Parse(adminConfig["Id"]),
                 Title = "Test Recipe Title",
                 Description = "Test Recipe Description",
                 //Instructions = "Test Recipe Instructions",
@@ -94,7 +96,7 @@
                 new()
                 {
                     RecipeId = Guid.Parse("09bd36a4-1e9f-47e2-ad5e-abd474d580ba"),
-                    UserId = Guid.Parse(AdminUserId)
+                    UserId = Guid.Parse(adminConfig["Id"])
                 }
 
             };

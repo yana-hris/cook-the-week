@@ -3,6 +3,7 @@
     using System.Globalization;
 
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
 
     using CookTheWeek.Data.Models;
 
@@ -10,57 +11,70 @@
 
     internal static class SeedData
     {
-        internal static ICollection<ApplicationUser> SeedUsers()
+        internal static ICollection<ApplicationUser> SeedUsers(IConfiguration configuration)
         {
             ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
 
             PasswordHasher<ApplicationUser> hasher = new();
+            var adminConfig = configuration.GetSection("AdminUser");
+            var appUserConfig = configuration.GetSection("AppUser");
+            var deletedUserConfig = configuration.GetSection("DeletedUser");
 
-            ApplicationUser AppUser = new()
+            
+            if (adminConfig != null)
             {
-                Id = Guid.Parse(AppUserId),
-                UserName = AppUserUsername,
-                NormalizedUserName = AppUserUsername.ToUpper(),
-                Email = AppUserEmail,
-                NormalizedEmail = AppUserEmail.ToUpper(),
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString(),
-            };
+                ApplicationUser AdminUser = new()
+                {
+                    Id = Guid.Parse(adminConfig["Id"]),
+                    UserName = adminConfig["UserName"],
+                    NormalizedUserName = adminConfig["UserName"].ToUpper(),
+                    Email = adminConfig["Email"],
+                    NormalizedEmail = adminConfig["Email"].ToUpper(),
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                };
 
-            AppUser.PasswordHash = hasher.HashPassword(AppUser, AppUserPassword);
+                AdminUser.PasswordHash = hasher.HashPassword(AdminUser, adminConfig["Password"]);
+                users.Add(AdminUser);
+            }
 
-            ApplicationUser AdminUser = new()
+            if (appUserConfig != null)
             {
-                Id = Guid.Parse(AdminUserId),
-                UserName = AdminUserUsername,
-                NormalizedUserName = AdminUserUsername.ToUpper(),
-                Email = AdminUserEmail,
-                NormalizedEmail = AdminUserEmail.ToUpper(),
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString(),
-            };
+                ApplicationUser AppUser = new()
+                {
+                    Id = Guid.Parse(appUserConfig["Id"]),
+                    UserName = appUserConfig["UserName"],
+                    NormalizedUserName = appUserConfig["UserName"].ToUpper(),
+                    Email = appUserConfig["Email"],
+                    NormalizedEmail = appUserConfig["Email"].ToUpper(),
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                };
 
-            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, AdminUserPassword);
+                AppUser.PasswordHash = hasher.HashPassword(AppUser, appUserConfig["Password"]);
+                users.Add(AppUser);
+            }
 
-            ApplicationUser DeletedUser = new()
+
+            if (deletedUserConfig != null)
             {
-                Id = Guid.Parse(DeletedUserId),
-                UserName = DeletedUserUsername,
-                NormalizedUserName = DeletedUserUsername.ToUpper(),
-                Email = DeletedUserEmail,
-                NormalizedEmail = DeletedUserEmail.ToUpper(),
-                EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString(),
-            };
+                ApplicationUser DeletedUser = new()
+                {
+                    Id = Guid.Parse(deletedUserConfig["Id"]),
+                    UserName = deletedUserConfig["UserName"],
+                    NormalizedUserName = deletedUserConfig["UserName"].ToUpper(),
+                    Email = deletedUserConfig["Email"],
+                    NormalizedEmail = deletedUserConfig["Email"].ToUpper(),
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                };
 
-            DeletedUser.PasswordHash = hasher.HashPassword(DeletedUser, DeletedUserPassword);
-
-            users.Add(AdminUser);
-            users.Add(AppUser);
-            users.Add(DeletedUser);
+                DeletedUser.PasswordHash = hasher.HashPassword(DeletedUser, deletedUserConfig["Password"]);
+                users.Add(DeletedUser);
+            }
 
             return users;
         }
@@ -1818,14 +1832,18 @@
                 },
             };
         }
-        internal static ICollection<Recipe> SeedRecipes()
+        internal static ICollection<Recipe> SeedRecipes(IConfiguration configuration)
         {
+            var adminConfig = configuration.GetSection("AdminUser");
+            var appUserConfig = configuration.GetSection("AppUser");
+            var deletedUserConfig = configuration.GetSection("DeletedUser");
+
             return new HashSet<Recipe>()
             {
                 new()
                 {
                     Id = DeletedRecipeId,
-                    OwnerId = Guid.Parse(DeletedUserId),
+                    OwnerId = Guid.Parse(deletedUserConfig["Id"]),
                     Title = "Deleted Recipe",
                     Description = "This recipe has been deleted.",
                     Servings = 0,
@@ -1839,7 +1857,7 @@
                 new()
                 {
                     Id = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Moussaka",
                     Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                     
@@ -1852,7 +1870,7 @@
                 new()
                 {
                     Id = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Beef Stew",
                     Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
                     
@@ -1865,7 +1883,7 @@
                 new()
                 {
                     Id = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Homemade Chicken Soup",
                     Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
                    
@@ -1878,7 +1896,7 @@
                 new()
                 {
                     Id = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Stuffed red peppers with ground meat and rice",
                     Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                    
@@ -1891,7 +1909,7 @@
                 new()
                 {
                     Id = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Fruity Strawberry Smoothy",
                     Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
                    
@@ -1904,7 +1922,7 @@
                 new()
                 {
                     Id = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Overnight Oats (prepare the night before)",
                     Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                   
@@ -1917,7 +1935,7 @@
                 new()
                 {
                     Id = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
-                    OwnerId = Guid.Parse(AdminUserId),
+                    OwnerId = Guid.Parse(adminConfig["Id"]),
                     Title = "Avocado Toast",
                     Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
                    
@@ -1930,7 +1948,7 @@
                 new()
                 {
                     Id = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
-                    OwnerId = Guid.Parse(AppUserId),
+                    OwnerId = Guid.Parse(appUserConfig["Id"]),
                     Title = "Beans stew",
                     Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
                     
@@ -1943,7 +1961,7 @@
                 new()
                 {
                     Id = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
-                    OwnerId = Guid.Parse(AppUserId),
+                    OwnerId = Guid.Parse(appUserConfig["Id"]),
                     Title = "Thai Pumpkin Cream Soup",
                     Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
                    
@@ -2916,39 +2934,43 @@
             };
         }
 
-        internal static ICollection<FavouriteRecipe> SeedRecipeLikes()
+        internal static ICollection<FavouriteRecipe> SeedRecipeLikes(IConfiguration configuration)
         {
+            var appUserConfig = configuration.GetSection("AppUser");
+
             return new HashSet<FavouriteRecipe>()
             {
                 new()
                 {
-                    UserId = Guid.Parse(AppUserId),
+                    UserId = Guid.Parse(appUserConfig["Id"]),
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                 },
                 new()
                 {
-                    UserId = Guid.Parse(AppUserId),
+                    UserId = Guid.Parse(appUserConfig["Id"]),
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                 },
 
                 new()
                 {
-                    UserId = Guid.Parse(AppUserId),
+                    UserId = Guid.Parse(appUserConfig["Id"]),
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                 },
 
             };
         }
                  
-        internal static ICollection<MealPlan> SeedMealPlans()
+        internal static ICollection<MealPlan> SeedMealPlans(IConfiguration configuration)
         {
+            var appUserConfig = configuration.GetSection("AppUser");
+
             return new HashSet<MealPlan>()
             {
                 new()
                 {
                     Id = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
                     Name = "Super cool week, full of tasty bites",
-                    OwnerId = Guid.Parse(AppUserId),
+                    OwnerId = Guid.Parse(appUserConfig["Id"]),
                     StartDate = DateTime.ParseExact("10-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
                     IsFinished = false
                 },
@@ -2956,7 +2978,7 @@
                 {
                     Id = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
                     Name = "My first Meal Plan Ever",
-                    OwnerId = Guid.Parse(AppUserId),
+                    OwnerId = Guid.Parse(appUserConfig["Id"]),
                     StartDate = DateTime.ParseExact("01-01-2024",  MealDateFormat, CultureInfo.InvariantCulture),
                     IsFinished = true
                 },

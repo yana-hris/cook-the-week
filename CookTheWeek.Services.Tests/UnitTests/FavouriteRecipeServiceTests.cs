@@ -107,7 +107,7 @@
         public async Task TryToggleLikes_ThrowsUnauthorizedException_WhenServiceUserIdIsDifferenetFromTheCurrentlyLoggedInUser()
         {
             // Arrange
-            mockUserContext.SetupGet(p => p.UserId).Returns(Guid.Parse(AppUserId));
+            mockUserContext.SetupGet(p => p.UserId).Returns(Guid.Parse("e8ec0c24-2dd1-4a7a-aefc-b54bc9a8e403"));
 
             var model = new FavouriteRecipeServiceModel
             {
