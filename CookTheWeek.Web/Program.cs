@@ -25,6 +25,8 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
+    using Microsoft.Extensions.Options;
+    using Microsoft.AspNetCore.Authentication.Cookies;
 
     public class Program
     {
@@ -33,7 +35,14 @@ namespace CookTheWeek.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             ConfigurationManager config = builder.Configuration;
-            config.AddUserSecrets<Program>();
+            if (builder.Environment.IsDevelopment())
+            {
+                config.AddUserSecrets<Program>();
+            }
+
+            var rotativaPath = Path.GetFullPath(builder.Environment.WebRootPath);
+            Console.WriteLine($"Rotativa Path: {rotativaPath}"); // Debug the path
+            RotativaConfiguration.Setup(rotativaPath);
 
             string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
@@ -136,8 +145,22 @@ namespace CookTheWeek.Web
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
+                cfg.Cookie.HttpOnly = true;               
+
+                if (builder.Environment.IsDevelopment())
+                {
+                    cfg.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                }
+                else
+                {
+                    cfg.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                }
+
+                cfg.ExpireTimeSpan = TimeSpan.FromDays(3);
+                cfg.SlidingExpiration = true;
                 cfg.LoginPath = "/User/Login";
                 cfg.AccessDeniedPath = "/User/AccessDeniedPathInfo";
+                
 
             });
 

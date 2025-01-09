@@ -115,33 +115,51 @@
 
                         if (!roleResult.Succeeded)
                         {
-                            // log error $"Failed to create role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}"
+                            Console.WriteLine($"Failed to create role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
                             return;
                         }
 
                     }
 
-                    ApplicationUser? adminUser = await userManager.FindByNameAsync(userName);
+                    ApplicationUser? adminUser = await userManager.FindByNameAsync(AdminUserUsername);
 
                     if (adminUser == null)
                     {
-                        //log error $"Admin user '{userName}' not found."
-                        return;
+                        // Create the admin user
+                        adminUser = new ApplicationUser
+                        {
+                            UserName = AdminUserUsername,
+                            Email = AdminUserEmail,
+                            EmailConfirmed = true // Assuming email confirmation isn't needed for the initial admin
+                        };
+
+                        var createResult = await userManager.CreateAsync(adminUser, AdminUserPassword);
+
+                        if (!createResult.Succeeded)
+                        {
+                            Console.WriteLine($"Failed to create admin user: {string.Join(", ", createResult.Errors.Select(e => e.Description))}");
+                            return;
+                        }
                     }
 
-                    var result = await userManager.AddToRoleAsync(adminUser, AdminRoleName);
-                    if (!result.Succeeded)
+                    if (!await userManager.IsInRoleAsync(adminUser, AdminRoleName))
                     {
-                        //log error $"Failed to assign role to user: {string.Join(", ", result.Errors.Select(e => e.Description))}"
+                        var addRoleResult = await userManager.AddToRoleAsync(adminUser, AdminRoleName);
 
+                        if (!addRoleResult.Succeeded)
+                        {
+                            Console.WriteLine($"Failed to assign role to user: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Administrator '{userName}' has been successfully created and assigned to the '{AdminRoleName}' role.");
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    // log error (ex, "Error occurred while seeding administrator.");
+                    Console.WriteLine($"Error occurred while seeding administrator: {ex.Message}");
                 }
-
-
             })
                 .GetAwaiter()
                 .GetResult();

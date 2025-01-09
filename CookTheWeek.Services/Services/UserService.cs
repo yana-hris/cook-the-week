@@ -404,8 +404,8 @@
             // Max failed attempts from configuration
             int maxFailedAttempts = configuration.GetSection("Identity:Lockout:MaxFailedAccessAttempts").Get<int>();
 
-            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: true);
-
+            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: true);
+            Console.WriteLine($"Login success: {signInResult.Succeeded}, RememberMe: {model.RememberMe}");
             if (signInResult.Succeeded)
             {
                 bool isAdmin = await userManager.IsInRoleAsync(user, AdminRoleName);

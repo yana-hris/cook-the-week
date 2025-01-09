@@ -202,4 +202,10 @@
     <UpToDateCheckInput Remove="scss\components\_colors.scss" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Rotativa\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
