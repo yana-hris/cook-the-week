@@ -45,7 +45,10 @@ namespace CookTheWeek.Web
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.EnableSensitiveDataLogging();
+                if (builder.Environment.IsDevelopment())
+                {
+                    options.EnableSensitiveDataLogging();
+                }
             });
 
             if (builder.Environment.IsDevelopment())
@@ -126,7 +129,9 @@ namespace CookTheWeek.Web
                 suffixes);
 
             builder.Services.AddHttpContextAccessor();
-           
+            builder.Services.AddApplicationInsightsTelemetry();
+
+
             builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 
@@ -172,8 +177,18 @@ namespace CookTheWeek.Web
             builder.Services.AddLogging(logging =>
             {
                 logging.ClearProviders();
-                logging.AddConsole();
-                logging.AddDebug();
+
+                if (builder.Environment.IsDevelopment())
+                {
+                    logging.AddConsole();
+                    logging.AddDebug();
+                }
+
+                logging.AddApplicationInsights(
+                    configureTelemetryConfiguration: (config) => { },
+                    configureApplicationInsightsLoggerOptions: (options) => { }
+                );
+                
             });
 
             builder.Services.AddControllersWithViews()
