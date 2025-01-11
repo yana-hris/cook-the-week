@@ -33071,7 +33071,7 @@ span.small.text-danger {
 #recipe-details-container .card .ribbon-container .ribbon-owner, #meal-cook-container .card .ribbon-container .ribbon-owner {
   position: static;
   width: 60px;
-  height: 92px;
+  height: 82px;
   align-items: center;
 }
 #recipe-details-container .card .ribbon-container .ribbon-owner svg, #meal-cook-container .card .ribbon-container .ribbon-owner svg {
@@ -33081,7 +33081,7 @@ span.small.text-danger {
 #recipe-details-container .card .ribbon-container .ribbon-mealplan, #meal-cook-container .card .ribbon-container .ribbon-mealplan {
   position: static;
   width: 60px;
-  height: 80px;
+  height: 72px;
   font-size: 36px;
 }
 #recipe-details-container .card .card-body, #meal-cook-container .card .card-body {
@@ -33276,18 +33276,38 @@ span.small.text-danger {
     right: 60px !important;
   }
   #recipe-details-container .ribbon-container .ribbon-owner, #meal-cook-container .ribbon-container .ribbon-owner {
-    width: 20px !important;
-    height: 100px !important;
+    width: 34px !important;
+    height: 105px !important;
     padding-bottom: 1.2rem;
   }
   #recipe-details-container .ribbon-container .ribbon-owner svg, #meal-cook-container .ribbon-container .ribbon-owner svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  #recipe-details-container .ribbon-container .ribbon-mealplan, #meal-cook-container .ribbon-container .ribbon-mealplan {
+    width: 34px !important;
+    height: 90px !important;
+    font-size: 24px !important;
+  }
+}
+@media screen and (max-width: 511px) {
+  #recipe-details-container .ribbon-container, #meal-cook-container .ribbon-container {
+    right: 60px !important;
+    opacity: 0.9 !important;
+  }
+  #recipe-details-container .ribbon-container .ribbon-owner, #meal-cook-container .ribbon-container .ribbon-owner {
+    width: 20px !important;
+    height: 130px !important;
+    padding-bottom: 1.2rem;
+  }
+  #recipe-details-container .ribbon-container .ribbon-owner svg, #meal-cook-container .ribbon-container .ribbon-owner svg {
+    width: 18px !important;
+    height: 18px !important;
   }
   #recipe-details-container .ribbon-container .ribbon-mealplan, #meal-cook-container .ribbon-container .ribbon-mealplan {
     width: 20px !important;
-    height: 85px !important;
-    font-size: 16px !important;
+    height: 110px !important;
+    font-size: 20px !important;
   }
 }
 :root {
