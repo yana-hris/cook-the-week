@@ -6,16 +6,14 @@
 // Custom containers
 .wide-contents-container {
     @include make-container();
-    @extend .hide-scrollbar;
-
     max-width: 1296px;
     padding: 0 10px;
+    position: relative; // This is okay if it's unrelated to the fixed element
+    overflow: visible;
 }
 
 .list-container {
     @include make-container();
-    @extend .hide-scrollbar;
-
     max-width: 1040px;
 }
 // Scrolling container with hidden scrollbar
@@ -39,7 +37,6 @@
 // Container for shopping list details
 .shopping-list-container {
     @include make-container();
-    @extend .hide-scrollbar;
 
     padding: $default-padding;
     border-radius: $border-radius;
@@ -55,7 +52,6 @@
 
 .contact-form-container {
     @include make-container();
-    @extend .hide-scrollbar;
 
     padding: $default-padding;
     max-width: 520px;
@@ -70,7 +66,6 @@
 
 .form-container {
     @include make-container();
-    @extend .hide-scrollbar;
     padding: $default-padding;
     max-width: 480px;
     overflow-y: auto;

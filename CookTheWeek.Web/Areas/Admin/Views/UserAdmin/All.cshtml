@@ -9,6 +9,13 @@
         Subheading = "All Users",
         HeadingSecondary = "Browse & manage users"
     };
+    string paginationClass = Model.TotalUsers > Model.UsersPerPage ? "" : "hidden";
+    int maxPage = (int)Math.Ceiling((double)Model.TotalUsers / Model.UsersPerPage);
+    int previousPage = Model.CurrentPage - 1;
+    int nextPage = Model.CurrentPage + 1;
+
+    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Users.Any());
+    bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
 }
 <div class="wide-contents-container" id="admin">
     <partial name="_HeadingPartial" model="adminHeading"/>
@@ -98,46 +105,42 @@
         </tbody>
     </table>
     @{
-        int maxPage = (int)Math.Ceiling((double)Model.TotalUsers / Model.UsersPerPage);
-        int previousPage = Model.CurrentPage - 1;
-        int nextPage = Model.CurrentPage + 1;
-
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Users.Any());
-        bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
+        
     }
     <!-- Pagination buttons -->
-    @if (Model.TotalUsers > Model.UsersPerPage)
-    {
-        <div aria-label="Page navigation" id="pagination-buttons">
-            <ul class="pagination d-flex justify-content-end align-items-center">
-                <li class="page-item">
-                    <a class="pagination-btn @(shouldPreviousPageBeDisabled ? "disabled" : string.Empty)"
-                       asp-area="Admin"
-                       asp-controller="UserAdmin"
-                       asp-action="All"
-                       asp-route-currentPage="@previousPage"
-                       asp-route-usersPerPage="@Model.UsersPerPage"
-                       asp-route-userSorting="@(Model.UserSorting ?? 0)"
-                       asp-route-searchString="@Model.SearchString"
-                       aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                </li>
+    <div class="pagination-and-build-btn-container">
 
-                <li class="page-item">
-                    <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-                       asp-area="Admin"
-                       asp-controller="UserAdmin"
-                       asp-action="All"
-                       asp-route-currentPage="@nextPage"
-                       asp-route-usersPerPage="@Model.UsersPerPage"
-                       asp-route-userSorting="@(Model.UserSorting ?? 0)"
-                       asp-route-searchString="@Model.SearchString"
-                       aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
-                        <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                </li>
-            </ul>
+        <div aria-label="Page navigation" id="pagination-buttons" class="@paginationClass">
+
+            <div class="">
+                <a class="pagination-btn @(shouldPreviousPageBeDisabled ? "disabled" : string.Empty)"
+                    asp-area="Admin"
+                    asp-controller="UserAdmin"
+                    asp-action="All"
+                    asp-route-currentPage="@previousPage"
+                    asp-route-usersPerPage="@Model.UsersPerPage"
+                    asp-route-userSorting="@(Model.UserSorting ?? 0)"
+                    asp-route-searchString="@Model.SearchString"
+                    aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
+            </div>
+
+            <div class="">
+                <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                    asp-area="Admin"
+                    asp-controller="UserAdmin"
+                    asp-action="All"
+                    asp-route-currentPage="@nextPage"
+                    asp-route-usersPerPage="@Model.UsersPerPage"
+                    asp-route-userSorting="@(Model.UserSorting ?? 0)"
+                    asp-route-searchString="@Model.SearchString"
+                    aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
+                    <i class="fa-solid fa-angles-right"></i>
+                </a>
+            </div>
+            
         </div>
-    }
+    
+    </div>
 </div>

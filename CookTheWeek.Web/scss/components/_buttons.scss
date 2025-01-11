@@ -419,18 +419,18 @@ li.user-btn {
 
 
 #pagination-buttons {
-    position: fixed;
-    right: 57px;
-    bottom: 17px;
-    z-index: 100;
+    //position: fixed;
+    //right: 57px;
+    //bottom: 17px;
+    //z-index: 100;
     
 }
 
 #build-btn-container {
-    position: fixed;
+   /* position: fixed;
     right: 10px;
     bottom: 25px;
-    z-index: 100;
+    z-index: 100;*/
     
 }
 
@@ -443,7 +443,8 @@ li.user-btn {
 
 
 @media (min-width: 992px) {
-    #build-btn-container {
+
+    /*#build-btn-container {
         position: fixed;
         right: 21px !important;
         bottom: 26px !important;
@@ -453,7 +454,7 @@ li.user-btn {
         position: fixed;
         bottom: 18px !important;
         right: 69px !important;
-    }
+    }*/
 
     #theme-container {
         top: 70px;

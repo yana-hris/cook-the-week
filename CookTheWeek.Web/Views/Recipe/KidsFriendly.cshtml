@@ -11,11 +11,18 @@
         Subheading = "Kids-Friendly Recipes",
         HeadingSecondary = "Delicious, fun, and easy meals the whole family will love!"
     };
+
+    string paginationClass = Model.TotalResults > Model.RecipesPerPage ? "" : "hidden";
+    int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.RecipesPerPage);
+    int previousPage = Model.CurrentPage - 1;
+    int nextPage = Model.CurrentPage + 1;
+
+    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Recipes.Any());
+    bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
 }
 
 <div class="wide-contents-container has-build-btn">
     <partial name="_HeadingPartial" model="headingModel" />
-    @Html.AntiForgeryToken()
 
     <!-- Search and Filter panel -->
     <div class="row text-center filter-container fix-padding">
@@ -74,7 +81,6 @@
             </div>
         </form>
     </div>
-    <partial name="_BuildBtnPartial" />
 
     <!-- Recipes Container -->
     <div class="row">
@@ -94,58 +100,51 @@
             }
         </div>
     </div>
-
-    @{
-        int maxPage = (int)Math.Ceiling((double)Model.TotalResults / Model.RecipesPerPage);
-        int previousPage = Model.CurrentPage - 1;
-        int nextPage = Model.CurrentPage + 1;
-
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || (!Model.Recipes.Any());
-        bool shouldPreviousPageBeDisabled = Model.CurrentPage == 1;
-    }
+   
     <!-- Pagination buttons -->
-    @if (Model.TotalResults > Model.RecipesPerPage)
-    {
-        <div aria-label="Page navigation" id="pagination-buttons">
-            <ul class="pagination d-flex justify-content-end align-items-center">
-                <li class="page-item">
-                    <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-                       asp-controller="Recipe"
-                       asp-action="KidsFriendly"
-                       asp-route-currentPage="@previousPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
-                       asp-route-mealTypeId="@Model.MealTypeId"
-                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
-                       asp-route-difficultyLevel="@Model.DifficultyLevel"
-                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
-                       asp-route-searchString="@Model.SearchString"
-                       asp-route-recipeSource="@Model.RecipeSource"
-                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
-                       aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                </li>
+    <div class="pagination-and-build-btn-container">
+        <div aria-label="Page navigation" id="pagination-buttons" class="@paginationClass">
 
-                <li class="page-item">
-                    <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-                       asp-controller="Recipe"
-                       asp-action="KidsFriendly"
-                       asp-route-currentPage="@nextPage"
-                       asp-route-recipesPerPage="@Model.RecipesPerPage"
-                       asp-route-mealTypeId="@Model.MealTypeId"
-                       asp-route-recipeSource="@Model.RecipeSource"
-                       asp-route-maxPreparationTime="@Model.MaxPreparationTime"
-                       asp-route-difficultyLevel="@Model.DifficultyLevel"
-                       asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
-                       asp-route-searchString="@Model.SearchString"
-                       asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
-                       aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
-                        <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                </li>
-            </ul>
+            <div class="">
+                <a class="pagination-btn @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                    asp-controller="Recipe"
+                    asp-action="KidsFriendly"
+                    asp-route-currentPage="@previousPage"
+                    asp-route-recipesPerPage="@Model.RecipesPerPage"
+                    asp-route-mealTypeId="@Model.MealTypeId"
+                    asp-route-maxPreparationTime="@Model.MaxPreparationTime"
+                    asp-route-difficultyLevel="@Model.DifficultyLevel"
+                    asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
+                    asp-route-searchString="@Model.SearchString"
+                    asp-route-recipeSource="@Model.RecipeSource"
+                    asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
+                    aria-disabled="@(shouldPreviousPageBeDisabled ? true : false)">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
+            </div>
+
+            <div class="">
+                <a class="pagination-btn @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                    asp-controller="Recipe"
+                    asp-action="KidsFriendly"
+                    asp-route-currentPage="@nextPage"
+                    asp-route-recipesPerPage="@Model.RecipesPerPage"
+                    asp-route-mealTypeId="@Model.MealTypeId"
+                    asp-route-recipeSource="@Model.RecipeSource"
+                    asp-route-maxPreparationTime="@Model.MaxPreparationTime"
+                    asp-route-difficultyLevel="@Model.DifficultyLevel"
+                    asp-route-selectedTagIds="@(string.Join(",", Model.SelectedTagIds ?? new List<int>()))"
+                    asp-route-searchString="@Model.SearchString"
+                    asp-route-recipeSorting="@(Model.RecipeSorting ?? 0)"
+                    aria-disabled="@(shouldNextPageBeDisabled ? true : false)">
+                    <i class="fa-solid fa-angles-right"></i>
+                </a>
+            </div>
+            
         </div>
-    }
+
+        <partial name="_BuildBtnPartial" />
+    </div>
 </div>
 
 @section Scripts {

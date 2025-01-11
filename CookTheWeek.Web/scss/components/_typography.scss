@@ -111,6 +111,31 @@
     margin-bottom: 0 !important;
 }
 
+.pagination-and-build-btn-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 10px; // change in media queries
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    padding: 1rem;
+    gap: 0.5rem;
+    background: var(--background-gradient);
+    opacity: 0.9;
+    border-radius: $border-radius;
+
+    #pagination-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: end;
+        gap: 0.5rem;
+        min-width: 100px;
+    }
+}
+
 .buttons-two {
     display: flex;
     align-items: center;
@@ -262,9 +287,6 @@ footer {
     min-height: 100vh;
 }
 
-.pagination {
-    gap: 5px;
-}
 
 // Forms styling
 .input-group {
@@ -402,6 +424,14 @@ span.small.text-danger {
         font-size: 16px !important;
     }  
     
+}
+
+@media (min-width: 1378px) {
+
+    .pagination-and-build-btn-container {
+        right: 40px !important;
+        bottom: 26px !important;
+    }
 }
 
 
