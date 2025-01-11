@@ -33,15 +33,16 @@ namespace CookTheWeek.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             ConfigurationManager config = builder.Configuration;
+
             if (builder.Environment.IsDevelopment())
             {
                 config.AddUserSecrets<Program>();
             }
 
-            var rotativaPath = Path.GetFullPath(builder.Environment.WebRootPath);
+            var rotativaPath =Path.GetFullPath(builder.Environment.WebRootPath);            
             RotativaConfiguration.Setup(rotativaPath);
 
-            string? connectionString = config["ConnectionStrings:CookTheWeekDbContextConnection"];
+            string? connectionString = config.GetConnectionString("CookTheWeekDbContextConnection");
             builder.Services.AddDbContext<CookTheWeekDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);

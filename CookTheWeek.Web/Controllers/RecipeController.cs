@@ -205,13 +205,13 @@
 
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(string? returnUrl = null)
         {
             try
             {
                 var model = await this.recipeViewModelFactory.CreateRecipeAddFormModelAsync();
 
-                SetViewData("Add Recipe", "/Recipe/All", "image-overlay food-background");
+                SetViewData("Add Recipe", AdjustReturnUrl(returnUrl), "image-overlay food-background");
                 return View(model);
             }
             catch (Exception ex)
@@ -222,8 +222,10 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RecipeAddFormModel model)
+        public async Task<IActionResult> Add(RecipeAddFormModel model, string? returnUrl = null)
         {
+            returnUrl = AdjustReturnUrl(returnUrl);
+
             if (model == null)
             {
                 return HandleException(new ArgumentNullException(nameof(model)), nameof(Add));
@@ -245,7 +247,7 @@
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAddViewWithModelErrors(model!);
+                return RedirectToAddViewWithModelErrors(model!, returnUrl);
             }
 
             try
@@ -257,12 +259,12 @@
                     string recipeId = result.Value;
                     TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
 
-                    return Redirect(Url.Action("Details", "Recipe", new { id = recipeId }));
+                    return Redirect(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl }));
                 }
                 else
                 {
                     AddCustomValidationErrorsToModelState(result.Errors);
-                    return RedirectToAddViewWithModelErrors(model);
+                    return RedirectToAddViewWithModelErrors(model, returnUrl);
                 }
             }
             catch (Exception ex) 
@@ -276,7 +278,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
-            returnUrl = returnUrl ?? "/Recipe/All";
+            returnUrl = AdjustReturnUrl(returnUrl);
 
             if (id.TryToGuid(out Guid guidId))
             {
@@ -332,7 +334,7 @@
             {
                 return ReturnBadRequestWithSerializedModelErrors();
             }
-            string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl = returnUrl ?? "/" })!;
+            string recipeDetailsLink = Url.Action("Details", "Recipe", new { id = model.Id, returnUrl = AdjustReturnUrl(returnUrl) })!;
 
             try
             {
@@ -372,13 +374,15 @@
         [HttpGet]
         public async Task<IActionResult> Details(string id, string returnUrl = null)
         {
+            returnUrl = AdjustReturnUrl(returnUrl);
+
             if (id.TryToGuid(out Guid guidId))
             {
                 try
                 {
                     RecipeDetailsViewModel model = await this.recipeViewModelFactory.CreateRecipeDetailsViewModelAsync(guidId);
                     
-                    SetViewData("Recipe Details", returnUrl ?? "/Recipe/All", "image-overlay food-background");
+                    SetViewData("Recipe Details", returnUrl, "image-overlay food-background");
                     return View(model);
                 }
                 catch (RecordNotFoundException ex)
@@ -396,18 +400,20 @@
         }
 
         [HttpGet]
-        public IActionResult None()
+        public IActionResult None(string? returnUrl = null)
         {
-            SetViewData("None", null, "image-overlay food-background");
+            returnUrl = AdjustReturnUrl(returnUrl);
+            SetViewData("None", returnUrl, "image-overlay food-background");
             return View();
         }
 
 
         [HttpGet]
         [AdminRedirect("All", "RecipeAdmin")]
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine(string? returnUrl = null)
         {
-            SetViewData("My Recipes", Request.Path + Request.QueryString);
+            returnUrl = AdjustReturnUrl(returnUrl ?? Request.Path + Request.QueryString);
+            SetViewData("My Recipes", returnUrl);
 
             try
             {
@@ -429,7 +435,7 @@
         [HttpGet]
         public async Task<IActionResult> DeleteConfirmed(string id, string? returnUrl)
         {
-            returnUrl = returnUrl ?? "/Recipe/Mine";
+            returnUrl = AdjustReturnUrl(returnUrl, "Details");
 
             if (id.TryToGuid(out Guid guidId))
             {
@@ -478,10 +484,10 @@
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model)
+        private IActionResult RedirectToAddViewWithModelErrors(RecipeAddFormModel model, string? returnUrl = null)
         {
             StoreServerErrorsInTempData();
-            SetViewData("Add Recipe", "/Recipe/All", "image-overlay food-background");
+            SetViewData("Add Recipe", AdjustReturnUrl(returnUrl), "image-overlay food-background");
             return View(model);
         }
 
@@ -538,6 +544,47 @@
             // Redirect to a custom error page with a generic error message
             string userFriendlyMessage = "An unexpected error occurred. Please try again later.";
             return RedirectToAction("InternalServerError", "Home", new { message = userFriendlyMessage });
+        }
+
+        /// <summary>
+        /// Helper method to check if the returnUrl is not a previous Add / Edit action or Details action (before Delete) which may cause form resubmit or a page not found issue
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <param name="fallbackUrl"></param>
+        /// <returns>the transformed returnUrl</returns>
+        private string AdjustReturnUrl(string? returnUrl, string extraUrl = null)
+        {
+            // Define restricted actions
+            var restrictedActions = new List<string> { "Add", "Edit" };
+
+            // Add extra restricted action if any
+            if (extraUrl != null && !string.IsNullOrEmpty(extraUrl))
+            {
+                restrictedActions.Add(extraUrl);
+            }
+
+            // Always the same
+            string fallbackUrl = "/Recipe/All";
+
+            // Validate returnUrl
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+            {
+                // Check if the returnUrl contains any restricted actions
+                foreach (var action in restrictedActions)
+                {
+                    if (returnUrl.Contains(action, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Redirect to fallback URL if restricted action is found
+                        return fallbackUrl;
+                    }
+                }
+
+                // If no restricted actions, return the original returnUrl
+                return returnUrl;
+            }
+
+            // Return fallback URL if returnUrl is invalid
+            return fallbackUrl;
         }
     }
 }
