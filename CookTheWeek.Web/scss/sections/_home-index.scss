@@ -3,26 +3,32 @@
 @import '../components/typography';
 
 #hero {
-    position: relative;  
+    position: relative;
     height: 100vh;
     width: 100vw;
 
     #hero-text-background {
         position: absolute;
-        top: 15%;
+        top: 10%;
         left: 50%;
         transform: translateX(-50%);
         padding: 10px;
-        min-width: 80%;
-        //max-width: 1160px;
+        width: 90%;
+        max-width: 1160px;
         border-radius: $border-radius-small;
+
 
         .text-container {
             padding: 60px 10px;
 
-            p {
-                font-size: 1.4rem;
+            h2 {
+                font-size: 2.8rem;
+            }
+
+            .inviting-text {
+                font-size: 1.6rem;
                 font-weight: 400;
+                margin-bottom: 0.1rem;
             }
         }
     }
@@ -39,5 +45,84 @@
     #hero-text-background {
         background: linear-gradient(to bottom, rgba(0,0,0, 0.65), rgba(0,0,0, 0.7));
         
+    }
+}
+
+// Media queries for custom containers
+@media (max-width: 1186px) {
+    #hero-text-background {
+        width: 95% !important;
+
+
+        .text-container {
+            padding: 50px 10px !important;
+
+            h2 {
+                font-size: 2.4rem !important;
+            }
+
+            .inviting-text {
+                font-size: 1.5rem !important;
+                font-weight: 400;
+                margin-bottom: 0.4rem !important;
+            }
+
+            .inviting-text:last-of-type {
+                margin-bottom: 2.5rem !important;
+            }
+
+            .btn-text {
+                font-size: 1.6rem !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    #hero-text-background {
+
+        .text-container {
+
+            h2 {
+                font-size: 2.2rem !important;
+            }
+
+            .inviting-text {
+                font-size: 1.3rem !important;
+                font-weight: 400;
+                margin-bottom: 0.8rem !important;
+            }
+
+            .inviting-text:last-of-type {
+                margin-bottom: 2.5rem !important;
+            }
+
+            .btn-text {
+                font-size: 1.5rem !important;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 560px) {
+    #hero-text-background {
+
+        .text-container {
+            padding: 40px 10px !important;
+
+            h2 {
+                font-size: 1.8rem !important;
+            }
+
+            .inviting-text {
+                font-size: 1.2rem !important;
+                font-weight: 300 !important;
+            }
+
+            .btn-text {
+                font-size: 1.4rem !important;
+            }
+        }
     }
 }

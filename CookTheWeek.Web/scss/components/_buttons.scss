@@ -181,9 +181,10 @@ li.user-btn {
     @include button-box-shadow-effect();
 }
 
+// Home/Index btns
 .signup-button,
 .learnmore-button {
-    @include button-with-icon-and-text-cenetered(11rem);
+    @include button-with-icon-and-text-cenetered(12rem, 1.7rem, false);
 }
 
 .user-mealplans-btn {
@@ -417,23 +418,6 @@ li.user-btn {
     }
 }
 
-
-#pagination-buttons {
-    //position: fixed;
-    //right: 57px;
-    //bottom: 17px;
-    //z-index: 100;
-    
-}
-
-#build-btn-container {
-   /* position: fixed;
-    right: 10px;
-    bottom: 25px;
-    z-index: 100;*/
-    
-}
-
 @media (min-width: 768px) {
     #theme-container {
         top: 65px;
@@ -443,19 +427,7 @@ li.user-btn {
 
 
 @media (min-width: 992px) {
-
-    /*#build-btn-container {
-        position: fixed;
-        right: 21px !important;
-        bottom: 26px !important;
-    }
-
-    #pagination-buttons {
-        position: fixed;
-        bottom: 18px !important;
-        right: 69px !important;
-    }*/
-
+   
     #theme-container {
         top: 70px;
         right: 20px;

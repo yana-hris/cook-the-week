@@ -183,7 +183,6 @@ const updateRecipeBtns = function () {
 }
 
 
-
 $(document).ready(function () { 
     delegateBuildBtnClick();
 
@@ -331,6 +330,21 @@ export const attachToggleFiltersHandler = function() {
     $(document).on('click', '.filter-btn-container', function (e) {        
         toggleAdvancedSectionVisibility(e, this);
     });
+}
+
+
+export const updateBuildBtnContainerVisibilityInDetailsView = function () {
+    const buildBtnContainer = document.querySelector('.pagination-and-build-btn-container');
+
+    if (buildBtnContainer) {
+        if (currentUserId !== null && userHasMealPlans()) {
+            buildBtnContainer.style.display = "flex";
+        } else {
+            buildBtnContainer.style.display = "none";
+        }
+    }
+
+    return;
 }
 
 

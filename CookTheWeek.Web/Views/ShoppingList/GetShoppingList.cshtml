@@ -3,7 +3,7 @@
     @Html.AntiForgeryToken()
     <section id="shopping-list-section" class="p-3">
         <div id="heading-container">
-            <h2>@Model.Title</h2>
+            <h2>@Html.Raw(Model.Title)</h2>
             <sup class="dates">Shopping List for <span class="date">@Model.StartDate</span> to <span class="date">@Model.EndDate</span></sup>
         </div>
         <partial name="_ProductsByCategoriesPartial" , model="@Model.ShopItemsByCategories" />
