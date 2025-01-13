@@ -151,12 +151,11 @@ Apart from that, you can register and log in with your account. The app does not
 
 ## Used technologies
 ASP.NET Core MVC  
-ASP.NET Web API  
 Entity Framework Core (EF Core)  
 SQL Server  
-jQuery  
-AJAX  
 JavaScript  
+AJAX  
+jQuery  
 Bootstrap  
 SCSS (SASS)  
 Local Storage  
@@ -168,7 +167,7 @@ Local Storage
 
 ## Contact
 
-If you have any questions, suggestions, or feedback, please don't hesitate to reach out:
+For any feedback, don't hesitate to reach out:
 
 - Email: yana.hristova.work@gmail.com
 
