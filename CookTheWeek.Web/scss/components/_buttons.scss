@@ -228,7 +228,8 @@ li.user-btn {
 }
 .join-now-btn,
 .login-modal-btn {
-    @include button-sm-style(100%, $border-radius, 1.4rem, 0.4rem);
+    @include button-with-icon-and-text-cenetered(10rem, 1.2rem, true);
+    //@include button-sm-style(100%, $border-radius, 1.4rem, 0.4rem);
     font-weight: bold;
 }
 
@@ -268,7 +269,7 @@ li.user-btn {
 
 .profile-set-pass,
 .profile-recipe-collection {
-    @include button-sm-style(100%, $border-radius, 1.2rem, 0.3rem);
+    @include button-with-icon-and-text-cenetered(10rem, 1.2rem, false);
     @extend .btn-primary;
 }
 

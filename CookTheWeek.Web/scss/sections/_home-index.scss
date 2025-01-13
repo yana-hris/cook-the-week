@@ -4,6 +4,9 @@
 
 #hero {
     position: relative;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto;
     height: 100vh;
     width: 100vw;
 
@@ -12,23 +15,36 @@
         top: 10%;
         left: 50%;
         transform: translateX(-50%);
-        padding: 10px;
+        padding: 4rem 2rem;
         width: 90%;
-        max-width: 1160px;
+        max-width: 1360px;
         border-radius: $border-radius-small;
 
-
-        .text-container {
-            padding: 60px 10px;
+        .hero-content-container {
+            
+            display: flex;
+            flex-direction: column;
+            gap: 2.6rem;
 
             h2 {
-                font-size: 2.8rem;
+                font-size: 2.6rem;
             }
 
-            .inviting-text {
-                font-size: 1.6rem;
-                font-weight: 400;
-                margin-bottom: 0.1rem;
+            .message {
+
+                .inviting-text {
+                    font-size: 1.6rem;
+                    font-weight: 400;
+                    margin-bottom: 0.1rem;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+                justify-content: center;
+                gap: 1rem;
             }
         }
     }
@@ -51,11 +67,14 @@
 // Media queries for custom containers
 @media (max-width: 1186px) {
     #hero-text-background {
-        width: 95% !important;
+        top: 5% !important;
+        width: 96% !important;
+        padding: 4rem 2rem !important;
 
 
-        .text-container {
-            padding: 50px 10px !important;
+        .hero-content-container {
+            
+            gap: 1.6rem !important;
 
             h2 {
                 font-size: 2.4rem !important;
@@ -80,11 +99,14 @@
 
 @media (max-width: 900px) {
     #hero-text-background {
+        top: 10% !important;
+        padding: 3rem 1.4rem !important;
 
-        .text-container {
+        .hero-content-container {
+            gap: 1.2rem !important;
 
             h2 {
-                font-size: 2.2rem !important;
+                font-size: 1.8rem !important;
             }
 
             .inviting-text {
@@ -107,17 +129,19 @@
 
 @media (max-width: 560px) {
     #hero-text-background {
+        top: 5% !important;
 
-        .text-container {
-            padding: 40px 10px !important;
+        padding: 2.5rem 0.8rem !important;
+            
+        .hero-content-container {
+            gap: 0.6rem !important;
 
             h2 {
-                font-size: 1.8rem !important;
+                font-size: 1.3rem !important;
             }
 
             .inviting-text {
-                font-size: 1.2rem !important;
-                font-weight: 300 !important;
+                font-size: 1.1rem !important;
             }
 
             .btn-text {

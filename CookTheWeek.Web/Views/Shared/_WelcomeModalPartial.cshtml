@@ -13,7 +13,7 @@
 
                     <div class="modal-header modal-welcome-header position-relative mb-4">
                         <div class="heading-container d-flex flex-column">
-                            <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo mb-2" />
+                            <img src="~/img/modal-logo.webp" alt="CookTheWeek Logo" class="modal-logo mb-2" />
                             <p class="subheading mb-0" id="welcomeModalLabel">@WelcomeReturningUserModalHeading</p>
                             <p class="heading-secondary">Ready to Plan Your Meals?</p>
                         </div>
@@ -46,8 +46,8 @@
 
                     <div class="modal-header modal-welcome-header position-relative">
                         <div class="heading-container d-flex flex-column">
-                            <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
-                            <p class="modal-title" id="welcomeModalLabel">@Model.Name</p>
+                            <img src="~/img/modal-logo.webp" alt="CookTheWeek Logo" class="modal-logo" />
+                            <p class="modal-title" id="welcomeModalLabel">@Html.Raw(Model.Name)</p>
                             <p class="modal-subheading">@ActiveMealPlanModalContent</p>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -179,7 +179,7 @@ else
 
                 <div class="modal-header modal-welcome-header position-relative mb-3">
                     <div class="heading-container d-flex flex-column">
-                        <img src="~/img/logo-big.png" alt="CookTheWeek Logo" class="modal-logo" />
+                        <img src="~/img/modal-logo.webp" alt="CookTheWeek Logo" class="modal-logo" />
                         <p class="guest-modal-title" id="welcomeModalLabel">@WelcomeGuestModalHeading</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

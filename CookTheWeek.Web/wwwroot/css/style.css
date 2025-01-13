@@ -5332,14 +5332,27 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.4rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
-  text-transform: capitalize;
-  font-size: 1.4rem;
-  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
+}
+.join-now-btn i,
+.login-modal-btn i {
+  vertical-align: middle;
+}
+.join-now-btn span.btn-text,
+.login-modal-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .cta-btn {
@@ -5415,13 +5428,26 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.3rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.2rem;
-  text-align: center;
+}
+.profile-set-pass i,
+.profile-recipe-collection i {
+  vertical-align: middle;
+}
+.profile-set-pass span.btn-text,
+.profile-recipe-collection span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .back-to-home-btn {
@@ -11198,14 +11224,27 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.4rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
-  text-transform: capitalize;
-  font-size: 1.4rem;
-  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
+}
+.join-now-btn i,
+.login-modal-btn i {
+  vertical-align: middle;
+}
+.join-now-btn span.btn-text,
+.login-modal-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .cta-btn {
@@ -11281,13 +11320,26 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.3rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.2rem;
-  text-align: center;
+}
+.profile-set-pass i,
+.profile-recipe-collection i {
+  vertical-align: middle;
+}
+.profile-set-pass span.btn-text,
+.profile-recipe-collection span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .back-to-home-btn {
@@ -13317,55 +13369,62 @@ span.small.text-danger {
   z-index: 9999;
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border-top: 3px solid var(--accent-color);
+  border-top: 2px solid var(--accent-color);
+  padding: 1rem;
 }
 #cookieConsent .container-fluid, #cookieConsent .container-xxl, #cookieConsent .container-xl, #cookieConsent .container-lg, #cookieConsent .container-md, #cookieConsent .container-sm {
-  padding: 1rem;
-  max-width: 1100px;
+  padding: 0.5rem;
+  max-width: 800px;
+  gap: 0.5rem;
 }
 #cookieConsent .container-fluid h2, #cookieConsent .container-xxl h2, #cookieConsent .container-xl h2, #cookieConsent .container-lg h2, #cookieConsent .container-md h2, #cookieConsent .container-sm h2, #cookieConsent .container-fluid .h2, #cookieConsent .container-xxl .h2, #cookieConsent .container-xl .h2, #cookieConsent .container-lg .h2, #cookieConsent .container-md .h2, #cookieConsent .container-sm .h2 {
-  font-size: 2rem;
-  font-family: "Libre Baskerville", serif;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
 }
 #cookieConsent .container-fluid h2 i, #cookieConsent .container-xxl h2 i, #cookieConsent .container-xl h2 i, #cookieConsent .container-lg h2 i, #cookieConsent .container-md h2 i, #cookieConsent .container-sm h2 i, #cookieConsent .container-fluid .h2 i, #cookieConsent .container-xxl .h2 i, #cookieConsent .container-xl .h2 i, #cookieConsent .container-lg .h2 i, #cookieConsent .container-md .h2 i, #cookieConsent .container-sm .h2 i {
-  font-size: 2.5rem;
-  margin-right: 0.5rem;
+  font-size: 2.2rem;
+  margin-right: 0.25rem;
 }
 #cookieConsent .container-fluid .user-text, #cookieConsent .container-xxl .user-text, #cookieConsent .container-xl .user-text, #cookieConsent .container-lg .user-text, #cookieConsent .container-md .user-text, #cookieConsent .container-sm .user-text {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 #cookieConsent .container-fluid .cookie-buttons, #cookieConsent .container-xxl .cookie-buttons, #cookieConsent .container-xl .cookie-buttons, #cookieConsent .container-lg .cookie-buttons, #cookieConsent .container-md .cookie-buttons, #cookieConsent .container-sm .cookie-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  width: 100%;
+  justify-content: space-evenly;
+}
+#cookieConsent .container-fluid .cookie-buttons button, #cookieConsent .container-xxl .cookie-buttons button, #cookieConsent .container-xl .cookie-buttons button, #cookieConsent .container-lg .cookie-buttons button, #cookieConsent .container-md .cookie-buttons button, #cookieConsent .container-sm .cookie-buttons button, #cookieConsent .container-fluid .cookie-buttons a, #cookieConsent .container-xxl .cookie-buttons a, #cookieConsent .container-xl .cookie-buttons a, #cookieConsent .container-lg .cookie-buttons a, #cookieConsent .container-md .cookie-buttons a, #cookieConsent .container-sm .cookie-buttons a {
+  font-size: 1.4rem;
 }
 
 @media only screen and (max-width: 600px) {
+  #cookieConsent {
+    padding: 0.5rem 0.4rem !important;
+  }
   #cookieConsent .container-fluid, #cookieConsent .container-xxl, #cookieConsent .container-xl, #cookieConsent .container-lg, #cookieConsent .container-md, #cookieConsent .container-sm {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
+    gap: 0.25rem !important;
   }
   #cookieConsent .container-fluid h2, #cookieConsent .container-xxl h2, #cookieConsent .container-xl h2, #cookieConsent .container-lg h2, #cookieConsent .container-md h2, #cookieConsent .container-sm h2, #cookieConsent .container-fluid .h2, #cookieConsent .container-xxl .h2, #cookieConsent .container-xl .h2, #cookieConsent .container-lg .h2, #cookieConsent .container-md .h2, #cookieConsent .container-sm .h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   #cookieConsent .container-fluid h2 i, #cookieConsent .container-xxl h2 i, #cookieConsent .container-xl h2 i, #cookieConsent .container-lg h2 i, #cookieConsent .container-md h2 i, #cookieConsent .container-sm h2 i, #cookieConsent .container-fluid .h2 i, #cookieConsent .container-xxl .h2 i, #cookieConsent .container-xl .h2 i, #cookieConsent .container-lg .h2 i, #cookieConsent .container-md .h2 i, #cookieConsent .container-sm .h2 i {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
   #cookieConsent .container-fluid .user-text, #cookieConsent .container-xxl .user-text, #cookieConsent .container-xl .user-text, #cookieConsent .container-lg .user-text, #cookieConsent .container-md .user-text, #cookieConsent .container-sm .user-text {
-    text-align: justify;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-weight: 300;
   }
   #cookieConsent .container-fluid .cookie-buttons, #cookieConsent .container-xxl .cookie-buttons, #cookieConsent .container-xl .cookie-buttons, #cookieConsent .container-lg .cookie-buttons, #cookieConsent .container-md .cookie-buttons, #cookieConsent .container-sm .cookie-buttons {
     width: 100%;
     flex-direction: column !important;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
   }
   #cookieConsent .container-fluid .cookie-buttons button, #cookieConsent .container-xxl .cookie-buttons button, #cookieConsent .container-xl .cookie-buttons button, #cookieConsent .container-lg .cookie-buttons button, #cookieConsent .container-md .cookie-buttons button, #cookieConsent .container-sm .cookie-buttons button, #cookieConsent .container-fluid .cookie-buttons a, #cookieConsent .container-xxl .cookie-buttons a, #cookieConsent .container-xl .cookie-buttons a, #cookieConsent .container-lg .cookie-buttons a, #cookieConsent .container-md .cookie-buttons a, #cookieConsent .container-sm .cookie-buttons a {
     width: 100% !important;
+    font-size: 1.3rem;
   }
 }
 :root {
@@ -18956,14 +19015,27 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.4rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
-  text-transform: capitalize;
-  font-size: 1.4rem;
-  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
+}
+.join-now-btn i,
+.login-modal-btn i {
+  vertical-align: middle;
+}
+.join-now-btn span.btn-text,
+.login-modal-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .cta-btn {
@@ -19039,13 +19111,26 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.3rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.2rem;
-  text-align: center;
+}
+.profile-set-pass i,
+.profile-recipe-collection i {
+  vertical-align: middle;
+}
+.profile-set-pass span.btn-text,
+.profile-recipe-collection span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .back-to-home-btn {
@@ -21766,6 +21851,9 @@ span.small.text-danger {
 }
 #hero {
   position: relative;
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
   height: 100vh;
   width: 100vw;
 }
@@ -21774,21 +21862,30 @@ span.small.text-danger {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;
+  padding: 4rem 2rem;
   width: 90%;
-  max-width: 1160px;
+  max-width: 1360px;
   border-radius: 8px;
 }
-#hero #hero-text-background .text-container {
-  padding: 60px 10px;
+#hero #hero-text-background .hero-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
 }
-#hero #hero-text-background .text-container h2, #hero #hero-text-background .text-container .h2 {
-  font-size: 2.8rem;
+#hero #hero-text-background .hero-content-container h2, #hero #hero-text-background .hero-content-container .h2 {
+  font-size: 2.6rem;
 }
-#hero #hero-text-background .text-container .inviting-text {
+#hero #hero-text-background .hero-content-container .message .inviting-text {
   font-size: 1.6rem;
   font-weight: 400;
   margin-bottom: 0.1rem;
+}
+#hero #hero-text-background .hero-content-container .buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+  gap: 1rem;
 }
 
 [data-bs-theme=light] #hero-text-background {
@@ -21801,54 +21898,66 @@ span.small.text-danger {
 
 @media (max-width: 1186px) {
   #hero-text-background {
-    width: 95% !important;
+    top: 5% !important;
+    width: 96% !important;
+    padding: 4rem 2rem !important;
   }
-  #hero-text-background .text-container {
-    padding: 50px 10px !important;
+  #hero-text-background .hero-content-container {
+    gap: 1.6rem !important;
   }
-  #hero-text-background .text-container h2, #hero-text-background .text-container .h2 {
+  #hero-text-background .hero-content-container h2, #hero-text-background .hero-content-container .h2 {
     font-size: 2.4rem !important;
   }
-  #hero-text-background .text-container .inviting-text {
+  #hero-text-background .hero-content-container .inviting-text {
     font-size: 1.5rem !important;
     font-weight: 400;
     margin-bottom: 0.4rem !important;
   }
-  #hero-text-background .text-container .inviting-text:last-of-type {
+  #hero-text-background .hero-content-container .inviting-text:last-of-type {
     margin-bottom: 2.5rem !important;
   }
-  #hero-text-background .text-container .btn-text {
+  #hero-text-background .hero-content-container .btn-text {
     font-size: 1.6rem !important;
   }
 }
 @media (max-width: 900px) {
-  #hero-text-background .text-container h2, #hero-text-background .text-container .h2 {
-    font-size: 2.2rem !important;
+  #hero-text-background {
+    top: 10% !important;
+    padding: 3rem 1.4rem !important;
   }
-  #hero-text-background .text-container .inviting-text {
+  #hero-text-background .hero-content-container {
+    gap: 1.2rem !important;
+  }
+  #hero-text-background .hero-content-container h2, #hero-text-background .hero-content-container .h2 {
+    font-size: 1.8rem !important;
+  }
+  #hero-text-background .hero-content-container .inviting-text {
     font-size: 1.3rem !important;
     font-weight: 400;
     margin-bottom: 0.8rem !important;
   }
-  #hero-text-background .text-container .inviting-text:last-of-type {
+  #hero-text-background .hero-content-container .inviting-text:last-of-type {
     margin-bottom: 2.5rem !important;
   }
-  #hero-text-background .text-container .btn-text {
+  #hero-text-background .hero-content-container .btn-text {
     font-size: 1.5rem !important;
   }
 }
 @media (max-width: 560px) {
-  #hero-text-background .text-container {
-    padding: 40px 10px !important;
+  #hero-text-background {
+    top: 5% !important;
+    padding: 2.5rem 0.8rem !important;
   }
-  #hero-text-background .text-container h2, #hero-text-background .text-container .h2 {
-    font-size: 1.8rem !important;
+  #hero-text-background .hero-content-container {
+    gap: 0.6rem !important;
   }
-  #hero-text-background .text-container .inviting-text {
-    font-size: 1.2rem !important;
-    font-weight: 300 !important;
+  #hero-text-background .hero-content-container h2, #hero-text-background .hero-content-container .h2 {
+    font-size: 1.3rem !important;
   }
-  #hero-text-background .text-container .btn-text {
+  #hero-text-background .hero-content-container .inviting-text {
+    font-size: 1.1rem !important;
+  }
+  #hero-text-background .hero-content-container .btn-text {
     font-size: 1.4rem !important;
   }
 }
@@ -24581,14 +24690,27 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.4rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
-  text-transform: capitalize;
-  font-size: 1.4rem;
-  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
+}
+.join-now-btn i,
+.login-modal-btn i {
+  vertical-align: middle;
+}
+.join-now-btn span.btn-text,
+.login-modal-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .cta-btn {
@@ -24664,13 +24786,26 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.3rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.2rem;
-  text-align: center;
+}
+.profile-set-pass i,
+.profile-recipe-collection i {
+  vertical-align: middle;
+}
+.profile-set-pass span.btn-text,
+.profile-recipe-collection span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .back-to-home-btn {
@@ -30252,14 +30387,27 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.4rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
-  text-transform: capitalize;
-  font-size: 1.4rem;
-  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
+}
+.join-now-btn i,
+.login-modal-btn i {
+  vertical-align: middle;
+}
+.join-now-btn span.btn-text,
+.login-modal-btn span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .cta-btn {
@@ -30335,13 +30483,26 @@ li.user-btn:hover i.fa {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease-in, color 0.3s ease-in;
-  display: block;
-  padding: 0.3rem !important;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "League Spartan", sans-serif;
+  padding: 0.2rem 1rem;
+  font-size: 1.2rem;
+  width: 10rem;
   border-radius: 2px;
   text-transform: capitalize;
-  font-size: 1.2rem;
-  text-align: center;
+}
+.profile-set-pass i,
+.profile-recipe-collection i {
+  vertical-align: middle;
+}
+.profile-set-pass span.btn-text,
+.profile-recipe-collection span.btn-text {
+  vertical-align: middle;
+  display: inline-block;
+  margin-top: 0.325rem;
 }
 
 .back-to-home-btn {
