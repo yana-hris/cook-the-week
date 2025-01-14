@@ -28,7 +28,9 @@
                  data-light="/img/Screenshot_1_light-compressed.webp"
                  data-dark="/img/Screenshot_1_dark-compressed.webp"
                  class="step-img"
+                 loading="lazy"
                  alt="Recipe browsing screenshot" 
+                 style="cursor: pointer;"
             />
         </div> 
 
@@ -39,6 +41,7 @@
                  data-light="/img/Screenshot_2_light-compressed.webp"
                  data-dark="/img/Screenshot_2_dark-compressed.webp"
                  class="step-img"
+                 loading="lazy"
                  alt="Meal plan setup screenshot" />
         </div>
 
@@ -87,3 +90,70 @@
         </div>        
     </div>
 </div>
+
+@* <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <button id="prevImage" class="btn btn-secondary position-absolute top-50 start-0 translate-middle-y" style="z-index: 1050;">
+                    &#8592; Previous
+                </button>
+                <img id="modalImage" src="" class="img-fluid" alt="Large View">
+                <button id="nextImage" class="btn btn-secondary position-absolute top-50 end-0 translate-middle-y" style="z-index: 1050;">
+                    Next &#8594;
+                </button>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@section Scripts {
+    <script>
+            $(document).ready(function () {
+            // Get all images in the step-img-box
+            const images = $('.step-img');
+            let currentIndex = 0; // To track the currently displayed image
+
+            // Function to open the modal with the selected image
+            function openModal(index) {
+                currentIndex = index;
+
+                // Determine the theme (light or dark)
+                const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+
+                // Get the correct image source based on the theme
+                const imageUrl = isDarkMode ? $(images[index]).data('dark') : $(images[index]).data('light');
+
+                // Update the modal image
+                $('#modalImage').attr('src', imageUrl);
+
+                // Show the modal
+                $('#imageModal').modal('show');
+            }
+
+            // Add click event to all images
+            images.on('click', function () {
+                const index = images.index(this);
+                openModal(index);
+            });
+
+            // Handle Next button
+            $('#nextImage').on('click', function () {
+                if (currentIndex < images.length - 1) {
+                    openModal(currentIndex + 1);
+                }
+            });
+
+            // Handle Previous button
+            $('#prevImage').on('click', function () {
+                if (currentIndex > 0) {
+                    openModal(currentIndex - 1);
+                }
+            });
+        });
+    </script>
+}

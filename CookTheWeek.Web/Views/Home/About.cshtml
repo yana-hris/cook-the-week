@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject IUserContext UserContext
+@{
     ViewData["Title"] = "About";
 
     var headingModel = new PageHeadingViewModel
@@ -6,6 +7,8 @@
         Subheading = ViewData["Title"]!.ToString(),
         HeadingSecondary = "App Purpose"
     };
+
+    Guid userId = UserContext.UserId;
 }
 
 <div id="about" class="about-section">
@@ -65,16 +68,20 @@
             </div>
         </div>
     </div>
-    <div class="cta-container">
-        <div class="cta-section">
-            <h3>Transform Your Mealtime Today!</h3>
-            <div class="text">
-                <p class="user-text">Sign up now to unlock personalized meal plans, save your favorite recipes, and let CookTheWeek simplify your cooking journey. Never miss an ingredient again!</p>
-                
-            </div>
+    @if (userId == Guid.Empty)
+    {
+        <div class="cta-container food-background">
+            <div class="cta-section">
+                <h3>Transform Your Mealtime Today!</h3>
+                <div class="text">
+                    <p class="user-text">Sign up now to unlock personalized meal plans, save your favorite recipes, and let CookTheWeek simplify your cooking journey. Never miss an ingredient again!</p>
 
-            <a asp-controller="User" asp-action="Register" class="cta-btn">Start Now</a>
+                </div>
+                <div class="cta-btn-container">
+                    <a asp-controller="User" asp-action="Register" class="cta-btn">Start Now</a>
+                </div>
+            </div>
         </div>
-    </div>
+    }
    
 </div>

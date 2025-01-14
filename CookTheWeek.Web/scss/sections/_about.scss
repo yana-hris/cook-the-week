@@ -1,20 +1,16 @@
 ﻿@import '../components/colors';
 @import '../components/theme-defaults';
-
+@import '../components/typography';
 
 #about {
-
-    
     .about-container {
         padding: 1.5rem 0;
         margin: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 2rem;
+        text-align: center;
 
         .intro-text {
             text-align: start;
+            margin-bottom: 0;
 
             .user-text {
                 text-align: start;
@@ -25,38 +21,39 @@
 
         .features-grid {
             display: flex;
-            align-items: center;
-            flex-direction: column;
-            row-gap: 1.5rem;
-            justify-items: center;
-            margin-bottom: 8rem;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: start;
+            justify-content: space-evenly;
+            gap: 1.5rem;
             padding: 2rem 0;
 
             .feature-item {
-                width: 100%;
-                max-width: 600px;
-                padding-top: 5rem;
+                
+                flex: 1 0 360px;
+                padding: 2.5rem 1.5rem 3rem 1.5rem;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 3rem 2rem;
                 background-color: var(--secondary-background);
                 color: var(--bs-body-color);
                 border-radius: $border-radius-small;
 
                 i {
-                    font-size: 4.5rem;
-                    margin-bottom: 2.5rem;
+                    font-size: 3rem;
+                    margin-bottom: 1.5rem;
                 }
 
                 h3 {
-                    font-size: 2rem;
+                    font-size: 1.5rem;
                     margin-bottom: 1rem;
+                    text-align: center;
                 }
 
                 p {
-                    font-size: 1.4rem;
+                    text-align: center;
+                    font-size: 1.1rem;
                     font-weight: 300;
                     margin-bottom: 0;
                 }
@@ -66,13 +63,10 @@
 
     .cta-container {
         margin: 0 auto;
-        //margin-bottom: 10rem;
         display: flex;
         justify-content: center;
         padding: 10rem 0;
-        padding-bottom: 15rem;
-        //border-top: 2px solid var(--accent-color);
-        background: $background-gradient-light;
+        border-top: 2px solid var(--accent-color);
 
         .cta-section {
             display: flex;
@@ -81,59 +75,75 @@
             align-self: center;
             justify-content: center;
             max-width: 840px;
-            gap: 2rem;
-            padding: 5rem 4rem;
-            background: $secondary-background-light-theme;
+            gap: 1.5rem;
+            padding: 4rem 1rem;
+            background: $background-gradient-light;
             color: $dark;
             border-radius: $medium-border-radius;
 
             h3 {
                 font-family: $font-family-serif;
+                text-align: center;
+                font-size: 1.7rem;
+                line-height: 1.5;
             }
 
             .text {
-                
                 .user-text {
-                    font-size: 1.5rem;
-                   line-height: 1.6;
+                    font-size: 1.3rem;
+                    line-height: 1.6;
+                    text-align: start;
                 }
             }
 
+            .cta-btn-container {
+                width: 100%;
+                max-width: 360px;
 
-            .cta-btn {
-                /*max-width: 220px;
-                border-radius: 12px;*/
+                .cta-btn {
+                    width: 100%;
+                }
             }
         }
     }
 }
 
+@media only screen and (min-width: 600px) {
+    .cta-section {
+        padding: 4rem !important;
+    }
+}
+
 @media only screen and (min-width: 1010px) {
     .features-grid {
-        flex-direction: row !important;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        row-gap: 4rem !important;
-
+        margin-bottom: 10rem !important;
+        gap: 5rem !important;
 
         .feature-item {
-            width: 470px !important;
-            height: auto;
+            padding: 3rem 2.2rem 4rem 2.2rem !important;
+            border-radius: 20px !important;
+            
 
             i {
-                font-size: 4rem !important;
-                margin-bottom: 2.2rem !important;
+                font-size: 3.3rem !important;
+                margin-bottom: 2.2rem;
             }
 
             h3 {
-                font-size: 1.7rem !important;
+                font-size: 1.8rem !important;
+                margin-bottom: 1.4rem !important;
             }
 
             p {
-                font-size: 1.1rem !important;
-                font-weight: 300;
+                text-align: center;
+                font-size: 1.2rem !important;
             }
         }
+    }
+
+
+    .cta-container {
+        padding: 15rem 0 !important;
     }
 }
 
