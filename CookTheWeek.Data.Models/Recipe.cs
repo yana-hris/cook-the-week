@@ -70,7 +70,12 @@
         [Comment("Recipe Image Link")]
         [Required]
         [MaxLength(ImageUlrMaxLength)]
-        public string ImageUrl { get; set; } = null!;
+        public string ExternalImageUrl { get; set; } = null!;
+
+
+        [Comment("Cloudinary Image Link")]
+        [MaxLength(ImageUlrMaxLength)]
+        public string? InternalImageUrl { get; set; }
 
 
         [Comment("Recipe Category Key Identifier")]

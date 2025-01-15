@@ -36,19 +36,8 @@
         /// <inheritdoc/>  
         public async Task AddAsync(FavouriteRecipe like)
         {
-            //await dbContext.FavouriteRecipes.AddAsync(like);
-            //await dbContext.SaveChangesAsync();
-
-            try
-            {
-                await dbContext.FavoriteRecipes.AddAsync(like);
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                //logger.LogError($"Error adding like: {ex.Message}");
-                throw; // Re-throw to let the service handle it
-            }
+            await dbContext.FavoriteRecipes.AddAsync(like);
+            await dbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc/>  

@@ -51,7 +51,7 @@
                         Title = recipe.Title,
                         Servings = recipe.Servings,
                         CookingTime = FormatCookingTime(recipe.TotalTimeMinutes),
-                        ImageUrl = recipe.ImageUrl,
+                        ImageUrl = recipe.ExternalImageUrl,
                         CategoryName = recipe.Category.Name
                     };
 
@@ -96,7 +96,7 @@
             {
                 Id = meal.Id,
                 Title = meal.Recipe.Title,
-                ImageUrl = meal.Recipe.ImageUrl,
+                ImageUrl = meal.Recipe.ExternalImageUrl,
                 Description = meal.Recipe.Description,
                 DifficultyLevel = meal.Recipe.DifficultyLevel.HasValue ? meal.Recipe.DifficultyLevel.ToString() : "",
                 IsMealPlanFinished = isMealPlanFinished,

@@ -1848,7 +1848,7 @@
                     Description = "This recipe has been deleted.",
                     Servings = 0,
                     TotalTimeMinutes = 0,  
-                    ImageUrl = "",
+                    ExternalImageUrl = "",
                     CategoryId = 1,
                     IsSiteRecipe = false,
                     IsDeleted = true
@@ -1863,7 +1863,7 @@
                     
                     Servings = 8,
                     TotalTimeMinutes = 120,
-                    ImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
+                    ExternalImageUrl = "https://www.supichka.com/files/images/1242/fit_1400_933.jpg",
                     CategoryId = 4,
                     IsSiteRecipe = true,
                 },
@@ -1876,7 +1876,7 @@
                     
                     Servings = 4,
                     TotalTimeMinutes = 90,
-                    ImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
+                    ExternalImageUrl = "https://www.simplyrecipes.com/thmb/W8uC2OmR-C8WvHiURqfomkvnUnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2015__03__irish-beef-stew-vertical-a2-1800-8012236ba7e34c37abc3baedcab4aff7.jpg",
                     CategoryId = 4,
                     IsSiteRecipe = true,
                 },
@@ -1889,7 +1889,7 @@
                    
                     Servings = 6,
                     TotalTimeMinutes = 60,
-                    ImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
+                    ExternalImageUrl = "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/10/Chicken-Soup-6.jpg",
                     CategoryId = 2,
                     IsSiteRecipe = true,
                 },
@@ -1902,7 +1902,7 @@
                    
                     Servings = 8,
                     TotalTimeMinutes = 120,
-                    ImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
+                    ExternalImageUrl = "https://hips.hearstapps.com/hmg-prod/images/stuffed-peppers-lead-649c91e2c4e39.jpg",
                     CategoryId = 4,
                     IsSiteRecipe = true,
                 },
@@ -1915,7 +1915,7 @@
                    
                     Servings = 1,
                     TotalTimeMinutes = 10,
-                    ImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
+                    ExternalImageUrl = "https://www.proteincakery.com/wp-content/uploads/2023/11/strawberry-chia-collagen-smoothie.jpg",
                     CategoryId = 1,
                     IsSiteRecipe = true,
                 },
@@ -1928,7 +1928,7 @@
                   
                     Servings = 2,
                     TotalTimeMinutes = 10,
-                    ImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
+                    ExternalImageUrl = "https://i0.wp.com/adiligentheart.com/wp-content/uploads/2023/01/image-31.png?w=1000&ssl=1",
                     CategoryId = 1,
                     IsSiteRecipe = true,
                 },
@@ -1941,7 +1941,7 @@
                    
                     Servings = 1,
                     TotalTimeMinutes = 10,
-                    ImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
+                    ExternalImageUrl = "https://cookingupmemories.com/wp-content/uploads/2021/01/avocado-toast-with-balsalmic-glaze-breakfast-768x1152.jpg.webp",
                     CategoryId = 1,
                     IsSiteRecipe = true,
                 },
@@ -1954,7 +1954,7 @@
                     
                     Servings = 8,
                     TotalTimeMinutes = 120,
-                    ImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
+                    ExternalImageUrl = "https://images.pexels.com/photos/8479384/pexels-photo-8479384.jpeg",
                     CategoryId = 4,
                     IsSiteRecipe = false,
                 },
@@ -1967,7 +1967,7 @@
                    
                     Servings = 4,
                     TotalTimeMinutes = 40,
-                    ImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
+                    ExternalImageUrl = "https://dishingouthealth.com/wp-content/uploads/2020/09/ThaiPumpkinSoup_Styled2.jpg",
                     CategoryId = 2,
                     IsSiteRecipe = false,
                 },

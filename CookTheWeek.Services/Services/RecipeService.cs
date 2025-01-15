@@ -495,7 +495,7 @@
                 recipe.Description = model.Description;
                 recipe.Servings = model.Servings!.Value;
                 recipe.TotalTimeMinutes = model.CookingTimeMinutes!.Value;
-                recipe.ImageUrl = model.ImageUrl;
+                recipe.ExternalImageUrl = model.ImageUrl;
                 recipe.DifficultyLevel = model.DifficultyLevelId.HasValue ? (DifficultyLevel)model.DifficultyLevelId : null;
                 recipe.CategoryId = model.RecipeCategoryId!.Value;
 
