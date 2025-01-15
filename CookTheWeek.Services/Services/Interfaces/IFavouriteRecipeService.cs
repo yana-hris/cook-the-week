@@ -1,5 +1,6 @@
 ﻿namespace CookTheWeek.Services.Data.Services.Interfaces
 {
+    using CookTheWeek.Common;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
 
@@ -13,8 +14,8 @@
         /// ArgumentNullException (if recipeId is null)
         /// RecordNotFoundException (if recipe does not exist)
         /// UnauthorizedUserException (if user is not logged in or if id-s do not match)</remarks>
-        /// <returns>Task or throws an exception</returns>
-        Task TryToggleLikesAsync(FavouriteRecipeServiceModel model);
+        /// <returns>The result of the Operation</returns>
+        Task<OperationResult> TryToggleLikesAsync(FavouriteRecipeServiceModel model);
 
         /// <summary>
         /// Gets a collection of the ids of all recipes, liked by the current user

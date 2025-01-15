@@ -234,13 +234,23 @@
                 OwnedRecipes = new HashSet<RecipeAllViewModel>()
             };
            
-            if (serviceModel.LikedRecipeIds.Count ==  0 || serviceModel.AddedRecipeIds.Count == 0)
+            if (serviceModel.LikedRecipeIds.Count ==  0 && serviceModel.AddedRecipeIds.Count == 0)
             {
                 throw new RecordNotFoundException(RecordNotFoundExceptionMessages.NoRecipesFoundExceptionMessage, null);
             }
 
-            var likedCollection = await recipeService.GetAllByIds(serviceModel.LikedRecipeIds);
-            var addedCollection = await recipeService.GetAllByIds(serviceModel.AddedRecipeIds);
+            ICollection<Recipe> likedCollection = new List<Recipe>();
+            ICollection<Recipe> addedCollection = new List<Recipe>();
+
+            if (serviceModel.LikedRecipeIds.Count > 0)
+            {
+                likedCollection = await recipeService.GetAllByIds(serviceModel.LikedRecipeIds);
+            }
+
+            if (serviceModel.AddedRecipeIds.Count > 0)
+            {
+                addedCollection = await recipeService.GetAllByIds(serviceModel.AddedRecipeIds);
+            }
 
             if (hasActiveMealPlan)
             {

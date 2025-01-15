@@ -26,6 +26,7 @@ const toggleFavourites = function (event, recipeId) {
         },
 
         success: function (response) {
+            debugger;
             toastr.success("Your preference is saved!");
         },
         error: function (xhr, status, error) {

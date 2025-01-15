@@ -13,6 +13,7 @@
     using CookTheWeek.Services.Data.Services.Interfaces;
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
+    using CookTheWeek.Common;
 
     public class FavouriteRecipeService : IFavouriteRecipeService
     {
@@ -34,31 +35,63 @@
 
 
         /// <inheritdoc/>
-        public async Task TryToggleLikesAsync(FavouriteRecipeServiceModel model)
+        public async Task<OperationResult> TryToggleLikesAsync(FavouriteRecipeServiceModel model)
         {
+
             Guid serviceUserId = model.UserId;
             Guid recipeId = model.RecipeId;
 
-            await recipeValidator.ValidateRecipeExistsAsync(recipeId);
-
-            // Validate user authorization
-            if (userId != default &&
-                serviceUserId != default &&
-                userId != serviceUserId)
+            try
             {
-                logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
-                throw new UnauthorizedUserException(UnauthorizedExceptionMessages.UserNotLoggedInExceptionMessage);
+                await recipeValidator.ValidateRecipeExistsAsync(recipeId);
+
+                // Validate user authorization
+                if (userId != default &&
+                    serviceUserId != default &&
+                    userId != serviceUserId)
+                {
+                    logger.LogError($"Unauthorized access attempt: User {userId} attempted to like/unlike recipe {recipeId} without necessary permissions.");
+                    return OperationResult.Failure(new Dictionary<string, string>
+                    {
+                        { "UnauthorizedError", "User not authorized." }
+                    });
+                }
+
+                var existingLike = await GetRecipeLikeIfExistsAsync(model.RecipeId);
+
+                if (existingLike != null)
+                {
+                    await DeleteLikeAsync(existingLike);
+                }
+                else
+                {
+                    await AddLikeAsync(model.RecipeId);
+                }
+
+                return OperationResult.Success();
             }
-
-            var existingLike = await GetRecipeLikeIfExistsAsync(model.RecipeId);
-
-            if (existingLike != null)
+            catch (Exception ex) when (ex is ArgumentNullException || ex is RecordNotFoundException)
             {
-                await DeleteLikeAsync(existingLike);
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "RecipeNullError", "Recipe Not Found." }
+                });
             }
-            else
+            catch (DbUpdateException ex)
             {
-                await AddLikeAsync(model.RecipeId);
+                logger.LogError($"Database update error: {ex.Message}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "DatabaseError", "A database error occurred while processing your request." }
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Unexpected error: {ex.Message}");
+                return OperationResult.Failure(new Dictionary<string, string>
+                {
+                    { "UnexpectedError", "An unexpected error occurred." }
+                });
             }
         }
 

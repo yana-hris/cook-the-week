@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     
     using CookTheWeek.Data.Models;
+    using Microsoft.Extensions.Logging;
 
     public class FavouriteRecipeRepository : IFavouriteRecipeRepository
     {
@@ -27,7 +28,7 @@
         /// <inheritdoc/>    
         public async Task<FavouriteRecipe?> GetByIdAsync(Guid userId, Guid recipeId)
         {
-            return  await this.dbContext.FavoriteRecipes
+            return await dbContext.FavoriteRecipes
                 .FirstOrDefaultAsync(fr => fr.UserId == userId &&
                                 fr.RecipeId == recipeId);
         }
@@ -35,8 +36,19 @@
         /// <inheritdoc/>  
         public async Task AddAsync(FavouriteRecipe like)
         {
-            await dbContext.FavoriteRecipes.AddAsync(like);
-            await dbContext.SaveChangesAsync();
+            //await dbContext.FavouriteRecipes.AddAsync(like);
+            //await dbContext.SaveChangesAsync();
+
+            try
+            {
+                await dbContext.FavoriteRecipes.AddAsync(like);
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                //logger.LogError($"Error adding like: {ex.Message}");
+                throw; // Re-throw to let the service handle it
+            }
         }
 
         /// <inheritdoc/>  

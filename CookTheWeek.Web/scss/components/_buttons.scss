@@ -228,7 +228,7 @@ li.user-btn {
 }
 .join-now-btn,
 .login-modal-btn {
-    @include button-with-icon-and-text-cenetered(10rem, 1.2rem, true);
+    @include button-with-icon-and-text-cenetered(10rem, 1.3rem, true);
     //@include button-sm-style(100%, $border-radius, 1.4rem, 0.4rem);
     font-weight: bold;
 }

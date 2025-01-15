@@ -958,7 +958,7 @@
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -2101,7 +2101,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -3744,7 +3744,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -5338,7 +5338,7 @@ li.user-btn:hover i.fa {
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   width: 10rem;
   border-radius: 2px;
   text-transform: uppercase;
@@ -6522,7 +6522,7 @@ li.user-btn:hover i.fa {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -8100,7 +8100,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -9636,7 +9636,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -11230,7 +11230,7 @@ li.user-btn:hover i.fa {
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   width: 10rem;
   border-radius: 2px;
   text-transform: uppercase;
@@ -12783,7 +12783,7 @@ footer .footer-copyright .copyright i {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -13993,7 +13993,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -15311,7 +15311,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -16732,7 +16732,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -18456,7 +18456,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -20050,7 +20050,7 @@ li.user-btn:hover i.fa {
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   width: 10rem;
   border-radius: 2px;
   text-transform: uppercase;
@@ -20995,7 +20995,7 @@ li.user-btn:hover i.fa {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -22301,7 +22301,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -24131,7 +24131,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -25725,7 +25725,7 @@ li.user-btn:hover i.fa {
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   width: 10rem;
   border-radius: 2px;
   text-transform: uppercase;
@@ -26730,7 +26730,7 @@ li.user-btn:hover i.fa {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -27341,7 +27341,7 @@ li.user-btn:hover i.fa {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -29828,7 +29828,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -31422,7 +31422,7 @@ li.user-btn:hover i.fa {
   gap: 8px;
   font-family: "League Spartan", sans-serif;
   padding: 0.2rem 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   width: 10rem;
   border-radius: 2px;
   text-transform: uppercase;
@@ -32492,7 +32492,7 @@ li.user-btn:hover i.fa {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -33692,7 +33692,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -35788,7 +35788,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;
@@ -36983,7 +36983,7 @@ span.small.text-danger {
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 2000;
-  min-width: 480px;
+  width: 480px;
 }
 .modal-dialog .modal-content {
   text-align: center;

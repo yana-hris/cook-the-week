@@ -2,10 +2,10 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-
-    using CookTheWeek.Common.Exceptions;
+   
     using CookTheWeek.Services.Data.Models.FavouriteRecipe;
     using CookTheWeek.Services.Data.Services.Interfaces;
+    using CookTheWeek.Common;
 
     public class FavouriteRecipeController : BaseController
     {
@@ -20,27 +20,19 @@
         [HttpPost]
         public async Task<IActionResult> ToggleFavourites([FromBody]FavouriteRecipeServiceModel model)
         {
-            try
+             OperationResult result = await favouriteRecipeService.TryToggleLikesAsync(model);
+
+            if (result.Succeeded)
             {
-                await favouriteRecipeService.TryToggleLikesAsync(model);
                 return Json(new { success = true });
             }
-            catch (ArgumentNullException ex)
+            else
             {
-                return Json(new { success = false, message = ex.Message });
-            }
-            catch (RecordNotFoundException)
-            {
-                return Json(new { success = false, message = "Record not found" });
-            }
-            catch (UnauthorizedUserException)
-            {
-                return Json(new { success = false, message = "Unauthorized" });
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Uncaught exception: {ex.Message}, StackTrace: {ex.StackTrace}");
-                return Json(new { success = false, message = "An unexpected error occurred." });
+                return Json(new
+                {
+                    success = false,
+                    message = "An unexpected error occurred." 
+                });
             }
         }
     }
