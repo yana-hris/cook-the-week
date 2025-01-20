@@ -1,6 +1,7 @@
 namespace CookTheWeek.Web
 {
 
+    using CloudinaryDotNet;
     using Hangfire;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ namespace CookTheWeek.Web
     using CookTheWeek.Data;
     using CookTheWeek.Data.Models;
     using CookTheWeek.Data.Repositories;
+    using CookTheWeek.Services.Data.Events;
     using CookTheWeek.Services.Data.Events.Dispatchers;
     using CookTheWeek.Services.Data.Events.EventHandlers;
     using CookTheWeek.Services.Data.Helpers;
@@ -25,6 +27,7 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
+    using Hangfire.SqlServer;
 
     public class Program
     {
@@ -38,7 +41,7 @@ namespace CookTheWeek.Web
             {
                 config.AddUserSecrets<Program>();
             }
-
+            
             var rotativaPath =Path.GetFullPath(builder.Environment.WebRootPath);            
             RotativaConfiguration.Setup(rotativaPath);
 
@@ -112,8 +115,9 @@ namespace CookTheWeek.Web
 
             builder.Services.AddScoped<IUserContext, UserContext>();
             builder.Services.AddScoped<IIngredientAggregatorHelper, IngredientAggregatorHelper>();
-            builder.Services.AddScoped<IRecipeSoftDeletedEventHandler, RecipeSoftDeletedEventHandler>();
             builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+            builder.Services.AddScoped<IDomainEventHandler<RecipeSoftDeletedEvent>, RecipeSoftDeletedEventHandler>();
+            builder.Services.AddScoped<IDomainEventHandler<RecipeImageUpdateEvent>, RecipeImageUpdateEventHandler>();
 
 
             // Register all Application Services using Extension method based on Reflection
@@ -137,12 +141,24 @@ namespace CookTheWeek.Web
             builder.Services.AddHostedService<UpdateMealPlansStatusService>();
 
             // Add Hangfire for scheduled jobs (mealplan claims update)
-            builder.Services.AddHangfire(configuration => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+            builder.Services.AddHangfire(configuration =>
+            {
+                configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(connectionString));
-            builder.Services.AddHangfireServer();
+                .UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+                {
+                    QueuePollInterval = TimeSpan.FromHours(12), // Poll twice daily
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(10),
+                    JobExpirationCheckInterval = TimeSpan.FromDays(1) // Cleanup jobs every 6 hours
+                });
+            });
+
+            builder.Services.AddHangfireServer(options =>
+            {
+                // Adjusting workers count for fewer threads to reduce database load
+                options.WorkerCount = 1;
+            });
 
 
             builder.Services.AddMemoryCache();
@@ -204,6 +220,15 @@ namespace CookTheWeek.Web
                 });
 
             builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+
+            builder.Services.AddSingleton(x =>
+            {
+                var cloudinaryConfig = config.GetSection("Cloudinary");
+                var cloudinary = new Cloudinary(new Account(cloudinaryConfig["CloudName"], cloudinaryConfig["ApiKey"], cloudinaryConfig["ApiSecret"]));
+                cloudinary.Api.Secure = true;
+
+                return cloudinary;
+            });
 
             if (builder.Environment.IsDevelopment())
             {
@@ -270,6 +295,7 @@ namespace CookTheWeek.Web
             // Hangfire Dashboard for job monitoring
             app.UseHangfireDashboard("/hangfire");
             app.RegisterRecurringJobs();
+            //app.RegisterScheduledJobs();
 
             app.MapControllerRoute(
                 name: $"{AdminAreaName}",

@@ -2,7 +2,7 @@
 {
     using CookTheWeek.Services.Data.Services.Interfaces;
 
-    public class RecipeSoftDeletedEventHandler : IRecipeSoftDeletedEventHandler
+    public class RecipeSoftDeletedEventHandler : IDomainEventHandler<RecipeSoftDeletedEvent>
     {
         private readonly IFavouriteRecipeService favouriteRecipeService;
         private readonly IMealService mealService;

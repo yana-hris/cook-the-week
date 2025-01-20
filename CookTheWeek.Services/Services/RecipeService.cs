@@ -4,6 +4,7 @@
     using System.Data;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
 
     using CookTheWeek.Common;
@@ -20,7 +21,6 @@
 
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
-    using Microsoft.Extensions.Configuration;
 
     public class RecipeService : IRecipeService
     {
@@ -64,9 +64,9 @@
         {
             IQueryable<Recipe> recipesQuery = recipeRepository
                 .GetAllQuery()
+                .AsNoTracking()
                 .Include(r => r.RecipeTags)
-                .Include(r => r.Category)
-                .AsNoTracking();
+                .Include(r => r.Category);
 
             if (!recipesQuery.Any())
             {
@@ -233,6 +233,7 @@
         {
             var recipes = await recipeRepository
                 .GetAllQuery()
+                .AsNoTracking()
                 .Include(r => r.Category)
                 .Where(r => r.OwnerId == userId || r.FavouriteRecipes.Any(fr => fr.UserId == userId))
                 .Select(r => new
@@ -266,7 +267,7 @@
                 return OperationResult<string>.Failure(result.Errors);
             }
 
-            Recipe recipe = MapFromModelToRecipe(model, new Recipe());
+            Recipe recipe = await MapFromModelToRecipe(model, new Recipe());
             recipe.RecipesIngredients = recipeIngredientService.CreateAll(model.RecipeIngredients);
             recipe.Steps = stepService.CreateAll(model.Steps);
 
@@ -278,6 +279,7 @@
             try
             {
                 string recipeId = await recipeRepository.AddAsync(recipe);
+                
                 return OperationResult<string>.Success(recipeId);
             }
             catch (Exception ex)
@@ -312,7 +314,7 @@
                 return OperationResult.Failure(result.Errors);
             }
 
-            recipe = MapFromModelToRecipe(model, recipe);
+            recipe = await MapFromModelToRecipe(model, recipe);
             recipe.RecipesIngredients = await recipeIngredientService.UpdateAll(recipe.Id, model.RecipeIngredients);
             recipe.Steps = await stepService.UpdateAll(recipe.Id, model.Steps);
             recipe.RecipeTags = await recipeTagService.UpdateAll(recipe.Id, model.SelectedTagIds);
@@ -417,6 +419,7 @@
         {
             return await recipeRepository
                 .GetAllQuery()
+                .AsNoTracking()
                 .CountAsync();
         }
        
@@ -438,25 +441,14 @@
             var guidRecipeIds = recipeIds.Select(id => Guid.Parse(id)).ToList(); // Convert strings to Guids
 
             var recipes = await recipeRepository.GetAllQuery()
+                .AsNoTracking()
                 .Include(r => r.Category)
                 .Where(r => guidRecipeIds.Contains(r.Id))
                 .ToListAsync();
 
             return recipes;
         }
-
-        /// <inheritdoc/>
-        public async Task<ICollection<string>> GetAllRecipeIdsAddedByCurrentUserAsync()
-        {
-            ICollection<string> allUserAddedRecipesIds = await recipeRepository.GetAllQuery()
-                .Where(recipe => recipe.OwnerId == userId)
-                .Select(recipe => recipe.Id.ToString())
-                .ToListAsync();
-
-            return allUserAddedRecipesIds;
-        }
-
-
+       
 
         // PRIVATE HELPER METHODS        
 
@@ -487,7 +479,7 @@
         /// <exception cref="InvalidCastException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         // TODO: Consider using Automapper
-        private Recipe MapFromModelToRecipe(IRecipeFormModel model, Recipe recipe)
+        private async Task<Recipe> MapFromModelToRecipe(IRecipeFormModel model, Recipe recipe)
         {
             if (model is RecipeAddFormModel || model is RecipeEditFormModel)
             {
@@ -496,6 +488,7 @@
                 recipe.Servings = model.Servings!.Value;
                 recipe.TotalTimeMinutes = model.CookingTimeMinutes!.Value;
                 recipe.ExternalImageUrl = model.ImageUrl;
+               
                 recipe.DifficultyLevel = model.DifficultyLevelId.HasValue ? (DifficultyLevel)model.DifficultyLevelId : null;
                 recipe.CategoryId = model.RecipeCategoryId!.Value;
 
@@ -509,8 +502,9 @@
 
                     recipe.OwnerId = userId;
                     recipe.IsSiteRecipe = isAdmin;
-                }
 
+                }
+                
                 return recipe;
             }
 
@@ -519,6 +513,7 @@
 
         }
 
-        
+
+       
     }
 }

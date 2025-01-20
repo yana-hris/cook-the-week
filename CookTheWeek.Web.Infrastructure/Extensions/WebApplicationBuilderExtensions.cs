@@ -10,6 +10,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using CookTheWeek.Data.Models;
+    using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.Middlewares;
 
@@ -251,12 +252,24 @@
 
         public static void RegisterRecurringJobs(this IApplicationBuilder app)
         {
-            RecurringJob.AddOrUpdate<IMealPlanService>("checkMealplansStatus",
+            RecurringJob.AddOrUpdate<MealPlanService>("checkMealplansStatus",
                 service => service
                 .UpdateMealPlansStatusAsync(CancellationToken.None),
-                Cron.Daily);
+                Cron.Weekly);
+
+            RecurringJob.AddOrUpdate<ImageService>("cloudinary-cleanup",
+                service => service
+                .CleanupUnusedImagesAsync(),
+                Cron.Weekly);
         }
-        
+
+        //public static void RegisterScheduledJobs(this IApplicationBuilder app)
+        //{
+        //    BackgroundJob.Schedule<ImageService>(service =>
+        //        service.GenerateMissingRecipeImagesAsync(),
+        //        TimeSpan.FromMinutes(5));
+        //}
+
     }  
     
 }

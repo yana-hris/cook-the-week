@@ -2,24 +2,39 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     using CookTheWeek.Services.Data.Events.EventHandlers;
 
     public class DomainEventDispatcher : IDomainEventDispatcher
     {
-        private readonly IEnumerable<IRecipeSoftDeletedEventHandler> eventHandlers;
+        private readonly IServiceProvider serviceProvider;
+        private readonly ILogger<DomainEventDispatcher> logger;
 
-        public DomainEventDispatcher(IEnumerable<IRecipeSoftDeletedEventHandler> eventHandlers)
+        public DomainEventDispatcher(IServiceProvider serviceProvider,
+            ILogger<DomainEventDispatcher> logger)
         {
-            this.eventHandlers = eventHandlers;
+            this.serviceProvider = serviceProvider;
+            this.logger = logger;
         }
+
         public async Task DispatchAsync<TEvent>(TEvent domainEvent)
         {
-            foreach (var handler in eventHandlers)
+            var handlers = serviceProvider.GetServices<IDomainEventHandler<TEvent>>();
+
+            if (!handlers.Any())
             {
-                if(handler is IRecipeSoftDeletedEventHandler softDeleteHandler)
-                {
-                    await softDeleteHandler.HandleAsync((RecipeSoftDeletedEvent)(object)domainEvent);
-                }
+                logger.LogError($"No handlers found for event type {typeof(TEvent).Name}");
+                return;
+            }
+
+            foreach (var handler in handlers)
+            {
+                logger.LogInformation($"Found handler: {handler.GetType().Name}");
+               
+                await handler.HandleAsync(domainEvent);
+               
             }
         }
     }

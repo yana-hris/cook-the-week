@@ -9,7 +9,6 @@
     using CookTheWeek.Data.Models;
     using CookTheWeek.Services.Data.Helpers;
     using CookTheWeek.Services.Data.Models.Recipe;
-    using CookTheWeek.Services.Data.Services;
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.ViewModels;
     using CookTheWeek.Web.ViewModels.Admin.CategoryAdmin;
@@ -18,13 +17,13 @@
     using CookTheWeek.Web.ViewModels.Recipe.Enums;
     using CookTheWeek.Web.ViewModels.RecipeIngredient;
     using CookTheWeek.Web.ViewModels.Step;
+    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     using static CookTheWeek.Common.EntityValidationConstants.RecipeValidation;
     using static CookTheWeek.Common.ExceptionMessagesConstants;
     using static CookTheWeek.Common.GeneralApplicationConstants;
     using static CookTheWeek.Common.HelperMethods.CookingTimeHelper;
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
-    using CookTheWeek.Web.ViewModels.SupplyItem;
 
     public class RecipeViewModelFactory : IRecipeViewModelFactory
     {
@@ -199,7 +198,7 @@
                 IsSiteRecipe = recipe.IsSiteRecipe,
                 DifficultyLevel = recipe.DifficultyLevel.ToString() ?? "N/A",
                 TotalTime = FormatCookingTime(recipe.TotalTimeMinutes),
-                ImageUrl = recipe.ExternalImageUrl,
+                ImageUrl = (recipe.InternalImageUrl != null && recipe.InternalImageUrl != string.Empty) ? recipe.InternalImageUrl : recipe.ExternalImageUrl,
                 CreatedOn = recipe.CreatedOn.ToString("dd-MM-yyyy"),
                 CreatedBy = recipe.Owner.UserName!,
                 CategoryName = recipe.Category.Name,
@@ -312,7 +311,7 @@
                     OwnerId = recipe.OwnerId,
                     Title = recipe.Title,
                     IsSiteRecipe = recipe.IsSiteRecipe,
-                    ImageUrl = recipe.ExternalImageUrl,
+                    ImageUrl = (recipe.InternalImageUrl != null && recipe.InternalImageUrl != string.Empty) ? recipe.InternalImageUrl : recipe.ExternalImageUrl,
                     Description = recipe.Description,
                     MealType = recipe.Category.Name,
                     Servings = recipe.Servings,
@@ -327,7 +326,7 @@
                 IsIncludedInActiveMealPlan = recipeIds.Any(id => id == recipe.Id),
                 Title = recipe.Title,
                 IsSiteRecipe = recipe.IsSiteRecipe,
-                ImageUrl = recipe.ExternalImageUrl,
+                ImageUrl = (recipe.InternalImageUrl != null && recipe.InternalImageUrl != string.Empty) ? recipe.InternalImageUrl : recipe.ExternalImageUrl,
                 Description = recipe.Description,
                 MealType = recipe.Category.Name,
                 Servings = recipe.Servings,

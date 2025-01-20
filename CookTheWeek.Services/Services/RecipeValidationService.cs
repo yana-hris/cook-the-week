@@ -114,7 +114,9 @@
         /// <inheritdoc/>
         public Task<bool> CanRecipeBeDeletedAsync(Guid id)
         {
-            return recipeRepository.GetAllQuery()
+            return recipeRepository
+                .GetAllQuery()
+                .AsNoTracking()
                 .Where(r => r.Meals.Any(m => m.RecipeId == id && !m.IsCooked))
                 .AnyAsync();
         }

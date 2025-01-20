@@ -7,7 +7,7 @@
         /// <summary>
         /// Gets all recipes as a query collection of Recipe, that can be awaited and materialized later with any of the Async methods
         /// </summary>
-        /// <returns>A queryable collection of all recipes (inlcuding their Categories)</returns>
+        /// <returns>A queryable collection of all recipes</returns>
         IQueryable<Recipe> GetAllQuery();
 
         /// <summary>

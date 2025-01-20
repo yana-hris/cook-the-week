@@ -16,6 +16,7 @@
 
     using static Common.EntityValidationConstants.RecipeValidation;
     using static Common.NotificationMessagesConstants;
+    using CookTheWeek.Data.Models;
 
     public class RecipeController : BaseController
     {
@@ -258,6 +259,7 @@
                 {
                     string recipeId = result.Value;
                     TempData[SuccessMessage] = RecipeSuccessfullyAddedMessage;
+                    await DispatchRecipeImageUpdateEvent(Guid.Parse(recipeId), model.ImageUrl);
 
                     return Redirect(Url.Action("Details", "Recipe", new { id = recipeId, returnUrl = returnUrl }));
                 }
@@ -275,6 +277,7 @@
         }
 
         
+
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string? returnUrl = null)
         {
@@ -342,6 +345,7 @@
 
                 if (result.Succeeded)
                 {
+                    await DispatchRecipeImageUpdateEvent(model.Id, model.ImageUrl);
                     return Ok(new { success = true, redirectUrl = recipeDetailsLink });
                 }
                 else
@@ -585,6 +589,23 @@
 
             // Return fallback URL if returnUrl is invalid
             return fallbackUrl;
+        }
+
+        /// <summary>
+        /// Private method that dispatches an event to trigger Cloudinary link generation after every recipe modification
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        private async Task DispatchRecipeImageUpdateEvent(Guid id, string imageUrl)
+        {
+            var recipeCreatedEvent = new RecipeImageUpdateEvent
+            {
+                RecipeId = id,
+                ExternalImageUrl = imageUrl
+            };
+
+            await domainEventDispatcher.DispatchAsync<RecipeImageUpdateEvent>(recipeCreatedEvent);
         }
     }
 }

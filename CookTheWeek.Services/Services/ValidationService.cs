@@ -95,7 +95,9 @@
         /// // ADMIN
         public async Task<bool> CanIngredientBeDeletedAsync(int id)
         {
-            bool isIncluded = await recipeRepository.GetAllQuery()
+            bool isIncluded = await recipeRepository
+                .GetAllQuery()
+                .AsNoTracking()
                 .AnyAsync(r => r.RecipesIngredients.Any(ri => ri.IngredientId == id));
 
             return !isIncluded;

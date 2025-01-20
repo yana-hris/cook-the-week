@@ -21,7 +21,6 @@
         {
             IQueryable<Recipe> allRecipes = this.dbContext
                 .Recipes
-                .AsNoTracking()
                 .AsQueryable();
 
             return allRecipes;
