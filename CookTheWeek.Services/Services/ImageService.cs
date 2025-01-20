@@ -60,7 +60,7 @@
                 var activeImageUrls = await recipeRepository
                     .GetAllQuery()
                     .AsNoTracking()
-                    .Where(r => r.InternalImageUrl != null)
+                    .Where(r => r.InternalImageUrl != null && r.InternalImageUrl != string.Empty)
                     .Select(r => r.InternalImageUrl)
                     .ToListAsync();
 
@@ -70,7 +70,7 @@
 
                 // Step 3: Identify unused images
                 var unusedImageIds = allCloudinaryImages
-                    .Where(publicId => !activeImageUrls.Contains(publicId))
+                    .Where(publicId => !activeImageIds.Contains(publicId))
                     .ToList();
 
                 // Step 4: Delete unused images
@@ -101,7 +101,7 @@
         private string ExtractPublicIdFromUrl(string url)
         {
             string pattern = @"(?:https://(?:[\w.-]+\/){2}image/upload/(?:v\d+/)?)([^\/\.]+)(?:\.\w+)";
-            var match = Regex.Match(url, pattern);
+            Match? match = Regex.Match(url, pattern);
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
 
@@ -131,7 +131,7 @@
         {
             // Get all recipes tracked by the Change Tracker
             var recipes = await recipeRepository.GetAllQuery()
-                .Where(r => r.InternalImageUrl == null)
+                .Where(r => r.InternalImageUrl == null || r.InternalImageUrl == string.Empty)
                 .ToListAsync();
 
             foreach (var recipe in recipes)

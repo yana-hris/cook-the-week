@@ -263,12 +263,12 @@
                 Cron.Weekly);
         }
 
-        //public static void RegisterScheduledJobs(this IApplicationBuilder app)
-        //{
-        //    BackgroundJob.Schedule<ImageService>(service =>
-        //        service.GenerateMissingRecipeImagesAsync(),
-        //        TimeSpan.FromMinutes(5));
-        //}
+        public static void RegisterScheduledJobs(this IApplicationBuilder app)
+        {
+            BackgroundJob.Schedule<ImageService>(service =>
+                service.GenerateMissingRecipeImagesAsync(),
+                TimeSpan.FromMinutes(1));
+        }
 
     }  
     
