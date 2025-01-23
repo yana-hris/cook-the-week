@@ -28,6 +28,7 @@ namespace CookTheWeek.Web
 
     using static Common.GeneralApplicationConstants;
     using Hangfire.SqlServer;
+    using NuGet.Packaging.Signing;
 
     public class Program
     {
@@ -148,9 +149,15 @@ namespace CookTheWeek.Web
                 .UseRecommendedSerializerSettings()
                 .UseSqlServerStorage(connectionString, new SqlServerStorageOptions
                 {
-                    QueuePollInterval = TimeSpan.FromHours(1), // Poll twice daily
-                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(10),
-                    JobExpirationCheckInterval = TimeSpan.FromDays(1) // Cleanup jobs 
+                    QueuePollInterval = TimeSpan.FromHours(1), // Poll once per hour
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(120), // Lock timeout
+                    JobExpirationCheckInterval = TimeSpan.FromDays(7), // Cleanup weekly
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SchemaName = "Hangfire",
+                    EnableHeavyMigrations = false,
+                    CountersAggregateInterval = TimeSpan.FromHours(6), // Aggregate stats every 6 hours
+                    DashboardJobListLimit = 100, // Limit job history to 100
+
                 });
             });
 
@@ -158,6 +165,7 @@ namespace CookTheWeek.Web
             {
                 // Adjusting workers count for fewer threads to reduce database load
                 options.WorkerCount = 1;
+                options.ServerTimeout = TimeSpan.FromMinutes(30);
             });
 
 
@@ -295,7 +303,7 @@ namespace CookTheWeek.Web
             // Hangfire Dashboard for job monitoring
             app.UseHangfireDashboard("/hangfire");
             app.RegisterRecurringJobs();
-            app.RegisterScheduledJobs();
+            //app.RegisterScheduledJobs();
 
             app.MapControllerRoute(
                 name: $"{AdminAreaName}",
