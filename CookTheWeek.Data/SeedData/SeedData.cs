@@ -11,8 +11,27 @@
 
     internal static class SeedData
     {
-        internal static ICollection<ApplicationUser> SeedUsers(IConfiguration configuration)
+        private static IConfiguration? configuration;
+        private static bool isInitialized = false;
+
+        private static ApplicationUser? adminUser;
+        private static ApplicationUser? appUser;
+        private static ApplicationUser? deletedUser;
+
+        internal static void Initialize(IConfiguration _configuration)
         {
+            if (isInitialized) return;
+            configuration = _configuration;
+            isInitialized = true;
+        }
+
+        internal static ICollection<ApplicationUser> SeedUsers()
+        {
+            if (!isInitialized || configuration == null)
+            {
+                throw new InvalidOperationException("UserSeeder is not initialized. Call Initialize(configuration) first.");
+            }
+            
             ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
 
             PasswordHasher<ApplicationUser> hasher = new();
@@ -20,60 +39,64 @@
             var appUserConfig = configuration.GetSection("AppUser");
             var deletedUserConfig = configuration.GetSection("DeletedUser");
 
-            
+            if (adminConfig == null  || appUserConfig == null || deletedUserConfig == null)
+            {
+                throw new ArgumentNullException("Configuration settings for seeding DB with users missing! Check configuration file for missing Users (AdminUser, AppUser or DeletedUser) data.");
+            }
+
             if (adminConfig != null)
             {
-                ApplicationUser AdminUser = new()
+                adminUser = new ApplicationUser()
                 {
-                    Id = Guid.Parse(adminConfig["Id"]),
-                    UserName = adminConfig["UserName"],
-                    NormalizedUserName = adminConfig["UserName"].ToUpper(),
-                    Email = adminConfig["Email"],
-                    NormalizedEmail = adminConfig["Email"].ToUpper(),
+                    Id = Guid.Parse(adminConfig["Id"]!),
+                    UserName = adminConfig["UserName"]!,
+                    NormalizedUserName = adminConfig["UserName"]!.ToUpper(),
+                    Email = adminConfig["Email"]!,
+                    NormalizedEmail = adminConfig["Email"]!.ToUpper(),
                     EmailConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                 };
 
-                AdminUser.PasswordHash = hasher.HashPassword(AdminUser, adminConfig["Password"]);
-                users.Add(AdminUser);
+                adminUser.PasswordHash = hasher.HashPassword(adminUser, adminConfig["Password"]!);
+                users.Add(adminUser);
             }
 
             if (appUserConfig != null)
             {
-                ApplicationUser AppUser = new()
+                appUser = new ApplicationUser()
                 {
-                    Id = Guid.Parse(appUserConfig["Id"]),
+                    Id = Guid.Parse(appUserConfig["Id"]!),
                     UserName = appUserConfig["UserName"],
-                    NormalizedUserName = appUserConfig["UserName"].ToUpper(),
+                    NormalizedUserName = appUserConfig["UserName"]!.ToUpper(),
                     Email = appUserConfig["Email"],
-                    NormalizedEmail = appUserConfig["Email"].ToUpper(),
+                    NormalizedEmail = appUserConfig["Email"]!.ToUpper(),
                     EmailConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                 };
 
-                AppUser.PasswordHash = hasher.HashPassword(AppUser, appUserConfig["Password"]);
-                users.Add(AppUser);
+                appUser.PasswordHash = hasher.HashPassword(appUser, appUserConfig["Password"]!);
+                users.Add(appUser);
             }
 
 
             if (deletedUserConfig != null)
             {
-                ApplicationUser DeletedUser = new()
+                deletedUser = new ApplicationUser()
                 {
-                    Id = Guid.Parse(deletedUserConfig["Id"]),
+                    Id = Guid.Parse(deletedUserConfig["Id"]!),
                     UserName = deletedUserConfig["UserName"],
-                    NormalizedUserName = deletedUserConfig["UserName"].ToUpper(),
+                    NormalizedUserName = deletedUserConfig["UserName"]!.ToUpper(),
                     Email = deletedUserConfig["Email"],
-                    NormalizedEmail = deletedUserConfig["Email"].ToUpper(),
+                    NormalizedEmail = deletedUserConfig["Email"]!.ToUpper(),
                     EmailConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                 };
 
-                DeletedUser.PasswordHash = hasher.HashPassword(DeletedUser, deletedUserConfig["Password"]);
-                users.Add(DeletedUser);
+                deletedUser.PasswordHash = hasher.HashPassword(deletedUser, deletedUserConfig["Password"]!);
+                users.Add(deletedUser);
             }
 
             return users;
@@ -1832,18 +1855,19 @@
                 },
             };
         }
-        internal static ICollection<Recipe> SeedRecipes(IConfiguration configuration)
+        internal static ICollection<Recipe> SeedRecipes()
         {
-            var adminConfig = configuration.GetSection("AdminUser");
-            var appUserConfig = configuration.GetSection("AppUser");
-            var deletedUserConfig = configuration.GetSection("DeletedUser");
+            if (deletedUser == null || appUser == null || adminUser == null)
+            {
+                throw new InvalidOperationException("UserSeeder is not initialized. Call Initialize(configuration) first.");
+            }
 
             return new HashSet<Recipe>()
             {
                 new()
                 {
                     Id = DeletedRecipeId,
-                    OwnerId = Guid.Parse(deletedUserConfig["Id"]),
+                    OwnerId = deletedUser!.Id,
                     Title = "Deleted Recipe",
                     Description = "This recipe has been deleted.",
                     Servings = 0,
@@ -1857,7 +1881,7 @@
                 new()
                 {
                     Id = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Moussaka",
                     Description = "Moussaka is beloved Balkan and Middle East dish. Its preparation depends on the region. In Bulgaria Moussaka is based on potatoes and ground meat. The meal is served warm and Bulgarians eat it very often simply because it’s super delicious and easy to cook. ",
                     
@@ -1870,7 +1894,7 @@
                 new()
                 {
                     Id = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Beef Stew",
                     Description = "Savor the essence of a classic beef stew: tender beef, seared to perfection, nestled among hearty potatoes, sweet carrots, and crisp celery in a rich broth. Fragrant herbs and spices dance in each spoonful, invoking warmth and tradition. It's a comforting embrace on chilly nights, a symphony of flavors that transports you to cozy kitchens and cherished gatherings. With its melt-in-your-mouth beef and earthy vegetables, this stew is more than a meal—it's a timeless delight, a celebration of culinary craftsmanship and the simple joys of good food shared with loved ones.",
                     
@@ -1883,7 +1907,7 @@
                 new()
                 {
                     Id = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Homemade Chicken Soup",
                     Description = "Classical easy and delicious chicken soup to keep you warm in the cold winter days.",
                    
@@ -1896,7 +1920,7 @@
                 new()
                 {
                     Id = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Stuffed red peppers with ground meat and rice",
                     Description = "This versatile meal is not only simple to make, but feeds families big and small, making it a cheap and easy weeknight dinner legend.",
                    
@@ -1909,7 +1933,7 @@
                 new()
                 {
                     Id = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Fruity Strawberry Smoothy",
                     Description = "Indulge in a refreshing blend of creamy yogurt, ripe dates, nutrient-rich chia seeds, and succulent strawberries, creating a tantalizing fruity smoothie bursting with flavor and wholesome goodness. Perfect for a quick breakfast boost or a revitalizing snack any time of the day!",
                    
@@ -1922,7 +1946,7 @@
                 new()
                 {
                     Id = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Overnight Oats (prepare the night before)",
                     Description = "Wake up to a simple breakfast solution with our delightful Overnight Oats. A harmonious blend of hearty oats, nutritious chia seeds, ripe banana, creamy milk (whether dairy or dairy-free), crunchy granola, and an assortment of vibrant fruits, all lovingly combined and left to mingle overnight for a deliciously convenient morning meal. Start your day right with this wholesome and customizable dish that promises to energize and satisfy with every spoonful.",
                   
@@ -1935,7 +1959,7 @@
                 new()
                 {
                     Id = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
-                    OwnerId = Guid.Parse(adminConfig["Id"]),
+                    OwnerId = adminUser.Id,
                     Title = "Avocado Toast",
                     Description = "Elevate your morning routine with this tasty Avocado Toast! Perfect start of the day for those busy mronings..",
                    
@@ -1948,7 +1972,7 @@
                 new()
                 {
                     Id = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
-                    OwnerId = Guid.Parse(appUserConfig["Id"]),
+                    OwnerId = appUser.Id,
                     Title = "Beans stew",
                     Description = "Savor the rich aroma and comforting flavors of our bean stew, a delightful blend of tender beans, savory spices, and hearty vegetables. With each spoonful, experience a symphony of taste and texture that warms the soul and satisfies the palate. Perfect for any occasion, our bean stew is a nourishing and delicious treat to be enjoyed alone or shared with loved ones.",
                     
@@ -1961,7 +1985,7 @@
                 new()
                 {
                     Id = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
-                    OwnerId = Guid.Parse(appUserConfig["Id"]),
+                    OwnerId =appUser.Id,
                     Title = "Thai Pumpkin Cream Soup",
                     Description = "Thai pumpkin soup is a creamy and flavorful dish that combines the sweetness of pumpkin with the rich and aromatic flavors of Thai spices such as ginger and coconut milk. This soup offers a perfect balance of creamy texture and vibrant, exotic taste, making it a comforting and satisfying meal, especially during cooler seasons. Enjoyed as a starter or a main course, it's a delightful fusion of Thai cuisine and comforting soup tradition.",
                    
@@ -1979,283 +2003,283 @@
             {
                 new Step()
                 {
-                    Id = 1,
+                    
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     Description = "Start with cooking the onion in a pan with 1/4 oil until golden brown. Then add the ground meat, the pepper, the paprika, and half the salt. ",
                 },
                 new Step()
                 {
-                    Id = 2,
+                    
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     Description = "Add the tomatoes and fry until they evaporate and the meat gets brown. Then remove the pan from the heat. ",
                 },
                 new Step()
                 {
-                    Id = 3,
+                    
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     Description = "Mix well with the potatoes and the other 1/2 tablespoon of salt. Add the mixture in a casserole pan with the rest of the oil. Bake in oven for about 40 minutes on 425 F (~220 C). ",
                 },
                 new Step()
                 {
-                    Id = 4,
+                   
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     Description = "In the meantime mix the yoghurt and the eggs separately and pour on top  of the meal for the last 10  minutes in the oven untill it turns brownish.",
                 },
                 new Step()
                 {
-                    Id = 5,
+                    
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     Description = "Add the onion, black pepper (beans), parsley, sunflower oil, salt and the beef to a pressure cooker.",
                 },
                 new Step()
                 {
-                    Id = 6,
+                    
                     Description = "Fill with clean water to a level of 2 fingers above the products. Cook under pressure for about 40 minutes.",
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                 },
                 new Step()
                 {
-                    Id = 7,
+                   
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     Description = "Open the pressure cooker and strain the broth from the onion and black pepper beans. Portion the meat and remove the meat zip.",
                 },
                 new Step()
                 {
-                    Id = 8,
+                    
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     Description = " Take back to a boil the portioned meat, the bone broth and add the largely cut into pieces carrots, celery root and potatoes. ",
                 },
                 new Step()
                 {
-                    Id = 9,
+                   
                     RecipeId = Guid.Parse("4a37318d-86fc-4411-a686-b01ae7e007c8"),
                     Description = "Bring the pressure cooker to a boil again and cook for another 20 minutes.",
                 },
                 new Step()
                 {
-                    Id = 10,
+                    
                     Description = "Boil 2l of water. Add the chicken meat and some salt. Boil until ready or at leas for half an hour.",
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                 },
                 new Step()
                 {
-                    Id = 11,
+                    
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     Description = "Remove the chicken and portion it into small pieces.",
                 },
                 new Step()
                 {
-                    Id = 12,
+                    
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     Description = "Take the remaining chicken broth back and again bring to a boil. ",
                 },
                 new Step()
                 {
-                    Id = 13,
+                   
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     Description = "Cut the vegetables into small pieces. First add the carrots and the onions to the boiling broth. ",
                 },
                 new Step()
                 {
-                    Id = 14,
+                   
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     Description = "After 5 minutes add the cut into small pieces potatoes. 5 minutes later also add the noodles. Finally add the portioned chicken to the soup. ",
                 },
                 new Step()
                 {
-                    Id = 15,
+                   
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     Description = "After boiling for another 5 minutes, add some finely cut celery.",
                 },
                 new Step()
                 {
-                    Id = 16,
+                    
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     Description = "Finely-chop the onion and carrots. Add to a pre-heated 3-4 tbsp of sunflower oil. Bake for a few minutes. ",
                 },
                 new Step()
                 {
-                    Id = 17,
+                    
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     Description = "Add the minced meat while constantly mixing",
                 },
                 new Step()
                 {
-                    Id = 18,
+                    
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     Description = "Add the tomatoes and leave for the liquid to evaporate. Finally add the rice and the red pepper. Bake for another minute and remove from the stove ",
                 },
                 new Step()
                 {
-                    Id = 19,
+                    
                     Description = "Add spices according to your taste - at least salt and black pepper (may add also allspice, cumin, etc.) ",
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                 },
                 new Step()
                 {
-                    Id = 20,
+                    
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     Description = "Stuff the peppers and put them in the oven with a little bit of salty water. Bake for 45mins on 180 degrees.",
                 },
                 new Step()
                 {
-                    Id = 21,
+                    
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     Description = "Mix the banana and the milk of your choice in a high-speed blender and blend until smooth.",
                 },
                 new Step()
                 {
-                    Id = 22,
+                    
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     Description = "Divide the rest of ingridients (half a cup rolled-oats, 1tbsp chia seeds and 2tsp sunflower seeds) and place in 2 bowls. ",
                 },
                 new Step()
                 {
-                    Id = 23,
+                    
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     Description = "Mix well and pour half of the blended milk with banana on top of each bowl. ",
                 },
                 new Step()
                 {
-                    Id = 24,
+                    
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     Description = "Store in a fridge during the night. ",
                 },
                 new Step()
                 {
-                    Id = 25,
+                    
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     Description = "The morning after top with granolla and fruits of your choice.",
                 },
                 new Step()
                 {
-                    Id = 26,
+                    
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     Description = "For a delicious twist, grill your slice of bread to your preference. ",
                 },
                 new Step()
                 {
-                    Id = 27,
+                    
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     Description = "Then, simply smash the avocado with a fork and spread it generously over the bread. ",
                 },
                 new Step()
                 {
-                    Id = 28,
+                    
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     Description = "Top it off with sliced cherry tomatoes, sprinkle with Himalayan salt and hemp seeds, and finally squeeze a little bit of lemon juice on top. ",
                 },
                 new Step()
                 {
-                    Id = 29,
+                    
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                     Description = "Now, savor the flavors and enjoy your delightful avocado toast!",
                 },
                 new Step()
                 {
-                    Id = 30,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Prepare the Beans: Soak the beans overnight or for at least 6-8 hours.",
                 },
                 new Step()
                 {
-                    Id = 31,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Rinse them thoroughly and place them in a pressure cooker without covering. As soon as the beans begin to foam, rinse them with cold water in the sink, then add fresh water to the pot and bring it to a boil.",
                 },
                 new Step()
                 {
-                    Id = 32,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Prepare the Vegetables: While the beans are cooking, chop the onions, carrots, and peppers into appropriate pieces. ",
                 },
                 new Step()
                 {
-                    Id = 33,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Place them in the pot with 2-3 tablespoons of sunflower oil. Add paprika and other desired spices, except for salt, at this stage. Do not add salt until later.",
                 },
                 new Step()
                 {
-                    Id = 34,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Pressure Cook: Close the pressure cooker and cook everything for about 40 minutes. Once done, remove from heat.",
                 },
                 new Step()
                 {
-                    Id = 35,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Check the Beans: When it's safe to open the pressure cooker, check if the beans are fully cooked. If they are, add the grated or blended tomatoes and salt. Boil for an additional 10 minutes, then reduce heat to low and simmer until ready. ",
                 },
                 new Step()
                 {
-                    Id = 36,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Final Cooking: For enhanced flavor, allow the stew to sit with the lid on for at least a few hours. ",
                 },
                 new Step()
                 {
-                    Id = 37,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     Description = "Serve: When ready to serve, sprinkle finely chopped fresh parsley on top for a burst of freshness. Enjoy your delicious bean stew!",
                 },
                 new Step()
                 {
-                    Id = 38,
+                    
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     Description = "To cook Thai pumpkin soup, start by sautéing aromatics like onions, (garlic, optional), ginger, and (lemongrass, optional) in a pot until fragrant.",
                 },
                 new Step()
                 {
-                    Id = 39,
+                    
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     Description = "Add diced pumpkin (or canned pumpkin puree), coconut milk, vegetable broth, and Thai curry paste. Simmer until the pumpkin is tender. ",
                 },
                 new Step()
                 {
-                    Id = 40,
+                    
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     Description = "Then, blend the soup until smooth using an immersion blender or countertop blender.",
                 },
                 new Step()
                 {
-                    Id = 41,
+                    
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     Description = "Adjust seasoning with salt, pepper, and lime juice to taste. ",
                 },
                 new Step()
                 {
-                    Id = 42,
+                    
                     RecipeId = Guid.Parse("294C6ABE-0072-427E-A1E8-355BA414FA5B"),
                     Description = "Serve hot, garnished with fresh cilantro, a swirl of coconut milk, and a sprinkle of chili flakes for extra heat, if desired.",
                 },
                 new Step()
                 {
-                    Id = 43,
+                    
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     Description = "Begin by soaking the chia seeds in water for about 10-15 minutes to allow them to gel up and soften."
                 },
                 new Step()
                 {
-                    Id = 44,
+                    
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     Description = "Once the chia seeds have absorbed the water, place them along with the yogurt, pitted dates, and fresh strawberries into a blender."
                 },
                 new Step()
                 {
-                    Id = 45,
+                    
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     Description = "Blend all the ingredients on high speed until smooth and creamy, ensuring there are no chunks remaining."
                 },
                 new Step()
                 {
-                    Id = 46,
+                    
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     Description = "our the smoothie into glasses and serve immediately for a delightful and nutritious treat. "
                 },
                 new Step()
                 {
-                    Id = 47,
+                    
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                     Description = "Enjoy your refreshing fruity smoothie!"
                 },
@@ -2934,52 +2958,58 @@
             };
         }
 
-        internal static ICollection<FavouriteRecipe> SeedRecipeLikes(IConfiguration configuration)
+        internal static ICollection<FavouriteRecipe> SeedRecipeLikes()
         {
-            var appUserConfig = configuration.GetSection("AppUser");
+            if (appUser == null)
+            {
+                throw new ArgumentNullException("Cannot seed Recipe Likes without existing users. Check configuration file for missing User credentials.");
+            }
 
             return new HashSet<FavouriteRecipe>()
             {
                 new()
                 {
-                    UserId = Guid.Parse(appUserConfig["Id"]),
+                    UserId = appUser.Id,
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                 },
                 new()
                 {
-                    UserId = Guid.Parse(appUserConfig["Id"]),
+                    UserId = appUser.Id,
                     RecipeId = Guid.Parse("16541e8d-716c-45d9-8d6d-e3ae70d46c7b"),
                 },
 
                 new()
                 {
-                    UserId = Guid.Parse(appUserConfig["Id"]),
+                    UserId = appUser.Id,
                     RecipeId = Guid.Parse("115e248e-3165-425d-aec6-5dda97c99be4"),
                 },
 
             };
         }
                  
-        internal static ICollection<MealPlan> SeedMealPlans(IConfiguration configuration)
+        internal static ICollection<MealPlan> SeedMealPlans()
         {
-            var appUserConfig = configuration.GetSection("AppUser");
+            if (appUser == null)
+            {
+                throw new ArgumentNullException("Cannot seed Meal Plans without existing users. Check configuration file for missing User credentials.");
+            }
 
             return new HashSet<MealPlan>()
             {
                 new()
                 {
-                    Id = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
+                    Id = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
                     Name = "Super cool week, full of tasty bites",
-                    OwnerId = Guid.Parse(appUserConfig["Id"]),
-                    StartDate = DateTime.ParseExact("10-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    OwnerId = appUser.Id,
+                    StartDate = DateTime.ParseExact("10-10-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsFinished = false
                 },
                 new()
                 {
-                    Id = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
+                    Id = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
                     Name = "My first Meal Plan Ever",
-                    OwnerId = Guid.Parse(appUserConfig["Id"]),
-                    StartDate = DateTime.ParseExact("01-01-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    OwnerId = appUser.Id,
+                    StartDate = DateTime.ParseExact("01-01-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsFinished = true
                 },
             };
@@ -2991,55 +3021,55 @@
             {
                 new()
                 {
-                    Id = 1,
+                   
                     RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     ServingSize = 10,
-                    CookDate = DateTime.ParseExact("01-01-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("01-01-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = true,
                     MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
                 },
                 new()
                 {
-                    Id = 2,
+                    
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     ServingSize = 4,
-                    CookDate = DateTime.ParseExact("02-01-2024", MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("02-01-2024", DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = true,
                     MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
                 },
                 new()
                 {
-                    Id = 3,
+                    
                     RecipeId = Guid.Parse("27664DF3-CB8D-4FF6-A2CF-DA0745A17531"),
                     ServingSize = 6,
-                    CookDate = DateTime.ParseExact("06-01-2024", MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("06-01-2024", DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = true,
                     MealPlanId = Guid.Parse("d74c7ca3-9a16-480c-9127-622919a93c72"),
                 },
                 new() // NOT FINISHED
                 {
-                    Id = 4,
+                    
                     RecipeId = Guid.Parse("9dbc2359-a2c2-49c8-ae84-cd6d6aad9bcb"),
                     ServingSize = 4,
-                    CookDate = DateTime.ParseExact("10-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("10-10-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = true,
                     MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
                 },
                 new() // NOT FINISHED
                 {
-                    Id = 5,
+                    
                     RecipeId = Guid.Parse("25c6718c-b53b-4092-9454-d6999355f12d"),
                     ServingSize = 10,
-                    CookDate = DateTime.ParseExact("11-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("11-10-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = false,
                     MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
                 },
                 new() // NOT FINISHED
                 {
-                    Id = 6,
+                   
                     RecipeId = Guid.Parse("cd9be7fb-c016-4246-ac36-411f6c3ece14"),
                     ServingSize = 2,
-                    CookDate = DateTime.ParseExact("12-10-2024",  MealDateFormat, CultureInfo.InvariantCulture),
+                    CookDate = DateTime.ParseExact("12-10-2024",  DefaultDateFormat, CultureInfo.InvariantCulture),
                     IsCooked = false,
                     MealPlanId = Guid.Parse("80b65919-165a-4f21-b1bf-42ae7e724351"),
                 },
@@ -3051,37 +3081,37 @@
             return new HashSet<Tag>
             {
                 // Based on dietary restrictions
-                new Tag { Name = "Vegan" },
-                new Tag { Name = "Vegetarian" },
-                new Tag { Name = "Pescatarian" },
-                new Tag { Name = "Gluten-Free" },
-                new Tag { Name = "Dairy-Free" },
-                new Tag { Name = "Nut-Free" },
+                new Tag { Id = 1, Name = "Vegan" },
+                new Tag { Id = 2, Name = "Vegetarian" },
+                new Tag { Id = 3, Name = "Pescatarian" },
+                new Tag { Id = 4, Name = "Gluten-Free" },
+                new Tag { Id = 5, Name = "Dairy-Free" },
+                new Tag { Id = 6, Name = "Nut-Free" },
 
                 // Based on Special Occasion
-                new Tag { Name = "Christmas" },
-                new Tag { Name = "Easter" },
+                new Tag { Id = 7, Name = "Christmas" },
+                new Tag { Id = 8, Name = "Easter" },
 
                 // Based on Time 
-                new Tag { Name = "Quick" },
-                new Tag { Name = "15-Minute Meals" },
-                new Tag { Name = "Slow-Cooked" },
-                new Tag { Name = "No-Cook" },
+                new Tag { Id = 9, Name = "Quick" },
+                new Tag { Id = 10, Name = "15-Minute Meals" },
+                new Tag { Id = 11, Name = "Slow-Cooked" },
+                new Tag { Id = 12, Name = "No-Cook" },
 
                 // Based on audience
-                new Tag {Name = "Kid-Friendly"},
-                new Tag {Name = "Budget-Friendly"},
+                new Tag {Id = 13, Name = "Kid-Friendly"},
+                new Tag {Id = 14, Name = "Budget-Friendly"},
 
                 // Based on Season
-                new Tag {Name = "Spring"},
-                new Tag {Name = "Summer"},
-                new Tag {Name = "Autumn (Fall)"},
-                new Tag {Name = "Winter"},
+                new Tag {Id = 15, Name = "Spring"},
+                new Tag {Id = 16, Name = "Summer"},
+                new Tag {Id = 17, Name = "Autumn (Fall)"},
+                new Tag {Id = 18, Name = "Winter"},
 
                 // Based on Unique Characteristics
-                new Tag {Name = "Classic"},
-                new Tag {Name = "Healthy"},
-                new Tag {Name = "Light"},
+                new Tag {Id = 19, Name = "Classic"},
+                new Tag {Id = 20, Name = "Healthy"},
+                new Tag {Id = 21, Name = "Light"},
             };
         }
                 
@@ -3091,18 +3121,18 @@
             {
                 new RecipeTag 
                 { 
-                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"), 
-                    TagId = 9
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"), 
+                    TagId = 6
                 },
                 new RecipeTag
                 {
-                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"),
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
                     TagId = 13
                 },
                 new RecipeTag
                 {
-                    RecipeId = Guid.Parse("D6E392D1-4682-425B-A7F9-2EC333AE7CAD"),
-                    TagId = 20
+                    RecipeId = Guid.Parse("11112341-30e4-473f-b93a-d0352b978a84"),
+                    TagId = 14
                 },
             };
         }

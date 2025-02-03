@@ -1,164 +1,166 @@
-# App Purpose
+# 🍽️ Cook The Week
 
-CookTheWeek is an intuitive recipe application that helps you plan your meals for the entire week. With a predefined collection of Recipes and Ingredients, CookTheWeek lets you search and filter by Category, Ingredient, or by Cooking Time. It allows you to add and save in the database your favorite recipes, and later include them in your Meal Plans. The app will remember your intended recipes between browsing sessions and will also give you access and renewal options for your past fulfilled Meal Plans.
+Plan Your Weekly Meals with Ease!
 
-## App Limitations
-- **User Added Ingredients**: Ordinary Users cannot add their Ingredients in case they want to add a Recipe, and an Ingredient is missing. The Ingredients are predefined and can be added, edited, or deleted solely by an Admin User. This app limitation ensures database consistency.  
-- **Recipe Ingredient Measures and Specifics**: Ordinary Users cannot add or edit the pre-defined Recipe-Ingredient Measures and Specifications. They are predefined and can be added, edited or deleted by Admin User.
-- **User Likes**: Users cannot like their own Recipes, they can only like the App Pre-defined Recipes. 
-- **Deleting Recipes**: Recipes, included in current Meal Plans cannot be deleted. Users can delete only their own Recipes in case they are not currently included in a Meal Plan. This app limitation ensures consistency.
-- **Meal Plan**: Users can only have one unsaved/still-in-progress Meal Plan (whose Recipes are stored in the Local Storage). Upon Building the Meal Plan, it will be available for review in the "Meal Plans" tab.  
+## 📖 About The Project
 
-## App Features
+Cook The Week is a **.NET 8-based web application** designed to help users **plan, organize, and manage weekly meals**. The application features **recipe management, meal planning, and automatic shopping list generation**.
 
-- **User Profiles**: Create personalized profiles to save preferences, add your recipes, and explore the full functionality. 
-- **Recipe Collection**: Access a diverse range of recipes for different types of meals (breakfast, salad, soup, main course, or dessert).
-- **Filtering and Sorting**: Filter and order recipes based on category, ingredients, date created, or cooking time.   
-- **Add Recipes**: Add your favorite family recipes and include them in your future Meal Plans:
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/23cdc1e1-3e83-459a-af29-04a91080b41b" width="900">  
-
-- **Save Favorites**: Bookmark your favorite recipes for quick access later and access them in your "Mine" collection:
-  
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/9d1bfd81-8312-4526-81a3-78c183e16e30" width="900">  
-
-- **Suggestive Search for Ingredients Addition**: Start typing the ingredient name and the suggestions will start popping after the third character:  
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/999e2d3f-238e-4553-b21f-f4db8ed15aa4" width="900">    
-  
-  
-- **Add Recipes to Meal Plan** by clicking the "+" button and save them for the future Meal Plan Build
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/9710cc0c-7eb7-4ba6-9982-029bfc0cfcbb" width="900">  
-
-
-
-- **Change App Theme** by clicking the button in the right upper corner:  
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/b39816bf-9de9-401a-a13b-f9d8652ff2f7" width="900">
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/26be14c6-18df-40e5-8ac9-cad24c639094" width="900">
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/83b80015-716b-41dd-b000-6afe730ccc16" width="900">  
-
-### App User features:
-- Can Sign up or Log in to his/her User Account.    
-- Browse the Recipe collection, use filters and sorting to find Recipes by Name, Ingredient, Cooking Time, etc.     
-- Add his/her Recipes /only for registered and logged users/. The add ingredient tab allows suggestive search and makes it easy and fast /to explore this functionality, both **CookTheWeek.Web** and **CookTheWeek.WebApi** must be started as *Multiple Startup Projects*).    
-- Like and unlike recipes by other users.    
-- View his/her Recipes in the "Mine" tab - both user-added and user-liked.  
-- Build a Meal Plan by adding Recipes, selecting Serving Sizes, and Cooking Dates (optional).
-- Customize Meals according to your needs by adjusting the required serving of every Meal in your Meal Plan. The Recipe Ingredients will be automatically adjusted to the required needs.
-- Plan Days for Cooking by selecting them from the drop-down menu in your Meal Plan.
-- Ingredient Shopping List: Generate a shopping list based on your chosen recipes and servings, and save it as a file or view it in-app.
-- Download Shopping List as Pdf.
-
-
-
-### Admin Area features:  
-- Has custom navigation and custom pages.  
-- Can Add, Edit, Delete, and View All:
-   - Recipes  
-   - Ingredients  
-   - Categories - both Recipe and Ingredient Categories    
-   - View Users and Statistics  
-   - View all users` saved Meal Plans - both finished and not finished
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/f855d808-2c42-4c48-9782-c73cd23fa190" width="900">
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/c20c7353-032a-4074-b519-7c3b9b123151" width="900">   
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/bf44d8f3-ff66-4929-ba44-fa40a9a17bbf" width="900">  
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/4e772a09-b4c3-4198-a899-ff2796ebd775" width="900">  
-
-<img src="https://github.com/yana-hris/cook-the-week/assets/8995553/7df0c93b-7fc0-4492-bea4-76957e0cd431" width="900">   
+This app runs on **ASP.NET Core**, uses **Entity Framework Core for database management**, and utilizes **Hangfire for background job scheduling**. The database is **automatically created and seeded on first launch**—no manual migrations needed!
 
 ---
 
+## 🛠️ Features
 
+- ✅ **User-Added & Site Recipes** – Browse, search, and manage recipes.
+- ✅ **Secure Authentication** – Users can sign up manually or use external logins (Google or Facebook).
+- ✅ **Editable & Reusable Meal Plans** – Users can modify and reuse meal plans as needed.
+- ✅ **Shopping Lists** – Easily generate downloadable or email-ready shopping lists with a single click.
+- ✅ **Admin Dashboard** – Manage all recipes, categories, and user contributions.
+- ✅ **Background Jobs (Hangfire)** – Automated meal plan claims updates and cleanup.
 
-## Installation
+---
 
-1. **Clone** the repository:  
-```bash
+## 📸 Screenshots
+
+### 🏠 Home Page – Welcome message and call-to-action buttons.
+
+![Home Page](image.png)
+
+### ℹ️ How It Works – A step-by-step guide on using the app effectively.
+
+![How It Works](image-8.png)
+
+### 🔎 Browse Page – Featured recipes, filters, and pagination.
+
+![Browse Recipes Page](image-2.png)
+
+### 📜 Recipe Details Page – Ingredients, instructions, and description.
+
+![Recipe Details](image-3.png)
+
+### 🗓️ Add Meal Plan Page – Create, edit, and reuse meal plans from selected recipes.
+
+![Add MealPlan Page](image-4.png)
+
+### 🛒 Shopping List – Download or email your grocery list in one click.
+
+![Shopping List Page](image-5.png)
+
+### 🔧 Admin Panel – Manage and oversee recipes, categories, and user contributions. Add/Edit/Delete Ingredients, Categories, etc.
+
+![Admin Panel](image-6.png)
+
+### 👤 User Dashboard – Track saved recipes and meal plans.
+
+![User Profile](image-7.png)
+
+---
+
+## 🛠️ Tech Stack
+
+### 🖥️ Frontend
+
+- **SASS (SCSS)** – Advanced styling with variables, mixins, and modular CSS.
+- **Bootstrap** – Responsive and mobile-friendly design.
+- **jQuery & JavaScript** – Interactive UI components and dynamic UI bindings.
+- **KnockoutJS** – Client-side validation and dynamic UI bindings.
+
+### ⚙️ Backend
+
+- **ASP.NET Core (.NET 8)** – The main backend framework.
+- **Entity Framework Core** – Database management with SQL Server.
+- **Hangfire** – Background job scheduling and task automation.
+
+### 📂 Database & Storage
+
+- **SQL Server** – Relational database for storing recipes, users, and meal plans.
+- **Cloudinary** – Image processing and storage for recipe images.
+
+### 📧 Email & Reports
+
+- **SendGrid** – Emailing service for sending shopping lists and notifications.
+- **Rotativa** – PDF generation for downloading meal plans and shopping lists.
+
+### 🔑 Authentication & External Logins
+
+- **ASP.NET Identity** – Secure user authentication and account management.
+- **External Logins** – Support for Google, Facebook, and more.
+
+---
+
+## 🚀 Getting Started
+
+### 🔧 Prerequisites
+
+Before running the application, ensure you have the following installed:
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (Local or Azure SQL)
+- [Azure Account (Optional)](https://azure.microsoft.com/en-us/free/)
+
+---
+
+### 💻 Installation & Setup
+
+#### 1️⃣ Clone the Repository
+
+`````sh
 git clone https://github.com/yana-hris/cook-the-week.git
-```
+cd cook-the-week
 
-2. **Navigate** to the project directory  
+#### 🔧 Configure the Database Connection
 
-3. **Install** dependencies
+Open `appsettings.json` and update the `ConnectionStrings` section with your database details:
 
-4. **Set up the database**: update the connection strings in **Program.cs** of both ***CookTheWeek.Web*** & ***CookTheWeek.WebApi***
+````json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=your_server;Database=your_db;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
 
-5. **Run 2 migrations - 1 to create the schemas (Initial) and 1 to seed the database**:  
+
+#### 3️⃣ Run the Application
 ```bash
-Add-Migration Initial
-```
+dotnet run
+`````
+
+## 4️⃣ Access the App in Your Browser
 
 ```bash
-Add-Migration SeedDatabase
+http://localhost:7170
 ```
 
-```bash
-Update-Database
-```
+### 👤 Admin User Credentials
 
-6. **Build** the project
-
-7. **Run** the project - Configure multiple StartUp Projects and *run both* **CookTheWeek.Web** & **CookTheWeek.WebApi**. The application should now be running locally. Two browsers must open - one for Swagger and one for the Web app.
-
-## Usage
-
-The Database is pre-seeded with 2 users. They can be used to log in and explore the app:
-
-### Admin User  
 > Username:
+
 ```bash
 adminUser
 ```
+
 > Password:
+
 ```bash
 admin1
 ```
 
-### AppUser  
+### 👤 App User Credentials
+
 > Username:
+
 ```bash
 appUser
 ```
+
 > Password:
+
 ```bash
-123456  
+123456
 ```
-Apart from that, you can register and log in with your account. The app does not require e-mail confirmation and works with a custom account, no external logins have been integrated so far.
-
- ### Recipes
- The database is pre-seeded with several Recipes. You can try and add, edit and delete your own Recipes.
-
- ### Ingredients
- Admin User can add Ingredients, edit and delete them.
-
- ### Categories
- Admin User can Add, Remove and Edit Recipe Categroies and Ingredient Categories.
-
- ### Users
- Admin User can see all Users and also their statistics.
-
-
 
 ## Database Diagram:
-![image](https://github.com/yana-hris/cook-the-week/assets/8995553/7aba1633-3c52-4146-8b0b-84108ae54c2a)
 
-## Used technologies
-ASP.NET Core MVC  
-Entity Framework Core (EF Core)  
-SQL Server  
-JavaScript  
-AJAX  
-jQuery  
-Bootstrap  
-SCSS (SASS)  
-Local Storage  
+![image](image-9.png)
 
 ## Acknowledgements
 
@@ -171,3 +173,7 @@ For any feedback, don't hesitate to reach out:
 
 - Email: yana.hristova.work@gmail.com
 
+```
+
+
+```
