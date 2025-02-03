@@ -105,9 +105,10 @@ Before running the application, ensure you have the following installed:
 
 #### 1️⃣ Clone the Repository
 
-`````sh
+```bash
 git clone https://github.com/yana-hris/cook-the-week.git
 cd cook-the-week
+```
 
 #### 🔧 Configure the Database Connection
 
@@ -122,7 +123,7 @@ Open `appsettings.json` and update the `ConnectionStrings` section with your dat
 #### 3️⃣ Run the Application
 ```bash
 dotnet run
-`````
+```
 
 ## 4️⃣ Access the App in Your Browser
 
@@ -173,7 +174,8 @@ For any feedback, don't hesitate to reach out:
 
 - Email: yana.hristova.work@gmail.com
 
-```
 
 
-```
+
+
+````
