@@ -113,8 +113,6 @@ cd cook-the-week
 #### 🔧 Configure the Database Connection
 
 Open `appsettings.json` and update the `ConnectionStrings` section with your database details:
-apsettings.json
-----
 ```json
 {
   "ConnectionStrings": {
@@ -128,12 +126,13 @@ apsettings.json
 dotnet run
 ```
 
-## 4️⃣ Access the App in Your Browser
+#### 4️⃣ Access the App in Your Browser
 
 ```bash
 http://localhost:7170
 ```
 
+Login with some of the pre-seeded users nd start exploring the app:
 ### 👤 Admin User Credentials
 
 > Username:
