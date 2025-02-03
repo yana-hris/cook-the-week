@@ -110,14 +110,14 @@ git clone https://github.com/yana-hris/cook-the-week.git
 cd cook-the-week
 ```
 
-#### 🔧 Configure the Database Connection
+#### 2️⃣ Configure the Database Connection
 
 Open `appsettings.json` and update the `ConnectionStrings` section with your database details:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=your_server;Database=your_db;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }
+  "CookTheWeekDbContextConnection": "Server=YOUR_SERVER;Database=CookTheWeekDB; Integrated Security = true; Encrypt = false; MultipleActiveResultSets=True;"
+}
 }
 ```
 
