@@ -113,12 +113,15 @@ cd cook-the-week
 #### 🔧 Configure the Database Connection
 
 Open `appsettings.json` and update the `ConnectionStrings` section with your database details:
-
+apsettings.json
+----
 ````json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=your_server;Database=your_db;Trusted_Connection=True;MultipleActiveResultSets=true"
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=your_server;Database=your_db;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
 }
-
+```
 
 #### 3️⃣ Run the Application
 ```bash
@@ -178,4 +181,4 @@ For any feedback, don't hesitate to reach out:
 
 
 
-````
+
