@@ -117,7 +117,7 @@ Open `appsettings.json` and update the `ConnectionStrings` section with your dat
 {
   "ConnectionStrings": {
   "CookTheWeekDbContextConnection": "Server=YOUR_SERVER;Database=CookTheWeekDB; Integrated Security = true; Encrypt = false; MultipleActiveResultSets=True;"
-}
+  }
 }
 ```
 
