@@ -10,10 +10,9 @@ This app runs on **ASP.NET Core**, uses **Entity Framework Core for database man
 
 ---
 
-## 🌐 Live Demo
-🔗 **Try it out here:** [CookTheWeek Live Demo](https://cooktheweek.azurewebsites.net/)
+## 🌐 Live Demo, deployed to Azure
+🔗 **Try it out here:** [CookTheWeek Live Demo](https://cooktheweek.azurewebsites.net/) _(Right-click or Ctrl+Click to open in a new tab)_
 
-This is a live version of the project deployed on Azure.
 
 ---
 
