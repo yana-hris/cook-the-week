@@ -10,6 +10,13 @@ This app runs on **ASP.NET Core**, uses **Entity Framework Core for database man
 
 ---
 
+## 🌐 Live Demo
+🔗 **Try it out here:** [CookTheWeek Live Demo](https://cooktheweek.azurewebsites.net/)
+
+This is a live version of the project deployed on Azure.
+
+---
+
 ## 🛠️ Features
 
 - ✅ **User-Added & Site Recipes** – Browse, search, and manage recipes.
