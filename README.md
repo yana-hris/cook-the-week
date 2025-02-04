@@ -109,13 +109,24 @@ Before running the application, ensure you have the following installed:
 git clone https://github.com/yana-hris/cook-the-week.git
 ```
 
-After cloning is done, open Visual Studio and navigate to the project folder. Navigate inside the cook-the-week folder and open the solution CookTheWeek.Web.sln:
+After cloning is done, open Visual Studio and navigate to the **cook-the-week** folder and open the solution **CookTheWeek.Web.sln**:
 ![image](https://github.com/user-attachments/assets/1286386f-83a8-440b-836f-996537439879)
 ![image](https://github.com/user-attachments/assets/66ce4203-34d2-43d9-8e60-f2870fd3f0c7)
 
-#### 2️⃣ Configure the Database Connection
+#### 2️⃣ Restore .NET Dependencies
+
+In the CLI first navigate to the project folder which contains the solution:
+```bash
+cd cook-the-week
+```
+
+Then run the following command:
+```bash
+dotnet restore
+```
+
+#### 3️⃣ Configure the Database Connection
 In the Solution Explorer find the WEB folder and inside CookTheWeek.Web project select the appsettings file. Navigate to its Developer version.
-![image](https://github.com/user-attachments/assets/875222db-f877-48ac-9134-a1ba7faa423e)
 
 Open `appsettings.Development.json` and update the `ConnectionStrings` section with your database details. For Windows Authentication:
 ```json
@@ -134,20 +145,33 @@ Optionally if using SQL Server account instead of Windows Authentication, update
   }
 }
 ```
+#### 4️⃣  Install Required Dependencies
 
-#### 3️⃣ Run the Application
+Make sure you have node.js installed. 
+Navigate to the main project`s folder (that is subfolder CookTheWeek.Web inside the cook-the-week folder):
 
-Navigate to the Startup project folder:
 ```bash
 cd CookTheWeek.Web
 ```
-Start the application:
+and run
+```bash
+npm install
+```
+#### 5️⃣ Run the Application
+
+Make sure you are in the main project`s folder - CookTheWeek.Web. If not:
+```bash
+cd CookTheWeek.Web
+```
+From this folder, start the application:
 ```bash
 dotnet run
 ```
+If everything goes well and no errors are seen in the console, you will be able to proceed to the next step.
 
-#### 4️⃣ Access the App in Your Browser
+#### 6️⃣ Access the App in Your Browser
 
+To access the app, open your chosen browser and enter the following address:
 ```bash
 http://localhost:7170
 ```
