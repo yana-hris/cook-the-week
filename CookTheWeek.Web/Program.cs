@@ -3,6 +3,7 @@ namespace CookTheWeek.Web
 
     using CloudinaryDotNet;
     using Hangfire;
+    using Hangfire.SqlServer;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -27,8 +28,6 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
-    using Hangfire.SqlServer;
-    using NuGet.Packaging.Signing;
 
     public class Program
     {
@@ -40,9 +39,16 @@ namespace CookTheWeek.Web
 
             if (builder.Environment.IsDevelopment())
             {
-                config.AddUserSecrets<Program>();
+                try
+                {
+                    config.AddUserSecrets<Program>();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("User Secrets not found. Falling back to appsettings.json.");
+                }
             }
-            
+
             var rotativaPath =Path.GetFullPath(builder.Environment.WebRootPath);            
             RotativaConfiguration.Setup(rotativaPath);
 
