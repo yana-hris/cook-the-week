@@ -1,6 +1,6 @@
 # 🍽️ Cook The Week
 
-Plan Your Weekly Meals with Ease!
+Your ultimate meal-planning companion.
 
 ## 📖 About The Project
 
@@ -23,6 +23,7 @@ This app runs on **ASP.NET Core**, uses **Entity Framework Core for database man
 - ✅ **Editable & Reusable Meal Plans** – Users can modify and reuse meal plans as needed.
 - ✅ **Shopping Lists** – Easily generate downloadable or email-ready shopping lists with a single click.
 - ✅ **Admin Dashboard** – Manage all recipes, categories, and user contributions.
+- ✅ **Dark & Light Themes** – Seamlessly switch between dark and light modes for a personalized experience.
 - ✅ **Background Jobs (Hangfire)** – Automated meal plan claims updates and cleanup.
 
 ---
@@ -115,7 +116,7 @@ Before running the application, ensure you have the following installed:
 git clone https://github.com/yana-hris/cook-the-week.git
 ```
 
-After cloning is done, open Visual Studio and navigate to the **cook-the-week** folder and open the solution **CookTheWeek.Web.sln**:
+Open Visual Studio, navigate to the **cook-the-week** folder, and open the **CookTheWeek.Web.sln** solution file:
 | Image 1 | Image 2 |
 |---------|---------|
 | ![image](https://github.com/user-attachments/assets/1286386f-83a8-440b-836f-996537439879) | ![image](https://github.com/user-attachments/assets/66ce4203-34d2-43d9-8e60-f2870fd3f0c7) |
@@ -125,12 +126,12 @@ After cloning is done, open Visual Studio and navigate to the **cook-the-week** 
 
 #### 2️⃣ Restore .NET Dependencies
 
-In the CLI first navigate to the project folder which contains the solution:
+In the CLI, first navigate to the folder containing the solution file:
 ```bash
 cd cook-the-week
 ```
 
-Then run the following command:
+Then, restore the project dependencies by running:
 ```bash
 dotnet restore
 ```
@@ -157,31 +158,31 @@ Optionally if using SQL Server account instead of Windows Authentication, update
 ```
 #### 4️⃣  Install Required Dependencies
 
-Make sure you have node.js installed. 
-Navigate to the main project`s folder (that is subfolder CookTheWeek.Web inside the cook-the-week folder):
+Ensure Node.js is installed on your system.
+Then, navigate to the main project folder (**CookTheWeek.Web** inside **cook-the-week**):
 
 ```bash
 cd CookTheWeek.Web
 ```
-and run
+Next, install the required dependencies by running:
 ```bash
 npm install
 ```
 #### 5️⃣ Run the Application
 
-Make sure you are in the main project`s folder - CookTheWeek.Web. If not:
+Ensure you are inside the main project folder **CookTheWeek.Web**. If not, navigate to it:
 ```bash
 cd CookTheWeek.Web
 ```
-From this folder, start the application:
+Then, start the application by running:
 ```bash
 dotnet run
 ```
-If everything goes well and no errors are seen in the console, you will be able to proceed to the next step.
+If the application starts without errors, you’re ready for the next step.
 
 #### 6️⃣ Access the App in Your Browser
 
-To access the app, open your chosen browser and enter the following address:
+Once the app is running, open your browser and go to:
 ```bash
 http://localhost:7170
 ```
