@@ -92,7 +92,7 @@ This app runs on **ASP.NET Core**, uses **Entity Framework Core for database man
 ### 🔑 Authentication & External Logins
 
 - **ASP.NET Identity** – Secure user authentication and account management.
-- **External Logins** – Support for Google, Facebook, and more.
+- **External Logins** – Support for Google and Facebook.
 
 ---
 
