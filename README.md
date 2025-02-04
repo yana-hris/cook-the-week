@@ -112,11 +112,20 @@ cd cook-the-week
 
 #### 2️⃣ Configure the Database Connection
 
-Open `appsettings.json` and update the `ConnectionStrings` section with your database details:
+Open `appsettings.Development.json` and update the `ConnectionStrings` section with your database details  (Windows Authentication):
 ```json
 {
   "ConnectionStrings": {
-  "CookTheWeekDbContextConnection": "Server=YOUR_SERVER;Database=CookTheWeekDB; Integrated Security = true; Encrypt = false; MultipleActiveResultSets=True;"
+  "CookTheWeekDbContextConnection": "Server=YOUR_SERVER_NAME\\SQLEXPRESS; Database=CookTheWeekDB; Integrated Security = true; Encrypt = false; MultipleActiveResultSets=True;"
+  }
+}
+```
+
+Optionally if using SQL Server account instead of Windows Authentication, update the connection string like this:
+```json
+{
+  "ConnectionStrings": {
+  "CookTheWeekDbContextConnection": "Server=YOUR_SERVER_NAME\\SQLEXPRESS; Database=CookTheWeekDB; User Id=YOUR_USERNAME; Password=YOUR_PASSWORD; Encrypt=false; MultipleActiveResultSets=True;"
   }
 }
 ```
