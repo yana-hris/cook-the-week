@@ -109,7 +109,13 @@ Before running the application, ensure you have the following installed:
 git clone https://github.com/yana-hris/cook-the-week.git
 ```
 
+After cloning is done, open Visual Studio and navigate to the project folder. Navigate inside the cook-the-week folder and open the solution CookTheWeek.Web.sln:
+![image](https://github.com/user-attachments/assets/1286386f-83a8-440b-836f-996537439879)
+![image](https://github.com/user-attachments/assets/66ce4203-34d2-43d9-8e60-f2870fd3f0c7)
+
 #### 2️⃣ Configure the Database Connection
+In the Solution Explorer find the WEB folder and inside CookTheWeek.Web project select the appsettings file. Navigate to its Developer version.
+![image](https://github.com/user-attachments/assets/875222db-f877-48ac-9134-a1ba7faa423e)
 
 Open `appsettings.Development.json` and update the `ConnectionStrings` section with your database details. For Windows Authentication:
 ```json
