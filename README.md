@@ -101,9 +101,9 @@ Before running the application, ensure you have the following installed:
 
 ---
 
-### 💻 Installation & Setup
+### 💻 Installation & Setup (using CLI)
 
-#### 1️⃣ Clone the Repository
+#### 1️⃣ Clone the repository 
 
 ```bash
 git clone https://github.com/yana-hris/cook-the-week.git
@@ -111,7 +111,7 @@ git clone https://github.com/yana-hris/cook-the-week.git
 
 #### 2️⃣ Configure the Database Connection
 
-Open `appsettings.Development.json` and update the `ConnectionStrings` section with your database details  (Windows Authentication):
+Open `appsettings.Development.json` and update the `ConnectionStrings` section with your database details. For Windows Authentication:
 ```json
 {
   "ConnectionStrings": {
@@ -130,7 +130,7 @@ Optionally if using SQL Server account instead of Windows Authentication, update
 ```
 Now navigate to the Startup project folder and run the application (using CLI):
 ```bash
-cd cd CookTheWeek.Web
+cd CookTheWeek.Web
 ```
 
 #### 3️⃣ Run the Application
