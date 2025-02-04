@@ -128,12 +128,14 @@ Optionally if using SQL Server account instead of Windows Authentication, update
   }
 }
 ```
-Now navigate to the Startup project folder and run the application (using CLI):
+
+#### 3️⃣ Run the Application
+
+Navigate to the Startup project folder:
 ```bash
 cd CookTheWeek.Web
 ```
-
-#### 3️⃣ Run the Application
+Start the application:
 ```bash
 dotnet run
 ```
