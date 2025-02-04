@@ -110,8 +110,12 @@ git clone https://github.com/yana-hris/cook-the-week.git
 ```
 
 After cloning is done, open Visual Studio and navigate to the **cook-the-week** folder and open the solution **CookTheWeek.Web.sln**:
-![image](https://github.com/user-attachments/assets/1286386f-83a8-440b-836f-996537439879)
-![image](https://github.com/user-attachments/assets/66ce4203-34d2-43d9-8e60-f2870fd3f0c7)
+| Image 1 | Image 2 |
+|---------|---------|
+| ![image](https://github.com/user-attachments/assets/1286386f-83a8-440b-836f-996537439879) | ![image](https://github.com/user-attachments/assets/66ce4203-34d2-43d9-8e60-f2870fd3f0c7) |
+
+
+
 
 #### 2️⃣ Restore .NET Dependencies
 
