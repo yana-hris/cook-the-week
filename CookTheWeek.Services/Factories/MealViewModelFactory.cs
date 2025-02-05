@@ -96,7 +96,7 @@
             {
                 Id = meal.Id,
                 Title = meal.Recipe.Title,
-                ImageUrl = meal.Recipe.ExternalImageUrl,
+                ImageUrl = meal.Recipe.InternalImageUrl ?? meal.Recipe.ExternalImageUrl,
                 Description = meal.Recipe.Description,
                 DifficultyLevel = meal.Recipe.DifficultyLevel.HasValue ? meal.Recipe.DifficultyLevel.ToString() : "",
                 IsMealPlanFinished = isMealPlanFinished,

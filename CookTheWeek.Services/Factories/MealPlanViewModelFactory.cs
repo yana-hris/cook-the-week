@@ -95,7 +95,7 @@
                         Title = mpm.Recipe.Title,
                         Servings = mpm.ServingSize,
                         CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
-                        ImageUrl = mpm.Recipe.ExternalImageUrl,
+                        ImageUrl = mpm.Recipe.InternalImageUrl ?? mpm.Recipe.ExternalImageUrl,
                         CategoryName = mpm.Recipe.Category.Name,
                         IsCooked = mpm.IsCooked,
                         Date = mpm.CookDate.ToString(MealDateFormat),
@@ -248,7 +248,7 @@
                     Servings = mpm.ServingSize,
                     CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
                     IsCooked = mpm.IsCooked,
-                    ImageUrl = mpm.Recipe.ExternalImageUrl,
+                    ImageUrl = mpm.Recipe.InternalImageUrl ?? mpm.Recipe.ExternalImageUrl,
                     CategoryName = mpm.Recipe.Category.Name,
                     Date = mpm.CookDate.ToString(MealDateFormat),
                     SelectServingOptions = ServingsOptions
@@ -270,7 +270,7 @@
                     Title = mpm.Recipe.Title,
                     Servings = mpm.ServingSize,
                     CookingTime = FormatCookingTime(mpm.Recipe.TotalTimeMinutes),
-                    ImageUrl = mpm.Recipe.ExternalImageUrl,
+                    ImageUrl = mpm.Recipe.InternalImageUrl ?? mpm.Recipe.ExternalImageUrl,
                     CategoryName = mpm.Recipe.Category.Name,
                     Date = mpm.CookDate.ToString(MealDateFormat),
                     SelectServingOptions = ServingsOptions
