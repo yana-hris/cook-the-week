@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.RateLimiting;
     using Microsoft.Extensions.Caching.Memory;
 
     using CookTheWeek.Common;
@@ -53,6 +54,7 @@
         }
 
         [HttpPost]
+        [EnableRateLimiting("LimitedActionsPolicy")]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
             SetViewData("Register", null, "image-overlay food-background");
@@ -310,6 +312,7 @@
         }
 
         [HttpPost]
+        [EnableRateLimiting("LimitedActionsPolicy")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordFormModel model)
         {
             SetViewData("Forgot Password", null, "image-overlay food-background");

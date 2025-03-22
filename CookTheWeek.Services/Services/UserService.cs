@@ -5,6 +5,7 @@
     
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Microsoft.EntityFrameworkCore;
 
@@ -24,8 +25,6 @@
 
     using static CookTheWeek.Services.Data.Helpers.EnumHelper;
     using static CookTheWeek.Services.Data.Helpers.DateFormatter;
-    using Microsoft.Extensions.Configuration;
-    using System.Numerics;
 
     public class UserService : IUserService
     {

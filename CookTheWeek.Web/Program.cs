@@ -28,6 +28,7 @@ namespace CookTheWeek.Web
     using CookTheWeek.Web.Infrastructure.ModelBinders;
 
     using static Common.GeneralApplicationConstants;
+    using System.Threading.RateLimiting;
 
     public class Program
     {
@@ -116,6 +117,30 @@ namespace CookTheWeek.Web
                    options.AccessDeniedPath = "/User/AccessDeniedPathInfo";
                });
 
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.OnRejected = (context, token) =>
+                {
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+                    
+                    context.HttpContext.Request.Path = "/Home/NotFound";
+                    context.HttpContext.Request.QueryString = new QueryString("?code=429");
+
+                    return ValueTask.CompletedTask;
+                };
+                // Form submission rate limit (per IP)
+                options.AddPolicy("LimitedActionsPolicy", context =>
+                    RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                        factory: ip => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 3,
+                            Window = TimeSpan.FromDays(1),
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                            QueueLimit = 0
+                        }));
+            });
+
             builder.Services.AddHttpClient();
 
             builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -128,7 +153,6 @@ namespace CookTheWeek.Web
 
 
             // Register all Application Services using Extension method based on Reflection
-
             builder.Services.AddScoped<ICategoryRepository<RecipeCategory>, CategoryRepository<RecipeCategory>>();
             builder.Services.AddScoped<ICategoryRepository<IngredientCategory>, CategoryRepository<IngredientCategory>>();
 
@@ -251,7 +275,7 @@ namespace CookTheWeek.Web
                     {
                         builder.AllowAnyHeader()
                                .AllowAnyMethod()
-                               .SetIsOriginAllowed((host) => true) // Allow all in development
+                               .SetIsOriginAllowed((host) => true) 
                                .AllowCredentials();
                     }));
             }
@@ -260,13 +284,13 @@ namespace CookTheWeek.Web
                 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("https://cooktheweek.azurewebsites.net") // Replace with your production domain
+                        builder.WithOrigins("https://cooktheweek.azurewebsites.net") 
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     }));
             }
 
-            // Register the SendGrid EmailSender service
+            // SendGrid EmailSender service
             builder.Services.Configure<SendGridClientOptions>(config.GetSection("SendGrid"));
                         
             WebApplication app = builder.Build();
@@ -282,7 +306,7 @@ namespace CookTheWeek.Web
             {
                 app.UseExceptionHandler("/Home/InternalServerError");
                 app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?code={0}");
-                app.UseHsts();  // HSTS for production
+                app.UseHsts();  
             }
 
             app.UseHttpsRedirection();
@@ -294,13 +318,13 @@ namespace CookTheWeek.Web
 
             app.UseRouting();
 
-            // Authentication middleware
+            app.UseRateLimiter();
+            
             app.UseAuthentication();
 
             // Custom middleware for retrieving the userId
             app.EnableUserContext();
-
-            // Authorization middleware
+            
             app.UseAuthorization();
 
             // Custom middleware for checking online users (requires user ID)

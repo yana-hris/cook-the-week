@@ -2,6 +2,7 @@ namespace CookTheWeek.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.RateLimiting;
 
     using CookTheWeek.Services.Data.Services.Interfaces;
     using CookTheWeek.Web.Infrastructure.ActionFilters;
@@ -76,6 +77,7 @@ namespace CookTheWeek.Web.Controllers
         }
 
         [HttpPost]
+        [EnableRateLimiting("LimitedActionsPolicy")]
         public async Task<IActionResult> Contact(ContactFormModel model)
         {
             SetViewData("Contact us", null, "image-overlay food-background");

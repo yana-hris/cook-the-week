@@ -1,16 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Page Not Found";
-    string message = ViewBag.Message;
     string errorCode = ViewBag.ErrorCode ?? "404";
+    string message = ViewBag.Message;
+    ViewBag.Title = errorCode == "429" ? "Too Many Requests" : "Page Not Found";
+
+    string heading = errorCode == "429" ? "Whoa there!" : "Oops!";
+    string subheading = errorCode == "429" ? "Too Many Requests" : "Page Not Found";
+    string defaultMessage = errorCode == "429"
+        ? "You're making too many requests in a short time. Please slow down and try again shortly."
+        : "It seems we can't find the page you're looking for.";
 }
 <div id="not-found-container">
     <div class="form-container">
-        <h2 class="text-danger text-capitalize mb-1">Oops! </h2>
-        <h2 class="text-danger text-uppercase mb-2">Page Not Found</h2>
+        <h2 class="text-danger text-capitalize mb-1">@heading</h2>
+        <h2 class="text-danger text-uppercase mb-2">@subheading</h2>
         <h5 class="mb-1">
             @if (message == null)
             {
-                <text>It seems we can`t find the page you`re looking for.</text>
+                <text>@defaultMessage</text>
             }
             else
             {
