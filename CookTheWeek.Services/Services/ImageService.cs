@@ -1,6 +1,7 @@
 ﻿namespace CookTheWeek.Services.Data.Services
 {
     using System.Threading.Tasks;
+    using System.IO;
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
@@ -64,6 +65,22 @@
                     .Select(r => r.InternalImageUrl)
                     .ToListAsync();
 
+                // Step 2: Write raw URLs to a file - COMMENT FOR PRODUCTION
+                //var outputDir = Path.Combine(Directory.GetCurrentDirectory(), "output");
+                //Directory.CreateDirectory(outputDir);
+
+                //var allCloudinaryFile = Path.Combine(outputDir, "all_cloudinary_image_ids.txt");
+                //var allActiveImagesFile = Path.Combine(outputDir, "all_active_image_ids.txt");
+                //var unusedCloudinaryFile = Path.Combine(outputDir, "unused_cloudinary_image_ids.txt");
+
+                //var initialLines = new List<string>
+                //{
+                //    "=== Active Image URLs from DB ==="
+                //};
+                //initialLines.AddRange(activeImageUrls);
+                //initialLines.Add(""); // Spacer
+                //await File.WriteAllLinesAsync(allActiveImagesFile, initialLines);
+
                 var activeImageIds = activeImageUrls
                     .Select(url => ExtractPublicIdFromUrl(url))
                     .ToHashSet();
@@ -73,24 +90,45 @@
                     .Where(publicId => !activeImageIds.Contains(publicId))
                     .ToList();
 
-                // Step 4: Delete unused images
-                foreach (var publicId in unusedImageIds)
-                {
-                    try
-                    {
-                        var deleteParams = new DeletionParams(publicId);
-                        var deleteResult = await cloudinary.DestroyAsync(deleteParams);
+                // Step 4: Append public IDs to the same file
+                //var extractedIdLines = new List<string>
+                //{
+                //    "=== Extracted Public IDs from URLs ==="
+                //};
+                //extractedIdLines.AddRange(activeImageIds);
+                //await File.AppendAllLinesAsync(allActiveImagesFile, extractedIdLines);
 
-                        if (deleteResult.Result != "ok")
+                //// Step 6: Write other result files
+                //await File.WriteAllLinesAsync(allCloudinaryFile, allCloudinaryImages);
+                //await File.WriteAllLinesAsync(unusedCloudinaryFile, unusedImageIds);
+
+                //// Done!
+                //Console.WriteLine($"✔️ All image IDs written to: {allCloudinaryFile}");
+                //Console.WriteLine($"🗑️ Unused image IDs written to: {unusedCloudinaryFile}");
+                //Console.WriteLine($"📄 Active URLs + public IDs written to: {allActiveImagesFile}");
+
+                // Step 4: Delete unused images
+                if (unusedImageIds.Count > 0)
+                {
+                    foreach (var publicId in unusedImageIds)
+                    {
+                        try
                         {
-                            logger.LogError($"Failed to delete Cloudinary image with public ID: {publicId}");
+                            var deleteParams = new DeletionParams(publicId);
+                            var deleteResult = await cloudinary.DestroyAsync(deleteParams);
+
+                            if (deleteResult.Result != "ok")
+                            {
+                                logger.LogError($"Failed to delete Cloudinary image with public ID: {publicId}");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, $"An error occurred while deleting the image with public ID: {publicId}");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, $"An error occurred while deleting the image with public ID: {publicId}");
-                    }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -100,10 +138,11 @@
 
         private string ExtractPublicIdFromUrl(string url)
         {
-            string pattern = @"(?:https://(?:[\w.-]+\/){2}image/upload/(?:v\d+/)?)([^\/\.]+)(?:\.\w+)";
+            string pattern = @"https:\/\/res\.cloudinary\.com\/[^\/]+\/image\/upload\/(?:v\d+\/)?(.+?)\.\w+";
             Match? match = Regex.Match(url, pattern);
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
+
 
         private async Task<List<string>> GetAllCloudinaryImagesAsync()
         {

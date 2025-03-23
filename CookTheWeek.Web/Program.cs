@@ -333,7 +333,7 @@ namespace CookTheWeek.Web
             // Hangfire Dashboard for job monitoring
             app.UseHangfireDashboard("/hangfire");
             app.RegisterRecurringJobs();
-            //app.RegisterScheduledJobs();
+            app.RegisterScheduledJobs();
 
             app.MapControllerRoute(
                 name: $"{AdminAreaName}",

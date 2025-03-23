@@ -257,19 +257,17 @@
                 .UpdateMealPlansStatusAsync(CancellationToken.None),
                 Cron.Weekly);
 
-            RecurringJob.AddOrUpdate<ImageService>("cloudinary-cleanup",
-                service => service
-                .CleanupUnusedImagesAsync(),
-                Cron.Weekly);
+            //RecurringJob.AddOrUpdate<ImageService>("cloudinary-cleanup",
+            //    service => service
+            //    .CleanupUnusedImagesAsync(),
+            //    Cron.Weekly);
         }
 
         public static void RegisterScheduledJobs(this IApplicationBuilder app)
         {
-            BackgroundJob.Schedule<ImageService>(service =>
-                service.GenerateMissingRecipeImagesAsync(),
-                TimeSpan.FromMinutes(1));
+            //BackgroundJob.Schedule<ImageService>(service =>
+            //    service.CleanupUnusedImagesAsync(),
+            //    TimeSpan.FromMinutes(1));
         }
-
-    }  
-    
+    } 
 }
